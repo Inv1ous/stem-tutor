@@ -7,6 +7,7 @@ import pytest
 
 from fixtures import make_vault
 from tutor_app import config, look, setup_look, termprofile
+from library_assets import copy_to_vault
 
 
 class FakeTerminal:
@@ -43,6 +44,8 @@ def mac_like(tmp_path, monkeypatch):
 
 
 def _install(vault, monkeypatch, term, **kw):
+    for name in setup_look.FONTS:
+        copy_to_vault('app/tutor_app/fonts/' + name, vault)
     monkeypatch.setattr(setup_look.subprocess, "run", term.run)
     said = []
     code = setup_look.install(vault, out=said.append, **kw)

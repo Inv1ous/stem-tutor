@@ -4,12 +4,20 @@ Agents never hand-write SVG coordinates: they request a diagram type with parame
 module draws it, so every figure is geometrically correct and consistently styled. White
 background so figures read in both light and dark Obsidian themes.
 
-  python build/diagrams.py <pack.json> [...]   renders every entry in each pack's "diagrams" list
+  python build/diagrams.py <pack.json> [...] [--vault PATH]
+
+Every result is a registered, content-addressed Library asset. The CLI prints
+requested/canonical path mappings without editing the supplied packs.
 """
 from __future__ import annotations
 
+import argparse
+import hashlib
+import io
 import json
 import math
+import os
+import re
 import sys
 from pathlib import Path
 
@@ -19,11 +27,13 @@ import matplotlib.patches
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "plugin/stem-tutor/skills/tutor/scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from tutorlib.packs import _eval  # noqa: E402
+from tutorlib.asset_library import write_asset  # noqa: E402
+from tutorlib.saved_figures import require_runtime_library  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "build/out"
+OUT = Path(os.environ.get('STEM_TUTOR_VAULT') or ROOT.parent / 'STEM Tutor')
 INK, BLUE, ORANGE, GREY = "#1f2328", "#1f6feb", "#d9480f", "#8c959f"
 plt.rcParams.update({"font.size": 11, "svg.fonttype": "none", "axes.edgecolor": INK, "axes.labelcolor": INK,
                      "xtick.color": INK, "ytick.color": INK, "figure.facecolor": "white"})
@@ -66,6 +76,10 @@ def graph_sketch(p: dict):
         ax.axhline(0, color=INK, lw=0.8)
     if p.get("xlim"):
         ax.set_xlim(*p["xlim"])
+    if p.get("equal_aspect"):
+        ax.set_aspect("equal", adjustable="box")
+    if p.get("hide_axes"):
+        ax.axis("off")
     return fig
 
 
@@ -235,13 +249,29 @@ def energy_profile(p: dict):
 
 
 def maxwell_boltzmann(p: dict):
+    """Plot normalized Maxwell–Boltzmann energy curves on a qualitative energy axis.
+
+    ``temps`` may contain Kelvin values or relative values; either way they are
+    interpreted as positive ratios and normalized to the lowest temperature.
+    ``ea`` stays in qualitative graph units and is not converted to physical
+    energy units.
+    """
     import numpy as np
+    temperatures = np.asarray(p.get("temps", [1.0]), dtype=float)
+    if (temperatures.ndim != 1 or temperatures.size == 0
+            or not np.isfinite(temperatures).all() or np.any(temperatures <= 0)):
+        raise ValueError("temps must be a non-empty sequence of finite positive temperatures")
+    labels = p.get("labels")
+    if labels is not None and (not isinstance(labels, (list, tuple)) or len(labels) != len(temperatures)):
+        raise ValueError("labels must contain one entry for each temperature")
+    temperatures = temperatures / temperatures.min()
     fig, ax = _axes()
-    e = np.linspace(0, 10, 400)
+    e = np.linspace(0, 12 * temperatures.max(), 600)
     colors = [BLUE, ORANGE, INK]
-    for i, T in enumerate(p.get("temps", [1.0])):
+    for i, T in enumerate(temperatures):
         f = np.sqrt(e) * np.exp(-e / T) / T ** 1.5
-        ax.plot(e, f, color=colors[i % 3], lw=2.2, label=(p.get("labels") or [None] * 3)[i])
+        f /= np.sum((f[:-1] + f[1:]) * np.diff(e) * 0.5)
+        ax.plot(e, f, color=colors[i % 3], lw=2.2, label=labels[i] if labels is not None else None)
         if p.get("ea") and p.get("shade_ea", True):
             m = e >= p["ea"]
             ax.fill_between(e[m], f[m], color=colors[i % 3], alpha=0.12)
@@ -274,6 +304,41 @@ def wave(p: dict):
     return fig
 
 
+def proof_flow(p: dict):
+    """Show a short chain of proof or counterexample steps."""
+    steps = p["steps"]
+    if not 2 <= len(steps) <= 4:
+        raise ValueError("proof_flow requires two to four steps")
+    fig, ax = plt.subplots(figsize=(6.8, 3.5))
+    ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis("off")
+    box = {"boxstyle": "round,pad=0.45", "facecolor": "white", "edgecolor": BLUE, "linewidth": 1.5}
+    ys = [0.88 - i * .76 / (len(steps) - 1) for i in range(len(steps))]
+    for i, (y, label) in enumerate(zip(ys, steps)):
+        ax.text(.5, y, label, ha="center", va="center", bbox=box)
+        if i:
+            ax.annotate("", (.5, y + .07), (.5, ys[i - 1] - .07),
+                        arrowprops={"arrowstyle": "->", "color": INK})
+    return fig
+
+
+def case_split(p: dict):
+    """A compact process diagram for a finite, exhaustive set of cases."""
+    cases = p["cases"]
+    if not 2 <= len(cases) <= 3:
+        raise ValueError("case_split requires two or three cases")
+    fig, ax = plt.subplots(figsize=(6.8, 3.5))
+    ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis("off")
+    box = {"boxstyle": "round,pad=0.45", "facecolor": "white", "edgecolor": BLUE, "linewidth": 1.5}
+    ax.text(.5, .87, p["start"], ha="center", va="center", bbox=box)
+    ax.text(.5, .12, p["end"], ha="center", va="center", bbox=box)
+    for i, text in enumerate(cases):
+        x = (i + 1) / (len(cases) + 1)
+        ax.text(x, .50, text, ha="center", va="center", bbox=box)
+        ax.annotate("", (x, .59), (.5, .79), arrowprops={"arrowstyle": "->", "color": INK})
+        ax.annotate("", (.5, .20), (x, .41), arrowprops={"arrowstyle": "->", "color": INK})
+    return fig
+
+
 def circuit(p: dict):
     import schemdraw
     import schemdraw.elements as elm
@@ -297,26 +362,128 @@ def circuit(p: dict):
     return d
 
 
+DOT_CROSS_MARKS = ("dot", "cross")
+DOT_CROSS_SLOTS = ((0, 1), (1, 0), (0, -1), (-1, 0))  # top, right, bottom, left: two electrons per slot
+
+
+def _dot_cross_atom(ax, atom: dict, ox: float):
+    """Draw one atom of a dot-and-cross panel, its electrons paired on four slots, optional brackets and charge."""
+    x, y = atom["x"] + ox, atom["y"]
+    electrons = atom.get("electrons", [])
+    if len(electrons) > 8:
+        raise ValueError(f"{atom['symbol']} has {len(electrons)} electrons; at most 8 are drawn")
+    for i, mark in enumerate(electrons):
+        if mark not in DOT_CROSS_MARKS:
+            raise ValueError(f"unknown electron mark {mark!r}; use 'dot' or 'cross'")
+        ux, uy = DOT_CROSS_SLOTS[(i // 2) % 4]
+        off = 0.14 if i % 2 == 0 else -0.14  # the pair sits side by side on its slot
+        px, py = x + ux * 0.5 - uy * off, y + uy * 0.5 + ux * off
+        if mark == "dot":
+            ax.plot(px, py, "o", color=INK, ms=6)
+        else:
+            ax.plot(px, py, "x", color=INK, ms=8, mew=1.6)
+    ax.text(x, y, atom["symbol"], ha="center", va="center", fontsize=16, color=INK)
+    if atom.get("bracket"):
+        b = 1.0
+        for xs, ys in (([x - b, x - b + 0.2], [y + b, y + b]), ([x - b, x - b], [y + b, y - b]),
+                       ([x - b, x - b + 0.2], [y - b, y - b]), ([x + b - 0.2, x + b], [y + b, y + b]),
+                       ([x + b, x + b], [y + b, y - b]), ([x + b - 0.2, x + b], [y - b, y - b])):
+            ax.plot(xs, ys, color=INK, lw=1.2)
+    if atom.get("charge"):
+        ax.text(x + 1.15, y + 0.95, atom["charge"], ha="left", va="bottom", fontsize=11, color=INK)
+    return x, y
+
+
+def dot_cross(p: dict):
+    """Dot-and-cross electron diagrams: one or more panels side by side, each with atoms (electron marks 'dot' or
+    'cross', at most 8 per atom), optional brackets and charges, and arrows from one atom to another.
+
+    params: {"panels": [{"title": str, "atoms": [{"symbol", "x", "y", "electrons": [...], "bracket": bool,
+    "charge": str}], "arrows": [{"from": i, "to": j, "label": str}]}, ...]}. Coordinates are local to each panel."""
+    panels = p["panels"]
+    if not panels or any(not pn.get("atoms") for pn in panels):
+        raise ValueError("a dot_cross diagram needs at least one panel, each with atoms")
+    width = 8.4  # outer atoms sit 2.6 either side of a panel's centre; brackets and charges need room too
+    fig, ax = plt.subplots(figsize=(4.2 * len(panels), 3.2))
+    for k, pn in enumerate(panels):
+        ox = k * width
+        centres = [_dot_cross_atom(ax, atom, ox) for atom in pn["atoms"]]
+        for arrow in pn.get("arrows", []):
+            (x0, y0), (x1, y1) = centres[arrow["from"]], centres[arrow["to"]]
+            length = math.hypot(x1 - x0, y1 - y0)
+            ux, uy = (x1 - x0) / length, (y1 - y0) / length  # unit vector from source to target
+            ax.annotate("", xy=(x1 - 1.0 * ux, y1 - 1.0 * uy), xytext=(x0 + 1.0 * ux, y0 + 1.0 * uy),
+                        arrowprops={"arrowstyle": "-|>", "color": ORANGE, "lw": 1.6})
+            if arrow.get("label"):
+                ax.text((x0 + x1) / 2, (y0 + y1) / 2 + 0.25, arrow["label"], ha="center", color=ORANGE, fontsize=10)
+        ax.text(ox, 2.35, pn.get("title", ""), ha="center", va="center", fontsize=11, color=INK)
+    ax.set_xlim(-5.4, width * (len(panels) - 1) + 5.4)  # clears brackets (1.0), charges (about 1.6) and a visible margin
+    ax.set_ylim(-2.0, 2.7)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    return fig
+
+
 RENDER = {"graph_sketch": graph_sketch, "function_plot": function_plot, "free_body": free_body,
           "energy_profile": energy_profile, "maxwell_boltzmann": maxwell_boltzmann, "wave": wave, "circuit": circuit,
-          "box_plot": box_plot, "density_panels": density_panels}
+          "box_plot": box_plot, "density_panels": density_panels, "case_split": case_split, "proof_flow": proof_flow,
+          "dot_cross": dot_cross}
 
 
-def render(req: dict) -> Path:
-    out = OUT / req["file"]
-    out.parent.mkdir(parents=True, exist_ok=True)
-    obj = RENDER[req["type"]](req.get("params", {}))
-    if req["type"] == "circuit":
-        obj.save(str(out))
-    else:
-        obj.tight_layout()
-        obj.savefig(out, format="svg", facecolor="white")
-        plt.close(obj)
-    return out
+def render(req: dict, *, vault_root: Path | None = None) -> Path:
+    """Return the canonical asset path; never write the requested legacy path."""
+    requested = req.get('file')
+    if (not isinstance(requested, str) or not requested or '\\' in requested or '\x00' in requested
+            or Path(requested).is_absolute() or '..' in Path(requested).parts):
+        raise ValueError('invalid requested diagram path')
+    dtype, params = req['type'], req.get('params', {})
+    if dtype not in RENDER:
+        raise ValueError(f'unknown diagram type: {dtype}')
+    root = Path(vault_root) if vault_root is not None else Path(OUT)
+    require_runtime_library(root)
+    parts = Path(requested).parts
+    course = req.get('course')
+    if course is None:
+        if len(parts) > 1 and parts[0] == 'Assets':
+            course = parts[1]
+        elif len(parts) > 2 and parts[:2] == ('Library', 'Courses'):
+            course = parts[2]
+    folder = (f'Library/Courses/{course}/Diagrams' if isinstance(course, str)
+              and re.fullmatch(r'(?:[0-9]{4}|[A-Z][A-Z0-9]{0,9})', course) else 'Library/Shared/Diagrams')
+    salt = hashlib.sha256(json.dumps([dtype, params], sort_keys=True).encode()).hexdigest()
+    with plt.rc_context({'svg.hashsalt': salt}):
+        obj = RENDER[dtype](params)
+        if dtype == 'circuit':
+            data = obj.get_imagedata('svg')
+        else:
+            try:
+                obj.tight_layout()
+                output = io.BytesIO()
+                obj.savefig(output, format='svg', facecolor='white', metadata={'Date': None})
+                data = output.getvalue()
+            finally:
+                plt.close(obj)
+    if isinstance(data, str):
+        data = data.encode('utf-8')
+    digest = hashlib.sha256(data).hexdigest()[:16]
+    stem = re.sub(r'[^A-Za-z0-9._-]+', '-', Path(requested).stem).strip('.')[:100] or 'diagram'
+    relative = f'{folder}/{stem}-{digest}.svg'
+    write_asset(root, relative, data, metadata={'kind': 'Diagrams', 'generated': True, 'renderer': dtype})
+    return root / relative
+
+
+def main(argv=None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('packs', nargs='+', type=Path)
+    parser.add_argument('--vault', type=Path, default=OUT)
+    args = parser.parse_args(argv)
+    for pack_path in args.packs:
+        pack = json.loads(pack_path.read_text())
+        for req in pack.get("diagrams", []):
+            result = render(req, vault_root=args.vault)
+            print(json.dumps({'pack': str(pack_path), 'requested': req['file'],
+                              'canonical': result.relative_to(args.vault).as_posix()}, ensure_ascii=False))
 
 
 if __name__ == "__main__":
-    for pack_path in sys.argv[1:]:
-        pack = json.loads(Path(pack_path).read_text())
-        for req in pack.get("diagrams", []):
-            print(render(req).relative_to(ROOT))
+    main()

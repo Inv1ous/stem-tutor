@@ -35,6 +35,20 @@ def test_instantiate_template_computes_answer_and_distractors(P):
     assert f"{t:.1f} s" in inst["stem"] and "[[" not in inst["stem"]
 
 
+def test_instantiate_template_fills_explanation_and_hints():
+    item = {
+        "id": "test-template-feedback", "kind": "short", "stem": "At [[v]] m/s",
+        "explanation": "Substitute [[v]] into the formula.",
+        "hints": ["Start with [[v]]", "Check [[v:.1f]]"],
+        "template": {"params": {"v": {"choices": [3.0]}}},
+    }
+    inst = packs.instantiate(item, random.Random(0))
+    assert inst["explanation"] == "Substitute 3 into the formula."
+    assert inst["hints"] == ["Start with 3", "Check 3.0"]
+    assert "[[" not in inst["explanation"]
+    assert all("[[" not in hint for hint in inst["hints"])
+
+
 def test_instantiate_shuffles_mcq_and_remaps_answer(P):
     item = P.items_for("9702-2.1.1")[0]
     seen = set()

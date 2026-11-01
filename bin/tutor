@@ -11,7 +11,7 @@ resolve() {  # this script's real path through any links; macOS before 12.3 has 
   echo "$(cd -P "$(dirname "$p")" && pwd)/$(basename "$p")"
 }
 ROOT="$(cd "$(dirname "$(resolve "${BASH_SOURCE[0]}")")/.." && pwd)"
-export PYTHONPATH="$ROOT/app:$ROOT/plugin/stem-tutor/skills/tutor/scripts${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH="$ROOT/app:$ROOT/src:$ROOT/plugin/stem-tutor/skills/tutor/scripts${PYTHONPATH:+:$PYTHONPATH}"
 if [ ! -f "$ROOT/.venv/.ready" ] || [ "$1" = "--setup" ]; then  # .ready: the last setup finished
   echo "Setting up STEM Tutor (one time)…"
   if ! python3 -c 'import sys; sys.exit(sys.version_info < (3, 10))' 2>/dev/null; then

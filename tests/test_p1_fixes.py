@@ -2,11 +2,11 @@
 (B-090, B-129)."""
 from __future__ import annotations
 
-import json
 import random
 import sys
 from pathlib import Path
 
+from library_assets import aliases_with_prefix, read_json
 from tutorlib import packs
 from tutorlib.speech import for_tts
 
@@ -41,17 +41,19 @@ def test_a_frequency_table_is_read_not_skipped():
 def test_no_two_flashcards_of_a_pack_share_an_id():
     """B-090: the cell and resistor cards of 9702-10.1 were both `fc1`, so Anki saw one note with two faces."""
     bad = []
-    for f in sorted((ROOT / "build/out/packs").glob("*/*.json")):
-        pack = json.loads(f.read_text())
+    for alias in aliases_with_prefix("build/out/packs/"):
+        if not alias.endswith(".json"):
+            continue
+        pack = read_json(alias)
         if isinstance(pack, dict) and (found := content_checks.id_problems(pack)):
-            bad.append((f.stem, found))
+            bad.append((Path(alias).stem, found))
     assert not bad, bad
     assert content_checks.id_problems({"flashcards": [{"id": "fc1"}, {"id": "fc1"}]})
 
 
 def test_a_shuffled_couple_question_explains_itself_whatever_the_letters():
     """B-129: the explanation named options A and B, which the shuffle re-letters."""
-    pack = json.loads((ROOT / "build/out/packs/9702/9702-4.1.json").read_text())
+    pack = read_json("build/out/packs/9702/9702-4.1.json")
     item = next(i for i in pack["items"] if i["id"] == "9702-4.1-i12")
     assert not content_checks.letter_refs(item["explanation"])
     shown = packs.instantiate(item, random.Random(0))

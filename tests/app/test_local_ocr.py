@@ -1,6 +1,7 @@
 """Native OCR is literal, on-device and cancellable; its executable cache never stores the input image."""
 import asyncio
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -197,4 +198,49 @@ def test_reset_cancels_active_and_queued_ocr_without_launching_the_old_queue(nat
         monkeypatch.delenv("OCR_WAIT")
         assert (await describe(client, b"fresh image"))[1].ok
         await client.close()
+    asyncio.run(go())
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX process-group exit race")
+@pytest.mark.parametrize("exists", [False, True])
+def test_group_permission_error_is_ignored_only_for_a_confirmed_exited_process(monkeypatch, exists):
+    from tutor_app.local_ocr import NativeOCR
+
+    class Process:
+        pid = 123456789
+        returncode = None
+        reaped = False
+
+        async def wait(self):
+            self.reaped = True
+            self.returncode = 0
+            return 0
+
+    failure = PermissionError("group signal denied")
+    probed = []
+
+    def denied(pid, sig):
+        raise failure
+
+    def process_group(pid):
+        probed.append(pid)
+        if not exists:
+            raise ProcessLookupError("already exited")
+        return pid
+
+    monkeypatch.setattr(os, "killpg", denied)
+    monkeypatch.setattr(os, "getpgid", process_group)
+
+    async def go():
+        process = Process()
+        if exists:
+            with pytest.raises(PermissionError) as error:
+                await NativeOCR._stop(process)
+            assert error.value is failure and not process.reaped
+        else:
+            await NativeOCR._stop(process)
+            assert process.reaped
+        if not exists:
+            assert probed == [process.pid]
+
     asyncio.run(go())

@@ -1,25 +1,38 @@
 """Split CAIE examiner reports into per-question comments, then retrieve excerpts per subtopic.
 
-  python build/er_excerpts.py split [code ...]           -> build/work/er/<code>.json
+  python build/er_excerpts.py split [code ...]           -> ER staging JSON
   python build/er_excerpts.py for <subtopic> [max_chars] -> prints the most relevant excerpts (by glossary)
 """
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 import pymupdf
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import library
+
 ROOT = Path(__file__).resolve().parents[1]
-WORK = ROOT / "build/work/er"
+WORK = Path(os.environ.get('STEM_ER_WORK') or ROOT / 'build/work/er')
+PAPERS = None  # explicit isolated override; production reads only canonical Library shelves
 NOISE = re.compile(r"^(© \d{4}|Cambridge International|\d{4} [A-Z]|www\.|Page \d)", re.I)
 
 
 def split(code: str) -> list[dict]:
     out = []
-    for er in sorted((ROOT / "sources/papers" / code).rglob(f"{code}_*_er.pdf")):
+    shelves = [Path(PAPERS) / code] if PAPERS is not None else library.roots('papers').values()
+    sources = {}
+    for shelf in shelves:
+        for path in sorted(shelf.rglob(f'{code}_*_er.pdf')):
+            previous = sources.get(path.name)
+            if previous is not None and previous.read_bytes() != path.read_bytes():
+                raise ValueError(f'ambiguous examiner report: {path.name}')
+            sources.setdefault(path.name, path)
+    for er in sorted(sources.values()):
         series = er.stem.split("_")[1]
         text = "\n".join(p.get_text() for p in pymupdf.open(er))
         lines = [l.strip() for l in text.split("\n") if l.strip() and not NOISE.match(l.strip())]

@@ -16,10 +16,15 @@ _URL = re.compile(r"(?:[A-Za-z][A-Za-z0-9+.-]*://|mailto:)[^\s<>`]+")
 _FILE = re.compile(r"(?:[\w~.-]+/)*[\w-]+(?:_[\w-]+)*\.[A-Za-z][A-Za-z0-9]{0,8}\b")
 _BARE_SCRIPT = re.compile(
     r"(?<![\w])(?:[A-Za-zΑ-Ωα-ω](?:(?:[_^](?:\{[^{}\n]+\}|[-+]?[A-Za-z0-9]+))|[₀-₉₊₋₌₍₎⁰¹²³⁴-⁹⁺⁻⁼⁽⁾ⁿⁱᵢₙₖ])+)(?!\w)")
+_BARE_GROUP_SCRIPT = re.compile(r"(?<!\w)[A-Za-zΑ-Ωα-ω][_^]\(")
 _COMMAND = re.compile(r"\\[A-Za-z]+")
 _ARITY = {"frac": 2, "dfrac": 2, "tfrac": 2, "dv": 2, "pdv": 2, "SI": 2, "qty": 2,
           **dict.fromkeys(("sqrt", "ce", "mathrm", "text", "mathbf", "mathit", "mathbb", "mathcal",
+                           "texttt", "textrm", "textsf", "textbf", "textit", "textnormal", "mathsf", "mathtt",
                            "boldsymbol", "vec", "hat", "bar", "overline", "underline", "unit", "num", "si", "pu"), 1)}
+_ARGUMENT_COMMANDS = frozenset(_ARITY)
+_ARGUMENT_END = re.compile(r"\s*(?:\}|$)")
+_SCRIPT_VALUE = re.compile(r"\s*[^}\s_^]")
 
 
 @dataclass(frozen=True)
@@ -112,7 +117,12 @@ def _well_formed(body: str) -> bool:
             depth -= 1
             if depth < 0:
                 return False
-        elif value in ("_", "^") and not re.match(r"\s*[^}\s_^]", body[token.end():]):
+        elif value in ("_", "^") and not _SCRIPT_VALUE.match(body, token.end()):
+            return False
+        elif value[1:] in _ARGUMENT_COMMANDS and _ARGUMENT_END.match(body, token.end()):
+            # A command immediately before its group's end has no argument.
+            # Preserve this definite source error in both displays; valid TeX
+            # unsupported only by the terminal must still reach MathJax.
             return False
     return depth == 0
 
@@ -192,7 +202,28 @@ def _spans(text: str, partial: bool):
             if partial and end == len(text) and end - i <= _PENDING_LIMIT:
                 span = _Span("pending", text[i:end])
             else:
-                span = _Span("math" if complete else "fallback", text[i:end], text[i:end])
+                span = _Span("math" if complete and _well_formed(text[i:end]) else "fallback", text[i:end], text[i:end])
+        elif (script := _BARE_GROUP_SCRIPT.match(text, i)):
+            from .stem_math import render_math
+
+            close = _group_end(text, script.end() - 1, "(", ")")
+            if close is None:
+                newline = text.find("\n", script.end())
+                end = newline if newline >= 0 else len(text)
+                pending = partial and end == len(text) and end - i <= _PENDING_LIMIT
+                span = _Span("pending" if pending else "fallback", text[i:end])
+            else:
+                end = close
+                group = text[script.end():close - 1]
+                body = text[i:i + 2] + "{" + group + "}"
+                valid = bool(group.strip()) and not any(ch in group for ch in "()\n")
+                if text[end:end + 1] in ("_", "^"):
+                    # A chained script needs a larger grammar; retain its complete source.
+                    tail = re.match(r"\S+", text[end:])
+                    end += len(tail[0])
+                    valid = False
+                valid = valid and _well_formed(group) and render_math(body) is not None
+                span = _Span("math" if valid else "fallback", text[i:end], body)
         elif (script := _BARE_SCRIPT.match(text, i)):
             end = script.end()
             span = _Span("math", text[i:end], text[i:end])
@@ -220,8 +251,31 @@ def _control_fallback(source: str) -> str:
     return "**Unformatted source (JSON-escaped):**\n\n```json\n" + json.dumps(source, ensure_ascii=True) + "\n```\n\n"
 
 
+def _inline_bullets(text: str) -> str:
+    """Recover a legacy prose list only with repeated sentence-level list evidence.
+
+    Maths, code and links have already been replaced by opaque spans. Quotes are
+    excluded from this recovery too, so a literal bullet example is not evidence.
+    """
+    paragraphs = re.split(r"(\n[ \t]*\n)", text)
+    for index, paragraph in enumerate(paragraphs):
+        if "•" not in paragraph:
+            continue
+        visible = re.sub(
+            r'''(?<![\w\\])(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|“[^”]*”|‘[^’]*’)''',
+            lambda match: " " * len(match[0]), paragraph)
+        boundaries = list(re.finditer(
+            r"(?<=[.!?:])[ \t]+•[ \t]+(?=[A-Z][A-Za-z-]*[ \t]+[a-z])", visible))
+        if len(boundaries) < 2:
+            continue
+        for boundary in reversed(boundaries):
+            paragraph = paragraph[:boundary.start()] + "\n\n- " + paragraph[boundary.end():]
+        paragraphs[index] = paragraph
+    return "".join(paragraphs)
+
+
 def _prose(text: str) -> str:
-    text = text.replace("\r\n", "\n")
+    text = _inline_bullets(text.replace("\r\n", "\n"))
     text = re.sub(r"(?m)^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$", r"**\1**", text)
     text = re.sub(r"(?m)^( {0,3})[+*•]\s+", r"\1- ", text)
     text = re.sub(r"(?m)^( {0,3})(\d+)\)\s+", r"\1\2. ", text)

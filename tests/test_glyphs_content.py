@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from library_assets import aliases_with_prefix, read_bytes
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "build"))
@@ -80,9 +81,17 @@ def test_python_string_literals_are_patched_and_the_script_still_compiles(tmp_pa
 
 def test_the_real_content_has_no_unsafe_glyphs_left():
     bad = []
-    for root, pattern in (("build/out/packs", "*.json"), ("build/out/notes", "*.md"), ("build/work/teach", "*.json")):
-        for f in sorted((REPO / root).rglob(pattern)):
-            text = f.read_text(encoding="utf-8")
+    for prefix, suffix in (("build/out/packs/", ".json"), ("build/out/notes/", ".md")):
+        aliases = [alias for alias in aliases_with_prefix(prefix) if alias.endswith(suffix)]
+        assert aliases, f"Library catalog has no published assets under {prefix}"
+        for alias in aliases:
+            text = read_bytes(alias).decode("utf-8")
             if any(c in text for c in glyphs.UNSAFE_GLYPHS):
-                bad.append(f.name)
+                bad.append(Path(alias).name)
+    teach_aliases = [alias for alias in aliases_with_prefix("build/work/teach/") if alias.endswith(".json")]
+    assert teach_aliases, "Library catalog has no reusable teaching inputs"
+    for alias in teach_aliases:
+        text = read_bytes(alias).decode("utf-8")
+        if any(c in text for c in glyphs.UNSAFE_GLYPHS):
+            bad.append(Path(alias).name)
     assert not bad, bad

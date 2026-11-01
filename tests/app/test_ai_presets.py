@@ -117,7 +117,8 @@ def test_medium_preset_previews_then_applies_and_saves_explicit_task_strengths(t
         saved = config.Settings.load(vault)
         choices = {mode: saved.ai_for(mode) for mode in config.AI_MODES}
         assert choices == {"mark": ("ollama:gemma4:26b-tutor-mlx", False),
-                           "explain": ("mlx:gpt-oss:20b", "medium"), "ask": ("mlx:gpt-oss:20b", "medium")}
+                           "explain": ("mlx:gpt-oss:20b", "medium"), "ask": ("mlx:gpt-oss:20b", "medium"),
+                           "learn": ("mlx:gpt-oss:20b", "medium")}
         assert presets_module().matching(choices) == "local_medium"
     run(app, steps)
 

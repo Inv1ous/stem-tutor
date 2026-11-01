@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import asyncio
-import json
-from pathlib import Path
 
 import pytest
 
+from library_assets import read_json
 from test_tui import app_for
 from tutor_app.screens import ChatScreen, SessionScreen
 
@@ -14,7 +13,7 @@ from tutor_app.screens import ChatScreen, SessionScreen
 def test_a_diagram_question_reads_its_authored_description(tmp_path, monkeypatch, override):
     """B-108: the safe diagram description reaches Ctrl+E without revealing the key."""
     app, vault = app_for(tmp_path, monkeypatch)
-    pack = json.loads((Path(__file__).resolve().parents[2] / "build/out/packs/9702/9702-8.3.json").read_text())
+    pack = read_json("build/out/packs/9702/9702-8.3.json")
     item = next(q for q in pack["items"] if q["id"] == "9702-8.3-r02")
     narration = item["speech"]
     if override != "string":

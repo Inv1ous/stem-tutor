@@ -1,0 +1,43 @@
+{
+  "method": "Manual comparison of public output with supplied user evidence; no hidden reasoning inspected; no external science audit",
+  "published_flashcards": {
+    "b6fa083911aec0c570e08569": {
+      "source_fidelity": false,
+      "finding": "Adds steric-hindrance, carbocation, solvent/nucleophile/leaving-group explanations beyond the supplied-only answer; changes secondary dependence from structure to other factors."
+    },
+    "d0c0af7da4d2edd1b696ec86": {
+      "source_fidelity": false,
+      "finding": "Correct product-of-gradients condition but omits supplied m2=-1/m1 formula; adds gradient conditions."
+    },
+    "575dbc53d8fc973edbf2f184": {
+      "source_fidelity_semantics": true,
+      "finding": "Definition and W=mg retained by paraphrase; formula remains plain text rather than canonical inline mathematics."
+    }
+  },
+  "literal_json": {
+    "exact_code": {
+      "a14ab70b44f005cbac722ed3": true,
+      "34a908994d2a609025a7c125": true,
+      "fd37b6796392ef296eb35ab3": true
+    },
+    "extra_content_finding": "Each adds an unsupported interpretation identifying charge with x1 squared; code fidelity remains separate and passes."
+  },
+  "marking": {
+    "expected_and_actual": [
+      true,
+      false
+    ],
+    "criterion_order_exact": true,
+    "envelope_valid": true,
+    "feedback_quality_concern": "Feedback calls the relationship scalar; this is misleading wording for a vector quantity, although the supplied marking vector is correct."
+  },
+  "Deep": {
+    "thinking_control_valid": true,
+    "public_answer_available": false,
+    "arithmetic_assessment": "unavailable",
+    "speech_assessment": "unavailable",
+    "finish": "length",
+    "generated_tokens": 4096
+  },
+  "decision": "Eight-gate acceptance not met. No promotion or additional generation authorized by this result."
+}

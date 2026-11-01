@@ -1,0 +1,11 @@
+# Diagram registration blockers
+
+Both worker workflows keep Library writes controller-owned. `build/diagrams.py` currently renders and registers; it is not a Work-only staging command. Do not run it against the production vault from a sandboxed worker or create a shadow catalog under build outputs.
+
+When a new diagram cannot resolve through the authoritative Library, preserve the candidate and report `controller registration required` with requested reference, intended KC/form, generator/type/params, source IDs/pages, proposed caption and accessibility description. If a Work SVG/preview already exists, include its absolute staged path and SHA-256. Do not invent a canonical path, copy into legacy Assets to simulate registration, remove the required diagram, or call it reviewed. The controller must independently inspect exact bytes/source/labels and bind the visual decision before registration and explicit candidate mapping. Registration alone is not teaching approval.
+
+The shared launch preflight blocks another failed authoring-role attempt when a pack-requested or teaching-card diagram is unresolved/damaged. This detects registration ownership failures before paid retries; it does not stage, register, map or approve assets. Candidate/card and normal content gates remain mandatory, including misconception IDs and KC bindings.
+
+## Remaining controller intake design
+
+A future shared intake must validate a versioned manifest (requested reference, staged path/hash, generator/params, course, source IDs/pages, caption/accessibility), constrain paths to the run-owned Work directory without symlink escape, reject unsafe SVG, and require an independent hash-bound visual/source decision. Under the Library registration lock it must fail on alias ownership conflicts, write immutable bytes/provenance via asset_library, verify resolution, then apply explicit reviewed mappings only to new Work candidate copies. Preserve prior aliases/assets/review records and event history. Both collectors should call the same intake before figure gates only after tests cover mutation, traversal, review mismatch, conflicts and mapping rollback. No such automatic intake is implemented by this preflight change.

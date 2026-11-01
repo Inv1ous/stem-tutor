@@ -55,6 +55,30 @@ for line in sys.stdin:
         reply = f"Reply {turn}: see below.\n```\n[[SPEECH]] Reply {turn}, said aloud.\n```"
     elif mode == "speech_empty":
         reply = f"Reply {turn}: nothing to say aloud.\n[[SPEECH]]"
+    if "--json-schema" in sys.argv:
+        schema = json.loads(sys.argv[sys.argv.index("--json-schema") + 1])
+        if "blocks" in schema.get("properties", {}):
+            shown, _, spoken = reply.partition("[[SPEECH]]")
+            data = {"blocks": [{"kind": "paragraph", "text": shown.strip()}]}
+            if "speech" in schema["properties"]:
+                data["speech"] = spoken.strip()
+            message_id, tool_id = f"message-{turn}", f"tool-{turn}"
+            out({"type": "stream_event", "event": {"type": "message_start", "message": {"id": message_id}}})
+            out({"type": "stream_event", "event": {"type": "content_block_start", "index": 0,
+                 "content_block": {"type": "tool_use", "name": "StructuredOutput", "id": tool_id, "input": {}}}})
+            wire = json.dumps(data)
+            for start in range(0, len(wire), 7):
+                out({"type": "stream_event", "event": {"type": "content_block_delta", "index": 0,
+                     "delta": {"type": "input_json_delta", "partial_json": wire[start:start + 7]}}})
+            out({"type": "assistant", "message": {"id": message_id, "content": [
+                {"type": "tool_use", "id": tool_id, "name": "StructuredOutput", "input": data}]}})
+            out({"type": "stream_event", "event": {"type": "content_block_stop", "index": 0}})
+            if os.environ.get("FAKE_CLAUDE_STOP_REASON"):
+                out({"type": "stream_event", "event": {"type": "message_delta",
+                     "delta": {"stop_reason": os.environ["FAKE_CLAUDE_STOP_REASON"]}}})
+            out({"type": "result", "subtype": "success", "is_error": False, "result": wire,
+                 "structured_output": data, "usage": usage})
+            continue
     cut = reply.find("[[SPEECH]]")
     pieces = [reply[:cut + 5], reply[cut + 5:]] if cut >= 0 else [reply[i:i + 7] for i in range(0, len(reply), 7)]
     for piece in pieces:  # with a marker: split inside it, "[[SPE" / "ECH]] …", as a real stream can

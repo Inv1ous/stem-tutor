@@ -461,17 +461,87 @@ def _unmark(text: str) -> str:
             .replace(_VEC_R, "→").replace(_VEC_L, "←").replace(_XL, "").replace(_XR, "").replace(_SUB_L, "").replace(_SUB_R, ""))
 
 
+def _protect_fenced_code(text: str) -> tuple[str, list[tuple[str, str]]]:
+    """Hide Markdown fenced blocks while conversion runs, then restore their source unchanged."""
+    lines = text.splitlines(keepends=True)
+    output: list[str] = []
+    blocks: list[tuple[str, str]] = []
+    i = 0
+    while i < len(lines):
+        opening = re.match(r"^ {0,3}(`{3,}|~{3,})(.*?)(?:\r?\n)?$", lines[i])
+        if opening and not (opening[1].startswith("`") and "`" in opening[2]):
+            fence = opening[1]
+            close = re.compile(r"^ {0,3}" + re.escape(fence[0]) + "{" + str(len(fence)) + r",}[ \t]*(?:\r?\n)?$")
+            end = next((j for j in range(i + 1, len(lines)) if close.fullmatch(lines[j])), None)
+            last = end if end is not None else len(lines) - 1  # an unclosed Markdown fence runs to EOF
+            marker = f"\ue100STEMCODE{len(blocks)}\ue101"
+            while marker in text:
+                marker += "\ue102"
+            blocks.append((marker, "".join(lines[i:last + 1])))
+            output.append(marker)
+            i = last + 1
+            continue
+        output.append(lines[i])
+        i += 1
+    return "".join(output), blocks
+
+
+def _protect_inline_code(text: str, blocks: list[tuple[str, str]]) -> str:
+    """Hide Markdown code spans delimited by matching runs of backticks."""
+    runs = list(re.finditer(r"(?<!`)`+(?!`)", text))
+    next_same: list[int | None] = [None] * len(runs)
+    nearest: dict[str, int] = {}
+    for i in range(len(runs) - 1, -1, -1):
+        delimiter = runs[i].group(0)
+        next_same[i] = nearest.get(delimiter)
+        nearest[delimiter] = i
+
+    output: list[str] = []
+    pos = i = 0
+    while i < len(runs):
+        opening = runs[i]
+        # A backslash escapes a backtick run when preceded by an odd number of backslashes.
+        slash_start = opening.start() - 1
+        while slash_start >= 0 and text[slash_start] == "\\":
+            slash_start -= 1
+        slashes = opening.start() - slash_start - 1
+        if slashes % 2:
+            i += 1
+            continue
+        closing_i = next_same[i]
+        if closing_i is None:
+            i += 1
+            continue
+        closing = runs[closing_i]
+        output.append(text[pos:opening.start()])
+        marker = f"\ue100STEMCODE{len(blocks)}\ue101"
+        while marker in text:
+            marker += "\ue102"
+        blocks.append((marker, text[opening.start():closing.end()]))
+        output.append(marker)
+        pos = closing.end()
+        i = closing_i + 1
+    output.append(text[pos:])
+    return "".join(output)
+
+
 def to_terminal(text: str) -> str:
     """Convert every $...$ / $$...$$ / \\(...\\) / \\[...\\] span, and plain units such as m s^-2 elsewhere."""
     if not text:
         return ""
+    text, code_blocks = _protect_fenced_code(text)
+    text = _protect_inline_code(text, code_blocks)
     text = text.translate(_LEFTOVERS)
     text = re.sub(r"\$\$(.+?)\$\$|(?<!\\)\\\[(.+?)\\\]|(?<!\\)\\\((.+?)\\\)",
                   lambda m: _math(next(g for g in m.groups() if g is not None).strip()), text, flags=re.S)
     text = re.sub(r"(?<!\\)\$(?!\s)((?:\\\$|[^$])+?)(?<![\s\\])\$(\d?)",  # prices are not maths: '$5 and $6', '$5-$6'
                   lambda m: m.group(0) if m.group(2) and not re.search(r"[\\^_{=]", m.group(1))
                   else _math(m.group(1)) + m.group(2), text, flags=re.S)
-    return linearize(pretty_units(text))  # raw unsafe glyphs a drafter typed (Eₖ) are drawn linearly too
+    text = text.replace(r"\,", " ").replace(r"\ ", " ")  # thin and escaped spaces left inside \mathrm{…} and \text{…}
+    text = linearize(pretty_units(text))  # raw unsafe glyphs a drafter typed (Eₖ) are drawn linearly too
+    for marker, block in code_blocks:
+        text = text.replace(marker, block)
+    return text
 
 
 def pretty_units(text: str) -> str:

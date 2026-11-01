@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import math
 import os
 import re
 import shutil
@@ -44,11 +45,18 @@ VISUAL_BRIEF = """Visual writing (human-facing prose fields only; keep the reque
 SYSTEM = """You are a patient, exact A-Level tutor (CAIE 9701 Chemistry, CAIE 9702 Physics, Edexcel IAL Mathematics) \
 inside a terminal study app. The student is 17, studying in Hong Kong. Write British English.
 Rules:
-- Keep replies under 120 words unless asked for more. No headings. Use exam wording for definitions.
-- Ground everything in the CONTEXT you are given; if you are not sure of a fact, say so plainly.
+- Match detail to the task, not a fixed word limit. Use precise exam definitions with required qualifications.
+- Start with the answer or definition. Skip generic introductions, restating the question, praise and closing offers.
+- For explanations include the causal links; for calculations show justified steps, units and required precision.
+  Cover every requested part and supplied mark points. Keep hints and verdicts concise; give broad questions enough
+  space for their scope. Check signs, conditions, formulae and whether each sentence is complete before finishing.
+- Use the current question and supplied assessment evidence. CONTEXT includes recent study background, not an
+  exclusive knowledge source: answer a new topic directly using A-Level knowledge. Distinguish supplied study
+  references from an official mark scheme; if you are not sure of a fact or coverage, say so plainly.
 - If CONTEXT marks a question as OPEN, never state its answer, option letter or final value; give a nudge instead.
-- Teach by building from what they already know: why it matters, how it could have been discovered, how it connects.
-- When they are stuck, ask one guiding question at a time rather than lecturing.""" + "\n\n" + VISUAL_BRIEF
+- Use a concrete example or connection only when it clarifies the requested idea. Do not invent extra factual claims.
+- When they are stuck, ask one guiding question at a time rather than lecturing. Answer every part of a direct
+  question; do not stop after only its definition or replace requested facts with study advice.""" + "\n\n" + VISUAL_BRIEF
 
 SPEECH_MARK = "[[SPEECH]]"
 SPEECH_RULE = f"""
@@ -147,10 +155,11 @@ class Claude:
     """A persistent streaming conversation. `stream(prompt)` yields text as it arrives; `last` holds the outcome."""
 
     def __init__(self, cwd: Path, model: str = "haiku", system: str = SYSTEM, binary: str | None = None,
-                 usage_file: Path | None = None, speech: bool = False):
+                 usage_file: Path | None = None, speech: bool = False, *, document: bool = False):
         self.cwd, self.model, self.system = Path(cwd), model, system
         self.think = False  # the default conversation's thinking (Settings chooses per mode: marking, explaining, asking)
         self.speech = speech  # read aloud is on: replies end with a spoken version (costs nothing when off)
+        self.document = document
         self.binary = binary or os.environ.get("STEM_TUTOR_CLAUDE") or shutil.which("claude") or "claude"
         # one conversation per (model, thinking): explaining and asking can use different ones without restarting
         self.key: tuple[str, bool] = (model, False)
@@ -235,11 +244,17 @@ class Claude:
     async def _start(self) -> None:
         async with self._start_lock:
             env = {**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"}
-            model, think = self.key
+            model, think = self.key[:2]
             self._shown[self.key] = set()
+            system = self.system + (SPEECH_RULE if self.speech and not self.document else "")
+            structured = []
+            if self.document:
+                from .chat_output import document_instructions, document_schema
+                system += "\n\n" + document_instructions(self.speech)
+                structured = ["--json-schema", json.dumps(document_schema(self.speech))]
             self.proc = await asyncio.create_subprocess_exec(
                 self.binary, *LEAN, *(THINKING if think else NO_THINKING), "--model", model,
-                "--system-prompt", self.system + (SPEECH_RULE if self.speech else ""),
+                "--system-prompt", system, *structured,
                 "--input-format", "stream-json", "--output-format", "stream-json", "--include-partial-messages", "--verbose",
                 cwd=str(self.cwd), env=env, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.DEVNULL, limit=4 * 1024 * 1024)
@@ -250,8 +265,10 @@ class Claude:
         if self.status == "off" or getattr(self, "_closed", False) or not self.wanted():
             return
         async with self._lock:
+            if getattr(self, "_closed", False):
+                return
             # the conversation asked for next is the default one (Settings' "Ask"), whatever a stream used last (Q-002)
-            self.key = (self.model, self.think)
+            self.key = self._conversation_key(self.model, self.think)
             if self.proc is None or self.proc.returncode is not None:
                 try:
                     await self._start()
@@ -277,7 +294,14 @@ class Claude:
 
     async def close(self) -> None:
         self._closed = True
+        warming = getattr(self, "_warming", None)
+        if warming is not None and not warming.done():
+            warming.cancel()
+            await asyncio.gather(warming, return_exceptions=True)
         await self.reset(warm=False)
+
+    def _conversation_key(self, model: str, think: bool) -> tuple:
+        return (model, think, self.speech, "document-v1") if self.document else (model, think)
 
     async def stream(self, prompt: str, image: Path | None = None, model: str | None = None,
                      think: bool | None = None) -> AsyncIterator[str]:
@@ -287,7 +311,9 @@ class Claude:
             self.last = Result(ok=False, status="off", message=self.message)
             return
         async with self._lock:
-            self.key = (model or self.model, self.think if think is None else bool(think))
+            if self.document:
+                self.last = Result(ok=False, status="error", message="The AI reply was cancelled; try again.")
+            self.key = self._conversation_key(model or self.model, self.think if think is None else bool(think))
             if self.proc is None or self.proc.returncode is not None:
                 try:
                     await self._start()
@@ -319,19 +345,127 @@ class Claude:
             parts, finished = [], False
             spoken = SpeechFilter()  # the spoken version at the end of a reply is never shown
             try:
-                async for piece in self._read(proc, parts):
-                    if (shown := spoken.feed(piece)):
+                reader = self._read_document if self.document else self._read
+                async for piece in reader(proc, parts):
+                    if (shown := piece if self.document else spoken.feed(piece)):
                         yield shown
-                if (tail := spoken.finish()):
+                if not self.document and (tail := spoken.finish()):
                     yield tail
-                finished = True
-                self.last.text, self.last.speech = split_speech(self.last.text)
+                finished = self.last.ok if self.document else True
+                if not self.document:
+                    self.last.text, self.last.speech = split_speech(self.last.text)
             except asyncio.TimeoutError:
                 self.last = Result(ok=False, status="error", text=split_speech("".join(parts))[0],
                                    message="The AI took too long to answer; try again.")
+            except ValueError as exc:
+                self.last = Result(ok=False, status="error", text="".join(parts),
+                                   message=f"The AI returned an incomplete structured answer; try again. ({exc})")
             finally:
                 if not finished:  # stopped mid-reply: the rest would leak into the next answer, so start fresh
+                    if self.document:
+                        self.last.ok, self.last.text = False, "".join(parts)
                     await self.reset()
+
+    async def _read_document(self, proc, parts: list) -> AsyncIterator[str]:
+        """Read one native StructuredOutput candidate; protocol text is never tutor prose."""
+        from .chat_output import DocumentDecoder, DocumentError
+
+        decoder = DocumentDecoder(self.speech)
+        message_id, candidate, streamed, echo = None, None, False, None
+        length_stops = {"max_tokens", "model_context_window_exceeded"}
+        truncated = False
+        while True:
+            try:
+                line = await asyncio.wait_for(proc.stdout.readline(), 120)
+                event = json.loads(line) if line else None
+            except (ValueError, UnicodeDecodeError) as exc:
+                raise DocumentError("Unreadable Claude structured event") from exc
+            if not isinstance(event, dict):
+                raise DocumentError("Claude ended before completing its structured answer")
+            kind = event.get("type")
+            if kind == "stream_event":
+                inner = event.get("event") or {}
+                subtype, index = inner.get("type"), inner.get("index")
+                if subtype == "message_start":
+                    message_id = (inner.get("message") or {}).get("id")
+                elif subtype == "message_delta":
+                    truncated |= (inner.get("delta") or {}).get("stop_reason") in length_stops
+                elif subtype == "content_block_start":
+                    block = inner.get("content_block") or {}
+                    if block.get("type") == "tool_use" and block.get("name") == "StructuredOutput":
+                        if candidate is not None or not message_id or not block.get("id"):
+                            raise DocumentError("Claude replaced or misidentified its structured answer")
+                        candidate = (message_id, block["id"], index)
+                elif subtype == "content_block_delta":
+                    delta = inner.get("delta") or {}
+                    if delta.get("type") == "input_json_delta" and candidate is not None:
+                        if (message_id, index) != (candidate[0], candidate[2]):
+                            raise DocumentError("Claude sent a structured fragment for a different candidate")
+                        streamed = True
+                        shown = decoder.feed(delta.get("partial_json"))
+                        if shown:
+                            parts.append(shown)
+                            yield shown
+            elif kind == "assistant":
+                message = event.get("message") or {}
+                truncated |= message.get("stop_reason") in length_stops
+                for block in message.get("content") or ():
+                    if block.get("type") != "tool_use" or block.get("name") != "StructuredOutput":
+                        continue
+                    identity = (message.get("id"), block.get("id"))
+                    if candidate is not None and identity != candidate[:2]:
+                        raise DocumentError("Claude echoed a different structured candidate")
+                    if echo is not None and echo != block.get("input"):
+                        raise DocumentError("Claude changed its structured answer")
+                    echo = block.get("input")
+            elif kind == "rate_limit_event":
+                self._notice_limit(event)
+            elif kind == "result":
+                if event.get("is_error"):
+                    if self._error_result(event, parts):
+                        await self.reset(warm=False)
+                    return
+                usage = event.get("usage") or {}
+                # A valid provider turn costs usage even when host validation rejects its document.
+                self.session.add(usage)
+                self._record_day(usage)
+                if truncated or event.get("stop_reason") in length_stops:
+                    raise DocumentError("Claude reached its output or context limit; the structured answer is incomplete")
+                final = event.get("structured_output")
+                if not isinstance(final, dict):
+                    raise DocumentError("Claude omitted its final structured answer")
+                expected = DocumentDecoder(self.speech)
+                expected.feed(json.dumps(final, ensure_ascii=False))
+                expected.finish()
+                if not streamed:
+                    shown = decoder.feed(json.dumps(final, ensure_ascii=False))
+                    if shown:
+                        parts.append(shown)
+                        yield shown
+                text, speech = decoder.finish()
+                if decoder.document != expected.document or echo is not None and echo != final:
+                    raise DocumentError("Claude's final answer disagrees with its streamed document")
+                self.last = Result(text=text, speech=speech, usage=usage)
+                return
+
+    def _notice_limit(self, event: dict) -> None:
+        info = event.get("rate_limit_info") or {}
+        if info.get("rateLimitType") and info.get("utilization") is not None:
+            self.limits[info["rateLimitType"]] = {"used": round(100 * info["utilization"]),
+                                                  "resets": info.get("resetsAt")}
+
+    def _error_result(self, event: dict, parts: list) -> bool:
+        text = event.get("result") or "".join(parts)
+        status = classify(text)
+        self.status = status if status in ("login", "limit") else "ready"
+        if status in ("login", "limit"):
+            self._block(status, text)
+        when = reset_time(text)
+        self.message = LOGIN_HELP if status == "login" else (
+            f"Your Claude usage limit is reached{f' (resets {when})' if when else ''}; "
+            "AI help pauses, everything else carries on." if status == "limit" else text)
+        self.last = Result(ok=False, status=status, message=self.message, usage=event.get("usage") or {})
+        return status != "error"
 
     async def _read(self, proc, parts: list) -> AsyncIterator[str]:
         """Read one reply's events up to its result (sets self.last)."""
@@ -366,24 +500,11 @@ class Claude:
                     if block.get("type") == "text" and block.get("text"):
                         parts.append(block["text"])
             elif kind == "rate_limit_event":  # Claude names one window: the one nearest its end
-                info = ev.get("rate_limit_info") or {}
-                if info.get("rateLimitType") and info.get("utilization") is not None:
-                    self.limits[info["rateLimitType"]] = {"used": round(100 * info["utilization"]),
-                                                          "resets": info.get("resetsAt")}
+                self._notice_limit(ev)
             elif kind == "result":
                 usage = ev.get("usage") or {}
                 if ev.get("is_error"):
-                    text = ev.get("result") or "".join(parts)
-                    status = classify(text)
-                    self.status = status if status in ("login", "limit") else "ready"
-                    if status in ("login", "limit"):
-                        self._block(status, text)
-                    when = reset_time(text)
-                    self.message = LOGIN_HELP if status == "login" else (
-                        f"Your Claude usage limit is reached{f' (resets {when})' if when else ''}; "
-                        "AI help pauses, everything else carries on." if status == "limit" else text)
-                    self.last = Result(ok=False, status=status, message=self.message, usage=usage)
-                    if status != "error":
+                    if self._error_result(ev, parts):
                         await self.reset()
                     return
                 if not streamed and parts:
@@ -560,19 +681,73 @@ def _numbers(text: str):
     reads them (both None for a bare power of ten): 1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³."""
     for m in _NUMBER.finditer(grade.plain_powers(text).replace("−", "-")):
         if m["pow"]:
-            yield 10.0 ** int(m["p"]), None, None
+            try:
+                value = 10.0 ** int(m["p"])
+            except (OverflowError, ValueError):
+                continue  # model text may contain powers outside floating-point range
+            if value and math.isfinite(value):
+                yield value, None, None
             continue
         try:
             value, _, sf, digits = grade._parse(m["num"])
         except grade.ParseError:
             continue
-        yield value, sf, digits
+        if math.isfinite(value):
+            yield value, sf, digits
 
 
 def _flat(text: str) -> str:
     """Maths with spacing, *, $ and braces removed and powers as ^: u² + 2·a·s and u**2 + 2*a*s both read u^2+2as."""
+    text = text.replace("−", "-").replace("–", "-")
     text = _SUPERSCRIPTS.sub(lambda m: "^" + m[0].translate(SUPERSCRIPT), text.replace("**", "^"))
     return re.sub(r"[\s*$\\{}·×]", "", text)
+
+
+def _presentation_text(text: str, *, casefold: bool = True) -> str:
+    """Unwrap only balanced outer Markdown/math presentation around a whole answer."""
+    text = text.strip()
+    wrappers = (("**", "**"), ("__", "__"), ("`", "`"), ("*", "*"), ("_", "_"), ("$", "$"))
+    while True:
+        # Normalize a trailing sentence full stop before unwrapping and again
+        # after it, so both ``**6**.`` and ``**6.**`` compare as a bare 6.
+        if text.endswith(".") and not re.search(r"\.\d+$", text):
+            text = text[:-1].rstrip()
+        wrapper = next((left for left, right in wrappers
+                        if len(text) > len(left) + len(right) and text.startswith(left) and text.endswith(right)), None)
+        if wrapper is None:
+            break
+        text = text[len(wrapper):-len(wrapper)].strip()
+    if text.endswith(".") and not re.search(r"\.\d+$", text):
+        text = text[:-1].rstrip()
+    text = " ".join(text.split())
+    return text.casefold() if casefold else text
+
+
+def _whole_answer_surface(text: str) -> str | None:
+    """Render one complete answer for a conservative presentation-only comparison."""
+    text = _presentation_text(text, casefold=False)
+    if not text or "$" in text or text.count("{") != text.count("}"):
+        return None  # unmatched math delimiters or groups are not answer equivalences
+    # The renderer draws 1/2 and \frac{1}{2} differently; match only simple literal
+    # integer fractions, preserving the written numerator and denominator exactly.
+    fraction = re.fullmatch(r"([+-]?\d+)\s*/\s*([+-]?\d+)", text)
+    latex_fraction = re.fullmatch(r"\\(?:dfrac|tfrac|frac)\s*\{([+-]?\d+)\}\s*\{([+-]?\d+)\}", text)
+    if fraction or latex_fraction:
+        match = fraction or latex_fraction
+        return f"fraction:{match[1]}/{match[2]}"
+    try:
+        from .texmath import to_terminal
+        rendered = to_terminal(f"${text}$")
+    except Exception:  # malformed or unsupported markup must not break answer generation
+        return None
+    rendered = " ".join(rendered.split())
+    return rendered or None
+
+
+def _same_whole_answer_surface(reply: str, key: str) -> bool:
+    """Compare complete answer presentations without searching within prose."""
+    reply_surface, key_surface = _whole_answer_surface(reply), _whole_answer_surface(key)
+    return reply_surface is not None and reply_surface == key_surface
 
 
 def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
@@ -595,6 +770,11 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
         if any(re.search(p, text.strip(), re.I) for p in pats):
             return True
         clean = re.sub(r"[*_`$\\]", "", opt).strip().lower()
+        if clean and (_presentation_text(reply) == _presentation_text(opt)
+                      or _same_whole_answer_surface(reply, opt)):
+            return True  # an exact bare option can be the whole reply, with only presentation markup around it
+        if len(letter) == 1 and _presentation_text(reply) in {letter.casefold(), f"({letter.casefold()})"}:
+            return True  # the option letter itself is an answer even without explanatory words
         if len(clean) > 6:
             return clean in text.lower()
         # a short option ("1", "6 N") gives the answer away when it is given as the answer, not when it is merely
@@ -603,8 +783,16 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
                                               rf"{re.escape(clean)}(?!\w|\.\d)", text.lower()))
     if kind == "short":  # the model answer itself, word for word (B-072)
         said, model = " ".join(text.lower().split()), " ".join(re.sub(r"[*_`$\\]", "", key).lower().split()).rstrip(".")
+        if model and (_presentation_text(reply) == _presentation_text(key)
+                      or _same_whole_answer_surface(reply, key)):
+            return True  # short exact keys are answers too; do not require a long phrase match
         return len(model) > 12 and model in said
     if kind == "expression":
+        if key and _flat(_presentation_text(reply, casefold=False)) == _flat(
+                _presentation_text(key, casefold=False)):
+            return True  # same expression formatting (for example x² or 1 - x) needs no equivalence parsing
+        if key and _same_whole_answer_surface(reply, key):
+            return True  # whole-answer renderer catches presentation aliases, not symbolic equivalences
         # An equation key still gives away the answer when only its right side is shown.
         if len(flat := _flat(grade._sides(key)[1])) >= 4 and flat in _flat(reply):
             return True
@@ -627,7 +815,10 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
         targets.append(true)
     rounded_ok = true is not None and not answer.get("exact")  # as marked: right when rounded at its own digits
     allowed = (answer or {}).get("sf_ok") or [(answer or {}).get("sf")]
-    for v, sf, digits in _numbers(text):
+    # Step labels are structure, not a candidate answer. Keep scanning the
+    # step body, since it can still contain a final value that must be withheld.
+    numeric_text = re.sub(r"(?im)^[ \t]*(?:step[ \t]+\d+[ \t]*:|\d+[.)])[ \t]+", " ", text)
+    for v, sf, digits in _numbers(numeric_text):
         if any(abs(v - t) <= max(abs(t) * 0.01, 1e-12) for t in targets):
             return True
         if rounded_ok and grade.rounding_of(v, true, sf, digits, allowed):
@@ -653,4 +844,5 @@ def _quantities(text: str):
             value = grade._parse(m["num"])[0]
         except grade.ParseError:
             continue
-        yield value, rest[1].rstrip(".")
+        if math.isfinite(value):
+            yield value, rest[1].rstrip(".")

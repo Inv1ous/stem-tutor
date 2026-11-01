@@ -8,6 +8,9 @@ from tutor_app.stem_math import render_math
 
 @pytest.mark.parametrize("expr,want", [
     pytest.param("x_1+x_i+x_n+E_k", "𝑥₁ + 𝑥ᵢ + 𝑥ₙ + 𝐸ₖ", id="mixed-variable-indices"),
+    pytest.param("x_{}", "𝑥", id="empty-subscript"),
+    pytest.param(r"x_{\quad}", "𝑥", id="spacing-only-subscript"),
+    pytest.param(r"x_{\text{ }}", "𝑥", id="text-space-only-subscript"),
     pytest.param("x_{n+1}", "𝑥ₙ₊₁", id="whole-subscript-group"),
     pytest.param("e^{-kt}", "𝑒⁻ᵏᵗ", id="whole-power-group"),
     pytest.param("x_N", "𝑥[index: 𝑁]", id="unsupported-index-label"),
@@ -32,6 +35,8 @@ from tutor_app.stem_math import render_math
     pytest.param(r"v=3\,\mathrm{m\,s^{-2}}", "𝑣 = 3 m s⁻²", id="upright-units"),
     pytest.param(r"\SI{3.0e8}{m s^{-1}}", "3.0e8 m s⁻¹", id="quantity-units"),
     pytest.param(r"\text{rate}=k[A]^2", "rate = 𝑘[𝐴]²", id="upright-descriptive-label"),
+    pytest.param(r"\lim_{\quad} x", "lim 𝑥", id="spacing-only-limit-index"),
+    pytest.param(r"\operatorname*{argmax}_{\quad} f(x)", "argmax 𝑓(𝑥)", id="spacing-only-operator-index"),
     pytest.param(r"\mathrm{AB}^{Q}", "(AB) to the power (𝑄)", id="whole-upright-identifier-power"),
     pytest.param(r"\mathrm{m s}^{2}", "(m s)²", id="compound-upright-unit-power"),
     pytest.param(r"\mathrm{a+b}^{2}", "(a + b)²", id="compound-upright-sum-power"),
@@ -46,6 +51,7 @@ from tutor_app.stem_math import render_math
     pytest.param(r"\sqrt{x^Q}", "√((𝑥) to the power (𝑄))", id="root-over-power-fallback"),
     pytest.param(r"\sqrt{\mathrm{a+b}^Q}", "√((a + b) to the power (𝑄))", id="root-over-compound-power-fallback"),
     pytest.param(r"\sqrt[3]{x}", "∛𝑥", id="cube-root"),
+    pytest.param(r"\sqrt[]{x}", "√𝑥", id="empty-root-index-is-square-root"),
     pytest.param(r"\sqrt[Q]{x}", "root[index: 𝑄](𝑥)", id="root-index-fallback"),
     pytest.param(r"\sqrt[a^2]{x}", "root[index: 𝑎²](𝑥)", id="compound-root-index"),
     pytest.param(r"\sum_{i=1}^{n}x_i", "∑[𝑖 = 1 to 𝑛] 𝑥ᵢ", id="sum-bound-separation"),

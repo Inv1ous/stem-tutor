@@ -1,7 +1,29 @@
-# STEM output formatting: inventory and proposed standard
+# STEM output formatting: inventory and standard
 
 Status: implemented after user approval on 25 October 2026. Verification is recorded in the implementation plan.
 The inventory describes the renderer before this implementation.
+
+## Shared content blocks — 26 October update
+
+The user approved the subsequent [structured tutor design](superpowers/specs/2026-10-26-structured-tutor-output-design.md).
+It supersedes the earlier decision below against a JSON block protocol for chat. Claude, ChatGPT and local chat now
+produce one document containing `paragraph`, `heading`, `bullet`, `step`, `equation` and `code` blocks, with a separate
+speech field when required. `chat_output.py` validates bounded complete blocks and owns their Markdown layout before
+the existing terminal and Obsidian adapters render it. It rejects nested prose layout, unsafe controls, unknown fields,
+invalid types and incomplete documents. Literal code remains exact. A narrow redundant step-prefix repair occurs
+before storage and rendering; chained prefixes are rejected. Invalid replies never become successful history.
+
+This controls mechanical structure, not scientific truth. The same teaching policy asks every model for precise
+definitions, complete requested coverage, causal explanations and justified calculations. A one-sentence hint stays
+short; a syllabus-wide question has no universal 120-word cap. Existing marking, teaching-card and summary schemas
+retain their application-owned fields. The public source lookup includes bounded relevant study references with
+provenance, and omits them whenever a practice question is open. Local history drops only whole oldest turns while
+preserving the current question and mandatory evidence.
+
+Native provider schema mechanisms constrain generation. The shared validator still checks the actual result and
+reports incomplete/invalid delivery. Different models can omit requested facts or make scientific errors even when
+their layout passes. Retained live comparisons and actual terminal/Obsidian captures are in
+[the verification evidence](benchmarks/2026-10-26-structured-output/).
 
 ## Renderer inventory before this change
 

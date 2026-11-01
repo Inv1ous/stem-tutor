@@ -23,6 +23,7 @@ class TutorAI(Claude):
     """Keep Claude's conversations and usage unchanged; local help has its own client."""
 
     def __init__(self, *args, **kwargs):
+        kwargs.setdefault("document", True)
         super().__init__(*args, **kwargs)
         self._local: LocalAI | None = None
         self._codex: CodexAI | None = None
@@ -40,14 +41,14 @@ class TutorAI(Claude):
     @property
     def local(self) -> LocalAI:
         if self._local is None:
-            self._local = LocalAI(system=self.system, speech=self.speech)
+            self._local = LocalAI(system=self.system, speech=self.speech, document=self.document)
         self._local.web_enabled = self.local_web
         return self._local
 
     @property
     def codex(self) -> CodexAI:
         if self._codex is None:
-            self._codex = CodexAI(system=self.system, speech=self.speech)
+            self._codex = CodexAI(system=self.system, speech=self.speech, document=self.document)
         self._codex.speech = self.speech
         return self._codex
 

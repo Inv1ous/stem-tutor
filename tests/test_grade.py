@@ -244,6 +244,29 @@ def _num(value, text, **answer):
     return grade.grade_item(item, {"kind": "value", "value": text, "conf": 3})
 
 
+@pytest.mark.parametrize("answer,correct", [
+    ("1.60e-19 J", True), ("1.60e-22 kJ", True),
+    ("1.00e-13 J", False), ("0 J", False),
+])
+def test_small_challenge_energy_is_graded_and_checked_at_its_scale(answer, correct):
+    import random
+    from tutorlib import challenge_gen
+
+    scope = [{"id": "9702-1.1.1", "spec": "9702", "subtopic": "9702-1.1", "title": "Energy",
+              "statement": "convert electronvolts into joules"}]
+    raw = {"stem": "Convert 1.00 eV to joules, given 1 eV = 1.60 × 10^-19 J. Give 3 significant figures.",
+           "value": 1.60e-19, "unit": "J", "sf": 3, "solution": "1.00 eV = 1.60 × 10^-19 J.",
+           "concepts": ["9702-1.1.1"]}
+    question = challenge_gen.to_item(raw, {"n": 1, "level": 5, "kind": "typed"}, scope, random.Random(0))
+    assert grade.grade_item(question["item"], {"kind": "value", "value": answer})["correct"] is correct
+    assert challenge_gen.agrees(question, {"answer": answer}) is correct
+
+
+def test_zero_target_requires_zero_in_exact_numeric_grading():
+    assert _num(0, "0", exact=True)["correct"]
+    assert not _num(0, "1e-13", exact=True)["correct"]
+
+
 @pytest.mark.parametrize("value,text,ok", [
     (117, "118", False), (117, "117", True), (117, "117.0", True), (500, "501", False), (500, "499.9", False),
     (0.1 * 3, "0.3", True), (3, "3.01", False),
@@ -680,3 +703,17 @@ def test_percent_written_out_is_the_percent_unit(written):
     item = {"kind": "numeric", "answer": {"value": 25, "unit": "%"}, "marks": 1}
     g = grade.grade_item(item, {"kind": "value", "value": written, "conf": 3})
     assert g["correct"] and not g.get("error_type")
+
+
+def test_rubric_keyword_with_leading_space_matches_an_answer_that_opens_with_it():
+    from tutorlib.grade import _grade_rubric
+    item = {"rubric": [{"point": "gives 750 mm", "keywords": [[" 750 mm"]]}]}
+    assert _grade_rubric(item, {"kind": "text", "value": "750 mm is the same length as 0.75 m"})["score"] == 1.0
+
+
+def test_rubric_keyword_without_leading_space_matches_as_before():
+    from tutorlib.grade import _grade_rubric
+    item = {"rubric": [{"point": "names the rate", "keywords": [["rate of change"]]}]}
+    assert _grade_rubric(item, {"kind": "text", "value": "the rate of change of velocity"})["score"] == 1.0
+    assert _grade_rubric(item, {"kind": "text", "value": "rate of change"})["score"] == 1.0
+    assert _grade_rubric(item, {"kind": "text", "value": "unrelated"})["score"] == 0.0

@@ -1,0 +1,43 @@
+--- v2-preflight/native_probe_v1.py
++++ v3-recorder-fixed/native_probe_v1.py
+@@ -200,7 +200,7 @@
+     files = {p.name: sha(p) for p in ROOT.iterdir() if p.is_file()}
+     sources = {str(REPO / 'app/tutor_app' / (name + '.py')):
+                sha(REPO / 'app/tutor_app' / (name + '.py')) for name in DEPENDENCIES}
+-    write(ROOT / 'manifest.json', dict(version=2, probe_revision='v2-preflight-fixed', state='frozen_before_native_output', files=files,
++    write(ROOT / 'manifest.json', dict(version=3, probe_revision='v3-recorder-fixed', state='frozen_before_revision3_native_output', files=files,
+           production_sources=sources, case_ids=[c['id'] for c in cases], jobs_per_mode=27, turns_per_mode=28,
+           source_original_sha256=sha(SOURCE / 'test.jsonl'),
+           source_files={name: sha(SOURCE / name) for name in ('test.jsonl', 'manifest.json', 'selection.json')},
+@@ -221,7 +221,7 @@
+ 
+ def check():
+     manifest = json.loads((ROOT / 'manifest.json').read_text())
+-    assert manifest.get('version') == 2 and manifest.get('probe_revision') == 'v2-preflight-fixed', 'old probe manifest'
++    assert manifest.get('version') == 3 and manifest.get('probe_revision') == 'v3-recorder-fixed', 'old probe manifest'
+     for name, digest in manifest['files'].items():
+         assert (ROOT / name).resolve().parent == ROOT.resolve() and sha(ROOT / name) == digest, name
+     assert sha(__file__) == manifest['files']['native_probe_v1.py'], 'probe source drift'
+@@ -330,6 +330,12 @@
+             catalogue.TEXT_MODELS.discard(ALIAS)
+ 
+ 
++def contextual_event(context, event, elapsed_seconds):
++    """Copy context defaults; explicit event fields retain their measured truth."""
++    return {'case_id': context['id'], 'turn': context['turn'],
++            'elapsed_seconds': elapsed_seconds, **event}
++
++
+ async def execute(args, manifest, cases):
+     # This function is never reached by prepare/check/compile. No MLX Python import.
+     import fcntl
+@@ -364,8 +370,7 @@
+     observations = []
+     context = {'id': 'startup', 'turn': None}
+     def record(value):
+-        events_file.write(dump(dict(case_id=context['id'], turn=context['turn'],
+-                                   elapsed_seconds=time.monotonic() - started, **value)) + '\n')
++        events_file.write(dump(contextual_event(context, value, time.monotonic() - started)) + '\n')
+         events_file.flush()
+     class ProbeLocal(LocalAI):
+         def __init__(self):

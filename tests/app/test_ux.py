@@ -1,12 +1,103 @@
 """UX fixes found by an audit of every screen at 60x24, 80x24 and 120x40 in Night, Day and Classic."""
 import pytest
 
+from library_assets import read_json as library_json
 from test_qol import _menu, _session, run
 from test_tui import app_for
 from tutor_app.panels import ContinuePanel, TickPanel
 
 LONG_POINT = ("B1 uses v^2 = u^2 + 2as with v = 0 at the top of the flight and states the sign convention used "
               "for the acceleration clearly")
+
+
+@pytest.mark.parametrize("size", [(60, 24), (80, 24), (120, 40)])
+def test_long_matrix_mark_point_keeps_confirmation_visible_at_all_terminal_sizes(tmp_path, monkeypatch, size):
+    item = library_json("build/out/packs/FP1/FP1-6.json")["items"][34]
+    points = [f"{p.get('mark', '')} {p['point']}" for p in item["scheme"]]
+    long_index = max(range(len(points)), key=lambda i: len(points[i]))
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(TickPanel(
+            "AI suggestions are unverified. Tick earned points after reviewing; alternative methods may earn credit. "
+            "Alt+↑↓ scrolls; ctrl+s confirms.",
+            [(point, str(i), False) for i, point in enumerate(points)],
+            [("self", "Confirm marks ⏎")]))
+        await pilot.pause()
+        ticks = scr.query_one("#ticks")
+        for _ in range(long_index):
+            await pilot.press("down")
+        await pilot.pause()
+        full = scr.query_one("#full")
+        button = scr.query_one("#self")
+        assert button.region.height and button.region.bottom <= scr.query_one("Footer").region.y, button.region
+        visible = "\n".join(ticks.render_line(y).text for y in range(ticks.region.height))
+        if full.display:
+            visible += "\n" + "\n".join(full.render_line(y).text for y in range(full.region.height))
+        assert "= I." in visible  # the last matrix result remains readable
+        if size == (60, 24):
+            assert ticks.max_scroll_y > 0  # all eight points remain reachable if the list is shortened
+        for _ in range(len(points) - long_index - 1):
+            await pilot.press("down")
+        await pilot.pause()
+        assert ticks.highlighted == len(points) - 1
+        last_row = "\n".join(ticks.render_line(y).text for y in range(ticks.region.height))
+        assert "P = (3; 5)." in last_row
+        assert button.region.bottom <= scr.query_one("Footer").region.y, button.region
+
+    run(app, size, steps)
+
+
+def test_long_registered_rubric_point_stays_readable_above_the_confirmation_button(tmp_path, monkeypatch):
+    item = library_json("build/out/packs/9701/9701-7.2.json")["items"][52]
+    point = item["rubric"][0]["point"]
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(TickPanel("Read the full mark point; ctrl+s confirms.", [(point, "0", False)],
+                            [("self", "Confirm marks ⏎")]))
+        await pilot.pause()
+        ticks = scr.query_one("#ticks")
+        ticks.highlighted = 0
+        await pilot.pause()
+        full = scr.query_one("#full")
+        visible = "\n".join(full.render_line(y).text for y in range(full.region.height))
+        assert full.display and "Reverse trends when acid is added to" in visible and "alkali." in visible
+        button = scr.query_one("#self")
+        assert button.region.height and button.region.bottom <= scr.query_one("Footer").region.y, button.region
+
+    run(app, (60, 24), steps)
+
+
+def test_tick_panel_resizes_compact_confirmation_without_losing_scroll_access(tmp_path, monkeypatch):
+    item = library_json("build/out/packs/FP1/FP1-6.json")["items"][34]
+    points = [f"{p.get('mark', '')} {p['point']}" for p in item["scheme"]]
+    long_index = max(range(len(points)), key=lambda i: len(points[i]))
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(TickPanel("Review each point, then ctrl+s confirms.",
+                            [(point, str(i), False) for i, point in enumerate(points)],
+                            [("self", "Confirm marks ⏎")]))
+        await pilot.pause()
+        for _ in range(long_index):
+            await pilot.press("down")
+        await pilot.pause()
+        panel, button = scr.query_one(TickPanel), scr.query_one("#self")
+        assert button.compact and button.region.height == 1
+        await pilot.resize_terminal(120, 40)
+        await pilot.pause()
+        assert not button.compact and button.region.height == 3
+        await pilot.resize_terminal(60, 24)
+        await pilot.pause()
+        assert button.compact and button.region.height == 1
+        assert button.region.bottom <= scr.query_one("Footer").region.y, button.region
+        assert panel.query_one("#ticks").max_scroll_y > 0
+
+    run(app, (60, 24), steps)
 
 
 def test_a_mark_point_too_long_for_its_row_is_shown_in_full_under_the_list(tmp_path, monkeypatch):
@@ -30,6 +121,33 @@ def test_a_mark_point_too_long_for_its_row_is_shown_in_full_under_the_list(tmp_p
 
 LONG_STEM = "\n\n".join(f"({c}) A ball is thrown upwards at 15 m s-1 from a cliff 40 m high. Find part {c}."
                         for c in "abcdefgh")
+
+
+@pytest.mark.parametrize("follow_end", [True, False])
+def test_session_resize_preserves_transcript_position(tmp_path, monkeypatch, follow_end):
+    from tutor_app import cards
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        for i in range(20):
+            scr.say(cards.card("tutor", f"Example {i}", "A worked step. " * 12), mirror=None)
+        scr.panel(ContinuePanel())
+        await pilot.pause()
+        log = scr.query_one("#log")
+        log.scroll_end(animate=False, immediate=True)
+        await pilot.pause()
+        assert log.max_scroll_y > 20
+        if not follow_end:
+            log.scroll_to(y=5, animate=False, immediate=True)
+            await pilot.pause()
+        await pilot.resize_terminal(120, 40)
+        await pilot.pause()
+        if follow_end:
+            assert log.scroll_y == log.max_scroll_y
+        else:
+            assert log.scroll_y < log.max_scroll_y
+    run(app, (80, 24), steps)
 
 
 def test_a_long_question_opens_at_its_top_and_the_log_scrolls_while_typing(tmp_path, monkeypatch):

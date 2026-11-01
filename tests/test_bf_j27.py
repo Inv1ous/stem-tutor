@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import sys
-import shutil
 from pathlib import Path
 
 import pymupdf
@@ -11,6 +10,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'build'))
 import mine_mcq
+from library_assets import copy_to_vault
 
 
 REPAIRED = [
@@ -22,14 +22,11 @@ REPAIRED = [
 
 @pytest.fixture
 def integrated_assets(tmp_path):
-    # The assets are generated (ignored by Git): the corrected crops must be the ones in this checkout.
-    paths = [f'build/out/assets/mcq/{name}.png' for name in REPAIRED]
-    assert all((ROOT / p).exists() for p in paths)
-    for path in paths:
-        target = tmp_path / 'integrated' / path
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / path, target)
-    return tmp_path / 'integrated/build/out/assets/mcq'
+    # Shared delivered inputs come from their digest-checked Library records.
+    # Pixel checks run on isolated copies; generated hash filenames may differ.
+    vault = tmp_path / 'delivered' / 'STEM Tutor'
+    vault.mkdir(parents=True)
+    return {name: copy_to_vault(f'build/out/assets/mcq/{name}.png', vault) for name in REPAIRED}
 
 
 def assert_contains_pixels(image: pymupdf.Pixmap, region: pymupdf.Pixmap) -> None:
@@ -53,14 +50,19 @@ def assert_contains_pixels(image: pymupdf.Pixmap, region: pymupdf.Pixmap) -> Non
 @pytest.fixture
 def mine(tmp_path, monkeypatch):
     monkeypatch.setattr(mine_mcq, 'ROOT', tmp_path)
-    monkeypatch.setattr(mine_mcq, 'ASSETS', tmp_path / 'build/out/Assets/mcq')
+    monkeypatch.setattr(mine_mcq, 'ASSETS', None)
+    vault = tmp_path / 'mined' / 'STEM Tutor'
+    vault.mkdir(parents=True)
+    monkeypatch.setenv('STEM_TUTOR_VAULT', str(vault))
 
     def run(code: str, year: int, season: str, variant: str):
-        qp = ROOT / f'sources/papers/{code}/{year}/{season}/{code}_{season}{year % 100:02}_qp_{variant}.pdf'
-        if not qp.exists():
-            pytest.skip('source PDF library is not installed')
-        items = mine_mcq.mine_paper(qp, qp.with_name(qp.name.replace('_qp_', '_ms_')), code)
-        return qp, {it['q']: it for it in items}, tmp_path
+        prefix = f'sources/papers/{code}/{year}/{season}/{code}_{season}{year % 100:02}'
+        qp = copy_to_vault(f'{prefix}_qp_{variant}.pdf', vault)
+        ms = copy_to_vault(f'{prefix}_ms_{variant}.pdf', vault)
+        items = mine_mcq.mine_paper(qp, ms, code)
+        assert all(not it.get('image') or it['image'].startswith(f'Library/Courses/{code}/Questions/Media/') for it in items)
+        assert not (vault / 'Assets').exists()
+        return qp, {it['q']: it for it in items}, vault
     return run
 
 
@@ -79,8 +81,8 @@ def test_statement_questions_include_the_response_mapping_from_another_page(mine
 def test_graph_options_keep_their_right_endpoints(mine, integrated_assets, image_source):
     """B-117: options B and D extend past the old 40-point right margin."""
     qp, items, root = mine('9702', 2020, 's', '12')
-    path = (root / 'build/out' / items[19]['image'] if image_source == 'mined'
-            else integrated_assets / '9702_s20_12_q19.png')
+    path = (root / items[19]['image'] if image_source == 'mined'
+            else integrated_assets['9702_s20_12_q19'])
     pix = pymupdf.Pixmap(str(path))
     with pymupdf.open(qp) as doc:
         # One strip includes both endpoint dots and both final 40 ticks in their relative positions.
@@ -101,7 +103,7 @@ def test_graph_options_keep_their_right_endpoints(mine, integrated_assets, image
 def test_page_end_options_are_complete_above_the_footer(mine, integrated_assets, year, season, variant, q):
     """B-118: preserve answer rows, denominators and axis labels below y=770."""
     qp, items, root = mine('9702', year, season, variant)
-    pix = pymupdf.Pixmap(str(root / 'build/out' / items[q]['image']))
+    pix = pymupdf.Pixmap(str(root / items[q]['image']))
     with pymupdf.open(qp) as doc:
         # Find the actual question page; page indices vary with the paper layout.
         for page in doc:
@@ -114,5 +116,5 @@ def test_page_end_options_are_complete_above_the_footer(mine, integrated_assets,
         expected = page.get_pixmap(clip=pymupdf.Rect(0, y0, page.rect.width, footer - 2), dpi=130, colorspace=pymupdf.csGRAY)
         assert pix.height == expected.height
         assert (pix.width, pix.height, pix.samples) == (expected.width, expected.height, expected.samples)
-        delivered = pymupdf.Pixmap(str(integrated_assets / Path(items[q]['image']).name))
+        delivered = pymupdf.Pixmap(str(integrated_assets[items[q]['id']]))
         assert (delivered.width, delivered.height, delivered.samples) == (expected.width, expected.height, expected.samples)

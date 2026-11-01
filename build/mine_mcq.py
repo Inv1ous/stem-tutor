@@ -4,11 +4,13 @@ Text is rebuilt from PDF spans: superscripts/subscripts become Unicode (10², m�
 private-use glyphs are mapped (×, μ, λ …). A question with drawings, images, tabular options or any
 glyph that cannot be mapped keeps a PNG crop, and the tutor shows the crop instead of the text.
 
-  python build/mine_mcq.py [code ...]      -> build/work/mcq/<code>.json + build/out/assets/mcq/*.png
+  python build/mine_mcq.py [code ...]      -> MCQ staging JSON + catalogued Library question images
 """
 from __future__ import annotations
 
 import json
+import hashlib
+import os
 import re
 import sys
 from pathlib import Path
@@ -17,9 +19,13 @@ import pymupdf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from content_checks import DEBRIS, tidy_script_text  # noqa: E402
+import library  # noqa: E402
+from tutorlib.asset_library import AssetLibrary, write_asset  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-PAPERS, WORK, ASSETS = ROOT / "sources/papers", ROOT / "build/work/mcq", ROOT / "build/out/assets/mcq"
+PAPERS = None  # explicit isolated source override; production discovers Library shelves
+ASSETS = None  # explicit isolated output override; production registers immutable Library images
+WORK = Path(os.environ.get('STEM_MCQ_WORK') or ROOT / 'build/work/mcq')
 SYMBOL = {0xB4: "×", 0x6D: "μ", 0x6C: "λ", 0x71: "θ", 0x44: "Δ", 0x57: "Ω", 0x70: "π", 0xB0: "°", 0xB1: "±",
           0xA3: "≤", 0xB3: "≥", 0xAE: "→", 0xAC: "←", 0xDB: "⇌", 0xAB: "↔", 0xF2: "∫", 0x2D: "−", 0x61: "α",
           0x62: "β", 0x67: "γ", 0x72: "ρ", 0x73: "σ", 0x77: "ω", 0x66: "φ", 0x65: "ε", 0x64: "δ", 0x6E: "ν",
@@ -49,12 +55,32 @@ def _glyphs(span) -> tuple[str, bool]:
     return "".join(out), ok
 
 
+def _text_blocks(page, *, clip):
+    """Keep span text, but exclude whitespace positions from script geometry."""
+    blocks = page.get_text("rawdict", clip=clip)["blocks"]
+    for block in blocks:
+        for line in block.get("lines", []):
+            for span in line["spans"]:
+                chars = span.pop("chars")
+                span["text"] = "".join(char["c"] for char in chars)
+                visible = [char["bbox"] for char in chars if char["c"].strip()]
+                if visible:
+                    span["bbox"] = (min(box[0] for box in visible), min(box[1] for box in visible),
+                                    max(box[2] for box in visible), max(box[3] for box in visible))
+    return blocks
+
+
 def _line_text(line) -> tuple[str, bool]:
     spans = [s for s in line["spans"] if s["text"]]
     if not spans:
         return "", True
     base = max(s["size"] for s in spans)
-    baseline = max(s["bbox"][3] for s in spans if s["size"] >= base - 0.5)
+    anchors = [s for s in spans if s["size"] >= base - 0.5]
+    # An isolated script may have only a whitespace anchor at normal size.
+    # Prefer actual body glyphs when present; a displaced trailing blank must
+    # not lower the baseline and turn a chemical subscript into an exponent.
+    visible = [s for s in anchors if s["text"].strip()]
+    baseline = max(s["bbox"][3] for s in visible or anchors)
     parts, ok = [], True
     small_spans = [s for s in spans if s["size"] < base - 1.5 and s["text"].strip()]
     for a, b in zip(small_spans, small_spans[1:]):
@@ -79,6 +105,42 @@ def _line_text(line) -> tuple[str, bool]:
 def _key(ms: Path) -> dict[int, str]:
     text = "\n".join(p.get_text() for p in pymupdf.open(ms))
     return {int(n): a for n, a in re.findall(r"(?m)^\s*(\d{1,2})\s*\n\s*([A-D])\s*\n\s*1\s*$", text)}
+
+
+def paper_sources(code: str) -> dict[str, Path]:
+    """Find official papers by original basename; reject conflicting copies."""
+    shelves = [Path(PAPERS) / code] if PAPERS is not None else library.roots('papers').values()
+    found = {}
+    for shelf in shelves:
+        for path in sorted(shelf.rglob(f'{code}_*.pdf')):
+            previous = found.get(path.name)
+            if previous is not None and previous.read_bytes() != path.read_bytes():
+                raise ValueError(f'ambiguous source paper: {path.name}')
+            found.setdefault(path.name, path)
+    return found
+
+
+def _publish_crop(pix, qid: str, code: str, qp: Path, ms: Path, page: int, rect) -> str:
+    if ASSETS is not None:
+        Path(ASSETS).mkdir(parents=True, exist_ok=True)
+        pix.save(Path(ASSETS) / f'{qid}.png')
+        return f'Assets/mcq/{qid}.png'
+    vault = library.learner_vault()
+    AssetLibrary(vault)  # require the migrated catalog before creating a production asset
+    data = pix.tobytes('png')
+    digest = hashlib.sha256(data).hexdigest()
+    relative = f'Library/Courses/{code}/Questions/Media/{qid}-{digest[:16]}.png'
+
+    def source(path):
+        try:
+            return path.relative_to(vault).as_posix()
+        except ValueError:
+            return str(path)
+
+    write_asset(vault, relative, data, metadata={'course': code, 'kind': 'Questions/Media',
+                'provenance': {'question': qid, 'source': source(qp), 'page': page,
+                               'box': list(rect), 'dpi': 130, 'mark_scheme': source(ms)}})
+    return relative
 
 
 def _shared_options(doc: pymupdf.Document) -> dict[str, str] | None:
@@ -108,7 +170,6 @@ def mine_paper(qp: Path, ms: Path, code: str) -> list[dict]:
     stem = qp.stem.replace("_qp", "")  # 9702_s23_12
     series, variant = stem.split("_")[1], stem.split("_")[2]
     out = []
-    ASSETS.mkdir(parents=True, exist_ok=True)
     for i, (pno, y0, n) in enumerate(anchors):
         page = doc[pno]
         nxt = anchors[i + 1] if i + 1 < len(anchors) else None
@@ -116,12 +177,12 @@ def mine_paper(qp: Path, ms: Path, code: str) -> list[dict]:
         # Graph endpoints cross the old side margins; answer rows can extend below y=770.
         rect = pymupdf.Rect(0, y0 - 4, page.rect.width, y1)
         lines, ok, opts, cur = [], True, {}, None
-        blocks = page.get_text("dict", clip=rect)["blocks"]
+        blocks = _text_blocks(page, clip=rect)
         for b in blocks:  # copyright notice below the last question: keep it out of the crop too
             btext = " ".join(s["text"] for ln in b.get("lines", []) for s in ln["spans"]).strip()
             if (BOILER.search(btext) or FOOTER.match(btext)) and b["bbox"][1] > y0 + 20:
                 rect.y1 = min(rect.y1, b["bbox"][1] - 2)
-        blocks = page.get_text("dict", clip=rect)["blocks"]
+        blocks = _text_blocks(page, clip=rect)
         for b in blocks:
             btext = " ".join(s["text"] for ln in b.get("lines", []) for s in ln["spans"])
             if BOILER.search(btext) or FOOTER.match(btext.strip()):
@@ -155,9 +216,8 @@ def mine_paper(qp: Path, ms: Path, code: str) -> list[dict]:
         qid = f"{stem}_q{n}"
         crop = None
         if figure:
-            crop = f"Assets/mcq/{qid}.png"
             pix = page.get_pixmap(clip=rect, dpi=130, colorspace=pymupdf.csGRAY)
-            pix.save(ROOT / "build/out" / crop)
+            crop = _publish_crop(pix, qid, code, qp, ms, pno + 1, rect)
         out.append({"id": qid, "code": code, "series": series, "variant": variant, "q": n,
                     "stem": "\n".join(lines).strip(), "options": opts if len(opts) == 4 else None,
                     "answer": key.get(n), "figure": figure, "image": crop,
@@ -173,9 +233,10 @@ if __name__ == "__main__":
     WORK.mkdir(parents=True, exist_ok=True)
     for code in sys.argv[1:] or ["9701", "9702"]:
         items, problems = [], []
-        for qp in sorted((PAPERS / code).rglob(f"{code}_*_qp_1[123].pdf")):
-            ms = qp.with_name(qp.name.replace("_qp_", "_ms_"))
-            if not ms.exists():
+        sources = paper_sources(code)
+        for qp in sorted(path for name, path in sources.items() if re.fullmatch(rf'{code}_.*_qp_1[123]\.pdf', name)):
+            ms = sources.get(qp.name.replace("_qp_", "_ms_"))
+            if ms is None:
                 problems.append(f"{qp.name}: no mark scheme")
                 continue
             got = mine_paper(qp, ms, code)

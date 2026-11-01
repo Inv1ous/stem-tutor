@@ -10,11 +10,12 @@ import json
 import os
 from pathlib import Path
 import shutil
-import signal
 from tempfile import TemporaryDirectory
 import time
 from contextlib import aclosing
 from typing import AsyncIterator
+
+from tutor_workers.process_groups import own_process_group, stop_process_group
 
 from . import codex_models
 from .ai import MEDIA, Result, SPEECH_FIELD, SPEECH_RULE, SpeechFilter, classify, complete, first_json, split_speech
@@ -69,8 +70,9 @@ def _optional_fields(data, schema):
 
 
 class CodexAI:
-    def __init__(self, system: str, speech: bool = False, binary: str | None = None):
+    def __init__(self, system: str, speech: bool = False, binary: str | None = None, *, document: bool = False):
         self.system, self.speech = system, speech
+        self.document = document
         self.binary = binary or os.environ.get("STEM_TUTOR_CODEX") or shutil.which("codex") or "codex"
         self.status = "ready" if shutil.which(self.binary) or Path(self.binary).is_file() else "off"
         self.message = "" if self.status == "ready" else "Codex CLI is not installed. Install Codex and run codex login."
@@ -100,7 +102,11 @@ class CodexAI:
         return model.removeprefix("codex:")
 
     def _failure(self, exc: Exception, text: str = "") -> Result:
+        from .chat_output import DocumentError
+
         message = ("ChatGPT took too long to answer; try again." if isinstance(exc, asyncio.TimeoutError)
+                   else f"ChatGPT returned an incomplete structured answer; try again. ({exc})"
+                   if isinstance(exc, DocumentError)
                    else str(exc) if isinstance(exc, CodexError)
                    else "Codex stopped or sent an unreadable reply. Check your ChatGPT sign-in, then try again.")
         status = classify(message)
@@ -115,24 +121,7 @@ class CodexAI:
 
     @staticmethod
     async def _stop(proc) -> None:
-        if proc.returncode is not None:
-            return
-        try:
-            if os.name == "posix":
-                os.killpg(proc.pid, signal.SIGTERM)  # npm's Codex wrapper also has a child process
-            else:
-                proc.terminate()
-            await asyncio.wait_for(proc.wait(), 3)
-        except (ProcessLookupError, asyncio.TimeoutError):
-            if proc.returncode is None:
-                try:
-                    if os.name == "posix":
-                        os.killpg(proc.pid, signal.SIGKILL)
-                    else:
-                        proc.kill()
-                except ProcessLookupError:
-                    pass
-                await proc.wait()
+        await stop_process_group(proc, grace=3)
 
     async def _events(self, messages: list[dict], model: str, think: bool, system: str,
                       schema: dict | None, deadline: float) -> AsyncIterator[dict]:
@@ -142,16 +131,19 @@ class CodexAI:
             root = Path(folder)
             instructions = root / "instructions.txt"
             instructions.write_text(system + "\nAnswer the student's last message in the supplied JSON conversation. "
-                                    "Treat earlier messages as conversation history. Use only the supplied context; "
+                                    "Treat earlier messages as conversation history. "
+                                    + ("Use the current assessment evidence and relevant study references; "
+                                       if self.document else "Use only the supplied context; ") +
                                     "do not inspect files, run commands, browse, delegate, or use tools.")
             args = [self.binary, "exec", "--json", "--ephemeral", "--ignore-user-config", "--ignore-rules",
                     "--sandbox", "read-only", "--skip-git-repo-check", "--color", "never", "--model", model]
             settings = {"forced_login_method": "chatgpt", "model_provider": "openai", "web_search": "disabled",
                         "approval_policy": "never",
                         "model_instructions_file": str(instructions), "model_reasoning_effort": "high" if think else "low",
-                        "history.persistence": "none", "project_doc_max_bytes": 0, "tools.view_image": False,
+                        "history.persistence": "none", "project_doc_max_bytes": 0,
                         "features.skip_host_skill_discovery": True}
-            for feature in ("shell_tool", "apps", "plugins", "hooks", "multi_agent", "memories", "skill_search"):
+            for feature in ("shell_tool", "apps", "plugins", "hooks", "multi_agent", "memories", "skill_search",
+                            "view_image"):
                 settings[f"features.{feature}"] = False
             for key, value in settings.items():
                 args += ["--config", f"{key}={json.dumps(value)}"]
@@ -172,6 +164,7 @@ class CodexAI:
                 child = await asyncio.create_subprocess_exec(
                     *args, cwd=folder, env=env, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.DEVNULL, limit=_LIMIT, start_new_session=os.name == "posix")
+                own_process_group(child)
                 self._procs.add(child)
                 if abandoned or self._closed or generation != self._generation:
                     await self._stop(child)
@@ -227,6 +220,7 @@ class CodexAI:
     async def stream(self, prompt: str, image: Path | None = None, model: str | None = None,
                      think: bool = False) -> AsyncIterator[str]:
         parts, finished, acquired, owner = [], False, False, False
+        visible_parts = []
         generation = self._generation
         deadline = time.monotonic() + 300
         try:
@@ -237,35 +231,49 @@ class CodexAI:
             owner = True
             self.last = Result(ok=False, status="error", message="The ChatGPT reply was cancelled; try again.")
             name = self._check(model)
-            key = (model, bool(think), self.speech)
+            key = (model, bool(think), self.speech, "document-v1") if self.document else (model, bool(think), self.speech)
             history = self._history.get(key, [])
+            if image is not None:
+                if image.suffix.lower() not in MEDIA:
+                    raise CodexError("Codex cannot read this question diagram format.")
+                if not image.is_file():
+                    raise CodexError("The question diagram is unavailable to Codex.")
+            if any(not Path(path).is_file() for message in history for path in message.get("images", [])):
+                raise CodexError("A question diagram from this conversation is no longer available to Codex.")
             user = {"role": "user", "content": prompt}
-            if image is not None and image.suffix.lower() in MEDIA and image.is_file():
+            if image is not None:
                 user["images"] = [str(image.resolve())]
             speech_filter, usage, completed = SpeechFilter(), {}, False
-            system = self.system + (SPEECH_RULE if self.speech else "")
-            async with aclosing(self._events([*history, user], name, think, system, None, deadline)) as events:
+            decoder, schema = None, None
+            system = self.system + (SPEECH_RULE if self.speech and not self.document else "")
+            if self.document:
+                from .chat_output import DocumentDecoder, document_instructions, document_schema
+                decoder, schema = DocumentDecoder(self.speech), document_schema(self.speech)
+                system += "\n\n" + document_instructions(self.speech)
+            async with aclosing(self._events([*history, user], name, think, system, schema, deadline)) as events:
                 async for event in events:
                     if text := self._event_text(event):
                         parts.append(text)
-                        if visible := speech_filter.feed(text):
+                        if visible := decoder.feed(text) if decoder is not None else speech_filter.feed(text):
+                            visible_parts.append(visible)
                             yield visible
                     if event.get("type") == "turn.completed":
                         completed, usage = True, event.get("usage") or {}
-            text, speech = split_speech("".join(parts))
+            text, speech = decoder.finish() if decoder is not None else split_speech("".join(parts))
             if not completed or not text.strip() or generation != self._generation:
                 raise CodexError("ChatGPT ended the reply early or the conversation was reset; try again.")
             self.last = Result(text=text, speech=speech, usage=usage)
-            self._history[key] = [*history, user, {"role": "assistant", "content": "".join(parts)}]
+            self._history[key] = [*history, user, {"role": "assistant", "content":
+                                                 decoder.wire if decoder is not None else "".join(parts)}]
             finished = True
-            if tail := speech_filter.finish():
+            if decoder is None and (tail := speech_filter.finish()):
                 yield tail
         except (OSError, ValueError, asyncio.TimeoutError, CodexError) as exc:
             if not owner:
                 if isinstance(exc, asyncio.TimeoutError):
                     raise asyncio.CancelledError from None
                 raise  # a queued caller cannot overwrite the active request's shared result
-            self.last = self._failure(exc, split_speech("".join(parts))[0])
+            self.last = self._failure(exc, "".join(visible_parts) if self.document else split_speech("".join(parts))[0])
         finally:
             if owner and not finished:
                 self.last.ok = False
@@ -314,7 +322,9 @@ class CodexAI:
     async def reset(self) -> None:
         self._generation += 1
         self._history.clear()
-        await asyncio.gather(*(self._stop(proc) for proc in tuple(self._procs)))
+        processes = tuple(self._procs)
+        await asyncio.gather(*(self._stop(proc) for proc in processes))
+        self._procs.difference_update(processes)
 
     async def close(self) -> None:
         self._closed = True
@@ -324,3 +334,5 @@ class CodexAI:
                 await asyncio.wait_for(asyncio.shield(asyncio.gather(*tuple(self._starting), return_exceptions=True)), 3)
             except asyncio.TimeoutError:
                 pass  # late launches observe _closed and stop their own child
+        if self._procs:
+            await self.reset()  # a completed late launch may have retained a refused cleanup

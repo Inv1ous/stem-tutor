@@ -1,26 +1,46 @@
 # Scope: what the code is and where bugs likely hide
 
-STEM Tutor 2.4.3: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
-(timezone `Asia/Hong_Kong`). A pure-Python learning engine does teaching, marking, scheduling and note-writing with no AI.
-A Textual terminal app sits on top, and Obsidian shows the notes. Claude (headless `claude -p`) is used only for
-optional chat/explanations. Python 3.13, repo venv `.venv/`.
+STEM Tutor is a terminal study app for one A-Level learner (CAIE Physics/Chemistry and Edexcel IAL Maths), in `Asia/Hong_Kong`. The deterministic engine owns lessons, attempts, scoring, schedules and persistence. Prepared guided cards support Learn a topic; optional live AI can select reviewed material, explain, and request teaching actions. Those live actions do not replace grading or content review. Textual presents the app; Obsidian presents saved notes. Use the repository venv.
 
 ## Code map (paths from the repo root)
+
+The workspace contract is `../AGENTS.md`. See `app/tutor_app/README.md` for UI ownership.
+Use `src/tutorlib/` for engine investigation and `src/tutor_workers/` for shared workflow infrastructure.
+
+## Migration and teaching invariants (check first)
+
+- All reusable resources, including real test inputs, resolve through the learner Library catalog. Tests use `tests/library_assets.py` and disposable copies. A catalogued file adapter is read-only; edits start at a fresh Work preparation path.
+- Library resource IDs, digests, provenance, question identities and reviewed correction bindings survive path changes. Directory adapters lead to Work; sources, published packs and learner history are not scratch output.
+- Source queries must select the correct course and relevant shared documents, verify hashes, and keep caches outside the Library. A zero-hit search cannot silently prove source coverage.
+- Prepared guided cards and live learning actions must protect unanswered checks, skipped answers and independent performance. Recheck session identity and guards after every asynchronous generation step.
+- Use SVGs and source figures when they aid understanding. Verify file, provenance, chapter/KC binding and terminal description; never show a protected question's answer as a teaching figure.
+- Can I solve this must remain answer-free and available for every question kind/media. Reviewed topical metadata and graph-derived prerequisites have distinct evidence. Unknown metadata remains unverified; checking does not grade or mark assistance.
+- Canonical question/part identity shares exposure across chapter aliases. Same-context duplicates must not repeat; distinct parts, conflicting assessment records and deliberate cross-chapter KC assignments must not be discarded by image or stem similarity.
+- Foundry has a two-hour course limit; Refine has a one-hour course limit. Physics (9702) and Chemistry (9701) are exempt. A timeout checkpoints pending work and never grants content approval. Existing publication switches remain authoritative.
+- PDF extraction must respect its selected provider and question/notes-diagram scope. TQ means topical questions. Incomplete multi-page questions, missing official marking material and uncertain OCR stay pending.
+- Scratch setup snapshots CURRENT content and its Library dependencies. Verify every pack/image; `doctor` alone does not prove image completeness. It never republishes unfinished authoring work or edits a registered plan.
+
+High-value regression suites: `tests/test_library*.py`, `tests/test_worker*.py`,
+`tests/test_refine*.py`, `tests/test_guided*.py`, `tests/test_topicals.py`,
+`tests/test_consolidate_question_media.py`, `tests/test_bugwatch_sandbox.py`,
+`tests/test_extraction.py`, and related `tests/app/test_learn*.py`/topical UI tests.
+
+Course approval, structural gate passes, storage availability and code verification are separate claims.
 
 | Path | What it does |
 |---|---|
 | `plugin/stem-tutor/skills/tutor/scripts/tutor.py` | Engine CLI (`doctor`, `session start/end`, `next`, `answer`, `find`, `week`, `lint`, …) |
-| `…/tutorlib/grade.py` | Parses answers (`1B3`, `2 = 4.5 m s-1 ~3`, `3?`), number/unit/s.f. grading, sympy equivalence, rubric matching |
-| `…/tutorlib/units.py` | SI unit algebra |
-| `…/tutorlib/packs.py` | Loads content packs; safe template evaluator (`[[n]]` placeholders); item selection |
-| `…/tutorlib/model.py` | Learner state as a fold over events: Elo θ, FSRS cards (py-fsrs), traits, `knobs()` |
-| `…/tutorlib/policy.py` | Session planning per mode, teaching-method choice, exam dates, review priority |
-| `…/tutorlib/session.py` | `Tutor`: start/next/answer/hint/end/blurt/paper; saves state and the live Obsidian view |
-| `…/tutorlib/lesson.py` | Lesson mode state machine: goal → probe → plan → per-idea phases |
-| `…/tutorlib/views.py` | Writes `Now.md`, `Lessons/`, `My Notes/` (managed marker blocks around the learner's own text), `Home.md` |
-| `…/tutorlib/profile.py`, `insights.py`, `report.py`, `weekly.py`, `blurt.py`, `experiments.py`, `anki.py`, `lint.py` | Profile, insights (findings, readiness, weak spots, week report), notes, weekly tasks, free-recall scoring, n-of-1 experiments, Anki export, Obsidian lint |
-| `…/tutorlib/store.py`, `deps.py` | Vault discovery, monthly JSONL event log, flock lock, atomic writes; vendored pure-Python wheels |
-| `app/tutor_app/` | `app.py`, `screens.py`, `panels.py`, `cards.py`, `ai.py` (persistent `claude -p` stream), `prompts.py`, `texmath.py` (LaTeX → Unicode, textbook spacing), `look.py` (Night/Day/Classic palettes and themes), `termprofile.py` + `setup_look.py` (`tutor look`: Terminal profiles, font, backup, undo), `mac.py`, `config.py`; `fonts/` holds the bundled JuliaMono |
+| `src/tutorlib/grade.py` | Parses answers (`1B3`, `2 = 4.5 m s-1 ~3`, `3?`), number/unit/s.f. grading, sympy equivalence, rubric matching |
+| `src/tutorlib/units.py` | SI unit algebra |
+| `src/tutorlib/packs.py` | Loads content packs; safe template evaluator (`[[n]]` placeholders); item selection |
+| `src/tutorlib/model.py` | Learner state as a fold over events: Elo θ, FSRS cards (py-fsrs), traits, `knobs()` |
+| `src/tutorlib/policy.py` | Session planning per mode, teaching-method choice, exam dates, review priority |
+| `src/tutorlib/session.py` | `Tutor`: start/next/answer/hint/end/blurt/paper; saves state and the live Obsidian view |
+| `src/tutorlib/lesson.py` | Lesson mode state machine: goal → probe → plan → per-idea phases |
+| `src/tutorlib/views.py` | Writes `Now.md`, `Lessons/`, `My Notes/` (managed marker blocks around the learner's own text), `Home.md` |
+| `src/tutorlib/profile.py`, `insights.py`, `report.py`, `weekly.py`, `blurt.py`, `experiments.py`, `anki.py`, `lint.py` | Profile, insights (findings, readiness, weak spots, week report), notes, weekly tasks, free-recall scoring, n-of-1 experiments, Anki export, Obsidian lint |
+| `src/tutorlib/store.py`, `deps.py` | Vault discovery, monthly JSONL event log, flock lock, atomic writes; vendored pure-Python wheels |
+| `app/tutor_app/` | `app.py`, `screens.py`, `panels.py`, `cards.py`, `ai.py` (persistent `claude -p` stream), `prompts.py`, `texmath.py` (LaTeX → Unicode, textbook spacing), `look.py` (Night/Day/Classic palettes and themes), `termprofile.py` + `setup_look.py` (`tutor look`: Terminal profiles, font, backup, undo), `mac.py`, `config.py`; fonts resolve through `Library/Shared/Fonts` |
 | `build/` | Content pipeline (`publish.py`, `finalize.py`, `validate_pack.py`, `teach_cards.py`, `syllabus.py`, `plan.py`, …) |
 | `foundry/foundry.py` | Runs the content pipeline per chapter (stages, gates, state files, Codex queue). Report only what could let wrong content reach the learner or lose a chapter's work |
 | `build/out/packs/<spec>/<subtopic>.json` | Content packs (24 published; `HOLD.json` lists the ones still being built) |
@@ -77,8 +97,8 @@ must reproduce the live state.
 
 - Chapters listed in `build/out/packs/HOLD.json` are still in the foundry and deliberately not published. "No questions built" for other subtopics is expected.
 - Real AI calls cannot be exercised from the spotter's sandbox (no network). Review `ai.py` against the protocol by reading and mark such findings `Method: read`.
-- 14 older chapters have no teaching cards (`pack["teach"]`), so their lessons use the generic fallback card; the learner knows.
-- `plugin/stem-tutor/` skills, commands and agents are the old Cowork interface. Report only if they break the engine the app uses.
+- Legacy chapters may use fallback teaching cards. Missing prepared coverage is a content gap, not proof that a ready card was lost. Check current coverage; do not rely on historical chapter counts.
+- `src/tutorlib/` is canonical engine source. The plugin `tutorlib` path is a distribution adapter. Test standalone installed-engine compatibility as well as source imports.
 - Retention targets use estimated exam dates when the planner has none (AS 15 May 2027, A2 15 May 2028) on purpose.
 - Only one app instance can run at once (flock); the iPad inbox is imported only at start-up; "extra" past-paper questions have no written explanation.
 - Sessions with zero answers or `abandoned` don't count towards the streak; `Review` with nothing due refuses to start.

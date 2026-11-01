@@ -687,6 +687,52 @@ def test_a_long_new_line_starts_after_its_first_chunk(tmp_path):
     sp.close()
 
 
+def test_multipart_read_keeps_active_component_during_later_preparation(tmp_path, monkeypatch):
+    """A later component's prune must preserve the first WAV through active playback (B-127)."""
+    eng = FakeEngine()
+    tts.set_engine(eng)
+    sp, player, _ = _speaker(tmp_path)
+    monkeypatch.setattr(tts.Speaker, "LIVE_KEEP", 1)
+
+    original_create = eng.create
+    second_started = threading.Event()
+    second_finished = threading.Event()
+    resume = threading.Event()
+
+    def gated_create(text, voice, speed, lang):
+        if text == "Second component.":
+            second_started.set()
+            assert resume.wait(3)
+        return original_create(text, voice, speed, lang)
+
+    monkeypatch.setattr(eng, "create", gated_create)
+    original_one = sp._one
+
+    def observe_one(text, voice, speed):
+        path = original_one(text, voice, speed)
+        if text == "Second component.":
+            second_finished.set()
+        return path
+
+    monkeypatch.setattr(sp, "_one", observe_one)
+    sp.say(["First component.", "Second component."])
+    deadline = time.monotonic() + 3
+    while not player.played and time.monotonic() < deadline:
+        time.sleep(0.01)
+    assert second_started.wait(3) and len(player.played) == 1
+    first = player.played[0]
+    assert first.is_file()
+    resume.set()
+    assert second_finished.wait(3)
+    assert player.playing and len(player.played) == 1
+    assert first.is_file()
+    finish(sp, player)
+    assert len(player.played) == 2
+    assert player.played[0] == first
+    assert sp.wait_idle()
+    sp.close()
+
+
 def test_a_line_played_again_is_kept_over_older_unused_ones(tmp_path, monkeypatch):
     """Q-012: the live cache kept the newest files, so a line replayed often could be thrown out first."""
     eng = FakeEngine()
@@ -811,3 +857,93 @@ def test_settings_has_a_loudness_box_and_a_button_to_hear_it_before_saving(tmp_p
         await pilot.pause()
         assert config.Settings.load(v).tts_volume == 0.35 and app.settings.tts_volume == 0.35
     _run(app, (60, 24), steps)
+
+
+def test_focusing_loudness_at_140x46_scrolls_it_above_docked_save(tmp_path, monkeypatch):
+    from textual.widgets import Input
+    app, _, _ = _tts_app(tmp_path, monkeypatch, enabled=True)
+
+    async def steps(pilot):
+        app.action_settings()
+        await pilot.pause()
+        screen = app.screen
+        volume = screen.query_one("#tts_volume", Input)
+        volume.focus()
+        await pilot.pause()
+        save_row = screen.query_one("#save-row")
+        assert volume.region.bottom <= save_row.region.y
+
+    _run(app, (140, 46), steps)
+
+
+@pytest.mark.parametrize("overlay", ["help", "settings"])
+@pytest.mark.parametrize("sample", [False, True])
+def test_late_reply_does_not_take_voice_from_an_overlay(tmp_path, monkeypatch, overlay, sample):
+    from tutor_app.screens import SessionScreen
+    app, _, player = _tts_app(tmp_path, monkeypatch, auto=True)
+    app.settings.ai = False
+    monkeypatch.setattr(app, "ai_available", lambda mode="ask": True)
+
+    async def steps(pilot):
+        started, release = asyncio.Event(), asyncio.Event()
+
+        async def stream(prompt, **kwargs):
+            started.set()
+            await release.wait()
+            app.ai.last = ai.Result(text="Think about the units.")
+            yield "Think about the units."
+
+        app.push_screen(SessionScreen({"mode": "autopilot", "minutes": 50}))
+        await pilot.pause()
+        screen = app.screen
+        monkeypatch.setattr(app.ai, "stream", stream)
+        screen.stream("Explain this step")
+        await asyncio.wait_for(started.wait(), 2)
+        getattr(app, "action_" + overlay)()
+        await pilot.pause()
+        if sample:
+            app.speaker.sample(0.3)
+            await _settle(app, pilot)
+            assert len(player.played) == 1 and player.playing
+        before = list(player.played), player.stops
+        release.set()
+        await app.workers.wait_for_complete()
+        await _settle(app, pilot)
+        assert (player.played, player.stops) == before
+        assert screen.readable == "Think about the units."
+        app.pop_screen()
+        await pilot.pause()
+        if sample:
+            app.speaker.stop()
+        await pilot.press("ctrl+e")
+        await _settle(app, pilot)
+        assert len(player.played) == len(before[0]) + 1 and player.playing
+
+    _run(app, (80, 24), steps)
+
+
+@pytest.mark.parametrize("overlay", ["help", "settings"])
+def test_opening_an_overlay_cancels_pending_speech_preparation(tmp_path, monkeypatch, overlay):
+    app, _, player = _tts_app(tmp_path, monkeypatch)
+    release = threading.Event()
+    engine = FakeEngine(release)
+    tts.set_engine(engine)
+
+    async def steps(pilot):
+        await _session(app, pilot)
+        await pilot.press("ctrl+e")
+        for _ in range(50):
+            if engine.calls:
+                break
+            await pilot.pause(0.01)
+        assert engine.calls and app.speaker.active
+        getattr(app, "action_" + overlay)()
+        await pilot.pause()
+        release.set()
+        await _settle(app, pilot)
+        assert not player.played and not app.speaker.active
+
+    try:
+        _run(app, (80, 24), steps)
+    finally:
+        release.set()

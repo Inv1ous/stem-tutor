@@ -882,6 +882,9 @@ class ChallengeScreen(ReadAloud, Screen):
         if self.phase == "generating":
             self.cancel()
         if self.phase == "question" and self.fb is None:
+            elapsed = time.monotonic() - self.clock
+            self.set.add_elapsed(self.i, elapsed)
+            self.clock = time.monotonic()
             leave_asking_first(self, "#panel Composer")
         else:
             self.app.pop_screen()

@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import pytest
 
 from fixtures import make_vault
-from tutorlib import experiments, grade, policy, session, store
+from tutorlib import experiments, grade, policy, session, store, views
 
 T0 = datetime.fromisoformat("2026-09-29T17:00:00+08:00")  # Almanac week 5
 
@@ -59,6 +59,49 @@ def test_pretest_questions_hide_answers(tutor):
     for q in act["items"]:
         assert "answer" not in q and "distractors" not in q and "explanation" not in q
         assert q["n"] >= 1 and q["stem"]
+
+
+def test_pick_never_reuses_a_disclosed_item_even_as_fallback(tutor, monkeypatch):
+    tutor.start('lesson', minutes=10, focus=['9702-2.1'])
+    tutor.session['disclosed_item_ids'] = ['answered-in-example']
+    calls = []
+    def select(kc, state, target, rng, now, **kwargs):
+        calls.append(kwargs['exclude'])
+        return None
+    monkeypatch.setattr(tutor.packs, 'select_item', select)
+    assert tutor._pick('9702-2.1.1', .75) is None
+    assert len(calls) == 2
+    assert all('answered-in-example' in excluded for excluded in calls)
+
+
+def test_pick_backfills_disclosures_for_initialized_old_lesson_node(tutor, monkeypatch):
+    from tutorlib import lesson
+    tutor.start('lesson', minutes=10, focus=['9702-2.1'])
+    tutor.session['blocks'] = [{'kind': 'node', 'kc': '9702-2.1.1', 'phases': ['done'], 'i': 1,
+                                'card': {'disclosed_item_ids': ['old-saved-card-answer']}}]
+    monkeypatch.setattr(lesson, 'teach_card', lambda tutor, kc: {'disclosed_item_ids': ['old-worked-answer']})
+    calls = []
+    def select(kc, state, target, rng, now, **kwargs):
+        calls.append(kwargs['exclude'])
+        return None
+    monkeypatch.setattr(tutor.packs, 'select_item', select)
+    tutor._pick('9702-2.1.1', .75)
+    assert all('old-worked-answer' in excluded for excluded in calls)
+    assert all('old-saved-card-answer' in excluded for excluded in calls)
+
+
+def test_disclosed_items_survive_session_restart(tutor, monkeypatch):
+    tutor.start('lesson', minutes=10, focus=['9702-2.1'])
+    tutor.session['disclosed_item_ids'] = ['answered-in-example']
+    tutor._save()
+    restored = session.Tutor(store.Vault(tutor.vault.root), rng=random.Random(0), now=tutor.clock)
+    calls = []
+    def select(kc, state, target, rng, now, **kwargs):
+        calls.append(kwargs['exclude'])
+        return None
+    monkeypatch.setattr(restored.packs, 'select_item', select)
+    restored._pick('9702-2.1.1', .75)
+    assert calls and all('answered-in-example' in excluded for excluded in calls)
 
 
 def test_answer_reveals_key_logs_event_and_updates_state(tutor):
@@ -118,6 +161,23 @@ def test_full_session_reaches_exit_and_end(tutor):
     assert summary["answered"] > 0
     assert tutor.session is None
     assert any(e["type"] == "session_end" for e in tutor.vault.events())
+
+
+def test_home_write_failure_does_not_hide_completed_session_summary(tutor, monkeypatch):
+    tutor.start("lesson", minutes=10, focus=["9702-2.1"])
+    session_id = tutor.session["id"]
+    def fail_home(*args, **kwargs):
+        raise OSError("disk unavailable")
+    monkeypatch.setattr(views, "write_home", fail_home)
+
+    summary = tutor.end()
+
+    assert summary["session"] == session_id and summary["answered"] == 0
+    assert summary["home_error"] == "disk unavailable"
+    assert tutor.session is None
+    assert any(e["type"] == "session_end" and e["session"] == session_id for e in tutor.vault.events())
+    restored = session.Tutor(store.Vault(tutor.vault.root), rng=random.Random(0), now=lambda: T0)
+    assert restored.session is None
 
 
 def test_hint_marks_item_hinted_and_is_refused_in_exit(tutor):
@@ -423,7 +483,8 @@ def test_lesson_grows_my_notes_with_own_words_and_mistakes(tutor):
 
 
 def test_lesson_log_never_shows_a_key_before_the_answer(tutor):
-    tutor.start("lesson", minutes=40, focus=["9702-2.1"])
+    tutor.start("test", minutes=40, focus=["9702-2.1"])
+    tutor.session["mode"] = "lesson"  # use the lesson transcript path with the deterministic two-question test block
     _drive_lesson(tutor)
     log = next((tutor.vault.root / "Lessons").rglob("*.md")).read_text()
     blocks = log.split("\n\n")
@@ -594,20 +655,65 @@ def _restart(tutor):
 
 def test_an_answer_that_reached_the_log_but_no_save_is_kept_once(tutor, monkeypatch):
     tutor.start("test", minutes=40, focus=["9702-2.1"])
+    # A test-mode block gives deterministic questions; recovery writes to any session's permanent transcript.
     first, second = tutor.next()["items"]
     kc = tutor.session["presented"][str(first["n"])]["kcs"][0]
+    lesson_path = tutor.vault.root / tutor.session["log"]
+    event_file = next((tutor.vault.tutor / "events").glob("*.jsonl"))
+    event_bytes = event_file.read_bytes()
     monkeypatch.setattr(tutor, "_save", _stop)  # the answer is appended to the log; nothing after it is saved
     with pytest.raises(RuntimeError):
         _answer_all(tutor, {"items": [first]})
+    interrupted_lesson = lesson_path.read_bytes()
+    interrupted_events = event_file.read_bytes()
+    assert interrupted_events != event_bytes
+    assert f"Q{first['n']} — Correct" not in interrupted_lesson.decode()
     t = _restart(tutor)
     assert t.state == t._fold() and t.state["kcs"][kc]["n"] == 1  # the saved state is brought up to the log
     assert list(t.session["presented"]) == [str(second["n"])]  # the answered question is closed, not asked again
     assert (t.session["answered"], t.session["correct"]) == (1, 1)
+    recovered_lesson = lesson_path.read_bytes()
+    assert f"Q{first['n']} — Correct" in recovered_lesson.decode()
+    assert recovered_lesson.decode().count(f"Q{first['n']} — Correct") == 1
+    assert recovered_lesson.decode().count("**Your answer:**") == 1
+    assert event_file.read_bytes() == interrupted_events  # recovery leaves historical event bytes intact
+    _restart(t)
+    assert lesson_path.read_bytes() == recovered_lesson  # repeated recovery does not duplicate the callout
     assert "not open" in t.answer(f"{first['n']}?")["results"][0]["error"]
     assert [q["n"] for q in t.next()["items"]] == [second["n"]]
     _answer_all(t, {"items": [second]})
     assert [e["n"] for e in t.vault.events() if e["type"] == "answer"] == [first["n"], second["n"]]
     assert t.state == t._fold() == _restart(t).state
+
+
+@pytest.mark.parametrize("title_fragment", ["Correct ✓", "Cor", ""])
+def test_recovery_repairs_a_partial_answer_card_without_losing_neighbor_text(tutor, monkeypatch, title_fragment):
+    tutor.start("test", minutes=40, focus=["9702-2.1"])
+    first = tutor.next()["items"][0]
+    lesson_path = tutor.vault.root / tutor.session["log"]
+    before_answer = lesson_path.read_bytes()
+    event_file = next((tutor.vault.tutor / "events").glob("*.jsonl"))
+    monkeypatch.setattr(tutor, "_save", _stop)
+    with pytest.raises(RuntimeError):
+        _answer_all(tutor, {"items": [first]})
+    lesson_path.write_bytes(before_answer)
+    partial = f"\n\n> [!success] Q{first['n']} — {title_fragment}\n\nLearner note: keep this text.\n"
+    with lesson_path.open("ab") as f:
+        f.write(partial.encode())
+    assert f"> [!success] Q{first['n']} — {title_fragment}" in lesson_path.read_text()
+    interrupted_events = event_file.read_bytes()
+
+    restored = _restart(tutor)
+    transcript = lesson_path.read_text()
+    assert f"Q{first['n']} — Correct ✓" in transcript
+    assert "**Your answer:**" in transcript
+    assert "Learner note: keep this text." in transcript
+    assert transcript.count(f"Q{first['n']} — Correct ✓") == 1
+    assert f"> [!success] Q{first['n']} — Cor\n" not in transcript
+    assert event_file.read_bytes() == interrupted_events
+    repaired = lesson_path.read_bytes()
+    _restart(restored)
+    assert lesson_path.read_bytes() == repaired
 
 
 def test_a_retest_score_that_reached_the_log_but_no_save_is_logged_once(tutor, monkeypatch):
@@ -1062,3 +1168,233 @@ def test_outside_a_session_the_chat_is_the_now_page(tutor):
     tutor.show("notice", " ", "x")  # nothing to show: the page does not change
     tutor.start("autopilot", minutes=30)
     assert "What is a mole?" not in (tutor.vault.root / "Now.md").read_text()  # a session's page is its own
+
+
+def test_guided_form_check_hides_rubric_until_answered_and_revisits_mistake(tutor):
+    tutor.start("review", minutes=10)
+    card = {"source": "pack", "forms": [{"name": "Example", "check": "Explain the result.",
+            "rubric": [{"point": "SECRET marking point", "keywords": [["secret"]]}]}]}
+    block = {"kind": "node", "kc": "9702-2.1.1", "card": card,
+             "i": 0, "misses": 0, "mistakes": [], "phases": ["form_check:0"]}
+    tutor.session["blocks"].insert(0, block)
+    activity = tutor._step_node(block, 0)
+    assert activity["items"][0]["stem"] == "Explain the result."
+    assert "SECRET" not in str(activity)
+    n = activity["items"][0]["n"]
+    assert tutor.answer(f"{n} = I am unsure", judge={n: 0})["results"][0].get("event")
+    assert block["misses"] == 1
+    assert "fix" in block["phases"]
+
+
+def test_guided_diagram_is_embedded_in_obsidian_thread(tutor):
+    act = {"activity": "explain", "title": "Diagram", "text": "The two cases cover every integer.",
+           "diagram": "Assets/P2/P2-1-parity-cases.svg"}
+    blocks = tutor._thread_blocks([{"kind": "step", "act": act}])
+    assert "![[Assets/P2/P2-1-parity-cases.svg]]" in blocks[0]
+    assert "The two cases cover every integer." in blocks[0]
+
+
+def test_due_terms_are_added_to_review_and_marked_independently(tutor, monkeypatch):
+    from tutorlib import lesson, model
+    kc = "9702-2.1.1"
+    term = {"term": "Velocity", "meaning": "Speed in a stated direction", "notation": "v", "spoken": "velocity"}
+    monkeypatch.setattr(lesson, "teach_card", lambda tutor, kc: {"terms": [term]})
+    monkeypatch.setattr(tutor.packs, "pack_for_kc", lambda kc: {"teach": {kc: {"terms": [term]}}})
+    tid = lesson.term_id(kc, term["term"])
+    tutor.log({"type": "term_introduced", "term_id": tid, "kc": kc})
+    plan = tutor.start("review", minutes=10)
+    assert any(b["kind"] == "term_review" and tid in b["terms"] for b in plan["blocks"])
+    act = tutor.next()
+    assert act["activity"] == "questions" and "Velocity" in act["items"][0]["stem"]
+    assert "Speed in a stated direction" not in str(act)
+    n = act["items"][0]["n"]
+    tutor.answer(f"{n} = speed in a stated direction", judge={n: 1})
+    assert tutor.state["terms"][tid]["reviews"] == 1
+    assert tid not in model.due_terms(tutor.state, tutor.now())
+
+
+def test_term_recall_never_auto_accepts_keywords_or_rejects_paraphrases(tutor, monkeypatch):
+    from tutorlib import lesson
+    kc = '9702-2.1.1'
+    term = {'term': 'Velocity', 'meaning': 'Speed in a stated direction', 'notation': 'v', 'spoken': 'velocity'}
+    monkeypatch.setattr(lesson, 'teach_card', lambda tutor, kc: {'terms': [term]})
+    monkeypatch.setattr(tutor.packs, 'pack_for_kc', lambda kc: {'teach': {kc: {'terms': [term]}}})
+    tutor.log({'type': 'term_introduced', 'term_id': lesson.term_id(kc, term['term']), 'kc': kc})
+    tutor.start('review', minutes=10)
+    n = tutor.next()['items'][0]['n']
+    for answer in ('not speed in a stated direction', 'rate of change of displacement'):
+        result = tutor.answer(f'{n} = {answer}')['results'][0]
+        assert result['pending_judgement']
+        assert str(n) in tutor.session['presented']
+
+
+def test_term_review_does_not_close_the_parent_idea_gap(tutor, monkeypatch):
+    from tutorlib import lesson
+    kc = "9702-2.1.1"
+    term = {"term": "Velocity", "meaning": "Speed in a stated direction", "notation": "v", "spoken": "velocity"}
+    monkeypatch.setattr(lesson, "teach_card", lambda tutor, kc: {"terms": [term]})
+    monkeypatch.setattr(tutor.packs, "pack_for_kc", lambda kc: {"teach": {kc: {"terms": [term]}}})
+    tutor.log({"type": "gaps", "add": [kc]})
+    tutor.log({"type": "term_introduced", "term_id": lesson.term_id(kc, term["term"]), "kc": kc})
+    tutor.start("review", minutes=10)
+    n = tutor.next()["items"][0]["n"]
+    tutor.answer(f"{n} = speed in a stated direction", judge={n: 1})
+    assert kc in tutor.state["gaps"]
+
+
+def test_conversation_misconception_without_review_card_enters_repair_plan(tutor):
+    kc = '9702-2.1.1'
+    tutor.log({'type': 'misconception_noted', 'kc': kc, 'misconception': 'm1'})
+    assert tutor.state['kcs'][kc]['fsrs'] is None
+    assert tutor.state['kcs'][kc]['n'] == 0
+    plan = tutor.start('repair', minutes=30)
+    assert any(block.get('kind') == 'learn' and block.get('kc') == kc for block in plan['blocks'])
+
+
+def test_old_cached_state_replays_conversation_misconception(tutor):
+    import copy
+    import json
+    from tutorlib import session
+    kc = '9702-2.1.1'
+    tutor.log({'type': 'misconception_noted', 'kc': kc, 'misconception': 'm1'})
+    stale = copy.deepcopy(tutor.state)
+    stale['model_version'] = '1.1.7'
+    stale['kcs'][kc]['active_misconceptions'] = []
+    stale['gaps'] = []
+    tutor.state_path.write_text(json.dumps(stale))
+    restored = session.Tutor(tutor.vault, now=tutor.now)
+    assert 'm1' in restored.state['kcs'][kc]['active_misconceptions']
+    assert kc in restored.state['gaps']
+
+
+def test_guided_plain_words_replace_automatic_long_explanation(tutor, monkeypatch):
+    from tutorlib import lesson
+    kc = "9702-2.1.1"
+    card = {"source": "pack", "motivate": "Why", "plain_words": "Short version", "establish": "Long version",
+            "connect": "Connection", "note": "- one\n- two", "self_explain": "Explain"}
+    monkeypatch.setattr(lesson, "teach_card", lambda tutor, kc: card)
+    tutor.start("lesson", minutes=20, focus=[kc])
+    block = {"kind": "node", "kc": kc}
+    tutor._step_node(block, 0)
+    assert "plain_words" in block["phases"]
+    assert "establish" not in block["phases"]
+
+
+def test_regraded_term_rebuilds_the_term_schedule(tutor, monkeypatch):
+    import copy
+    from tutorlib import lesson, model
+    kc = "9702-2.1.1"
+    term = {"term": "Velocity", "meaning": "Speed in a stated direction", "notation": "v", "spoken": "velocity"}
+    monkeypatch.setattr(lesson, "teach_card", lambda tutor, kc: {"terms": [term]})
+    monkeypatch.setattr(tutor.packs, "pack_for_kc", lambda kc: {"teach": {kc: {"terms": [term]}}})
+    tid = lesson.term_id(kc, term["term"])
+    tutor.log({"type": "term_introduced", "term_id": tid, "kc": kc})
+    parent_before = copy.deepcopy(tutor.state['kcs'].get(kc))
+    tutor.start("review", minutes=10)
+    n = tutor.next()["items"][0]["n"]
+    result = tutor.answer(f"{n} = speed in a stated direction", judge={n: 0})["results"][0]
+    assert tutor.regrade(result["event"], "Correct equivalent definition")['ok']
+    assert tutor.state['terms'][tid]['reviews'] == 1
+    assert tutor.state['kcs'].get(kc) == parent_before
+    snapshot = tutor.state['terms'][tid]['fsrs']
+    tutor.rebuild()
+    assert tutor.state['terms'][tid]['fsrs'] == snapshot
+    assert tutor.state['kcs'].get(kc) == parent_before
+    # An older cached fold must be discarded and reconstructed from the same events on restart.
+    import json
+    stale = copy.deepcopy(tutor.state)
+    stale['model_version'] = '1.1.5'
+    stale['kcs'][kc] = {**model._new_kc(), 'n': 999}
+    tutor.state_path.write_text(json.dumps(stale))
+    restored = session.Tutor(tutor.vault, now=tutor.now)
+    assert restored.state['kcs'].get(kc) == parent_before
+    assert restored.state['terms'][tid]['fsrs'] == snapshot
+
+
+def test_cached_term_review_runs_and_reschedules_in_real_session(tutor, monkeypatch):
+    import json
+    from tutorlib import lesson, model
+    kc = '9702-2.1.1'
+    term = {'term': 'Velocity', 'meaning': 'Speed in a stated direction', 'notation': 'v', 'spoken': 'velocity'}
+    cache = tutor.vault.tutor / 'cache' / 'teach'
+    cache.mkdir(parents=True, exist_ok=True)
+    (cache / f'{kc}.json').write_text(json.dumps({'motivate': 'Why', 'establish': 'Idea', 'note': 'Note',
+                                                  'terms': [term]}))
+    monkeypatch.setattr(tutor.packs, 'pack_for_kc', lambda kc: {})
+    tid = lesson.term_id(kc, term['term'])
+    tutor.log({'type': 'term_introduced', 'term_id': tid, 'kc': kc})
+    tutor.start('review', minutes=10)
+    act = tutor.next()
+    assert act['activity'] == 'questions' and 'Velocity' in act['items'][0]['stem']
+    assert term['meaning'] not in str(act)
+    n = act['items'][0]['n']
+    tutor.answer(f'{n} = speed in a stated direction', judge={n: 1})
+    assert tutor.state['terms'][tid]['reviews'] == 1
+    assert tid not in model.due_terms(tutor.state, tutor.now())
+
+
+def test_term_review_shows_notation_without_exposing_definition(tutor, monkeypatch):
+    from tutorlib import lesson
+    kc = '9702-2.1.1'
+    term = {'term': 'Divisible by', 'meaning': 'For nonzero a, b divided by a is an integer',
+            'notation': '$a \\mid b$', 'spoken': 'a divides b'}
+    monkeypatch.setattr(lesson, 'teach_card', lambda tutor, kc: {'terms': [term]})
+    monkeypatch.setattr(tutor.packs, 'pack_for_kc', lambda kc: {'teach': {kc: {'terms': [term]}}})
+    tutor.log({'type': 'term_introduced', 'term_id': lesson.term_id(kc, term['term']), 'kc': kc})
+    tutor.start('review', minutes=10)
+    view = tutor.next()['items'][0]
+    assert term['notation'] in view['stem']
+    assert term['meaning'] not in str(view)
+    from tutor_app.texmath import to_terminal
+    assert 'a∣b' in to_terminal(view['stem'])
+    now = (tutor.vault.root / 'Now.md').read_text()
+    assert term['notation'] in now
+    assert term['meaning'] not in now
+
+
+@pytest.mark.parametrize('goal', ['scratch', 'quick'])
+def test_form_diagram_is_available_in_normal_and_quick_lessons(tutor, monkeypatch, goal):
+    from tutorlib import lesson
+    kc = '9702-2.1.1'
+    diagram = 'Assets/P2/example.svg'
+    card = {'source': 'pack', 'motivate': 'Why', 'establish': 'Idea', 'connect': 'Link',
+            'note': 'Note', 'self_explain': 'Explain', 'diagrams': [diagram],
+            'diagram_descriptions': ['Example diagram.'],
+            'forms': [{'name': 'Example', 'wordings': ['Prove'], 'example': 'Example proof.',
+                       'diagram': diagram, 'check': 'Check.', 'rubric': [{'point': 'Correct'}]}]}
+    monkeypatch.setattr(lesson, 'teach_card', lambda tutor, kc: card)
+    tutor.start('lesson', minutes=20, focus=[kc])
+    tutor.session['goal'] = goal
+    block = {'kind': 'node', 'kc': kc}
+    tutor._step_node(block, 0)
+    phases = block['phases']
+    if goal == 'quick':
+        assert 'diagram:0' in phases and 'form_example:0' not in phases
+    else:
+        assert 'diagram:0' not in phases and 'form_example:0' in phases
+        block['i'] = phases.index('form_example:0')
+        assert tutor._step_node(block, 0)['diagram'] == diagram
+
+
+def test_unassisted_topical_replacement_never_reuses_disclosed_items(tutor, monkeypatch):
+    tutor.start('lesson', minutes=10, focus=['9702-2.1'])
+    tutor.session['disclosed_item_ids'] = ['answered-in-example']
+    item = {'id': 'ineligible-topical', 'kcs': ['9702-2.1.1'], 'kind': 'mcq',
+            'topical': {'reviewed': True}}
+    monkeypatch.setattr(session.topicals, 'eligibility', lambda *args: {'status': 'unverified'})
+    calls = []
+    def select(kc, state, target, rng, now, **kwargs):
+        calls.append(kwargs['exclude'])
+        return None
+    monkeypatch.setattr(tutor.packs, 'select_item', select)
+    assert tutor._questions({'kind': 'exit', 'kc': '9702-2.1.1'}, 0, [item], unassisted=True) is None
+    assert len(calls) == 2
+    assert all('answered-in-example' in excluded for excluded in calls)
+
+
+def test_direct_question_selection_does_not_serve_disclosed_item(tutor):
+    tutor.start('lesson', minutes=10, focus=['9702-2.1'])
+    tutor.session['disclosed_item_ids'] = ['9702-2.1-i01']
+    item = next(i for i in tutor.packs.items_for('9702-2.1.1') if i['id'] == '9702-2.1-i01')
+    assert tutor._questions({'kind': 'learn', 'kc': '9702-2.1.1'}, 0, [item], phase='probe') is None
+    assert not tutor.session['presented']

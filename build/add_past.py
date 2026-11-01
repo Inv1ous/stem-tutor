@@ -4,8 +4,9 @@ Drafted packs contain ~12 fully explained past MCQs; the rest of the bank still 
 retrieval practice. Extra items carry the official key and any examiner comment; the engine serves
 them only after the explained items.
 
-The extras are rebuilt from the bank on every run, so a correction to one (a stem with extraction debris, an
-explanation, a wrong key) goes in build/work/mcq/overrides.json as {"<qid>": {"<field>": value}}, never in the pack.
+Extras rebuild from the bank on every run. Registered, independently reviewed
+Library source repairs survive that rebuild. Other bank corrections use
+build/work/mcq/overrides.json; editing an extra only in a pack is not durable.
 
   python build/add_past.py <pack.json> [...]
 """
@@ -13,21 +14,30 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-IMAGES = ROOT / "build/out/Assets/mcq"
+sys.path.insert(0, str(ROOT / 'src'))
+from tutorlib.asset_library import AssetLibrary  # noqa: E402
+
+IMAGES = None  # explicit adapter for isolated legacy fixtures; production uses Library
 WORK = ROOT / "build/work/mcq"  # <spec>.tagged.json (the bank) and overrides.json (corrections to bank questions)
 
 
 def question_key(it: dict) -> str:
     """Same question, whatever paper it came from: the figure's bytes, else the stem and options as plain words.
     CAIE reuses questions across the timezone variants of a series (P11/P13) and sometimes across years."""
-    img = IMAGES / Path(it["image"]).name if it.get("image") else None
-    if img and img.exists():
-        return "img:" + hashlib.md5(img.read_bytes()).hexdigest()
+    if it.get('image'):
+        if IMAGES is not None:
+            img = Path(IMAGES) / Path(it['image']).name
+            if img.exists():
+                return 'img:' + hashlib.md5(img.read_bytes()).hexdigest()
+        else:
+            vault = Path(os.environ.get('STEM_TUTOR_VAULT') or ROOT.parent / 'STEM Tutor')
+            return 'img:' + hashlib.md5(AssetLibrary(vault).read(it['image'])).hexdigest()
     words = lambda v: re.sub(r"\W+", " ", json.dumps(v, sort_keys=True, ensure_ascii=False)).strip().lower()
     return "txt:" + words(it.get("stem")) + "|" + words(it.get("options"))
 
@@ -40,6 +50,14 @@ def add(pack_path: Path, keep_ids: dict | None = None, work: Path = WORK) -> int
     if not bank.exists():
         return 0
     fixes = json.loads((work / "overrides.json").read_text()) if (work / "overrides.json").exists() else {}
+    reviewed = {}
+    library = None
+    if IMAGES is None:  # explicit legacy fixtures never consult production resources
+        from tutor_workers.source_repairs import bank_overrides
+        vault = Path(os.environ.get('STEM_TUTOR_VAULT') or ROOT.parent / 'STEM Tutor')
+        if (vault / 'Library/catalog.json').is_file():
+            library = AssetLibrary(vault)
+            reviewed = bank_overrides(sub, library)
     old_ids = {**(keep_ids or {}),
                **{(it.get("source") or {}).get("qid"): it["id"] for it in pack["items"] if it.get("tier") == "extra"}}
     pack["items"] = [it for it in pack["items"] if it.get("tier") != "extra"]  # idempotent rebuild
@@ -69,6 +87,20 @@ def add(pack_path: Path, keep_ids: dict | None = None, work: Path = WORK) -> int
             "tier": "extra", "explanation": None, **({"examiner": m["er"][:600]} if m.get("er") else {}),
             **fixes.get(m["id"], {}),
         })
+        if correction := reviewed.get(m['id']):
+            item = pack['items'][-1]
+            if library.record(item['image'])['sha256'] != correction['image_sha256']:
+                raise ValueError('reviewed bank repair does not match the question image')
+            library.read(item['image'])
+            for field, value in correction['fields'].items():
+                targets = value.items() if field == 'options' else [(field, value)]
+                holder = item[field] if field == 'options' else item
+                if not isinstance(holder, dict):
+                    raise ValueError('reviewed bank value has no matching field')
+                for key, approved in targets:
+                    if holder.get(key) not in [*approved['old'], approved['new']]:
+                        raise ValueError(f'reviewed bank value mismatch for {m["id"]}: {field}.{key}')
+                    holder[key] = approved['new']
     pack_path.write_text(json.dumps(pack, ensure_ascii=False, indent=1))
     return n
 

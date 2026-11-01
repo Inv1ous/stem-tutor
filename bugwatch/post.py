@@ -4,8 +4,11 @@ numbering and the append one step, so no two entries get the same number or inte
 
   python3 bugwatch/post.py bug   < entry.md    "### B-??? · P2 · file · title" + the fields (codex/BUGS.md format)
   python3 bugwatch/post.py qol   < entry.md    "### Q-??? · file · title" + the fields (codex/QOL.md format)
-  python3 bugwatch/post.py line  "SWEEP · area · what ran · findings: 2"     a log line; the HH:MM is added
+  python3 bugwatch/post.py line  "SWEEP · area · what ran · findings: 2"     a log line; the HKT date and time are added
   python3 bugwatch/post.py line  "REPLY B-041 · coordinator reproduced it"
+  python3 bugwatch/post.py line  "DONE Q-005 · implemented"
+  python3 bugwatch/post.py line  "VERIFIED Q-005 · fresh behavior check passed"
+  python3 bugwatch/post.py line  "DECLINED Q-006 · duplicates existing behavior"
 
 Prints the number it gave (B-041 / Q-007). Nothing is written if the entry is malformed.
 """
@@ -14,8 +17,9 @@ from __future__ import annotations
 import fcntl
 import re
 import sys
-import time
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 HERE = Path(__file__).resolve().parent
 BUGS, QOL, LOCK = HERE / "codex" / "BUGS.md", HERE / "codex" / "QOL.md", HERE / "codex" / ".post.lock"
@@ -23,7 +27,8 @@ BUG_HEAD = re.compile(r"^### B-(?:\?\?\?|\d+) · (P[0-3]) · ([^·]+?) · (.+)$"
 QOL_HEAD = re.compile(r"^### Q-(?:\?\?\?|\d+) · ([^·]+?) · (.+)$")
 BUG_FIELDS = ("Found", "Where", "Repro", "Expected", "Actual", "Impact")
 QOL_FIELDS = ("Seen", "Friction", "Idea", "Size")
-VERBS = ("SWEEP", "REPLY", "VERIFIED", "REOPEN")
+VERBS = ("SWEEP", "REPLY", "VERIFIED", "REJECTED", "REOPEN", "DONE", "DECLINED")
+QOL_VERDICT = re.compile(r"^(?:DONE|DECLINED) Q-\d{3,}(?: · .+)?$")
 
 
 def next_id(path: Path, letter: str) -> str:
@@ -55,10 +60,11 @@ def main(argv: list[str]) -> int:
         fcntl.flock(lock, fcntl.LOCK_EX)
         if kind == "line":
             body = " ".join(argv[1:]).strip()
-            if not body.startswith(VERBS):
+            if not body.startswith(VERBS) or (body.startswith(("DONE", "DECLINED")) and not QOL_VERDICT.fullmatch(body)):
                 print(f"a log line starts with one of {VERBS}", file=sys.stderr)
                 return 1
-            append(BUGS, f"- {time.strftime('%H:%M')} {body}\n")
+            stamp = datetime.now(ZoneInfo("Asia/Hong_Kong")).strftime("%Y-%m-%d %H:%M")
+            append(BUGS, f"- {stamp} {body}\n")
             print("posted")
             return 0
         if kind not in ("bug", "qol"):

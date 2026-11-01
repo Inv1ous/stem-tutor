@@ -23,7 +23,8 @@ def test_cloud_stream_schema_speech_and_usage_match_original_client(tmp_path, mo
         folder.mkdir()
         log = folder / "argv.jsonl"
         monkeypatch.setenv("FAKE_CLAUDE_LOG", str(log))
-        client = kind(tmp_path, model=model, binary=FAKE, speech=True, usage_file=folder / "usage.json")
+        # Compare the routed and direct client using the same new tutor output contract.
+        client = kind(tmp_path, model=model, binary=FAKE, speech=True, usage_file=folder / "usage.json", document=True)
         chunks = []
         replies = []
         for prompt in ("first", "second"):

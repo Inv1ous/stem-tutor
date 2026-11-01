@@ -1,5 +1,21 @@
 # Build status
 
+## v2.6.1 (2026-11-02) — release prepared
+
+Library/Work storage, validated AI replies, local MLX/reasoning choices, safer marking and recovery, preserved numeric
+drafts, shortcut keyboard scrolling and owned worker-group cleanup. The app, plugin, README, changelog and current
+learner guide name this release. Git commit, annotated tag and push remain manual; see `docs/PUSH_V2_6_1.md`.
+Release preparation passed 24 version/Library-publication checks and the explicit staging list's Git dry run.
+
+The bugwatch snapshot has 250 VERIFIED bugs, two REJECTED bugs and B-080 unconfirmed; all 41 QOL entries are terminal.
+Latest final targeted gates: 288 cleanup/provider cases and four numeric-warning cases passed. The last full suite's
+one cleanup failure was reproduced and fixed; no later complete-suite pass is claimed. One earlier intermittent
+cleanup-retention observation remains documented.
+
+All-course extraction stopped at 21% weekly allowance with zero workers: 20,379/33,072 pages maker-inspected,
+348 independently reviewed, 624 fully maker-covered PDFs. The remaining 12,693 pages and pending candidates are
+unfinished. Extraction resources have not been published or teaching-approved. Release details: `docs/releases/v2.6.1.md`.
+
 ## v2.6.0 (2026-10-25) — done
 
 Local Ollama tutoring on the LocalAI SSD; live model choices, optional system RAM indicator, terminal-only performance

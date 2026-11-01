@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from library_assets import aliases_with_prefix, read_json
 from tutorlib import grade, packs
 
 REPO = Path(__file__).resolve().parents[1]
@@ -14,7 +15,7 @@ import content_checks  # noqa: E402
 
 
 def published(spec, chapter, item_id, seed=0):
-    item = next(i for i in json.loads((REPO / f"build/out/packs/{spec}/{chapter}.json").read_text())["items"]
+    item = next(i for i in read_json(f"build/out/packs/{spec}/{chapter}.json")["items"]
                 if i["id"] == item_id)
     return packs.instantiate(item, random.Random(seed))
 
@@ -75,8 +76,10 @@ def test_no_published_question_asks_for_working_its_marking_cannot_see():
 
 def test_no_published_pack_has_marking_settings_that_contradict_its_question():
     bad = []
-    for f in (REPO / "build/out/packs").glob("*/*.json"):
-        pack = json.loads(f.read_text())
+    aliases = [alias for alias in aliases_with_prefix("build/out/packs/") if alias.endswith(".json")]
+    assert aliases, "Library catalog has no published course packs"
+    for alias in aliases:
+        pack = read_json(alias)
         if isinstance(pack, dict):
             bad += content_checks.precision_problems(pack)
     assert not bad, bad[:5]

@@ -185,7 +185,32 @@ def test_blurt_pulls_forgotten_ideas_forward_and_keeps_a_record(tutor):
     res = tutor.blurt("9702-2.1", "displacement and velocity are vectors")
     assert "9702-2.1.4" in res["missed"]
     assert datetime.fromisoformat(tutor.state["kcs"]["9702-2.1.4"]["fsrs"]["due"]) <= T0
+    assert "Ideas already scheduled for Review that you left out are due next time." in res["cards"][1][2]
     assert (tutor.vault.root / res["log"]).exists() and tutor.state["traits"]["blurts"][0] == 1
+
+
+def test_blurt_does_not_say_unscheduled_misses_are_due_for_review(tutor):
+    # A KC may already have been exposed in a lesson but still have no FSRS schedule.
+    exposed = "9702-2.1.1"
+    tutor.state["kcs"][exposed] = model._new_kc()
+    tutor.state["kcs"][exposed]["first_seen"] = T0.isoformat()
+    res = tutor.blurt("9702-2.1", "I recall a little of the topic.")
+    missed = res["missed"]
+    message = res["cards"][1][2]
+    assert missed and all(not tutor.state["kcs"].get(kc, {}).get("fsrs") for kc in missed)
+    assert not set(missed) & set(model.due_kcs(tutor.state, T0))
+    assert "aren't added to Review" in message and "work through them in a lesson" in message
+    assert "due for review" not in message
+
+
+def test_blurt_explains_scheduled_and_unscheduled_misses_separately(tutor):
+    studied = "9702-2.1.4"
+    model.apply(tutor.state, answer(kc=studied, ts=T0 - timedelta(days=1)))
+    res = tutor.blurt("9702-2.1", "I recall a little of the topic.")
+    message = res["cards"][1][2]
+    assert studied in res["missed"]
+    assert "Ideas already scheduled for Review that you left out are due next time." in message
+    assert "Ideas without a review schedule aren't added to Review" in message
 
 
 # ---------------- audit regressions ----------------
@@ -425,6 +450,28 @@ def test_a_pruned_content_version_does_not_break_a_running_session(tmp_path):
     import shutil
     root = make_vault(tmp_path)
     t = session.Tutor(store.Vault(root), rng=random.Random(0), now=lambda: T0)
+    cached = t.packs.pack("9702-2.1")
     old = _publish_new_version(root)
     shutil.rmtree(old)  # publishing again pruned the version this app loaded
-    assert t.packs.pack("9702-2.1")["subtopic"] == "9702-2.1"
+    assert t.packs.pack("9702-2.1") is cached
+
+
+def test_a_pruned_content_version_does_not_load_an_uncached_pack_from_current(tmp_path):
+    import copy, json, shutil
+    from fixtures import GRAPH, PACK
+    from tutorlib.packs import DamagedContent, Packs
+
+    root = make_vault(tmp_path)
+    graph = copy.deepcopy(GRAPH)
+    graph["subtopics"].append({"id": "9702-2.2", "title": "Forces", "topic": "9702-2"})
+    (root / ".tutor/packs/v1/specs/9702/graph.json").write_text(json.dumps(graph))
+    loaded = Packs(store.Vault(root))
+    cached = loaded.pack("9702-2.1")
+
+    old = _publish_new_version(root, {**copy.deepcopy(PACK), "subtopic": "9702-2.2"})
+    shutil.rmtree(old)
+
+    with pytest.raises(DamagedContent):
+        loaded.pack("9702-2.2")
+    assert loaded.root.name == "v1"
+    assert loaded.pack("9702-2.1") == cached

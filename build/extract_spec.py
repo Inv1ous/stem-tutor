@@ -13,6 +13,9 @@ from pathlib import Path
 
 import pymupdf
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import library
+
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "build" / "raw"
 # The text layer carries soft hyphens and maths-font glyphs (private use area), and loses typeset fractions:
@@ -147,12 +150,13 @@ def ial(pdf: Path) -> dict:
     return {"spec": "IAL-maths", "source": pdf.name, "units": list(units.values())}
 
 
-if __name__ == "__main__":
+def main() -> int:
     RAW.mkdir(parents=True, exist_ok=True)
-    specs = ROOT / "sources" / "specs"
-    jobs = {"9701": caie(specs / "9701-2025-2027.pdf", "9701"), "9702": caie(specs / "9702-2025-2027.pdf", "9702"),
-            "9701-2028": caie(specs / "9701-2028-2030.pdf", "9701"), "9702-2028": caie(specs / "9702-2028-2030.pdf", "9702"),
-            "ial-maths": ial(specs / "ial-maths-spec.pdf")}
+    jobs = {"9701": caie(library.resolve("sources/specs/9701-2025-2027.pdf"), "9701"),
+            "9702": caie(library.resolve("sources/specs/9702-2025-2027.pdf"), "9702"),
+            "9701-2028": caie(library.resolve("sources/specs/9701-2028-2030.pdf"), "9701"),
+            "9702-2028": caie(library.resolve("sources/specs/9702-2028-2030.pdf"), "9702"),
+            "ial-maths": ial(library.resolve("sources/specs/ial-maths-spec.pdf"))}
     for name, data in jobs.items():
         data = tidy(data)
         (RAW / f"{name}.json").write_text(json.dumps(data, ensure_ascii=False, indent=1))
@@ -162,4 +166,8 @@ if __name__ == "__main__":
         else:
             for u in data["units"]:
                 print(name, u["unit"], len(u["sections"]), "sections", sum(len(s["items"]) for s in u["sections"]), "items")
-    sys.exit(0)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

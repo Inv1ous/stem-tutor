@@ -1,0 +1,29 @@
+{
+  "kind": "CPU reconstruction after terminal; not retained actual wire request",
+  "actual_runtime_mark_request_retained": false,
+  "mark_generation_requests": 0,
+  "changes": [
+    {
+      "path": "$.messages[1].content",
+      "frozen_type": "str",
+      "cpu_runtime_type": "str",
+      "frozen_length": 1655,
+      "cpu_runtime_length": 1655,
+      "first_difference": 1243,
+      "frozen_excerpt": "type\": \"object\", \"properties\": {\"points\": {\"type\": \"array\", \"items\": {\"type",
+      "cpu_runtime_excerpt": "properties\": {\"feedback\": {\"type\": \"string\"}, \"points\": {\"items\": {\"propert",
+      "frozen_sha256": "efb23e0f5c23481710cb145bf4a9bd0929731c43c66acd71d60448af256884d0",
+      "cpu_runtime_sha256": "cb87e23257e649cdef63e4b0d054fec0269107256c784ab7f4dd795832cdbd19"
+    }
+  ],
+  "cause": "sort_keys=True freezes schema dictionaries in alphabetical key order; production json_instruction serializes that loaded schema in insertion order, changing the embedded user prompt schema string",
+  "frozen_schema_property_order": [
+    "feedback",
+    "points"
+  ],
+  "source_native_schema_property_order": [
+    "points",
+    "feedback"
+  ],
+  "model_or_socket_calls": false
+}

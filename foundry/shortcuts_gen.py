@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Write the lessons of the Shortcuts course with Codex, in batches, best-ranked entries first.
 
-  shortcuts_gen.py run [--spec S] [--min-score N] [--batch 8] [--max-batches K] [--model gpt-6-sol] [--effort low]
+  shortcuts_gen.py run [--spec S] [--min-score N] [--batch 8] [--max-batches K] [--model gpt-6.1-terra] [--effort low]
                        [--stop-codex-week 70] [--web] [--dry-run]
   shortcuts_gen.py status [--spec S]        per spec: entries and lessons, by score band
   shortcuts_gen.py verify [--spec S] --sample N   solve a sample of practice items blind with Claude haiku; a lesson whose
@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import fcntl
 import json
+import math
 import os
 import random
 import re
@@ -254,16 +255,24 @@ def prompt_for(entries: list[dict], problems: dict | None = None) -> str:
 
 
 def codex_week(binary: str) -> float | None:
-    """Percent of the Codex week used; None when it cannot be read. FOUNDRY_USAGE_FILE stands in for the real readings."""
+    """Actual weekly usage, or None when unknown or explicitly closed by Codex."""
     if os.environ.get("FOUNDRY_USAGE_FILE"):
         try:
-            windows = json.loads(Path(os.environ["FOUNDRY_USAGE_FILE"]).read_text()).get("codex")
+            live = json.loads(Path(os.environ["FOUNDRY_USAGE_FILE"]).read_text())
+            windows = live.get("codex") if isinstance(live, dict) else None
         except (OSError, ValueError):
             return None
     else:
         windows = router.codex_usage(binary)
-    week = (windows or {}).get("seven_day") or {}
-    return float(week["used"]) if week.get("used") is not None else None
+    if isinstance(windows, dict) and 'limit' in windows:
+        marker = windows['limit']
+        if not router._valid_usage_window(marker):
+            return None
+        reset = router.usage_reset(marker.get('resets'))
+        if router.usage_percent(marker['used']) >= 100 and (reset is None or reset > time.time()):
+            return None
+    week = windows.get("seven_day") if isinstance(windows, dict) else None
+    return router.usage_percent(week.get("used")) if isinstance(week, dict) else None
 
 
 def worker_cmd(model: str, effort: str, out: Path, prompt: str, web: bool) -> list[str]:
@@ -309,6 +318,21 @@ def pending(spec: str, min_score: int) -> list[dict]:
     return [e for e in shortcuts.select(entries_of(spec), {"min_score": min_score, "specs": [spec]}) if e["id"] not in have]
 
 
+def _codex_admission_stop(cap: float) -> int | None:
+    """Check immediately before a paid attempt; None permits it, an exit code stops."""
+    if not math.isfinite(cap):
+        print("stopping: --stop-codex-week must be finite")
+        return 1
+    used = codex_week(CODEX)
+    if used is None:
+        print("stopping: the Codex weekly usage is unknown; supply an actual reading")
+        return 0
+    if used >= cap:
+        print(f"stopping: the Codex week is {used:.0f}% used (limit {cap:g}%)")
+        return 0
+    return None
+
+
 def cmd_run(a) -> int:
     ladder = list(EFFORTS[EFFORTS.index(a.effort):]) if a.effort in EFFORTS else [a.effort]
     done = batches = 0
@@ -321,12 +345,16 @@ def cmd_run(a) -> int:
                 print(f"  would run {a.model}/{a.effort} on {len(batch)}: " + ", ".join(e["id"] for e in batch))
                 batches += 1
                 continue
-            used = codex_week(CODEX)
-            if used is not None and used >= a.stop_codex_week:
-                print(f"stopping: the Codex week is {used:.0f}% used (limit {a.stop_codex_week:g}%)")
-                return 0
+            stop = _codex_admission_stop(a.stop_codex_week)
+            if stop is not None:
+                return stop
             ok, bad, limit, log = run_worker(spec, batch, a.model, ladder[0], a.web, f"b{batches + 1}")
             if bad and not limit and len(ladder) > 1:
+                stop = _codex_admission_stop(a.stop_codex_week)
+                if stop is not None:
+                    if ok:
+                        merge(spec, ok)
+                    return stop
                 again = [e for e in batch if e["id"] in bad]
                 ok2, bad, limit, log = run_worker(spec, again, a.model, ladder[1], a.web, f"b{batches + 1}r", bad)
                 ok.update(ok2)
@@ -374,7 +402,7 @@ def blind_prompt(item: dict) -> str:
 
 
 def ask_claude(prompt: str, timeout: float = 300) -> str | None:
-    cmd = [CLAUDE, "-p", prompt, "--model", "haiku", *router.LEAN, "--tools", ""]
+    cmd = [CLAUDE, "-p", prompt, "--model", "claude-haiku-5-5", *router.LEAN, "--tools", ""]
     try:
         res = subprocess.run(cmd, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=timeout, cwd=ROOT,
                              env={**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"})
@@ -427,7 +455,7 @@ def main(argv: list[str]) -> int:
     r.add_argument("--min-score", type=int, default=8)
     r.add_argument("--batch", type=int, default=8)
     r.add_argument("--max-batches", type=int)
-    r.add_argument("--model", default="gpt-6-sol")
+    r.add_argument("--model", default="gpt-6.1-terra")
     r.add_argument("--effort", default="low")
     r.add_argument("--stop-codex-week", type=float, default=70)
     r.add_argument("--web", action="store_true")

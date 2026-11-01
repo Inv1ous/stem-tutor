@@ -2,6 +2,52 @@
 
 ## Unreleased
 
+## 2.6.1 — 2026-11-02
+
+- **Reliable answers and recovery:** preserve pending answers, corrections, earned marks, notes and session endings
+  through interrupted saves. Answer-tag revisions and scoped causal replay handle month-boundary clock rollback;
+  historical event bytes remain unchanged. Manual paper scores reject nonfinite input before recording any result.
+- **Safer destinations:** lesson logs, reports, Anki exports and generated views respect Library resources,
+  aliases, Archive and learner-state boundaries. A read-only optional view produces an actionable warning without
+  discarding durable progress; ordinary persistence failures remain visible.
+- **Clearer editing and navigation:** numeric-format refusals retain the draft, selection, caret and focus;
+  identical warnings coalesce within their original six-second window. Lesson detail and resize preserve editing
+  state, shortcut lessons support keyboard scrolling, and completed questions hide inactive solvability controls.
+- **Owned worker cleanup:** Codex and native OCR finish resistant descendants after a wrapper exits, serialize
+  concurrent cleanup and retain failed cleanup for retry. Late close surfaces signal denial; missing-PID/group
+  checks and one-shot ownership guard against signalling uncertain or reused identities.
+- **Project workflow configuration:** include the current role/model ladders, 90% weekly launch caps and the
+  refiner's disabled automatic publication/commits. Foundry and Refine configuration currently reserve 10% for Codex
+  and 5% for Claude; the extraction watch used its separately authorized 20% job floor. No workers are started by release preparation.
+- **Bounded all-course extraction:** account for all 14 course shelves, 762 PDF inputs and one DOCX. The reserve-stop
+  snapshot records 20,379/33,072 maker-inspected pages and 348 independently reviewed pages; 12,693 pages remain.
+  Exact-context duplicate references preserve source occurrences and existing Library IDs. Unknown identities,
+  conflicting keys and incomplete figures remain pending, with no extraction publication or teaching approval.
+- **Verification:** the last full integration recorded 7,448 passes and one subsequently reproduced/fixed cleanup
+  failure; final targeted cleanup/provider checks passed 288 cases and numeric-warning checks passed four cases.
+  A previous full run passed 7,418 cases. These are separate runs, not a claim of a fresh full-suite pass after every
+  final change. B-080 remains historically unconfirmed; an earlier intermittent cleanup-retention observation is
+  retained in the evidence. See `docs/releases/v2.6.1.md` for the release scope and limitations.
+
+- **Central learning Library and storage overhaul:** route reusable course and test resources through the vault's
+  catalogued Library, preserving hashes, provenance and historical aliases. Repair historical lesson image links;
+  retain learner-event and state bytes. Move preparation/build candidates and worker records into workspace Work,
+  preserve originals and rollback journals in Archive, and reuse existing speech recordings from a device cache.
+  Canonical engine source now lives in `src/tutorlib`; shared worker lifecycle/location rules live in
+  `src/tutor_workers`. Session marking owns persistence and cancellation, and modal dialogs have a dedicated module.
+  Library availability and structural tests do not confer course-content acceptance or publish a new course release.
+- **Measured STEM fine-tuning pilot:** add isolated SSD training, provenance-checked public/synthetic data,
+  final-answer loss masking, gradient checkpointing, guarded hybrid fusion and reproducible evaluation tools.
+  The trained 4B MLX artifact and genuine Fast/Deep tests are retained, but failed content and Deep-delivery gates
+  keep it out of model selectors and presets. No existing model or saved provider choice is replaced.
+- **App-controlled tutor documents:** Claude, ChatGPT and local chat use the same validated content blocks for
+  paragraphs, headings, bullets, numbered steps, equations and literal code. The app supplies layout and preserves
+  speech separately. Complete blocks stream as they arrive; invalid or incomplete replies remain explicit failures.
+  Task-scaled instructions replace the universal short-answer limit. Relevant published study references have
+  bounded scope and provenance, and are excluded while a practice answer is protected. Local history keeps whole
+  turns within a planning budget; Qwen 27B receives a smaller optional-history allowance after a measured Metal OOM.
+  Missing arguments on known mathematical commands use the same labelled literal fallback in both displays,
+  preventing a reproduced Obsidian MathJax error while preserving valid mathematical source and exact code.
 - **Native MLX and reasoning strengths:** verify MLX for Gemma 26B, E4B, Qwen 27B and GPT-OSS. Add an isolated SSD
   GPT worker, finite Harmony headers, single-use preload ownership and native local strength selectors. Preserve
   original models and cloud presets/settings. Gemma's lossless compatibility adapter preserves tensor values and mixed

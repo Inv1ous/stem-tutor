@@ -1,0 +1,13 @@
+# Foundry, Refine, PDF extraction, and local validation dependencies.
+# Install with .venv/bin/python -m pip install -r requirements-workflows.txt
+# macOS SVG previews also need Homebrew cairo and its library search path:
+# export DYLD_FALLBACK_LIBRARY_PATH="/opt/homebrew/lib${DYLD_FALLBACK_LIBRARY_PATH:+:$DYLD_FALLBACK_LIBRARY_PATH}"
+-r app/requirements.txt
+matplotlib
+numpy
+PyMuPDF
+schemdraw
+CairoSVG
+pypdf
+reportlab
+pytest

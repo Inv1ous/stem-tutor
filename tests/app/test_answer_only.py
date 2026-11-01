@@ -46,3 +46,60 @@ def test_the_choice_is_remembered_and_applies_to_the_next_session(tmp_path, monk
     asyncio.run(go())
     from tutor_app.config import Settings
     assert Settings.load(v).answer_only is True
+
+
+def test_saving_settings_does_not_reverse_answer_only_shortcut_pressed_in_modal(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "test", "minutes": 40, "focus": ["9702-2.1"]})
+            app.push_screen(scr)
+            await pilot.pause()
+            await pilot.pause()
+            app.action_settings()
+            await pilot.pause()
+            modal = app.screen
+            assert not app.settings.answer_only
+            await pilot.press("ctrl+k")
+            await pilot.pause()
+            assert app.settings.answer_only and scr.has_class("answer-only")
+            modal.query_one("#save").press()
+            await pilot.pause()
+            assert app.settings.answer_only and scr.has_class("answer-only")
+            await app.ai.close()
+
+    asyncio.run(go())
+    from tutor_app.config import Settings
+    assert Settings.load(v).answer_only is True
+
+
+def test_modal_answer_only_change_back_to_opening_value_wins_after_shortcut(tmp_path, monkeypatch):
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "test", "minutes": 40, "focus": ["9702-2.1"]})
+            app.push_screen(scr)
+            await pilot.pause()
+            await pilot.pause()
+            app.action_settings()
+            await pilot.pause()
+            modal = app.screen
+            assert not app.settings.answer_only
+            await pilot.press("ctrl+k")
+            await pilot.pause()
+            assert app.settings.answer_only
+            answer_only = modal.query_one("#answer_only")
+            answer_only.focus()
+            await pilot.press("space", "space")
+            await pilot.pause()
+            assert not answer_only.value  # on, then back to the value at modal open
+            modal.query_one("#save").press()
+            await pilot.pause()
+            assert not app.settings.answer_only and not scr.has_class("answer-only")
+            await app.ai.close()
+
+    asyncio.run(go())

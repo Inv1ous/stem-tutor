@@ -1,208 +1,397 @@
 {
- "max_parallel": {
-  "codex": 3,
-  "claude": 4
- },
- "reserve": {
-  "codex": 30,
-  "claude": 5
- },
- "web": [
-  "scout",
-  "refiner"
- ],
- "caps": {
-  "diagrams": 3,
-  "figures": 3,
-  "questions": 8,
-  "additions": 5
- },
- "ladders": {
-  "scout": {
-   "codex": [
-    [
-     "gpt-6-sol",
-     "low"
-    ],
-    [
-     "gpt-6-sol",
-     "medium"
-    ]
-   ],
-   "claude": [
-    [
-     "sonnet",
-     "low"
-    ],
-    [
-     "sonnet",
-     "medium"
-    ]
-   ]
+  "max_parallel": {
+    "claude": 4,
+    "codex": 3
   },
-  "refiner": {
-   "codex": [
-    [
-     "gpt-6-sol",
-     "medium"
-    ],
-    [
-     "gpt-6-astra",
-     "medium"
-    ]
-   ],
-   "claude": [
-    [
-     "opus",
-     "low"
-    ],
-    [
-     "opus",
-     "medium"
-    ]
-   ]
+  "reserve": {
+    "claude": 5,
+    "codex": 10
   },
-  "solver": {
-   "codex": [
-    [
-     "gpt-6-sol",
-     "low"
-    ],
-    [
-     "gpt-6-sol",
-     "medium"
-    ]
-   ],
-   "claude": [
-    [
-     "haiku",
-     ""
-    ],
-    [
-     "sonnet",
-     "low"
-    ]
-   ]
+  "web": [
+    "scout",
+    "refiner"
+  ],
+  "caps": {
+    "diagrams": 3,
+    "figures": 3,
+    "questions": 8,
+    "additions": 5
   },
-  "checker": {
-   "codex": [
-    [
-     "gpt-6-sol",
-     "low"
-    ],
-    [
-     "gpt-6-sol",
-     "medium"
-    ]
-   ],
-   "claude": [
-    [
-     "haiku",
-     ""
-    ],
-    [
-     "sonnet",
-     "low"
-    ]
-   ]
+  "ladders": {
+    "scout": {
+      "claude": [
+        [
+          "sonnet",
+          "low"
+        ],
+        [
+          "sonnet",
+          "medium"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ]
+    },
+    "refiner": {
+      "claude": [
+        [
+          "opus",
+          "low"
+        ],
+        [
+          "opus",
+          "medium"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ],
+        [
+          "gpt-6.1-sol",
+          "medium"
+        ]
+      ]
+    },
+    "solver": {
+      "claude": [
+        [
+          "claude-haiku-5-5",
+          ""
+        ],
+        [
+          "sonnet",
+          "low"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ]
+    },
+    "checker": {
+      "claude": [
+        [
+          "claude-haiku-5-5",
+          ""
+        ],
+        [
+          "sonnet",
+          "low"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ]
+    },
+    "fixer": {
+      "claude": [
+        [
+          "claude-haiku-5-5",
+          ""
+        ],
+        [
+          "sonnet",
+          "low"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6-luna",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "low"
+        ]
+      ]
+    },
+    "tiebreak": {
+      "claude": [
+        [
+          "sonnet",
+          "low"
+        ],
+        [
+          "sonnet",
+          "medium"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ]
+    },
+    "adjudicator": {
+      "claude": [
+        [
+          "opus",
+          "medium"
+        ],
+        [
+          "opus",
+          "high"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6.1-sol",
+          "medium"
+        ],
+        [
+          "gpt-6.1-sol",
+          "high"
+        ]
+      ]
+    },
+    "wsolver": {
+      "claude": [
+        [
+          "sonnet",
+          "low"
+        ],
+        [
+          "sonnet",
+          "medium"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ]
+    },
+    "wreviewer": {
+      "claude": [
+        [
+          "sonnet",
+          "medium"
+        ],
+        [
+          "opus",
+          "medium"
+        ]
+      ],
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ],
+        [
+          "gpt-6.1-sol",
+          "medium"
+        ]
+      ]
+    }
   },
-  "fixer": {
-   "codex": [
-    [
-     "gpt-6-luna",
-     "low"
-    ],
-    [
-     "gpt-6-sol",
-     "low"
-    ]
-   ],
-   "claude": [
-    [
-     "haiku",
-     ""
-    ],
-    [
-     "sonnet",
-     "low"
-    ]
-   ]
+  "weights": {
+    "claude": {
+      "scout": 0.6,
+      "refiner": 2.0,
+      "adjudicator": 0.8,
+      "checker": 0.2,
+      "tiebreak": 0.2,
+      "solver": 0.15,
+      "fixer": 0.1,
+      "wsolver": 0.15,
+      "wreviewer": 0.2
+    },
+    "codex": {
+      "scout": 0.6,
+      "refiner": 2.0,
+      "adjudicator": 0.4,
+      "checker": 0.2,
+      "tiebreak": 0.15,
+      "solver": 0.15,
+      "fixer": 0.1,
+      "wsolver": 0.15,
+      "wreviewer": 0.2
+    }
   },
-  "tiebreak": {
-   "codex": [
-    [
-     "gpt-6-sol",
-     "low"
-    ],
-    [
-     "gpt-6-sol",
-     "medium"
-    ]
-   ],
-   "claude": [
-    [
-     "sonnet",
-     "low"
-    ],
-    [
-     "sonnet",
-     "medium"
-    ]
-   ]
+  "solver_shard_size": 20,
+  "publish_on_sign": false,
+  "commit_on_sign": false,
+  "window_cap": {
+    "claude": {
+      "five_hour": {
+        "cap": 80,
+        "until": 1792075800,
+        "until_cap": 95
+      }
+    }
   },
-  "adjudicator": {
-   "codex": [
-    [
-     "gpt-6-astra",
-     "medium"
-    ],
-    [
-     "gpt-6-astra",
-     "high"
-    ]
-   ],
-   "claude": [
-    [
-     "opus",
-     "medium"
-    ],
-    [
-     "opus",
-     "high"
-    ]
-   ]
-  }
- },
- "weights": {
-  "codex": {
-   "scout": 0.3,
-   "refiner": 0.6,
-   "adjudicator": 0.4,
-   "checker": 0.2,
-   "tiebreak": 0.15,
-   "solver": 0.15,
-   "fixer": 0.1
-  },
-  "claude": {
-   "scout": 0.6,
-   "refiner": 2.0,
-   "adjudicator": 0.8,
-   "checker": 0.2,
-   "tiebreak": 0.2,
-   "solver": 0.15,
-   "fixer": 0.1
-  }
- },
- "solver_shard_size": 20,
- "publish_on_sign": true,
- "commit_on_sign": true,
- "window_cap": {
-  "claude": {
-   "five_hour": {
-    "cap": 80,
-    "until": 1792075800,
-    "until_cap": 95
-   }
-  }
- }
+  "weekly_launch_cap": 90,
+  "focus": [
+    "9701-13.4",
+    "9702-10.1",
+    "FP1-3",
+    "M1-3",
+    "9701-8.1",
+    "9701-9.1",
+    "9701-9.2",
+    "9701-11.1",
+    "9701-11.3",
+    "9701-11.4",
+    "9701-12.1",
+    "9701-13.1",
+    "9701-15.1",
+    "9702-8.1",
+    "9702-8.4",
+    "9702-9.2",
+    "9702-10.2",
+    "9702-10.3",
+    "9702-11.1",
+    "FP1-2",
+    "9701-8.2",
+    "9702-8.2",
+    "FP1-4",
+    "FP1-5",
+    "FP1-6",
+    "FP1-7",
+    "FP1-8",
+    "M1-4",
+    "M1-5",
+    "9701-10.1",
+    "9701-11.2",
+    "9701-13.2",
+    "9701-13.3",
+    "9701-14.1",
+    "9701-14.2",
+    "9701-16.1",
+    "9701-17.1",
+    "9701-18.1",
+    "9701-18.2",
+    "9701-19.1",
+    "9701-19.2",
+    "9701-20.1",
+    "9701-21.1",
+    "9701-22.1",
+    "9701-22.2",
+    "9701-23.1",
+    "9701-23.2",
+    "9701-23.3",
+    "9701-23.4",
+    "9701-24.1",
+    "9701-24.2",
+    "9701-25.1",
+    "9701-25.2",
+    "9701-26.1",
+    "9701-26.2",
+    "9701-27.1",
+    "9701-28.1",
+    "9701-28.2",
+    "9701-28.3",
+    "9701-28.4",
+    "9701-28.5",
+    "9701-29.1",
+    "9701-29.2",
+    "9701-29.3",
+    "9701-29.4",
+    "9701-30.1",
+    "9701-31.1",
+    "9701-32.1",
+    "9701-32.2",
+    "9701-33.1",
+    "9701-33.2",
+    "9701-33.3",
+    "9701-34.1",
+    "9701-34.2",
+    "9701-34.3",
+    "9701-34.4",
+    "9701-35.1",
+    "9701-35.2",
+    "9701-35.3",
+    "9701-36.1",
+    "9701-37.1",
+    "9701-37.2",
+    "9701-37.3",
+    "9701-37.4",
+    "9701-8.3",
+    "9701-9.3",
+    "9702-11.2",
+    "9702-12.1",
+    "9702-12.2",
+    "9702-13.1",
+    "9702-13.2",
+    "9702-13.3",
+    "9702-13.4",
+    "9702-14.1",
+    "9702-14.2",
+    "9702-14.3",
+    "9702-15.1",
+    "9702-15.2",
+    "9702-15.3",
+    "9702-16.1",
+    "9702-16.2",
+    "9702-17.1",
+    "9702-17.2",
+    "9702-17.3",
+    "9702-18.1",
+    "9702-18.2",
+    "9702-18.3",
+    "9702-18.4",
+    "9702-18.5",
+    "9702-19.1",
+    "9702-19.2",
+    "9702-19.3",
+    "9702-20.1",
+    "9702-20.2",
+    "9702-20.3",
+    "9702-20.4",
+    "9702-20.5",
+    "9702-21.1",
+    "9702-21.2",
+    "9702-22.1",
+    "9702-22.2",
+    "9702-22.3",
+    "9702-22.4",
+    "9702-23.1",
+    "9702-23.2",
+    "9702-24.1",
+    "9702-24.2",
+    "9702-24.3",
+    "9702-25.1",
+    "9702-25.2",
+    "9702-25.3",
+    "9702-8.3",
+    "9702-9.1",
+    "9702-9.3",
+    "FP1-1",
+    "M1-1",
+    "M1-2",
+    "M1-6"
+  ]
 }

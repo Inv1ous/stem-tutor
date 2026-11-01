@@ -1,5 +1,6 @@
 """The refine system on a scratch copy of the build tree, with fake workers: no AI is started and the learner's real
 usage, foundry board and vault are never touched."""
+from library_assets import read_json as library_json
 import copy
 import importlib
 import json
@@ -61,9 +62,49 @@ def rf(tmp_path, monkeypatch):
         cfg = real()
         cfg["reserve"]["codex"] = 0
         cfg["window_cap"] = {}
+        cfg["weekly_launch_cap"] = 100  # neutral routing fixtures; reserve policy has dedicated regressions
+        cfg.pop("focus", None)  # the learner's chapter list is not under test
+        for role, ladders in CODEX_LADDERS.items():  # fixed two-family routing, not the shipped Claude-only config
+            cfg["ladders"].setdefault(role, {}).update(ladders)
+        for role, weight in CODEX_WEIGHTS.items():
+            cfg["weights"].setdefault("codex", {})[role] = weight
+        cfg["max_parallel"].setdefault("codex", 3)  # the foundry's Codex slots
         return cfg
     mod.config = neutral
     return mod
+
+
+# Codex routing is tested against these fixed ladders and weights: the shipped refine config is Claude-only, and a
+# learner's live config must not decide what these tests cover.
+CODEX_LADDERS = {
+    "scout": {"codex": [["gpt-6.1-terra", "low"], ["gpt-6.1-terra", "medium"]]},
+    "refiner": {"codex": [["gpt-6.1-terra", "medium"], ["gpt-6.1-sol", "medium"]]},
+    "solver": {"codex": [["gpt-6.1-terra", "low"], ["gpt-6.1-terra", "medium"]]},
+    "checker": {"codex": [["gpt-6.1-terra", "low"], ["gpt-6.1-terra", "medium"]]},
+    "tiebreak": {"codex": [["gpt-6.1-terra", "low"], ["gpt-6.1-terra", "medium"]]},
+}
+CODEX_WEIGHTS = {"scout": 0.6, "refiner": 2.0, "solver": 0.15, "checker": 0.2, "tiebreak": 0.2}
+
+
+def test_shipped_refine_config_routes_both_families_on_known_tiers():
+    """Refine can run on either allowance (the learner chooses with `only`); every role has both ladders, on the
+    documented tiers, so a one-family preference never leaves a role with nobody to run it."""
+    shipped = json.loads((REPO / "refine" / "config.json").read_text())
+    for role, ladders in shipped["ladders"].items():
+        assert set(ladders) == {"claude", "codex"}, f"{role}: {sorted(ladders)}"
+        for model, effort in ladders["codex"]:
+            assert model in {"gpt-6.1-sol", "gpt-6.1-terra", "gpt-6-luna"}, f"{role}: unexpected Codex model {model}"
+            assert isinstance(effort, str)
+    assert set(shipped["weights"]) == {"claude", "codex"}
+    assert set(shipped["reserve"]) == {"claude", "codex"} and set(shipped["max_parallel"]) == {"claude", "codex"}
+
+
+def test_shipped_refine_config_ladders_are_claude_models():
+    shipped = json.loads((REPO / "refine" / "config.json").read_text())
+    for role, ladders in shipped["ladders"].items():
+        for model, effort in ladders["claude"]:
+            assert model in {"claude-haiku-5-5", "sonnet", "opus"}, f"{role}: unexpected Claude model {model}"
+            assert isinstance(effort, str)
 
 
 def finished(rf, name, tries=150):
@@ -112,28 +153,40 @@ def test_add_takes_signed_chapters_and_skips_the_foundrys(rf, tmp_path):
     (fstate / f"{other}.json").write_text(json.dumps({"sub": other, "stage": "fix", "jobs": {}, "history": []}))
     rf.fd.HOLD.write_text(json.dumps({"9702-3.1": "in the foundry: not signed off yet"}))
     assert rf.signed_chapters() == [SUB]
-    rf.cmd_add(["--all"])
+    rf.cmd_add(["--all", "--scope", "full"])
     assert [st["sub"] for st in rf.chapters()] == [SUB] and rf.load(SUB)["stage"] == "plan"
-    rf.cmd_add([other])  # named, but the foundry has it
+    rf.cmd_add([other, "--scope", "full"])  # named, but the foundry has it
     assert not (rf.STATE / f"{other}.json").exists()
 
 
 def test_a_second_pass_starts_again_at_plan_and_keeps_the_count(rf):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     with rf.chapter(SUB) as st:
         st.update(stage="ready", refined=1, findings=[{"ref": "x", "status": "closed"}])
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     st = rf.load(SUB)
     assert st["stage"] == "plan" and st["pass"] == 2 and st["refined"] == 1 and st["findings"] == []
-    rf.cmd_add([SUB])  # already in a pass: left alone
+    rf.cmd_add([SUB, "--scope", "full"])  # already in a pass: left alone
     assert rf.load(SUB)["pass"] == 2
 
 
 # ---------------- the snapshot and the no-loss gate ----------------
 def snap_and_pack(rf):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     before = rf.take_snapshot(SUB, 1)
     return before, copy.deepcopy(before["pack"])
+
+
+def test_guided_probe_preserves_the_original_discover_question(rf):
+    before, pack = snap_and_pack(rf)
+    kc = f'{SUB}.1'
+    old = {'stem': 'Original', 'options': {'A': 'one'}, 'answer': 'A', 'explanation': 'Reason'}
+    before['pack']['teach'][kc]['discover'] = copy.deepcopy(old)
+    pack['teach'][kc]['discover'] = copy.deepcopy(old)
+    pack['teach'][kc]['guided_discover'] = {'stem': 'Separate', 'options': {'A': 'two'}, 'answer': 'A'}
+    assert rf.no_loss(before, pack, NOTE) == []
+    pack['teach'][kc]['discover']['stem'] = 'Changed'
+    assert any('discover' in issue for issue in rf.no_loss(before, pack, NOTE))
 
 
 def test_additions_pass_the_no_loss_gate(rf):
@@ -181,7 +234,7 @@ def test_a_figure_questions_empty_options_must_stay_empty(rf):
 
 
 def test_the_snapshot_is_taken_once_per_pass(rf):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     first = rf.ensure_snapshot(rf.load(SUB))
     refine_additively(rf)
     assert rf.ensure_snapshot(rf.load(SUB))["taken"] == first["taken"]  # a retry compares with the original
@@ -192,7 +245,7 @@ def test_the_snapshot_is_taken_once_per_pass(rf):
 
 
 def test_gates_send_a_lossy_refine_back_with_the_list(rf):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     write_plan(rf, PLAN)
     rf.take_snapshot(SUB, 1)
     refine_additively(rf)
@@ -209,7 +262,7 @@ def test_gates_send_a_lossy_refine_back_with_the_list(rf):
 
 
 def test_gates_check_the_plan_was_carried_out_and_ids_are_new(rf):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     write_plan(rf, [{"kind": "questions", "where": "x", "why": "y", "count": 2},
                     {"kind": "diagram", "where": "note", "why": "a v-t graph"}])
     rf.take_snapshot(SUB, 1)
@@ -236,7 +289,7 @@ def test_the_plan_is_kept_within_the_caps(rf):
 
 # ---------------- the blind solve: new questions only ----------------
 def test_only_new_questions_are_stripped_for_the_blind_solve(rf):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     rf.take_snapshot(SUB, 1)
     refine_additively(rf, questions=2)
     with rf.chapter(SUB) as st:
@@ -249,7 +302,7 @@ def test_only_new_questions_are_stripped_for_the_blind_solve(rf):
 
 
 def test_a_wrong_new_key_is_disputed_and_old_items_are_not_asked(rf):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     rf.take_snapshot(SUB, 1)
     refine_additively(rf, questions=2)
     with rf.chapter(SUB) as st:
@@ -269,7 +322,7 @@ def test_a_pass_goes_plan_refine_solve_sign_ready_with_fake_workers(rf, tmp_path
     fstate.mkdir(parents=True)
     (fstate / f"{SUB}.json").write_text(json.dumps({"sub": SUB, "stage": "ready", "jobs": {}, "history": []}))
     foundry_before = (fstate / f"{SUB}.json").read_text()
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     plan = tmp_path / "plan.json"
     plan.write_text(json.dumps({"summary": "one more vector question", "improvements": PLAN}))
     monkeypatch.setenv("FAKE_COPY", str(plan))
@@ -303,8 +356,30 @@ def test_a_pass_goes_plan_refine_solve_sign_ready_with_fake_workers(rf, tmp_path
     assert not rf.fd.HOLD.exists()  # a refined chapter is never held back from the vault
 
 
+def test_failed_publish_does_not_mark_refine_pass_ready(rf, monkeypatch):
+    from types import SimpleNamespace
+    rf.cmd_add([SUB, "--scope", "full"])
+    rf.take_snapshot(SUB, 1)
+    with rf.chapter(SUB) as st:
+        rf.move(st, 'sign', 'ready for test')
+    monkeypatch.setattr(rf.fd, 'settle_glyphs', lambda *args, **kwargs: ({'ok': True}, None))
+    monkeypatch.setenv('FOUNDRY_PUBLISH', '1')
+    calls = []
+    def failed_publish(args, **kwargs):
+        calls.append(args)
+        return SimpleNamespace(returncode=1, stdout='', stderr='injected publisher failure')
+    monkeypatch.setattr(rf.subprocess, 'run', failed_publish)
+    base = rf.config
+    monkeypatch.setattr(rf, 'config', lambda: {**base(), 'publish_on_sign': True})  # the shipped default is off
+    with pytest.raises(RuntimeError, match='PUBLISH FAILED'):
+        rf.cmd_sign(SUB)
+    st = rf.load(SUB)
+    assert st['stage'] == 'sign' and not st.get('refined')
+    assert len(calls) == 1 and calls[0][1].endswith('build/publish.py')
+
+
 def test_a_plan_with_nothing_worth_adding_goes_straight_to_ready(rf, tmp_path, monkeypatch):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     plan = tmp_path / "plan.json"
     plan.write_text(json.dumps({"summary": "already complete", "improvements": []}))
     monkeypatch.setenv("FAKE_COPY", str(plan))
@@ -315,7 +390,7 @@ def test_a_plan_with_nothing_worth_adding_goes_straight_to_ready(rf, tmp_path, m
 
 
 def test_an_unreadable_plan_is_a_failed_scout(rf, tmp_path, monkeypatch):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     bad = tmp_path / "bad.json"
     bad.write_text("not json")
     monkeypatch.setenv("FAKE_COPY", str(bad))
@@ -326,7 +401,7 @@ def test_an_unreadable_plan_is_a_failed_scout(rf, tmp_path, monkeypatch):
 
 
 def test_note_only_additions_skip_the_solvers_and_only_the_checker_runs(rf, monkeypatch):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     write_plan(rf, PLAN[1:])
     rf.take_snapshot(SUB, 1)
     refine_additively(rf, questions=0)
@@ -340,7 +415,7 @@ def test_note_only_additions_skip_the_solvers_and_only_the_checker_runs(rf, monk
 
 
 def test_a_finding_goes_to_the_manager_and_a_fix_to_a_question_is_resolved_blind(rf):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     write_plan(rf, PLAN)
     rf.take_snapshot(SUB, 1)
     refine_additively(rf)
@@ -363,9 +438,10 @@ def test_a_finding_goes_to_the_manager_and_a_fix_to_a_question_is_resolved_blind
 def test_scout_and_refiner_ladders_climb_like_the_foundrys(rf):
     cfg, r = rf.config(), rf.router
     assert cfg["ladders"]["scout"]["claude"] == [["sonnet", "low"], ["sonnet", "medium"]]
-    assert cfg["ladders"]["refiner"]["codex"] == [["gpt-6-sol", "medium"], ["gpt-6-astra", "medium"]]
+    assert cfg["ladders"]["refiner"]["codex"] == [["gpt-6.1-terra", "medium"], ["gpt-6.1-sol", "medium"]]
     assert cfg["ladders"]["refiner"]["claude"][0] == ["opus", "low"]
-    assert set(cfg["ladders"]) == {"scout", "refiner", "solver", "checker", "fixer", "tiebreak", "adjudicator"}
+    assert set(cfg["ladders"]) == {"scout", "refiner", "solver", "checker", "fixer", "tiebreak", "adjudicator",
+                                   "wsolver", "wreviewer"}
     notes = {}
     assert r.rung(notes, cfg, "refiner", "codex") == 0
     r.record(notes, cfg, "refiner", "codex", 0, ok=False)
@@ -387,14 +463,14 @@ def test_web_roles_get_web_search_on_both_allowances(rf, tmp_path):
     out = tmp_path / "o.json"
     claude = rf.worker_command("scout", "claude", "sonnet", "low", "p", out)
     assert "WebSearch" in claude[claude.index("--tools") + 1] and "WebFetch" in claude
-    codex = rf.worker_command("refiner", "codex", "gpt-6-sol", "medium", "p", out)
+    codex = rf.worker_command("refiner", "codex", "gpt-6.1-terra", "medium", "p", out)
     assert codex.index("--search") < codex.index("exec")  # a top-level Codex flag
     plain = rf.worker_command("solver", "claude", "haiku", "", "p", out)
-    assert "WebSearch" not in " ".join(plain) and "--search" not in rf.worker_command("solver", "codex", "gpt-6-sol", "low", "p", out)
+    assert "WebSearch" not in " ".join(plain) and "--search" not in rf.worker_command("solver", "codex", "gpt-6.1-terra", "low", "p", out)
 
 
 def test_a_launched_scout_has_web_search_on_its_command_line(rf, tmp_path, monkeypatch):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     monkeypatch.setenv("FAKE_ARGV", str(tmp_path / "argv.json"))
     rf.cmd_run("scout", SUB, on="claude")
     finished(rf, "scout")
@@ -405,7 +481,7 @@ def test_a_launched_scout_has_web_search_on_its_command_line(rf, tmp_path, monke
 
 def test_only_mode_is_the_foundrys_switch_and_marks_own_family_checks(rf, tmp_path, monkeypatch):
     rf.fd.cmd_only(["codex"])
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     write_plan(rf, PLAN)
     rf.take_snapshot(SUB, 1)
     refine_additively(rf)
@@ -432,7 +508,7 @@ def test_running_foundry_workers_count_against_the_same_slots(rf, tmp_path):
     fstate.mkdir(parents=True)
     (fstate / "9702-5.1.json").write_text(json.dumps({"sub": "9702-5.1", "stage": "draft", "history": [], "jobs": {
         "drafter": {"pid": os.getpid(), "provider": "codex", "started": "2026-10-14T10:00:00+08:00"}}}))
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     with rf.chapter(SUB) as st:
         st["jobs"]["scout"] = {"pid": os.getpid(), "provider": "claude", "started": rf.now()}
     assert rf._busy() == {"codex": ["drafter"], "claude": ["scout"]}
@@ -440,7 +516,7 @@ def test_running_foundry_workers_count_against_the_same_slots(rf, tmp_path):
 
 # ---------------- views ----------------
 def test_board_and_coverage_show_when_each_chapter_was_refined(rf, capsys):
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     with rf.chapter(SUB) as st:
         st.update(stage="ready", refined=2, last_refined="2026-10-14T12:00:00+08:00",
                   last_additions={"questions": 3, "diagrams": 1, "note_lines": 4, "cards": 0, "other": 0})
@@ -511,7 +587,7 @@ def test_figures_are_their_own_kind_with_their_own_cap(rf):
 
 def test_gates_want_the_planned_figure_as_an_embedded_file_with_its_source(rf, tmp_path, monkeypatch):
     crop = figure_env(rf, tmp_path, monkeypatch)
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     write_plan(rf, [{"kind": "figure", "pdf": "Book.pdf", "page": 1, "box": [0, 0.1, 1, 0.5], "caption": "A test", "why": "w"}])
     rf.take_snapshot(SUB, 1)
     refine_additively(rf)
@@ -527,7 +603,7 @@ def test_gates_want_the_planned_figure_as_an_embedded_file_with_its_source(rf, t
 
 def test_gates_refuse_a_figure_without_file_sidecar_or_caption_and_more_than_three(rf, tmp_path, monkeypatch):
     crop = figure_env(rf, tmp_path, monkeypatch)
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     rf.take_snapshot(SUB, 1)
     add_to_note(rf, "![[Assets/9702/ghost.png]]")
     first = " | ".join(rf.gates(SUB)["first"])
@@ -544,7 +620,7 @@ def test_gates_refuse_a_figure_without_file_sidecar_or_caption_and_more_than_thr
 
 def test_a_figure_never_replaces_the_diagram_it_sits_beside(rf, tmp_path, monkeypatch):
     crop = figure_env(rf, tmp_path, monkeypatch)
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     rf.take_snapshot(SUB, 1)
     pack = json.loads(rf.pack_path(SUB).read_text())
     note = rf.note_path(pack)
@@ -564,7 +640,7 @@ def old_chapter_with_glyphs(rf):
 
 def test_no_loss_tolerates_exactly_the_glyph_repair(rf):
     old_chapter_with_glyphs(rf)
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     before = rf.take_snapshot(SUB, 1)
     pack = copy.deepcopy(before["pack"])
     pack["items"][0]["explanation"] = "The energy $E_k$ rises."  # what glyphs.fix_text does to it
@@ -578,7 +654,7 @@ def test_no_loss_tolerates_exactly_the_glyph_repair(rf):
 
 def test_a_refine_that_leaves_glyphs_is_repaired_without_a_retry(rf):
     old_chapter_with_glyphs(rf)
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     write_plan(rf, PLAN)
     rf.take_snapshot(SUB, 1)
     refine_additively(rf)
@@ -602,15 +678,15 @@ def test_coverage_names_chapters_whose_stored_content_still_wobbles(rf, capsys):
 
 def test_a_running_refine_job_is_counted_once_not_twice(rf):
     """The foundry's count includes refine's jobs; refine adding its own on top halved the slots it could use."""
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     with rf.chapter(SUB) as st:
         st["jobs"]["scout"] = {"provider": "codex", "pid": os.getpid(), "started": rf.now()}
     assert rf._busy().get("codex", []).count("scout") == 1
 
 
-def test_a_pass_whose_gates_stay_red_is_given_up_and_its_additions_are_dropped(rf, monkeypatch):
+def test_a_pass_whose_gates_stay_red_pauses_and_preserves_its_additions(rf, monkeypatch):
     """Found on the first real run: a refiner that could not get past a gate was retried 130-216 times on the allowance."""
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     pack_before = rf.pack_path(SUB).read_text()
     with rf.chapter(SUB) as st:
         rf.take_snapshot(SUB, 1)
@@ -625,9 +701,9 @@ def test_a_pass_whose_gates_stay_red_is_given_up_and_its_additions_are_dropped(r
     assert rf.unclean_streak(rf.load(SUB)) == rf.MAX_UNCLEAN
     rf.cmd_step([SUB])
     st = rf.load(SUB)
-    assert st["stage"] == "ready" and "Estimate" in st["abandoned"]["why"] and st["gates"] is None
-    assert "an addition that cannot pass" not in rf.pack_path(SUB).read_text()  # restored from the snapshot
-    assert rf.coverage()["given_up"] == {SUB: st["abandoned"]["why"]}
+    assert st["stage"] == "refine" and not st.get('abandoned')
+    assert "an addition that cannot pass" in rf.pack_path(SUB).read_text()
+    assert SUB not in rf.coverage()["given_up"]
     two = {**st, "history": st["history"][:-1] + [{"note": "refiner finished but gates are not clean"}, {"note": "refined"}]}
     assert rf.unclean_streak(two) == 0  # the streak is consecutive failures only
 
@@ -637,7 +713,7 @@ def test_a_scout_that_never_used_the_library_or_the_web_is_not_accepted_and_is_r
     import evidence
     monkeypatch.delenv("FOUNDRY_EVIDENCE", raising=False)
     monkeypatch.setattr(evidence, "library_hits", lambda sub: 5)
-    rf.cmd_add([SUB])
+    rf.cmd_add([SUB, "--scope", "full"])
     plan = tmp_path / "plan.json"
     plan.write_text(json.dumps({"summary": "already complete", "improvements": []}))
     monkeypatch.setenv("FAKE_COPY", str(plan))
@@ -648,3 +724,267 @@ def test_a_scout_that_never_used_the_library_or_the_web_is_not_accepted_and_is_r
     note = st["history"][-1]["note"]
     assert "gates are not clean" in note and "sources" in note and rf.unclean_streak(st) == 1
     assert rf.action(st) == f"refine.py run scout {SUB}"  # tried again, one tier up
+
+
+def test_guided_errors_remain_blocking_after_inherited_gate_filter(rf):
+    rf.cmd_add([SUB, "--scope", "full"])
+    rf.take_snapshot(SUB, 1)
+    path = rf.pack_path(SUB)
+    pack = json.loads(path.read_text())
+    pack["guided_forms"] = {}
+    path.write_text(json.dumps(pack))
+    result = rf.gates(SUB)
+    assert result["guided"] > 0
+    assert not result["ok"]
+    assert any(message.startswith("guided ") for message in result["first"])
+
+
+def test_unmerged_guided_draft_blocks_refine_gates(rf):
+    rf.cmd_add([SUB, "--scope", "full"])
+    rf.take_snapshot(SUB, 1)
+    path = rf.teach_path(SUB)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({f'{SUB}.1': {**CARD, 'plain_words': 'A draft'}}))
+    result = rf.gates(SUB)
+    assert not result['ok'] and result['guided'] > 0
+    assert any('guided ' in finding for finding in result['first'])
+
+
+def test_p2_proposed_corrections_remain_visible_to_no_loss_gate(rf):
+    from test_p2_guided_pilot import corrected_draft_pack
+    before = __import__('test_p2_guided_pilot').original_pack()
+    issues = rf.no_loss({'pack': before, 'note': ''}, corrected_draft_pack(), '')
+    joined = '\n'.join(issues)
+    assert 'outline' in joined
+    assert 'we1' in joined
+    assert 'P2-1-i11' in joined
+    assert 'm2' in joined
+    assert 'fc2' in joined
+
+
+def test_p2_proposed_note_clarification_is_also_visible_to_no_loss_gate(rf):
+    before = __import__('test_p2_guided_pilot').original_pack()
+    note = __import__('test_p2_guided_pilot').original_note()
+    proposals = library_json('build/work/guided/P2-1-corrections.json')['note_corrections']
+    for proposal in proposals:
+        assert note.count(proposal['old']) == 1
+        candidate = note.replace(proposal['old'], proposal['new'])
+        assert any('note: the line' in issue for issue in rf.no_loss({'pack': before, 'note': note}, before, candidate))
+
+
+def test_written_review_gate_rejects_missing_and_stale_evidence(rf):
+    from build.written_review import fingerprint, review_items
+    pack = {'teach': {'kc': {'forms': [{'name': 'Proof', 'check': 'Prove', 'answer': 'Working',
+                                       'rubric': [{'point': 'Reason'}]}]}}}
+    rows = review_items(pack['teach'])
+    assert rf.written_review_problems('trial', pack)
+    solution = 'Independent proof'
+    ident = rows[0]['id']
+    review = {'fingerprint': fingerprint(rows[0]), 'solution': solution, 'solver': 'solver-agent', 'reviewer': 'reviewer',
+              'verdict': 'accepted', 'rationale': 'Valid reasoning',
+              'solution_hash': fingerprint({'id': ident, 'stem': solution, 'answer': None, 'rubric': None})}
+    path = rf.WORK / 'trial.written-review.json'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({ident: review}))
+    assert any('durable independent worker evidence' in p for p in rf.written_review_problems('trial', pack))
+    pack['teach']['kc']['forms'][0]['check'] = 'Changed proof'
+    assert rf.written_review_problems('trial', pack)
+    assert rf.written_review_problems('legacy', {'teach': {'kc': {'establish': 'Old'}}}) == []
+
+
+def test_gate_blocks_unreviewed_written_checks_without_snapshot(rf, monkeypatch):
+    path = rf.pack_path(SUB)
+    pack = json.loads(path.read_text())
+    pack['teach'][f'{SUB}.1']['forms'] = [{'name': 'Proof', 'check': 'Prove', 'answer': 'Working',
+                                           'rubric': [{'point': 'Reason'}]}]
+    path.write_text(json.dumps(pack))
+    monkeypatch.setattr(rf.fd, 'gates', lambda sub, **kw: {'ok': True})
+    result = rf.gates(SUB)
+    assert result['written_review'] > 0
+    assert not result['ok']
+    deferred = rf.gates(SUB, defer_written=True)  # after a refiner: reviewed next, so counted but not failing
+    assert deferred['written_review'] > 0 and deferred['ok']
+
+
+def _written_pack(rf):
+    path = rf.pack_path(SUB)
+    pack = json.loads(path.read_text())
+    pack['teach'][f'{SUB}.1']['forms'] = [{'name': 'Proof', 'check': 'Show that v = u + at.', 'answer': 'From a = (v-u)/t.',
+                                           'rubric': [{'point': 'definition of acceleration'}]}]
+    path.write_text(json.dumps(pack))
+    return pack
+
+
+def test_written_checks_are_blind_solved_reviewed_and_bound(rf):
+    pack = _written_pack(rf)
+    ident = f'{SUB}.1.form.0.check'
+    with rf.chapter(SUB) if (rf.STATE / f'{SUB}.json').exists() else _new_state(rf) as st:
+        st['stage'] = 'solve'
+        st['history'].append({'t': rf.now(), 'from': 'refine', 'to': 'solve', 'note': ''})
+    rf.cmd_strip(SUB)
+    st = rf.load(SUB)
+    asked = json.loads(rf._written_questions(st).read_text())
+    assert asked == [{'id': ident, 'stem': 'Show that v = u + at.'}]  # the stem only: no answer, no rubric
+    assert rf._written_jobs(st) == ['wsolver']
+    rf._written_answers(st).write_text(json.dumps({ident: 'a = (v - u)/t, so v = u + at.'}))
+    with rf.chapter(SUB) as st:
+        st['jobs']['wsolver'] = {'provider': 'codex', 'model': 'terra', 'finished': rf.now(), 'exit': 0,
+                                 'ok': True, 'expects': str(rf._written_answers(st).relative_to(rf.ROOT)),
+                                 'written_batch': rf._written_batch(st)['id'],
+                                 'written_input_hash': rf._written_hash(rf._written_questions(st))}
+        rf._finish_written_job(st, 'wsolver')
+    st = rf.load(SUB)
+    assert rf._written_jobs(st) == ['wreviewer']
+    items = json.loads(rf.write_written_items(SUB).read_text())
+    assert items[0]['answer'] and items[0]['solution'].startswith('a = ')
+    rf._written_file(SUB, 'decisions').write_text(json.dumps({ident: {'verdict': 'accepted', 'rationale': 'Sound.'}}))
+    with rf.chapter(SUB) as st:
+        st['jobs']['wreviewer'] = {'provider': 'codex', 'model': 'sol', 'finished': rf.now(), 'exit': 0,
+                                   'ok': True, 'expects': str(rf._written_file(SUB, 'decisions').relative_to(rf.ROOT)),
+                                   'written_batch': rf._written_batch(st)['id'],
+                                   'written_input_hash': rf._written_hash(rf._written_file(SUB, 'items'))}
+        rf._finish_written_job(st, 'wreviewer')
+    with rf.chapter(SUB) as st:
+        note = rf._ingest_written(st, pack)
+    assert '1 accepted' in note
+    assert rf.written_review_problems(SUB, pack) == []
+
+
+def test_a_rejected_written_check_cannot_be_kept_without_actual_review(rf):
+    pack = _written_pack(rf)
+    ident = f'{SUB}.1.form.0.check'
+    with _new_state(rf) as st:
+        st['stage'] = 'solve'
+    rf.cmd_strip(SUB)
+    st = rf.load(SUB)
+    rf._written_answers(st).write_text(json.dumps({ident: 'v = u + at by definition.'}))
+    with rf.chapter(SUB) as st:
+        st['jobs']['wsolver'] = {'provider': 'codex', 'model': 'terra', 'finished': rf.now(), 'exit': 0,
+            'ok': True, 'expects': str(rf._written_answers(st).relative_to(rf.ROOT)),
+            'written_batch': rf._written_batch(st)['id'],
+            'written_input_hash': rf._written_hash(rf._written_questions(st))}
+        rf._finish_written_job(st, 'wsolver')
+    rf.write_written_items(SUB)
+    rf._written_file(SUB, 'decisions').write_text(json.dumps({ident: {'verdict': 'rejected', 'rationale': 'Rubric too narrow.',
+                                                                   'fix': 'Accept "rate of change of velocity".'}}))
+    with rf.chapter(SUB) as st:
+        st['jobs']['wreviewer'] = {'provider': 'codex', 'model': 'sol', 'finished': rf.now(), 'exit': 0,
+            'ok': True, 'expects': str(rf._written_file(SUB, 'decisions').relative_to(rf.ROOT)),
+            'written_batch': rf._written_batch(st)['id'],
+            'written_input_hash': rf._written_hash(rf._written_file(SUB, 'items'))}
+        rf._finish_written_job(st, 'wreviewer')
+    with rf.chapter(SUB) as st:
+        rf._ingest_written(st, pack)
+        st['stage'] = 'adjudicate'
+    st = rf.load(SUB)
+    assert [f['ref'] for f in st['findings'] if f['status'] == 'open'] == [ident]
+    assert rf.written_review_problems(SUB, pack)
+    with pytest.raises(SystemExit, match='independent written review'):
+        rf.cmd_resolve(SUB, ident, 'keep', 'The rubric point is required by the question; the solution earns it.')
+    assert rf.written_review_problems(SUB, pack)
+
+
+def test_earlier_pass_correction_proposals_are_kept_aside_not_applied(rf):
+    with _new_state(rf):
+        pass
+    old = rf.corrections_file(SUB)
+    old.parent.mkdir(parents=True, exist_ok=True)
+    old.write_text('{"changes": []}')
+    os.utime(old, (time.time() - 86400, time.time() - 86400))
+    moved = rf.archive_stale_corrections(SUB)
+    assert len(moved) == 1 and not old.exists()
+    assert (old.parent / moved[0]).read_text() == '{"changes": []}'  # preserved, under a dated name
+    old.write_text('{"changes": []}')  # written during this pass: stays
+    assert rf.archive_stale_corrections(SUB) == [] and old.exists()
+
+
+def test_a_library_backed_teach_draft_gets_an_editable_work_copy(tmp_path, monkeypatch):
+    sys.path.insert(0, str(REPO / "src"))
+    from tutor_workers import candidates
+    monkeypatch.setattr(candidates, "verified", lambda path: path.resolve())  # no catalog in a scratch vault
+    library = tmp_path / "vault/Library/Courses/9702/teach"
+    library.mkdir(parents=True)
+    (library / f"{SUB}.json").write_text('{"kc": {}}')
+    work = tmp_path / "data/build/work/teach"
+    work.mkdir(parents=True)
+    (work / f"{SUB}.json").symlink_to(library / f"{SUB}.json")
+    paths = candidates.prepare_teach(tmp_path / "data", "refine", SUB, work / f"{SUB}.json")
+    copy_ = Path(paths["candidate_teach"])
+    assert "Library" not in copy_.resolve().parts and copy_.read_text() == '{"kc": {}}'
+    plain = tmp_path / "plain.json"
+    plain.write_text("{}")
+    assert candidates.prepare_teach(tmp_path / "data", "refine", SUB, plain) == {}  # Work-owned drafts are edited in place
+
+
+def _new_state(rf):
+    if not (rf.STATE / f'{SUB}.json').exists():
+        rf.cmd_add([SUB])
+    return rf.chapter(SUB)
+
+
+def test_written_review_gate_rejects_malformed_teach(rf):
+    for bad in ([], '', None):
+        assert rf.written_review_problems('trial', {'teach': bad})
+    assert not rf.written_review_problems('trial', {})
+
+
+
+def test_board_identifies_written_review_failure(rf, capsys):
+    rf.cmd_add([SUB, "--scope", "full"])
+    with rf.chapter(SUB) as st:
+        st['gates'] = {'ok': False, 'validator': 0, 'lint': 0, 'no_loss': 0, 'written_review': 2}
+    rf.cmd_board()
+    output = capsys.readouterr().out
+    assert 'written_review:2' in output
+    assert '0+0+0' not in output
+
+
+def test_written_faded_check_requires_independent_review(rf):
+    pack = {'worked': [{'id': 'we2', 'kc': 'K', 'problem': 'Worked problem', 'steps': [],
+                        'faded': {'id': 'we2f', 'kind': 'short', 'problem': 'Disprove.',
+                                  'review_answer': '111 = 3 × 37',
+                                  'rubric': [{'point': 'Factors', 'keywords': [['3'], ['37']]}]}}]}
+    assert rf.written_review_problems('missing-faded-review', pack)
+
+
+def test_board_and_bare_step_stay_on_the_focus_list(rf, capsys, monkeypatch):
+    rf.cmd_add([SUB])
+    cfg = rf.config()
+    monkeypatch.setattr(rf, "config", lambda: {**cfg, "focus": ["somewhere-else"]})
+    assert rf.focused(rf.chapters()) == []
+    assert [st["sub"] for st in rf.focused(rf.chapters(), show_all=True)] == [SUB]
+    rf.cmd_board()
+    assert "no chapters on the refine board" in capsys.readouterr().out
+    monkeypatch.setattr(rf, "config", lambda: {**cfg, "focus": [SUB]})
+    assert [st["sub"] for st in rf.focused(rf.chapters())] == [SUB]
+
+@pytest.mark.parametrize('stale', [False, True])
+def test_checker_launch_rebuilds_additions_after_recovery(rf, monkeypatch, stale):
+    rf.cmd_add([SUB, '--scope', 'full'])
+    rf.take_snapshot(SUB, 1)
+    original_pack = json.loads(rf.pack_path(SUB).read_text())
+    candidate = rf.WORK / SUB / 'recovered'
+    candidate.mkdir(parents=True)
+    (candidate / 'pack.json').write_text(json.dumps(original_pack))
+    (candidate / 'note.md').write_text(NOTE)
+    (candidate / 'teach.json').write_text(json.dumps(original_pack['teach']))
+    with rf.chapter(SUB) as st:
+        st.update(candidate_pack=str(candidate / 'pack.json'), candidate_note=str(candidate / 'note.md'),
+                  candidate_teach=str(candidate / 'teach.json'))
+    refine_additively(rf, questions=0, line='Recovered candidate teaching line.')
+    with rf.chapter(SUB) as st:
+        rf.move(st, 'solve', 'recovered candidate without collect')
+    # The output adapter still names the old source: recovery's selected Work
+    # candidate is the checker input and must win over that source.
+    source = rf.chapter_pack(rf.PACKS, SUB)
+    source_pack = json.loads(source.read_text())
+    assert 'Recovered candidate teaching line.' not in (rf.NOTES / source_pack['note']).read_text()
+    artifact = rf.WORK / f'{SUB}.additions.md'
+    if stale:
+        artifact.write_text('stale prior-pass additions')
+    monkeypatch.setattr(rf.subprocess, 'Popen', lambda *a, **kw: type('Process', (), {'pid': 99999999})())
+    rf.cmd_run('checker', SUB, on='codex')
+    assert artifact.is_file()
+    text = artifact.read_text()
+    assert 'Recovered candidate teaching line.' in text
+    assert 'stale prior-pass additions' not in text

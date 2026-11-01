@@ -5,6 +5,7 @@ import pytest
 
 from tutorlib import shortcuts as sc
 from tutorlib import store
+from tutorlib.asset_library import write_asset
 
 UTC = timezone.utc
 T0 = datetime(2026, 10, 8, 4, 0, tzinfo=UTC)  # 12:00 in Hong Kong
@@ -34,6 +35,21 @@ def publish(vault, entries=ENTRIES, lessons=None):
     for spec, rows in by.items():
         (course / f"{spec}.json").write_text(json.dumps(rows))
     (course / "lessons/all.json").write_text(json.dumps(lessons or {}))
+
+
+def catalog_release(vault, version, entries, lessons):
+    entry_path = f"Library/Shared/Shortcuts/Releases/{version}/Entries/9702.json"
+    lesson_path = f"Library/Courses/9702/Notes/Shortcuts/Published/{version}/9702.json"
+    manifest_path = f"Library/Shared/Shortcuts/Releases/{version}/manifest.json"
+    write_asset(vault.root, entry_path, json.dumps(entries).encode(),
+                metadata={"course": None, "kind": "Shortcuts/Entries"})
+    write_asset(vault.root, lesson_path, json.dumps(lessons).encode(),
+                metadata={"course": "9702", "kind": "Notes/Shortcuts"})
+    manifest = {"format_version": 1, "version": version, "entries": [entry_path], "lessons": [lesson_path]}
+    write_asset(vault.root, manifest_path, json.dumps(manifest, sort_keys=True).encode(),
+                metadata={"course": None, "kind": "Shortcuts/Manifest"})
+    (vault.tutor / "shortcuts").mkdir(parents=True, exist_ok=True)
+    (vault.tutor / "shortcuts/COURSE_CURRENT").write_text(version)
 
 
 def ids(es):
@@ -126,6 +142,28 @@ def test_load_entries_attaches_lessons_and_skips_damage(vault):
     got = {e["id"]: e for e in sc.load_entries(vault)}
     assert len(got) == len(ENTRIES)
     assert got["SEM-9702-a"]["lesson"]["hook"] == "h" and got["SEM-9702-b"]["lesson"] is None
+
+
+def test_catalogued_shortcut_entries_and_lessons_take_precedence_over_compatibility_copy(vault):
+    publish(vault, [entry("legacy")], {"SEM-9702-legacy": {"id": "SEM-9702-legacy", "hook": "legacy"}})
+    active_lessons = {"SEM-9702-canonical": {"id": "SEM-9702-canonical", "hook": "Library"}}
+    catalog_release(vault, "v1", [entry("canonical")], active_lessons)
+    # A later candidate can coexist in the catalog but must not become active merely because it sorts after v1.
+    write_asset(vault.root, "Library/Courses/9702/Notes/Shortcuts/Published/v2/9702.json",
+                json.dumps({"SEM-9702-canonical": {"id": "SEM-9702-canonical", "hook": "unreleased"}}).encode(),
+                metadata={"course": "9702", "kind": "Notes/Shortcuts"})
+    got = sc.load_entries(vault)
+    assert [row["id"] for row in got] == ["SEM-9702-canonical"]
+    assert got[0]["lesson"]["hook"] == "Library"
+
+
+def test_changed_catalogued_shortcut_bytes_fail_without_falling_back(vault):
+    publish(vault, [entry("legacy")], {"SEM-9702-legacy": {"id": "SEM-9702-legacy", "hook": "legacy"}})
+    catalog_release(vault, "v1", [entry("canonical")], {})
+    canonical = vault.root / "Library/Shared/Shortcuts/Releases/v1/Entries/9702.json"
+    canonical.write_bytes(b"[]")
+    with pytest.raises(ValueError, match="digest mismatch"):
+        sc.load_entries(vault)
 
 
 def test_load_entries_empty_vault(vault):

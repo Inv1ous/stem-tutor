@@ -38,6 +38,27 @@ def test_a_classic_card_subtitle_is_unchanged(palette):
     assert cards.card("tutor", "Title", "body").subtitle is None
 
 
+def test_existing_session_card_uses_the_new_theme(tmp_path, monkeypatch, palette):
+    from textual.widgets import Static
+    from tutor_app import look
+    from tutor_app.cards import card
+    from test_tui import app_for
+
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        palette("night")
+        entry = Static(card("tutor", "Earlier", "Already on screen"), classes="entry")
+        await app.screen.mount(entry)
+        await pilot.pause()
+        assert entry.content.border_style == look.PALETTES["night"]["frame"]
+        look.apply(app, "day")
+        await pilot.pause()
+        assert entry.content.border_style == look.PALETTES["day"]["frame"]
+
+    run(app, (80, 24), steps)
+
+
 @pytest.mark.parametrize("size,short", [((60, 24), True), ((80, 24), True), ((120, 40), False)])
 def test_settings_save_is_on_screen_without_scrolling(tmp_path, monkeypatch, size, short):
     from textual.widgets import Button, Switch
@@ -153,6 +174,21 @@ def test_a_recalled_idea_in_blurt_results_is_not_an_empty_box(tmp_path, monkeypa
     run(app, (100, 30), steps)
     ideas = [d for d in drawn if d[1].startswith(("✓", "✗"))]
     assert any(t.startswith("✓") for _, t, _ in ideas) and all(body.strip() for _, _, body in ideas)
+
+
+def test_blurt_prompt_distinguishes_scheduled_and_unscheduled_missed_ideas(tmp_path, monkeypatch):
+    from tutor_app.screens import BlurtScreen
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        screen = BlurtScreen("9702-2.1")
+        app.push_screen(screen)
+        await pilot.pause()
+        prompt = screen.query_one(".entry").content.card[2]
+        assert "already scheduled for Review that you miss are brought forward" in prompt
+        assert "without a review schedule can be worked through in a lesson" in prompt
+
+    run(app, (100, 30), steps)
 
 
 def test_the_first_card_has_a_blank_row_under_the_top_bar_in_chat_and_blurt(tmp_path, monkeypatch):

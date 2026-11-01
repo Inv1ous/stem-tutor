@@ -17,13 +17,13 @@ def _record_cards(monkeypatch, vault):
     said, since_fold, missing = [], [], []
     feedback, question = cards.feedback, cards.question
 
-    def fb_card(fb, your):
-        panel = feedback(fb, your)
+    def fb_card(fb, your, **kw):
+        panel = feedback(fb, your, **kw)
         panel.words = views.card_block(*views.feedback_card(fb, your))
         return panel
 
-    def q_card(view):
-        panel = question(view)
+    def q_card(view, **kw):
+        panel = question(view, **kw)
         panel.words = views.question_block(view)
         return panel
     monkeypatch.setattr(cards, "feedback", fb_card)
@@ -69,7 +69,8 @@ def test_every_card_of_a_whole_lesson_is_in_now_and_the_lesson_log_word_for_word
             text = log.read_text()
             assert said and [w for w in said if w not in text] == []
             assert missing == []
-            assert "**Your answer:** B (fairly sure)" in text  # what you chose, as the terminal showed it
+            assert "**Your answer:** B" in text
+            assert "**Confidence:** Fairly sure (3/4)" in text
             await app.ai.close()
     asyncio.run(go())
 

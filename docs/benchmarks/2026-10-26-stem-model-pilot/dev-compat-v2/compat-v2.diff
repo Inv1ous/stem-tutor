@@ -1,0 +1,575 @@
+--- native-development-diagnostic-v1/diagnostic.py
++++ native-development-compat-v2/diagnostic.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""CPU preparation by default. Seven DEV conditions require --execute --root-go ROOT_GO."""
++"""CPU preparation by default. Eight DEV compatibility requests require explicit ROOT_GO."""
+ from __future__ import annotations
+ import argparse
+ import asyncio
+@@ -8,7 +8,6 @@
+ import hashlib
+ import importlib.util
+ import json
+-import os
+ from pathlib import Path
+ import sys
+ import time
+@@ -18,6 +17,7 @@
+ REPO = Path('/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor')
+ MODEL = SSD / 'models/stem-tutor-qwen35-hybrid-v1'
+ PYTHON = SSD / 'tutor-runtime/stem-training/.venv/bin/python'
++PRIOR = SSD / 'stem-tutor-training/native-development-diagnostic-v1'
+ DEV = SSD / 'stem-tutor-training/evaluation-development-protocol-v1'
+ MARK_ID = 'c58ad26c013848559f4ab9cf'
+ USER = ('STEM Tutor. Reply in document JSON. A constant force of 6.0 N acts along a displacement '
+@@ -42,7 +42,15 @@
+ 
+ 
+ def options(deep=False):
+-    return {**helpers.requested_options('deep' if deep else 'fast'), 'num_predict': 1024 if deep else 512}
++    return {**helpers.requested_options('deep' if deep else 'fast'), 'num_predict': 4096 if deep else 512}
++
++
++def compat_payload(payload, *, document_chat):
++    """Diagnostic-only transform; exact custom alias and document generation only."""
++    result = copy.deepcopy(payload)
++    if (document_chat and payload.get('model') == NAME and payload.get('messages')):
++        result.pop('format', None)
++    return result
+ 
+ 
+ def sanitize(event, tail):
+@@ -71,10 +79,10 @@
+     return clean, tail
+ 
+ 
+-def assert_pair(c, d):
+-    expected = copy.deepcopy(d)
++def assert_pair(outgoing, app_payload):
++    expected = copy.deepcopy(app_payload)
+     expected.pop('format')
+-    assert c == expected, 'C/D differ beyond format'
++    assert outgoing == expected, 'Document compatibility changes more than native format'
+ 
+ 
+ def render_evidence(messages, deep):
+@@ -97,7 +105,7 @@
+                 native_source='675150d6ad2747df1e218ef59de9194bc4a7e538/model/renderers/qwen35.go:187-335')
+ 
+ 
+-async def capture_app(prompt, *, deep=False, schema=None):
++async def capture_app(prompt, *, deep=False, schema=None, speech=False):
+     """Run real TutorAI until the HTTP boundary; substitute no network transport."""
+     from tutor_app import local_models
+     from tutor_app.ai import SYSTEM
+@@ -117,7 +125,7 @@
+     with helpers.temporary_catalogue(local_models):
+         tutor = TutorAI(cwd=ROOT, model=ALIAS, document=True, usage_file=None)
+         tutor.local_web = False
+-        tutor.speech = schema is None
++        tutor.speech = speech
+         tutor._local = CaptureLocal(SYSTEM, document=True)
+         try:
+             if schema is None:
+@@ -133,36 +141,66 @@
+     return captured[0]
+ 
+ 
++def runtime_schema(row):
++    """Regenerate production marking order; never render a canonicalized fixture schema."""
++    from tutor_app import prompts
++    if row['path'] != 'one_shot':
++        return copy.deepcopy(row['schema'])
++    schema = prompts.local_judge_schema(row['criteria'])
++    assert schema == row['schema'], 'Factory schema value drift'
++    assert json.dumps(schema,ensure_ascii=False) == row['ordered_schema_json'], 'Factory schema order drift'
++    return schema
++
++
++async def prior_mark_regression():
++    """Reproduce v1 failure at a socket-free production payload boundary."""
++    row = next(r for r in json.loads((PRIOR/'inputs.json').read_text()) if r['id']=='mark')
++    actual = await capture_app(row['prompt'],schema=row['schema'],speech=False)
++    frozen = row['payload']
++    same = copy.deepcopy(actual); same['messages'][1]['content'] = frozen['messages'][1]['content']
++    assert same == frozen and actual != frozen
++    return dict(v1_roundtrip_payload_equal=False,changed_fields=['messages[1].content'],
++                prompt_lengths=[len(frozen['messages'][1]['content']),len(actual['messages'][1]['content'])],
++                actual_native_runtime_capture=False,no_socket_or_model_calls=True,
++                cause='Canonical schema key ordering changed the embedded json_instruction prompt')
++
++
+ async def build_fixtures():
+     from tutor_app import chat_output, prompts
+-    row = next(json.loads(line) for line in (DEV / 'test.jsonl').read_text().splitlines()
+-               if json.loads(line)['id'] == MARK_ID)
+-    supplied = json.loads(row['messages'][0]['content'].rsplit('\n', 1)[-1])
++    source = list(map(json.loads,(DEV/'test.jsonl').read_text().splitlines()))
++    docs = [r for r in source if r['task']!='marking']
++    assert len(docs)==6 and [r['task'] for r in docs].count('literal_json')==3
++    cases, gold = [], {}
++    for row in docs:
++        prompt = row['messages'][0]['content']
++        app_payload = await capture_app(prompt,speech=False)
++        outgoing = compat_payload(app_payload,document_chat=True)
++        assert_pair(outgoing,app_payload)
++        cases.append(dict(id=row['id'],mode='fast',seconds=45,max_tokens=512,path='chat',speech=False,
++                          criteria=None,schema=chat_output.document_schema(False),prompt=prompt,
++                          task=row['task'],subject=row['subject'],app_payload=app_payload,payload=outgoing))
++        gold[row['id']] = {'expected':row['expected'],'checks':row['checks']}
++    mark = next(r for r in source if r['id']==MARK_ID)
++    supplied = json.loads(mark['messages'][0]['content'].rsplit('\n',1)[-1])
+     criteria = supplied['criteria']
+-    mark_prompt = prompts.judge('State the defining properties of linear momentum.', criteria, supplied['response'])
+-    d = await capture_app(USER)
+-    c = copy.deepcopy(d); c.pop('format')
+-    assert_pair(c, d)
+-    a = copy.deepcopy(c); a['messages'] = [{'role': 'user', 'content': USER}]
+-    b = copy.deepcopy(a); b['format'] = copy.deepcopy(d['format'])
+-    deep = await capture_app(USER, deep=True)
+-    marking_schema = prompts.local_judge_schema(criteria)
+-    marking = await capture_app(mark_prompt, schema=marking_schema)
+-    cases = [dict(id='python', mode='fast', seconds=45, max_tokens=512, path='chat', speech=True,
+-                  criteria=None, schema=chat_output.document_schema(True), messages=a['messages']),
+-             *[dict(id=label, mode='fast', seconds=45, max_tokens=512, path='chat', speech=True,
+-                    criteria=None, schema=chat_output.document_schema(True), payload=payload)
+-               for label, payload in [('A', a), ('B', b), ('C', c), ('D', d)]],
+-             dict(id='mark', mode='fast', seconds=45, max_tokens=512, path='one_shot', speech=False,
+-                  criteria=criteria, schema=marking_schema, prompt=mark_prompt, payload=marking,
+-                  development_source_id=MARK_ID),
+-             dict(id='Deep', mode='deep', seconds=60, max_tokens=1024, path='chat', speech=True,
+-                  criteria=None, schema=chat_output.document_schema(True), payload=deep)]
+-    return dict(conditions=cases, gold={'work': {'expected': {}, 'numeric_work_joules': 3.0,
+-                                              'required_precision': '3.0 J', 'manual_review_required': True},
+-                                      'mark': {'expected': row['expected']}},
+-                renders={r['id']: render_evidence(r.get('payload', r).get('messages'), r['mode'] == 'deep')
+-                         for r in cases})
++    prompt = prompts.judge('State the defining properties of linear momentum.',criteria,supplied['response'])
++    schema = prompts.local_judge_schema(criteria)
++    payload = await capture_app(prompt,schema=schema,speech=False)
++    cases.append(dict(id='mark',mode='fast',seconds=45,max_tokens=512,path='one_shot',speech=False,
++                      criteria=criteria,schema=schema,ordered_schema_json=json.dumps(schema,ensure_ascii=False),
++                      prompt=prompt,task='marking',subject='phys',app_payload=payload,payload=copy.deepcopy(payload),
++                      development_source_id=MARK_ID))
++    gold['mark'] = {'expected':mark['expected'],'checks':mark['checks']}
++    full = await capture_app(USER,deep=True,speech=True)
++    outgoing = compat_payload(full,document_chat=True)
++    assert_pair(outgoing,full)
++    cases.append(dict(id='Deep',mode='deep',seconds=180,max_tokens=4096,path='chat',speech=True,
++                      criteria=None,schema=chat_output.document_schema(True),prompt=USER,task='calculation',
++                      subject='phys',app_payload=full,payload=outgoing))
++    gold['Deep'] = {'expected':{},'numeric_work_joules':3.0,'required_precision':'3.0 J',
++                    'manual_review_required':True,'related_family_not_independent_science':True}
++    return dict(conditions=cases,gold=gold,
++                renders={r['id']:render_evidence(r['app_payload']['messages'],r['mode']=='deep') for r in cases})
+ 
+ 
+ def execution_gate(root_go, output):
+@@ -177,19 +215,25 @@
+ 
+ 
+ def score(row, observation, gold):
+-    value = helpers.score_case({**row, 'task': 'marking' if row['id'] == 'mark' else 'calculation'},
++    value = helpers.score_case(row,
+                                observation.get('public_final', ''), observation.get('finish_reason'),
+-                               gold['mark' if row['id'] == 'mark' else 'work'])
++                               gold[row['id']])
+     raw = observation.get('public_final', '')
+     value['repeated_substring_heuristic'] = any(raw.count(raw[i:i+16]) >= 8 for i in range(0, max(0, len(raw)-16), 16))
+     value['arithmetic_and_spoken_meaning'] = 'manual_review_required' if row['id'] != 'mark' else 'not_applicable'
+     value['native_control_valid'] = (observation.get('thinking_observed', False) if row['mode'] == 'deep'
+                                      else not observation.get('thinking_observed', False))
+     value['application_delivery'] = observation.get('app_ok')
++    value['source_fidelity'] = 'manual_review_required' if row['task']=='published_flashcard' else 'not_applicable'
++    try:
++        actual = helpers.strict_object(raw)
++        value['exact_expected_document'] = actual == gold[row['id']]['expected'] if row['path']=='chat' and row['id']!='Deep' else None
++    except ValueError:
++        value['exact_expected_document'] = False if row['path']=='chat' else None
+     value['successful_complete_delivery'] = bool(value['delivered'] and value['raw_schema_valid']
+                                                  and (value['decoder_finish'] if row['path'] == 'chat' else
+                                                       value['marking_vector_available']) and not observation.get('error')
+-                                                 and observation.get('app_ok') is not False)
++                                                 and observation.get('app_ok') is True and value['native_control_valid'])
+     return value
+ 
+ 
+@@ -200,20 +244,25 @@
+     write(ROOT / 'inputs.json', fixture['conditions'])
+     write(ROOT / 'gold.json', fixture['gold'])
+     write(ROOT / 'cpu-render-evidence.json', fixture['renders'])
++    write(ROOT / 'prior-v1-mark-regression.json',asyncio.run(prior_mark_regression()))
+     assert all(value['equal'] for value in fixture['renders'].values()), 'CPU source-derived render mismatch'
+     source_paths = [REPO / 'app/tutor_app' / (name + '.py') for name in helpers.DEPENDENCIES]
+     source_paths += [DEV / name for name in ('test.jsonl', 'selection.json', 'manifest.json')]
+     source_paths += [helpers.MODEL_MANIFEST, PYTHON, SSD / 'tutor-runtime/stem-training/requirements.lock',
+                      SSD / 'stem-tutor-training/native-probe-v1/native_probe_v1.py',
+-                     SSD / 'stem-tutor-training/native-probe-v1/manifest-v3-recorder-fixed.json']
++                     SSD / 'stem-tutor-training/native-probe-v1/manifest-v3-recorder-fixed.json',
++                     PRIOR/'diagnostic.py',PRIOR/'manifest.json',PRIOR/'inputs.json',Path(sys.executable)]
++    source_paths += [SSD/'stem-tutor-training/native-development-diagnostic-results-v1'/name for name in
++                     ('receipt.json','scores.json','observations.json','public-events.jsonl','python.json','mark-payload-cpu-diff.json')]
+     source_paths += [MODEL / name for name in ('tokenizer.json', 'tokenizer_config.json', 'chat_template.jinja',
+                                              'vocab.json', 'fusion_receipt.json', 'config.json')]
+     # Weight identities are inherited from the independently verified fusion receipt; no new model loading.
+-    write(ROOT / 'manifest.json', dict(version=1, state='CPU_FROZEN_HOLD_ROOT_REVIEW',
+-        evaluation_role='DEVELOPMENT ONLY; no challenge rows; no sampler selection',
+-        order=['python', 'A', 'B', 'C', 'D', 'mark', 'Deep'], always_attempt_all_conditions=True,
++    write(ROOT / 'manifest.json', dict(version=2,state='CPU_FROZEN_HOLD_ROOT_REVIEW',
++        evaluation_role='DEVELOPMENT ONLY; six unchanged DEV documents, one VALID marking, one related-family Deep; no promotion',
++        order=[r['id'] for r in fixture['conditions']],always_attempt_all_conditions=True,
+         exception='Fatal resource/server/wall/source-identity error stops remaining conditions',
+-        wall_seconds=360, native_version='0.40.11', options_status='requested; effective native fields not echoed',
++        wall_seconds=600,native_version='0.40.11',options_status='requested; effective native fields not echoed',
++        compatibility_scope='Exact custom alias generating document chat only; full instructions and strict host decoder retained; marking native format retained',
+         resource_policy={'observed_gib': 14, 'swap_growth_mib': 512, 'ssd_free_gib': 20,
+                          'os_headroom_gib': 3, 'initial_pressure': 'normal', 'sustained_warning_seconds': 10},
+         files={p.name: sha(p) for p in ROOT.iterdir() if p.is_file() and p.name != 'manifest.json'},
+@@ -229,16 +278,24 @@
+         assert sha(name) == digest, 'Source drift: ' + name
+     rows = json.loads((ROOT / 'inputs.json').read_text())
+     assert [r['id'] for r in rows] == manifest['order']
+-    assert_pair(rows[3]['payload'], rows[4]['payload'])
++    for row in rows:
++        if row['path']=='chat':assert_pair(row['payload'],row['app_payload'])
++        else:
++            assert row['payload']==row['app_payload'] and 'format' in row['payload']
++            runtime_schema(row)
+     assert all('expected' not in row and 'gold' not in row for row in rows)
+     actual = asyncio.run(build_fixtures())
+     assert actual['conditions'] == rows, 'Actual CPU-captured app payload drift'
+     assert actual['gold'] == json.loads((ROOT / 'gold.json').read_text())
++    for row in rows:
++        reconstructed = asyncio.run(capture_app(row['prompt'],deep=row['mode']=='deep',speech=row['speech'],
++                                                schema=runtime_schema(row) if row['path']=='one_shot' else None))
++        assert reconstructed == row['app_payload'],'Round-trip app payload drift'
+     return manifest, rows
+ 
+ 
+ async def execute(root_go, output, manifest, rows):
+-    # All service calls, subprocess generation, resource probes and GPU work start only here.
++    # All service calls, resource probes and GPU work start only here.
+     import fcntl
+     import re
+     import subprocess
+@@ -271,6 +328,8 @@
+             super().__init__(SYSTEM, document=True)
+             self.reset_public()
+             self.expected = None
++            self.app_expected = None
++            self.document_chat = False
+             self.deep = False
+         def reset_public(self):
+             self.tail, self.parts, self.reason, self.counters = '', [], None, {}
+@@ -287,9 +346,17 @@
+         async def _http_events(self, payload, timeout, path='/api/chat', **kwargs):
+             generating = path == '/api/chat' and bool(payload.get('messages'))
+             if generating:
++                assert payload == self.app_expected,'Actual app request differs from frozen full request'
++                original = copy.deepcopy(payload)
++                payload = compat_payload(payload,document_chat=self.document_chat)
++                if self.document_chat:
++                    assert_pair(payload,original)
++                else:
++                    assert payload == original and 'format' in payload,'Marking native format changed'
+                 assert payload == self.expected, 'Actual native request differs from frozen app/contrast payload'
+                 self.captured.append(copy.deepcopy(payload))
+-                record({'type': 'request', 'payload': payload})
++                record({'type':'request','payload':payload,'app_payload':original,
++                        'document_format_omitted':self.document_chat})
+             else:
+                 record({'type': 'control_request', 'path': path})
+             async with aclosing(super()._http_events(payload, timeout, path, **kwargs)) as stream:
+@@ -340,8 +407,8 @@
+             available = sum(map(int, re.findall(r'^Pages (?:free|inactive|speculative):\s+(\d+)\.', vm, re.M))) * page
+             if available < 3*1024**3:
+                 raise Fatal('OS available memory below 3 GiB')
+-            if time.monotonic()-started >= 360:
+-                raise Fatal('Six-minute total wall limit')
++            if time.monotonic()-started >= 600:
++                raise Fatal('Ten-minute total wall limit')
+         except Fatal:
+             raise
+         except Exception as exc:
+@@ -349,7 +416,7 @@
+     async def guard():
+         while True:
+             await headroom()
+-            await residency(empty=context['id'] == 'python')
++            await residency()
+             await asyncio.sleep(2)
+     async def bounded(coro, seconds):
+         try:
+@@ -359,7 +426,7 @@
+             raise
+         work, monitor = asyncio.create_task(coro), asyncio.create_task(guard())
+         try:
+-            done, _ = await asyncio.wait({work, monitor}, timeout=min(seconds, max(.001, 360-(time.monotonic()-started))),
++            done, _ = await asyncio.wait({work, monitor}, timeout=min(seconds, max(.001, 600-(time.monotonic()-started))),
+                                          return_when=asyncio.FIRST_COMPLETED)
+             if monitor in done:
+                 monitor.result()
+@@ -370,103 +437,68 @@
+         finally:
+             work.cancel(); monitor.cancel()
+             await asyncio.gather(work, monitor, return_exceptions=True)
+-    async def python_reference():
+-        env = {**os.environ, 'HF_HUB_OFFLINE': '1', 'TRANSFORMERS_OFFLINE': '1'}
+-        process = await asyncio.create_subprocess_exec(str(PYTHON), str(ROOT/'python_reference.py'),
+-            '--execute', '--root-go', root_go, '--output', str(output/'python.json'), env=env,
+-            stdout=asyncio.subprocess.DEVNULL, stderr=asyncio.subprocess.DEVNULL)
+-        try:
+-            await process.wait()
+-        finally:
+-            if process.returncode is None:
+-                process.terminate()
+-                try:
+-                    await asyncio.wait_for(process.wait(), 3)
+-                except asyncio.TimeoutError:
+-                    process.kill(); await process.wait()
+-        if not (output/'python.json').exists():
+-            return dict(id='python', error='Python child exited without a public result', public_final='',
+-                        finish_reason=None, child_exit=process.returncode)
+-        result = json.loads((output/'python.json').read_text())
+-        if result.get('fatal_resource'):
+-            raise Fatal(result['fatal_resource'])
+-        return {**result, 'child_exit': process.returncode}
+     owned = False
+     try:
+         if [e.get('version') for e in await control('/api/version')] != ['0.40.11']:
+             raise Fatal('Require native server 0.40.11')
+-        await residency(empty=True)  # No native resident before Python's GPU-capable child starts.
++        await residency(empty=True)  # No model may be resident before this run takes ownership.
+         for row in rows:
+             await headroom()
+             context.update(id=row['id'], turn=1)
+             begin = time.monotonic()
+             observation = dict(id=row['id'], error=None, app_ok=None, public_final='', finish_reason=None)
+             try:
+-                if row['id'] == 'python':
+-                    observation.update(await bounded(python_reference(), row['seconds']))
+-                    await residency(empty=True)
+-                else:
+-                    await residency()
+-                    owned = True
+-                    await local.reset()
+-                    local.reset_public(); local.expected = row['payload']; local.deep = row['mode'] == 'deep'
+-                    local.turn_started = begin
+-                    first_rendered, rendered, app_result = None, [], None
+-                    async def native_request():
+-                        nonlocal first_rendered, app_result
+-                        if row['id'] in ('D', 'Deep', 'mark'):
+-                            tutor = TutorAI(cwd=output, model=ALIAS, document=True, usage_file=None)
+-                            tutor.local_web = False; tutor.speech = row['speech']; tutor._local = local
+-                            if row['id'] == 'mark':
+-                                _, app_result = await tutor.one_shot(row['prompt'], schema=row['schema'], model=ALIAS,
+-                                                                   timeout=row['seconds'], think=False)
+-                            else:
+-                                async with aclosing(tutor.stream(USER, model=ALIAS, think=local.deep)) as stream:
+-                                    async for block in stream:
+-                                        if first_rendered is None:
+-                                            first_rendered = time.monotonic()-begin
+-                                        rendered.append(block)
+-                                app_result = tutor.last
+-                            # No client close here: the run owns the shared native client until final cleanup.
+-                            tutor._local = None
+-                            await tutor.close()
++                await residency()
++                owned = True
++                await local.reset()
++                local.reset_public();local.expected=row['payload'];local.app_expected=row['app_payload']
++                local.deep=row['mode']=='deep';local.document_chat=row['path']=='chat'
++                local.turn_started=begin
++                first_rendered,rendered,app_result=None,[],None
++                async def native_request():
++                    nonlocal first_rendered,app_result
++                    tutor=TutorAI(cwd=output,model=ALIAS,document=True,usage_file=None)
++                    tutor.local_web=False;tutor.speech=row['speech'];tutor._local=local
++                    try:
++                        if row['path']=='one_shot':
++                            _,app_result=await tutor.one_shot(row['prompt'],schema=runtime_schema(row),model=ALIAS,
++                                                            timeout=row['seconds'],think=False)
+                         else:
+-                            async with aclosing(local._http_events(row['payload'], row['seconds'], start_service=False)) as stream:
+-                                async for event in stream:
+-                                    if event.get('error'):
+-                                        raise RuntimeError(event['error'])
+-                    try:
+-                        await bounded(native_request(), row['seconds'])
++                            async with aclosing(tutor.stream(row['prompt'],model=ALIAS,think=local.deep)) as stream:
++                                async for block in stream:
++                                    if first_rendered is None:first_rendered=time.monotonic()-begin
++                                    rendered.append(block)
++                            app_result=tutor.last
+                     finally:
+-                        observation.update(public_final=''.join(local.parts), finish_reason=local.reason,
+-                            thinking_observed=local.thought, thinking_seconds=local.thinking_seconds,
+-                            first_public_seconds=local.first_public, first_rendered_seconds=first_rendered,
+-                            api_counters=local.counters, missing_counters=[k for k in COUNTERS if k not in local.counters],
+-                            app_ok=app_result.ok if app_result else None,
+-                            app_error=app_result.message if app_result and not app_result.ok else None,
+-                            rendered=''.join(rendered), actual_requests=len(local.captured))
+-                        if row['id'] == 'D' and local.captured:
+-                            assert_pair(next(r for r in rows if r['id']=='C')['payload'], local.captured[0])
+-                            observation['c_d_identical_except_format'] = True
++                        tutor._local=None
++                        await tutor.close()
++                try:
++                    await bounded(native_request(),row['seconds'])
++                finally:
++                    observation.update(public_final=''.join(local.parts),finish_reason=local.reason,
++                        thinking_observed=local.thought,thinking_seconds=local.thinking_seconds,
++                        first_public_seconds=local.first_public,first_rendered_seconds=first_rendered,
++                        api_counters=local.counters,missing_counters=[k for k in COUNTERS if k not in local.counters],
++                        app_ok=app_result.ok if app_result else None,
++                        app_error=app_result.message if app_result and not app_result.ok else None,
++                        rendered=''.join(rendered),actual_requests=len(local.captured),
++                        document_format_omitted=local.document_chat)
+             except Fatal:
+                 raise
++            except AssertionError as exc:
++                raise Fatal('Frozen payload/factory identity: '+str(exc)) from exc
+             except (ConnectionError, OSError) as exc:
+                 raise Fatal('Server/runtime transport: '+str(exc)) from exc
+             except Exception as exc:
+                 observation['error'] = type(exc).__name__ + ': ' + str(exc)
+             finally:
+-                if row['id'] == 'python' and (output/'python.json').exists():
+-                    # Keep the last public prefix even when the parent deadline terminates the child.
+-                    partial = json.loads((output/'python.json').read_text())
+-                    observation.update({k: v for k, v in partial.items() if k != 'error'})
+-                    observation['error'] = observation.get('error') or partial.get('error')
+                 observation['seconds'] = time.monotonic()-begin
+                 observations.append(observation)
+                 record({'type': 'condition_result', **observation})
+                 write(output/'observations.json', observations)
+                 receipt['completed_conditions'] = len(observations)
+                 write(output/'receipt.json', receipt)
+-        receipt['state'] = 'seven_conditions_attempted'
++        receipt['state'] = 'eight_conditions_attempted'
+     except BaseException as exc:
+         receipt.update(state='fatal_stopped', error=type(exc).__name__ + ': ' + str(exc))
+         raise
+@@ -478,7 +510,7 @@
+                 if not any(e.get('done') is True and e.get('done_reason') == 'unload' for e in result):
+                     raise Fatal('Unload was not acknowledged')
+             await residency(empty=True)
+-            receipt['cleanup'] = 'native residency verified empty; Python child exited'
++            receipt['cleanup'] = 'owned candidate unloaded; native residency verified empty'
+         except Exception as exc:
+             receipt['cleanup_error'] = type(exc).__name__ + ': ' + str(exc)
+         await local.close()
+--- /dev/null
++++ native-development-compat-v2/test_compat_cpu.py
+@@ -0,0 +1,100 @@
++"""CPU regressions for the exact-alias diagnostic transport and schema round trip."""
++import asyncio
++import copy
++import importlib.util
++import json
++from pathlib import Path
++import sys
++import unittest
++from unittest.mock import patch
++
++ROOT = Path(__file__).resolve().parent
++spec = importlib.util.spec_from_file_location('compat_diag', ROOT/'diagnostic.py')
++d = importlib.util.module_from_spec(spec)
++sys.modules[spec.name] = d
++spec.loader.exec_module(d)
++
++
++class CompatTests(unittest.TestCase):
++    def test_exact_alias_document_generation_only(self):
++        source = {'model':'stem-tutor-qwen35:pilot', 'messages':[{'role':'user','content':'hello'}],
++                  'format': {'type':'object'}, 'think':False, 'options':{'seed':42}}
++        expected = copy.deepcopy(source); expected.pop('format')
++        self.assertEqual(d.compat_payload(source, document_chat=True), expected)
++        self.assertIn('format', source)
++        for model, messages, document in [('other-model',source['messages'],True),
++                                           (source['model'],[],True),
++                                           (source['model'],source['messages'],False)]:
++            payload = {**source,'model':model,'messages':messages}
++            self.assertEqual(d.compat_payload(payload, document_chat=document), payload)
++
++    def test_real_app_matrix_preserves_original_users_and_full_schema(self):
++        fixtures = asyncio.run(d.build_fixtures())
++        self.assertEqual(len(fixtures['conditions']),8)
++        source = {r['id']:r for r in map(json.loads,(d.DEV/'test.jsonl').read_text().splitlines())}
++        for row in fixtures['conditions']:
++            self.assertNotIn('expected',row)
++            if row['id'] == 'mark':
++                self.assertIn('format',row['payload'])
++                continue
++            full = copy.deepcopy(row['app_payload']); full.pop('format')
++            self.assertEqual(row['payload'],full)
++            self.assertEqual([m['role'] for m in full['messages']],['system','user'])
++            self.assertIn('Return exactly one JSON object matching this schema',full['messages'][0]['content'])
++            if row['id'] in source:
++                self.assertEqual(full['messages'][-1]['content'],source[row['id']]['messages'][0]['content'])
++
++    def test_old_failure_reproduces_without_service_calls(self):
++        value = asyncio.run(d.prior_mark_regression())
++        self.assertFalse(value['v1_roundtrip_payload_equal'])
++        self.assertEqual(value['changed_fields'],['messages[1].content'])
++        self.assertEqual(value['prompt_lengths'],[1655,1655])
++
++    def test_factory_roundtrip_keeps_embedded_prompt_and_property_order(self):
++        fixture = asyncio.run(d.build_fixtures())
++        loaded = json.loads(d.dump(fixture['conditions']))
++        row = next(r for r in loaded if r['id']=='mark')
++        schema = d.runtime_schema(row)
++        self.assertEqual(list(schema['properties']),['points','feedback'])
++        actual = asyncio.run(d.capture_app(row['prompt'],schema=schema,speech=False))
++        self.assertEqual(actual,row['app_payload'])
++        self.assertEqual(d.compat_payload(actual,document_chat=False),row['payload'])
++
++    def test_deep_real_boolean_full_speech_and_fixed_budget(self):
++        row = asyncio.run(d.build_fixtures())['conditions'][-1]
++        self.assertEqual(row['id'],'Deep')
++        self.assertIs(row['payload']['think'],True)
++        self.assertEqual(row['max_tokens'],4096)
++        self.assertEqual(row['seconds'],180)
++        self.assertIn('speech',row['app_payload']['format']['required'])
++        self.assertNotIn('format',row['payload'])
++
++    def test_cpu_preparation_has_no_socket_or_mlx_import(self):
++        with patch('asyncio.open_connection',side_effect=AssertionError('CPU socket')):
++            asyncio.run(d.build_fixtures())
++            asyncio.run(d.prior_mark_regression())
++        self.assertFalse(any(k=='mlx' or k.startswith('mlx.') for k in sys.modules))
++
++    def test_public_sanitizer_discards_private_and_split_delimiter(self):
++        clean,tail = d.sanitize({'message':{'content':'Visible','thinking':'PRIVATE'},'token_ids':[1]},'')
++        self.assertNotIn('PRIVATE',json.dumps(clean))
++        self.assertNotIn('token_ids',clean)
++        _,tail = d.sanitize({'message':{'content':'<thi'}},'')
++        clean,_ = d.sanitize({'message':{'content':'nk>PRIVATE'}},tail)
++        self.assertEqual(clean['message']['content'],'')
++        self.assertIn('error',clean)
++
++    def test_invalid_mark_still_exposes_no_vector(self):
++        fixture = asyncio.run(d.build_fixtures())
++        row = next(r for r in fixture['conditions'] if r['id']=='mark')
++        raw = json.dumps({'points':[{'point':p,'met':'false','why':''} for p in row['criteria']], 'feedback':''})
++        score = d.score(row,{'public_final':raw,'finish_reason':'stop'},fixture['gold'])
++        self.assertFalse(score['marking_vector_available'])
++        self.assertIsNone(score['marking_vector_correct'])
++
++    def test_gate_requires_new_output_and_root_authorization(self):
++        with self.assertRaises(ValueError):d.execution_gate(None,ROOT.parent/'new-v2-output')
++        with self.assertRaises(ValueError):d.execution_gate('ROOT_GO',ROOT)
++
++
++if __name__ == '__main__':unittest.main()
+--- /dev/null
++++ native-development-compat-v2/commands.sh
+@@ -0,0 +1,7 @@
++# HOLD root review: no generation command in this file has been executed.
++# CPU-only regression, compilation and frozen-fixture verification:
++'/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/.venv/bin/python' -m unittest discover -s '/Volumes/External SSD TB4/LocalAI/stem-tutor-training/native-development-compat-v2' -p test_compat_cpu.py -v
++'/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/.venv/bin/python' -m py_compile '/Volumes/External SSD TB4/LocalAI/stem-tutor-training/native-development-compat-v2/diagnostic.py' '/Volumes/External SSD TB4/LocalAI/stem-tutor-training/native-development-compat-v2/native_probe_helpers.py' '/Volumes/External SSD TB4/LocalAI/stem-tutor-training/native-development-compat-v2/test_compat_cpu.py'
++'/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/.venv/bin/python' '/Volumes/External SSD TB4/LocalAI/stem-tutor-training/native-development-compat-v2/diagnostic.py'
++# Only after review and a subsequent explicit ROOT_GO; exclusive GPU ownership required.
++/usr/bin/caffeinate -i '/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/.venv/bin/python' '/Volumes/External SSD TB4/LocalAI/stem-tutor-training/native-development-compat-v2/diagnostic.py' --execute --root-go ROOT_GO --output '/Volumes/External SSD TB4/LocalAI/stem-tutor-training/native-development-compat-results-v2'

@@ -1,13 +1,20 @@
 import sys
 from pathlib import Path
 
-SCRIPTS = Path(__file__).resolve().parents[1] / "plugin/stem-tutor/skills/tutor/scripts"
-sys.path.insert(0, str(SCRIPTS))
-import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "plugin/stem-tutor/skills/tutor/scripts"))
+sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(ROOT / "app"))
 
 
 import pytest  # noqa: E402
+
+
+@pytest.fixture(autouse=True)
+def _no_real_tutor_vault(tmp_path, monkeypatch):
+    """Default every test process to disposable learner state and Library copies."""
+    monkeypatch.setenv("STEM_TUTOR_VAULT", str(tmp_path / "STEM Tutor"))
 
 
 @pytest.fixture(autouse=True)
@@ -30,6 +37,9 @@ def _no_worker_checks_in_tests(monkeypatch, tmp_path):
     monkeypatch.setenv("FOUNDRY_EVIDENCE", "0")
     monkeypatch.setenv("FOUNDRY_PREFLIGHT", "0")
     monkeypatch.setenv("FOUNDRY_CLAUDE_APPS", str(tmp_path / "no-claude-apps"))  # never the app's real Claude Code
+    # Tests must explicitly supply a fake provider instead of discovering an installed paid CLI.
+    monkeypatch.setenv("STEM_EXTRACT_CODEX", str(tmp_path / "no-extraction-codex"))
+    monkeypatch.setenv("STEM_EXTRACT_CLAUDE", str(tmp_path / "no-extraction-claude"))
 
 
 @pytest.fixture(autouse=True)

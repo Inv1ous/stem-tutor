@@ -1,0 +1,32 @@
+{
+  "source_model": "mlx:gpt-oss:20b",
+  "source_row": 7,
+  "source_unchanged_sha256": "2cecd082c3601b700155e992fc25aa4620360ae4263933bef5abebe8897ad5bc",
+  "canonical_matches": "docs/benchmarks/2026-10-26-structured-output/evidence/real-r8-after-math-guard.md",
+  "canonical_sha256": "b54325ee73b57eb89ae4acd39c6f945066587fd884297a11514eb12cb1c457e6",
+  "code_sha256": {
+    "app/tutor_app/output_format.py": "981b1a276c5bbe1f90af66c934b182c5b403ee39fc00e0b1af050e4f2a14a05d",
+    "app/tutor_app/cards.py": "c65d6f469a6d87b756473d1df7302715f1abe57c217affeec976b7279067d550",
+    "app/tutor_app/chat_output.py": "6edb8767ef4c55ca1353c7682421f5af97cadf809a4397388887a4aa7757c035"
+  },
+  "screenshots": [
+    {
+      "file": "obsidian-real-gptoss-r8-after-math-guard-now-p01.png",
+      "sha256": "27254e83d7b5e0e2d81fed2c81643486e9575ddf03de017dd01fd757d6c7855d"
+    },
+    {
+      "file": "obsidian-real-gptoss-r8-after-math-guard-now-p02.png",
+      "sha256": "fe99fd934aa4ef27d948f6f702f7aea654c1fd4170a9e695251eafd30c6eb9ef"
+    },
+    {
+      "file": "real-gptoss-r8-literal_code-after-math-guard-night-80x24-p01.png",
+      "sha256": "1f836c0786911d668c563e392b7d4563bfe70ddca08133f582895bb58abd022c"
+    },
+    {
+      "file": "real-gptoss-r8-literal_code-after-math-guard-night-80x24-p02.png",
+      "sha256": "82921a1c134c887e53238a9853450a63ffaf034d1756ca9c02dcfb0d900ff440"
+    }
+  ],
+  "observed": "Actual Obsidian 1.14.5 reading mode shows labelled fenced literal fallback and no red/yellow MathJax error; valid x and x^2 still rendered; exact code intact. Before evidence retained. Original live reading window restored.",
+  "limitations": "Same saved real model source replayed; no new model call; prose factual inaccuracy remains."
+}

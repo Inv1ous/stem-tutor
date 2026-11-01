@@ -10,6 +10,7 @@ from textual.widgets import Input
 
 from test_tui import app_for
 from test_shortcuts_screen import card, events, open_from_menu, publish, run
+from library_assets import read_json
 from tutor_app.shortcuts_screen import numeric_ok
 from tutorlib import shortcuts as sc
 
@@ -32,8 +33,7 @@ def test_numeric_practice_marks_the_whole_answer(given, answer, right):
 def test_force_practice_accepts_the_requested_unit_only(tmp_path, monkeypatch, given, right):
     """B-040: the published force question accepts newtons, not kilograms."""
     app, v = app_for(tmp_path, monkeypatch)
-    path = Path(__file__).resolve().parents[2] / 'build/out/shortcuts/lessons/M1.json'
-    lesson = json.loads(path.read_text())['SEM-M1-resolve-into-components']
+    lesson = read_json('build/out/shortcuts/lessons/M1.json')['SEM-M1-resolve-into-components']
     publish(v, lessons={'SEM-9702-a': lesson})
 
     async def steps(pilot):
@@ -76,8 +76,7 @@ def test_force_practice_accepts_the_requested_unit_only(tmp_path, monkeypatch, g
 def test_published_practice_accepts_formatted_keys_and_requested_units(tmp_path, monkeypatch, spec, ident, given, right):
     """B-040: published maths keys and equivalent unit names must not cost a correct answer."""
     app, v = app_for(tmp_path, monkeypatch)
-    path = Path(__file__).resolve().parents[2] / f'build/out/shortcuts/lessons/{spec}.json'
-    lesson = json.loads(path.read_text())[f'SEM-{spec}-{ident}']
+    lesson = read_json(f'build/out/shortcuts/lessons/{spec}.json')[f'SEM-{spec}-{ident}']
     publish(v, lessons={'SEM-9702-a': lesson})
 
     async def steps(pilot):
@@ -101,8 +100,7 @@ def test_published_practice_accepts_formatted_keys_and_requested_units(tmp_path,
 def test_exact_root_practice_accepts_equivalent_values_but_not_nearby_answers(tmp_path, monkeypatch, given, right):
     """B-040: a question asking for an exact root cannot use a percentage tolerance."""
     app, v = app_for(tmp_path, monkeypatch)
-    path = Path(__file__).resolve().parents[2] / 'build/out/shortcuts/lessons/P1.json'
-    lesson = json.loads(path.read_text())['SEM-P1-sum-and-product-of-roots']
+    lesson = read_json('build/out/shortcuts/lessons/P1.json')['SEM-P1-sum-and-product-of-roots']
     publish(v, lessons={'SEM-9702-a': lesson})
 
     async def steps(pilot):
@@ -125,8 +123,7 @@ def test_exact_root_practice_accepts_equivalent_values_but_not_nearby_answers(tm
 ])
 def test_practice_uses_the_requested_unit_not_the_input_angle_unit(spec, ident, index, given, right):
     """B-040: an angle has degrees; a trigonometric ratio does not inherit its input's unit."""
-    path = Path(__file__).resolve().parents[2] / f'build/out/shortcuts/lessons/{spec}.json'
-    practice = json.loads(path.read_text())[f'SEM-{spec}-{ident}']['practice'][index]
+    practice = read_json(f'build/out/shortcuts/lessons/{spec}.json')[f'SEM-{spec}-{ident}']['practice'][index]
     assert numeric_ok(given, practice['answer'], practice['stem']) is right
 
 

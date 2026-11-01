@@ -85,6 +85,9 @@ def test_starting_another_lesson_offers_to_resume_one_not_yet_answered(tmp_path,
             assert old["goal"] == "scratch" and old["awaiting"]["activity"] == "plan"
             await pilot.press("ctrl+q")
             await pilot.pause()
+            assert app.screen.__class__.__name__ == "ConfirmScreen"  # Unsubmitted plan choices need explicit leaving.
+            await pilot.press("enter")  # Leave the plan; keep its resumable session.
+            await pilot.pause()
             menu = app.screen.query_one("#menu")
             menu.highlighted = [o.id for o in menu.options].index("learn")
             await pilot.press("enter")

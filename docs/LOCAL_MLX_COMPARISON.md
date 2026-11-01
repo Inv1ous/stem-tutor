@@ -1,6 +1,6 @@
 # MLX models and local reasoning strengths
 
-Measured on 25 October 2026, with final regression verification on 26 October: M4 MacBook Air, 10 CPU/10 GPU cores, 24 GiB unified memory. Version remains 2.6.0. These small application-level tests do not establish universal speed or accuracy gains.
+Measured on 25 October 2026, with final regression verification on 26 October: M4 MacBook Air, 10 CPU/10 GPU cores, 24 GiB unified memory, then running version 2.6.0. The current release is [v2.6.1](releases/v2.6.1.md); these historical application-level tests do not establish universal speed or accuracy gains.
 
 ## Installed choices
 

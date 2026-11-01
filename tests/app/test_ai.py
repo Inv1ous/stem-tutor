@@ -417,6 +417,31 @@ def test_the_conversation_does_not_think_and_its_next_process_is_started_ahead(t
     assert c.proc is None  # closed: no process left behind
 
 
+def test_close_prevents_queued_warmup_from_starting(tmp_path, monkeypatch):
+    c = make(tmp_path, monkeypatch)
+    started = []
+
+    async def start():
+        started.append(c._closed)
+
+    async def go():
+        c._start = start
+        await c._lock.acquire()
+        warming = asyncio.create_task(c.warm())
+        try:
+            # Let warm() pass its first shutdown check and queue on _lock.
+            await asyncio.sleep(0)
+            assert not warming.done()
+            c._warming = warming
+            await c.close()
+        finally:
+            c._lock.release()
+        await asyncio.sleep(0)
+
+    asyncio.run(go())
+    assert started == []
+
+
 def test_first_json_reads_latex_written_with_one_backslash():
     got = ai.first_json('```json\n{"why": "uses $\\theta$ and \\frac{1}{2}, and $\\,$"}\n```')
     assert got == {"why": "uses $\\theta$ and \\frac{1}{2}, and $\\,$"}

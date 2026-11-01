@@ -10,11 +10,13 @@
                            [--for <subtopic>] [--kc <id>] [--why T]    save a figure for a chapter
   python build/library.py extract <pdf> --page N --index K --to <spec>/<name> [same options]   an embedded image
 
-The library is sources/library/ (override with env STEM_LIBRARY_ROOT); `papers` and `specs` are its sibling folders.
+The authoritative library is the learner vault's Library/; sources are grouped by course.
+STEM_LIBRARY_ROOT is an explicit compatibility override for isolated fixtures.
 Figures: a box is always x0,y0,x1,y1 as FRACTIONS (0-1) of the page as poppler renders it (after any rotation, cut to
-the CropBox), so it does not depend on the dpi. Crops go to build/out/assets/<spec>/<name>.png (env STEM_LIBRARY_ASSETS)
-with a <name>.png.json provenance sidecar; they are never committed. Needs poppler and Pillow.
-Nothing is registered: any folder name, any depth. Page texts are cached per PDF in <library>/.cache/ and re-read when
+the CropBox), so it does not depend on the dpi. Crops are registered under Library/Courses/<spec>/Diagrams/
+with immutable names and a provenance sidecar. STEM_LIBRARY_ASSETS is an explicit isolated-fixture adapter.
+Source files must be catalogued; historical paths resolve through declared aliases. Needs poppler and Pillow.
+Page texts are cached per PDF and re-read when
 a file changes. PDFs are never modified. Needs `pdftotext` (poppler) or the `pypdf` package.
 """
 from __future__ import annotations
@@ -22,6 +24,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import html
+import io
 import json
 import os
 import re
@@ -33,8 +36,17 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / 'src') not in sys.path:
+    sys.path.insert(0, str(ROOT / 'src'))
 CAP = 12000
-EMPTY = "library is empty: drop PDFs in sources/library/<any folder>"
+# The source's recorded units (build/raw/ial-maths.json), not filename inference.
+IAL_MATHS_COURSES = frozenset(('P1', 'P2', 'P3', 'P4', 'FP1', 'FP2', 'FP3',
+                             'M1', 'M2', 'M3', 'S1', 'S2', 'S3', 'D1'))
+SHARED_SOURCE_COURSES = {
+    'Library/Shared/Sources/Specifications/ial-maths-spec.pdf': IAL_MATHS_COURSES,
+    'Library/Shared/Sources/Specifications/ial-maths-formula-book.pdf': IAL_MATHS_COURSES,
+}
+EMPTY = "library is empty: import PDFs into STEM Tutor/Library/Courses/<course>/Sources/Library"
 CUES = (("worked example", "a worked example"), ("example", "has examples"), ("mark scheme", "mark scheme"),
         ("question", "has questions"), ("summary", "has a summary"), ("definition", "has a definition"))
 
@@ -44,17 +56,90 @@ class Fail(Exception):
 
 
 def lib_root() -> Path:
-    return Path(os.environ.get("STEM_LIBRARY_ROOT") or ROOT / "sources/library")
+    if os.environ.get("STEM_LIBRARY_ROOT"):
+        return Path(os.environ["STEM_LIBRARY_ROOT"])
+    return learner_vault() / "Library"
+
+
+def learner_vault() -> Path:
+    return Path(os.environ.get("STEM_TUTOR_VAULT") or ROOT.parent / "STEM Tutor")
 
 
 def roots(which: str) -> dict[str, Path]:
     lib = lib_root()
+    if not os.environ.get("STEM_LIBRARY_ROOT"):
+        if which not in {"library", "papers", "specs", "all"}:
+            raise Fail(f"unknown root '{which}': use library, papers, specs or all")
+        kinds = {"library": "Library", "papers": "PastPapers", "specs": "Specifications"}
+        selected = kinds if which == "all" else {which: kinds[which]}
+        shelves = sorted((lib / "Courses").iterdir()) if (lib / "Courses").is_dir() else []
+        shelves.append(lib / "Shared")
+        return {f"{kind}:{shelf.name}": shelf / "Sources" / section
+                for kind, section in selected.items() for shelf in shelves
+                if (shelf / "Sources" / section).is_dir()}
     every = {"library": lib, "papers": lib.parent / "papers", "specs": lib.parent / "specs"}
     if which == "all":
         return every
     if which not in every:
         raise Fail(f"unknown root '{which}': use library, papers, specs or all")
     return {which: every[which]}
+
+
+def cache_root() -> Path:
+    """Derived reader data belongs to Work, including when the Library is writable."""
+    default = (lib_root().parent if os.environ.get('STEM_LIBRARY_ROOT') else learner_vault().parent) / 'Work/Workers/library-cache'
+    return Path(os.environ.get('STEM_LIBRARY_CACHE') or default)
+
+
+def source_files(which: str = 'library', course: str = '', *, references: set[str] | None = None) -> list[tuple[str, Path]]:
+    """Verified course sources plus explicitly applicable shared sources.
+
+    The legacy root override remains a deliberate fixture adapter. Shared files
+    use courses/shared_for metadata (or all_courses=true), with an exact-path
+    applicability map for the existing shared IAL specification/formula book.
+    Optional exact IDs, paths or declared aliases select metadata before bytes
+    are verified; the default still verifies every applicable source.
+    """
+    selected = roots(which)  # validate the public selector even with a catalog
+    if os.environ.get('STEM_LIBRARY_ROOT'):
+        return [(key, path) for key, folder in selected.items() for path in pdfs(folder)
+                if references is None or str(path) in references]
+    from tutorlib.asset_library import AssetLibrary
+    try:
+        catalog = AssetLibrary(learner_vault())
+        sections = {'library': 'Library', 'papers': 'PastPapers', 'specs': 'Specifications'}
+        wanted = set(sections.values()) if which == 'all' else {sections[which]}
+        files = []
+        for identifier, record in sorted(catalog.records().items()):
+            parts = Path(record['path']).parts
+            if not record['path'].lower().endswith('.pdf'):
+                continue
+            if len(parts) >= 6 and parts[:2] == ('Library', 'Courses') and parts[3] == 'Sources':
+                owner, section = parts[2], parts[4]
+                if course and owner != course:
+                    continue
+            elif len(parts) >= 5 and parts[:3] == ('Library', 'Shared', 'Sources'):
+                owner, section = 'Shared', parts[3]
+                applicable = record.get('courses', record.get('shared_for', record.get('course') or SHARED_SOURCE_COURSES.get(record['path'], [])))
+                if isinstance(applicable, str):
+                    applicable = [applicable]
+                if not isinstance(applicable, (list, tuple, set, frozenset)):
+                    applicable = []
+                if course and course not in applicable and not record.get('all_courses', False):
+                    continue
+            else:
+                continue
+            if section in wanted:
+                refs = {'asset:' + identifier, record['path'], str(learner_vault() / record['path']),
+                        str(catalog.root / record['path']),
+                        *record.get('aliases', [])}
+                if references is not None and not references.intersection(refs):
+                    continue
+                files.append((f'{next(k for k, v in sections.items() if v == section)}:{owner}',
+                              catalog.resolve('asset:' + identifier)))
+        return files
+    except (ValueError, OSError) as exc:
+        raise Fail(str(exc)) from exc
 
 
 def pdfs(folder: Path) -> list[Path]:
@@ -113,9 +198,11 @@ def extract(pdf: Path) -> list[str]:
 
 def load(pdf: Path, quiet: bool = False, tag: str = "") -> dict:
     """{"pages": [...], "scanned": bool, "error": str} for one PDF, from the cache when the file is unchanged."""
+    if not os.environ.get('STEM_LIBRARY_ROOT'):
+        pdf = resolve(str(pdf))
     st = pdf.stat()
     key = hashlib.sha1(f"{pdf}|{st.st_mtime_ns}|{st.st_size}".encode()).hexdigest()
-    cache = lib_root() / ".cache" / f"{key}.json"
+    cache = cache_root() / f"{key}.json"
     try:
         return json.loads(cache.read_text())
     except (OSError, ValueError):
@@ -179,12 +266,12 @@ def rank_pages(items, terms: list[str], need: int) -> list[tuple[float, Path, in
     return out
 
 
-def corpus(which: str, folder: str = ""):
+def corpus(which: str, folder: str = "", course: str = ""):
     """All PDFs to search -> (items of page texts, files without a text layer, unreadable files)."""
-    files = [(r, p) for r, d in roots(which).items() for p in pdfs(d)]
+    files = source_files(which, course)
     frag = norm(folder)
     if frag:
-        files = [(r, p) for r, p in files if frag in norm(str(p.relative_to(roots(which)[r])))]
+        files = [(r, p) for r, p in files if frag in norm(str(p))]
     items, scanned, bad = [], [], []
     for i, (r, p) in enumerate(files, 1):
         rec = load(p, tag=f"[{i}/{len(files)}] {p.name}")
@@ -276,12 +363,35 @@ def cmd_search(a) -> None:
 
 
 def resolve(arg: str) -> Path:
-    for c in (Path(arg), ROOT / arg):
-        if c.is_file():
-            return c
+    if os.environ.get('STEM_LIBRARY_ROOT'):
+        for c in (Path(arg), ROOT / arg):
+            if c.is_file():
+                return c
+    else:
+        sys.path.insert(0, str(ROOT / 'src'))
+        from tutorlib.asset_library import AssetLibrary
+        catalog = AssetLibrary(learner_vault())
+        references = [] if Path(arg).is_absolute() else [arg]
+        if Path(arg).is_absolute():
+            for root in (ROOT, learner_vault(), catalog.root):
+                try:
+                    references.append(Path(arg).relative_to(root).as_posix())
+                except ValueError:
+                    pass
+        for reference in references:
+            try:
+                return catalog.resolve(reference)
+            except ValueError as exc:
+                if not str(exc).startswith('unknown asset reference:'):
+                    raise Fail(str(exc)) from exc
     frag = norm(arg)
     hit = [p for r, d in roots("all").items() for p in pdfs(d) if frag in norm(str(p.relative_to(d.parent)))]
     if len(hit) == 1:
+        if not os.environ.get('STEM_LIBRARY_ROOT'):
+            try:
+                return catalog.resolve(hit[0].relative_to(learner_vault()).as_posix())
+            except ValueError as exc:
+                raise Fail(str(exc)) from exc
         return hit[0]
     raise Fail(f"no PDF matches '{arg}'" if not hit else
                f"'{arg}' matches {len(hit)} PDFs, name one: " + "; ".join(show(h) for h in hit[:10]))
@@ -322,11 +432,14 @@ def hits_for(subtopic: str, per_kc: int = 3, root: str = "library") -> list[tupl
     """[(kc id, kc title, [(pdf, page, why), ...])] for a chapter: what `for` prints, as data, for the bundle and the
     foundry's evidence check. Empty when the library has no PDFs or the chapter is unknown."""
     import hashlib
-    listing = pdfs(roots(root)[root]) if root in roots(root) else []
+    course = subtopic.split('-', 1)[0]
+    listing = [p for _, p in source_files(root, course)]
     if not listing:
         return []
-    fp = hashlib.sha1("\n".join(f"{f}|{f.stat().st_size}|{f.stat().st_mtime_ns}" for f in sorted(listing)).encode()).hexdigest()
-    cache = lib_root() / ".cache" / "hits" / f"{subtopic}.{per_kc}.json"  # the same library gives the same hits: ask once
+    graph = Path(os.environ.get('STEM_LIBRARY_SPECS') or ROOT / 'build/out/specs') / course / 'graph.json'
+    graph_bytes = graph.read_bytes() if graph.is_file() else b''
+    fp = hashlib.sha1("\n".join(f"{f}|{f.stat().st_size}|{f.stat().st_mtime_ns}" for f in sorted(listing)).encode() + graph_bytes).hexdigest()
+    cache = cache_root() / "hits" / f"{subtopic}.{root}.{per_kc}.json"  # the same library gives the same hits: ask once
     try:
         saved = json.loads(cache.read_text())
         if saved.get("fp") == fp:
@@ -335,7 +448,7 @@ def hits_for(subtopic: str, per_kc: int = 3, root: str = "library") -> list[tupl
         pass
     if _MEMO.get("fp") != fp:  # the library is read once per process, however many chapters are asked about
         _MEMO.clear()
-        _MEMO.update(fp=fp, corpus=corpus(root))
+        _MEMO.update(fp=fp, corpus=corpus(root, course=course))
     files, items, _, _ = _MEMO["corpus"]
     if not files:
         return []
@@ -361,7 +474,7 @@ def hits_for(subtopic: str, per_kc: int = 3, root: str = "library") -> list[tupl
 
 
 def cmd_for(a) -> None:
-    files, items, scanned, bad = corpus(a.root)
+    files, items, scanned, bad = corpus(a.root, course=a.subtopic.split('-', 1)[0])
     if not files:
         print(EMPTY if a.root == "library" else "no PDFs to search here")
         return
@@ -399,12 +512,12 @@ def cmd_for(a) -> None:
 # converted for a cropped page and reported as unknown for a rotated one (look at it with `page` instead).
 MIN_SIDE, TINY, MAX_BYTES, PAD = (150, 100), 120, 6_000_000, 6
 CAPTION = re.compile(r"^(?:(?:figure|fig\.?|table|chart)\s*\d+|(?:diagram|graph)\s*\d*)(?:[.\-]\d+)*[a-z]?\b", re.I)
-EMBED = re.compile(r"!\[\[(Assets/([^\]|/]+)/([^\]|/]+\.png))(?:\|[^\]]*)?\]\]")
+EMBED = re.compile(r"!\[\[((?:Assets|Library)/[^\]|]+\.png)(?:\|[^\]]*)?\]\]")
 SIDECAR_KEYS = ("pdf", "page", "sha256", "caption", "created")
 
 
 def assets_dir() -> Path:
-    return Path(os.environ.get("STEM_LIBRARY_ASSETS") or ROOT / "build/out/assets")
+    return Path(os.environ.get("STEM_LIBRARY_ASSETS") or learner_vault() / "Library/Courses")
 
 
 def _tool(name: str) -> str:
@@ -586,12 +699,14 @@ def render(pdf: Path, p: int, dpi: int) -> Path:
     """The whole page as a PNG in the cache (as a reader shows it: rotated, cut to the CropBox)."""
     if not 20 <= dpi <= 400:
         raise Fail("--dpi is between 20 and 400")
+    if not os.environ.get('STEM_LIBRARY_ROOT'):
+        pdf = resolve(str(pdf))
     n, _ = pdf_info(pdf)
     if not 1 <= p <= n:
         raise Fail(f"{pdf.name} has {n} pages; asked for {p}")
     st = pdf.stat()
     key = hashlib.sha1(f"{pdf}|{st.st_mtime_ns}|{st.st_size}".encode()).hexdigest()[:12]
-    out = lib_root() / ".cache/pages" / f"{key}-p{p}-{dpi}.png"
+    out = cache_root() / "pages" / f"{key}-p{p}-{dpi}.png"
     if not out.is_file():
         out.parent.mkdir(parents=True, exist_ok=True)
         _run([_tool("pdftoppm"), "-f", str(p), "-l", str(p), "-r", str(dpi), "-cropbox", "-png", "-singlefile",
@@ -609,7 +724,9 @@ def cmd_page(a) -> None:
     img = render(pdf, a.n, a.dpi)
     if a.box:
         box = parse_box(a.box)
-        out = img.with_name(f"{img.stem}-{fmt_box(box).replace(',', '_')}.png")
+        # Display rounding can alias distinct crops; bind the exact parsed geometry.
+        key = hashlib.sha256(",".join(x.hex() for x in box).encode()).hexdigest()
+        out = img.with_name(f"{img.stem}-box-{key}.png")
         if not out.is_file():
             Image, _ = _pil()
             with Image.open(img) as im:
@@ -636,7 +753,10 @@ def _target(to: str) -> tuple[str, str, Path]:
     name = re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", m[2].lower().removesuffix(".png"))).strip("-")
     if not name:
         raise Fail("--to needs a name with letters or digits")
-    dest = assets_dir() / m[1] / f"{name}.png"
+    parent = assets_dir() / m[1]
+    if not os.environ.get("STEM_LIBRARY_ASSETS"):
+        parent /= "Diagrams"
+    dest = parent / f"{name}.png"
     if dest.exists() or dest.with_name(dest.name + ".json").exists():
         raise Fail(f"{m[1]}/{name}.png already exists: choose another name (nothing is overwritten)")
     return m[1], name, dest
@@ -646,20 +766,38 @@ def _publish_figure(a, pdf: Path, spec: str, name: str, dest: Path, im, extra: d
     """Check the size, write the PNG and its sidecar, print the embed and caption lines."""
     if im.width < MIN_SIDE[0] or im.height < MIN_SIDE[1]:
         raise Fail(f"the figure is {im.width}x{im.height} px, under {MIN_SIDE[0]}x{MIN_SIDE[1]}: widen the box or raise --dpi")
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    tmp = dest.with_name(dest.name + ".tmp")
-    im.save(tmp, format="PNG", optimize=True)
-    size = tmp.stat().st_size
+    image = io.BytesIO()
+    im.save(image, format="PNG", optimize=True)
+    data = image.getvalue()
+    size = len(data)
     if size > MAX_BYTES:
-        tmp.unlink()
         raise Fail(f"the figure is {size / 1e6:.1f} MB, over 6 MB: lower --dpi (try {int(extra.get('dpi') or 150) * 0.7:.0f})")
-    side = {"pdf": show(pdf), "page": a.page, **extra, "sha256": hashlib.sha256(tmp.read_bytes()).hexdigest(),
+    try:
+        source = pdf.relative_to(learner_vault()).as_posix()
+    except ValueError:
+        source = show(pdf)
+    side = {"pdf": source, "page": a.page, **extra, "sha256": hashlib.sha256(data).hexdigest(),
             "caption": a.caption or "", "subtopic": a.subtopic or "", "kc": a.kc or "", "why": a.why or "",
             "created": datetime.now().astimezone().isoformat(timespec="seconds")}
-    tmp.replace(dest)
-    dest.with_name(dest.name + ".json").write_text(json.dumps(side, ensure_ascii=False, indent=1), encoding="utf-8")
+    side_data = json.dumps(side, ensure_ascii=False, indent=1).encode('utf-8')
+    if os.environ.get("STEM_LIBRARY_ASSETS"):
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(data)
+        dest.with_name(dest.name + ".json").write_bytes(side_data)
+    else:
+        from tutorlib.asset_library import write_asset
+        relative = dest.relative_to(learner_vault()).as_posix()
+        try:
+            provenance = write_asset(learner_vault(), relative + '.json', side_data,
+                                     metadata={'course': spec, 'kind': 'Sources/Provenance'})
+            write_asset(learner_vault(), relative, data,
+                        metadata={'course': spec, 'kind': 'Diagrams',
+                                  'provenance': {'sidecars': [provenance]}})
+        except (ValueError, OSError) as exc:
+            raise Fail(f'cannot publish Library figure: {exc}') from exc
     cap = re.sub(r"\s+", " ", a.caption or "figure").strip()
-    print(f"wrote {show(dest)} ({im.width}x{im.height} px, {size // 1000} KB)\n![[Assets/{spec}/{name}.png]]\n"
+    reference = f"Assets/{spec}/{name}.png" if os.environ.get("STEM_LIBRARY_ASSETS") else dest.relative_to(learner_vault()).as_posix()
+    print(f"wrote {show(dest)} ({im.width}x{im.height} px, {size // 1000} KB)\n![[{reference}]]\n"
           f"*Figure: {cap} (source: {pdf.stem}, p.{a.page})*")
 
 
@@ -702,12 +840,37 @@ def embeds(text: str) -> list[str]:
 
 
 def sidecar_of(embed: str) -> Path:
+    if not os.environ.get('STEM_LIBRARY_ASSETS'):
+        from tutorlib.asset_library import AssetLibrary
+        catalog = AssetLibrary(learner_vault())
+        record = catalog.record(embed)
+        sidecars = record.get('provenance', {}).get('sidecars', [])
+        if sidecars:
+            return catalog.resolve(sidecars[0])
+        return learner_vault() / (record['path'] + '.json')
     return assets_dir() / (embed.removeprefix("Assets/") + ".json")
 
 
 def sidecars_for(subtopic: str) -> list[dict]:
     """The sidecars (plus their `file`) of every figure cropped for a chapter."""
     out = []
+    if not os.environ.get('STEM_LIBRARY_ASSETS'):
+        from tutorlib.asset_library import AssetLibrary
+        try:
+            catalog = AssetLibrary(learner_vault())
+        except (OSError, ValueError):
+            return []
+        for identifier, record in catalog.records().items():
+            if not record['path'].endswith('.png'):
+                continue
+            for reference in record.get('provenance', {}).get('sidecars', []):
+                try:
+                    data = json.loads(catalog.read(reference))
+                    if isinstance(data, dict) and data.get('subtopic') == subtopic:
+                        out.append({**data, 'file': str(catalog.resolve('asset:' + identifier))})
+                except (OSError, ValueError):
+                    continue
+        return out
     for p in sorted(assets_dir().glob("*/*.png.json")):
         try:
             d = json.loads(p.read_text(encoding="utf-8"))
@@ -724,10 +887,18 @@ def figure_problems(note_text: str, subtopic: str = "") -> list[str]:
     lines, out = note_text.splitlines(), []
     for i, line in enumerate(lines):
         for emb in embeds(line):
-            side = sidecar_of(emb)
+            try:
+                side = sidecar_of(emb)
+                if os.environ.get('STEM_LIBRARY_ASSETS'):
+                    png = assets_dir() / emb.removeprefix('Assets/')
+                else:
+                    from tutorlib.asset_library import AssetLibrary
+                    png = AssetLibrary(learner_vault()).resolve(emb)
+            except (OSError, ValueError) as exc:
+                out.append(f'figure {emb}: Library reference unavailable ({exc})')
+                continue
             if not side.is_file():
                 continue  # not a cropped figure (no provenance to check)
-            png = assets_dir() / emb.removeprefix("Assets/")
             try:
                 d = json.loads(side.read_text(encoding="utf-8"))
                 assert isinstance(d, dict) and all(d.get(k) not in (None, "") or k == "caption" for k in SIDECAR_KEYS)

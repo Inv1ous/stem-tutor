@@ -1,32 +1,41 @@
-"""Screens: Home, topic picker, the study session, summary, and small pop-ups (ask, help, settings)."""
+"""Main study screens and shared screen helpers; dialogs are re-exported for compatibility."""
 from __future__ import annotations
 
 import asyncio
+import copy
+import hashlib
+from tutorlib.card_diagrams import diagram_descriptions
+import json
 import re
 import textwrap
 import time
 from datetime import date, datetime, timedelta
+from time import monotonic
 
 from rich.text import Text
 from rich.spinner import Spinner
+from rich.segment import Segment
+from rich.style import Style
 from textual import on, work
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen, Screen
+from textual.strip import Strip
 from textual.widgets import Button, Collapsible, Footer, Input, Markdown, OptionList, Select, SelectionList, Static, Switch
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
-from tutorlib import almanac, clock, insights, model, policy, report, views
+from tutorlib import almanac, clock, insights, lesson, model, policy, report, teach_actions as ta, views
 from tutorlib.lesson import GOALS
 
 from . import ai as ai_mod
-from . import cards, codex_models, config, local_models, look, mac, presets, prompts, tts
+from . import cards, codex_models, config, learn_reply, learn_write, local_models, look, mac, presets, prompts, tts
 from . import __version__
+from .dialogs import AskScreen, ConfirmScreen, SummaryScreen
 from .look import C
-from .panels import (ChoicePanel, ChoosePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
-                     TickList, TickPanel, ValuePanel, WorkedPanel)
+from .panels import (ChoicePanel, ChoosePanel, Composer, Confidence, ContinuePanel, LessonPanel, LongPanel, Panel,
+                     ReflectPanel, TextPanel, TickList, TickPanel, ValuePanel, WorkedPanel)
 from .texmath import to_terminal
 from .output_format import normalise_visual, terminal_visual
 
@@ -49,9 +58,25 @@ def leave_asking_first(screen: Screen, boxes: str, typed: str = "answer", unsave
                                          [("leave", "Leave"), ("stay", "Keep writing")]), decided)
 
 
+def open_report_note(screen: Screen, note: str) -> None:
+    """Refresh an explicitly requested report before showing it in Obsidian."""
+    try:
+        {"Profile": report.profile_note, "Mistakes": report.mistakes_note}[note](screen.app.tutor)
+    except OSError as exc:
+        screen.app.notify(f"{note} could not be updated: {exc}", severity="warning", timeout=8)
+        return
+    mac.open_in_obsidian(screen.app.vault, note, background=False)
+
+
 def spoken_feedback(fb: dict, your: str = "", explanation: str | None = None) -> list[str]:
     """A marked answer as it is read aloud, in parts: the verdict and the answer, then why (maths is turned into
     words later). The question's own explanation is a part by itself, so its pre-generated audio is found."""
+    if fb.get('attempt_saved'):
+        return ['Your attempt is saved for marking after the other protected questions.']
+    if fb.get('feedback_withheld'):
+        return ['Feedback is saved until the skipped question has been attempted.']
+    if fb.get("answer_withheld"):
+        return ["Skipped. The answer is withheld."]
     dont_know = your.strip() in ("?", "I don't know")
     verdict = ("Here is the answer." if dont_know else "Correct." if fb.get("correct") else
                "Right value, but a mark was lost." if fb.get("partial") else "Not quite.")
@@ -152,7 +177,16 @@ class LocalActivity:
     def __exit__(self, kind, error, traceback) -> None:
         if self.timer is not None:
             self.timer.stop()
-        if not self.local or self.widget is None:
+        if self.widget is None:
+            return
+        if not self.local:
+            if kind is not None and issubclass(kind, asyncio.CancelledError):
+                # Keep only text already displayed; a buffered answer may still be protected.
+                shown = getattr(self.widget.content, "card", None)
+                partial = shown[2] if shown and shown[0] == "ai" and shown[2] != "…" else ""
+                message = "The reply was cancelled before it finished."
+                self.widget.update(cards.card("hint", "AI reply stopped",
+                                              f"{partial}\n\n{message}" if partial else message, ai_output=True))
             return
         self.widget.remove_class("local-progress")
         if self.auxiliary is not None:
@@ -174,7 +208,7 @@ class ReadAloud:
         self.readable_parts = [p for p in ([text] if isinstance(text, str) else text) if p and p.strip()]
         self.readable = "\n\n".join(self.readable_parts)
         sp = getattr(self.app, "speaker", None)
-        if sp is None:
+        if sp is None or self.app.screen is not self:
             return
         if not auto:
             sp.stop()  # something new is on screen: the old line stops
@@ -308,12 +342,22 @@ class HomeScreen(Screen):
             app.notify("Read your ticks from the Almanac export in Downloads.", timeout=6)
         return moved
 
+    def _write_home(self) -> bool:
+        app = self.app
+        try:
+            views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(), views.recent_lessons(app.vault))
+        except views.ReadOnlyViewDestination as exc:
+            app.tutor.view_warnings.setdefault("Home.md", exc)
+            return False
+        app.tutor.view_warnings.pop("Home.md", None)
+        return True
+
     def on_mount(self) -> None:
         app = self.app
         self._fit()
         self._read_almanac()
         views.organise_lessons(app.vault)  # lesson logs from before the day folders: moved into them, once
-        views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(), views.recent_lessons(app.vault))
+        self._write_home()
         report.today_note(app.tutor, app.settings.minutes)  # Today.md: this week's plan and what's due
         if (week := self._week_in_review()):
             app.notify(f"Your week in review is ready: {week} in Obsidian.", timeout=10)
@@ -347,9 +391,15 @@ class HomeScreen(Screen):
             pass  # the planner's folder can't be written: the tutor itself is unaffected
         now = t.now()
         due = model.due_kcs(t.state, now)
+        due_count = len(due) + len(policy.review_terms(t.state, t.packs, now))
         self.query_one("#banner", Static).update(look.banner())  # in the colours of the look just chosen
         menu = self.query_one("#menu", OptionList)
         items = []
+        try:
+            has_retained_drafts = bool(t.retained_drafts())
+        except (OSError, ValueError):
+            has_retained_drafts = False
+            app.notify('Saved draft history could not be read; its file was not changed.', severity='warning', timeout=8)
         if t.session:
             s = t.session
             items.append(("resume", f"▸  Resume your {MODE_NAMES.get(s['mode'], s['mode'])} session "
@@ -362,15 +412,17 @@ class HomeScreen(Screen):
                                  + (f" · {sessions_today} session{'s' if sessions_today != 1 else ''}" if sessions_today else "")))
         items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
                   ("learn", "◆  Learn a topic (lesson)"),
-                  ("review", f"↻  Review what's due ({len(due)})"),
+                  ("review", f"↻  Review what's due ({due_count})"),
                   ("weak", f"✚  Fix my weak spots ({len(insights.weak_spots(t))})"),
                   ("test", "◎  Test prep: check and fix a chapter"),
                   ("long", "✎  Long questions (typed or iPad)"),
+                  *([("topical", "▤  Topical past papers")] if t.packs.topical_chapters() else []),
                   ("blurt", "»  Blurt: write everything you remember"),
                   ("challenge", "⚑  Challenge: hard calculation questions"),
                   *shortcut_lines,
                   ("chat", "✦  Ask the tutor anything"),
                   ("insights", "◉  What the tutor knows about you"),
+                  *([('saved-attempts', '▤  Saved attempts and drafts')] if t.postponed_judgments() or has_retained_drafts else []),
                   ("progress", "▤  My progress"),
                   ("obsidian", "▣  Open my notes in Obsidian"),
                   ("settings", "≡  Settings"), ("help", "?  How it works"), ("quit", "×  Quit")]
@@ -380,7 +432,7 @@ class HomeScreen(Screen):
         self.query_one("#stats-text", Static).update(self.stats_text(now, due))
         self.call_after_refresh(self._scroll_cue)
         self.call_after_refresh(self._draw_stats)  # again once the box has its width: the titles wrap to it
-        glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {len(due)} due · ◔ {clock.fmt(studied)} today", style=C["soft"])
+        glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {due_count} due · ◔ {clock.fmt(studied)} today", style=C["soft"])
         if (exam := self.next_exam(now)):
             glance.append(f" · ⧗ {exam}", style=C["plan"])
         self.query_one("#glance", Static).update(glance)
@@ -417,7 +469,8 @@ class HomeScreen(Screen):
         t = app.tutor
         out = Text()
         out.append(f"{now:%A %d %B}\n", style=f"bold {C['banner']}")
-        out.append(f"✶ {self.streak(now)}-day streak   ↻ {len(due)} due\n", style=C["soft"])
+        due_count = len(due) + len(policy.review_terms(t.state, t.packs, now))
+        out.append(f"✶ {self.streak(now)}-day streak   ↻ {due_count} due\n", style=C["soft"])
         out.append(f"◔ Studied today: {clock.fmt(t.study_clock.today(now.date().isoformat()))}\n\n", style=C["soft"])
         if (exam := self.next_exam(now)):
             out.append(f"⧗ {exam}\n\n", style=C["plan"])
@@ -451,8 +504,11 @@ class HomeScreen(Screen):
         out.append("Your topics\n", style="bold")
         # grouped: a heading for each subject (with its total) and chapter, subtopics under it in order; a title that does
         # not fit goes on to the next line, under itself, instead of being cut off
-        width = max(36, self.query_one("#stats-text", Static).size.width or 46)
-        lead = 2 + 9 + 1 + 6 + 7  # indent, id, space, bar, " 12/12 "
+        width = self.query_one("#stats-text", Static).size.width or 46
+
+        def wrapped(text: str, room: int) -> list[str]:
+            return [line.plain for line in Text(text).wrap(app.console, max(1, room))] or [""]
+
         for group in views.subtopic_groups(t.packs):
             ideas = [k for k, v in t.packs.kcs.items() if t.packs.subtopics.get(v["subtopic"], {}).get("topic") in
                      {c["id"] for c in group["chapters"]}]
@@ -462,19 +518,32 @@ class HomeScreen(Screen):
             for chapter in group["chapters"]:
                 kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] in chapter["subs"]]
                 done = sum(views.kc_status(t.state, k) == "secure" for k in kcs)
-                for i, line in enumerate(textwrap.wrap(chapter["name"], max(14, width - 9), break_long_words=True) or [""]):
-                    out.append(f"{'▸ ' if i == 0 else '  '}{line}", style=f"bold {C['plan']}")
-                    out.append(f"  {done}/{len(kcs)}\n" if i == 0 and len(chapter["name"]) <= width - 9 else "\n",
-                               style=C["muted"])
+                count = f"{done}/{len(kcs)}"
+                if Text(f"▸ {chapter['name']}  {count}").cell_len <= width:
+                    out.append(f"▸ {chapter['name']}", style=f"bold {C['plan']}")
+                    out.append(f"  {count}\n", style=C["muted"])
+                else:
+                    for i, line in enumerate(wrapped(chapter["name"], width - 2)):
+                        out.append(f"{'▸ ' if i == 0 else '  '}{line}\n", style=f"bold {C['plan']}")
+                    out.append(f"  {count}\n", style=C["muted"])
                 for sub in chapter["subs"]:
                     kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
                     sec = sum(views.kc_status(t.state, k) == "secure" for k in kcs)
                     started = any(views.kc_status(t.state, k) != "new" for k in kcs)
                     colour = C["ok"] if sec == len(kcs) else C["soft"] if started else C["dim"]
-                    lines = textwrap.wrap(t.packs.subtopics[sub]["title"], max(12, width - lead), break_long_words=True) or [""]
-                    out.append(f"  {sub:<9} ", style=C["text"])
+                    count = f"{sec}/{len(kcs)}"
+                    lead = Text(f"  {sub:<9} " + " " * 6 + f" {count:<6}").cell_len
+                    compact = width - lead < 12
+                    if compact:
+                        out.append(f"  {sub}", style=C["text"])
+                        out.append(f"  {count}\n", style=C["muted"])
+                        out.append("  ")
+                        lead = 2 + 6 + 1  # indent, bar, space before the title
+                    else:
+                        out.append(f"  {sub:<9} ", style=C["text"])
                     out.append(bar(sec, len(kcs), 6), style=colour)
-                    out.append(f" {f'{sec}/{len(kcs)}':<6}", style=C["muted"])
+                    out.append(" " if compact else f" {count:<6}", style=C["muted"])
+                    lines = wrapped(t.packs.subtopics[sub]["title"], width - lead)
                     out.append(lines[0] + "\n", style=C["muted"])
                     for more in lines[1:]:
                         out.append(" " * lead + more + "\n", style=C["muted"])
@@ -532,7 +601,8 @@ class HomeScreen(Screen):
             app.push_screen(PickerScreen("lesson"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "lesson", "focus": r, "minutes": app.settings.minutes})))
         elif key == "review":
-            if not model.due_kcs(app.tutor.state, app.tutor.now()):
+            if not model.due_kcs(app.tutor.state, app.tutor.now()) and not policy.review_terms(
+                    app.tutor.state, app.tutor.packs, app.tutor.now()):
                 app.notify("Nothing is due right now: your memory is on schedule. Try a lesson or a blurt instead.",
                            timeout=6)
                 return
@@ -540,6 +610,9 @@ class HomeScreen(Screen):
         elif key == "test":
             app.push_screen(PickerScreen("test"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "test", "focus": r, "minutes": app.settings.minutes})))
+        elif key == "topical":
+            app.push_screen(PickerScreen("topical"), lambda r: r and app.push_screen(
+                SessionScreen({"mode": "topical", "focus": r, "minutes": app.settings.minutes})))
         elif key == "long":
             app.push_screen(PickerScreen("long"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "long", "focus": r, "minutes": 30})))
@@ -558,9 +631,14 @@ class HomeScreen(Screen):
             app.push_screen(ChatScreen())
         elif key == "progress":
             app.push_screen(ProgressScreen())
+        elif key == 'saved-attempts':
+            if prompts.skipped_guards(app.tutor) or any((app.tutor.session or {}).get(k) for k in ('presented', 'queue')):
+                app.notify('Finish or retry protected questions before viewing saved attempts.', severity='warning', timeout=6)
+                return
+            app.push_screen(SavedAttemptsScreen())
         elif key == "obsidian":
-            views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(), views.recent_lessons(app.vault))
-            mac.open_in_obsidian(app.vault, "Home", background=False)
+            if self._write_home():
+                mac.open_in_obsidian(app.vault, "Home", background=False)
         elif key == "settings":
             app.action_settings()
         elif key == "help":
@@ -588,6 +666,22 @@ def searchable(text: str) -> str:
     return "".join(c for c in unicodedata.normalize("NFKD", text) if not unicodedata.combining(c))
 
 
+class _TopicOptions(OptionList):
+    """Topic rows use role colours; the focused row uses the theme's cursor ink."""
+
+    def render_line(self, y: int) -> Strip:
+        strip = super().render_line(y)
+        line = self.scroll_offset.y + y
+        if 0 <= line < len(self._lines):
+            index, _ = self._lines[line]
+            if index == self.highlighted and not self.options[index].disabled:
+                cursor = self.get_visual_style("option-list--option", "option-list--option-highlighted").rich_style
+                foreground = Style(color=cursor.color)
+                return Strip((Segment(segment.text, (segment.style or Style()) + foreground, segment.control)
+                              for segment in strip), strip.cell_length)
+        return strip
+
+
 class PickerScreen(ModalScreen):
     """Choose a subtopic (or, for a test, several), as folders: Chemistry, Physics, Maths, each holding a folder per chapter
     (Maths: per module) with the subtopics inside. ⏎ opens a folder, Esc or ← goes up. Typing searches everything at once; Esc clears the search first.
@@ -606,10 +700,26 @@ class PickerScreen(ModalScreen):
         self.path: list[str] = []
         self.floor = 0  # folders opened for you when there was only one: Esc does not go back into them
 
+    def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
+        if action in ("tick_shown", "untick_all"):
+            return self.mode == "test"
+        return super().check_action(action, parameters)
+
     # ---------- data ----------
     def _prepare(self) -> None:
         t = self.app.tutor
-        self.built = [s for s in t.packs.subtopics if t.packs.pack(s)]
+        bank_chapters = t.packs.topical_chapters() if self.mode == "topical" else set()
+        self.built = [s for s in t.packs.subtopics if (s in bank_chapters if self.mode == "topical" else t.packs.pack(s))]
+        if self.mode == "long":
+            # A selectable subtopic must have at least one structured question in
+            # the KCs the fixed 30-minute session will consider.
+            eligible = set()
+            for sub in self.built:
+                kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
+                long_kcs = [k for k in kcs if any(i.get("kind") == "structured" for i in t.packs.items_for(k))]
+                if long_kcs[:2]:
+                    eligible.add(sub)
+            self.built = [s for s in self.built if s in eligible]
         self.info: dict[str, dict] = {}
         for sub in self.built:
             kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
@@ -693,7 +803,7 @@ class PickerScreen(ModalScreen):
 
     def _crumb(self) -> str:
         names = dict(SUBJECT_FOLDERS)
-        parts = [{"lesson": "Learn", "long": "Long questions", "blurt": "Blurt", "test": "Test prep"}.get(self.mode, "Topics")]
+        parts = [{"lesson": "Learn", "long": "Long questions", "blurt": "Blurt", "test": "Test prep", "topical": "Topical past papers"}.get(self.mode, "Topics")]
         if self.path:
             parts.append(names.get(self.path[0], self.path[0]))
             parts += [self._chapter_name(tid) for tid in self.path[1:]]
@@ -709,17 +819,20 @@ class PickerScreen(ModalScreen):
             else:
                 ask = {"lesson": "Which subtopic do you want to learn?",
                        "long": "Which subtopic do you want to practise with long questions?",
-                       "blurt": "Pick a subtopic to blurt on."}.get(self.mode, "Which subtopic do you want to study?")
+                       "blurt": "Pick a subtopic to blurt on.",
+                       "topical": "Which subtopic do you want to practise with reviewed past papers?"}.get(self.mode, "Which subtopic do you want to study?")
                 yield Static(f"{ask} (⏎ to choose or open a folder, Esc to go back)", classes="hint")
             yield Input(placeholder="Search everything: a word, a code (9702-3, P1) …  or just start typing", id="find",
                         compact=True, select_on_focus=False)
             yield Static(id="found", classes="hint")
-            yield OptionList(id="subs")
+            yield _TopicOptions(id="subs")
             if self.mode == "test":
                 yield Button("Start test prep", id="go", variant="primary")
 
     def on_mount(self) -> None:
         self.fill()
+        if self.mode == "long" and not self.built:
+            self.query_one("#found", Static).update("No long questions are available in the published topics yet.")
         self.query_one("#subs", OptionList).focus()
         self.call_after_refresh(self._fit)
 
@@ -795,6 +908,9 @@ class PickerScreen(ModalScreen):
         if self.mode == "test":
             self.toggle(first.id)
             box.focus()
+        elif str(first.id).startswith("dir:"):
+            self.open(str(first.id))
+            box.focus()
         else:
             self.dismiss([first.id])
 
@@ -842,6 +958,9 @@ class PickerScreen(ModalScreen):
         """Up one folder (not into the one that was opened for you, and not while typing a search)."""
         if isinstance(self.focused, Input) or self.needle or len(self.path) <= self.floor:
             return
+        self._up_folder()
+
+    def _up_folder(self) -> None:
         came = "dir:" + "/".join(self.path)
         self.path = self.path[:-1]
         self.fill(keep=came)
@@ -851,7 +970,8 @@ class PickerScreen(ModalScreen):
             self.query_one("#find", Input).value = ""
             self.query_one("#subs", OptionList).focus()
         elif len(self.path) > self.floor:
-            self.action_up()
+            self.query_one("#subs", OptionList).focus()
+            self._up_folder()
         else:
             self.dismiss(None)
 
@@ -908,7 +1028,9 @@ class SessionScreen(ReadAloud, Screen):
     # first in the footer: how to get out and how to get help, so a narrow window still shows them
     BINDINGS = [Binding("ctrl+b", "leave", "Menu", priority=True), Binding("question_mark", "app.help", "Help"),
                 Binding("ctrl+t", "ask", "Ask", priority=True), Binding("ctrl+g", "hint", "Hint", priority=True),
+                Binding("ctrl+y", "check_solvable", "Can I solve this?", show=False, priority=True),
                 Binding("ctrl+r", "explain", "Explain", priority=True),
+                Binding("ctrl+u", "retry_skipped", "Retry skipped", show=False, priority=True),
                 Binding("ctrl+o", "obsidian", "Notes", priority=True),
                 Binding("ctrl+e", "read_aloud", "Read", show=False, priority=True),  # in Help; keeps 60 columns
                 Binding("ctrl+l", "earlier", "Earlier", show=False, priority=True),  # in Help; keeps 60 columns
@@ -927,10 +1049,23 @@ class SessionScreen(ReadAloud, Screen):
         yield Static(id="bar")
         yield Static(id="map")
         yield VerticalScroll(id="log", can_focus=False)  # Tab stays in the answer panel; alt+↑↓ and the wheel scroll it
+        yield Button("Can I solve this? · ctrl+y", id="check-solvable", compact=True)
         yield Container(id="panel")
         yield Footer()
 
     # ---------- plumbing ----------
+    def on_resize(self, event) -> None:
+        # Capture before the log is reflowed; a second layout pass can change its height again.
+        size = event.size
+        if size != getattr(self, "_resize_size", None) and self.query("#log"):
+            log = self.query_one("#log", VerticalScroll)
+            self._resize_follow_end = log.scroll_y >= log.max_scroll_y
+            self._resize_size = size
+
+    def finish_panel_resize(self) -> None:
+        if getattr(self, "_resize_follow_end", False) and self.is_mounted:
+            self.query_one("#log", VerticalScroll).scroll_end(animate=False, immediate=True)
+
     @property
     def tutor(self):
         return self.app.tutor
@@ -960,6 +1095,9 @@ class SessionScreen(ReadAloud, Screen):
             self.app.notify("Answer first: this asks you to recall what came before. It all comes back afterwards "
                             "with ctrl+l.", timeout=6)
             return
+        if prompts.skipped_guards(self.tutor):
+            self.app.notify("Retry the skipped question first (ctrl+u) before showing earlier teaching.", timeout=6)
+            return
         for w in self.query("#log > .entry"):
             w.display = True
         self.query_one("#log", VerticalScroll).scroll_end(animate=False)
@@ -969,6 +1107,8 @@ class SessionScreen(ReadAloud, Screen):
         box.remove_children()
         box.mount(widget)
         self.showing = widget
+        self.query_one("#check-solvable", Button).display = (
+            str((self.view or {}).get("n")) in (self.tutor.session or {}).get("presented", {}))
 
     def on_mount(self) -> None:
         t = self.tutor
@@ -985,6 +1125,7 @@ class SessionScreen(ReadAloud, Screen):
                           "Your notes grow in Obsidian as we go.",
                 "review": "Spaced review: the ideas that are due, mixed together. No hints on the first try.",
                 "test": "One question on every syllabus point, then we fix only what you miss.",
+                "topical": "Reviewed past-paper questions for this chapter. Source figures are in Obsidian; supporting facts count as assistance.",
                 "long": "Exam-style long questions: write your answer, then mark it against the scheme."}.get(mode, "")))
         elif t.session:  # resuming: say so, show where things were, keep the real elapsed time
             from datetime import datetime as _dt
@@ -997,6 +1138,8 @@ class SessionScreen(ReadAloud, Screen):
         self.app.apply_answer_only(self)
         self.set_interval(1, self.update_bar)
         self.advance()
+        if (t.session or {}).get('faded_cancel_intent'):
+            self.faded_recovery_panel()
         if not self.view or self.view.get("kind") not in ("short", "structured"):
             self.app.prepare_local_ai("mark" if (t.session or {}).get("mode") == "long" else "explain")
 
@@ -1012,7 +1155,7 @@ class SessionScreen(ReadAloud, Screen):
         active_s = t.study_clock.session(s.get("id"))  # what was really spent on this screen
         a = self.app.ai
         ai_state = "AI ●" if (self.app.settings.ai and a.available) else "AI ○"
-        mode = {"lesson": "Lesson", "review": "Review", "test": "Test prep", "long": "Long questions"}.get(
+        mode = {"lesson": "Lesson", "review": "Review", "test": "Test prep", "long": "Long questions", "topical": "Topical past papers"}.get(
             s.get("mode", ""), s.get("mode", "").title())
         replies = f"{a.session.replies} {'reply' if a.session.replies == 1 else 'replies'}"
         resource = self.app.usage_status()
@@ -1058,6 +1201,7 @@ class SessionScreen(ReadAloud, Screen):
         act = t.next()
         self.act = act
         kind = act["activity"]
+        self.query_one("#check-solvable", Button).display = kind in ("questions", "awaiting")
         kc = act.get("kc") or (t.session["presented"][str(act["items"][0]["n"])]["kcs"][0]
                                if kind in ("questions", "awaiting") and act.get("items") else self.kc)
         cursor = (t.session or {}).get("cursor")
@@ -1075,7 +1219,12 @@ class SessionScreen(ReadAloud, Screen):
                 spoken += [f"A common trap: {m}." for m in act["misconceptions"]]
             self.say_step(act, subtitle="second look" if act.get("part") == "fix" else None)
             self.readable_now(spoken, auto=True)
-            self.panel(ContinuePanel(read=self.can_read()))
+            self.explanation_panel(act)
+        elif kind == 'saved_judgment_unavailable':
+            buttons = ([('restore-saved-judgment', 'Restore question for marking')] if act.get('restore_candidate') else [])
+            buttons.append(('postpone-saved-judgment', 'Save attempt for later'))
+            buttons.append(('leave', 'Return to menu'))
+            self.panel(ContinuePanel(act['error'], buttons=buttons))
         elif kind == "choose":
             self.say(cards.card("plan", act["question"], ""), mirror=None)  # its choices are in the panel below
             self.panel(ChoosePanel("Pick how you want to learn this (↑↓ and ⏎)", act["options"]))
@@ -1099,7 +1248,7 @@ class SessionScreen(ReadAloud, Screen):
         elif kind == "own_words":
             self.fold()
             self.say_step(act)
-            self.panel(TextPanel("One or two sentences. Esc to skip.", done_label=None))
+            self.panel(TextPanel("One or two sentences. Esc to skip.", done_label=None, confirm_skip=True))
         elif kind == "stuck":
             self.say_step(act)
             self.readable_now(act["say"], auto=True)
@@ -1112,18 +1261,68 @@ class SessionScreen(ReadAloud, Screen):
             self.say(cards.card("bad", "Unexpected step", str(act)))
             self.panel(ContinuePanel(buttons=[("home", "Back to menu ⏎")]))
 
+    @property
+    def visual(self) -> bool:
+        """In a lesson, everything is drawn by the one renderer AI text uses (`normalise_visual`, then the Unicode maths
+        converter), so a card written in advance and a reply written now look the same. Other modes are unchanged."""
+        return (self.tutor.session or {}).get("mode") == "lesson"
+
     def say_step(self, act: dict, subtitle: str | None = None) -> None:
         """A lesson step's cards, in the words the engine puts on Now and in the log (views.activity_cards)."""
         for i, (role, title, body) in enumerate(views.activity_cards(act)):
             self.say(cards.card(role, title, body, subtitle=subtitle if i == 0 else None,
-                                ai_output=bool(act.get("ai_source"))), mirror=None)
+                                ai_output=self.visual or bool(act.get("ai_source"))), mirror=None)
+        self.show_lesson_figure(act)
+
+    def explanation_panel(self, act: dict, *, detail: bool = True) -> None:
+        """Prepared explanations and follow-up conversation share the same lesson controls."""
+        unguarded = act.get('part') != 'guard_pause' and self.teaching_help_allowed()
+        # Retain the existing diagram control while questions are queued. Its
+        # handler explains why it cannot show content until the queue is clear.
+        diagrams = (lesson.teach_card(self.tutor, self.kc).get('diagrams', [])
+                    if self.kc and act.get('part') != 'guard_pause' and not prompts.skipped_guards(self.tutor) else [])
+        buttons = [('continue', 'Continue ⏎')]
+        if detail and act.get('detail'):
+            buttons.append(('detail', 'More detail'))
+        if diagrams:
+            buttons.append(('diagram', 'Show diagrams'))
+        if self.visual and unguarded:
+            buttons += [('learn-stuck', "I'm stuck"), ('learn-example', 'Another example'),
+                        ('learn', 'Talk to your tutor')]
+            old = next(iter(self.query('#learning-question')), None) if not detail else None
+            widget = LessonPanel(buttons=buttons, read=self.can_read(), draft=old.text if old else '',
+                                 selection=old.selection if old else None)
+        else:
+            buttons += [('explain', 'Explain differently (ctrl+r)'), ('ask', 'Ask the tutor (ctrl+t)')]
+            widget = ContinuePanel(buttons=buttons, read=self.can_read())
+        self.panel(widget)
+
+    def teaching_help_allowed(self) -> bool:
+        """A shared boundary for inline conversation and images, including persisted retry guards."""
+        session = self.tutor.session or {}
+        return not (prompts.skipped_guards(self.tutor)
+                    or any(session.get(key) for key in ('presented', 'queue', 'faded_cancel_intent')))
+
+    def show_lesson_figure(self, act: dict) -> None:
+        """Show only an unguarded activity's explicit, catalogue-verified figure."""
+        if not self.visual or not act.get('diagram') or not self.teaching_help_allowed():
+            return
+        from .lesson_media import figure_preview
+        if preview := figure_preview(self.app.vault, act['diagram']):
+            self.say(preview, mirror=None).add_class('lesson-figure')
 
     def ask_question(self, view: dict, say: str | None = None) -> None:
         self.view = view
         if view.get("image") or view.get("kind") in ("short", "structured"):
             self.call_after_refresh(self._prepare_question, view)
         self.fold()
-        card = self.say(cards.question(view), mirror=None)
+        card = self.say(cards.question(view, ai_output=self.visual), mirror=None)
+        self.query_one("#check-solvable", Button).display = True
+        if view.get("support"):
+            facts = "\n".join(f"{k.split('-', 1)[-1]}: {v}" for k, v in view["support"].items())
+            self.say(cards.card("hint", "Supporting facts · assisted attempt", facts), mirror=None)
+        if len(view.get("images") or []) > 1:
+            self.say(cards.note(f"This question has {len(view['images'])} source pages. Read all pages in Obsidian (ctrl+o).", "dim"), mirror=None)
         if say:  # under the question, where Now and the log have it
             self.say(cards.note(say, "dim"))
         parts = [view.get("speech") or view.get("stem", "")]
@@ -1155,9 +1354,9 @@ class SessionScreen(ReadAloud, Screen):
                 return
 
     def _show_top(self, card: Static) -> None:
-        """A question taller than the log opens at its start, not its end (alt+↑ alt+↓ scroll the rest)."""
+        """Keep the start of the question visible after later notices scroll the log."""
         log = self.query_one("#log", VerticalScroll)
-        if card.is_attached and card.outer_size.height > log.scrollable_content_region.height:
+        if card.is_attached:
             log.scroll_to_widget(card, top=True, animate=False, immediate=True)
 
     def action_scroll_log(self, direction: int) -> None:
@@ -1174,9 +1373,11 @@ class SessionScreen(ReadAloud, Screen):
                 options = {k: "(in the picture)" if k in bad.get("options", []) else v for k, v in options.items()}
             self.panel(ChoicePanel(view["n"], options))
         elif view["kind"] == "structured":
-            self.panel(LongPanel(view["n"], checking=checking))
+            pending = (self.tutor.session or {}).get('presented', {}).get(str(view['n']), {})
+            self.panel(LongPanel(view["n"], checking=checking, initial=view.get('saved_work', ''),
+                                 ungraded=pending.get('ungraded_unavailable') is True))
         else:
-            self.panel(ValuePanel(view["n"], view["kind"], checking=checking))
+            self.panel(ValuePanel(view["n"], view["kind"], checking=checking, initial=view.get('saved_work', '')))
 
     def respond(self, data: dict) -> None:
         if (self.tutor.session or {}).get("awaiting"):
@@ -1188,8 +1389,100 @@ class SessionScreen(ReadAloud, Screen):
         if event.panel is not getattr(self, "showing", None):  # queued on a panel already replaced (key repeat): once only
             return
         data, kind = event.data, self.act.get("activity")
+        if data.get('button') == 'faded-recover':
+            binding = getattr(self, 'faded_recovery_binding', None)
+            intent = (self.tutor.session or {}).get('faded_cancel_intent') or {}
+            if not binding or self.tutor.session is not binding[0] or intent.get('operation') != binding[1]:
+                self.app.notify('The recovery state changed; reopen the session.', severity='warning')
+                return
+            result = self.tutor.retry_faded_cancellation()
+            if result.get('ok'):
+                self.panel(ContinuePanel('Draft saved. The skipped question is still protected.',
+                                         buttons=[('retry-skipped', 'Retry skipped question'), ('leave', 'Return to menu')]))
+            else:
+                self.faded_recovery_panel()
+            return
+        if data.get('button') in ('faded-submit', 'faded-edit', 'faded-skip'):
+            pending = getattr(self, 'pending_faded', None)
+            self.pending_faded = None
+            if not pending or self.tutor.session is not pending['session']:
+                self.app.notify('The question changed; reopen it before continuing.', severity='warning')
+                return
+            n = pending['n']
+            question = (self.tutor.session or {}).get('presented', {}).get(str(n))
+            if question is not pending['question']:
+                self.app.notify('The question changed; reopen it before continuing.', severity='warning')
+                return
+            if data['button'] == 'faded-edit':
+                self.view = self.tutor._view(n)
+                self.answer_panel(self.view)
+            elif data['button'] == 'faded-skip':
+                self.submit({'entry': f'{n}?', 'your': "I don't know"})
+            else:
+                result = self.tutor.confirm_faded_attempt(n, pending['working'])
+                if not result.get('ok'):
+                    self.app.notify(result.get('error', 'Could not confirm this work.'), severity='warning')
+                    self.answer_panel(self.tutor._view(n))
+                else:
+                    self.submit(pending['data'])
+            return
         if data.get("button") == "read":
             self.action_read_aloud()
+            return
+        if data.get("button") == "retry-skipped":
+            self.action_retry_skipped()
+            return
+        if data.get("button") == "suspend-for-retry":
+            result = self.tutor.suspend_questions_for_retry()
+            if not result.get('ok'):
+                self.app.notify(result.get('error', 'Could not set questions aside.'), severity='error')
+                return
+            self.action_retry_skipped()
+            return
+        if data.get("button") == "resume-suspended":
+            result = self.tutor.resume_suspended_questions()
+            if result.get('ok'):
+                self.advance()
+            else:
+                self.app.notify(result.get('error', 'Could not return to saved questions.'), severity='error')
+            return
+        if data.get('button') == 'skip-protected-retry':
+            result = self.tutor.answer(f"{self.view['n']}?")
+            if result.get('ok') is False or any(row.get('error') for row in result.get('results', [])):
+                self.app.notify('Could not close the retry.', severity='error')
+                return
+            if (self.tutor.session or {}).get('suspended_for_retry'):
+                restored = self.tutor.resume_suspended_questions()
+                if not restored.get('ok'):
+                    self.app.notify(restored.get('error', 'Could not return to saved questions.'), severity='error')
+                    return
+            self.advance()
+            return
+        if data.get('button') == 'restore-saved-judgment':
+            candidate = self.act.get('restore_candidate')
+            if not candidate:
+                return
+            def restore(choice):
+                if choice == 'restore':
+                    result = self.tutor.restore_topical(**candidate)
+                    if result.get('ok'):
+                        self.advance()
+                    else:
+                        self.app.notify(result.get('error', 'Could not restore the question.'), severity='error')
+            self.app.push_screen(ConfirmScreen(
+                f"Restore this question to {candidate['chapter']}? It may appear there again.",
+                [('restore', 'Restore and mark'), ('cancel', 'Keep excluded')]), restore)
+            return
+        if data.get('button') == 'postpone-saved-judgment':
+            result = self.tutor.postpone_saved_judgment()
+            if result.get('ok'):
+                message = ('Attempt saved; its original image needs review before marking.'
+                           if result.get('image_review_required') else
+                           'Attempt saved; it will return in a later session when eligible.')
+                self.app.notify(message, timeout=6)
+                self.advance()
+            else:
+                self.app.notify(result.get('error', 'Could not save the attempt.'), severity='error')
             return
         if isinstance(event.panel, LongPanel):
             self.long_written(data)
@@ -1213,7 +1506,14 @@ class SessionScreen(ReadAloud, Screen):
         if data.get("button") == "home":
             self.app.pop_screen()
             return
-        if "entry" in data:
+        if data.get('learn_question'):
+            self.learn_request(data['learn_question'])
+        elif data.get('button') in ('learn-stuck', 'learn-example'):
+            request = ("I'm stuck on this idea. Can you guide me through it one step at a time?"
+                       if data['button'] == 'learn-stuck' else
+                       "Can you show me a different worked example for this idea?")
+            self.learn_request(request)
+        elif "entry" in data:
             self.submit(data)
         elif kind == "choose":
             self.say(cards.you(GOALS.get(data["choice"], data["choice"])), mirror="now")
@@ -1261,6 +1561,24 @@ class SessionScreen(ReadAloud, Screen):
             self.chatting = False
             self.respond({})
             self.advance()
+        elif data.get("button") == "detail" and self.act.get("detail"):
+            if any((self.tutor.session or {}).get(key) for key in ("presented", "queue")):
+                self.app.notify("Finish the pending questions before showing more detail.", timeout=5)
+                return
+            detail = self.act["detail"]
+            if self.learning_answer_is_guarded(detail):
+                return
+            self.say(cards.card("tutor", "More detail", detail))
+            self.readable_now(detail, auto=True)
+            self.explanation_panel(self.act, detail=False)
+        elif data.get("button") == "diagram" and self.kc:
+            if any((self.tutor.session or {}).get(key) for key in ("presented", "queue")):
+                self.app.notify("Finish the pending questions before showing diagrams.", timeout=5)
+                return
+            card = lesson.teach_card(self.tutor, self.kc)
+            self.show_lesson_diagrams(card)
+        elif data.get("button") == "learn":
+            self.action_learn_tutor()
         elif data.get("button") == "explain":
             self.action_explain()
         elif data.get("button") == "ask":
@@ -1271,7 +1589,8 @@ class SessionScreen(ReadAloud, Screen):
         elif data.get("button") == "remark":
             self.remark()
         elif data.get("button") in ("next", "continue"):
-            self.respond({})
+            if kind not in ("questions", "awaiting"):
+                self.respond({})
             self.advance()
         elif "ticked" in data:  # long answer self-marking
             self.long_marks(data)
@@ -1287,9 +1606,60 @@ class SessionScreen(ReadAloud, Screen):
             self.app.notify("Your answer was read as several parts. Please avoid commas between numbers and try again.",
                             severity="warning", timeout=7)
         r = out["results"][0]
+        if r.get('attempt_confirmation_required'):
+            n = view['n']
+            question = (t.session or {}).get('presented', {}).get(str(n))
+            if not question:
+                return
+            self.pending_faded = {'session': t.session, 'question': question, 'n': n,
+                                  'working': question.get('saved_work'), 'data': copy.deepcopy(data)}
+            self.panel(ContinuePanel('Submit this as your attempt? Review will show the worked answer.',
+                                     buttons=[('faded-edit', 'Keep editing'), ('faded-submit', 'Submit attempt'),
+                                              ('faded-skip', 'Skip without seeing the answer')]))
+            return
+        if r.get('retry_cancelled'):
+            self.panel(ContinuePanel('The skipped question remains saved.',
+                                     buttons=[('retry-skipped', 'Retry skipped question'), ('leave', 'Return to menu')]))
+            return
+        if r.get('judgment_postponed'):
+            self.panel(ContinuePanel('Your earlier attempt remains saved for marking.',
+                                     buttons=[('next', 'Return to saved attempt'), ('leave', 'Return to menu')]))
+            return
+        if r.get('needs_retry'):
+            self.view = t._view(view['n'])
+            pending = (t.session or {}).get('presented', {}).get(str(view['n']), {})
+            buttons = ([('skip-protected-retry', 'Close retry without marking'), ('leave', 'Return to menu')]
+                       if pending.get('block') == 'skipped_retry' else
+                       [('suspend-for-retry', 'Set aside and retry'), ('leave', 'Return to menu')])
+            self.panel(ContinuePanel(r['error'], buttons=buttons))
+            return
         if r.get("error"):
-            self.app.notify(r["error"], severity="warning", timeout=6)
-            self.answer_panel(view)
+            if (t.session or {}).get('faded_cancel_intent'):
+                self.faded_recovery_panel()
+                return
+            question = (t.session or {}).get('presented', {}).get(str(view.get('n')), {})
+            self.view = (t._view(view['n']) or view) if question.get('inst', {}).get('written_faded') else view
+            if (question and view.get("kind") == "numeric" and isinstance(self.showing, ValuePanel)
+                    and self.showing.query(Confidence)):
+                message = r["error"]
+                show_notice = True
+                if "; resend" in message:
+                    message = (message.rsplit("; resend", 1)[0]
+                               + ". Edit your value below, then press Enter and choose your confidence.")
+                    now = monotonic()
+                    notices = {key: deadline for key, deadline in getattr(self, "_numeric_format_notices", {}).items()
+                               if deadline > now}
+                    key = ((t.session or {}).get("id"), str(view["n"]), message)
+                    show_notice = key not in notices
+                    if show_notice:
+                        notices[key] = now + 6
+                    self._numeric_format_notices = notices
+                if show_notice:
+                    self.app.notify(message, severity="warning", timeout=6)
+                self.showing.query_one(Confidence).action_back()
+            else:
+                self.app.notify(r["error"], severity="warning", timeout=6)
+                self.answer_panel(self.view)
             return
         if data.get("note"):  # before the verdict, in Now and the log as well
             self.say(cards.you("✎ " + data["note"], f"Note on Q{view.get('n')}"))
@@ -1298,9 +1668,19 @@ class SessionScreen(ReadAloud, Screen):
             self.pending_short = (view["n"], data, max(1, len(r.get("rubric", []))))
             self.judge_short(view, data, r)
             return
-        self.say(cards.feedback(r, data.get("your", "")))
+        self.say(cards.feedback(r, data.get("your", ""), ai_output=self.visual))
         self.readable_now(spoken_feedback(r, data.get("your", "")), auto=True)
         self.finish_feedback(r)
+
+    def faded_recovery_panel(self) -> None:
+        session = self.tutor.session
+        intent = ((session or {}).get('faded_cancel_intent') or {})
+        self.faded_recovery_binding = (session, intent.get('operation'))
+        message = ('Different saved drafts were found. Both are retained; retry may not resolve this conflict. '
+                   'Return to the menu if retry does not work.' if intent.get('conflict_recorded') else
+                   'Your draft is saved. Retry saving it before continuing.')
+        self.panel(ContinuePanel(message,
+                                 buttons=[('faded-recover', 'Retry saving'), ('leave', 'Return to menu')]))
 
     def finish_feedback(self, r: dict, written: bool = False) -> None:
         self.last_fb = {**r, "written": written}
@@ -1311,7 +1691,7 @@ class SessionScreen(ReadAloud, Screen):
         """Whether the answer just marked can go to the AI examiner: one you gave (not "I don't know"), which the
         program marked wrong or docked a mark, and which has not been re-marked."""
         fb = getattr(self, "last_fb", None) or {}
-        return bool(self.ai_ok("mark") and fb.get("event") and not fb.get("correct") and not fb.get("remarked") and not fb.get("written")
+        return bool(not fb.get('feedback_withheld') and not fb.get('attempt_saved') and len((self.view or {}).get("images") or []) <= 1 and self.ai_ok("mark") and fb.get("event") and not fb.get("correct") and not fb.get("remarked") and not fb.get("written")
                     and fb.get("response") != "don't know"
                     and (self.view or {}).get("kind") in ("mcq", "numeric", "expression", "short"))
 
@@ -1328,24 +1708,80 @@ class SessionScreen(ReadAloud, Screen):
         else:
             buttons = [("next", "Next ⏎")] + ([("why", "Explain this answer (AI)")] if self.ai_ok() else []) + \
                       ([("remark", "Re-mark (AI)")] if self.can_remark() else []) + [("ask", "Ask the tutor (ctrl+t)")]
+            if ((getattr(self, "last_fb", None) or {}).get("answer_withheld")
+                    and not (self.tutor.session or {}).get("queue")):
+                buttons = [("retry-skipped", "Try again"), ("next", "Next ⏎")]
+            if ((getattr(self, 'last_fb', None) or {}).get('feedback_withheld')
+                    or (getattr(self, 'last_fb', None) or {}).get('attempt_saved')):
+                buttons = [('retry-skipped', 'Retry skipped question'), ('next', 'Next ⏎')]
             if (getattr(self, "last_fb", None) or {}).get("written"):
                 buttons = [("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]
             self.panel(ContinuePanel(buttons=buttons, read=self.can_read()))
 
     # ---------- written answers ----------
+    def show_guided_review_answer(self, n: int, data: dict) -> None:
+        question = (self.tutor.session or {}).get("presented", {}).get(str(n), {})
+        solution = question.get("inst", {}).get("review_answer")
+        attempt = data.get("your")
+        if ((question.get("phase") in ("form_check", "term_review", "faded") or question.get('inst', {}).get('written_faded'))
+                and isinstance(attempt, str) and attempt.strip()
+                and isinstance(solution, str) and solution.strip()):
+            self.say(cards.you(attempt, f"Your working for Q{n}"))
+            self.say(cards.card("tutor", "Example answer", solution))
+        if (question.get("phase") == "form_check" and isinstance(attempt, str) and attempt.strip()
+                and question.get("inst", {}).get("review_rule") == "consecutive_primes"):
+            from .guided_review import consecutive_prime_warning
+            if warning := consecutive_prime_warning(attempt):
+                self.say(cards.card("hint", "Check the domain", warning))
+        if (question.get("phase") == "form_check" and isinstance(attempt, str) and attempt.strip()
+                and question.get("inst", {}).get("review_rule") == "geometric_subtraction"):
+            from .guided_review import geometric_subtraction_note
+            if note := geometric_subtraction_note(attempt):
+                self.say(cards.card("hint", "Check the subtraction", note))
+        if (question.get('phase') == 'form_check' and isinstance(attempt, str) and attempt.strip()
+                and question.get('inst', {}).get('review_rule') == 'positive_pair'):
+            from .guided_review import positive_pair_warning
+            working = re.sub(r'\s+\((?:guess|unsure|fairly sure|certain)\)$', '', attempt, flags=re.I)
+            if warning := positive_pair_warning(working):
+                self.say(cards.card('hint', 'Check the domain', warning))
+
     @work(exclusive=True, group="judge")
     async def judge_short(self, view: dict, data: dict, pending: dict) -> None:
         n = view["n"]
         points = pending.get("rubric", [])
-        if self.ai_ok("mark"):
-            self.panel(ContinuePanel("Checking your wording against the mark points…", buttons=[]))
-            model, think = self.app.settings.ai_for("mark")
-            schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
-            with LocalActivity(self, model, task="Marking answer"):
-                res, _ = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", "")),
-                                                    schema=schema, model=model, think=think,
-                                                    **spoken_too(self.app), **image_for_local(self.tutor, model))
+        marking_ticket = self.tutor.begin_marking(n, data.get('your'))
+        if self.ai_ok("mark") and len(view.get("images") or []) <= 1:
+            try:
+                self.panel(ContinuePanel("Checking your wording against the mark points…", buttons=[]))
+                model, think = self.app.settings.ai_for("mark")
+                schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
+                with LocalActivity(self, model, task="Marking answer"):
+                    res, _ = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", "")),
+                                                        schema=schema, model=model, think=think,
+                                                        **spoken_too(self.app), **image_for_local(self.tutor, model))
+            except BaseException:
+                self.tutor.cancel_marking(marking_ticket)
+                raise
+            marking_state = self.tutor.marking_status(marking_ticket)
+            if marking_state == 'stale':
+                return
+            if marking_state != 'ok':
+                self.pending_short = None
+                if marking_state == 'retry_protected':
+                    self.submit(data)  # engine keeps the working and offers the protected retry
+                else:
+                    self.panel(ContinuePanel('Your working is saved. Return to the menu before marking.',
+                                             buttons=[('leave', 'Return to menu')]))
+                return
             if ai_mod.matches_points(res, points):
+                question = (self.tutor.session or {}).get("presented", {}).get(str(n), {})
+                if question.get("phase") in ("form_check", "term_review", "faded") or question.get('inst', {}).get('written_faded'):
+                    self.show_guided_review_answer(n, data)
+                    self.panel(TickPanel("AI suggestions are unverified. Tick earned points after reviewing; alternative methods may earn credit. Alt+↑↓ scrolls; ctrl+s confirms.",
+                                         [(f"AI suggests {'met' if res['points'][i]['met'] else 'not met'} · {p}", str(i), False)
+                                          for i, p in enumerate(points)],
+                                         [("self", "Confirm marks ⏎")]))
+                    return
                 met = sum(1 for p in res["points"] if p.get("met"))
                 score = met / max(1, len(points))
                 verdict = (res.get("feedback", "") + "\n\n" + "\n".join(
@@ -1358,6 +1794,11 @@ class SessionScreen(ReadAloud, Screen):
                 self.readable_now(spoken_feedback(fb, data.get("your", ""), res.get("speech") or None), auto=True)
                 self.finish_feedback(fb, written=True)
                 return
+        else:
+            # No asynchronous judge response is pending; consume the ticket so
+            # the tutor does not retain an unused process-local identity token.
+            self.tutor.marking_status(marking_ticket)
+        self.show_guided_review_answer(n, data)
         self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ctrl+s, or ⏎ on Done.",
                              [(p, str(i), False) for i, p in enumerate(points)], [("self", "Done ⏎")]))
 
@@ -1365,7 +1806,17 @@ class SessionScreen(ReadAloud, Screen):
         if getattr(self, "pending_short", None):
             n, d, total = self.pending_short
             self.pending_short = None
-            out = self.tutor.answer(d["entry"], judge={n: len(data["ticked"]) / total}, your={n: d.get("your", "")})
+            question = (self.tutor.session or {}).get("presented", {}).get(str(n), {})
+            rubric = question.get("inst", {}).get("rubric", [])
+            if (question.get("phase") in ("form_check", "faded") or question.get('inst', {}).get('written_faded')) and rubric:
+                selected = set(data["ticked"]) & {str(i) for i in range(len(rubric))}
+                verdict = "**Reviewed mark points:**\n\n" + "\n".join(
+                    f"- {'✓' if str(i) in selected else '✗'} {point['point']}"
+                    for i, point in enumerate(rubric))
+                out = self.tutor.answer(d["entry"], judge={n: len(selected) / total},
+                                        your={n: d.get("your", "")}, explanation={n: verdict})
+            else:
+                out = self.tutor.answer(d["entry"], judge={n: len(data["ticked"]) / total}, your={n: d.get("your", "")})
             self.say(cards.feedback(out["results"][0], d.get("your", "")))
             self.readable_now(spoken_feedback(out["results"][0], d.get("your", "")), auto=True)
             self.finish_feedback(out["results"][0], written=True)
@@ -1384,10 +1835,47 @@ class SessionScreen(ReadAloud, Screen):
     def long_written(self, data: dict) -> None:
         text = data.get("text", "")
         self.long_text = text
+        pending = (self.tutor.session or {}).get('presented', {}).get(str(self.view['n']), {})
+        if pending.get('ungraded_unavailable') is True:
+            if data.get('button') == 'cancel-ungraded':
+                try:
+                    result = self.tutor.cancel_ungraded_structured(self.view['n'], text)
+                except (OSError, ValueError) as exc:
+                    result = {'ok': False, 'error': str(exc) or 'Could not save draft.'}
+                if result.get('ok'):
+                    self.panel(ContinuePanel('Draft saved; the skipped question remains protected.',
+                                             buttons=[('retry-skipped', 'Retry skipped question'), ('leave', 'Return to menu')]))
+                else:
+                    self.panel(LongPanel(self.view['n'], initial=text, ungraded=True))
+                    self.app.notify(result.get('error', 'Could not save draft.'), severity='error')
+                return
+            try:
+                result = self.tutor.save_ungraded_structured(self.view['n'], text)
+            except (OSError, ValueError) as exc:
+                result = {'ok': False, 'error': str(exc) or 'Could not save working.'}
+            if not result.get('ok'):
+                self.panel(LongPanel(self.view['n'], initial=text, ungraded=True))
+                self.app.notify(result.get('error', 'Could not save working.'), severity='error')
+                return
+            self.say(cards.you(text, f"Your working for Q{self.view['n']}"))
+            self.say(cards.feedback(result, text))
+            self.finish_feedback(result, written=True)
+            return
         self.say(cards.you(text, f"Your working for Q{self.view['n']}"))  # kept in the log, even if you leave before marking
         sch = self.tutor.scheme(self.view["n"])
+        if sch.get('error'):
+            saved = self.tutor.save_structured_draft(self.view['n'], text)
+            if not saved.get('ok'):
+                self.panel(LongPanel(self.view['n'], initial=text))
+                self.app.notify(saved.get('error', 'Could not save working.'), severity='error')
+                return
+            self.panel(ContinuePanel(sch['error'] + ' Your working is saved in this session without a mark. '
+                                     'Set pending questions aside to retry the skipped question.',
+                                     buttons=[('suspend-for-retry', 'Set aside and retry'), ('leave', 'Return to menu')]))
+            return
         self.scheme = sch.get("scheme", [])
-        buttons = [("mine", "Submit my marks ⏎")] + ([("ai", "Ask the AI examiner to check")] if self.ai_ok("mark") else [])
+        buttons = [("mine", "Submit my marks ⏎")] + ([("ai", "Ask the AI examiner to check")]
+                  if self.ai_ok("mark") and len(self.view.get("images") or []) <= 1 else [])
         self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s. Honest self-marking is great practice.",
                         (), buttons)
 
@@ -1397,14 +1885,22 @@ class SessionScreen(ReadAloud, Screen):
 
     @work(exclusive=True, group="judge")
     async def ai_check_long(self, data: dict) -> None:
+        if len((self.view or {}).get("images") or []) > 1:
+            self.mark_panel("Read all source pages in Obsidian, then submit your own marks.", data.get("ticked", []),
+                            [("mine", "Submit my marks ⏎")])
+            return
         self.panel(ContinuePanel("The AI examiner is marking your answer…", buttons=[]))
         points = [f"{p.get('mark', '')} {p.get('point', '')}" for p in self.scheme]
         model, think = self.app.settings.ai_for("mark")
         schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
-        with LocalActivity(self, model, task="Marking answer"):
-            res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
-                                                schema=schema, model=model, think=think,
-                                                **spoken_too(self.app), **image_for_local(self.tutor, model))
+        self.long_mark_pending = True
+        try:
+            with LocalActivity(self, model, task="Marking answer"):
+                res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
+                                                    schema=schema, model=model, think=think,
+                                                    **spoken_too(self.app), **image_for_local(self.tutor, model))
+        finally:
+            self.long_mark_pending = False
         if not ai_mod.matches_points(res, points):  # give the tick list back, with your ticks, so you can still mark it yourself
             self.say(cards.card("hint", "AI check unavailable", r.message or "Mark it yourself."))
             self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s to submit.", data["ticked"],
@@ -1478,19 +1974,21 @@ class SessionScreen(ReadAloud, Screen):
         session, act = self.tutor.session, self.act
         numbers = tuple((session or {}).get("presented", {}))
         log = self.tutor._lesson_log()
-        keys = [prompts.key_of(self.tutor, int(n)) for n in numbers]
+        keys = prompts.guard_keys(self.tutor)
+        skipped = bool(prompts.skipped_guards(self.tutor))
         model, think = self.app.settings.ai_for(mode)  # chosen in Settings for this kind of help
         with LocalActivity(self, model, w) as live:
             async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think,
                                          **({"web_query": web_query} if local_models.is_local(model) and web_query else {})):
                 buf += chunk
-                if not keys and self.act is act and self.tutor.session is session and live.update(buf):
+                if not keys and not skipped and self.act is act and self.tutor.session is session and live.update(buf):
                     self.query_one("#log", VerticalScroll).scroll_end(animate=False)
         speech = a.last.speech if a.last.ok else ""
         buf = (a.last.text or buf) if a.last.ok else buf  # whole and tidy: a code fence the spoken line opened is gone
-        withheld = any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
+        withheld = skipped or any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
         if withheld:
-            buf = "I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
+            buf = ("I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
+                   if numbers else "I can't give away the answer to a skipped question before an attempt. Start or resume a lesson and press ctrl+u to retry it.")
             speech = ""
         buf = normalise_visual(buf)
         # A reply to an earlier question stays in its transcript, never on the new question.
@@ -1505,6 +2003,10 @@ class SessionScreen(ReadAloud, Screen):
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
             self.tutor.show("hint", a.last.message, "AI paused")
+        elif not buf.strip():
+            message = "The AI returned an empty reply. Try asking again."
+            w.update(cards.card("hint", "No AI reply", message))
+            self.tutor.show("hint", message, "No AI reply")
         else:
             w.update(cards.ai(buf))
             self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
@@ -1515,6 +2017,8 @@ class SessionScreen(ReadAloud, Screen):
         if then_continue:
             self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎"), ("ask", "Ask the tutor (ctrl+t)")],
                                      read=self.can_read()))
+        # A synchronous stream can finish before this card mounts and acquires its final height.
+        w.call_after_refresh(self.query_one("#log", VerticalScroll).scroll_end, animate=False)
 
     def prepare_cards(self, kcs: list[str]) -> None:
         """Ideas without a pre-built teaching card get one written by AI in the background (once, then cached)."""
@@ -1530,8 +2034,6 @@ class SessionScreen(ReadAloud, Screen):
             model, think = self.app.settings.ai_for("explain")
             if not local_models.is_local(model) and not codex_models.is_codex(model):
                 think = False  # Claude cards keep their original fast, non-thinking default.
-                if not local_models.is_local(self.app.ai.model) and not codex_models.is_codex(self.app.ai.model):
-                    model = None  # the original call uses the client's default (Ask) model
             with LocalActivity(self, model, task="Writing teaching notes"):
                 data, _ = await self.app.ai.one_shot(prompts.teach_card(self.tutor, kc), schema=prompts.CARD,
                                                     model=model, think=think)
@@ -1544,17 +2046,514 @@ class SessionScreen(ReadAloud, Screen):
                     pass
 
     # ---------- key actions ----------
+    def show_lesson_diagrams(self, card: dict) -> bool:
+        """Use the same terminal description and Obsidian embed as lesson steps."""
+        # The text-only guard cannot inspect the content of an SVG.
+        if prompts.guard_keys(self.tutor):
+            self.say(cards.card("hint", "Diagram", "The diagram is withheld while a skipped answer is protected."))
+            return False
+        descriptions = diagram_descriptions(card)
+        for index, diagram in enumerate(card.get("diagrams") or []):
+            description = descriptions[index] if index < len(descriptions) else "Lesson diagram."
+            act = {"activity": "explain", "title": "Diagram", "text": description, "diagram": diagram}
+            role, title, body = views.activity_cards(act)[0]
+            self.say(cards.card(role, title, body), mirror=None)
+            self.show_lesson_figure(act)
+            obsidian = views.activity_cards(act, obsidian=True)[0]
+            self.tutor.show(obsidian[0], obsidian[2], obsidian[1])
+        return True
+
+    def action_learn_tutor(self) -> None:
+        if any((self.tutor.session or {}).get(key) for key in ("presented", "queue")):
+            self.app.notify("Finish the pending questions before talking through the idea.", timeout=5)
+            return
+        if self.query('#learning-question'):
+            self.query_one('#learning-question', Composer).focus()
+        else:
+            self.app.push_screen(AskScreen(mode="learn"), lambda q: q and self.learn_request(q))
+
+    def remember_card_disclosures(self, session: dict, cards_to_show: list[dict]) -> None:
+        """Keep explicitly disclosed items out of later checks, including related cards."""
+        disclosed = session.setdefault('disclosed_item_ids', [])
+        for card in cards_to_show:
+            ids = card.get('disclosed_item_ids') if isinstance(card, dict) else None
+            if isinstance(ids, list):
+                disclosed.extend(item for item in ids if isinstance(item, str) and item not in disclosed)
+        self.tutor._save()
+
+    def remember_learning_exchange(self, session: dict, kc: str, question: str, reply: str) -> None:
+        """Keep the same bounded history for all learning-tutor reply paths."""
+        entries = session.setdefault("learn_history", {}).setdefault(kc, [])
+        entries.append({"question": question[:1000], "reply": reply[:3000]})
+        del entries[:-4]
+        self.tutor._save()
+
+    def remember_selected_terms(self, sections: list[str], source_cards: dict) -> None:
+        for section in sections:
+            selected_kc, _, ref = section.partition('|')
+            match = re.fullmatch(r'term:(0|[1-9][0-9]*)', ref)
+            if match:
+                term = source_cards[selected_kc]['terms'][int(match.group(1))]['term']
+                tid = lesson.term_id(selected_kc, term)
+                if tid not in self.tutor.state.get('terms', {}):
+                    self.tutor.log({'type': 'term_introduced', 'term_id': tid, 'kc': selected_kc})
+
+    def learning_answer_is_guarded(self, text: str) -> bool:
+        # Literal matching cannot detect paraphrased answers. Until skipped
+        # questions can be revisited, fail closed for this hidden prototype.
+        if (prompts.skipped_guards(self.tutor)
+                or any(ai_mod.leaks(text, *key) for key in prompts.guard_keys(self.tutor))):
+            self.say(cards.card("hint", "Learning tutor paused",
+                                "I can't give away the answer to a skipped question before an attempt. Press ctrl+u to retry it."))
+            return True
+        return False
+
+    def start_form_check(self, index: int, question: str, source_cards: dict, kc: str, echo: bool = True) -> bool:
+        """Give the learner the short check of one question form, unassisted, through the usual question path."""
+        forms = source_cards.get(kc, {}).get('forms') or []
+        form = forms[index] if 0 <= index < len(forms) and isinstance(forms[index], dict) else {}
+        rubric = form.get('rubric')
+        if (not isinstance(form.get('check'), str) or not form['check'].strip()
+                or not isinstance(rubric, list) or not rubric):
+            self.say(cards.card('hint', 'Learning tutor', 'No check is available for that form.'))
+            return False
+        if self.learning_answer_is_guarded(''):
+            return False
+        item = {'id': f'{kc}-form-{index + 1}', 'kcs': [kc], 'kind': 'short', 'difficulty': 3,
+                'stem': form['check'], 'rubric': rubric, 'marks': len(rubric),
+                'review_answer': form.get('answer', ''), 'form_index': index}
+        if form.get('review_rule'):
+            item['review_rule'] = form['review_rule']
+        activity = self.tutor._questions({'kind': 'guided_request', 'kc': kc}, None, [item],
+                                         phase='form_check', unassisted=True)
+        if not activity:
+            self.say(cards.card('hint', 'Learning tutor', 'This check is unavailable.'))
+            return False
+        if echo:
+            self.say(cards.you(question))
+        self.act = activity
+        self.ask_question(activity['items'][0], 'Try this form without hints.')
+        self.update_bar()
+        return True
+
+    def start_topical_question(self, kc: str, question: str, echo: bool = True) -> bool:
+        """One eligible bank question on this idea, chosen by the program (never by the AI), asked unassisted."""
+        item = self.tutor._pick(kc, 0.6)
+        activity = self.tutor._questions({'kind': 'guided_request', 'kc': kc}, None, [item], phase='ai_question',
+                                         unassisted=True) if item else None
+        if not activity:
+            self.say(cards.card('hint', 'Learning tutor', 'There is no eligible past-paper question for this idea yet.'))
+            return False
+        if echo:
+            self.say(cards.you(question))
+        self.act = activity
+        self.ask_question(activity['items'][0], 'A question on this idea. Try it without hints.')
+        self.update_bar()
+        return True
+
+    def show_teach_results(self, question: str, results: list[dict], kc: str, source_cards: dict) -> str:
+        """Draw what the teaching actions returned, exactly as the lesson draws its own cards. Returns the text shown
+        (for the exchange history)."""
+        self.say(cards.you(question))
+        shown, ui = [], []
+        for r in results:
+            if r["kind"] == "problem":
+                self.say(cards.card("hint", "Learning tutor", r["text"]))
+            elif r["kind"] == "card" and r.get("note"):
+                if (log := self.tutor._lesson_log()):
+                    log.card("you", "Note", r["body"])
+                self.say(cards.you(r["body"], "Note saved"), mirror="now")
+                shown.append(r["body"])
+            elif r["kind"] == "card" and r.get("image"):
+                role, title, body = views.activity_cards(ta.as_activity(r))[0]
+                self.say(cards.card(role, title, body, ai_output=True), mirror=None)
+                self.show_lesson_figure(ta.as_activity(r))
+                obsidian = views.activity_cards(ta.as_activity(r), obsidian=True)[0]
+                self.tutor.show(obsidian[0], obsidian[2], obsidian[1])
+                shown.append(r["body"])
+            elif r["kind"] == "card":
+                self.say(cards.card(r["role"], r["title"], r["body"], ai_output=True))
+                shown.append(r["body"])
+            elif r["kind"] == "term":
+                tid = lesson.term_id(kc, r["term"])
+                if tid not in self.tutor.state.get("terms", {}):
+                    self.tutor.log({"type": "term_introduced", "term_id": tid, "kc": kc})
+            else:
+                ui.append(r)
+        text = "\n\n".join(shown)
+        if text:
+            self.readable_now(text, auto=True, limit=tts.AI_SPEECH_LIMIT)
+        for r in ui[:1]:  # a question or hint takes over the screen: only the first
+            if r["do"] == "check":
+                self.start_form_check(r["form"], question, source_cards, kc, echo=False)
+            elif r["do"] == "question":
+                self.start_topical_question(kc, question, echo=False)
+            elif r["do"] == "hint":
+                self.action_hint()
+        return text
+
+    @work(exclusive=True, group="ai")
+    async def learn_request(self, question: str) -> None:
+        """Use prepared teaching and contextual follow-ups without advancing the lesson."""
+        session, act, kc = self.tutor.session, self.act, self.kc
+        if not session or not kc or session.get("presented") or session.get("queue"):
+            self.app.notify("Finish the pending questions before talking through the idea.", timeout=5)
+            return
+        if self.learning_answer_is_guarded(''):
+            return
+        detail_request = bool(re.fullmatch(
+            r'\s*(?:(?:can|could) you (?:give|show|tell) me (?:some )?(?:more|the) detail|'
+            r'(?:show )?(?:me )?(?:more|the) detail|(?:please )?explain more)\s*[?.!]*\s*', question, re.I))
+        if not detail_request and session.pop('learn_detail', None):
+            self.tutor._save()
+        calculation = (learn_reply.checked_arithmetic_request(question)
+                       or learn_reply.checked_identity_request(question))
+        if calculation is not None:
+            if self.learning_answer_is_guarded(calculation):
+                return
+            self.say(cards.you(question))
+            self.say(cards.ai(normalise_visual(calculation)))
+            self.remember_learning_exchange(session, kc, question, calculation)
+            self.readable_now(calculation, auto=True, limit=tts.AI_SPEECH_LIMIT)
+            return
+        question_count = session.get("count", 0)
+        model_name, think = self.app.settings.ai_for("learn")
+        history = session.get("learn_history", {}).get(kc, [])[-4:]
+        previous = "\n\nEarlier exchanges on this idea:\n" + "\n".join(
+            f"Student: {entry['question']}\nTutor: {entry['reply']}" for entry in history) if history else ""
+        source_cards = learn_reply.published_related_cards(self.tutor, kc)
+        if not source_cards:
+            self.say(cards.card("hint", "Learning tutor paused", "No published teaching card is available for this idea."))
+            return
+        pending = session.get('learn_detail')
+        if detail_request and pending:
+            fingerprint = hashlib.sha256(json.dumps(source_cards, sort_keys=True, ensure_ascii=False,
+                                                    separators=(',', ':')).encode()).hexdigest()
+            if (pending.get('session') != session.get('id') or pending.get('kc') != kc
+                    or pending.get('cards') != fingerprint):
+                session.pop('learn_detail', None)
+                self.tutor._save()
+                self.say(cards.card('hint', 'Learning tutor', 'The teaching material changed. Ask your question again.'))
+                return
+            data = {'sections': pending.get('sections')}
+            text, problem = learn_reply.render_related_selection(data, source_cards)
+            if problem or self.learning_answer_is_guarded(text):
+                if problem:
+                    self.say(cards.card('hint', 'Learning tutor', problem))
+                return
+            self.remember_card_disclosures(session, [source_cards[s.partition('|')[0]] for s in data['sections']])
+            self.say(cards.you(question))
+            self.say(cards.ai(normalise_visual(text)))
+            self.remember_selected_terms(data['sections'], source_cards)
+            self.remember_learning_exchange(session, kc, question, text)
+            session.pop('learn_detail', None)
+            self.tutor._save()
+            self.readable_now(text, auto=True, limit=tts.AI_SPEECH_LIMIT)
+            return
+        if not self.ai_ok("learn"):
+            self.app.notify("Learning tutor is unavailable; check Settings.", timeout=5)
+            return
+        card = source_cards.get(kc, {})
+        mis_id = learn_reply.explicit_misconception(question, card)
+        subtopic = self.tutor.packs.kcs.get(kc, {}).get("subtopic")
+        tracked = self.tutor.packs.misconception(subtopic, mis_id) if subtopic and mis_id else None
+        if tracked and tracked.get("kc") == kc:
+            entry = next((m for m in card.get("misconceptions", []) if m.get("id") == mis_id), None)
+            if entry and all(isinstance(entry.get(key), str) and entry[key] for key in ("idea", "temptation", "fix")):
+                self.tutor.log({"type": "misconception_noted", "kc": kc, "misconception": mis_id})
+                self.say(cards.you(question))
+                text = lesson.misconception_text(entry)
+                if self.learning_answer_is_guarded(text):
+                    return
+                self.remember_card_disclosures(session, [card])
+                self.say(cards.card("hint", "Let's revisit this", text))
+                self.remember_learning_exchange(session, kc, question, text)
+                return
+        if re.fullmatch(r"\s*(?:show|list) (?:me )?(?:the )?(?:question )?forms\s*[?.!]*\s*", question, re.I):
+            forms = source_cards.get(kc, {}).get("forms") or []
+            lines = []
+            for number, form in enumerate(forms, 1):
+                if isinstance(form, dict) and isinstance(form.get("name"), str):
+                    wordings = form.get("wordings") or []
+                    wording = "; ".join(w for w in wordings if isinstance(w, str))
+                    lines.append(f"- **{form['name']}** (form {number})" + (f": {wording}" if wording else ""))
+            self.say(cards.you(question))
+            text = ("\n".join(lines) + "\n\nAsk ‘Show example for form 1’ or ‘Try form 1’, using the form number you want."
+                    if lines else "No question forms are available for this idea yet.")
+            if self.learning_answer_is_guarded(text):
+                return
+            self.remember_card_disclosures(session, [source_cards.get(kc, {})])
+            self.say(cards.card("tutor", "Question forms", text))
+            self.remember_learning_exchange(session, kc, question, text)
+            return
+        form_request = re.fullmatch(r'\s*show (?:me )?(?:the )?example for form ([1-9][0-9]{0,2})\s*[?.!]*\s*',
+                                    question, re.I)
+        if form_request:
+            forms = source_cards.get(kc, {}).get('forms') or []
+            index = int(form_request.group(1)) - 1
+            form = forms[index] if index < len(forms) and isinstance(forms[index], dict) else {}
+            text = form.get('example')
+            if not isinstance(text, str) or not text.strip():
+                self.say(cards.card('hint', 'Learning tutor', 'No example is available for that form.'))
+                return
+            if self.learning_answer_is_guarded(text):
+                return
+            self.remember_card_disclosures(session, [source_cards.get(kc, {})])
+            self.say(cards.you(question))
+            self.say(cards.card('tutor', form.get('name', 'Worked example'), text))
+            card = source_cards.get(kc, {})
+            diagram = form.get('diagram')
+            diagrams = card.get('diagrams') or []
+            if isinstance(diagram, str) and diagram in diagrams:
+                position = diagrams.index(diagram)
+                descriptions = diagram_descriptions(card)
+                description = descriptions[position] if position < len(descriptions) else 'Lesson diagram.'
+                self.show_lesson_diagrams({'diagrams': [diagram], 'diagram_descriptions': [description]})
+            self.remember_learning_exchange(session, kc, question, text)
+            self.readable_now(text, auto=True, limit=tts.AI_SPEECH_LIMIT)
+            return
+        practice_request = re.fullmatch(r'\s*(?:try|practise|practice) form ([1-9][0-9]{0,2})\s*[?.!]*\s*',
+                                        question, re.I)
+        if practice_request:
+            self.start_form_check(int(practice_request.group(1)) - 1, question, source_cards, kc)
+            return
+        if re.fullmatch(r"\s*(?:show|display) (?:me )?(?:the )?diagrams?\s*[?.!]*\s*", question, re.I):
+            card = source_cards.get(kc, {})
+            if card.get("diagrams"):
+                self.remember_card_disclosures(session, [card])
+                self.say(cards.you(question))
+                if not self.show_lesson_diagrams(card):
+                    return
+                descriptions = diagram_descriptions(card)
+                text = "\n".join(x for x in descriptions if isinstance(x, str)) or "Lesson diagrams shown."
+                self.remember_learning_exchange(session, kc, question, text)
+            else:
+                self.say(cards.card("hint", "Diagram", "There is no diagram for this idea yet."))
+            return
+        invitation = learn_reply.try_first(question, kc, source_cards.get(kc, {}), session, self.tutor.state)
+        if invitation:
+            if self.learning_answer_is_guarded(invitation):
+                return
+            self.remember_card_disclosures(session, [source_cards.get(kc, {})])
+            self.say(cards.you(question))
+            self.say(cards.ai(normalise_visual(invitation)))
+            self.remember_learning_exchange(session, kc, question, invitation)
+            self.readable_now(invitation, auto=True, limit=tts.AI_SPEECH_LIMIT)
+            return
+        index = learn_reply.relevant_form_suggestion(question, source_cards.get(kc, {}))
+        if index is not None:
+            form = source_cards[kc]['forms'][index]
+            text = (f"A possibly related form is **{form['name']}** (form {index + 1}). "
+                    f"Ask ‘Show example for form {index + 1}’ to see a worked example, "
+                    f"or ‘Try form {index + 1}’ to practise it.")
+            if self.learning_answer_is_guarded(text):
+                return
+            self.say(cards.you(question))
+            self.say(cards.card('tutor', 'Relevant question form', text))
+            self.remember_learning_exchange(session, kc, question, text)
+            return
+        failure = "The tutor could not respond."
+        data = (learn_reply.active_misconception_selection(
+                    question, kc, source_cards, self.tutor.state,
+                    prerequisites=self.tutor.packs.kcs.get(kc, {}).get('prereqs') or [])
+                or learn_reply.exact_term_selection(question, kc, source_cards))
+        if data == {'sections': []}:
+            self.say(cards.card("hint", "Learning tutor", "No recorded misconception with an available teaching explanation was found for that request."))
+            return
+        model_selection = data is None
+        if data is None:
+            context = prompts.learn(self.tutor, kc, question)
+            # Keep the idea and learner profile even when the general session context is long.
+            recent_questions, _, idea_context = context.partition("\n\nLESSON IDEA:")
+            figures = ta.figures_for(self.app.vault, self.tutor.packs.kcs.get(kc, {}).get("subtopic", ""),
+                                     kc=kc, card=source_cards.get(kc, {}))
+            prompt = (learn_reply.selection_prompt(question, source_cards, idea_context or context, previous,
+                                                    recent_questions=recent_questions if idea_context else "")
+                      + "\n\n" + ta.catalogue(source_cards.get(kc, {}), figures))
+            with LocalActivity(self, model_name, task="Finding teaching material"):
+                data, result = await self.app.ai.one_shot(prompt, schema=learn_reply.CARD_SELECTION_SCHEMA,
+                                                          model=model_name, think=think,
+                                                          system="You are a careful A-level tutor. Follow the requested structured "
+                                                                 "response format, teach in British English, and never "
+                                                                 "invent mathematical steps or reveal an open answer.",
+                                                          **image_for_local(self.tutor, model_name))
+            if not result.ok:
+                data = None
+                failure = result.message or "The tutor could not respond."
+        def current_request():
+            return (self.is_current and self.tutor.session is session and self.act is act and self.kc == kc
+                    and not session.get('presented') and not session.get('queue')
+                    and not session.get('faded_cancel_intent')
+                    and session.get('count', 0) == question_count)
+
+        if not current_request() or self.learning_answer_is_guarded(''):
+            return
+        if model_selection and isinstance(data, dict) and "actions" in data:  # the AI asked for teaching actions
+            for req in [r for r in data["actions"] if isinstance(r, dict) and r.get("action") == "write"][:1]:
+                req["text"], req["checked"], req["unchecked"] = "", [], 0
+                with LocalActivity(self, model_name, task="Writing an explanation"):
+                    doc, wrote = await self.app.ai.one_shot(
+                        learn_write.prompt(question, str(req.get("topic") or question), idea_context or context,
+                            learner_context=f"Lesson goal: {lesson.GOALS.get(session.get('goal'), 'Not chosen yet')}\n"
+                                            + previous[-3500:]),
+                        schema=learn_write.SCHEMA, model=model_name, think=think,
+                        system="You are a careful A-level tutor. Follow the requested structured response format and "
+                               "teach in British English.", **image_for_local(self.tutor, model_name))
+                # A question, retry guard or new activity may have arrived while
+                # the writer was running. Never apply a stale reply or figure.
+                if not current_request() or self.learning_answer_is_guarded(''):
+                    return
+                try:
+                    if not wrote.ok:
+                        raise ValueError(wrote.message or "the AI did not reply")
+                    req.update(learn_write.lay_out(doc))
+                except ValueError as exc:  # includes DocumentError
+                    req["problem"] = f"I could not write that explanation ({exc}), so I am not showing it."
+            blocked = ('Finish the pending questions before talking through the idea.'
+                       if not current_request() else
+                       'A skipped answer is protected; retry it before asking for an explanation.'
+                       if prompts.guard_keys(self.tutor) or prompts.skipped_guards(self.tutor) else None)
+            if blocked:
+                return
+            results = ta.run(data["actions"], card=source_cards.get(kc, {}), kc=kc,
+                             subtopic=self.tutor.packs.kcs.get(kc, {}).get("subtopic", ""), vault_root=self.app.vault,
+                             figures=figures, blocked=blocked)
+            if not current_request() or self.learning_answer_is_guarded(
+                    '\n'.join(str(result.get('body') or '') for result in results)):
+                return
+            self.remember_card_disclosures(session, [source_cards.get(kc, {})])
+            shown = self.show_teach_results(question, results, kc, source_cards)
+            self.remember_learning_exchange(session, kc, question, shown or "(an activity)")
+            return
+        text, problem = learn_reply.render_related_selection(data, source_cards) if data is not None else ("", failure)
+        if problem:
+            self.say(cards.card("hint", "Learning tutor paused", problem))
+            return
+        # Keep whole, validated sections intact; never cut a mathematical explanation mid-step.
+        explicit_detail = bool(re.search(r'\b(?:detail|detailed|thorough|in depth)\b', question, re.I))
+        continuation = None
+        if model_selection and len(data['sections']) > 1 and not explicit_detail:
+            sections = data['sections']
+            initial = [s for i, s in enumerate(sections) if i == 0 or s.partition('|')[2] == 'plain_words']
+            remaining = [s for s in sections if s not in initial]
+            data = {'sections': initial}
+            text, problem = learn_reply.render_related_selection(data, source_cards)
+            if problem:
+                return
+            if remaining:
+                fingerprint = hashlib.sha256(json.dumps(source_cards, sort_keys=True, ensure_ascii=False,
+                                                        separators=(',', ':')).encode()).hexdigest()
+                continuation = {'session': session.get('id'), 'kc': kc, 'cards': fingerprint, 'sections': remaining}
+                text += '\n\nAsk “More detail” to see the rest.'
+        if self.learning_answer_is_guarded(text):
+            return
+        selected_cards = [source_cards[section.partition('|')[0]] for section in data['sections']]
+        self.remember_card_disclosures(session, selected_cards)
+        self.say(cards.you(question))
+        self.say(cards.ai(normalise_visual(text)))
+        self.remember_selected_terms(data['sections'], source_cards)
+        self.remember_learning_exchange(session, kc, question, text)
+        if continuation:
+            session['learn_detail'] = continuation
+            self.tutor._save()
+        self.readable_now(text, auto=True, limit=tts.AI_SPEECH_LIMIT)
+
     def action_ask(self) -> None:
+        if self.query('#learning-question'):
+            self.action_learn_tutor()
+            return
         def got(q: str | None) -> None:
             if q:
                 self.say(cards.you(q))
                 self.stream(prompts.ask(self.tutor, q, self.kc), web_query=q)
-        self.app.push_screen(AskScreen(), got)
+        notice = ("Ask receives the question text and first image only. Read all pages in Obsidian."
+                  if prompts.focus_page_count(self.tutor) > 1 else None)
+        self.app.push_screen(AskScreen(notice=notice), got)
+
+    def action_retry_skipped(self) -> None:
+        activity = self.tutor.retry_skipped()
+        if activity.get("activity") != "questions":
+            if ((self.tutor.session or {}).get('suspended_for_retry')
+                    and not (self.tutor.session or {}).get('presented')):
+                self.panel(ContinuePanel('Your pending questions remain saved in this session.',
+                                         buttons=[('retry-skipped', 'Retry skipped question'),
+                                                  ('resume-suspended', 'Return to saved questions'),
+                                                  ('leave', 'Return to menu')]))
+            candidate = activity.get('restore_candidate')
+            ungraded = self.tutor.ungraded_retry_candidate()
+            def try_ungraded():
+                retry = self.tutor.retry_skipped_ungraded(ungraded['guard'])
+                if retry.get('activity') == 'questions':
+                    self.act = retry
+                    self.ask_question(retry['items'][0], 'Your attempt will be saved without marking. Prerequisite support is not shown.')
+                    self.update_bar()
+                else:
+                    self.app.notify(retry.get('error', 'Retry is unavailable.'), timeout=5)
+            if candidate:
+                def restore(choice):
+                    if choice == 'restore':
+                        result = self.tutor.restore_topical(**candidate)
+                        if result.get('ok'):
+                            retry = self.tutor.retry_skipped(**candidate, guard_id=activity.get('restore_guard'))
+                            if retry.get('activity') == 'questions':
+                                self.act = retry
+                                self.ask_question(retry['items'][0], 'Try the skipped question again.')
+                                self.update_bar()
+                            else:
+                                self.app.notify(retry.get('error', 'Retry is unavailable.'), timeout=5)
+                        else:
+                            self.app.notify(result.get('error', 'Could not restore this question.'), timeout=5)
+                    elif choice == 'ungraded' and ungraded:
+                        try_ungraded()
+                choices = [('restore', 'Restore and retry'), ('cancel', 'Keep excluded')]
+                if ungraded:
+                    same_question = ungraded['guard'] == activity.get('restore_guard')
+                    label = ('Try without marking' if same_question else
+                             f"Try {ungraded['item']} without marking")
+                    choices.append(('ungraded', label))
+                self.app.push_screen(ConfirmScreen(
+                    f"Question {candidate['identity']} was excluded from {candidate['chapter']}. Restore it to retry? "
+                    "It may appear in that chapter again."
+                    + (f" Question: {activity['restore_stem']}" if activity.get('restore_stem') else '')
+                    + ((" Trying without marking keeps it excluded." if same_question else
+                        f" The ungraded option is for {ungraded['item']}: {ungraded['stem']}")
+                       + " Prerequisite support is not shown." if ungraded else ''),
+                    choices), restore)
+                return
+            if ungraded:
+                self.app.push_screen(ConfirmScreen(
+                    activity.get('error', 'The skipped question is unavailable.') +
+                    f" Save an unmarked attempt for {ungraded['item']}: {ungraded['stem']}? "
+                    "Exclusions remain in place; prerequisite support is not shown and marking may require later review.",
+                    [('cancel', 'Cancel'), ('ungraded', 'Try without marking')]),
+                    lambda choice: try_ungraded() if choice == 'ungraded' else None)
+                return
+            self.app.notify(activity.get("error", "Retry is unavailable."), timeout=5)
+            return
+        self.act = activity
+        self.ask_question(activity["items"][0], "Try the skipped question again.")
+        self.update_bar()
 
     def action_explain(self) -> None:
+        if self.query('#learning-question'):
+            self.learn_request('Can you explain this idea another way, using what I have said so far?')
+            return
         if self.kc:
             self.say(cards.you("Explain this idea again, a different way."))
             self.stream(prompts.explain_again(self.tutor, self.kc), mode="explain")
+
+    @on(Button.Pressed, "#check-solvable")
+    def check_solvable_pressed(self, event: Button.Pressed) -> None:
+        event.stop()
+        self.action_check_solvable()
+
+    def action_check_solvable(self) -> None:
+        if not self.view or str(self.view["n"]) not in (self.tutor.session or {}).get("presented", {}):
+            return
+        result = self.tutor.check_solvable(self.view["n"])
+        self.say(cards.card("tutor", "Can I solve this?", result["message"]), mirror=None)
+        if result["status"] == "skipped":
+            self.advance()
 
     def action_hint(self) -> None:
         if not self.view:
@@ -1571,7 +2570,7 @@ class SessionScreen(ReadAloud, Screen):
         if "refused" in h or h.get("error"):
             self.app.notify(h.get("refused") or h.get("error"), severity="warning")
         else:
-            self.say(cards.card("hint", f"Hint {h.get('level', '')} for Q{self.view['n']}", h.get("hint", "")),
+            self.say(cards.card("hint", f"Hint {h.get('level', '')} for Q{self.view['n']}", h.get("hint", ""), ai_output=self.visual),
                      mirror=None)  # the engine put it on Now and in the log
             self.readable_now(h.get("hint", ""))  # ctrl+e reads it
 
@@ -1580,7 +2579,9 @@ class SessionScreen(ReadAloud, Screen):
 
     def action_leave(self) -> None:
         pending = bool(getattr(self, "pending_short", None))
-        leave_asking_first(self, "#panel TextArea", "answer and mark choices" if pending else "answer", unsaved=pending)
+        marking = isinstance(getattr(self, "showing", None), TickPanel) or getattr(self, "long_mark_pending", False)
+        typed = "answer and mark choices" if pending else "mark choices" if marking else "answer"
+        leave_asking_first(self, "#panel TextArea", typed, unsaved=pending or marking)
 
     def action_esc(self) -> None:
         """Esc means "back" everywhere else; here a panel may use it (change an answer, skip), and leaving is ctrl+b."""
@@ -1591,6 +2592,16 @@ class SessionScreen(ReadAloud, Screen):
 
     def finish(self) -> None:
         summary = self.tutor.end()
+        if summary.get('error'):
+            self.app.notify(summary['error'], severity='warning', timeout=6)
+            return
+        if summary.get('home_error'):
+            self.app.notify(f"Session saved, but Home could not be updated: {summary['home_error']}",
+                            severity='warning', timeout=6)
+        if summary.get('view_errors'):
+            failed = "; ".join(f"{name}: {error}" for name, error in summary['view_errors'].items())
+            self.app.notify(f"Session saved, but some notes could not be updated: {failed}",
+                            severity='warning', timeout=10)
         try:
             from tutorlib import weekly
             # Today/Profile notes, experiments, Anki export when due
@@ -1598,91 +2609,6 @@ class SessionScreen(ReadAloud, Screen):
         except Exception as exc:  # bookkeeping must never cost you the session
             summary["week"] = {"error": str(exc)}
         self.app.switch_screen(SummaryScreen(summary))  # closing the summary lands back on the menu
-
-
-# ============================ Summary / pop-ups ============================
-class SummaryScreen(ModalScreen):
-    BINDINGS = [Binding("enter", "close", "Back to menu"), Binding("escape", "dismiss(None)", "Back")]
-
-    def __init__(self, summary: dict) -> None:
-        super().__init__()
-        self.summary = summary
-        self.opened = time.monotonic()
-
-    def action_close(self) -> None:
-        if time.monotonic() - self.opened >= 0.7:  # not the ⏎ still held down from "Next ⏎": read it first
-            self.dismiss(None)
-        else:  # ignored, but visibly
-            self.query_one("#summary-hint", Static).update("Press ⏎ again for the menu · ↑↓ scroll")
-
-    def compose(self) -> ComposeResult:
-        s = self.summary
-        t = self.app.tutor
-        acc = f"{round(100 * s['accuracy'])}%" if s.get("accuracy") is not None else "–"
-        learned = "\n".join(f"- ✓ {t.packs.kcs[k]['title']}" for k in s.get("kcs_learned", []) if k in t.packs.kcs)
-        due = model.due_kcs(t.state, t.now() + timedelta(days=1))
-        a = self.app.ai
-        today = t.study_clock.today(t.now().date().isoformat())
-        earned, total = s.get("marks") or (0, 0)
-        marks = f"  ·  **Marks:** {earned:g} of {total}" if total else ""  # what an examiner would give (Q-017)
-        text = (f"# Session done ✓\n\n**Answered:** {s['answered']}  ·  **Fully right:** {s['correct']} ({acc}){marks}\n\n"
-                + (f"**Session time:** {clock.fmt(s['active_seconds'], True)} on the screen  ·  **True time:** "
-                   f"{clock.fmt(s['true_seconds'], True)} from start to finish  ·  **Studied today:** {clock.fmt(today)}\n\n"
-                   if "active_seconds" in s else "")
-                + (f"## Learned today\n{learned}\n\n" if learned else "")
-                + f"**Due for review in the next 24 hours:** {len(due)} idea(s)\n\n"
-                + f"**AI replies this session:** {a.session.replies}\n\n"
-                + (f"**New Anki cards ({(s.get('week') or {})['anki']['cards']}):** double-click "
-                   f"`{(s.get('week') or {})['anki']['path']}` in the tutor folder to import them.\n\n"
-                   if ((s.get("week") or {}).get("anki") or {}).get("path") else "")
-                + "Your notes and the full lesson are in Obsidian (Home → Recent lessons).")
-        with VerticalScroll(id="summary"):  # a short window scrolls it; the way out stays in sight
-            yield Static("⏎ menu · ↑↓ scroll", id="summary-hint", classes="hint")
-            yield Markdown(to_terminal(text))
-
-
-class ConfirmScreen(ModalScreen):
-    BINDINGS = [Binding("escape", "dismiss(None)", "Cancel")]
-
-    def __init__(self, question: str, choices: list[tuple[str, str]]) -> None:
-        super().__init__()
-        self.question, self.choices = question, choices
-
-    def compose(self) -> ComposeResult:
-        with Vertical(id="ask"):
-            yield Static(self.question, classes="hint")
-            yield OptionList(*[Option(label, id=cid) for cid, label in self.choices], id="confirm")
-
-    def on_mount(self) -> None:
-        self.query_one("#confirm", OptionList).focus()
-
-    @on(OptionList.OptionSelected, "#confirm")
-    def chose(self, event: OptionList.OptionSelected) -> None:
-        self.dismiss(event.option.id)
-
-
-class AskScreen(ModalScreen):
-    BINDINGS = [Binding("escape", "dismiss(None)", "Cancel")]
-
-    def compose(self) -> ComposeResult:
-        with Vertical(id="ask"):
-            yield Static("Ask the tutor anything: it knows what is on screen and the questions just marked. "
-                         "⏎ sends, ctrl+j starts a new line, Esc cancels.", classes="hint")
-            yield Composer(placeholder="e.g. what would the full answer be here?", id="q")
-
-    def on_mount(self) -> None:
-        self.query_one("#q", Composer).focus()
-        self.app.prepare_local_ai("ask")
-
-    def on_unmount(self) -> None:
-        self.app.stop_local_preload(self)
-
-    @on(Composer.Submitted, "#q")
-    def sent(self, event: Composer.Submitted) -> None:
-        question = event.value.strip()
-        if question and getattr(self.app, "_preload_owner", None) is self:
-            self.app._preload_owner = self.app.screen_stack[-2]  # the session now owns its requested preparation
-        self.dismiss(question or None)
 
 
 class ChatPanel(TextPanel):
@@ -1749,6 +2675,12 @@ class ChatScreen(ReadAloud, Screen):
             self.app.tutor.show("hint", message, "AI help is off")
             log.scroll_end(animate=False)
             return
+        if prompts.skipped_guards(t):
+            message = "A skipped question is still protected. Start or resume a lesson and press ctrl+u to retry it."
+            log.mount(Static(cards.card("hint", "Tutor paused", message), classes="entry"))
+            t.show("hint", message, "Tutor paused")
+            log.scroll_end(animate=False)
+            return
         if (help_ := t.ai_help(given=False)).get("refused"):
             log.mount(Static(cards.card("hint", "No help on this one", help_["refused"]), classes="entry"))
             t.show("hint", help_["refused"], "No help on this one")
@@ -1758,18 +2690,20 @@ class ChatScreen(ReadAloud, Screen):
         log.mount(w)
         buf = ""
         # A paused session keeps its answer guard, including while a reply is streaming.
-        keys = [prompts.key_of(t, int(n)) for n in (t.session or {}).get("presented", {})]
+        keys = prompts.guard_keys(t)
+        skipped = bool(prompts.skipped_guards(t))
         model, think = self.app.settings.ai_for("ask")
+        image = prompts.focus_image(t)
         with LocalActivity(self, model, w) as live:
             if local_models.is_local(model):
                 await self._chat_reset_done.wait()  # cancelling one reply must not cancel the shared reset
                 if not self._chat_ready or self not in self.app.screen_stack:
                     raise asyncio.CancelledError
             async for chunk in a.stream(prompts.ask(self.app.tutor, q, None), model=model, think=think,
-                                         **({"web_query": q, "image": prompts.focus_image(t)}
-                                            if local_models.is_local(model) else {})):
+                                         **({"web_query": q} if local_models.is_local(model) else {}),
+                                         **({"image": image} if image is not None else {})):
                 buf += chunk
-                if not keys and live.update(buf):
+                if not keys and not skipped and live.update(buf):
                     log.scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
@@ -1777,11 +2711,19 @@ class ChatScreen(ReadAloud, Screen):
         else:
             buf = a.last.text or buf
             speech = a.last.speech
-            withheld = any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
+            withheld = skipped or any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
             if withheld:
-                buf = "I can't give that away while the question is open. Answer first and I'll explain."
+                buf = ("I can't give that away while the question is open. Answer first and I'll explain."
+                       if (t.session or {}).get("presented") else
+                       "I can't give away the answer to a skipped question before an attempt. Start or resume a lesson and press ctrl+u to retry it.")
                 speech = ""
             buf = normalise_visual(buf)
+            if not buf.strip() and not (speech or "").strip():
+                message = "The AI returned an empty reply. Try asking again."
+                w.update(cards.card("hint", "No AI reply", message))
+                t.show("hint", message, "No AI reply")
+                log.scroll_end(animate=False)
+                return
             w.update(cards.ai(buf))
             if buf and not withheld:
                 t.ai_help()
@@ -1867,13 +2809,22 @@ class InsightsScreen(Screen):
         if not (data and data.get("summary")):
             self.app.notify(res.message or "The AI tutor couldn't write a summary just now.", severity="warning")
             return
-        write_json(self.app.vault / ".tutor" / "profile_ai.json", {"text": data["summary"], "at": t.now().isoformat()})
-        report.profile_note(t)
-        self.query_one("#insights", Markdown).update(self._text())
+        try:
+            write_json(self.app.vault / ".tutor" / "profile_ai.json", {"text": data["summary"], "at": t.now().isoformat()})
+        except OSError as exc:
+            self.app.notify(f"The AI summary could not be saved: {exc}", severity="warning", timeout=8)
+            return
+        try:
+            report.profile_note(t)
+        except OSError as exc:
+            self.app.notify(f"AI summary saved, but Profile could not be updated: {exc}",
+                            severity="warning", timeout=8)
+        document = self.query_one("#insights", Markdown)
+        await document.update(self._text())
+        document.goto_anchor("ai-summary")
 
     def action_open(self, note: str) -> None:
-        {"Profile": report.profile_note, "Mistakes": report.mistakes_note}[note](self.app.tutor)
-        mac.open_in_obsidian(self.app.vault, note, background=False)
+        open_report_note(self, note)
 
     def action_weekly(self) -> None:
         folder = self.app.vault / "Weekly"
@@ -1882,6 +2833,31 @@ class InsightsScreen(Screen):
             self.app.notify("No week in review yet: the first appears when the tutor opens in a new week.", timeout=6)
             return
         mac.open_in_obsidian(self.app.vault, f"Weekly/{weeks[-1].stem}", background=False)
+
+
+class SavedAttemptsScreen(Screen):
+    """Show the learner's postponed work without displaying marking keys or unpinned images."""
+    BINDINGS = [Binding('escape', 'app.pop_screen', 'Back')]
+
+    def compose(self) -> ComposeResult:
+        with VerticalScroll():
+            yield Static(Text('Saved attempts awaiting review', style='bold'))
+            yield Static(Text('Eligible text-only attempts return in a later session. Esc goes back.'))
+            for number, item in enumerate(self.app.tutor.postponed_judgments(), 1):
+                inst = item.get('inst') or {}
+                yield Static(Text(f'\nAttempt {number} · {item.get("serving_chapter") or "Saved topic"}', style='bold'))
+                yield Static(Text(to_terminal(str(inst.get('stem') or 'Question text unavailable'))))
+                if inst.get('image') or inst.get('images'):
+                    yield Static(Text('The original image needs review before this attempt can be marked.'))
+                yield Static(Text('Your working:\n' + str(item.get('saved_work') or '')))
+            drafts = self.app.tutor.retained_drafts()
+            if drafts:
+                yield Static(Text('\nEarlier draft copies', style='bold'))
+                yield Static(Text('These copies were retained when a saved draft changed.'))
+                for number, versions in enumerate(drafts.values(), 1):
+                    for version, text in enumerate(versions, 1):
+                        yield Static(Text(f'\nDraft {number}.{version}\n{text}'))
+        yield Footer()
 
 
 class ProgressScreen(Screen):
@@ -1919,9 +2895,7 @@ class ProgressScreen(Screen):
         yield Footer()
 
     def action_open(self) -> None:
-        from tutorlib import report
-        report.profile_note(self.app.tutor)
-        mac.open_in_obsidian(self.app.vault, "Profile", background=False)
+        open_report_note(self, "Profile")
 
 
 class BlurtScreen(ReadAloud, Screen):
@@ -1942,7 +2916,8 @@ class BlurtScreen(ReadAloud, Screen):
             yield Static(cards.card("tutor", "Write everything you remember",
                                     "Definitions, equations, units, examples, traps: anything about this topic. Don't "
                                     "look anything up. About **3 minutes** is plenty. Recalling is what strengthens memory; "
-                                    "checking what you missed shows exactly what to review."), classes="entry")
+                                    "ideas already scheduled for Review that you miss are brought forward; ideas without a "
+                                    "review schedule can be worked through in a lesson."), classes="entry")
         with Container(id="panel"):
             from textual.widgets import TextArea
             yield TextArea(id="blurt", soft_wrap=True)
@@ -1962,10 +2937,14 @@ class BlurtScreen(ReadAloud, Screen):
         text = boxes.first(TextArea).text.strip() if boxes else ""
         if not text or getattr(self, "checked", False):  # a second ctrl+s or click while the box is going: once only
             return
-        self.checked = True
-        self.query_one("#check", Button).disabled = True
         t = self.app.tutor
         res = t.blurt(self.subtopic, text)
+        if res.get("error"):
+            self.app.notify(res["error"], severity="warning", timeout=6)
+            boxes.first(TextArea).focus()
+            return
+        self.checked = True
+        self.query_one("#check", Button).disabled = True
         log = self.query_one("#log", VerticalScroll)
         n, total = len(res["recalled"]), len(res["ideas"])
         for role, title, body in res["cards"]:  # the cards the lesson log and Now have
@@ -1980,6 +2959,7 @@ class BlurtScreen(ReadAloud, Screen):
 
 
 class HelpScreen(ModalScreen):
+    pauses_study = True
     BINDINGS = [Binding("escape", "dismiss(None)", "Close"), Binding("enter", "dismiss(None)", "Close"),
                 Binding("o", "guide", "Open the full guide")]
 
@@ -1993,7 +2973,7 @@ class HelpScreen(ModalScreen):
 be read while the tutor runs, so it is only guessed when you quit).
 
 **ctrl+k** (or **F3**) answer-only view: hides the question and shows just the answer box, for a window beside
-Obsidian; press it again to bring the question back · **ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+g** hint (not on
+Obsidian; press it again to bring the question back · **ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+y** Can I solve this? (prerequisite topic numbers only) · **ctrl+g** hint (not on
 no-hints checks) · **ctrl+o** show the current question or explanation in Obsidian · **ctrl+l** bring back what
 was said earlier (after you answer) · **ctrl+e** read aloud what is on screen, and again stops it (once set up:
 `tutor tts setup`) · **ctrl+b** or **ctrl+q** save and go back to the menu. These work even while
@@ -2043,10 +3023,14 @@ MODEL_CHOICES = [("Model: Haiku (fast, least usage)", "haiku"), ("Model: Sonnet 
 
 
 class SettingsScreen(ModalScreen):
+    pauses_study = True
     BINDINGS = [Binding("escape", "dismiss(None)", "Close")]
 
     def compose(self) -> ComposeResult:
         s = self.app.settings
+        self._answer_only_touched = False
+        self._font_size_touched = False
+        self._font_size_synced = str(self.app.text_size() or "")
         self._local_models = local_models.available_models()
         self._selected_models = {mode: s.ai_for(mode)[0] for mode in config.AI_MODES}
         self._efforts = {mode: getattr(s, f"ai_{mode}_effort") for mode in config.AI_MODES}
@@ -2083,7 +3067,8 @@ class SettingsScreen(ModalScreen):
                              "GPT-OSS offers Low, Medium and High reasoning; Qwen 27B offers Off, Low, Medium and "
                              "Maximum (xhigh). DeepSeek R1 and Liquid LFM2.5 always think first. "
                              "Local thinking can take much longer before the first answer appears.", classes="hint")
-            for mode, label in (("mark", "Marking answers"), ("explain", "Explaining"), ("ask", "Ask the tutor")):
+            for mode, label in (("mark", "Marking answers"), ("explain", "Explaining"), ("ask", "Ask the tutor"),
+                                ("learn", "Learning tutor")):
                 model, think = s.ai_for(mode)
                 with Horizontal(classes="row ai-row task-row"):
                     yield Switch(value=getattr(s, f"ai_{mode}_think"), id=f"ai_{mode}_think")
@@ -2105,7 +3090,7 @@ class SettingsScreen(ModalScreen):
                              value=s.theme, id="theme", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
                 yield Static("Text size (points; ⌥+ ⌥− ⌥0 anywhere)")
-                yield Input(str(self.app.text_size() or ""), id="font_size", type="integer", compact=True)
+                yield Input(self._font_size_synced, id="font_size", type="integer", compact=True)
             with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")
                 yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
@@ -2139,6 +3124,28 @@ class SettingsScreen(ModalScreen):
         self.query_one("#ai", Switch).focus()  # the first setting, not the scrolling box around them
         self.set_interval(1, self._refresh_models)
 
+    def on_descendant_focus(self, event) -> None:
+        if getattr(event.widget, "id", None) == "tts_volume":
+            self.query_one("#settings", VerticalScroll).scroll_to_widget(
+                self.query_one("#tts_volume").parent, top=True, animate=False, immediate=True
+            )
+
+    def sync_font_size(self, size: int) -> None:
+        fields = self.query("#font_size")
+        if not fields or self._font_size_touched:
+            return
+        field = fields.first(Input)
+        if field.value != self._font_size_synced:
+            return  # an explicit edit can precede its Changed message
+        self._font_size_synced = str(size)
+        with field.prevent(Input.Changed):
+            field.value = self._font_size_synced
+
+    @on(Input.Changed, "#font_size")
+    def font_size_changed(self, event: Input.Changed) -> None:
+        if event.value != self._font_size_synced:
+            self._font_size_touched = True
+
     def _model_choices(self) -> list[tuple[str, str]]:
         return (MODEL_CHOICES + [(f"Model: {local_models.LOCAL_MODELS[name]}", name) for name in self._local_models]
                 + [(f"Model: {label}", name) for name, label in codex_models.CODEX_MODELS.items()])
@@ -2161,9 +3168,9 @@ class SettingsScreen(ModalScreen):
         strength = self.query_one(f"#ai_{mode}_effort", Select)
         levels = local_models.thinking_levels(model)
         thinking.display, strength.display = not levels, bool(levels)
-        label = {"mark": "Marking answers", "explain": "Explaining", "ask": "Ask the tutor"}[mode]
+        label = {"mark": "Marking answers", "explain": "Explaining", "ask": "Ask the tutor", "learn": "Learning tutor"}[mode]
         if levels and self.app.size.width < 76:
-            label = {"mark": "Marking", "explain": "Explaining", "ask": "Ask tutor"}[mode]
+            label = {"mark": "Marking", "explain": "Explaining", "ask": "Ask tutor", "learn": "Learning"}[mode]
         else:
             label = f"{label}:" if levels else f"{label}: think first"
         self.query_one(f"#ai_{mode}_label", Static).update(label)
@@ -2208,7 +3215,8 @@ class SettingsScreen(ModalScreen):
             choices = {mode: preset.ai_for(mode) for mode in config.AI_MODES}
             if not enabled:
                 text = "Reconnect LocalAI SSD: this preset needs every listed local model. " + text
-        for mode, label in (("mark", "Marking"), ("explain", "Explaining"), ("ask", "Ask the tutor")):
+        for mode, label in (("mark", "Marking"), ("explain", "Explaining"), ("ask", "Ask the tutor"),
+                            ("learn", "Learning tutor")):
             model, think = choices[mode]
             thinking = f"thinking {'on' if think else 'off'}"
             if local_models.is_local(model) and not local_models.supports_thinking(model):
@@ -2242,6 +3250,10 @@ class SettingsScreen(ModalScreen):
             self._requested_preset = "custom"
             event.select.value = "custom"
         self._update_preset_preview()
+
+    @on(Switch.Changed, "#answer_only")
+    def answer_only_changed(self, event: Switch.Changed) -> None:
+        self._answer_only_touched = True
 
     @on(Select.Changed)
     @on(Switch.Changed)
@@ -2352,8 +3364,11 @@ class SettingsScreen(ModalScreen):
         self._refresh_models()  # reflect a drive removed just before Save, keeping the chosen local model
         s = self.app.settings
         old_speech, old_ai = s.tts_enabled, s.ai
-        for key in ("ai", "own_words_feedback", "open_obsidian", "answer_only", "tts_enabled", "tts_auto", "local_web"):
+        for key in ("ai", "own_words_feedback", "open_obsidian", "tts_enabled", "tts_auto", "local_web"):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
+        answer_only = self.query_one("#answer_only", Switch).value
+        if self._answer_only_touched:
+            s.answer_only = answer_only  # an explicit modal edit takes precedence over a global shortcut
         s.tts_voice = str(self.query_one("#tts_voice", Select).value)
         s.usage_display = str(self.query_one("#usage_display", Select).value)
         try:

@@ -1,0 +1,85 @@
+{
+  "scope": "CPU tokenizer only; no model loading or generation",
+  "datasets": {
+    "train": {
+      "sha256": "1b50e7305b3bb339eb8c644db5fe12fd044801c35fb3097b5bc00d55b7a19cf1",
+      "rows": 705,
+      "prefix_counts": [
+        {
+          "schema": "document",
+          "document_prefix": true,
+          "rows": 689
+        },
+        {
+          "schema": "marking",
+          "document_prefix": false,
+          "rows": 16
+        }
+      ]
+    },
+    "valid": {
+      "sha256": "7d1f112e7ffe56566b1838b32bcdcb1fd158c160e99f1590c7efcd23661b44b2",
+      "rows": 255,
+      "prefix_counts": [
+        {
+          "schema": "document",
+          "document_prefix": true,
+          "rows": 243
+        },
+        {
+          "schema": "marking",
+          "document_prefix": false,
+          "rows": 12
+        }
+      ]
+    },
+    "test": {
+      "sha256": "7d73eab08a0ed47716b0d5213955afb50be79c55bfa0d45def66ab8062148bb1",
+      "rows": 278,
+      "prefix_counts": [
+        {
+          "schema": "document",
+          "document_prefix": true,
+          "rows": 270
+        },
+        {
+          "schema": "marking",
+          "document_prefix": false,
+          "rows": 8
+        }
+      ]
+    }
+  },
+  "prefix_examples": [
+    {
+      "id": "0060f10d8b2e22d6f73e595f",
+      "schema": "document",
+      "native_matches_training": true,
+      "training_prefix_sha256": "297280bafde95e252929870a979e5803cb99e7ec93ff24cb8de0e6e750e8aed0",
+      "native_prefix_sha256": "297280bafde95e252929870a979e5803cb99e7ec93ff24cb8de0e6e750e8aed0",
+      "current_prefix_sha256": "9da6810c76663ad89b808838335b5b5f4bc72d7cd60a17eb33359cb834bb7b3c",
+      "native_chars": 686,
+      "current_chars": 751
+    },
+    {
+      "id": "1647bbfdf666831dbaedd5ec",
+      "schema": "marking",
+      "native_matches_training": true,
+      "training_prefix_sha256": "e6733e7c2487b965f55e1fbda3e25e3f92b686452995a33e725cd4db422e1ca6",
+      "native_prefix_sha256": "e6733e7c2487b965f55e1fbda3e25e3f92b686452995a33e725cd4db422e1ca6",
+      "current_prefix_sha256": "861430fc90dff35d3be192537e8d8873ce65224b07ac6195454f0eeb47aac757",
+      "native_chars": 485,
+      "current_chars": 550
+    }
+  ],
+  "development_exact_prefix_matches": {
+    "matching": 255,
+    "total": 255
+  },
+  "mlx_imported": false,
+  "sources": {
+    "app/tutor_app/stem_training.py": "8e35886c299375b79c2d091ff7a08ac243234a35d286c975b6ca8310244812ad",
+    "app/tutor_app/stem_training_data.py": "cd8a320170b162fa58551e8acf9e47a6b0531995694d796e51e9d774c64ac47e",
+    "app/tutor_app/stem_training_eval.py": "9bb762aac8f7d7b683e31861d058d46b04befe0ec05c8f2740db25f0d621c1cf"
+  }
+}

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import ast
-import json
 import random
 from datetime import datetime
 from pathlib import Path
@@ -9,12 +8,13 @@ from pathlib import Path
 import pytest
 
 from fixtures import make_vault
+from library_assets import read_json
 from tutorlib import grade, packs, session, store
 
 
 def _published(spec: str, chapter: str, item_id: str, seed: int = 0) -> dict:
-    path = Path(__file__).resolve().parents[1] / "build/out/packs" / spec / f"{chapter}.json"
-    item = next(i for i in json.loads(path.read_text())["items"] if i["id"] == item_id)
+    pack = read_json(f"build/out/packs/{spec}/{chapter}.json")
+    item = next(i for i in pack["items"] if i["id"] == item_id)
     return packs.instantiate(item, random.Random(seed))
 
 

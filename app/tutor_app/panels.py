@@ -164,7 +164,7 @@ class ChoicePanel(Panel):
     @on(OptionList.OptionSelected, "#conf")
     def _conf(self, event: OptionList.OptionSelected) -> None:
         c = int(event.option.id or 3)
-        self.finish({"entry": f"{self.n}{self.choice}{c}", "your": f"{self.choice} ({CONF[c].lower()})", "note": self._note()})
+        self.finish({"entry": f"{self.n}{self.choice}{c}", "your": self.choice, "note": self._note()})
 
     @on(Composer.Submitted, "#note")
     def _noted(self) -> None:
@@ -181,9 +181,10 @@ CHECKING = "Before ⏎: units? significant figures? sign? did you answer exactly
 class ValuePanel(Panel):
     """Typed answer (number with unit, expression, or short words), then confidence."""
 
-    def __init__(self, n: int, kind: str, confidence: bool = True, checking: bool = False) -> None:
+    def __init__(self, n: int, kind: str, confidence: bool = True, checking: bool = False, initial: str = "") -> None:
         super().__init__(classes="panel")
         self.n, self.kind, self.ask_conf, self.value, self.checking = n, kind, confidence, "", checking
+        self.initial = initial
 
     def compose(self) -> ComposeResult:
         tip = {"numeric": "value and unit, e.g. 19.6 m s-1 or 4.5e-3 mol dm-3",
@@ -191,7 +192,9 @@ class ValuePanel(Panel):
         yield _hint(f"Q{self.n}: type {tip}, then ⏎.  Type ? if you don't know.")
         if self.checking:
             yield Static("✓ " + CHECKING, classes="check")
-        yield Composer(placeholder=tip, id="value")
+        composer = Composer(placeholder=tip, id="value")
+        composer.load_text(self.initial)
+        yield composer
 
     @on(Composer.Submitted, "#value")
     def _typed(self, event: "Composer.Submitted") -> None:
@@ -208,6 +211,8 @@ class ValuePanel(Panel):
             self.finish({"entry": f"{self.n} = {v}", "your": v})
             return
         event.composer.disabled = True
+        for widget in self.query(".hint, .check, #value"):
+            widget.display = False  # the submitted editor can fill a compact window; keep all confidence choices visible
         self.mount(_hint("How sure are you? (1–4, Esc to edit your answer)"), Confidence())
         self.query_one(Confidence).focus()
 
@@ -216,13 +221,15 @@ class ValuePanel(Panel):
         for w in list(self.query(Confidence)) + [h for h in self.query(".hint") if "How sure" in str(h.render())]:
             w.remove()
         box = self.query_one("#value", Composer)
+        for widget in self.query(".hint, .check, #value"):
+            widget.display = True
         box.disabled = False
         box.focus()
 
     @on(OptionList.OptionSelected, "#conf")
     def _conf(self, event: OptionList.OptionSelected) -> None:
         c = int(event.option.id or 3)
-        self.finish({"entry": f"{self.n} = {self.value} ~{c}", "your": f"{self.value} ({CONF[c].lower()})"})
+        self.finish({"entry": f"{self.n} = {self.value} ~{c}", "your": self.value})
 
 
 class LongPanel(Panel):
@@ -230,17 +237,22 @@ class LongPanel(Panel):
     footer, which has no room for it at 60 columns)."""
     BINDINGS = [Binding("ctrl+s", "submit", "Submit answer", show=False)]
 
-    def __init__(self, n: int, checking: bool = False) -> None:
+    def __init__(self, n: int, checking: bool = False, initial: str = "", ungraded: bool = False) -> None:
         super().__init__(classes="panel tall")
-        self.n, self.checking = n, checking
+        self.n, self.checking, self.initial, self.ungraded = n, checking, initial, ungraded
 
     def compose(self) -> ComposeResult:
-        yield _hint(f"Q{self.n}: write your full working and answer (units!), then ctrl+s. "
-                    "Working on paper or the iPad instead? Type 'done on paper', ctrl+s, and self-mark from the scheme.")
+        if self.ungraded:
+            yield _hint(f"Q{self.n}: type your working, then ctrl+s. It will be saved without marking or prerequisite support.")
+        else:
+            yield _hint(f"Q{self.n}: write your full working and answer (units!), then ctrl+s. "
+                        "Working on paper or the iPad instead? Type 'done on paper', ctrl+s, and self-mark from the scheme.")
         if self.checking:
             yield Static("✓ " + CHECKING, classes="check")
-        yield TextArea(id="long", soft_wrap=True, tab_behavior="indent")
+        yield TextArea(self.initial, id="long", soft_wrap=True, tab_behavior="indent")
         yield Button("Submit (ctrl+s)", id="submit", variant="primary", compact=self.app.size.height < 30)
+        if self.ungraded:
+            yield Button("Save draft and close retry", id="cancel-ungraded", compact=True)
 
     def on_resize(self) -> None:
         self.query_one("#submit", Button).compact = self.app.size.height < 30  # a short window: one line, not cut off
@@ -253,6 +265,10 @@ class LongPanel(Panel):
     @on(Button.Pressed, "#submit")
     def _pressed(self) -> None:
         self.action_submit()
+
+    @on(Button.Pressed, "#cancel-ungraded")
+    def _cancel_ungraded(self) -> None:
+        self.finish({'button': 'cancel-ungraded', 'text': self.query_one('#long', TextArea).text})
 
 
 class TickList(SelectionList):
@@ -295,9 +311,13 @@ class TickPanel(Panel):
         yield Static(id="full")  # the highlighted point in full, when its row cuts it short
         with Horizontal(classes="buttons"):
             for bid, label in self.buttons:
-                yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
+                yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default",
+                             compact=self.app.size.height < 30)
 
     def on_resize(self) -> None:
+        compact = self.app.size.height < 30
+        for button in self.query("Button"):
+            button.compact = compact
         self._show_full()
 
     @on(SelectionList.SelectionHighlighted, "#ticks")
@@ -309,6 +329,7 @@ class TickPanel(Panel):
         room = ticks.scrollable_content_region.width - 4  # less the tick box before each point
         full.update(escape(text))
         full.display = bool(text) and room > 0 and cell_len(text) > room
+        ticks.styles.max_height = (5 if full.display else 7) if self.app.size.height < 30 else 14
 
     @on(Button.Pressed)
     def _pressed(self, event: Button.Pressed) -> None:
@@ -387,9 +408,20 @@ class ContinuePanel(Panel):
     async def on_resize(self) -> None:
         if self._shape(self.rows()) != getattr(self, "shape", None):  # the window changed: lay the rows out again
             held = self.screen.focused.id if self.screen.focused in self.query(Button) else None
+            composer = next(iter(self.query('#learning-question')), None)
+            draft, typing = (composer.text, composer.has_focus) if composer else ('', False)
+            selection = composer.selection if composer else None
             await self.recompose()
+            if composer:
+                box = self.query_one('#learning-question', Composer)
+                box.text = draft
+                box.selection = selection
+                if typing:
+                    box.focus()
             if held:
                 self.query_one(f"#{held}", Button).focus()
+            if restore := getattr(self.screen, "finish_panel_resize", None):
+                self.call_after_refresh(restore)
 
     def action_go(self) -> None:
         if self.buttons:  # a waiting message has no buttons: ⏎ does nothing until it's replaced
@@ -400,14 +432,40 @@ class ContinuePanel(Panel):
         self.finish({"button": event.button.id})
 
 
+class LessonPanel(ContinuePanel):
+    """Keep a learner's conversation beside the lesson without consuming its next step."""
+
+    def __init__(self, *, buttons=None, read=False, draft='', selection=None):
+        super().__init__(buttons=buttons, read=read)
+        self.draft = draft
+        self.draft_selection = selection
+
+    def compose(self) -> ComposeResult:
+        yield from super().compose()
+        composer = Composer(placeholder='Ask about this idea, or tell your tutor where you got stuck…',
+                            id='learning-question', compact=True)
+        composer.text = self.draft
+        if self.draft_selection is not None:
+            composer.selection = self.draft_selection
+        yield composer
+
+    @on(Composer.Submitted, '#learning-question')
+    def learning_question(self, event: Composer.Submitted) -> None:
+        event.stop()
+        if event.value.strip():
+            event.composer.text = ''
+            self.finish({'learn_question': event.value.strip()})
+
+
 class TextPanel(Panel):
     """Free text: your own words, a question for the tutor, a chat reply. Esc skips."""
     BINDINGS = [Binding("escape", "skip", "Skip")]
 
     def __init__(self, prompt: str, placeholder: str = "type here, then ⏎ (ctrl+j starts a new line)",
-                 done_label: str | None = None) -> None:
+                 done_label: str | None = None, confirm_skip: bool = False) -> None:
         super().__init__(classes="panel")
         self.prompt, self.placeholder, self.done_label = prompt, placeholder, done_label
+        self.confirm_skip = confirm_skip
 
     def compose(self) -> ComposeResult:
         yield _hint(self.prompt)
@@ -426,6 +484,22 @@ class TextPanel(Panel):
         self.finish({"done": True})
 
     def action_skip(self) -> None:
+        if self.confirm_skip:
+            composer = self.query_one("#text", Composer)
+            if composer.text.strip():
+                from .dialogs import ConfirmScreen
+
+                def decided(choice: str | None) -> None:
+                    if choice == "discard" and self.is_mounted:
+                        self.finish({"skip": True})
+                    elif self.is_mounted:
+                        composer.focus()
+
+                self.app.push_screen(ConfirmScreen(
+                    "Discard your draft and skip this answer?",
+                    [("discard", "Discard draft and skip"), ("stay", "Keep writing")],
+                ), decided)
+                return
         self.finish({"skip": True})
 
 

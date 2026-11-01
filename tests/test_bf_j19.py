@@ -3,9 +3,12 @@ from __future__ import annotations
 
 import ast
 import json
+import os
 import runpy
 import shutil
+import subprocess
 import sys
+import warnings
 from pathlib import Path
 
 import pytest
@@ -14,10 +17,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'build'))
 from content_checks import debris_problems
 from validate_pack import validate
+from library_assets import REAL_VAULT, read_json as library_json, copy_to_vault
 
 
 def pack_for(kc: str) -> dict:
-    return json.loads((ROOT / f'build/out/packs/{kc.split("-")[0]}/{kc}.json').read_text())
+    return library_json(f'build/out/packs/{kc.split("-")[0]}/{kc}.json')
 
 
 def item_for(kc: str, suffix: str) -> dict:
@@ -59,20 +63,28 @@ def test_charge_to_mass_equation_survives_regenerating_the_bundle_and_pack(tmp_p
     """B-073: rebuilding p01 must preserve charge divided by mass from its inputs."""
     import bundle
 
+    vault = tmp_path / 'STEM Tutor'
+    vault.mkdir()
+    scratch = tmp_path / 'stem-tutor'
+    generator = tmp_path / 'Work/Preparation/gen/9702-11.1.py'
     for relative in ['build/out/specs/9702/graph.json', 'build/work/mcq/9702.tagged.json',
                      'build/work/mcq/overrides.json', 'build/work/gen/9702-11.1.py']:
-        target = tmp_path / relative
+        target = scratch / relative if relative.endswith('.json') else generator
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / relative, target)
-    monkeypatch.setattr(bundle, 'ROOT', tmp_path)
-    monkeypatch.setattr(bundle, 'OUT', tmp_path / 'build/work/bundles')
+        if relative.endswith('.json'):
+            canonical = copy_to_vault(relative, vault)
+            target.symlink_to(os.path.relpath(canonical, target.parent))
+        else:
+            shutil.copyfile(ROOT / relative, target)
+    monkeypatch.setattr(bundle, 'ROOT', scratch)
+    monkeypatch.setattr(bundle, 'OUT', scratch / 'build/work/bundles')
     # Local library and examiner-report searches are unrelated to the equation.
     monkeypatch.setattr(bundle, '_library_lines', lambda subtopic: [])
     monkeypatch.setattr(bundle.er_excerpts, 'excerpts', lambda *args: [])
     bundle.bundle('9702-11.1')
-    runpy.run_path(str(tmp_path / 'build/work/gen/9702-11.1.py'))
+    runpy.run_path(str(generator))
 
-    rebuilt = json.loads((tmp_path / 'build/out/packs/9702/9702-11.1.json').read_text())
+    rebuilt = json.loads((scratch / 'build/out/packs/9702/9702-11.1.json').read_text())
     question = next(it for it in rebuilt['items'] if it['id'] == '9702-11.1-p01')
     original = item_for('9702-11.1', 'p01')
     assert 'r = (charge on particle)/(mass of particle)' in question['stem']
@@ -114,14 +126,52 @@ def test_binomial_generator_does_not_reintroduce_control_characters() -> None:
     assert not debris_problems(strings)
 
 
-def test_past_paper_repairs_survive_rebuilding_extras(tmp_path: Path) -> None:
+def test_sequence_generator_uses_english_ordinal_suffixes() -> None:
+    """B-054: the sequence generator must spell regular and teen ordinals correctly."""
+    generator = ROOT / 'build/work/gen/P2-4.py'
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore', SyntaxWarning)
+        tree = ast.parse(generator.read_text())
+    ordinal = next(node for node in tree.body
+                   if isinstance(node, ast.FunctionDef) and node.name == 'ordinal')
+    namespace = {}
+    exec(compile(ast.unparse(ordinal), '<ordinal>', 'exec'), namespace)
+
+    assert {n: namespace['ordinal'](n) for n in (1, 2, 3, 4, 11, 12, 13, 21)} == {
+        1: '1st', 2: '2nd', 3: '3rd', 4: '4th',
+        11: '11th', 12: '12th', 13: '13th', 21: '21st',
+    }
+
+
+def test_sequence_generator_writes_an_ordinal_correct_pack_in_tmp_path(tmp_path: Path) -> None:
+    """B-054: exercise the real generator without writing to shared build output."""
+    generator = ROOT / 'build/work/gen/P2-4.py'
+    output_root = tmp_path / 'generated'
+    source = generator.read_text()
+    original_root = "ROOT=(Path(__file__).resolve().parents[3] / 'stem-tutor')"
+    assert original_root in source
+    copied = tmp_path / 'P2-4.py'
+    copied.write_text(source.replace(original_root, f'ROOT=Path({str(output_root)!r})', 1))
+
+    subprocess.run([sys.executable, str(copied)], check=True, capture_output=True, text=True)
+
+    pack = json.loads((output_root / 'build/out/packs/P2/P2-4.json').read_text())
+    item = next(item for item in pack['items'] if item['id'] == 'P2-4-i01')
+    assert len(pack['items']) == 36
+    assert item['stem'] == 'Find the 3rd term of $u_n=2n^2-3n+1$.'
+    assert item['answer']['value'] == 10.0
+
+
+def test_past_paper_repairs_survive_rebuilding_extras(tmp_path: Path, monkeypatch) -> None:
     """B-056/B-073: the bank overrides must keep repairs on an extras rebuild."""
     from add_past import add
+    # This rebuild only reads source figures; its candidate pack is disposable.
+    monkeypatch.setenv('STEM_TUTOR_VAULT', str(REAL_VAULT))
     for kc, suffix in [('9701-4.1', 'x019'), ('9702-5.1', 'x059'), ('9702-1.3', 'x031'),
                        ('9702-6.1', 'x010'), ('9702-5.1', 'x043')]:
         original = item_for(kc, suffix)
         qid = original['source']['qid']
-        overrides = json.loads((ROOT / 'build/work/mcq/overrides.json').read_text())
+        overrides = library_json('build/work/mcq/overrides.json')
         assert qid in overrides
         path = tmp_path / f'{kc}.json'
         path.write_text(json.dumps(pack_for(kc)))

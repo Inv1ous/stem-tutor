@@ -1,5 +1,6 @@
 import json
 import random
+import re
 from datetime import datetime, timedelta
 
 import pytest
@@ -43,6 +44,8 @@ def test_session_note_written_with_callouts(tutor):
     path = report.session_note(tutor, summary["session"])
     text = (tutor.vault.root / path).read_text()
     assert path.startswith("Sessions/") and ("> [!success]" in text or "> [!failure]" in text) and "Accuracy" in text
+    assert re.search(r"> \*\*Your answer:\*\* [^\n]+ · score [^\n]+\n> \*\*Confidence:\*\* certain", text)
+    assert "(certain)" not in text
 
 
 def test_profile_note_contains_traits_and_is_lint_clean(tutor):

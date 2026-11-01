@@ -13,6 +13,7 @@ its ladder that has not failed it twice running.
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import select
@@ -23,7 +24,7 @@ from pathlib import Path
 
 PROVIDERS = ("codex", "claude")  # when the two are level, Codex takes the job
 NAMES = {"codex": "Codex", "claude": "Claude"}
-BLIND = ("solver", "tiebreak")
+BLIND = ("solver", "tiebreak", "wsolver")  # roles that must not see the keys: never the drafting family when another exists
 PROBE_EVERY = 120  # seconds a Claude reading stays fresh; a probe costs a fraction of a cent
 MINUTES = {"five_hour": 300, "seven_day": 10080}
 RATE = {"five_hour": 7.0, "seven_day": 1.0}  # percent of a Claude window per dollar of work, until it has been learned
@@ -36,25 +37,80 @@ class Wait(SystemExit):
 
 
 # ---------------- reading the allowances ----------------
-def codex_windows(result: dict) -> dict | None:
+def usage_percent(value, scale: float = 1.0) -> float | None:
+    """Keep invalid readings unknown, including booleans that float() would turn into usage."""
+    if isinstance(value, bool):
+        return None
+    try:
+        used = float(value) * scale
+    except (TypeError, ValueError, OverflowError):
+        return None
+    if not math.isfinite(used) or not 0 <= used <= 100:
+        return None
+    return round(used, 1) if scale != 1 else used
+
+
+def usage_reset(value) -> float | None:
+    """Decode a numeric reset epoch without treating booleans as expired timestamps."""
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    try:
+        reset = float(value)
+    except OverflowError:
+        return None
+    return reset if math.isfinite(reset) else None
+
+
+def _valid_usage_window(window) -> bool:
+    """A reading is usable only when both its percentage and any present reset are valid."""
+    return (isinstance(window, dict) and usage_percent(window.get("used")) is not None and
+            (window.get("resets") is None or usage_reset(window["resets"]) is not None))
+
+
+def usage_windows(windows: dict | None):
+    """Each independent constraint, keeping its window name for caps and pending work.
+
+    Codex can report several limits of the same length with different resets. The
+    ordinary reading stays at the existing interface; extra periods survive JSON
+    caching beside it, and consumers use this seam to see every constraint.
+    """
+    for name, window in (windows or {}).items():
+        yield name, window
+        if isinstance(window, dict):
+            for constraint in window.get("_constraints", []):
+                yield name, constraint
+
+
+def codex_windows(result: dict, now: float | None = None) -> dict | None:
     """Every window Codex reports, by length: a five-hour one (when the plan has it) and the week, from the account's
     own limit and from any other limit it names. When Codex says ordinary use is not allowed, or names the limit that
-    was reached, the allowance counts as used up until the nearest reset, whatever the figures say."""
-    names, out = {v: k for k, v in MINUTES.items()}, {}
+    was reached, the allowance counts as used up until the nearest future reset, whatever the figures say.
+    Without a future reset it stays closed until a fresh reading clears the closure."""
+    names, out, readings = {v: k for k, v in MINUTES.items()}, {}, {}
     sets = [result.get("rateLimits") or {}, *(result.get("rateLimitsByLimitId") or {}).values()]
     for limits in sets:
         for w in (limits.get("primary"), limits.get("secondary")):
             try:
                 name = names.get(w.get("windowDurationMins"), f"{w.get('windowDurationMins')}m")
-                seen = {"used": float(w["usedPercent"]), "resets": w.get("resetsAt")}
+                seen = {"used": usage_percent(w.get("usedPercent")), "resets": w.get("resetsAt")}
             except (AttributeError, KeyError, TypeError, ValueError):
                 continue
-            if name not in out or seen["used"] > out[name]["used"]:
+            readings.setdefault(name, []).append(seen)
+            if (name not in out or not _valid_usage_window(seen) or
+                    (_valid_usage_window(out[name]) and seen["used"] > out[name]["used"])):
                 out[name] = seen
+    for name, seen in readings.items():
+        # The highest reading dominates within one reset period, but cannot
+        # replace another period: it may expire while that constraint is active.
+        if any(w.get("resets") != out[name].get("resets") for w in seen):
+            extra = [w for w in seen if w is not out[name]]
+            out[name] = {**out[name], "_constraints": extra}
     reached = result.get("ordinaryUsageAllowed") is False or any(
         (limits.get("rateLimitReachedType") or limits.get("spendControlReached")) for limits in sets)
     if out and reached:
-        resets = [w["resets"] for w in out.values() if w.get("resets")]
+        now = time.time() if now is None else now
+        resets = [reset for _, w in usage_windows(out)
+                  if (reset := usage_reset(w.get("resets"))) is not None and reset > now]
         out["limit"] = {"used": 100.0, "resets": min(resets) if resets else None}
     return out or None
 
@@ -120,16 +176,16 @@ def claude_cache(path: Path) -> tuple[dict, float]:
         cached = json.loads(Path(path).read_text())["cachedUsageUtilization"]
         windows = {}
         for lim in cached["utilization"].get("limits") or []:
-            if lim.get("is_active") and lim.get("percent") is not None:
+            if lim.get("is_active"):
                 name = {"session": "five_hour", "weekly_all": "seven_day"}.get(lim.get("kind"), str(lim.get("kind")))
                 resets = lim.get("resets_at")
-                windows[name] = {"used": float(lim["percent"]),
+                windows[name] = {"used": usage_percent(lim.get("percent")),
                                  "resets": datetime.fromisoformat(resets.replace("Z", "+00:00")).timestamp()
                                  if resets else None}
         for name in ("five_hour", "seven_day"):  # the newer shape: one entry per window, none while no window is running
             lim = (cached.get("utilization") or {}).get(name)
-            if isinstance(lim, dict) and lim.get("utilization") is not None and lim.get("resets_at") and name not in windows:
-                windows[name] = {"used": float(lim["utilization"]),
+            if isinstance(lim, dict) and lim.get("resets_at") and name not in windows:
+                windows[name] = {"used": usage_percent(lim.get("utilization")),
                                  "resets": datetime.fromisoformat(lim["resets_at"].replace("Z", "+00:00")).timestamp()}
         return windows, cached["fetchedAtMs"] / 1000
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
@@ -157,7 +213,7 @@ def claude_probe(binary: str, timeout: float = 90) -> dict:
     """Ask Claude for one word on its smallest model with everything switched off (a fraction of a cent): every run is
     told how much of the allowance is used, and nothing else reports it. The same facts as `claude_log`."""
     try:
-        res = subprocess.run([probe_binary(binary), "-p", "Reply with the single word: ok", "--model", "haiku", *LEAN, "--tools", ""],
+        res = subprocess.run([probe_binary(binary), "-p", "Reply with the single word: ok", "--model", "claude-haiku-5-5", *LEAN, "--tools", ""],
                              stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=timeout,
                              env={**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"})
     except (OSError, subprocess.SubprocessError):
@@ -188,14 +244,14 @@ def claude_events(text: str) -> dict:
             rejected = info.get("status") == "rejected"
             out["limit"] = out["limit"] or rejected
             for name, w in (info.get("unifiedWindows") or {}).items():  # both plan windows, exactly
-                if isinstance(w, dict) and w.get("utilization") is not None:
+                if isinstance(w, dict):
                     out["windows"][name] = {"used": 100.0 if rejected and name == info.get("rateLimitType")
-                                            else round(100 * w["utilization"], 1), "resets": w.get("resetsAt"),
+                                            else usage_percent(w.get("utilization"), 100), "resets": w.get("resetsAt"),
                                             "exact": True}
             if info.get("rateLimitType") and (rejected or info.get("utilization") is not None) \
                     and info["rateLimitType"] not in out["windows"]:
                 out["windows"][info["rateLimitType"]] = {
-                    "used": 100.0 if rejected else round(100 * info["utilization"], 1), "resets": info.get("resetsAt")}
+                    "used": 100.0 if rejected else usage_percent(info["utilization"], 100), "resets": info.get("resetsAt")}
         elif e.get("type") == "result":
             text, structured = str(e.get("result") or ""), e.get("structured_output")
             out["cost"] = float(e.get("total_cost_usd") or 0)
@@ -210,10 +266,15 @@ def _reading(claude: dict, name: str, used: float, resets, at: float, exact: boo
     """Take a fresh reading of one Claude window. From the one before, learn what a dollar of our work costs."""
     seen = claude.setdefault("windows", {})
     old = seen.get(name)
-    same_window = old and (old.get("resets") is None or resets is None or abs(old["resets"] - resets) < 600)
-    if old and same_window and old.get("spent", 0) >= 0.05 and used > old["used"]:
+    used = usage_percent(used)
+    old_used = usage_percent(old.get("used")) if old else None
+    old_reset = usage_reset(old.get("resets")) if old else None
+    reset = usage_reset(resets)
+    same_window = old and (old.get("resets") is None or resets is None or
+                           (old_reset is not None and reset is not None and abs(old_reset - reset) < 600))
+    if old and same_window and old.get("spent", 0) >= 0.05 and used is not None and old_used is not None and used > old_used:
         rate = claude.setdefault("rate", {})
-        seen_rate = (used - old["used"]) / old["spent"]
+        seen_rate = (used - old_used) / old["spent"]
         rate[name] = round(min(30.0, max(0.05, 0.7 * rate.get(name, RATE.get(name, 1.0)) + 0.3 * seen_rate)), 3)
     seen[name] = {"used": used, "resets": resets, "at": at, "spent": 0.0, **({"exact": True} if exact else {})}
 
@@ -244,8 +305,9 @@ def usage(notes: dict, codex: str, claude: str, now: float | None = None) -> dic
                 _reading(k, name, w["used"], w.get("resets"), now, w.get("exact", False))
         rate = k.get("rate", {})
         out = {"codex": c.get("windows"),
-               "claude": {name: {"used": min(100.0, w["used"] + (0.0 if w.get("exact") else
-                                                                  w.get("spent", 0) * rate.get(name, RATE.get(name, 1.0)))),
+               "claude": {name: {"used": None if usage_percent(w.get("used")) is None else
+                                 min(100.0, float(w["used"]) + (0.0 if w.get("exact") else
+                                                              w.get("spent", 0) * rate.get(name, RATE.get(name, 1.0)))),
                                  "resets": w.get("resets")} for name, w in k.get("windows", {}).items()} or None}
     for p in PROVIDERS:  # a limit a worker ran into closes the allowance for a while, whatever the figures say
         until = notes.get(p, {}).get("closed_until", 0)
@@ -263,27 +325,34 @@ def score(provider: str, windows: dict | None, cfg: dict, running: list[str], mo
     now = now or time.time()
     if len(running) >= cfg["max_parallel"][provider]:
         return None, f"{len(running)} workers already running on {NAMES[provider]}"
-    if not windows:
-        return UNKNOWN, ""
+    if not isinstance(windows, dict) or not windows or "seven_day" not in windows:
+        return None, f"{NAMES[provider]} weekly usage is unknown; supply an actual reading"
     pending = own + sum(cfg["weights"][provider].get(r.split("#")[0], 0.2) for r in running)  # percent of the week
     longest = None
-    for name, w in windows.items():
+    for name, w in usage_windows(windows):
         if name.endswith(("_opus", "_sonnet")) and not name.endswith("_" + model):
             continue  # a cap on another model
+        if not _valid_usage_window(w):
+            return None, f"{NAMES[provider]} {name} usage is unknown or invalid; supply an actual reading"
+        used = usage_percent(w["used"])
+        reset = usage_reset(w.get("resets"))
         mins = MINUTES.get(name, 10080)
-        over = w.get("resets") is not None and w["resets"] <= now  # the window has reset since it was read
+        over = reset is not None and reset <= now  # the window has reset since it was read
         cap = (cfg.get("window_cap") or {}).get(provider, {}).get(name, 100.0)
         if isinstance(cap, dict):  # {"cap": 80, "until": epoch, "until_cap": 95}: a higher cap for the window now running
             cap = cap.get("until_cap", cap["cap"]) if now < cap.get("until", 0) else cap["cap"]
-        top = min(100.0 - cfg["reserve"].get(provider, 0), cap)
-        room = top - (0.0 if over else w["used"]) - pending * (7 if mins <= 300 else 1)
+        weekly_cap = cfg.get("weekly_launch_cap", 70.0) if name == "seven_day" else 100.0
+        top = min(100.0 - cfg["reserve"].get(provider, 0), cap, weekly_cap)
+        room = top - (0.0 if over else used) - pending * (7 if mins <= 300 else 1)
         if room <= 0:
-            when = f" until {datetime.fromtimestamp(w['resets']):%a %H:%M}" if w.get("resets") and not over else ""
+            when = f" until {datetime.fromtimestamp(reset):%a %H:%M}" if reset and not over else ""
             return None, f"{NAMES[provider]}'s allowance is used up{when}"
-        hours = max(1.0, (w["resets"] - now) / 3600) if w.get("resets") and not over else mins / 60
+        hours = max(1.0, (reset - now) / 3600) if reset and not over else mins / 60
         if longest is None or mins > longest[0]:
-            longest = (mins, room / hours)
-    return (longest[1] if longest else UNKNOWN), ""
+            longest = (mins, room / hours, name)
+        elif name == longest[2]:
+            longest = (mins, min(longest[1], room / hours), name)
+    return (longest[1] if longest else None), ""
 
 
 def pick(role: str, maker: str | None, usage: dict, cfg: dict, busy: dict, now: float | None = None,
@@ -326,7 +395,9 @@ def record(notes: dict, cfg: dict, role: str, provider: str, at_rung: int, ok: b
     now = now or time.time()
     key, misses = f"{role}/{provider}", notes.setdefault("misses", {})
     if limit:  # ten minutes at least; for Codex until the window that was hit reopens (its own figures, or its message)
-        full = [w["resets"] for w in (windows or {}).values() if provider == "codex" and w.get("resets") and w["used"] >= 99]
+        full = [reset for _, w in usage_windows(windows) if provider == "codex"
+                and (reset := usage_reset(w.get("resets"))) is not None
+                and (used := usage_percent(w.get("used"))) is not None and used >= 99]
         notes.setdefault(provider, {})["closed_until"] = max(now + 600, until or 0, *full)
     elif not judge:
         pass

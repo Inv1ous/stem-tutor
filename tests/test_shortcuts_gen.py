@@ -61,7 +61,7 @@ def test_worker_command(gen, monkeypatch, tmp_path):
     monkeypatch.setenv("FAKE_ARGV", str(tmp_path / "argv.json"))
     gen.main(["run", "--spec", "P1", "--max-batches", "1", "--effort", "low"])
     argv = json.loads((tmp_path / "argv.json").read_text())
-    assert "--search" not in argv and argv[argv.index("-m") + 1] == "gpt-6-sol"
+    assert "--search" not in argv and argv[argv.index("-m") + 1] == "gpt-6.1-terra"
     assert 'model_reasoning_effort="low"' in argv and "--output-schema" in argv and "workspace-write" in argv
     gen.main(["run", "--spec", "P1", "--max-batches", "1", "--web", "--min-score", "0"])
     assert "--search" in json.loads((tmp_path / "argv.json").read_text())
@@ -73,7 +73,7 @@ def test_bad_batch_is_retried_once_one_effort_higher(gen, monkeypatch, tmp_path)
     gen.main(["run", "--spec", "P1", "--batch", "2", "--max-batches", "1"])
     assert set(lessons(gen)) == {"SEM-P1-e1", "SEM-P1-e2"} and (tmp_path / "count").read_text() == "2"
     retry = next(gen.LOGS.glob("*r.log"))
-    assert "gpt-6-sol/medium" in retry.read_text() and "gpt-6-sol/low" in next(gen.LOGS.glob("*b1.log")).read_text()
+    assert "gpt-6.1-terra/medium" in retry.read_text() and "gpt-6.1-terra/low" in next(gen.LOGS.glob("*b1.log")).read_text()
 
 
 def test_always_bad_is_not_merged(gen, monkeypatch):
@@ -107,6 +107,72 @@ def test_stops_when_codex_week_is_used(gen, tmp_path, capsys):
     assert "stopping" in capsys.readouterr().out and not (gen.LESSONS / "P1.json").exists()
     gen.main(["run", "--spec", "P1", "--stop-codex-week", "90", "--max-batches", "1"])
     assert (gen.LESSONS / "P1.json").exists()
+
+
+@pytest.mark.parametrize('used', [None, False, True, float('nan'), float('inf'),
+                                  float('-inf'), -1, 101, 'unknown', {}, []])
+def test_unknown_or_invalid_codex_week_cannot_launch(gen, tmp_path, monkeypatch, capsys, used):
+    (tmp_path / 'usage.json').write_text(json.dumps({'codex': {'seven_day': {'used': used}}}))
+    monkeypatch.setattr(gen, 'run_worker', lambda *a, **k: pytest.fail('invalid weekly reading authorized a worker'))
+    assert gen.main(['run', '--spec', 'P1', '--max-batches', '1']) == 0
+    assert 'weekly usage is unknown' in capsys.readouterr().out
+    assert not (gen.LESSONS / 'P1.json').exists()
+    assert len(gen.pending('P1', 8)) == 4
+
+
+@pytest.mark.parametrize('payload', ['{}', '{"codex": null}', '{"codex": {}}',
+                                      '{"codex": {"seven_day": {}}}', 'not JSON', '[]'])
+def test_missing_weekly_reading_cannot_launch(gen, tmp_path, monkeypatch, capsys, payload):
+    (tmp_path / 'usage.json').write_text(payload)
+    monkeypatch.setattr(gen, 'run_worker', lambda *a, **k: pytest.fail('missing weekly reading authorized a worker'))
+    assert gen.main(['run', '--spec', 'P1', '--max-batches', '1']) == 0
+    assert 'weekly usage is unknown' in capsys.readouterr().out
+    assert not (gen.LESSONS / 'P1.json').exists()
+
+
+def test_unavailable_codex_probe_cannot_launch(gen, monkeypatch, capsys):
+    monkeypatch.delenv('FOUNDRY_USAGE_FILE')
+    monkeypatch.setattr(gen.router, 'codex_usage', lambda *a: None)
+    monkeypatch.setattr(gen, 'run_worker', lambda *a, **k: pytest.fail('unavailable weekly reading authorized a worker'))
+    assert gen.main(['run', '--spec', 'P1', '--max-batches', '1']) == 0
+    assert 'weekly usage is unknown' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('used,cap', [(0, 70), (69.5, 70), (99.5, 100), (99.5, 101), (99.5, 1e308)])
+def test_valid_weekly_reading_below_selected_cap_still_launches(gen, tmp_path, used, cap):
+    (tmp_path / 'usage.json').write_text(json.dumps({'codex': {'seven_day': {'used': used}}}))
+    assert gen.main(['run', '--spec', 'P1', '--max-batches', '1', '--stop-codex-week', str(cap)]) == 0
+    assert set(lessons(gen)) == {f'SEM-P1-e{i}' for i in (1, 2, 3, 4)}
+
+
+def test_dry_run_needs_no_usage_reading(gen, monkeypatch, capsys):
+    monkeypatch.setattr(gen, 'codex_week', lambda *a: pytest.fail('dry run queried allowance'))
+    monkeypatch.setattr(gen, 'run_worker', lambda *a, **k: pytest.fail('dry run launched worker'))
+    assert gen.main(['run', '--spec', 'P1', '--dry-run']) == 0
+    assert 'would run' in capsys.readouterr().out
+    assert not (gen.LESSONS / 'P1.json').exists()
+
+
+@pytest.mark.parametrize('cap', ['nan', 'inf', '-inf'])
+def test_nonfinite_weekly_stop_cap_cannot_launch(gen, monkeypatch, capsys, cap):
+    monkeypatch.setattr(gen, 'run_worker', lambda *a, **k: pytest.fail('nonfinite stop threshold authorized a worker'))
+    assert gen.main(['run', '--spec', 'P1', '--max-batches', '1', f'--stop-codex-week={cap}']) == 1
+    assert '--stop-codex-week must be finite' in capsys.readouterr().out
+    assert not (gen.LESSONS / 'P1.json').exists()
+    assert len(gen.pending('P1', 8)) == 4
+
+
+def test_finite_negative_stop_cap_still_stops(gen, monkeypatch, capsys):
+    monkeypatch.setattr(gen, 'run_worker', lambda *a, **k: pytest.fail('finite exhausted threshold authorized a worker'))
+    assert gen.main(['run', '--spec', 'P1', '--stop-codex-week=-1']) == 0
+    assert 'limit -1%' in capsys.readouterr().out
+
+
+def test_dry_run_with_nonfinite_cap_still_launches_nothing(gen, monkeypatch, capsys):
+    monkeypatch.setattr(gen, 'codex_week', lambda *a: pytest.fail('dry run queried allowance'))
+    monkeypatch.setattr(gen, 'run_worker', lambda *a, **k: pytest.fail('dry run launched worker'))
+    assert gen.main(['run', '--spec', 'P1', '--stop-codex-week=nan', '--dry-run']) == 0
+    assert 'would run' in capsys.readouterr().out
 
 
 def make(gen, **kw):

@@ -39,3 +39,12 @@ the library lacks, preferring official exam board and university sources, and ne
 ## Finish
 
 Reply with one line per item: `<ref> keep|fix: <the reason in a few words>`.
+
+## Current candidate paths
+
+Use the exact pack/note/draft paths in this job's prompt. For manual work, resolve the chapter through this
+workflow's `pack_path` and note/draft resolver using its current state. A similarly named `Work/Candidates` file
+is not evidence that it is current. Record SHA-256 hashes of inputs before editing or reviewing; before writing,
+confirm the selected paths and source bytes have not changed since you read them, apart from your intentional
+edits. On a mismatch, preserve your work separately and report the conflict. Never guess a candidate filename,
+retarget a Library adapter, or overwrite a different candidate to make paths agree.

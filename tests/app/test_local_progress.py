@@ -179,13 +179,21 @@ def test_local_marking_json_progress_never_changes_the_submitted_work_or_notes(t
             await _open_long_and_submit(pilot, app, "v = u + at")
             screen, finish = app.screen, asyncio.Event()
             before = (vault / "Now.md").read_text()
+            # Exercise the timer refresh, not only LocalActivity's initial frame.
+            progress_read = asyncio.Event()
+
+            def preparing(selected):
+                progress_read.set()
+                return {"phase": "preparing"}
+            monkeypatch.setattr(app.ai, "progress_for", preparing)
 
             async def slow(prompt, **kwargs):
                 await finish.wait()
                 return None, ai.Result(ok=False, message="Try later.")
             monkeypatch.setattr(app.ai, "one_shot", slow)
             worker = screen.ai_check_long({"ticked": []})
-            await pilot.pause(0.05)
+            await asyncio.wait_for(progress_read.wait(), timeout=2)
+            await pilot.pause()
             assert "Marking answer" in words(screen) and "Preparing local model" in words(screen)
             assert (vault / "Now.md").read_text() == before
             finish.set()

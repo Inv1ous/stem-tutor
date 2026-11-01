@@ -18,8 +18,8 @@ def tutor(tmp_path):
 
 
 def answer(t, kc="9702-2.1.1", right=True, conf=None, error=None, mis=None, item="9702-2.1-i01", response="B",
-           seconds=40, marks=1, params=None, score=None):
-    return t.log({"type": "answer", "session": "s1", "item": item, "kcs": [kc], "subject": "phys", "difficulty": 3,
+           seconds=40, marks=1, params=None, score=None, session="s1"):
+    return t.log({"type": "answer", "session": session, "item": item, "kcs": [kc], "subject": "phys", "difficulty": 3,
                   "conf": conf, "hinted": False, "seconds": seconds, "marks": marks,
                   "grade": {"correct": right, "score": score if score is not None else 1.0 if right else 0.0,
                             "error": error, "misconception": mis},
@@ -40,6 +40,44 @@ def test_a_new_learner_gets_honest_empty_findings(tutor):
     assert f["recorded"]["answers"] == 0 and f["never"]
     assert f["items"] and all(i["certainty"] == "not enough data" and not i["action"] for i in f["items"])
     assert f["adjustments"] == []
+
+
+def test_recorded_sessions_excludes_sessions_without_answers(tutor):
+    tutor.log({"type": "session_start", "session": "empty", "mode": "review", "minutes": 10, "blocks": []})
+    tutor.log({"type": "session_end", "session": "empty", "answered": 0, "correct": 0, "accuracy": None,
+               "kcs_learned": [], "unanswered": 0, "abandoned": False})
+    f = insights.findings(tutor)
+    assert f["recorded"]["answers"] == 0
+    assert f["recorded"]["sessions"] == 0
+
+    tutor.log({"type": "session_start", "session": "answered", "mode": "review", "minutes": 10, "blocks": []})
+    answer(tutor, session="answered")
+    tutor.log({"type": "session_end", "session": "answered", "answered": 1, "correct": 1, "accuracy": 1.0,
+               "kcs_learned": [], "unanswered": 0, "abandoned": False})
+    f = insights.findings(tutor)
+    assert f["recorded"]["answers"] == 1
+    assert f["recorded"]["sessions"] == 1
+
+    # Conflicting/recreated start records may have distinct event IDs but still
+    # describe the same learner session; count the session once.
+    tutor.log({"type": "session_start", "session": "answered", "mode": "review", "minutes": 10, "blocks": []})
+    assert insights.findings(tutor)["recorded"]["sessions"] == 1
+
+
+def test_recorded_mistakes_includes_answers_tagged_afterward(tutor):
+    answer(tutor, right=False, error=None, response="A")
+    event = next(e for e in reversed(list(tutor.vault.events())) if e["type"] == "answer")
+    assert tutor.tag(event["id"], "SLIP")["ok"]
+
+    f = insights.findings(tutor)
+    assert f["recorded"]["mistakes_classified"] == 1
+    assert finding(f, "Mistakes")["n"] == 1
+
+    # If that miss is later found correct, event replay drops the obsolete tag.
+    assert tutor.regrade(event["id"], "The submitted answer was equivalent.")["ok"]
+    f = insights.findings(tutor)
+    assert f["recorded"]["mistakes_classified"] == 0
+    assert finding(f, "Mistakes")["n"] == 0
 
 
 def test_misconception_finding_quotes_the_pack(tutor):

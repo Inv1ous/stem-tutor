@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Live board for the bug hunt: every finding in codex/BUGS.md with its latest status from FIXES.md, then the
-quality-of-life ideas in codex/QOL.md still open (all of them with --all; one is closed by `- HH:MM Q-005 DONE · …` or
-DECLINED in FIXES.md) and the latest sweep lines.
+"""Live board for the bug hunt: every finding in codex/BUGS.md with its latest status from both logs, then the
+quality-of-life ideas in codex/QOL.md still open (all of them with --all; both logs support dated DONE/DECLINED,
+and codex/BUGS.md also supports VERIFIED/REJECTED) and the latest activity lines.
 
   python bugwatch/bugs.py              open findings (not FIXED/VERIFIED/REJECTED/DUPLICATE/DEFERRED)
   python bugwatch/bugs.py --all        everything
@@ -9,7 +9,9 @@ DECLINED in FIXES.md) and the latest sweep lines.
   python bugwatch/bugs.py --check      report entries that don't follow the format
   python bugwatch/bugs.py --watch [s]  redraw every s seconds (default 5)
 
-Times are HH:MM in one day; events are ordered by time, then by position in the file.
+New status events use YYYY-MM-DD HH:MM in Hong Kong time. Legacy HH:MM events remain
+valid and are treated as older than every dated event; their cross-file chronology
+cannot be recovered from the old format.
 """
 from __future__ import annotations
 
@@ -22,15 +24,17 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BUGS, FIXES, QOL = HERE / "codex" / "BUGS.md", HERE / "FIXES.md", HERE / "codex" / "QOL.md"
 HEAD = re.compile(r"^### (B-\d+) · (P[0-3]) · ([^·]+?) · (.+)$")
-LOG = re.compile(r"^- (\d\d:\d\d) (SWEEP|VERIFIED|REOPEN|REPLY)\b ?(B-\d+)?")
-FIX = re.compile(r"^- (\d\d:\d\d) (?:(B-\d+) (CONFIRMED|FIXED|REJECTED|DUPLICATE|DEFERRED|NEEDS-INFO)\b|LAST-READ (B-\d+))")
-QOL_DONE = re.compile(r"^- \d\d:\d\d (Q-\d+) (DONE|DECLINED)\b")
+STAMP = r"(?:(\d{4}-\d\d-\d\d) )?(\d\d:\d\d)"
+LOG = re.compile(rf"^- {STAMP} (SWEEP|VERIFIED|REJECTED|REOPEN|REPLY)\b ?(B-\d+)?")
+FIX = re.compile(rf"^- {STAMP} (?:(B-\d+) (CONFIRMED|FIXED|REJECTED|DUPLICATE|DEFERRED|NEEDS-INFO)\b|LAST-READ (B-\d+))")
+QOL_DONE = re.compile(rf"^- {STAMP} (Q-\d+) (DONE|DECLINED)\b")
+QOL_CODEX = re.compile(rf"^- {STAMP} (DONE|DECLINED|VERIFIED|REJECTED) (Q-\d+)\b")
 REQUIRED = ("Found", "Where", "Repro", "Expected", "Actual", "Impact")
 DONE = {"FIXED", "VERIFIED", "REJECTED", "DUPLICATE", "DEFERRED"}
 COLOUR = {"P0": "\033[1;31m", "P1": "\033[33m", "P2": "\033[36m", "P3": "\033[2m"}
 STATUS_COLOUR = {"OPEN": "\033[0m", "CONFIRMED": "\033[35m", "NEEDS-INFO": "\033[34m", "REOPENED": "\033[1;31m",
-                 "FIXED": "\033[32m", "VERIFIED": "\033[1;32m", "REJECTED": "\033[2m", "DUPLICATE": "\033[2m",
-                 "DEFERRED": "\033[2m"}
+                 "FIXED": "\033[32m", "DONE": "\033[32m", "VERIFIED": "\033[1;32m", "REJECTED": "\033[2m",
+                 "DUPLICATE": "\033[2m", "DEFERRED": "\033[2m"}
 RESET = "\033[0m"
 
 
@@ -46,7 +50,7 @@ def lines_outside_fences(path: Path):
 
 def load() -> tuple[dict, list, list, str | None]:
     bugs: dict[str, dict] = {}
-    events: list[tuple[str, int, str, str]] = []  # (time, order, bug id, status)
+    events: list[tuple[tuple[int, str], int, str, str]] = []  # (date/time key, order, bug id, status)
     problems: list[str] = []
     cur = None
     order = 0
@@ -61,25 +65,32 @@ def load() -> tuple[dict, list, list, str | None]:
             cur = None
         elif cur and line.startswith("- ") and re.search(r"\*\*\w+:\*\*", line):
             cur["fields"].update(re.findall(r"\*\*(\w+):\*\*", line))
+        elif QOL_CODEX.match(line):
+            pass  # QOL verdicts are separate from bug status events.
         elif m := LOG.match(line):
             order += 1
-            if m[2] in ("VERIFIED", "REOPEN") and m[3]:
-                events.append((m[1], order, m[3], m[2]))
-        elif line.startswith("- ") and re.match(r"- \d\d:\d\d ", line):
+            if m[3] in ("VERIFIED", "REJECTED", "REOPEN") and m[4]:
+                events.append((_event_key(m[1], m[2]), order, m[4], m[3]))
+        elif line.startswith("- ") and re.match(rf"- {STAMP} ", line):
             problems.append(f"BUGS.md:{n} log line with unknown verb: {line[:60]}")
     last_read = None
     for n, line in lines_outside_fences(FIXES):
         if m := FIX.match(line):
             order += 1
-            if m[4]:
-                last_read = m[4]
+            if m[5]:
+                last_read = m[5]
             else:
-                events.append((m[1], 100000 + order, m[2], m[3]))
+                events.append((_event_key(m[1], m[2]), 100000 + order, m[3], m[4]))
     for b in bugs.values():
         missing = [f for f in REQUIRED if f not in b["fields"]]
         if missing:
             problems.append(f"{b['id']} (BUGS.md:{b['line']}) missing fields: {', '.join(missing)}")
     return bugs, sorted(events), problems, last_read
+
+
+def _event_key(date: str | None, clock: str) -> tuple[int, str]:
+    """Dated entries sort chronologically; legacy entries sort before dated ones."""
+    return (1, f"{date} {clock}") if date else (0, clock)
 
 
 def status_of(bug_id: str, events: list) -> str:
@@ -89,11 +100,32 @@ def status_of(bug_id: str, events: list) -> str:
             continue
         if ev == "REOPEN":
             status = "REOPENED"
-        elif ev == "VERIFIED":
-            status = "VERIFIED" if status in ("FIXED", "VERIFIED") else status
+        elif ev in {"VERIFIED", "REJECTED"}:
+            # Codex records its own checked fixes/disproved reports in BUGS.md;
+            # FIXES.md remains Claude-owned for the separate Claude workflow.
+            status = "VERIFIED"
+            if ev == "REJECTED":
+                status = "REJECTED"
         else:
             status = ev
     return status
+
+
+def display_status(status: str) -> str:
+    """Use concise terminal labels while keeping the append-only log vocabulary intact."""
+    return {"FIXED": "DONE", "DUPLICATE": "DONE", "DECLINED": "REJECTED"}.get(status, status)
+
+
+def qol_verdicts() -> dict[str, str]:
+    """Return the latest dated verdict for each idea across both append-only logs."""
+    events = []
+    for n, line in lines_outside_fences(BUGS):
+        if m := QOL_CODEX.match(line):
+            events.append((_event_key(m[1], m[2]), n, m[4], m[3]))
+    for n, line in lines_outside_fences(FIXES):
+        if m := QOL_DONE.match(line):
+            events.append((_event_key(m[1], m[2]), 100000 + n, m[3], m[4]))
+    return {qid: status for _, _, qid, status in sorted(events)}
 
 
 def render(args) -> str:
@@ -109,26 +141,36 @@ def render(args) -> str:
     rows.sort(key=lambda r: (r[0]["pri"], r[0]["id"]))
     out = [f"{'ID':<6} {'PRI':<3} {'STATUS':<10} {'AREA':<16} TITLE"]
     for b, s in rows:
-        out.append(f"{b['id']:<6} {COLOUR[b['pri']]}{b['pri']:<3}{RESET} {STATUS_COLOUR.get(s, '')}{s:<10}{RESET} "
+        label = display_status(s)
+        out.append(f"{b['id']:<6} {COLOUR[b['pri']]}{b['pri']:<3}{RESET} {STATUS_COLOUR.get(label, '')}{label:<10}{RESET} "
                    f"{b['area'][:16]:<16} {b['title'][:80]}")
     counts: dict[str, int] = {}
     for b in bugs.values():
-        s = status_of(b["id"], events)
+        s = display_status(status_of(b["id"], events))
         counts[s] = counts.get(s, 0) + 1
     out.append("")
     out.append(" · ".join(f"{k.lower()} {v}" for k, v in sorted(counts.items())) or "no findings yet")
     if problems:
         out.append(f"{len(problems)} format problem(s): run with --check")
     ideas = [l[4:].split(" · ", 1) for _, l in lines_outside_fences(QOL) if re.match(r"### Q-\d+ · ", l)]
-    if ideas:  # an idea is open until FIXES.md gives it a verdict: `- HH:MM Q-005 DONE · …` (or DECLINED)
-        verdict = {m[1]: m[2] for _, l in lines_outside_fences(FIXES) if (m := QOL_DONE.match(l))}
+    if ideas:  # An idea stays open until either log records its latest dated verdict.
+        verdict = qol_verdicts()
         shown = ideas if args.all else [i for i in ideas if i[0] not in verdict]
         n_open = sum(i[0] not in verdict for i in ideas)
         out += ["", f"QUALITY OF LIFE ({n_open} open of {len(ideas)})"]
-        out += [f"{q:<6} {verdict.get(q, 'OPEN'):<9} {rest[:94]}" for q, rest in shown]
-    sweeps = [l for _, l in lines_outside_fences(BUGS) if re.match(r"- \d\d:\d\d (SWEEP|REPLY)\b", l)]
+        out += [f"{q:<6} {display_status(verdict.get(q, 'OPEN')):<9} {rest[:94]}" for q, rest in shown]
+    sweeps = []
+    for n, line in lines_outside_fences(BUGS):
+        if match := re.match(rf"- {STAMP} (SWEEP|VERIFIED|REJECTED|REOPEN|REPLY)\b", line):
+            dated = bool(match[1])
+            key = (1, f"{match[1]} {match[2]}", n) if dated else (0, "", n)
+            sweeps.append((key, line))
+        elif match := QOL_CODEX.match(line):
+            dated = bool(match[1])
+            key = (1, f"{match[1]} {match[2]}", n) if dated else (0, "", n)
+            sweeps.append((key, line))
     if sweeps:
-        out += ["", "LATEST ACTIVITY"] + [l[2:][:118] for l in sweeps[-4:]]
+        out += ["", "LATEST ACTIVITY"] + [line[2:][:118] for _, line in sorted(sweeps)[-4:]]
     return "\n".join(out)
 
 

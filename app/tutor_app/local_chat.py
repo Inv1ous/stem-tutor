@@ -1,10 +1,10 @@
-"""Conversational instructions for local streams; other providers keep their brief."""
+"""Conversational scoping and transport instructions for local streams."""
 from __future__ import annotations
 
 from .ai import VISUAL_BRIEF
 
 
-def chat_system(system: str, *, speech: bool = False) -> str:
+def chat_system(system: str, *, speech: bool = False, document: bool = False) -> str:
     """Scope lesson grounding and describe the local chat transport on a fresh copy."""
     system = system.replace(
         "Ground everything in the CONTEXT you are given;",
@@ -15,6 +15,11 @@ def chat_system(system: str, *, speech: bool = False) -> str:
         VISUAL_BRIEF.split("\n", 1)[0],
         "Visual writing (conversational Markdown inside the reply string):",
     )
+    if document:
+        system = system.replace("Visual writing (conversational Markdown inside the reply string):",
+                                "Visual writing (semantic blocks rendered by the application):")
+        from .chat_output import document_instructions
+        return f"{system}\n\n{document_instructions(speech=speech)}"
     transport = (
         "Local chat response:\n"
         "- Answer the current request in its requested form, while respecting OPEN-question restrictions. "

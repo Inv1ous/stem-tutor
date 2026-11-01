@@ -10,12 +10,12 @@ first rung.
 
 | Who | On Claude, first rung → next | On Codex, first rung → next | Does |
 |---|---|---|---|
-| **Drafter** | Opus, low effort → medium | `gpt-6-sol` low → medium | Writes the chapter: pack + lesson note, computing every answer with Python |
-| **Solver** | Haiku → Sonnet low | `gpt-6-sol` low → medium | Answers every question **without seeing the answer key**; a big chapter is split into shards of 20 questions, one solver each |
-| **Tiebreak** | Sonnet low → medium | `gpt-6-sol` low → medium | Solves only the disputed questions, also blind, at a stronger tier than the solver |
-| **Checker** | Haiku → Sonnet low | `gpt-6-sol` low → medium | Checks seven fixed rules (hints that give the answer away, wrong definitions, two right options, wrong constants, note vs pack, off-syllabus, outcomes not taught) and quotes evidence |
-| **Fixer** | Haiku → Sonnet low | `gpt-6-luna` low → `gpt-6-sol` low | Makes exactly the changes that were decided |
-| **Adjudicator** | Opus medium → high | `gpt-6-astra` medium → high | Decides what the manager must not decide alone: a key both checkers dispute, a change to an answer or definition, missing teaching content |
+| **Drafter** | Opus, low effort → medium | `gpt-6.1-terra` low → medium | Writes the chapter: pack + lesson note, computing every answer with Python |
+| **Solver** | Haiku 5.5 → Sonnet low | `gpt-6.1-terra` low → medium | Answers every question **without seeing the answer key**; a big chapter is split into shards of 20 questions, one solver each |
+| **Tiebreak** | Sonnet low → medium | `gpt-6.1-terra` low → medium | Solves only the disputed questions, also blind, at a stronger tier than the solver |
+| **Checker** | Haiku 5.5 → Sonnet low | `gpt-6.1-terra` low → medium | Checks seven fixed rules (hints that give the answer away, wrong definitions, two right options, wrong constants, note vs pack, off-syllabus, outcomes not taught) and quotes evidence |
+| **Fixer** | Haiku 5.5 → Sonnet low | `gpt-6-luna` low → `gpt-6.1-terra` low | Makes exactly the changes that were decided |
+| **Adjudicator** | Opus medium → high | `gpt-6.1-sol` medium → high | Decides what the manager must not decide alone: a key both checkers dispute, a change to an answer or definition, missing teaching content |
 | **Manager** | Sonnet at medium effort (type `/foundry`) | | Runs the loop, judges the simple cases, calls the adjudicator |
 
 Between every step, **gates** run automatically at no token cost: the pack validator (formats, answers recomputed,
@@ -201,11 +201,11 @@ extra explanations, worked examples and diagram ideas, or to settle a doubt. Whe
 and page in the chapter's `concerns`/notes. It is a reference, not a script: never copy long passages, paraphrase and
 teach in the chapter's own words. The syllabus and the official mark schemes still win. Use the internet only for what
 the library lacks, preferring official exam board and university sources, and never paste copyrighted text.
-The folder is `sources/library/` (see its README); any subfolder names and depths work.
+Source PDFs live under `../STEM Tutor/Library/Courses/<course>/Sources/`; historical `sources/library/` references are catalog aliases.
 A drafter may also crop up to 2 useful figures (apparatus, mechanisms, real graphs) from those PDFs into a chapter:
-`library.py figures`, `page` (look at it), `crop`. The note carries the embed `![[Assets/<spec>/<name>.png]]` and a
+`library.py figures`, `page` (look at it), `crop`. Use the canonical Library embed returned by the crop command and a
 `*Figure: … (source: <pdf>, p.N)*` line, and the `figures` gate checks the file, its sidecar checksum and that line. The
-images are never committed (`build/out/assets/` is git-ignored).
+images and their provenance are registered in the shared Library.
 
 ## Safety
 
@@ -229,8 +229,40 @@ marked by the real grader:
 | Claude Haiku | 54 | 30 / 30 | 259 s |
 | Claude Sonnet low | 55 | 30 / 30 | 124 s |
 
-Two items nobody got right are worked-example ids, not model misses. So by accuracy `gpt-6-sol` low is Haiku's
-equivalent, and `gpt-6-sol` medium is Sonnet's; `gpt-6-luna` (any effort) is below Haiku and its extra misses become
-false disputes that cost tiebreaks. Blind solving and checking therefore start on `gpt-6-sol` low; `gpt-6-luna` stays
-for the fixer, whose job is to make exactly the change it is told. Twelve Codex jobs moved the week by less than a
-percent, so the larger model costs seconds, not allowance.
+These are historical results for the listed models, not measurements of the new models.
+As requested on 2026-10-30, active Codex tiers are GPT-6.1 Sol (maximum),
+GPT-6.1 Terra (medium) and GPT-6 Luna (lowest). Existing role reasoning levels
+remain unchanged. Sol handles adjudication; Terra handles drafting, solving,
+checking and tiebreaks; narrow fixes start on Luna and can escalate to Terra.
+All active Haiku slots explicitly use `claude-haiku-5-5`.
+
+## Run limits and report
+
+The board enforces a persisted 7200-second wall-clock budget per course across chapters/restarts;
+9701 and 9702 retain their large-course exception. At a deadline, leave incomplete work pending.
+Launch only with actual weekly usage and projected use below the configured weekly launch cap and provider reserve; unknown
+weekly usage means wait for a reading. Preserve the shared `only` preference and configured
+`publish_on_sign` / `commit_on_sign` switches. A signed candidate is in the learner vault only when
+publication actually ran successfully. No full-course paid regeneration is needed for verification.
+
+Report: completed candidate chapters and hashes/preparation timestamps; prepared teaching coverage
+(foundations, terms, forms, examples, separate checks, misconceptions, useful visuals); source gaps
+and independent review still required; queued/pending chapters and budget stop reasons; exact known
+allowance readings (state unknown explicitly); publication/commit outcome. Do not describe registration,
+schema validation or an audio cache as teaching approval or preparation age.
+
+An explicitly requested `bin/foundry new-run COURSE` starts a distinct course run and archives
+the previous deadline/run ID. It refuses while a course worker/manual job is active, preserves
+pending chapter history/candidates, and permits intentional renewal after an expired run.
+Never invoke `new-run` automatically from continuation, add, retry, queue or restart.
+
+
+## Reliability and spending safeguards
+
+Run `bin/foundry doctor` before paid work; it exercises native SVG rendering and imports the PDF/image libraries, rather than only checking package names. Refine and Foundry direct launches also perform this check. Extraction verifies registered PDF hashes before each worker. Bugwatch must use its verified disposable vault and run the same doctor before an AI repair attempt.
+
+The shared paid-worker guard stops a role after two failed results in one pass/job, including timeouts, malformed output and failed gates. Changing model output does not reset this allowance. Inspect saved evidence and fix the root cause before explicitly clearing the guard. `bin/refine unstick CHAPTER "reason"`, `bin/foundry unstick CHAPTER`, or `bin/extract unstick JOB "reason"` archives the decision; never run these automatically. Provider preferences, review gates and course deadlines still apply. Repeated Refine failures preserve candidate work and leave the chapter pending.
+
+Existing question text containing PDF debris is a source-repair task, not a lesson-authoring task. Refine blocks lessons-scope workers before spending on such items. Never infer ×, −, Ω or another symbol solely from a control character: inspect the original PDF/image and bind independent source review to a new revision. Missing guided forms must be authored against the complete reviewed inventory, not filled with placeholders. Every planned lesson visual must be registered, inspected and bound to its teaching card with an accessible description. Written approval remains independent of authoring.
+
+Use the configured weekly launch cap and provider reserves, plus any stricter user limit. Unknown allowance readings block launches. Change limits only at the user's direction; do not automatically restart an expired course run. For Bugwatch, compare the current failure with the previous attempt: if inputs and blocker are unchanged, stop instead of asking another model to repeat the same repair. Source gaps and disputed content remain visible; tests do not establish teaching approval.

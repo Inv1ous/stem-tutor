@@ -1,0 +1,239 @@
+{
+  "created_utc": "2026-10-26T16:32:08.230125+00:00",
+  "scope": "One post-fix explicit-image compatibility confirmation, not a performance benchmark or history A/B.",
+  "model": "codex:gpt-6.1-sol",
+  "think": false,
+  "reasoning": "low",
+  "deadline_seconds": 60,
+  "prompt": "Read the attached image. Give the equation and its result in one brief answer.",
+  "fixture_truth": "2 + 3 = ?",
+  "expected_result": 5,
+  "code_sha256_at_start": {
+    "app/tutor_app/local_web.py": "a6a251bc0fe549020994e4fe4047bcde4b6f6c26476cb244b8e64c024a5c9d09",
+    "app/tutor_app/tutor_ai.py": "daf8331831022fce4a8b6af2d4fc16816ec5b49647cfc43b9b8793e91bb44082",
+    "app/tutor_app/codex_ai.py": "a1098b700269a5cb3ea88af742a7f8736868ab70a887785b6083cac4195c6f59",
+    "app/tutor_app/texmath.py": "c828fc8e363048a3318f982ec6b23ea5c6afa31db012cdd77621b30a4f6d3d40",
+    "app/tutor_app/codex_models.py": "07aab6085871fe2ddd353f99c5936e87920a92941f9a81622f527b17e160b42f",
+    "app/tutor_app/stem_training_eval.py": "9bb762aac8f7d7b683e31861d058d46b04befe0ec05c8f2740db25f0d621c1cf",
+    "app/tutor_app/stem_training_data.py": "cd8a320170b162fa58551e8acf9e47a6b0531995694d796e51e9d774c64ac47e",
+    "app/tutor_app/mlx_gemma_import.py": "36d519d4a33e18d036a2670983188b94615afba0f1435b5074a46f8a4d2a682a",
+    "app/tutor_app/config.py": "5a0b79ee8bda0a3b2909c463b7551c426c6c5eb6bca4a8540da3f0377f2f5761",
+    "app/tutor_app/study_sources.py": "0ca58da7c32fdf32a5dc64bde3e5af76cd9312f0b84726f5c4e9997b57c5c6a7",
+    "app/tutor_app/stem_training_fuse.py": "27d62809de6d9aad9df78a74ff68aff57d61541fa2b03b6d12c4519592b01e7b",
+    "app/tutor_app/presets.py": "131e842ebb6807af2a60ed462ae6387ce12f04e9082cdfdb1a9515753dc0e705",
+    "app/tutor_app/stem_training.py": "8e35886c299375b79c2d091ff7a08ac243234a35d286c975b6ca8310244812ad",
+    "app/tutor_app/mlx_worker.py": "700ebc8bc3433d034fa8e5dda7ab91db0330e7b509b3f549a3339b1325a0b898",
+    "app/tutor_app/stem_math.py": "be799008253b97b922d7cb873a00c0b8d7e2e80a8e94b915cd7089443a34e4ae",
+    "app/tutor_app/ai.py": "623c60fedbd53a8070f696bc0aa79d9acc293048aa33c95f57f8b97b2bd16ad2",
+    "app/tutor_app/look.py": "67ed22973347c6012cd84505442e49b66bc18a7b9ca90cce1bc71d6bf5c3b8a8",
+    "app/tutor_app/cards.py": "c65d6f469a6d87b756473d1df7302715f1abe57c217affeec976b7279067d550",
+    "app/tutor_app/tts.py": "cd9e2d9d385f9f4f068b671bbfb88a9c50c49a5f8ebdcae573234b769d494a75",
+    "app/tutor_app/__init__.py": "97ce209343c0c55bc1c6dce93ac28a4fd4d4fc1e559e86d8d2fe78208fabae30",
+    "app/tutor_app/prompts.py": "677e6ad1e85c30ead60e1e96edfdd82b79c7eb3776375c01b95d0009b9e69d73",
+    "app/tutor_app/output_format.py": "981b1a276c5bbe1f90af66c934b182c5b403ee39fc00e0b1af050e4f2a14a05d",
+    "app/tutor_app/challenge_screen.py": "f8dc3e409d1c2d3248cc26c56aa0e06cff097a568560ad05363087896a62f71a",
+    "app/tutor_app/local_ocr.py": "0b628d0d5c3228398489b240c9e68df6dfcf8ddd9d30c265cfb5539b4c1f7bab",
+    "app/tutor_app/local_vision.py": "f8370504bab57eee8ee12cd5627a781a1d2ad1454a309bc0d6c0d4c93ea07a14",
+    "app/tutor_app/local_models.py": "37d9276bcd8ffd1d3ab2ebc69cd65fae9ee37ff4e3442089b550e9bcd773af96",
+    "app/tutor_app/local_reply.py": "a732b0589eb47ba408b43c38466b2cf0f4fe307a4bfb04662e54890f66bb4b72",
+    "app/tutor_app/local_context.py": "d1987a5f01788b76ddb1f029ee01834993569c435615e89a4cbcbc227ceb8806",
+    "app/tutor_app/app.py": "53be736fd6fcc9ef84e583b310a76b1b80c16e96e13255a1ed232e3d72198e02",
+    "app/tutor_app/resources.py": "446bb30f986b25c80d83278642e25e983c9ea4ed5c8db7ea8aa45957d7967dc0",
+    "app/tutor_app/local_reuse.py": "9192ef831fe5a6eedd6a04287e1add8dbc3aa307627916769dfdac74099ed02f",
+    "app/tutor_app/mlx_local.py": "17194b4be9c020804fcaac1c91c791a56716985498a2ba0e0be065891dcfd799",
+    "app/tutor_app/screens.py": "798cf62290258418cc0b70bd0d954e55e3855776e2c72b2bb0b10074da6bd087",
+    "app/tutor_app/local_ai.py": "7b2409d486fec6b7383533fc236fb979e6331e65d8e05b04992819ea26731f26",
+    "app/tutor_app/termprofile.py": "307f0241242f5ebcd4efb0998f482f5f2e31fb7ec04a0898bee48186a85124cc",
+    "app/tutor_app/output_fields.py": "0fa7576c238ea266a6c81b26ca3bf8aaf150df69927924d0b52b6f7804882253",
+    "app/tutor_app/chat_output.py": "6edb8767ef4c55ca1353c7682421f5af97cadf809a4397388887a4aa7757c035",
+    "app/tutor_app/shortcuts_screen.py": "e67dffefa336605359f567dfe916677836886a86b8abadd70071ce82f5e8adb3",
+    "app/tutor_app/__main__.py": "878ca584d989ec6d593d24f17a62728ade62e406888a5f72b12afbe3d887bdc7",
+    "app/tutor_app/setup_look.py": "04f59a13fb18876d43ab0891e24b34dd622f2997c5069d70428631d71f8a84f8",
+    "app/tutor_app/panels.py": "9eaaedfe2bb8a18fc9a1b1bb3ef743976b2a983480ca51572537372672ad5c05",
+    "app/tutor_app/local_chat.py": "09a70843136b9d986663653494aa9884f74275782c4879ee1037c4bd528e2720",
+    "app/tutor_app/mlx_harmony.py": "b1a888da3d687a45687c7a100434450f584b3abd33ec340ab74a568b199654c5",
+    "app/tutor_app/mac.py": "6f9a715f95dc542168c8e33ad774b3a7bfb33deda4feca38f2aa008e664c4c29"
+  },
+  "limits": "Only public item.type=error message/text/error fields, bounded600characters and redacted; no reasoning content or environment values. Explicit image input is distinct from the optional view_image tool.",
+  "fixture": {
+    "filename": "question.png",
+    "width": 720,
+    "height": 240,
+    "sha256": "af3cff9be94795f0170b6f5c77c71d26ec282ed913ffcda3e9118f6130242f77",
+    "bytes": 6512
+  },
+  "native_request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Read the attached image. Give the equation and its result in one brief answer.",
+        "images": [
+          "/private/var/folders/5l/_76mtlms1vdfv7_y532v4lsw0000gn/T/stem-codex-image-confirmation-15ybw8l7/question.png"
+        ]
+      }
+    ],
+    "model": "gpt-6.1-sol",
+    "think": false,
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "paragraph",
+                  "heading",
+                  "bullet",
+                  "step",
+                  "equation",
+                  "code"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 262144
+              }
+            },
+            "required": [
+              "kind",
+              "text"
+            ]
+          }
+        }
+      },
+      "required": [
+        "blocks"
+      ]
+    },
+    "system_utf8_bytes": 5547
+  },
+  "completed_utc": "2026-10-26T16:32:14.727642+00:00",
+  "seconds": 6.484529832960106,
+  "result": {
+    "text": "$$\n2+3=5\n$$",
+    "ok": true,
+    "status": "ready",
+    "message": "",
+    "usage": {
+      "input_tokens": 11269,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 28,
+      "reasoning_output_tokens": 0
+    },
+    "speech": "",
+    "performance": {}
+  },
+  "stream_equals_final": true,
+  "native_event_metadata": [
+    {
+      "elapsed_seconds": 1.0454921249765903,
+      "type": "thread.started",
+      "item_type": null,
+      "phase": null
+    },
+    {
+      "elapsed_seconds": 1.0481322499690577,
+      "type": "item.completed",
+      "item_type": "error",
+      "phase": null,
+      "public_error_fields": {
+        "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/sora/.codex/config.toml."
+      }
+    },
+    {
+      "elapsed_seconds": 1.0484578749747016,
+      "type": "turn.started",
+      "item_type": null,
+      "phase": null
+    },
+    {
+      "elapsed_seconds": 5.3895875419839285,
+      "type": "item.completed",
+      "item_type": "agent_message",
+      "phase": null
+    },
+    {
+      "elapsed_seconds": 5.401979582966305,
+      "type": "turn.completed",
+      "item_type": null,
+      "phase": null
+    }
+  ],
+  "subprocess_invocations": [
+    {
+      "argv": [
+        "/opt/homebrew/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--skip-git-repo-check",
+        "--color",
+        "never",
+        "--model",
+        "gpt-6.1-sol",
+        "--config",
+        "forced_login_method=\"chatgpt\"",
+        "--config",
+        "model_provider=\"openai\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--config",
+        "approval_policy=\"never\"",
+        "--config",
+        "model_instructions_file=\"/var/folders/5l/_76mtlms1vdfv7_y532v4lsw0000gn/T/stem-tutor-codex-lu4om0zn/instructions.txt\"",
+        "--config",
+        "model_reasoning_effort=\"low\"",
+        "--config",
+        "history.persistence=\"none\"",
+        "--config",
+        "project_doc_max_bytes=0",
+        "--config",
+        "features.skip_host_skill_discovery=true",
+        "--config",
+        "features.shell_tool=false",
+        "--config",
+        "features.apps=false",
+        "--config",
+        "features.plugins=false",
+        "--config",
+        "features.hooks=false",
+        "--config",
+        "features.multi_agent=false",
+        "--config",
+        "features.memories=false",
+        "--config",
+        "features.skill_search=false",
+        "--config",
+        "features.view_image=false",
+        "--output-schema",
+        "/var/folders/5l/_76mtlms1vdfv7_y532v4lsw0000gn/T/stem-tutor-codex-lu4om0zn/schema.json",
+        "--image",
+        "/private/var/folders/5l/_76mtlms1vdfv7_y532v4lsw0000gn/T/stem-codex-image-confirmation-15ybw8l7/question.png",
+        "-"
+      ],
+      "cwd": "/var/folders/5l/_76mtlms1vdfv7_y532v4lsw0000gn/T/stem-tutor-codex-lu4om0zn"
+    }
+  ],
+  "actual_view_image_feature_disabled": true,
+  "legacy_view_image_setting_present": false,
+  "explicit_image_argument_present": true,
+  "ignored_view_image_warning_present": false,
+  "closed": true,
+  "codex_children_remaining": 0,
+  "claude_children_remaining": 0,
+  "local_client_created": false
+}

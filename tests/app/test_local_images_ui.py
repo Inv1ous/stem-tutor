@@ -1,4 +1,4 @@
-"""Local marking and question preparation keep the focused diagram without changing cloud calls."""
+"""Focused diagrams reach tutoring streams; marking retains local-only image input."""
 import asyncio
 
 import pytest
@@ -137,7 +137,7 @@ def test_challenge_local_diagrams_reach_explain_and_non_thinking_remark(tmp_path
 
 
 @pytest.mark.parametrize("model", ["ollama:phi4-mini:3.8b", "ollama:qwen3.5:9b", "haiku", "codex:gpt-6-luna"])
-def test_menu_chat_passes_focused_image_only_to_local_models(tmp_path, monkeypatch, model):
+def test_menu_chat_passes_focused_image_to_supported_tutoring_models(tmp_path, monkeypatch, model):
     app, _ = app_for(tmp_path, monkeypatch)
     app.settings.ai_ask_model = model
     monkeypatch.setattr(app, "prepare_local_ai", lambda mode: None)
@@ -163,9 +163,6 @@ def test_menu_chat_passes_focused_image_only_to_local_models(tmp_path, monkeypat
             monkeypatch.setattr(app.ai, "stream", stream)
             await screen.reply("What does the diagram show?").wait()
             assert len(calls) == 1
-            if local_models.is_local(model):
-                assert calls[0]["image"] == image
-            else:
-                assert "image" not in calls[0]
+            assert calls[0]["image"] == image  # B-075: cloud and local chat retain diagram grounding.
             await app.ai.close()
     asyncio.run(go())

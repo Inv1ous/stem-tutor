@@ -1,3 +1,9 @@
+# Source library
+
+Read source PDFs, TQ collections, specifications and shortcut notes from `../../STEM Tutor/Library/`. Resolve their recorded aliases through `tutorlib.asset_library.AssetLibrary`; this directory contains compatibility markers and adapters. Originals are preserved in `../../Archive/`.
+
+The historical acquisition inventory below records provenance rather than current storage locations.
+
 Downloaded 2026-09-27 for personal study (never redistribute). 639 PDFs, ~408 MB. See index.csv.
 - specs/: CAIE 9701 + 9702 (2025–27, 2028–30), Pearson IAL Maths spec (Issue 3) + formula book. 9701 data booklet discontinued since 2022 (data now in questions).
 - papers/9701, papers/9702: 2019–2025 s/w, P1 (11/12/13), P2 (22), P3 (33/34) qp+ms, er, gt, ci (PapaCambridge mirror).

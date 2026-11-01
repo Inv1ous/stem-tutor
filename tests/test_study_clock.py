@@ -2,6 +2,7 @@
 the real time spent on the screen. And the time studied for the day."""
 import json
 import sys
+import pytest
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -44,4 +45,54 @@ def test_a_damaged_file_starts_the_count_again_and_old_days_are_dropped(tmp_path
     saved = json.loads((tmp_path / ".tutor/state/time.json").read_text())
     assert len(saved["days"]) == clock.KEEP_DAYS and "2026-01-01" not in saved["days"]
     assert set(saved["day_sessions"]) <= set(saved["days"])
+
+
+@pytest.mark.parametrize('field', ['days', 'sessions', 'day_sessions'])
+def test_scalar_clock_bucket_recovers_without_writing_damaged_history(tmp_path, field):
+    vault = SimpleNamespace(tutor=tmp_path / '.tutor')
+    path = vault.tutor / 'state/time.json'
+    path.parent.mkdir(parents=True)
+    original = json.dumps({field: 42}).encode()
+    path.write_bytes(original)
+    c = clock.StudyClock(vault)
+    assert c.today('2026-11-01') == 0
+    assert c.session('s1') == 0
+    assert c.sessions_on('2026-11-01') == 0
+    c.flush()
+    assert path.read_bytes() == original
+    c.add('2026-11-01', 10, 's1')
+    assert c.today('2026-11-01') == 10
+
+
+@pytest.mark.parametrize('bad', ['broken', [], {}, True, -2, float('nan'), float('inf')])
+def test_invalid_clock_values_preserve_valid_counters_and_load_without_writes(tmp_path, bad):
+    vault = SimpleNamespace(tutor=tmp_path / '.tutor')
+    path = vault.tutor / 'state/time.json'
+    path.parent.mkdir(parents=True)
+    original = json.dumps({'days': {'2026-11-01': bad, '2026-10-31': 23},
+                           'sessions': {'broken': bad, 'valid': 12},
+                           'day_sessions': {'2026-11-01': 42, '2026-10-31': ['valid']}}).encode()
+    path.write_bytes(original)
+    c = clock.StudyClock(vault)
+    assert c.today('2026-11-01') == 0
+    assert c.today('2026-10-31') == 23
+    assert c.session('broken') == 0
+    assert c.session('valid') == 12
+    assert c.sessions_on('2026-11-01') == 0
+    assert c.sessions_on('2026-10-31') == 1
+    c.flush()
+    assert path.read_bytes() == original
+    c.add('2026-11-01', 10, 'fresh')
+    assert c.today('2026-11-01') == 10
+
+
+def test_invalid_clock_bucket_does_not_discard_other_valid_buckets(tmp_path):
+    vault = SimpleNamespace(tutor=tmp_path / '.tutor')
+    path = vault.tutor / 'state/time.json'
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({'days': 42, 'sessions': {'saved': 30},
+                               'day_sessions': {'2026-11-01': ['saved']}}))
+    c = clock.StudyClock(vault)
+    assert c.session('saved') == 30
+    assert c.sessions_on('2026-11-01') == 1
 

@@ -1,10 +1,13 @@
 # STEM Tutor (Cowork plugin)
 
+Version **2.6.1** — [release notes](../../docs/releases/v2.6.1.md).
+
 Evidence-based tutor for CAIE 9701 Chemistry, CAIE 9702 Physics and Edexcel IAL Maths / Further Maths.
 Haiku runs the conversation; a pure-Python engine does scheduling, grading, diagnosis and reports.
 
 ## Components
-- `skills/tutor` — session protocol, mode references, and the engine (`scripts/tutor.py`, vendored wheels).
+- `skills/tutor` — session protocol, mode references and distribution entry points (`scripts/tutor.py`, vendored wheels).
+- `src/tutorlib/` in the repository — canonical engine source; the plugin's `scripts/tutorlib` is a distribution adapter.
 - `skills/study-arsenal` — study-mode router used instead of full-arsenal on study requests.
 - `commands/` — `/study`, `/learn`, `/after-video`, `/review`, `/mark`, `/paper`, `/profile`.
 - `agents/marker` (handwriting audit), `agents/digest` (long-text mapping), both Haiku.
@@ -16,4 +19,7 @@ Haiku runs the conversation; a pure-Python engine does scheduling, grading, diag
 3. Finder: right-click the STEM Tutor folder → Keep Downloaded.
 4. Run `/study`. The first session runs onboarding.
 
-Content packs (syllabus graphs, items, lesson notes) live in the folder's `.tutor/packs/` and are built in Claude Code.
+Reusable content packs, syllabus graphs, items and lesson notes live in the vault's catalogued `Library/`.
+The `.tutor/packs/CURRENT` pointer selects the active release; prior resources and review bindings are preserved.
+Unpublished preparation, candidates and worker records live in the sibling `Work/` tree. A source checkout does not
+include those Library payloads or local worker data; see the repository's workspace-storage instructions.

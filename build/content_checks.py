@@ -21,6 +21,7 @@ LETTER_REF = re.compile("|".join([
     rf"{_LETTER}(?:\s*,\s*[A-D])*,?\s+(?:and|or)\s+[A-D](?![\w'’-])",         # B, C and D
     rf"(?:^|[.;:,!?]\s+|\b(?:and|but|while|whereas|so)\s+){_LETTER}\s+(?:{_VERBS})\b",  # ... and D ignores the charge
     rf"\b[Ii]n\s+[A-D](?:\s*,|\s+(?:the|it|this|that)\b)",                    # In A the 3d ...; in C, 4s ...
+    r"\b(?:alternative|option|choice)\s+in\s+[A-D]\s+is\s+wrong\b",          # the tempting alternative in B is wrong
     r"\b(?:answer|key)\s+(?:is\s+)?\(?[A-D]\b(?![\w'’-])",                    # the answer is B
     rf"\b[Oo]nly\s+{_LETTER}",                                               # Only A has zero resultant (B-129)
 ]))
@@ -146,6 +147,35 @@ def stacked_problems(pack: dict) -> list[str]:
         if tidy_script_text(s) != s:
             out.append("a fraction or charge the PDF broke: " + s[:80].replace("\n", " "))
     return list(dict.fromkeys(out))[:6]
+
+
+# These common species endings are unambiguous in copied Chemistry item text.
+# This is a rejection gate, deliberately separate from extraction's automatic
+# tidy_script_text: an official source must decide the exact replacement.
+_CHEM_ELEMENTS = "He|Li|Be|Ne|Na|Mg|Al|Si|Cl|Ar|Ca|Ti|Cr|Mn|Fe|Co|Ni|Cu|Zn|Br|Ag|Sn|Ba|Hg|Pb|H|B|C|N|O|F|P|S|K|V|I"
+_CHEM_SPACING = re.compile(
+    rf"(?:{_CHEM_ELEMENTS})\s+(?=[₀-₉]|[{_SUPS}]*[⁺⁻])"
+    rf"|Cl\s+(?=O[₀-₉⁺⁻])|(?<=[₀-₉)])\s+(?=[{_SUPS}]*[⁺⁻])")
+_EXPLICIT_MATH = re.compile(r"\$\$.*?\$\$|\$[^$]*\$|\\\(.*?\\\)|\\\[.*?\\\]", re.S)
+
+
+def chemical_spacing_problems(pack: dict) -> list[str]:
+    """Require source review for detached elemental scripts/charges (B-048).
+
+    Limit the rule to Chemistry display text; explicit maths, units, numeric
+    lists and other courses retain their notation. Never repair source bytes.
+    """
+    if str(pack.get("spec")) != "9701":
+        return []
+    out = []
+    for item in pack.get("items", []):
+        display = {key: item.get(key) for key in ("stem", "options", "explanation", "hints", "scheme")}
+        for text in _strings(display):
+            plain = _EXPLICIT_MATH.sub("", text)
+            if match := _CHEM_SPACING.search(plain):
+                context = plain[max(0, match.start() - 20):match.end() + 30]
+                out.append(f"{item.get('id', '?')}: chemical formula spacing requires source review: {context!r}")
+    return list(dict.fromkeys(out))
 
 
 def id_problems(pack: dict) -> list[str]:

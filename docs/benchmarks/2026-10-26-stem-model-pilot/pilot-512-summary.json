@@ -1,0 +1,156 @@
+{
+  "state": "completed",
+  "updates_completed": 100,
+  "checkpoint_eligibility": "accepted",
+  "last_checkpoint": "000100_adapters.safetensors",
+  "accepted_checkpoint": "000100_adapters.safetensors",
+  "adapter_reload_verified": true,
+  "trainable_parameters": 2260992,
+  "gradient_checkpointing": {
+    "decoder_classes": [
+      "DecoderLayer"
+    ],
+    "decoder_layers": 32,
+    "enabled": true,
+    "implementation": "mlx_lm.tuner.trainer.grad_checkpoint"
+  },
+  "elapsed_seconds": 3075.456806375005,
+  "peak_memory_bytes": 11697389652,
+  "validation_loss": [
+    {
+      "loss": 0.9846459448164081,
+      "update": 0
+    },
+    {
+      "loss": 0.4559189389466178,
+      "update": 25
+    },
+    {
+      "loss": 0.3320067484751648,
+      "update": 50
+    },
+    {
+      "loss": 0.24924816520344206,
+      "update": 75
+    },
+    {
+      "loss": 0.17596980919190874,
+      "update": 100
+    }
+  ],
+  "initial_resources": {
+    "disk_free_bytes": 50371125248,
+    "pressure": 1,
+    "swap_used_bytes": 4183231037.44
+  },
+  "final_resources": {
+    "disk_free_bytes": 50316201984,
+    "pressure": 1,
+    "swap_used_bytes": 3864463933.44
+  },
+  "manifest_sha256": "439c106584be8268aa6019278ed286359b3ce840d705ddc32c0279e7951bcb9a",
+  "data_counts": {
+    "train": {
+      "dropped_ids": [
+        "03c90c32165863748e532d41",
+        "0946ffe7aae5267b4496e8d7",
+        "0ba94bce74c9ecc2024d4cf6",
+        "20bdd2bdd6731b36f103467d",
+        "245111881e095c6f39166e34",
+        "26fe04a9b67d970ac1095e9b",
+        "27d53b04df7fed02fa6e3a8f",
+        "2821301031a3360361910abd",
+        "2bd1564e82d81281e3f0c1bd",
+        "3f98310930ce93b779a4992a",
+        "3fa608c7351ca404d1912c55",
+        "40b5b71298b4c62283fb8aff",
+        "48921d794800ef07d06597b7",
+        "49dd87ec3ecc73694a63c369",
+        "4a382a321c57d330a105f826",
+        "4bd1e00c567d7f85603262d6",
+        "53172e57913abbca163ab3de",
+        "56f8a83c3a0bb47ceabccd3f",
+        "576ce6fcdb9b3581642f763b",
+        "61816c3f8818605d9b0a9c8e",
+        "63e9e9c9d09bdaa92c0264c2",
+        "66cb51419f955794053a4071",
+        "6de792a8e023a78c2be1c7f2",
+        "879f4773c1923be8999f4e2e",
+        "a04329ddcda3392a9b92fb7f",
+        "ab5cf4187501d0affbed877d",
+        "c44e7a8fae288b1bdd1697c6",
+        "cd3be13c9ad3b3ec35ddcc53",
+        "d4704bbba98a5605806a4e8d",
+        "d9e21ecfdc76009b102c52f5",
+        "df3ae2c8466edebc7016ae67",
+        "fe4bbbcd05e6dfb1dc153941"
+      ],
+      "kept": 673,
+      "max_tokens": 506,
+      "min_final_tokens": 17,
+      "original": 705
+    },
+    "valid": {
+      "dropped_ids": [
+        "33377e1580a2cdd5cb54e7d6",
+        "6fa06dec8e92a5cd87a8d09f",
+        "717cee5da1d4096eed082b52",
+        "76c4ff8e8a20d61dbd739218",
+        "8010e8473219ea2302b5aec1",
+        "a46fef25fc2bd30bdacb2f0b",
+        "e3b851cb3c67d633a1d27014",
+        "e92f39724d51a7de7eeb33c6",
+        "f7d948126bc5eb515b21f791"
+      ],
+      "kept": 246,
+      "max_tokens": 488,
+      "min_final_tokens": 22,
+      "original": 255
+    }
+  },
+  "changed_tensor_count": 48,
+  "all_reported_losses_finite": true,
+  "train_loss_summary": {
+    "count": 100,
+    "minimum": 0.013369218562729657,
+    "maximum": 1.4130339473485947,
+    "last5": [
+      {
+        "loss": 0.024756835773587227,
+        "tokens": 317,
+        "update": 96
+      },
+      {
+        "loss": 0.1966043752618134,
+        "tokens": 192,
+        "update": 97
+      },
+      {
+        "loss": 0.08257920388132334,
+        "tokens": 151,
+        "update": 98
+      },
+      {
+        "loss": 0.07054781774058938,
+        "tokens": 396,
+        "update": 99
+      },
+      {
+        "loss": 0.2232094743521884,
+        "tokens": 221,
+        "update": 100
+      }
+    ]
+  },
+  "observed_peak_active_bytes": 2645596988,
+  "observed_memory_samples": 4586,
+  "checkpoint_sha256": {
+    "000000_adapters.safetensors": "7efc031daa087ae3625700e5dd8bb4d6a85e3e0c0f75e640546087148eb2d3e6",
+    "000025_adapters.safetensors": "4d6c8ac9c5586ffb8c91e063cccf708ddad04ef9bbc1862974dc25b7f1666f9d",
+    "000050_adapters.safetensors": "654d6f2640446fbf68f7424e318ba1055957f38b98eb59b37fe17a78abcedf20",
+    "000075_adapters.safetensors": "9e3492870154c044914b79e82bb66d7bb5f032157397e98eac1e1803d49e8468",
+    "000100_adapters.safetensors": "a547604e9f64c35ec999a4666d66b50efc7d462b1e35d4a18c8a055fc5a328ac",
+    "adapters.safetensors": "a547604e9f64c35ec999a4666d66b50efc7d462b1e35d4a18c8a055fc5a328ac"
+  },
+  "swap_growth_mib": -304.0
+}

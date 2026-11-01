@@ -10,13 +10,13 @@ from rich.panel import Panel
 from rich.text import Text
 from rich.segment import Segment
 
-from tutorlib.views import feedback_card
+from tutorlib.views import feedback_card, CONFIDENCE_LABELS
 
 from .look import C
 from .texmath import linearize, to_terminal
 from .output_format import normalise_visual, terminal_visual
 
-CONF = {1: "Guess", 2: "Unsure", 3: "Fairly sure", 4: "Certain"}
+CONF = CONFIDENCE_LABELS
 
 
 class _SpacedList(ListElement):
@@ -52,6 +52,58 @@ def md(text: str, *, ai_output: bool = False, partial: bool = False) -> Markdown
                     hyperlinks=False)
 
 
+def _narrow_question_tables(text: str, width: int) -> str:
+    """Expand Markdown grids into labelled pairs so long numeric cells stay distinct in narrow cards."""
+    def cells(row: str) -> list[str] | None:
+        # Pipes split cells only outside code spans and when they are not escaped.
+        row = row.strip()
+        result, current, ticks, escaped = [], [], 0, False
+        for char in row:
+            if char == "|" and not escaped and ticks == 0:
+                result.append("".join(current).strip())
+                current = []
+            else:
+                current.append(char)
+            if char == "`" and not escaped:
+                ticks = 0 if ticks else 1
+            escaped = char == "\\" and not escaped
+            if char != "\\":
+                escaped = False
+        if current:
+            result.append("".join(current).strip())
+        if row.startswith("|") and result and result[0] == "":
+            result.pop(0)
+        if row.endswith("|") and result and result[-1] == "":
+            result.pop()
+        return result if len(result) > 1 else None
+
+    lines = text.splitlines()
+    out, i = [], 0
+    while i < len(lines):
+        if not lines[i].lstrip().startswith("|") or i + 2 >= len(lines):
+            out.append(lines[i]); i += 1; continue
+        header = cells(lines[i])
+        separator = cells(lines[i + 1])
+        if not header or not separator or not all(re.fullmatch(r":?-{3,}:?", cell.replace(" ", "")) for cell in separator):
+            out.append(lines[i]); i += 1; continue
+        rows, end = [], i + 2
+        while end < len(lines) and (row := cells(lines[end])) is not None:
+            if len(row) != len(header):
+                break
+            rows.append(row)
+            end += 1
+        if not rows:
+            out.append(lines[i]); i += 1; continue
+        block = lines[i:end]
+        # Approximate the minimum grid width: cell contents plus padding and borders.
+        if sum(max(len(label), *(len(row[col]) for row in rows)) + 2 for col, label in enumerate(header)) + 1 <= width:
+            out.extend(block); i = end; continue
+        for row in rows:
+            out.extend(f"**{label}:** {value}" for label, value in zip(header, row))
+        i = end
+    return "\n\n".join(out) if out != lines else text
+
+
 def literal(text: str) -> str:
     """Typed text shown as typed inside Markdown: 3*x**2 + x_1 keeps its stars and underscores."""
     return re.sub(r"([\\`*_$])", r"\\\1", to_terminal(text))
@@ -65,9 +117,16 @@ def framed(body, colour: str, title: str, **kw) -> Panel:
     return Panel(body, title=title, border_style=colour, padding=(0, 1), **kw)
 
 
-def _carries(panel, role: str, title: str, body: str):
+def _carries(panel, role: str, title: str, body: str, redraw=None):
     """The card keeps its words (role, title, Markdown) so the screen can put the same card on Now and in the log."""
     panel.card = (role, title, body)
+    panel.redraw = redraw
+    return panel
+
+
+def _redraws(panel, redraw):
+    """Keep rendering metadata without changing whether a card mirrors into the learner log."""
+    panel.redraw = redraw
     return panel
 
 
@@ -76,16 +135,24 @@ def card(kind: str, title: str, body: str = "", subtitle: str | None = None, *, 
         subtitle = Text(subtitle, style=C["dim"])
     body = normalise_visual(body) if ai_output else body
     return _carries(framed(md(body, ai_output=ai_output) if body else Group(), C[kind], f"[b]{escape(to_terminal(title))}[/b]",
-                           title_align="left", subtitle=subtitle, subtitle_align="right"), kind, title, body)
+                           title_align="left", subtitle=subtitle, subtitle_align="right"), kind, title, body,
+                     lambda: card(kind, title, body, subtitle, ai_output=ai_output))
 
 
-def question(view: dict) -> Panel:
+def question(view: dict, *, ai_output: bool = False) -> Panel:
     n, kind = view["n"], view.get("kind", "")
     marks = view.get("marks", 1)
     tags = [kind.upper(), f"{marks} mark{'s' if marks != 1 else ''}"]
     if view.get("unassisted"):
         tags.append("no hints")
-    parts = [md(view.get("stem", ""))]
+    if view.get("support"):
+        tags.append("support below · alt+↓")
+    stem = view.get("stem", "")
+    # A 12-column grid cannot fit into the transcript card at 80 columns. Pair labels
+    # and values vertically; other cards and wider screens retain the original Markdown.
+    if len(stem.splitlines()) >= 3 and any(line.lstrip().startswith("|") for line in stem.splitlines()):
+        stem = _narrow_question_tables(stem, 68)
+    parts = [md(stem, ai_output=ai_output)]
     if (bad := view.get("garbled")) and view.get("image"):  # some text did not copy from the paper; the picture is whole
         from tutorlib.views import unreadable
         parts = [md(unreadable(view.get("stem", "")))] if bad.get("stem") else parts
@@ -97,23 +164,27 @@ def question(view: dict) -> Panel:
         parts.append(Text("◆ This question has a figure: see Now in Obsidian (press o).", style=C["hint"]))
     if view.get("source"):
         parts.append(Text(linearize(view["source"]), style=C["dim"]))
-    return framed(Group(*parts), C["question"], f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left")
+    return _redraws(framed(Group(*parts), C["question"], f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left"),
+                    lambda: question(view, ai_output=ai_output))
 
 
 def feedback(fb: dict, your: str, *, ai_output: bool = False) -> Panel:
     role, title, body = feedback_card(fb, your, esc=literal)  # the wording Now and the lesson log use too
-    return framed(md(body, ai_output=ai_output), C[role], f"[b]{escape(title)}[/b]", title_align="left")
+    return _redraws(framed(md(body, ai_output=ai_output), C[role], f"[b]{escape(title)}[/b]", title_align="left"),
+                    lambda: feedback(fb, your, ai_output=ai_output))
 
 
 def you(text: str, title: str = "You") -> Panel:
-    return _carries(framed(Text(linearize(text)), C["you"], f"[b]{title}[/b]", title_align="right"), "you", title, text)
+    return _carries(framed(Text(linearize(text)), C["you"], f"[b]{title}[/b]", title_align="right"), "you", title, text,
+                    lambda: you(text, title))
 
 
 def ai(text: str, title: str = "Tutor (AI)", subtitle: str | None = None, *, partial: bool = False) -> Panel:
     details = {"subtitle": Text(subtitle, style=C["muted"]), "subtitle_align": "right"} if subtitle else {}
     canonical = normalise_visual(text, partial=partial)
     return _carries(framed(md(canonical or "…", ai_output=True, partial=partial), C["ai"],
-                           f"[b]{title}[/b]", title_align="left", **details), "ai", title, canonical)
+                           f"[b]{title}[/b]", title_align="left", **details), "ai", title, canonical,
+                    lambda: ai(text, title, subtitle, partial=partial))
 
 
 class Live:
@@ -138,4 +209,10 @@ class Line(Text):
 
 
 def note(text: str, kind: str = "dim") -> Text:
-    return _carries(Line(linearize(text), style=C[kind]), "note", "", text)
+    return _carries(Line(linearize(text), style=C[kind]), "note", "", text, lambda: note(text, kind))
+
+
+def redraw(renderable):
+    """Rebuild a transcript renderable from its words after the live palette changes."""
+    factory = getattr(renderable, "redraw", None)
+    return factory() if factory else renderable

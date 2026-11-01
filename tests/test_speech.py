@@ -14,8 +14,8 @@ import pytest
 from tutorlib import speech
 from tutorlib.speech import (PRONOUNCE, audio_key, for_tts, script_for_chapter, speakable, speech_gaps,
                              speak_math)
+from library_assets import aliases_with_prefix, read_json, read_text
 
-BUILD = Path(__file__).resolve().parents[1] / "build" / "out"
 FORBIDDEN = re.compile(r"[\\{}^_$]")
 
 
@@ -384,6 +384,9 @@ def test_nuclides(text, words):
 @pytest.mark.parametrize("text,words", [
     ("e.g. a mirror", "for example, a mirror"), ("i.e. the image", "that is, the image"), ("3 s.f.", "three significant figures"),
     ("2 d.p.", "two decimal places"), ("the p.d. and e.m.f.", "the potential difference and E M F"),
+    ("Compare the p.d.s across two equal series resistors", "Compare the potential differences across two equal series resistors"),
+    ("P.d. across each resistor is equal", "potential difference across each resistor is equal"),
+    ("E.m.f. is energy supplied per unit charge", "E M F is energy supplied per unit charge"),
     ("a.c. and d.c.", "A C and D C"), ("cf. Fig. 2", "compare figure two"), ("apples, pears etc. Next", "apples, pears and so on. Next"),
     ("Mr of water", "M r of water"), ("the SI unit", "the S I unit"), ("NMR and IR", "N M R and I R"),
     ("NOx", "N O x"), ("sin 30 and cos 60", "sine thirty and cosine sixty"),
@@ -408,6 +411,21 @@ def test_equals_and_minus_in_prose():
     assert say("v = u + at") == "v equals u plus at"
     assert say("b² − 4ac") == "b squared minus four ac"
     assert "dash" not in say("x − y")
+
+
+def test_ascii_x_between_numeric_operands_is_multiplication_but_standalone_x_is_a_variable():
+    assert say("2.42 x 24.0 = 58.08") == \
+        "two point four two times twenty four point zero equals fifty eight point zero eight"
+    assert say("x is the variable") == "x is the variable"
+
+
+@pytest.mark.parametrize("text,words", [
+    ("the 2- charge means two extra electrons", "the two minus charge means two extra electrons"),
+    ("a 2- ion", "a two minus ion"),
+    ("a 2+ ion", "a two plus ion"),
+])
+def test_signed_numeric_ionic_charge_in_prose(text, words):
+    assert say(text) == words
 
 
 def test_markdown_structure():
@@ -653,14 +671,15 @@ def _strings(o):
 
 def _real_strings() -> list[str]:
     out: list[str] = []
-    for f in sorted((BUILD / "packs").rglob("*.json")):
-        out.extend(_strings(json.loads(f.read_text(encoding="utf-8"))))
-    for f in sorted((BUILD / "notes").rglob("*.md")):
-        out.append(f.read_text(encoding="utf-8"))
+    for alias in aliases_with_prefix("build/out/packs/"):
+        if alias.endswith(".json"):
+            out.extend(_strings(read_json(alias)))
+    for alias in aliases_with_prefix("build/out/notes/"):
+        if alias.endswith(".md"):
+            out.append(read_text(alias))
     return out
 
 
-@pytest.mark.skipif(not (BUILD / "packs").exists(), reason="no published packs in this checkout")
 def test_real_content_never_raises_leaves_no_latex_and_has_few_gaps(capsys):
     strings = _real_strings()
     assert len(strings) > 1000
@@ -688,7 +707,6 @@ def test_real_content_never_raises_leaves_no_latex_and_has_few_gaps(capsys):
     assert elapsed < 300
 
 
-@pytest.mark.skipif(not (BUILD / "packs").exists(), reason="no published packs in this checkout")
 def test_real_content_output_is_plain_text():
     ok = re.compile(r"^[^\\{}^_$\x00-\x08\x0b\x0c\x0e-\x1f]*$")
     for s in _real_strings()[::7]:
@@ -699,20 +717,23 @@ def test_real_content_output_is_plain_text():
             assert out[-1] in ".?!"
 
 
-@pytest.mark.skipif(not (BUILD / "packs").exists(), reason="no published packs in this checkout")
 def test_every_real_chapter_has_a_script():
-    packs = sorted((BUILD / "packs").rglob("*.json"))
-    notes = {p.name: p for p in (BUILD / "notes").rglob("*.md")}
+    packs = [alias for alias in aliases_with_prefix("build/out/packs/") if alias.endswith(".json")]
+    notes = {Path(alias).name: alias for alias in aliases_with_prefix("build/out/notes/") if alias.endswith(".md")}
     n_lines = 0
-    for f in packs:
-        pack = json.loads(f.read_text(encoding="utf-8"))
+    for alias in packs:
+        pack = read_json(alias)
         if "items" not in pack:
             continue
-        note_path = BUILD / "notes" / pack.get("note", "")
-        note = note_path.read_text(encoding="utf-8") if note_path.is_file() else ""
+        note_rel = pack.get("note", "")
+        note_alias = f"build/out/notes/{note_rel}"
+        if note_rel and note_alias in notes.values():
+            note = read_text(note_alias)
+        else:
+            note = ""
         lines = script_for_chapter(pack, note)
         ids = [ln["id"] for ln in lines]
-        assert len(ids) == len(set(ids)), f.name
+        assert len(ids) == len(set(ids)), Path(alias).name
         assert all(not FORBIDDEN.search(ln["text"]) for ln in lines)
         n_lines += len(lines)
     assert n_lines > 1000

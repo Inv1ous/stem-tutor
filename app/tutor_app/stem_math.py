@@ -38,7 +38,9 @@ if texmath.flatlatex is not None:
 
     def _script(body: str, mapping: dict[str, str]) -> str | None:
         plain = "".join(_PLAIN_ITALIC.get(ch, ch) for ch in body).replace("−", "-")
-        if plain and all(ch in mapping for ch in plain):
+        if not plain:
+            return ""
+        if all(ch in mapping for ch in plain):
             return "".join(mapping[ch] for ch in plain)
         return None
 
@@ -65,11 +67,15 @@ if texmath.flatlatex is not None:
 
         def _converter__indexed(self, a, b):
             if b.startswith(texmath._FNSUB):
-                return a + "[" + texmath._tidy(b.removeprefix(texmath._FNSUB)) + "]"
+                index = texmath._tidy(b.removeprefix(texmath._FNSUB))
+                return a + "[" + index + "]" if index.strip() else a
             b = b.removeprefix(texmath._FNSUB)
             glyphs = _script(b, _SUB)
             base = a if texmath._simple(a) else f"({a})"
-            return base + (glyphs if glyphs is not None else texmath._SUB_L + f"[index: {texmath._tidy(b)}]" + texmath._SUB_R)
+            index = texmath._tidy(b)
+            if not index.strip():
+                return base
+            return base + (glyphs if glyphs is not None else texmath._SUB_L + f"[index: {index}]" + texmath._SUB_R)
 
     _CONVERTER = _AIConverter()
     _CONVERTER._converter__cmds[r"\bot"] = texmath._funtypes.latexfun(lambda _: "⊥", 0)
@@ -180,8 +186,10 @@ def _semantic(expr: str, saved: list[str], *, upright: bool = False, differentia
                 if scripts:
                     visual = function_name
                     if "_" in scripts:
-                        sub = _script(scripts["_"], _SUB)
-                        visual += sub if sub is not None else f"[{scripts['_']}]" if name == "lim" else f"[index: {scripts['_']}]"
+                        index = scripts["_"]
+                        if index.strip():
+                            sub = _script(index, _SUB)
+                            visual += sub if sub is not None else f"[{index}]" if name == "lim" else f"[index: {index}]"
                     if "^" in scripts:
                         sup = _script(scripts["^"], _SUP)
                         visual = visual + sup if sup is not None else f"({visual}) to the power ({scripts['^']})"
@@ -196,11 +204,11 @@ def _semantic(expr: str, saved: list[str], *, upright: bool = False, differentia
                 if not body.strip():
                     raise ValueError("empty radicand")
                 rendered_index = _render(index[1], saved) if index else ""
-                if index and _script(rendered_index, _SUP) is None:
+                if index and index[1].strip() and _script(rendered_index, _SUP) is None:
                     visual = f"root[index: {rendered_index}]({_render(body, saved)})"
                     out.append(_saved(visual, saved))
                 else:
-                    out.append(r"\sqrt" + ("[" + _semantic(index[1], saved) + "]" if index else "")
+                    out.append(r"\sqrt" + ("[" + _semantic(index[1], saved) + "]" if index and index[1].strip() else "")
                                + "{" + _semantic(body, saved, upright=upright) + "}")
             elif name in _UPRIGHT or name in _ALPHABETS or name in {"SI", "qty", "frac", "dfrac", "tfrac"}:
                 body, end = _argument(expr, end)
@@ -276,6 +284,7 @@ def render_math(expr: str) -> str | None:
     """Render delimiter-free maths, or request a source-preserving fallback."""
     if _CONVERTER is None or not expr.strip() or not _valid_source(expr):
         return None
+    expr = re.sub(r"(?<!\\)\\ ", r"\\,", expr)  # `kJ\ mol` (a control space, common in units) reads as `kJ\,mol`
     environments = re.findall(r"\\(begin|end)\{([^{}]+)\}", expr)
     if "&" in expr and not environments:
         return None

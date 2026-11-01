@@ -1,16 +1,14 @@
 from __future__ import annotations
 
-import json
-from pathlib import Path
-
 import pytest
 
+from library_assets import read_json
 from tutorlib import grade
 
 
 def _published_item(spec: str, chapter: str, ident: str) -> dict:
-    path = Path(__file__).resolve().parents[1] / "build/out/packs" / spec / f"{chapter}.json"
-    return next(item for item in json.loads(path.read_text())["items"] if item["id"] == ident)
+    pack = read_json(f"build/out/packs/{spec}/{chapter}.json")
+    return next(item for item in pack["items"] if item["id"] == ident)
 
 
 @pytest.mark.parametrize("spec,chapter,ident,typed", [

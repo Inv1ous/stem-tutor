@@ -168,3 +168,22 @@ def test_ssd_reconnect_notice_stays_visible_and_pending_preview_survives_hotplug
         assert screen.query_one("#ai_ask_model", Select).value == "ollama:gemma4:26b-tutor-mlx"
         assert screen.query_one("#ai_ask_think", Switch).value is False
     run(app, steps)
+
+
+def test_learning_model_has_independent_saved_settings(tmp_path, monkeypatch):
+    app, vault = app_for(tmp_path, monkeypatch)
+    app.settings.ai_explain_model = "sonnet"
+    app.settings.ai_ask_model = "opus"
+
+    async def steps(pilot):
+        screen = app.screen
+        screen.query_one("#ai_learn_model", Select).value = "haiku"
+        screen.query_one("#ai_learn_think", Switch).value = True
+        await pilot.pause()
+        screen.query_one("#save", Button).press()
+        await pilot.pause()
+        saved = config.Settings.load(vault)
+        assert saved.ai_for("learn") == ("haiku", True)
+        assert saved.ai_for("explain") == ("sonnet", False)
+        assert saved.ai_for("ask") == ("opus", False)
+    run(app, steps)

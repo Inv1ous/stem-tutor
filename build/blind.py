@@ -28,13 +28,18 @@ def _instances(pack: dict):
     for w in pack.get("worked", []):
         f = w.get("faded")
         if f:
+            if 'kind' in f:
+                from tutorlib.faded import question_item
+                question_item(f, w.get('kc'))  # validate before routing to written review
+                continue
             kind = "numeric" if "value" in f["answer"] else "expression"
             yield f"{w['id']}.faded", {"kind": kind, "stem": f["problem"], "answer": f["answer"], "marks": 2}
     for kc, card in (pack.get("teach") or {}).items():  # a teaching card's check question has a key too
-        d = card.get("discover")
-        if d:
-            yield f"{kc}.discover", {"kind": "mcq", "stem": d["stem"], "options": d["options"], "answer": d["answer"],
-                                     "marks": 1}
+        for name in ("discover", "guided_discover"):
+            d = card.get(name)
+            if d:
+                yield f"{kc}.{name}", {"kind": "mcq", "stem": d["stem"], "options": d["options"],
+                                        "answer": d["answer"], "marks": 1}
 
 
 def strip(pack: dict) -> list[dict]:
@@ -48,6 +53,21 @@ def strip(pack: dict) -> list[dict]:
         if inst["kind"] == "numeric" and inst["answer"].get("unit"):
             q["give_unit"] = True
         out.append(q)
+    return out
+
+
+def strip_guided_written(cards: dict) -> list[dict]:
+    """Export written checks for an independent human or model solve, without keys or examples.
+
+    These responses need a separate rubric review; the automatic MCQ/numeric
+    comparator cannot judge a written proof.
+    """
+    out = []
+    for kc, card in cards.items():
+        for index, form in enumerate(card.get('forms') or []):
+            for name, entry in (('check', form), ('retry', form.get('retry') or {})):
+                if isinstance(entry.get('check'), str) and entry['check'].strip():
+                    out.append({'id': f'{kc}.form.{index}.{name}', 'stem': entry['check']})
     return out
 
 

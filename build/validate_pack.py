@@ -20,6 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "plugin/stem-tutor/skills/tutor/scripts"))
 from tutorlib import grade, lint, packs, units  # noqa: E402
+from tutorlib.asset_library import asset_path_key  # noqa: E402
 from add_past import question_key  # noqa: E402  (build/ is on the path when run as a script or from tests)
 
 MIN_VARIANTS = 6
@@ -135,6 +136,11 @@ def _validate(pack: dict, graph: dict, min_variants: int, out: list[dict]) -> No
         out.append(_e("spec", pack.get("subtopic", "?"), f"pack is for {pack.get('spec')}, graph for {spec}"))
     if not pack.get("note"):
         out.append(_e("note", pack.get("subtopic", "?"), "the pack names no note"))
+    else:
+        try:
+            asset_path_key(pack["note"])
+        except ValueError:
+            out.append(_e("note", pack.get("subtopic", "?"), "note must be a safe vault-relative reference"))
     items = pack.get("items")
     if not isinstance(items, list):
         out.append(_e("items", pack.get("subtopic", "?"), "items must be a list"))
@@ -169,6 +175,8 @@ def _validate(pack: dict, graph: dict, min_variants: int, out: list[dict]) -> No
             continue
         if not it.get("kcs") or any(k not in all_kcs for k in it["kcs"]):
             out.append(_e("unknown-kc", where, str(it.get("kcs"))))
+        elif len(it["kcs"]) != len(set(it["kcs"])):
+            out.append(_e("duplicate-kc", where, str(it["kcs"])))
         try:
             difficulty_ok = 1 <= int(it.get("difficulty", 0)) <= 5
         except (TypeError, ValueError):
@@ -254,7 +262,18 @@ def _validate(pack: dict, graph: dict, min_variants: int, out: list[dict]) -> No
             if st.get("check"):
                 _check_answer(st["check"].get("answer", {}), f"worked {w.get('id')}.step{i + 1}", out)
         if w.get("faded"):
-            _check_answer(w["faded"].get("answer", {}), f"worked {w.get('id')}.faded", out)
+            f = w['faded']
+            where = f"worked {w.get('id')}.faded"
+            if 'kind' in f:
+                from tutorlib.faded import question_item
+                try:
+                    question_item(f, w.get('kc'))
+                except (ValueError, TypeError) as exc:
+                    out.append(_e('faded', where, str(exc)))
+                else:
+                    out.append(_e('faded', where, 'written faded checks are not yet supported for publication'))
+            else:
+                _check_answer(f.get('answer', {}), where, out)
     for where, text in _texts(pack):
         for f in lint.lint(text or ""):
             out.append(_e("lint", where, f"{f['rule']}: {f['message']}"))

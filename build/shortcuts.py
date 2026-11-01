@@ -1,7 +1,7 @@
-"""The "Shortcuts & Elegant Methods" course: its entries, parsed from the ranked notes in sources/shortcuts/.
+"""The "Shortcuts & Elegant Methods" course: ranked notes from the learner Library.
 
-Each source note (sources/shortcuts/base/<spec>.md, written by hand; sources/shortcuts/research/<name>.md, written by a
-research worker) holds entries in one of two layouts:
+Each Library source note (declared aliases sources/shortcuts/base/<spec>.md for handwritten notes and
+sources/shortcuts/research/<name>.md for research notes) holds entries in one of two layouts:
 
     - **Title** `10/10`. body ...            (a bullet, body may continue on the lines below)
     **Title.** `9/10` body ...               (a paragraph)
@@ -15,14 +15,15 @@ recall queue schedules. Its id is stable (`SEM-<spec>-<slug>`), so recall histor
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO / "plugin/stem-tutor/skills/tutor/scripts"))
+sys.path.insert(0, str(REPO / "src"))
 from tutorlib.shortcuts import level_of, select  # noqa: E402
-SOURCES = REPO / "sources/shortcuts"
+from tutorlib.asset_library import AssetLibrary  # noqa: E402
 OUT = REPO / "build/out/shortcuts"
 
 _SCORE = re.compile(r"`\s*(\d{1,2})\s*/\s*10\s*`")
@@ -98,17 +99,34 @@ def parse_note(text: str, spec: str, origin: str = "base") -> list[dict]:
 
 
 def load(spec: str | None = None, sources: Path | None = None) -> list[dict]:
-    """Every entry of every source note (base first, then research), de-duplicated by id."""
-    root = sources or SOURCES
+    """Read verified catalog notes by default; an explicit path isolates parser fixtures.
+
+    Logical aliases retain source naming and base-before-research precedence,
+    while physical source bytes live only in the canonical learner Library.
+    """
     entries: dict[str, dict] = {}
-    for origin in ("base", "research"):
-        for path in sorted((root / origin).glob("*.md")) if (root / origin).is_dir() else []:
-            name = path.stem
-            specs = [name] if origin == "base" else _research_specs(path)
-            for e in parse_note(path.read_text(encoding="utf-8"), specs[0], origin):
-                if spec and e["spec"] != spec:
-                    continue
-                entries.setdefault(e["id"], e)
+    if sources is not None:
+        root = Path(sources)
+        notes = [(path, origin, path.read_text(encoding='utf-8'))
+                 for origin in ('base', 'research')
+                 for path in sorted((root / origin).glob('*.md')) if (root / origin).is_dir()]
+    else:
+        vault = Path(os.environ.get('STEM_TUTOR_VAULT') or REPO.parent / 'STEM Tutor')
+        library = AssetLibrary(vault)
+        indexed = {}
+        for identifier, record in library.records().items():
+            for alias in record.get('aliases', []):
+                if re.fullmatch(r'sources/shortcuts/(?:base|research)/[^/]+\.md', alias):
+                    indexed[alias] = identifier
+        aliases = sorted(indexed, key=lambda alias: (0 if '/base/' in alias else 1, alias))
+        notes = [(Path(alias), Path(alias).parent.name, library.read('asset:' + indexed[alias]).decode('utf-8'))
+                 for alias in aliases]
+    for path, origin, text in notes:
+        specs = [path.stem] if origin == 'base' else _research_specs(path)
+        for e in parse_note(text, specs[0], origin):
+            if spec and e['spec'] != spec:
+                continue
+            entries.setdefault(e['id'], e)
     return list(entries.values())
 
 

@@ -21,7 +21,6 @@ from .texmath import to_terminal
 
 IS_MAC = sys.platform == "darwin"
 FONT_DIR = Path.home() / "Library" / "Fonts"
-BUNDLED = Path(__file__).parent / "fonts"
 FONTS = ("JuliaMono-Regular.ttf", "JuliaMono-Bold.ttf", "JuliaMono-RegularItalic.ttf")
 EXISTS = 'on run argv\ntell application "Terminal" to return (count of (settings sets whose name is (item 1 of argv))) > 0\nend run'
 MATHS = (r"$s = ut + \frac{1}{2}at^2$   $\sqrt{b^2-4ac}$   $\Delta H^\ominus = -286\,\text{kJ mol}^{-1}$",
@@ -79,12 +78,15 @@ def install(vault: Path, device: bool = False, out=print) -> int:
     out(f"✓ Backed up your Terminal settings: {backup}")
 
     FONT_DIR.mkdir(parents=True, exist_ok=True)
+    from tutorlib.asset_library import AssetLibrary
+    library = AssetLibrary(vault)
     for name in FONTS:
+        font_bytes = library.read('app/tutor_app/fonts/' + name)
         target = FONT_DIR / name
         if not target.exists():
-            shutil.copy2(BUNDLED / name, target)
+            target.write_bytes(font_bytes)
             out(f"✓ Installed the font {name}")
-        elif _sha(target) != _sha(BUNDLED / name):
+        elif _sha(target) != hashlib.sha256(font_bytes).hexdigest():
             out(f"· Kept your own {name} (a different version). If symbols look wrong, delete it from "
                 f"{FONT_DIR} and run  tutor look  again.")
 

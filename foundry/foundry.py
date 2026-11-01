@@ -53,18 +53,22 @@ from datetime import datetime
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-ROOT = Path(os.environ.get("FOUNDRY_ROOT", REPO))  # the data tree (tests point this at a scratch copy)
+sys.path.insert(0, str(REPO / "src"))
+from tutor_workers import lifecycle, candidates, reliability
+from tutor_workers.locations import WorkerLocations, chapter_pack, spec_of
+
+LOCATIONS = WorkerLocations.from_environment(REPO)
+ROOT = LOCATIONS.data_root
 HERE = REPO / "foundry"
-STATE = ROOT / "foundry/state"
-LOGS = ROOT / "foundry/logs"
-PACKS, SPECS, NOTES = ROOT / "build/out/packs", ROOT / "build/out/specs", ROOT / "build/out/notes"
-BLIND, WORK = ROOT / "build/work/blind", ROOT / "build/work/foundry"
+STATE, LOGS = LOCATIONS.state("foundry"), LOCATIONS.logs("foundry")
+PACKS, SPECS, NOTES = LOCATIONS.packs, LOCATIONS.specs, LOCATIONS.notes
+BLIND, WORK = LOCATIONS.blind, LOCATIONS.work("foundry")
 HOLD = PACKS / "HOLD.json"
-PY = str(REPO / ".venv/bin/python")
+PY = LOCATIONS.python
 CODEX = os.environ.get("FOUNDRY_CODEX") or shutil.which("codex") or \
     "/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex"
 CLAUDE = os.environ.get("FOUNDRY_CLAUDE") or shutil.which("claude") or "claude"
-USAGE = ROOT / "foundry/usage.json"  # the router's notes: readings of both allowances, tier floors (not in git)
+USAGE = LOCATIONS.usage  # the router's notes: readings of both allowances, tier floors (not in git)
 
 sys.path.insert(0, str(REPO / "build"))
 sys.path.insert(0, str(REPO / "plugin/stem-tutor/skills/tutor/scripts"))
@@ -83,15 +87,35 @@ def config() -> dict:
 
 
 def now() -> str:
-    return datetime.now().astimezone().isoformat(timespec="seconds")
-
-
-def spec_of(sub: str) -> str:
-    return sub.split("-", 1)[0]
+    return lifecycle.timestamp()
 
 
 def pack_path(sub: str) -> Path:
-    return PACKS / spec_of(sub) / f"{sub}.json"
+    return Path(candidates.state_paths(STATE, sub).get("candidate_pack", chapter_pack(PACKS, sub)))
+
+
+def note_path(pack: dict, sub: str | None = None) -> Path:
+    state = candidates.state_paths(STATE, sub or pack.get("subtopic", ""))
+    return Path(state.get("candidate_note", NOTES / pack.get("note", "")))
+
+
+def ensure_candidate(sub: str) -> None:
+    st = load(sub)
+    if st.get("candidate_pack"):
+        return
+    pack_file = pack_path(sub)
+    pack = json.loads(pack_file.read_text()) if pack_file.is_file() else {}
+    paths = candidates.prepare(ROOT, "foundry", sub, pack_file, note_path(pack, sub))
+    if paths and not st.get("candidate_pack"):
+        with chapter(sub) as current:
+            current.update(paths)
+
+
+def remaining(sub: str, *, start: bool = False) -> float | None:
+    left = lifecycle.course_remaining(STATE, sub, 7200, start=start)
+    if left is not None and left <= 0:
+        raise lifecycle.DeadlineReached(f"{sub}: course deadline reached; incomplete work remains pending")
+    return left
 
 
 # ---------------- state ----------------
@@ -139,8 +163,7 @@ def chapters() -> list[dict]:
 
 
 def move(st: dict, stage: str, note: str = "") -> None:
-    st["history"].append({"t": now(), "from": st["stage"], "to": stage, "note": note})
-    st["stage"] = stage
+    lifecycle.transition(st, stage, note, at=now())
 
 
 def hold(sub: str, reason: str | None) -> None:
@@ -169,7 +192,57 @@ def syllabus_gaps(sub: str, pack: dict, graph: dict, note: str) -> list[dict]:
 
 
 LINK = re.compile(r"(?<!!)\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]")
-EMBEDDED = re.compile(r"!\[\[(Assets/[^\]|]+\.svg)")
+EMBEDDED = re.compile(r"!\[\[((?:Assets|Library)/[^\]|]+\.svg)")
+ASSET_EMBEDS = re.compile(r'!\[\[((?:Assets|Library)/[^\]|]+\.(?:svg|png))(?:\|[^\]]*)?\]\]')
+
+
+def _diagram_catalog(assets_root: Path):
+    """Production and explicit Library roots use catalog integrity checks."""
+    from tutorlib.asset_library import AssetLibrary
+    if assets_root.name == 'Library':
+        return AssetLibrary(assets_root.parent)
+    if ROOT == REPO and assets_root in (ROOT / 'build/out/assets', ROOT / 'build/out/Assets'):
+        # Worker-created nested catalogs must not shadow the authoritative Library.
+        import library
+        return AssetLibrary(Path(os.environ['STEM_TUTOR_VAULT'])
+                            if os.environ.get('STEM_TUTOR_VAULT') else library.learner_vault())
+    if (assets_root / 'Library/catalog.json').is_file():
+        return AssetLibrary(assets_root)
+    explicit = os.environ.get('STEM_TUTOR_VAULT')
+    if explicit and (Path(explicit) / 'Library/catalog.json').is_file():
+        return AssetLibrary(Path(explicit))
+    return None  # isolated legacy worker fixtures retain their explicit asset root
+
+
+def _catalog_diagram(catalog, reference: str) -> Path:
+    if (not isinstance(reference, str) or not reference.startswith(('Assets/', 'Library/'))
+            or '..' in Path(reference).parts or '\\' in reference):
+        raise ValueError('invalid diagram reference')
+    candidates = [reference]
+    if reference.startswith('Assets/'):
+        candidates += ['build/out/assets/' + reference.removeprefix('Assets/'),
+                       'build/out/Assets/' + reference.removeprefix('Assets/')]
+    for candidate in candidates:
+        try:
+            record = catalog.record(candidate)
+        except ValueError:
+            continue
+        if record.get('teaching_status') == 'superseded':
+            raise ValueError('diagram retired from teaching reuse; use ' + str(record.get('superseded_by', 'its reviewed replacement')))
+        return catalog.resolve(candidate)  # a known corrupt asset must never fall back
+    raise ValueError(f'unknown diagram reference: {reference}')
+
+
+def _diagram_embedded(path: str, note_text: str, catalog=None) -> bool:
+    if f'![[{path}]]' in note_text:
+        return True
+    if catalog is None:
+        return False
+    target = _catalog_diagram(catalog, path)
+    for embedded in ASSET_EMBEDS.findall(note_text):
+        if _catalog_diagram(catalog, embedded) == target:
+            return True
+    return False
 
 
 def link_problems(text: str) -> list[str]:
@@ -193,7 +266,47 @@ def link_problems(text: str) -> list[str]:
     return list(dict.fromkeys(out))
 
 
-def diagram_problems(pack: dict, graph: dict, note_text: str) -> list[str]:
+def _card_display_paths(pack: dict) -> set[str]:
+    paths = set()
+    for card in (pack.get("teach") or {}).values():
+        if not isinstance(card, dict):
+            continue
+        from tutorlib.card_diagrams import diagram_descriptions
+        diagrams, descriptions = card.get("diagrams"), diagram_descriptions(card)
+        if not isinstance(diagrams, list):
+            continue
+        for index, path in enumerate(diagrams):
+            if (isinstance(path, str) and index < len(descriptions)
+                    and isinstance(descriptions[index], str) and descriptions[index].strip()):
+                paths.add(path)
+    return paths
+
+
+def _verified_display_diagram(catalog, reference: str) -> Path:
+    """A card display is evidence of use only after hash/provenance validation."""
+    if catalog is None:
+        raise ValueError("lesson display requires a registered, hash-verified diagram")
+    path = _catalog_diagram(catalog, reference)
+    record = catalog.record(path.relative_to(catalog.root).as_posix())
+    if 'question' in str(record.get('kind', '')).casefold():
+        raise ValueError("assessment media cannot be used as a teaching diagram")
+    if not (record.get("origins") or record.get("provenance")
+            or (record.get("generated") and record.get("renderer"))):
+        raise ValueError("diagram provenance is missing")
+    provenance = record.get("provenance") or {}
+    for sidecar in provenance.get("sidecars", []) if isinstance(provenance, dict) else []:
+        data = json.loads(catalog.read(sidecar))
+        if data.get("sha256") and data["sha256"] != record["sha256"]:
+            raise ValueError("diagram provenance image hash does not match")
+    if path.suffix.lower() == ".svg":
+        from tutor_workers.media_checks import svg_problem
+        problem = svg_problem(catalog.read(path.relative_to(catalog.root).as_posix()))
+        if problem:
+            raise ValueError(problem)
+    return path
+
+
+def diagram_problems(pack: dict, graph: dict, note_text: str, *, lesson_display: bool = False) -> list[str]:
     """A chapter with points a figure shows must request a diagram (or say why not), and every requested diagram must
     be embedded in the note."""
     import diagram_hints
@@ -205,7 +318,42 @@ def diagram_problems(pack: dict, graph: dict, note_text: str) -> list[str]:
     if sug and not asked and not pack.get("diagrams_skipped"):
         out.append("no diagram: points a figure shows (" + "; ".join(f"{k} for {', '.join(v[:3])}" for k, v in sug.items())
                    + "): request one in `diagrams` and embed it, or set `diagrams_skipped` with the reason")
-    out += [f"diagram {f} is requested but not embedded in the note (![[{f}]])" for f in asked if f not in note_text]
+    if lesson_display:
+        card_paths = [path for card in (pack.get("teach") or {}).values() if isinstance(card, dict)
+                      for path in (card.get("diagrams") if isinstance(card.get("diagrams"), list) else [])]
+        asked = list(dict.fromkeys(asked + [path for path in card_paths if isinstance(path, str)]))
+    try:
+        catalog = _diagram_catalog(ROOT / 'build/out/assets')
+    except (OSError, ValueError) as exc:
+        return out + [f'diagram catalog unavailable: {exc}'] if asked else out
+    described = _card_display_paths(pack)
+    verified = {}
+    def display_identity(reference):
+        if reference not in verified:
+            verified[reference] = _verified_display_diagram(catalog, reference)
+        return verified[reference]
+    described_identities = set()
+    if lesson_display:
+        for reference in sorted(described):
+            try:
+                described_identities.add(display_identity(reference))
+            except (OSError, ValueError) as exc:
+                out.append(f'diagram {reference} unavailable: {exc}')
+    for path in asked:
+        try:
+            if lesson_display:
+                # Alias equivalence is established only after both references
+                # pass catalog hash/provenance checks, never by basename or bytes alone.
+                if display_identity(path) not in described_identities:
+                    out.append(f"diagram {path} is not bound to a teaching card with an accessible description")
+                    continue
+                continue
+            if catalog is not None:
+                _catalog_diagram(catalog, path)
+            if not _diagram_embedded(path, note_text, catalog):
+                out.append(f'diagram {path} is requested but not embedded in the note (![[{path}]])')
+        except (OSError, ValueError) as exc:
+            out.append(f'diagram {path} unavailable: {exc}')
     return out
 
 
@@ -224,23 +372,23 @@ def repair_glyphs(sub: str) -> int:
     if not p.exists():
         return 0
     n = glyphs.repair_file(p)
-    note = NOTES / json.loads(p.read_text()).get("note", "")
+    note = note_path(json.loads(p.read_text()), sub)
     return n + (glyphs.repair_file(note) if note.is_file() else 0)
 
 
 def only_glyphs(g: dict) -> bool:
     """The gates fail for the glyphs alone: nothing else needs a worker, so the repair is mechanical."""
     return bool(g.get("glyphs")) and not g.get("ok") and not any(
-        g.get(k) for k in ("validator", "lint", "syllabus", "figures", "no_loss", "planned")) and g.get("pack") != "missing"
+        g.get(k) for k in ("validator", "lint", "syllabus", "figures", "guided", "no_loss", "planned")) and g.get("pack") != "missing"
 
 
-def settle_glyphs(sub: str, gate, chapter_ctx) -> tuple[dict, int]:
+def settle_glyphs(sub: str, gate, chapter_ctx, repair=None) -> tuple[dict, int]:
     """Run the gates; when the glyphs are the only thing failing, repair them (deterministic, no retry) and run the
     gates again, noting `glyphs auto-fixed: N strings` in the chapter's history. → (gates, strings repaired)."""
     g = gate(sub)
     if not only_glyphs(g):
         return g, 0
-    n = repair_glyphs(sub)
+    n = (repair or repair_glyphs)(sub)
     if n:
         with chapter_ctx(sub) as st:
             st["history"].append({"t": now(), "from": st["stage"], "to": st["stage"], "note": f"glyphs auto-fixed: {n} strings"})
@@ -259,35 +407,211 @@ def speech_problems(sub: str) -> list[str]:
         return []
 
 
-def gates(sub: str) -> dict:
+def guided_draft_problems(path: Path, pack: dict, graph: dict) -> list[str]:
+    """Do not sign the old pack while an attempted guided upgrade is incomplete or unmerged."""
+    if not path.is_file():
+        return []
+    import teach_cards
+    try:
+        cards = json.loads(path.read_text())
+    except (OSError, ValueError):
+        return ["teaching-card draft cannot be read"]
+    if not isinstance(cards, dict) or any(not isinstance(c, dict) for c in cards.values()):
+        return ["teaching-card draft must map IDs to cards"]
+    if not any(teach_cards.is_guided(card) for card in cards.values()):
+        return []
+    kcs = {k["id"] for k in graph["kcs"] if k["subtopic"] == pack.get("subtopic")}
+    issues = [f"{kc}: guided draft card missing" for kc in sorted(kcs - cards.keys())]
+    issues += [f"{kc}: guided draft has an unknown KC" for kc in sorted(cards.keys() - kcs)]
+    for kc, card in cards.items():
+        issues.extend(teach_cards.check_card(kc, card, guided=True))
+        disclosed = card.get('disclosed_item_ids')
+        if isinstance(disclosed, list):
+            items = pack.get('items') if isinstance(pack.get('items'), list) else []
+            for ident in disclosed:
+                if isinstance(ident, str) and not any(isinstance(item, dict) and item.get('id') == ident
+                                                       for item in items):
+                    issues.append(f'{kc}: disclosed item {ident} is not in this pack')
+        published = (pack.get("teach") or {}).get(kc, {})
+        if not isinstance(published, dict) or any(published.get(key) != value for key, value in card.items()):
+            issues.append(f"{kc}: guided draft is not merged into the pack")
+    if not isinstance(pack.get("guided_forms"), dict):
+        issues.append("guided form inventory is not merged into the pack")
+    return issues
+
+
+def guided_problems(pack: dict, graph: dict, note_text: str, assets_root: Path, *, lesson_display: bool = False) -> list[str]:
+    """Validate opted-in guided chapters; the form inventory is an explicit, reviewable source audit."""
+    if "guided_forms" not in pack:
+        return []
+    import teach_cards
+    inventory = pack.get("guided_forms")
+    if not isinstance(inventory, dict):
+        return ["guided_forms must be an object mapping each KC to its reviewed forms"]
+    kcs = [k["id"] for k in graph["kcs"] if k["subtopic"] == pack.get("subtopic")]
+    cards = pack.get("teach")
+    if not isinstance(cards, dict):
+        return ["teach must be an object mapping each KC to its card"]
+    issues = []
+    try:
+        catalog = _diagram_catalog(assets_root)
+        catalog_error = None
+    except (OSError, ValueError) as exc:
+        catalog, catalog_error = None, str(exc)
+    for kc in kcs:
+        expected = inventory.get(kc)
+        if (not isinstance(expected, list) or not expected
+                or any(not isinstance(x, str) or not x.strip() for x in expected)
+                or len({x.strip() for x in expected}) != len(expected)):
+            issues.append(f"{kc}: reviewed form inventory is missing or invalid")
+            expected = []
+        card = cards.get(kc)
+        if not isinstance(card, dict):
+            issues.append(f"{kc}: guided card missing")
+            continue
+        issues.extend(teach_cards.check_card(kc, card, guided=True))
+        disclosed = card.get('disclosed_item_ids')
+        if isinstance(disclosed, list):
+            items = pack.get('items') if isinstance(pack.get('items'), list) else []
+            for ident in disclosed:
+                if isinstance(ident, str) and not any(isinstance(item, dict) and item.get('id') == ident
+                                                       for item in items):
+                    issues.append(f'{kc}: disclosed item {ident} is not in this pack')
+        tracked = pack.get("misconceptions")
+        tracked = tracked if isinstance(tracked, list) else []
+        misconceptions = card.get("misconceptions")
+        for misconception in misconceptions if isinstance(misconceptions, list) else []:
+            ident = misconception.get("id") if isinstance(misconception, dict) else None
+            if not isinstance(ident, str) or not ident.strip() or not any(
+                isinstance(item, dict) and item.get("id") == ident and item.get("kc") == kc for item in tracked
+            ):
+                issues.append(f"{kc}: guided misconception must match this idea in the tracker")
+        forms = card.get("forms")
+        names = {f["name"] for f in forms if isinstance(f, dict) and isinstance(f.get("name"), str)} if isinstance(forms, list) else set()
+        issues.extend(f"{kc}: form {name} is not covered" for name in expected if name not in names)
+        diagrams = card.get("diagrams")
+        for path in diagrams if isinstance(diagrams, list) else []:
+            if (not isinstance(path, str) or not path.startswith(("Assets/", "Library/"))
+                    or ".." in Path(path).parts or '\\' in path):
+                issues.append(f"{kc}: invalid diagram path")
+                continue
+            try:
+                if catalog_error:
+                    raise ValueError(catalog_error)
+                if catalog is not None:
+                    _catalog_diagram(catalog, path)
+                else:
+                    relative = path.removeprefix("Assets/")
+                    if path.startswith('Library/') or not any((root / relative).is_file()
+                            for root in (assets_root, assets_root.parent / "Assets")):
+                        issues.append(f"{kc}: diagram {path} not rendered")
+                if lesson_display:
+                    _verified_display_diagram(catalog, path)
+                    if path not in _card_display_paths({"teach": {kc: card}}):
+                        issues.append(f"{kc}: diagram {path} lacks an accessible card description")
+                elif not _diagram_embedded(path, note_text, catalog):
+                    issues.append(f"{kc}: diagram {path} not embedded in note")
+            except (OSError, ValueError) as exc:
+                issues.append(f'{kc}: diagram {path} unavailable: {exc}')
+    return issues
+
+
+def _written_diagram_resolver():
+    """Fresh, lazy catalog for one extraction; no catalog survives the call."""
+    assets = ROOT / 'build/out/assets'
+    loaded, catalog, failure = False, None, None
+    def resolve(reference: str) -> Path:
+        nonlocal loaded, catalog, failure
+        if not loaded:
+            loaded = True
+            try:
+                catalog = _diagram_catalog(assets)
+            except (OSError, ValueError, KeyError) as exc:
+                failure = exc
+        if failure is not None:
+            raise failure
+        if catalog is not None:
+            return _catalog_diagram(catalog, reference)
+        # Disposable legacy fixtures have an explicit assets root, never a Library alias.
+        if (not isinstance(reference, str) or not reference.startswith('Assets/')
+                or '..' in Path(reference).parts or '\\' in reference):
+            raise ValueError('invalid or unregistered review diagram')
+        return assets / reference.removeprefix('Assets/')
+    return resolve
+
+
+def _written_diagram(reference: str) -> Path:
+    """Compatibility single resolution; inventories use a fresh shared resolver."""
+    return _written_diagram_resolver()(reference)
+
+
+def written_review_problems(sub: str, pack: dict, *, defer_missing: bool = False) -> list[str]:
+    """Signing requires the shared exact inventory and durable independent evidence."""
+    import written_review
+    try:
+        items = written_review.pack_review_items(pack, diagram_resolver=_written_diagram_resolver())
+    except (ValueError, TypeError) as exc:
+        return [f'invalid written review inventory: {exc}']
+    if not items:
+        return []
+    work = LOCATIONS.work('refine')
+    try:
+        records = json.loads((work / f'{sub}.written-review.json').read_text())
+    except FileNotFoundError:
+        return [] if defer_missing else [f'{len(items)} written checks need review records']
+    except (OSError, ValueError):
+        return ['written review records are unreadable or malformed']
+    if defer_missing and isinstance(records, dict):
+        items = [item for item in items if item['id'] in records]
+        if not items:
+            return []
+    return written_review.independent_record_problems(items, records, root=ROOT, work=work, blind=BLIND)
+
+
+def gates(sub: str, *, candidate_pack: Path | None = None, candidate_note: Path | None = None, lesson_display: bool = False,
+          candidate_teach: Path | None = None, defer_written: bool = False, defer_missing_written: bool = False) -> dict:
     import validate_pack
     from tutorlib import lint
 
-    p = pack_path(sub)
+    p = candidate_pack or pack_path(sub)
     if not p.exists():
         return {"ok": False, "pack": "missing"}
     pack = json.loads(p.read_text())
     graph = json.loads((SPECS / spec_of(sub) / "graph.json").read_text())
     problems = validate_pack.validate(pack, graph)
-    note = NOTES / pack.get("note", "")
+    note = candidate_note or note_path(pack, sub)
     text = note.read_text(encoding="utf-8") if note.is_file() else ""
     findings = lint.lint(text) if note.is_file() else [{"rule": "note", "detail": "missing"}]
     gaps = syllabus_gaps(sub, pack, graph, text)
     import library
     import content_checks
-    figures = (link_problems(text) + diagram_problems(pack, graph, text) + library.figure_problems(text, sub)) if note.is_file() else []
-    figures += content_checks.letter_problems(pack) + content_checks.latex_problems(pack) + content_checks.debris_problems(pack) + content_checks.stacked_problems(pack) + content_checks.precision_problems(pack) + content_checks.id_problems(pack)
+    figures = (link_problems(text) + diagram_problems(pack, graph, text, lesson_display=lesson_display) + library.figure_problems(text, sub)) if note.is_file() else []
+    figures += content_checks.letter_problems(pack) + content_checks.latex_problems(pack) + content_checks.debris_problems(pack) + content_checks.stacked_problems(pack) + content_checks.precision_problems(pack) + content_checks.id_problems(pack) + content_checks.chemical_spacing_problems(pack)
     figures += speech_problems(sub)
     glyph_list = glyph_problems(pack, text)
-    out = {"ok": not problems and not findings and not gaps and not figures and not glyph_list, "validator": len(problems),
+    contract = candidates.state_paths(STATE, sub).get("teaching_contract")
+    guided_pack = pack
+    required = contract == "guided-v1"
+    if required and "guided_forms" not in pack:
+        guided_pack = {**pack, "guided_forms": {}}
+    guided = guided_problems(guided_pack, graph, text, ROOT / "build/out/assets", lesson_display=lesson_display)
+    if required and "guided_forms" not in pack:
+        guided.insert(0, "guided-v1 preparation requires a reviewed guided_forms inventory")
+    guided += guided_draft_problems(candidate_teach or ROOT / "build/work/teach" / f"{sub}.json", pack, graph)
+    if not defer_written:  # a refine pass reviews written checks after the refiner; signing never defers
+        guided += (written_review_problems(sub, pack, defer_missing=True) if defer_missing_written
+                   else written_review_problems(sub, pack))
+    out = {"ok": not problems and not findings and not gaps and not figures and not glyph_list and not guided, "validator": len(problems),
            "lint": len(findings), "syllabus": len(gaps), "figures": len(figures), "glyphs": len(glyph_list),
+           "guided": len(guided),
            "items": len(pack.get("items", [])), "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
-    if problems or findings or gaps or figures or glyph_list:  # enough for a worker to act on, capped so the board stays small
+    if problems or findings or gaps or figures or glyph_list or guided:  # enough for a worker to act on, capped so the board stays small
         out["first"] = [f"{e['rule']} {e['where']} {e.get('detail', '')}"[:160] for e in problems[:8]] + \
                        [f"lint {x.get('rule')} line {x.get('line')}: {x.get('message') or x.get('detail', '')}"[:160]
                         for x in findings[:4]] + \
                        [f"syllabus {e['rule']} {e['where']} {e['detail']}"[:160] for e in gaps[:8]] + \
-                       [f"figures {e}"[:200] for e in figures[:6]] + [f"glyphs {e}"[:200] for e in glyph_list[:4]]
+                       [f"figures {e}"[:200] for e in figures[:6]] + [f"glyphs {e}"[:200] for e in glyph_list[:4]] + \
+                       [f"guided {e}"[:200] for e in guided[:8]]
     return out
 
 
@@ -312,11 +636,18 @@ def extra_ids(sub: str) -> dict:
     return {(i.get("source") or {}).get("qid"): i["id"] for i in items if i.get("tier") == "extra"}
 
 
+def _require_mutable_output(path: Path) -> None:
+    """Collector repairs may write Work files, never immutable Library adapters."""
+    if path.is_symlink() or candidates.library_backed(path):
+        raise ValueError(f"immutable Library resource or file adapter: {path}; prepare an isolated candidate")
+
+
 def restore_extras(sub: str, known: dict) -> dict:
     """Re-append the past-paper extras with the ids they had: a worker that re-runs the generator rewrites the pack
     without them. Returns the ids to remember."""
     if not pack_path(sub).exists():
         return known
+    _require_mutable_output(pack_path(sub))
     sys.path.insert(0, str(REPO / "build"))
     import add_past
     add_past.add(pack_path(sub), keep_ids=known, work=ROOT / "build/work/mcq")
@@ -329,12 +660,19 @@ def merge_teach(sub: str) -> None:
     cards, p = ROOT / "build/work/teach" / f"{sub}.json", pack_path(sub)
     if not (cards.is_file() and p.exists()):
         return
+    _require_mutable_output(p)
     import teach_cards
     pack = json.loads(p.read_text())
     graph = json.loads((SPECS / spec_of(sub) / "graph.json").read_text())
     kcs = {k["id"] for k in graph["kcs"] if k["subtopic"] == sub}
-    pack["teach"] = {kc: {**card, "source": "pack"} for kc, card in json.loads(cards.read_text()).items()
-                     if kc in kcs and not teach_cards.check_card(kc, card)}
+    staged = json.loads(cards.read_text())
+    if any(teach_cards.is_guided(card) for card in staged.values()) and (
+            set(staged) != kcs or any(teach_cards.check_card(kc, card, guided=True)
+                                      for kc, card in staged.items())):
+        return  # do not replace existing cards with a partial or malformed guided draft
+    good = {kc: card for kc, card in staged.items()
+            if kc in kcs and not teach_cards.check_card(kc, card, guided=teach_cards.is_guided(card))}
+    pack["teach"] = teach_cards.merge_cards(pack.get("teach") or {}, good)
     p.write_text(json.dumps(pack, ensure_ascii=False, indent=1))
 
 
@@ -383,7 +721,7 @@ def coverage() -> dict:
                 out["next"].append(sub)
             elif state == "ready":
                 pack = json.loads(pack_path(sub).read_text())
-                note = NOTES / pack.get("note", "")
+                note = note_path(pack, sub)
                 rules = [e["rule"] for e in syllabus_gaps(sub, pack, g, note.read_text(encoding="utf-8")
                                                           if note.is_file() else "")]
                 if rules:
@@ -475,7 +813,7 @@ def cmd_add(subs: list[str], stage: str = "draft") -> None:
             continue
         STATE.mkdir(parents=True, exist_ok=True)
         start = "solve" if pack_path(sub).exists() and stage == "draft" else stage  # an existing pack is re-checked
-        st = {"sub": sub, "stage": start, "created": now(), "updated": now(), "history": [], "gates": None,
+        st = {"sub": sub, "teaching_contract": "guided-v1", "stage": start, "created": now(), "updated": now(), "history": [], "gates": None,
               "disputes": [], "findings": [], "fixes": [], "jobs": {}, "extra_ids": extra_ids(sub)}
         path.write_text(json.dumps(st, indent=1))
         if not (ROOT / "build/work/bundles" / f"{sub}.md").exists() and (REPO / "build/bundle.py").exists():
@@ -486,9 +824,7 @@ def cmd_add(subs: list[str], stage: str = "draft") -> None:
 
 
 def _running(st: dict) -> list[str]:
-    """Jobs working on this chapter now: headless workers still alive, or a job you run by hand not yet reported."""
-    return [r for r, j in st["jobs"].items()  # a finished worker can linger as a zombie until its parent reaps it
-            if not j.get("finished") and (_alive(j.get("pid")) or j.get("manual"))]
+    return lifecycle.running_jobs(st, is_alive=_alive)
 
 
 def _busy() -> dict[str, list[str]]:
@@ -517,16 +853,11 @@ def maker_of(st: dict) -> str | None:
 
 
 def _since(st: dict) -> float:
-    """When the chapter entered its present stage: a stage entered again needs its jobs done again."""
-    t = next((h["t"] for h in reversed(st["history"]) if h["to"] == st["stage"] != h["from"]), st["created"])
-    return datetime.fromisoformat(t).timestamp()
+    return lifecycle.stage_started(st)
 
 
 def _done(st: dict, name: str) -> bool:
-    """This round's job finished cleanly and the file it had to write is there."""
-    j = st["jobs"].get(name, {})
-    return bool(j.get("finished") and j.get("exit") == 0 and j.get("expects") and (ROOT / j["expects"]).exists()
-                and datetime.fromisoformat(j["finished"]).timestamp() >= _since(st) - 1)
+    return lifecycle.job_completed(st, name, ROOT)
 
 
 def _solver_jobs(st: dict) -> list[str]:
@@ -539,13 +870,7 @@ def _solver_jobs(st: dict) -> list[str]:
 
 
 def _alive(pid: int | None) -> bool:
-    if not pid:
-        return False
-    try:
-        os.kill(pid, 0)
-        return True
-    except OSError:
-        return False
+    return lifecycle.process_alive(pid)
 
 
 def cmd_board() -> None:
@@ -568,10 +893,7 @@ def cmd_board() -> None:
 
 
 def _tiebroken(st: dict) -> bool:
-    """A tiebreak has finished cleanly since the chapter last entered that stage: its answers wait to be compared."""
-    job = st["jobs"].get("tiebreak", {})
-    since = next((h["t"] for h in reversed(st["history"]) if h["to"] == "tiebreak"), "")
-    return job.get("exit") == 0 and job.get("finished", "") >= since
+    return lifecycle.tiebreak_completed(st)
 
 
 def todo(st: dict) -> tuple[str, ...]:
@@ -623,10 +945,11 @@ def unclean_streak(st: dict) -> int:
 
 
 def cmd_unstick(sub: str) -> None:
-    """Let a chapter that stopped retrying (its gates stayed red) have another three attempts."""
+    """Let a chapter that stopped retrying (its gates stayed red) explicitly clear its failure allowance."""
     with chapter(sub) as st:
+        reliability.clear_failures(st, 'explicit manager unstick')
         st["history"].append({"t": now(), "from": st["stage"], "to": st["stage"], "note": "unstuck by the manager"})
-    print(f"{sub}: three more attempts allowed")
+    print(f"{sub}: failure allowance cleared; shared two-failure guard still applies")
 
 
 def cmd_step(only: list[str] | None = None) -> None:
@@ -642,7 +965,7 @@ def cmd_step(only: list[str] | None = None) -> None:
             continue
         if st["stage"] in ("draft", "fix") and not _running(st) and unclean_streak(st) >= MAX_UNCLEAN:
             print(f"{sub}: stuck: its gates were red {unclean_streak(st)} times in a row ({st['history'][-1].get('note', '')[-150:]}); "
-                  f"not retrying. Fix it by hand or `foundry.py unstick {sub}` to allow three more attempts.")
+                  f"not retrying. Fix it by hand or `foundry.py unstick {sub}` after repairing the blocker.")
             continue
         try:
             if verb == "run":
@@ -656,7 +979,7 @@ def cmd_step(only: list[str] | None = None) -> None:
             elif verb != "done":
                 print(f"{sub}: " + (f"waiting for {', '.join(rest)}" if verb == "wait" else
                                     f"needs a decision: foundry.py packet {sub}"))
-        except SystemExit as e:
+        except (SystemExit, ValueError, OSError) as e:
             print(f"{sub}: {e}")
 
 
@@ -771,6 +1094,8 @@ def cmd_compare(sub: str) -> None:
             solved_well = True if not n_open else None  # with disputes, the tiebreak says whose slips they were
             _after_solving(st, f"{res['agreed']} agreed, {n_open} disputed")
         elif st["stage"] == "tiebreak" and (BLIND / f"{sub}.tiebreak.json").exists():
+            if st['jobs'].get('tiebreak') and not _tiebroken(st):
+                raise SystemExit(f'{sub}: tiebreak has not completed a validated review in this round')
             tb = json.loads((BLIND / f"{sub}.tiebreak.json").read_text())
             res = blind.compare(pack, tb)
             wrong = {d["id"] for d in res["disagreements"]}
@@ -905,6 +1230,8 @@ def cmd_normalise(subs: list[str]) -> None:
 
 
 def cmd_sign(sub: str) -> None:
+    remaining(sub)
+    ensure_candidate(sub)
     normalise_figures(sub)
     g, _ = settle_glyphs(sub, gates, chapter)
     with chapter(sub) as st:
@@ -915,13 +1242,17 @@ def cmd_sign(sub: str) -> None:
         stage = st["stage"]  # at "check" only once the checker has reported, with nothing open
         ready = g["ok"] and not open_ and (stage == "sign" or (stage == "check" and bool(st.get("checked"))))
         if ready:
+            published = publish_candidate(sub)
+            st["publication"] = {"published": published, "at": now()}
             with notes() as n:  # signed with only its own family to check it: said so, to be re-checked by the other
                 st["same_family"] = bool(n.get("only")) and n.get("only") == maker_of(st)
+            st["prepared_at"] = now()
+            st["content_sha256"] = lifecycle.content_fingerprint(pack_path(sub), note_path(json.loads(pack_path(sub).read_text()), sub))
             move(st, "ready", "signed off" + (" (checked only by its own family)" if st["same_family"] else ""))
     if not ready:  # raised outside the block so the gate results are saved: the drafter's prompt lists the failures
         raise SystemExit(f"{sub}: not ready (stage {stage}, gates {g}, open {open_})")
     hold(sub, None)
-    release(sub)
+    release(sub, published=published)
     speech_after_sign(sub)
 
 
@@ -939,35 +1270,41 @@ def speech_after_sign(sub: str, state=None, logs: Path | None = None) -> None:
 def chapter_paths(sub: str) -> list[str]:
     """Everything that belongs to one chapter, relative to the repo: what a sign-off commits."""
     pack = json.loads(pack_path(sub).read_text())
-    found = [pack_path(sub), NOTES / pack.get("note", ""), STATE / f"{sub}.json", HOLD,
+    found = [pack_path(sub), note_path(pack, sub), STATE / f"{sub}.json", HOLD,
              ROOT / "build/work/mcq/overrides.json", ROOT / "build/work/teach" / f"{sub}.json"]
     found += list((ROOT / "build/work/gen").glob(f"{sub}*")) + list((ROOT / "build/out/Assets").glob(f"*/{sub}-*"))
     found += list(BLIND.glob(f"{sub}.*")) + list(WORK.glob(f"{sub}.*"))
-    return [str(p.relative_to(ROOT)) for p in found if p.is_file()]
+    return candidates.owned_paths(ROOT, found)
 
 
-def release(sub: str) -> None:
-    """Signed off: publish into the vault now, so the chapter can be studied straight away, and commit it, so the work
-    is safe even if the session stops. Each can be switched off in config.json."""
+def publish_candidate(sub: str) -> bool:
+    """Publish the explicitly checked candidate before changing board/hold state."""
     cfg = config()
-    if cfg.get("publish_on_sign", True) and os.environ.get("FOUNDRY_PUBLISH", "1") == "1":
-        vault = os.environ.get("STEM_TUTOR_VAULT")  # the vault the app reads
-        r = subprocess.run([PY, str(REPO / "build/publish.py"), *(["--vault", vault] if vault else [])], cwd=REPO,
-                           capture_output=True, text=True)
-        print(f"{sub}: " + (f"published into the vault {r.stdout.strip()[-120:]}" if r.returncode == 0
-                            else f"PUBLISH FAILED, run build/publish.py: {r.stderr.strip()[-300:]}"))
+    if not (cfg.get("publish_on_sign", True) and os.environ.get("FOUNDRY_PUBLISH", "1") == "1"):
+        return False
+    vault = os.environ.get("STEM_TUTOR_VAULT")
+    r = subprocess.run([PY, str(REPO / "build/publish.py"), "--build-root", str(ROOT / "build/out"),
+                        "--candidate", sub, str(pack_path(sub)),
+                        str(note_path(json.loads(pack_path(sub).read_text()), sub)),
+                        *(["--vault", vault] if vault else [])], cwd=REPO, capture_output=True, text=True)
+    if r.returncode:
+        raise RuntimeError(f"{sub}: PUBLISH FAILED: {r.stderr.strip()[-300:]}")
+    print(f"{sub}: published into the vault {r.stdout.strip()[-120:]}")
+    return True
+
+
+def release(sub: str, *, published: bool | None = None) -> None:
+    """Checkpoint and report actual delivery after successful publication."""
+    if published is None:
+        published = publish_candidate(sub)
+    cfg = config()
     if cfg.get("commit_on_sign", True) and os.environ.get("FOUNDRY_COMMIT", "1") == "1":
-        paths = chapter_paths(sub)
-        ignored = subprocess.run(["git", "-C", str(ROOT), "check-ignore", "-z", "--stdin"], input="\0".join(paths),
-                                 capture_output=True, text=True).stdout.split("\0")
-        paths = [p for p in paths if p not in ignored]  # figures are not kept in git: naming one aborts the commit
-        subprocess.run(["git", "-C", str(ROOT), "add", "--", *paths], capture_output=True)
-        r = subprocess.run(["git", "-C", str(ROOT), "commit", "-q", "-m",
-                            f"content({sub}): signed off in the foundry\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",
-                            "--", *paths], capture_output=True, text=True)
-        print(f"{sub}: " + ("committed" if r.returncode == 0 else f"commit skipped: {(r.stdout + r.stderr).strip()[-160:]}"))
-    notify(f"{sub} is ready to study in your vault")
-    print(f"{sub}: ready")
+        result = candidates.checkpoint(ROOT, chapter_paths(sub),
+                                      f"content({sub}): signed off in the foundry", run=subprocess.run)
+        print(f"{sub}: {result}")
+    notify(f"{sub} is ready to study in your vault" if published else
+           f"{sub}: signed candidate ready; publication disabled")
+    print(f"{sub}: ready" + (" in the vault" if published else " as an unpublished candidate"))
 
 
 def cmd_status(sub: str) -> None:
@@ -986,7 +1323,11 @@ def role_prompt(role: str, sub: str, shard: int | None = None) -> str:
         lines.append(f"Questions: build/work/blind/{sub}.{re_}questions{part}.json. Write your answers to "
                      f"build/work/blind/{sub}.{re_ + 'answers' + part if role == 'solver' else 'tiebreak'}.json.")
     else:
-        lines.append(f"Chapter files: pack {pack_path(sub).relative_to(ROOT)}, bundle build/work/bundles/{sub}.md.")
+        lines.append(f"Chapter files: editable pack {pack_path(sub)}, note {note_path(json.loads(pack_path(sub).read_text()), sub) if pack_path(sub).is_file() else 'pending'}, bundle build/work/bundles/{sub}.md.")
+    if role == "checker":
+        report = (ROOT / _expects(st, role, shard)).absolute()
+        lines.append(f"Prepare report directory: `{shlex.join(['mkdir', '-p', '--', str(report.parent)])}`.")
+        lines.append(f"Report file: {report}. In shell commands use this entire quoted operand: {shlex.quote(str(report))}.")
     if role == "tiebreak":
         lines.append("Disputed question ids: " + ", ".join(d["id"] for d in st["disputes"] if d["status"] == "open"))
     if role == "fixer":
@@ -1001,7 +1342,10 @@ def role_prompt(role: str, sub: str, shard: int | None = None) -> str:
     return "\n".join(lines)
 
 
+@lifecycle.serialized_launch(lambda *args, **kwargs: STATE)
 def cmd_prompt(role: str, sub: str, shard: int | None = None) -> None:
+    remaining(sub)
+    ensure_candidate(sub)
     if role in ("drafter", "fixer", "tiebreak"):  # to paste into a session you run yourself: marked, so not duplicated
         with chapter(sub) as st:
             st["jobs"][role] = {"manual": True, "started": now()}
@@ -1019,6 +1363,7 @@ def _expects(st: dict, role: str, shard: int | None) -> str | None:
     return {"tiebreak": f"build/work/blind/{sub}.tiebreak.json", "checker": f"build/work/foundry/{sub}.check.json"}.get(role)
 
 
+@lifecycle.serialized_launch(lambda *args, **kwargs: STATE)
 def cmd_run(role: str, sub: str, on: str | None = None, shard: int | None = None) -> None:
     """Start one headless worker on a chapter. The router picks the allowance (unless `on` names it) and the tier."""
     cfg = config()
@@ -1026,12 +1371,30 @@ def cmd_run(role: str, sub: str, on: str | None = None, shard: int | None = None
         raise SystemExit(f"{role} is not a worker role (roles: {', '.join(cfg['ladders'])})")
     if on and on not in cfg["ladders"][role]:
         raise SystemExit(f"{on} is not an allowance (allowances: {', '.join(cfg['ladders'][role])})")
+    remaining(sub)
+    ensure_candidate(sub)
     name, st = role + (f"#{shard}" if shard else ""), load(sub)
     if name in _running(st):
         raise SystemExit(f"{sub}: a {name} is already working on this chapter")
+    previous = st['jobs'].get(name, {})
+    if previous.get('pid') and not previous.get('finished') and not lifecycle.process_alive(previous['pid']):
+        with chapter(sub) as current:
+            current['jobs'][name].update(finished=now(), exit=-1, ok=False, interrupted=True)
+            reliability.record_result(current, name, ok=False, exit_code=-1, issues=['worker exited without collection'])
+        st = load(sub)
+    inputs = [pack_path(sub), SPECS / spec_of(sub) / 'graph.json', HERE / 'roles' / f'{role}.md']
+    if role == 'drafter' and not pack_path(sub).exists():
+        inputs.remove(pack_path(sub))  # a genuinely new chapter has no pack yet
+    if why := reliability.launch_problem(st, role, inputs, diagram_catalog=_diagram_catalog(ROOT / "build/out/assets")):
+        raise SystemExit(f'{sub}: {why}')
+    import capabilities
+    if why := capabilities.preflight():
+        raise SystemExit(why)
     last = st["jobs"].get(name, {})
     with notes() as n:
-        provider = on or router.pick(role, maker_of(st), router.usage(n, CODEX, CLAUDE), cfg, _busy(), only=n.get("only"))
+        if on and n.get("only") and on != n["only"]:
+            raise router.Wait(f"provider preference is only {n['only']}")
+        provider = router.pick(role, maker_of(st), router.usage(n, CODEX, CLAUDE), cfg, _busy(), only=on or n.get("only"))
         failed = last.get("provider") == provider and last.get("ok") is False and not last.get("limit")
         rung = router.rung(n, cfg, role, provider, retry=last.get("rung", 0) if failed else None)
     model, effort = cfg["ladders"][role][provider][rung]
@@ -1055,21 +1418,39 @@ def cmd_run(role: str, sub: str, on: str | None = None, shard: int | None = None
                   "--tools", "Read,Write,Edit,Bash,Glob,Grep" + (",WebSearch,WebFetch" if web else ""), "--permission-mode",
                   "acceptEdits", "--allowedTools", "Bash(.venv/bin/python *)", *(["WebSearch", "WebFetch"] if web else []),
                   *(["--json-schema", schema.read_text()] if schema.exists() else [])]
+    authoring = [WORK, BLIND, STATE, LOGS, ROOT / "build/work/teach", ROOT / "build/work/gen",
+                 ROOT / "build/work/mcq", ROOT / "build/out/assets", ROOT / "build/out/Assets"]
+    for key in ("candidate_pack", "candidate_note"):
+        if st.get(key):
+            authoring.append(Path(st[key]).parent)
+    worker += candidates.writable_flags(authoring)
+    left = remaining(sub, start=True)
+    if left is not None:
+        worker = [PY, str(REPO / "src/tutor_workers/timeout.py"), str(left), *worker]
     then = [PY, str(HERE / "foundry.py"), "collect", name, sub, str(out)]
     shell = (f"{shlex.join(worker)} < /dev/null > {shlex.quote(str(log))} 2>&1; "
              f"{shlex.join(then)} $? >> {shlex.quote(str(log))} 2>&1")
-    proc = subprocess.Popen(["/bin/sh", "-c", shell], cwd=REPO, start_new_session=True, stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL,
-                            env={**os.environ, "FOUNDRY_ROOT": str(ROOT), "FOUNDRY_EXPECTS": str(ROOT / expects) if expects else "",
-                                 "FOUNDRY_NOTIFY": os.environ.get("FOUNDRY_NOTIFY", "1"),
-                                 "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"})
     tier = f"{model}/{effort}" if effort else model
     with chapter(sub) as st:
         if role == "drafter":
             st["maker"] = provider  # the other family blind-solves what this one writes
-        st["jobs"][name] = {"pid": proc.pid, "provider": provider, "model": tier, "rung": rung, "started": now(),
+        st["jobs"][name] = {"pid": None, "provider": provider, "model": tier, "rung": rung, "started": now(),
+                            "failure_input": reliability.fingerprint(st, role, inputs),
                             "log": str(log.relative_to(ROOT)), "out": str(out.relative_to(ROOT)),
                             **({"expects": expects} if expects else {})}
+    try:
+        proc = subprocess.Popen(["/bin/sh", "-c", shell], cwd=REPO, start_new_session=True, stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                                env={**os.environ, "FOUNDRY_ROOT": str(ROOT), "FOUNDRY_EXPECTS": str(ROOT / expects) if expects else "",
+                                     "FOUNDRY_NOTIFY": os.environ.get("FOUNDRY_NOTIFY", "1"),
+                                     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"})
+    except (OSError, ValueError) as exc:
+        with chapter(sub) as st:
+            st['jobs'][name].update(finished=now(), exit=-1, ok=False, launch_error=str(exc))
+            reliability.record_result(st, name, ok=False, exit_code=-1, issues=[str(exc)])
+        raise SystemExit(f'{sub}: {name} could not start: {exc}') from exc
+    with chapter(sub) as st:
+        st['jobs'][name]['pid'] = proc.pid
     print(f"{sub}: {name} started on {NAMES[provider]} ({tier}); log {log.relative_to(ROOT)}")
 
 
@@ -1115,10 +1496,13 @@ def usage_lines() -> list[str]:
     words = {"five_hour": "5 hours", "seven_day": "week", "limit": "limit hit"}
     out = []
     for p in router.PROVIDERS:
-        for name, w in (u.get(p) or {}).items():
-            resets = f"resets {datetime.fromtimestamp(w['resets']):%a %H:%M}" if w.get("resets") else "no reset time"
+        for name, w in router.usage_windows(u.get(p)):
+            reset = router.usage_reset(w.get('resets'))
+            resets = f"resets {datetime.fromtimestamp(reset):%a %H:%M}" if reset else "no reset time"
             kept = f" ({cfg['reserve'][p]}% kept back)" if cfg["reserve"].get(p) and name == "seven_day" else ""
-            out.append(f"{NAMES[p]:<7} {words.get(name, name):<10} {w['used']:>3.0f}% used  {resets}{kept}")
+            used = router.usage_percent(w.get('used'))
+            reading = f"{used:>3.0f}% used" if used is not None else "usage unknown"
+            out.append(f"{NAMES[p]:<7} {words.get(name, name):<10} {reading}  {resets}{kept}")
         if not u.get(p):
             out.append(f"{NAMES[p]:<7} not known yet (it is read from the first worker that runs)")
         elif p == "claude" and "five_hour" not in u[p]:  # a headless run is told only of the limit nearest its end
@@ -1231,6 +1615,7 @@ def cmd_wait(timeout: float = 540, every: float = 5) -> None:
     print("no worker is running")
 
 
+@reliability.collect_safely(lambda sub: chapter(sub))
 def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
     """Runs after a worker exits: record its report, run the gates, note what the job says about its tier and its
     allowance, and move the chapter on. `name` is the job: a role, or `solver#2` for a shard."""
@@ -1257,15 +1642,22 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
     except OSError:
         said = ""
     limit = bool(facts.get("limit")) or (exit_code != 0 and any(w in said for w in router.LIMIT_WORDS))
-    if role in ("drafter", "fixer") and exit_code == 0:  # what a re-run generator leaves out of the pack
-        with chapter(sub) as st:
-            st["extra_ids"] = restore_extras(sub, st.get("extra_ids", {}))
-        merge_teach(sub)
-    g = settle_glyphs(sub, gates, chapter)[0] if role in ("drafter", "fixer") else None  # only these two change the chapter
+    try:
+        if role in ("drafter", "fixer") and exit_code == 0:  # what a re-run generator leaves out of the pack
+            _require_mutable_output(pack_path(sub))
+            _require_mutable_output(note_path(json.loads(pack_path(sub).read_text()), sub))
+            with chapter(sub) as st:
+                st["extra_ids"] = restore_extras(sub, st.get("extra_ids", {}))
+            merge_teach(sub)
+        g = settle_glyphs(sub, lambda chapter: gates(chapter, defer_missing_written=True), chapter)[0] if role in ("drafter", "fixer") and exit_code == 0 else None  # only these two change the chapter
+    except Exception as exc:  # collection must persist a failure, never orphan a finished worker
+        g = {'ok': False, 'collection': 1, 'first': [f'collection {type(exc).__name__}: {exc}']}
     wrote = True
     if job.get("expects"):
         f = ROOT / job["expects"]
         wrote = f.exists() and f.stat().st_mtime >= datetime.fromisoformat(job["started"]).timestamp() - 1
+        if wrote and (problem := reliability.output_problem(f, role)):
+            wrote = False
     import evidence
     evid = evidence.missing(role, sub, config(), ROOT / job["log"] if job.get("log") else None) \
         if exit_code == 0 and report and out != "-" else []
@@ -1288,6 +1680,8 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
         job = st["jobs"].get(name, {})
         job.update(finished=now(), exit=exit_code, report=report, ok=ok, **({"limit": True} if limit else {}),
                    **({"cost_usd": round(facts["cost"], 3)} if facts.get("cost") else {}))
+        reliability.record_result(st, name, ok=ok, exit_code=exit_code,
+                                  issues=(g or {}).get('first', []) or ([] if ok else ['invalid worker output or failed exit']))
         if exit_code != 0 or not report or not wrote:
             why = (f"stopped by a usage limit on {NAMES[provider]}" if limit else
                    f"failed (exit {code})" if exit_code or not report else "finished without writing its file")
@@ -1311,7 +1705,9 @@ def main(argv: list[str]) -> None:
         print(__doc__)
         return
     cmd, rest = argv[0], argv[1:]
-    if cmd == "add":
+    if cmd == "new-run":
+        print(json.dumps(lifecycle.new_course_run(STATE, rest[0], 7200, states=chapters), indent=1))
+    elif cmd == "add":
         cmd_add(rest)
     elif cmd == "board":
         cmd_board()

@@ -54,9 +54,19 @@ def fdy(tmp_path, monkeypatch):
         cfg = real()
         cfg["reserve"]["codex"] = 0
         cfg["window_cap"] = {}
+        cfg["weekly_launch_cap"] = 100  # neutral routing fixtures; reserve policy has dedicated regressions
         return cfg
     mod.config = neutral
     return mod
+
+
+def add_legacy_state(workflow, subs, stage="draft"):
+    """Model pre-refresh boards while keeping new-state contract tests separate."""
+    workflow.cmd_add(subs, stage=stage)
+    for sub in subs:
+        if (workflow.STATE / f"{sub}.json").is_file():
+            with workflow.chapter(sub) as state:
+                state.pop("teaching_contract", None)
 
 
 def usage(claude_week, codex_week, codex_now=10, claude_days=4.0, codex_days=4.0):
@@ -88,7 +98,7 @@ def keys(fdy):
 
 
 def test_a_chapter_goes_from_solve_to_ready(fdy, tmp_path):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     assert fdy.load(SUB)["stage"] == "solve" and SUB in json.loads(fdy.HOLD.read_text())
     assert fdy.cmd_gates(SUB)["ok"]
 
@@ -127,7 +137,7 @@ def test_a_chapter_goes_from_solve_to_ready(fdy, tmp_path):
 
 
 def test_a_verdict_other_than_keep_or_fix_is_refused(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "adjudicate"
         st["findings"].append({"ref": "note line 3", "status": "open"})
@@ -145,7 +155,7 @@ def test_the_gates_say_what_the_note_linter_found(fdy):
 
 
 def test_a_chapter_waiting_for_its_checker_cannot_be_signed(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "check"  # the blind solve agreed; the checker has not reported yet
     with pytest.raises(SystemExit, match="not ready"):
@@ -158,7 +168,7 @@ def test_a_chapter_waiting_for_its_checker_cannot_be_signed(fdy):
 
 
 def test_an_unfinished_solve_is_sent_back(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     fdy.cmd_strip(SUB)
     answers = keys(fdy)
     answers.pop(next(iter(answers)))
@@ -169,7 +179,7 @@ def test_an_unfinished_solve_is_sent_back(fdy):
 
 
 def test_sign_refuses_open_work_and_red_gates(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with pytest.raises(SystemExit, match="not ready"):
         fdy.cmd_sign(SUB)  # still at solve
     pack = json.loads(fdy.pack_path(SUB).read_text())
@@ -179,7 +189,7 @@ def test_sign_refuses_open_work_and_red_gates(fdy):
 
 
 def test_solver_prompt_is_short_and_never_includes_keys(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     prompt = fdy.role_prompt("solver", SUB)
     assert "foundry/roles/solver.md" in prompt and len(prompt) < 600
     assert all(k not in prompt for k in ('"answer"', "distractors", "packs/", "bundles/"))
@@ -188,7 +198,7 @@ def test_solver_prompt_is_short_and_never_includes_keys(fdy):
 
 
 def test_a_big_chapter_is_split_across_parallel_solvers(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     shards = fdy.cmd_strip(SUB, size=5)
     assert len(shards) >= 3
     answers = keys(fdy)
@@ -208,7 +218,7 @@ def test_a_big_chapter_is_split_across_parallel_solvers(fdy):
 
 
 def test_a_codex_job_run_by_hand_is_not_duplicated_and_reports_back(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "fix"
         st["fixes"] = [{"ref": "note", "instruction": "x", "status": "open"}]
@@ -223,7 +233,7 @@ def test_a_codex_job_run_by_hand_is_not_duplicated_and_reports_back(fdy):
 
 def test_watch_shows_a_codex_worker_and_what_it_is_doing(fdy, tmp_path):
     import os
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     log = tmp_path / "foundry/logs/x.log"
     log.parent.mkdir(parents=True, exist_ok=True)
     log.write_text("exec .venv/bin/python build/validate_pack.py build/out/packs/9702/9702-2.1.json\n")
@@ -241,7 +251,7 @@ def test_signing_publishes_and_commits_the_chapter_at_once(fdy, monkeypatch):
     monkeypatch.delenv("STEM_TUTOR_VAULT", raising=False)
     monkeypatch.setattr(fdy.subprocess, "run", lambda args, **k: calls.append(args) or
                         type("R", (), {"returncode": 0, "stdout": '{"version": "v2"}', "stderr": ""})())
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "sign"
     fdy.cmd_sign(SUB)
@@ -276,7 +286,7 @@ def test_signing_commits_a_chapter_whose_figures_git_ignores(fdy, monkeypatch):
     (root / ".gitignore").write_text("build/out/Assets/\n")  # figures are not kept in git
     git("add", ".gitignore")
     git("commit", "-q", "-m", "base")
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     figure = root / "build/out/Assets" / SUB.split("-")[0] / f"{SUB}-figure.svg"
     figure.parent.mkdir(parents=True, exist_ok=True)
     figure.write_text("<svg/>")
@@ -322,7 +332,7 @@ def test_extras_keep_their_ids_and_corrections_when_the_pack_is_rebuilt(fdy, tmp
 
 def test_extras_come_back_after_a_fixer_reruns_the_generator(fdy, tmp_path):
     bank(tmp_path, [past(1), past(2)])
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     fdy.cmd_collect("drafter", SUB, "-")  # as after drafting: the extras are appended and remembered
     path = fdy.pack_path(SUB)
     before = [i["id"] for i in json.loads(path.read_text())["items"]]
@@ -337,7 +347,7 @@ def test_extras_come_back_after_a_fixer_reruns_the_generator(fdy, tmp_path):
 
 
 def test_next_says_compare_once_the_tiebreak_has_finished(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         fdy.move(st, "tiebreak", "1 disputed")
     assert "run tiebreak" in fdy.action(fdy.load(SUB))
@@ -366,14 +376,14 @@ def test_queue_waits_for_a_free_slot_and_skips_a_chapter_that_cannot_start(fdy, 
 
 def test_a_finished_job_does_not_count_as_running_even_if_its_process_lingers(fdy):
     import os
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:  # a finished worker not yet reaped by its parent (the queue) still answers kill(pid, 0)
         st["jobs"]["drafter"] = {"pid": os.getpid(), "started": fdy.now(), "finished": fdy.now(), "exit": 0}
     assert fdy._running(fdy.load(SUB)) == []
 
 
 def test_the_syllabus_gate_blocks_a_chapter_with_an_outcome_untaught(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     assert fdy.cmd_gates(SUB)["ok"]
     pack = json.loads(fdy.pack_path(SUB).read_text())
     del pack["teach"][f"{SUB}.4"]
@@ -389,7 +399,7 @@ def test_the_syllabus_gate_blocks_a_chapter_with_an_outcome_untaught(fdy):
 
 
 def test_teaching_cards_are_merged_again_after_a_worker_rewrites_the_pack(fdy, tmp_path):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     teach = tmp_path / "build/work/teach"
     teach.mkdir(parents=True)
     (teach / f"{SUB}.json").write_text(json.dumps({f"{SUB}.1": CARD, f"{SUB}.4": {**CARD, "note": "not bullets"}}))
@@ -434,7 +444,7 @@ def test_coverage_counts_outcomes_and_says_what_to_build_next(fdy, tmp_path, cap
     (tmp_path / "build/out/specs/9702/graph.json").write_text(json.dumps(graph))
     (tmp_path / "build/out/plan.json").write_text(json.dumps({"weeks": {
         "3": [{"type": "NEW", "kcs": ["9702-3.1.1"]}], "9": [{"type": "NEW", "kcs": ["9702-2.2.1"]}]}}))
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     c = fdy.coverage()
     assert c["specs"]["9702"] == {"outcomes": 4, "ready": 0, "in_progress": 2, "not_started": 2,
                                   "chapters": {"ready": 0, "in_progress": 1, "not_started": 2}}
@@ -462,7 +472,7 @@ def test_install_skill_sets_sonnet_at_medium_effort(fdy, tmp_path, monkeypatch):
 
 def test_wait_returns_when_no_worker_is_running(fdy, capsys):
     import os
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     fdy.cmd_wait(timeout=5, every=0)  # nothing running: straight back
     with fdy.chapter(SUB) as st:
         st["jobs"]["drafter"] = {"pid": os.getpid(), "started": fdy.now()}  # a worker that never finishes
@@ -472,7 +482,7 @@ def test_wait_returns_when_no_worker_is_running(fdy, capsys):
 
 
 def test_a_refused_sign_records_why_so_the_drafter_is_told(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     pack = json.loads(fdy.pack_path(SUB).read_text())
     del pack["teach"][f"{SUB}.4"]
     fdy.pack_path(SUB).write_text(json.dumps(pack))
@@ -567,7 +577,7 @@ def test_each_role_starts_on_its_cheapest_tier_and_climbs_only_when_that_fails(f
 def test_a_codex_worker_runs_in_the_background_and_is_collected(fdy, monkeypatch):
     monkeypatch.setenv("FAKE_REPORT", json.dumps({"pack_path": "p", "note_path": "n", "items": 1, "templates": 0,
                                                   "worked": 0, "validator_ok": True, "lint_ok": True, "concerns": []}))
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "draft"  # the "drafter" finds a valid pack already there
     fdy.cmd_run("drafter", SUB, on="codex")
@@ -583,7 +593,7 @@ def test_a_claude_worker_runs_lean_and_reports_what_is_left(fdy, tmp_path, monke
     monkeypatch.setenv("FAKE_ARGV", str(tmp_path / "argv.json"))
     monkeypatch.setenv("FAKE_UTILIZATION", "0.64")
     monkeypatch.setenv("FAKE_REPORT", json.dumps({"items": 12, "concerns": []}))
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "draft"
     fdy.cmd_run("drafter", SUB, on="claude")
@@ -600,7 +610,7 @@ def test_a_claude_worker_runs_lean_and_reports_what_is_left(fdy, tmp_path, monke
 
 
 def test_a_chapters_retry_goes_one_tier_up(fdy, monkeypatch):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "draft"
     monkeypatch.setenv("FAKE_FAIL", "the model lost its way")
@@ -612,7 +622,7 @@ def test_a_chapters_retry_goes_one_tier_up(fdy, monkeypatch):
 
 
 def test_a_usage_limit_closes_the_allowance_and_is_not_held_against_the_tier(fdy, monkeypatch):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "draft"
     monkeypatch.setenv("FAKE_FAIL", "ERROR: You've hit your usage limit. Upgrade to Pro or try again at 8:27 PM.")
@@ -626,7 +636,7 @@ def test_a_usage_limit_closes_the_allowance_and_is_not_held_against_the_tier(fdy
 
 
 def test_dispatch_starts_the_solver_and_the_checker_and_step_finishes_the_chapter(fdy, tmp_path, monkeypatch):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     right = tmp_path / "right.json"
     right.write_text(json.dumps(keys(fdy)))
     monkeypatch.setenv("FAKE_COPY", str(right))
@@ -645,7 +655,7 @@ def test_dispatch_starts_the_solver_and_the_checker_and_step_finishes_the_chapte
 
 
 def test_the_checker_can_finish_before_the_solvers(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     fdy.cmd_strip(SUB)
     fdy.WORK.mkdir(parents=True, exist_ok=True)
     (fdy.WORK / f"{SUB}.check.json").write_text(json.dumps({"findings": []}))
@@ -658,7 +668,7 @@ def test_the_checker_can_finish_before_the_solvers(fdy):
 
 
 def test_a_worker_that_died_without_reporting_is_started_again(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     fdy.cmd_strip(SUB)
     with fdy.chapter(SUB) as st:  # its process is gone and nothing was collected (the Mac slept, the job was killed)
         st["jobs"]["solver"] = {"pid": 999999, "provider": "claude", "started": fdy.now(),
@@ -668,7 +678,7 @@ def test_a_worker_that_died_without_reporting_is_started_again(fdy):
 
 
 def test_escalate_starts_the_adjudicator_on_its_first_tier(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     fdy.cmd_escalate(SUB)
     job = finished(fdy, "adjudicator")
     assert job["model"] == "/".join(fdy.config()["ladders"]["adjudicator"][job["provider"]][0])
@@ -725,7 +735,7 @@ def test_asking_for_the_rest_of_a_big_chapter_keeps_the_shards_already_solved(fd
     wrote the questions afresh, which threw the three finished answer files away and solved them a second time."""
     cfg = {**fdy.config(), "solver_shard_size": 5, "max_parallel": {"codex": 1, "claude": 1}}
     monkeypatch.setattr(fdy, "config", lambda: cfg)
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["checked"] = True  # the solvers only
     right = tmp_path / "right.json"
@@ -745,7 +755,7 @@ def test_asking_for_the_rest_of_a_big_chapter_keeps_the_shards_already_solved(fd
 def test_a_solver_the_tiebreak_keeps_overturning_is_on_too_weak_a_tier(fdy):
     """Seen on the first real run: the cheapest Codex solver "succeeded" on every shard and was wrong on 34 of 92
     questions. Finishing is not enough for a blind solver: what counts is how often the tiebreak sides with the key."""
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     fdy.cmd_strip(SUB)
     answers = keys(fdy)
     for qid in list(answers)[:4]:  # four slips
@@ -822,7 +832,7 @@ def test_chapters_held_at_once_are_all_held(fdy):
 
 
 def test_a_refused_claude_worker_is_recorded_as_a_limit_not_a_failure(fdy, monkeypatch):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "draft"
     monkeypatch.setenv("FAKE_REJECT", "five_hour")
@@ -922,7 +932,7 @@ def test_only_is_a_switch_and_is_shown(fdy, capsys):
 
 
 def test_a_chapter_signed_in_only_mode_by_its_own_family_is_marked_and_listed(fdy, tmp_path, monkeypatch, capsys):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     right = tmp_path / "right.json"
     right.write_text(json.dumps(keys(fdy)))
     monkeypatch.setenv("FAKE_COPY", str(right))
@@ -954,7 +964,7 @@ def test_a_solvers_answers_file_with_a_stray_backslash_n_is_still_read(fdy, tmp_
 
 
 def test_signing_drops_blank_options_of_a_figure_question_and_notes_it(fdy, tmp_path, monkeypatch):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     pack = json.loads(fdy.pack_path(SUB).read_text())
     pack["items"].append({"id": f"{SUB}-x900", "kind": "mcq", "kcs": [], "stem": "See the figure.", "image": "Assets/mcq/q.png",
                           "source": {"type": "past", "ref": "9701_s23_11_q7"}, "answer": "B",
@@ -1016,11 +1026,11 @@ def test_the_foundry_counts_refines_running_jobs_and_will_not_take_a_chapter_it_
     (tmp_path / "refine/state").mkdir(parents=True)
     (tmp_path / "refine/state" / "9702-2.1.json").write_text(json.dumps({"sub": "9702-2.1", "stage": "refine", "jobs": {}}))
     assert [r["sub"] for r in fdy._refine_chapters()] == ["9702-2.1"]
-    fdy.cmd_add(["9702-2.1"])
+    add_legacy_state(fdy, ["9702-2.1"])
     assert "refine is working on it now" in capsys.readouterr().out
     assert not (fdy.STATE / "9702-2.1.json").exists()
     (tmp_path / "refine/state" / "9702-2.1.json").write_text(json.dumps({"sub": "9702-2.1", "stage": "ready", "jobs": {}}))
-    fdy.cmd_add(["9702-2.1"])
+    add_legacy_state(fdy, ["9702-2.1"])
     assert "already on the board" in capsys.readouterr().out or (fdy.STATE / "9702-2.1.json").exists()
 
 
@@ -1044,7 +1054,7 @@ def test_the_gates_fail_on_unicode_sub_and_superscript_letters(fdy):
 
 
 def test_a_chapter_that_fails_only_on_glyphs_is_repaired_without_a_retry(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     put_glyphs(fdy, "\nThe speed vᵢₙᵢₜᵢₐₗ is given.\n", " The energy Eₖ rises.")
     before = fdy.pack_path(SUB).read_text()
     g, n = fdy.settle_glyphs(SUB, fdy.gates, fdy.chapter)
@@ -1057,14 +1067,14 @@ def test_a_chapter_that_fails_only_on_glyphs_is_repaired_without_a_retry(fdy):
 
 
 def test_the_glyph_repair_waits_when_something_else_also_fails(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     put_glyphs(fdy, "\nBroken maths: $\\frac{1}{2$ and Eₖ.\n")
     g, n = fdy.settle_glyphs(SUB, fdy.gates, fdy.chapter)
     assert n == 0 and not g["ok"] and g["glyphs"] and g["lint"]
 
 
 def test_sign_repairs_glyphs_itself(fdy):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "sign"
     put_glyphs(fdy, "\nEnergy Eₖ.\n")
@@ -1073,7 +1083,7 @@ def test_sign_repairs_glyphs_itself(fdy):
 
 
 def test_a_chapter_whose_gates_stay_red_stops_being_retried_until_the_manager_unsticks_it(fdy, capsys):
-    fdy.cmd_add([SUB])
+    add_legacy_state(fdy, [SUB])
     with fdy.chapter(SUB) as st:
         st["stage"] = "draft"
         for _ in range(fdy.MAX_UNCLEAN):
@@ -1146,3 +1156,66 @@ def test_the_five_hour_cap_can_be_higher_for_the_window_now_running(fdy):
     w = {"five_hour": {"used": 90.0, "resets": 4102444800}, "seven_day": week}
     assert fdy.router.score("claude", w, cfg, [], now=1000)[0] is not None   # before the reset: up to 95
     assert fdy.router.score("claude", w, cfg, [], now=3000)[0] is None       # after: 80
+
+
+def test_foundry_requires_review_for_written_faded_checks(fdy):
+    from build.written_review import build_records, faded_review_items
+    pack = {'worked': [{'id': 'we2', 'kc': 'K', 'problem': 'Example', 'steps': [],
+                        'faded': {'id': 'we2f', 'kind': 'short', 'problem': 'Disprove.',
+                                  'review_answer': '111 = 3 × 37',
+                                  'rubric': [{'point': 'Factors', 'keywords': [['3'], ['37']]}]}}]}
+    assert fdy.written_review_problems('trial', pack)
+    items = faded_review_items(pack['worked'])
+    records = build_records(items, {'we2.faded': 'Independent solution'},
+                            {'we2.faded': {'verdict': 'accepted', 'rationale': 'Valid'}},
+                            solver='solver', reviewer='reviewer')
+    path = fdy.ROOT / 'build/work/refine/trial.written-review.json'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(records))
+    assert any('durable independent worker evidence' in issue for issue in fdy.written_review_problems('trial', pack))
+    pack['worked'][0]['problem'] = 'Changed example'
+    assert fdy.written_review_problems('trial', pack)
+
+
+def test_foundry_gate_includes_written_faded_review_failures(fdy):
+    path = fdy.pack_path(SUB)
+    pack = json.loads(path.read_text())
+    pack['worked'].append({'id': 'extra-written', 'kc': SUB + '.1', 'problem': 'Example', 'steps': [],
+                           'faded': {'id': 'extra-written-f', 'kind': 'short', 'problem': 'Disprove.',
+                                     'review_answer': 'Solution',
+                                     'rubric': [{'point': 'Reason', 'keywords': [['reason']]}]}})
+    path.write_text(json.dumps(pack))
+    result = fdy.gates(SUB)
+    assert not result['ok']
+    assert any('written checks need review' in issue for issue in result['first'])
+
+
+def test_foundry_sign_cannot_publish_unreviewed_written_faded_check(fdy):
+    from build.written_review import build_records, faded_review_items
+    path = fdy.pack_path(SUB)
+    pack = json.loads(path.read_text())
+    pack['worked'].append({'id': 'sign-written', 'kc': SUB + '.1', 'problem': 'Example', 'steps': [],
+                           'faded': {'id': 'sign-written-f', 'kind': 'short', 'problem': 'Disprove.',
+                                     'review_answer': 'Solution',
+                                     'rubric': [{'point': 'Reason', 'keywords': [['reason']]}]}})
+    path.write_text(json.dumps(pack))
+    add_legacy_state(fdy, [SUB])
+    with fdy.chapter(SUB) as state:
+        state['stage'] = 'sign'
+    with pytest.raises(SystemExit, match='not ready'):
+        fdy.cmd_sign(SUB)
+    state = fdy.load(SUB)
+    assert state['stage'] != 'ready'
+    assert any('written checks need review' in issue for issue in state['gates']['first'])
+    items = faded_review_items(pack['worked'])
+    records = build_records(items, {'sign-written.faded': 'Independent solution'},
+                            {'sign-written.faded': {'verdict': 'accepted', 'rationale': 'Valid'}},
+                            solver='solver', reviewer='reviewer')
+    review = fdy.ROOT / 'build/work/refine' / f'{SUB}.written-review.json'
+    review.parent.mkdir(parents=True, exist_ok=True)
+    review.write_text(json.dumps(records))
+    pack['worked'][-1]['problem'] = 'Changed example after review'
+    path.write_text(json.dumps(pack))
+    with pytest.raises(SystemExit, match='not ready'):
+        fdy.cmd_sign(SUB)
+    assert any('missing or stale review' in issue for issue in fdy.load(SUB)['gates']['first'])

@@ -15,7 +15,7 @@ class Preset:
     ask: tuple[str, bool | str]
 
     def ai_for(self, mode: str) -> tuple[str, bool | str]:
-        return getattr(self, mode)
+        return self.explain if mode == "learn" else getattr(self, mode)
 
     @property
     def required_models(self) -> tuple[str, ...]:
@@ -69,7 +69,7 @@ def matching(choices: dict[str, tuple[str, bool | str]]) -> str:
         model, value = choice
         return model, thinking_key(model, value) if is_local(model) else value
     for name, preset in PRESETS.items():
-        if all(identity(choices[mode]) == identity(preset.ai_for(mode)) for mode in ("mark", "explain", "ask")):
+        if all(identity(choices[mode]) == identity(preset.ai_for(mode)) for mode in choices):
             return name
     return "custom"
 

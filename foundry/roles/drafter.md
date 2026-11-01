@@ -72,3 +72,55 @@ Reply with the JSON report the output schema asks for. List in `concerns` anythi
 ## Your run is checked
 
 The program reads your log when you finish. A run that never opened the library (when it has pages for this chapter: see "Library hits" at the end of the bundle) or never searched the web (when you may) is not accepted and is retried: use both, once, for something real, and say what you used in your report.
+
+## Guided learning upgrades
+
+When the chapter's assignment explicitly includes guided learning, add `guided_forms` to the pack: map each KC id to the reviewed question-form names found in the syllabus, available papers, mark schemes and examiner reports. Record source gaps in concerns; do not claim an exhaustive search where sources are missing. Extend each teaching card additively with `plain_words`, `terms` (term, meaning, notation, spoken, source), `forms` (name, wordings, example, check, answer, source, rubric), `misconceptions` (id, idea, temptation, fix), and `diagrams` (asset paths) and `diagram_descriptions` (one clear terminal description for each diagram). Include at least one example and a distinct check for each listed form. Give `diagram_reason` when no suitable figure can be drawn. Render and visually inspect diagrams; embed them in the note. Each rubric is a list of mark points with nonempty keyword groups; use criteria that permit alternative valid answers. Keywords only assist the existing judge, never determine correctness alone. Keep solutions separate from the check shown to the student. The guided gate checks completeness against the stated inventory, not whether the inventory or content is factually correct; independently verify both.
+
+Every guided-card misconception requires `id`, `idea`, `temptation`, and `fix`. Bind `id` to a
+`pack["misconceptions"]` entry for the same KC and the same misconception meaning. Reuse an existing ID only
+when both match; sharing a topic or a refutation is insufficient. Otherwise append a new uniquely identified
+tracker entry with `id`, `kc`, `statement`, `refutation`, `contrast`, and `source`, then bind the card to that ID.
+Preserve existing tracker entries and protected card fields; never invent an ID without its tracker entry.
+Before finishing, run the teaching-card check and merge on the authorized draft/pack copies, then run the
+workflow aggregate gates to verify tracker bindings. Missing independent written reviews remain pending.
+
+**Gaps and notes figures.** For each idea record in the card's `source_gaps` anything the sources did not cover. A notes-PDF diagram worth showing in a lesson: `library.py crop|extract ... --for <subtopic> --why "<what it shows>"`, then open the PNG and check the crop and labels; the learning AI is offered every checked figure of the chapter.
+
+## Prepared teaching contract
+
+Prepare Learn a topic teaching with foundations and prerequisite bridges, explicit terms/notation,
+evidence-backed question forms, staged worked examples, separate independent checks, misconceptions,
+practice and review. Reuse the guided-card schema, lesson actions and reviewed Library diagrams first.
+An SVG or image must help a specific KC/form; retain its provenance, caption and accessible description,
+and inspect it before calling it reviewed. Live AI adapts explanations and practice to learner responses.
+Keep missing sources explicit; schema passes and model confidence do not establish teaching approval.
+
+Edit only the explicit candidate pack/note paths in the worker prompt. Library-backed file adapters are
+read-only references. Preserve stable IDs, historical answers, source-bound corrections and original
+baselines. Never replace a baseline or correction-review binding to clear a failed gate.
+
+For every KC, list every reviewed required form in `guided_forms` and provide a complete matching card form; do not omit a required form to pass validation. Before finishing, run `build/teach_cards.py check` and `merge` against the correct draft and pack paths, then resolve every reported issue.
+
+`review_rule` selects an implemented marking rule, not prose guidance. Read the accepted values in
+`build/teach_cards.py` before setting it; omit it for ordinary checks. Put marking criteria in rubric points
+and review concerns in the report; preserve existing valid rules.
+
+Independent written-review records must come from separate solver/reviewer evidence. Foundry does not automatically
+run Refine's written-review stages: report missing records as a blocker for the orchestrator. Never author accepted
+records yourself or replace fingerprints to clear a gate. Foundry signing requires its current gates to pass.
+
+## Current candidate paths
+
+Use the exact pack/note/draft paths in this job's prompt. For manual work, resolve the chapter through this
+workflow's `pack_path` and note/draft resolver using its current state. A similarly named `Work/Candidates` file
+is not evidence that it is current. Record SHA-256 hashes of inputs before editing or reviewing; before writing,
+confirm the selected paths and source bytes have not changed since you read them, apart from your intentional
+edits. On a mismatch, preserve your work separately and report the conflict. Never guess a candidate filename,
+retarget a Library adapter, or overwrite a different candidate to make paths agree.
+
+When a requested diagram is unregistered or Library writes are denied, follow `docs/staged-diagram-handoff.md`. Preserve Work evidence and report controller registration required; do not retry production rendering, create a shadow Library, invent aliases or grant yourself Library access.
+
+## Prevent repeated review failures
+
+Before merging, compare every new check and retry against all learner-visible material that can precede it, including explanations, terms, diagrams, examples, misconception fixes and earlier forms. Identify the exact answer each task asks for; do not supply that answer beforehand. Use a distinct application; changing numbers or a chemical chain is insufficient when the requested answer is unchanged. Retain useful teaching. Check that each rubric accepts valid alternative methods and asks only for information the stem requests. After any repair, recheck all affected checks, including formerly accepted ones whose visible context changed. Record uncertainty; author self-checks do not replace blind solving and independent review.

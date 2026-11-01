@@ -36,8 +36,11 @@ if mode == "unreadable":
 emit({"type": "item.completed", "item": {"id": "reason", "type": "reasoning", "text": "private reasoning"}})
 emit({"type": "item.completed", "item": {"id": "comment", "type": "agent_message", "phase": "commentary",
                                            "text": "I will inspect files."}})
-reply = os.environ.get("FAKE_CODEX_REPLY", '{"feedback":"Good.","speech":"Spoken feedback."}' if schema else
-                       "A useful hint.\n[[SPEECH]] A useful hint.")
+default = '{"feedback":"Good.","speech":"Spoken feedback."}' if schema else "A useful hint.\n[[SPEECH]] A useful hint."
+if schema and "blocks" in schema.get("properties", {}):
+    default = json.dumps({"blocks": [{"kind": "paragraph", "text": "A useful hint."}],
+                          **({"speech": "A useful hint."} if "speech" in schema["properties"] else {})})
+reply = os.environ.get("FAKE_CODEX_REPLY", default)
 emit({"type": "item.completed", "item": {"id": "answer", "type": "agent_message", "text": reply}})
 if mode == "wait":
     time.sleep(30)

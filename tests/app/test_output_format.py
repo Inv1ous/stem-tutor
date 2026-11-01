@@ -89,6 +89,31 @@ def test_math_is_protected_from_markdown_eating_multiplication():
     assert sum(shown.count(sign) for sign in ("*", "×", "·", "∗")) == 2
 
 
+@pytest.mark.parametrize("width", [80, 100])
+def test_narrow_question_table_keeps_ionisation_labels_paired_with_complete_values(width):
+    from tutor_app import cards
+    stem = ("The first twelve ionisation energies of magnesium are:\n\n"
+            "| IE 1 | IE 2 | IE 3 | IE 4 | IE 5 | IE 6 | IE 7 | IE 8 | IE 9 | IE 10 | IE 11 | IE 12 |\n"
+            "|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+            "| 738 | 1 451 | 7 733 | 10 543 | 13 630 | 18 020 | 21 711 | 25 661 | 31 653 | 35 458 | 169 988 | 189 368 |")
+    console = Console(width=width, record=True, file=StringIO(), color_system=None)
+    console.print(cards.question({"n": 1, "kind": "structured", "marks": 4, "stem": stem}))
+    shown = console.export_text()
+    for label, value in [("IE 2", "1 451"), ("IE 3", "7 733"), ("IE 10", "35 458"),
+                         ("IE 11", "169 988"), ("IE 12", "189 368")]:
+        assert f"{label}: {value}" in shown
+
+
+def test_wide_question_table_conversion_preserves_all_rows_and_pipes_in_cells():
+    from tutor_app.cards import _narrow_question_tables
+    source = ("| Item | Value |\n|---|---|\n"
+              "| first | `a|b` |\n| second | x\\|y |\n| third | z |")
+    shown = _narrow_question_tables(source, 10)
+    assert "**Item:** first" in shown and "**Value:** `a|b`" in shown
+    assert "**Item:** second" in shown and r"**Value:** x\|y" in shown
+    assert "**Item:** third" in shown and "**Value:** z" in shown
+
+
 def test_literal_code_does_not_use_the_legacy_unit_prettifier():
     from tutor_app import cards
     c = Console(width=80, record=True, file=StringIO(), color_system=None)

@@ -48,21 +48,71 @@ def test_a_crashed_publish_leaves_no_version_that_pushes_out_a_real_one(tmp_path
     packs = vault / ".tutor/packs"
     for _ in range(3):
         publish.publish(vault)
-    real_copy = publish.shutil.copy2
-
-    def crash(src, dst, *a, **k):
-        if str(src).endswith("9701-5.1.json"):
+    real_write = publish.store.write_text
+    def crash(path, text, *a, **k):
+        if str(path).endswith("9701-5.1.json"):
             raise OSError("disk full")
-        return real_copy(src, dst, *a, **k)
-    monkeypatch.setattr(publish.shutil, "copy2", crash)
+        return real_write(path, text, *a, **k)
+    monkeypatch.setattr(publish.store, "write_text", crash)
     with pytest.raises(OSError):
         publish.publish(vault)
-    assert sorted(p.name for p in packs.glob("v*")) == ["v1", "v2", "v3"]  # nothing half-written passes for a version
+    assert sorted(p.name for p in packs.glob("v*")) == ["v1", "v2", "v3"]  # compatibility links only
     assert (packs / "CURRENT").read_text() == "v3"
-    monkeypatch.setattr(publish.shutil, "copy2", real_copy)
+    monkeypatch.setattr(publish.store, "write_text", real_write)
     assert publish.publish(vault)["version"] == "v4"
-    assert sorted(p.name for p in packs.iterdir() if p.name != "CURRENT") == ["v2", "v3", "v4"]
-    assert all((packs / v / "manifest.json").exists() for v in ("v2", "v3", "v4"))
+    assert sorted(p.name for p in packs.iterdir() if p.name != "CURRENT") == ["v1", "v2", "v3", "v4"]
+    assert all((packs / v / "manifest.json").exists() for v in ("v1", "v2", "v3", "v4"))
+
+
+def test_failed_release_copy_does_not_publish_notes_for_the_inactive_version(tmp_path, monkeypatch):
+    """B-122: notes visible through Library must match the release selected by CURRENT."""
+    import pytest
+
+    build = _build(tmp_path, monkeypatch)
+    vault = tmp_path / "vault"
+    note = build / "notes/Subjects/9701 Chemistry/5.1 Enthalpy.md"
+    assert publish.publish(vault)["version"] == "v1"
+    visible = vault / "Library/Courses/9701/Notes/Published/v1/Subjects/9701 Chemistry/5.1 Enthalpy.md"
+    assert visible.read_text() == "# Enthalpy\n"
+
+    note.write_text("# New enthalpy lesson\n")
+    real_write = publish.store.write_text
+
+    def fail_pack_copy(path, text, *args, **kwargs):
+        if str(path).endswith("9701-5.1.json"):
+            raise OSError("injected release copy failure")
+        return real_write(path, text, *args, **kwargs)
+
+    monkeypatch.setattr(publish.store, "write_text", fail_pack_copy)
+    with pytest.raises(OSError, match="injected release copy failure"):
+        publish.publish(vault)
+
+    assert (vault / ".tutor/packs/CURRENT").read_text() == "v1"
+    assert visible.read_text() == "# Enthalpy\n"
+    assert not list((vault / "Library/Courses/9701/Notes/Published/v2").rglob("*.md"))
+
+
+def test_held_subtopic_note_stays_private_when_pack_json_is_missing(tmp_path, monkeypatch):
+    """A stale review hold still protects its note after the pack JSON disappears (B-124)."""
+    import json
+
+    build = _build(tmp_path, monkeypatch)
+    subtopic = "9701-8.1"
+    note_rel = "Subjects/9701 Chemistry/08 Reaction kinetics/8.1 Held.md"
+    note = build / "notes" / note_rel
+    note.parent.mkdir(parents=True)
+    note.write_text("# Still awaiting review\n")
+    (build / "packs/HOLD.json").write_text(json.dumps({subtopic: "awaiting review"}))
+    # Deliberately do not create packs/9701/9701-8.1.json.
+
+    vault = tmp_path / "vault"
+    result = publish.publish(vault)
+
+    assert result["held"] == [subtopic]
+    assert not list((vault / "Library/Courses/9701/Notes/Published" / result["version"]).rglob("8.1 Held.md"))
+    catalog = json.loads((vault / "Library/catalog.json").read_text())
+    assert not any(entry["path"].endswith("8.1 Held.md") for entry in catalog["assets"].values())
+    assert (vault / ".tutor/packs/CURRENT").read_text() == result["version"]
 
 
 def test_publishing_from_an_unfinished_build_leaves_the_vault_alone(tmp_path, monkeypatch):
@@ -95,8 +145,8 @@ def test_the_launcher_opens_the_tutor_in_the_study_profile(tmp_path):
     script = publish.launcher_script()
     assert script.startswith("#!/bin/bash\n")
     assert shlex.split(script.rstrip().splitlines()[-1]) == ["exec", str(publish.ROOT / "bin/tutor")]
-    assert 'settings set "Study"' in script and '"$(tty)"' in script  # this window only, and only if the profile exists
-    assert "Apple_Terminal" in script  # other terminals are asked nothing
+    assert "export STEM_TUTOR_STUDY_PROFILE=1" in script  # applied by the app within its startup budget
+    assert "osascript" not in script  # no unbounded automation before the app can start
     path = tmp_path / "Start Tutor.command"
     path.write_text(script)
     assert subprocess.run(["bash", "-n", str(path)]).returncode == 0  # the shell can read it
@@ -185,16 +235,101 @@ def test_a_published_note_links_once_its_target_is_published(tmp_path, monkeypat
     monkeypatch.setattr(publish, "BUILD", build)
     monkeypatch.setattr(publish, "ROOT", tmp_path)  # no engine to copy
     (tmp_path / "plugin/stem-tutor/skills/tutor/scripts").mkdir(parents=True)
-    out = vault / "Subjects/9701 Chemistry/5.1 Enthalpy.md"
     publish.publish(vault)
-    assert out.read_text() == "Leads to 5.2 Hess's law\n"
+    first = list((vault / "Library/Courses/9701/Notes").rglob("5.1 Enthalpy.md"))[0]
+    assert "5.2 Hess's law" in first.read_text()
+    original_first_bytes = first.read_bytes()
     (note.parent / "5.2 Hess’s law.md").write_text("# Hess\n")
     publish.publish(vault)
-    assert out.read_text() == "Leads to [[5.2 Hess’s law]]\n"
-    out.write_text("my own notes\n")
-    os.utime(out, (note.stat().st_mtime + 60,) * 2)  # edited in the vault after the build: kept
+    releases = list((vault / "Library/Courses/9701/Notes").rglob("5.1 Enthalpy*.md"))
+    assert any("[[" in p.read_text() for p in releases)
     publish.publish(vault)
-    assert out.read_text() == "my own notes\n"
+    assert first.read_bytes() == original_first_bytes
+
+
+def test_published_note_chain_and_cycle_use_final_versioned_targets(tmp_path, monkeypatch):
+    import json
+    from tutorlib.asset_library import AssetLibrary
+    build = tmp_path / "out"
+    notes = build / "notes/Subjects/P2 Pure Mathematics 2/01 Proof"
+    notes.mkdir(parents=True)
+    (notes / "A.md").write_text("See [[B]].\n")
+    (notes / "B.md").write_text("![[Assets/P2/figure.svg]]\nSee [[A]].\n")
+    (build / "Assets/P2").mkdir(parents=True)
+    (build / "Assets/P2/figure.svg").write_text("<svg>diagram</svg>")
+    (build / "specs/P2").mkdir(parents=True)
+    (build / "specs/P2/graph.json").write_text("{}")
+    (build / "packs").mkdir()
+    (build / "plan.json").write_text(json.dumps({}))
+    monkeypatch.setattr(publish, "BUILD", build)
+    monkeypatch.setattr(publish, "ROOT", tmp_path)
+    (tmp_path / "plugin/stem-tutor/skills/tutor/scripts").mkdir(parents=True)
+    vault = tmp_path / "vault"
+
+    publish.publish(vault)
+    library = AssetLibrary(vault)
+    a = library.resolve("build/out/notes/Subjects/P2 Pure Mathematics 2/01 Proof/A.md")
+    b = library.resolve("build/out/notes/Subjects/P2 Pure Mathematics 2/01 Proof/B.md")
+    figure = library.resolve("Assets/P2/figure.svg")
+    a_text, b_text = a.read_text(), b.read_text()
+    assert f"[[{b.relative_to(vault).as_posix()}]]" in a_text
+    assert f"[[{a.relative_to(vault).as_posix()}]]" in b_text
+    assert f"![[{figure.relative_to(vault).as_posix()}]]" in b_text
+    assert "]](Assets/" not in b_text
+
+
+def test_published_note_uses_catalogued_diagram_alias_when_build_media_is_retired(tmp_path, monkeypatch):
+    from tutorlib.asset_library import AssetLibrary, write_asset
+
+    build = tmp_path / "out"
+    notes = build / "notes/Subjects/P1 Pure Mathematics/01 Algebra"
+    notes.mkdir(parents=True)
+    (notes / "A.md").write_text("See [[B]].\n")
+    (notes / "B.md").write_text(
+        "![[Assets/P1/diagram.svg#main|diagram]]\n"
+        "![[build/out/assets/P1/diagram.svg]]\n"
+        "[Paper](Papers/P1/source.pdf) and [source](sources/library/P1/source.pdf)\n"
+    )
+    # There is deliberately no build/out/Assets tree: the retired build asset
+    # is available only through the immutable Library catalogue alias.
+    monkeypatch.setattr(publish, "BUILD", build)
+    vault = tmp_path / "vault"
+    vault.mkdir()
+    media = b"<svg id='main'></svg>"
+    write_asset(vault, "Library/Courses/P1/Diagrams/diagram.svg", media,
+                aliases=["Assets/P1/diagram.svg", "build/out/assets/P1/diagram.svg"],
+                metadata={"course": "P1", "kind": "Diagrams"})
+    paper = b"%PDF-1.4\nsource fixture\n"
+    write_asset(vault, "Library/Courses/P1/PastPapers/P1/source.pdf", paper,
+                aliases=["Papers/P1/source.pdf", "sources/library/P1/source.pdf"],
+                metadata={"course": "P1", "kind": "PastPapers"})
+
+    mapping, copied = publish._publish_library(vault, set(), "v7")
+    library = AssetLibrary(vault)
+    a = library.resolve("build/out/notes/Subjects/P1 Pure Mathematics/01 Algebra/A.md")
+    b = library.resolve("build/out/notes/Subjects/P1 Pure Mathematics/01 Algebra/B.md")
+    diagram = library.resolve("Assets/P1/diagram.svg")
+    canonical_paper = library.resolve("Papers/P1/source.pdf")
+
+    assert copied == 2
+    assert f"[[{b.relative_to(vault).as_posix()}]]" in a.read_text()
+    assert f"![[{diagram.relative_to(vault).as_posix()}#main|diagram]]" in b.read_text()
+    assert f"![[{diagram.relative_to(vault).as_posix()}]]" in b.read_text()
+    assert f"[Paper]({canonical_paper.relative_to(vault).as_posix()})" in b.read_text()
+    assert f"[source]({canonical_paper.relative_to(vault).as_posix()})" in b.read_text()
+    assert diagram.read_bytes() == media
+    assert canonical_paper.read_bytes() == paper
+    assert mapping["Assets/P1/diagram.svg"] == diagram.relative_to(vault).as_posix()
+
+
+def test_publish_resolves_vault_alias_before_library_writes(tmp_path, monkeypatch):
+    from tutorlib.asset_library import AssetLibrary
+    _build(tmp_path, monkeypatch)
+    actual = tmp_path / "vault-real"
+    alias = tmp_path / "vault-alias"
+    alias.symlink_to(actual, target_is_directory=True)
+    publish.publish(alias)
+    assert AssetLibrary(actual).records()
 
 
 def test_a_publish_that_fails_midway_leaves_the_engine_and_pointers_whole(tmp_path, monkeypatch):
@@ -244,7 +379,7 @@ def test_finder_junk_in_the_build_is_not_copied_into_the_vault(tmp_path, monkeyp
     (build / "assets/x.svg").write_text("<svg/>")
     vault = tmp_path / "vault"
     publish.publish(vault)
-    assert (vault / "Assets/x.svg").exists()
+    assert list((vault / "Library").rglob("x.svg"))
     assert not list(vault.rglob(".DS_*"))
 
 
@@ -312,6 +447,7 @@ def test_a_link_titled_differently_finds_its_chapter_by_number_and_a_shared_word
 
 def test_the_shortcuts_course_is_copied_and_learner_state_is_left_alone(tmp_path, monkeypatch):
     import json
+    from tutorlib.asset_library import AssetLibrary
     build = _build(tmp_path, monkeypatch)
     (build / "shortcuts/lessons").mkdir(parents=True)
     (build / "shortcuts/9702.json").write_text(json.dumps([{"id": "SEM-9702-a"}]))
@@ -325,9 +461,18 @@ def test_the_shortcuts_course_is_copied_and_learner_state_is_left_alone(tmp_path
     course = mine / "course"
     assert json.loads((course / "9702.json").read_text())[0]["id"] == "SEM-9702-a"
     assert "SEM-9702-a" in json.loads((course / "lessons/9702.json").read_text())
+    library = AssetLibrary(vault)
+    entry = library.read("build/out/shortcuts/9702.json")
+    lesson = library.read("build/out/shortcuts/lessons/9702.json")
+    assert b"SEM-9702-a" in entry and b"SEM-9702-a" in lesson
+    assert library.resolve("build/out/shortcuts/9702.json").is_relative_to(vault / "Library")
+    assert (mine / "COURSE_CURRENT").read_text() == "v1"
+    manifest = json.loads(library.read("Library/Shared/Shortcuts/Releases/v1/manifest.json"))
+    assert manifest["entries"] == ["Library/Shared/Shortcuts/Releases/v1/Entries/9702.json"]
+    assert manifest["lessons"] == ["Library/Courses/9702/Notes/Shortcuts/Published/v1/9702.json"]
     assert (mine / "events.jsonl").read_text() == '{"t": "x"}\n'
     assert (mine / "settings.json").read_text() == '{"min_score": 3}'
-    assert sorted(p.name for p in mine.iterdir()) == ["course", "events.jsonl", "settings.json"]
+    assert sorted(p.name for p in mine.iterdir()) == ["COURSE_CURRENT", "course", "events.jsonl", "settings.json"]
 
 
 def test_publishing_without_a_shortcuts_build_adds_no_course_folder(tmp_path, monkeypatch):
@@ -335,3 +480,289 @@ def test_publishing_without_a_shortcuts_build_adds_no_course_folder(tmp_path, mo
     vault = tmp_path / "vault"
     assert publish.publish(vault)["shortcuts"] == 0
     assert not (vault / ".tutor/shortcuts").exists()
+
+
+def test_failed_shortcut_publication_does_not_advance_active_manifest(tmp_path, monkeypatch):
+    import json
+    import pytest
+    from tutorlib import shortcuts
+    from tutorlib.store import Vault
+    build = _build(tmp_path, monkeypatch)
+    (build / "shortcuts/lessons").mkdir(parents=True)
+    entry_path = build / "shortcuts/P1.json"
+    lesson_path = build / "shortcuts/lessons/P1.json"
+    entry_path.write_text(json.dumps([{"id": "SEM-P1-a", "spec": "P1", "score": 9}]))
+    lesson_path.write_text(json.dumps({"SEM-P1-a": {"id": "SEM-P1-a", "hook": "old"}}))
+    vault = tmp_path / "vault"
+    publish.publish(vault)
+    pointer = vault / ".tutor/shortcuts/COURSE_CURRENT"
+    assert pointer.read_text() == "v1"
+
+    entry_path.write_text(json.dumps([{"id": "SEM-P1-a", "spec": "P1", "score": 10}]))
+    lesson_path.write_text(json.dumps({"SEM-P1-a": {"id": "SEM-P1-a", "hook": "new"}}))
+    real_write = publish.store.write_text
+    def fail_pointer(path, text, *args, **kwargs):
+        if Path(path) == pointer:
+            raise OSError("pointer replace failed")
+        return real_write(path, text, *args, **kwargs)
+    monkeypatch.setattr(publish.store, "write_text", fail_pointer)
+    with pytest.raises(OSError, match="pointer replace failed"):
+        publish.publish(vault)
+    assert pointer.read_text() == "v1"
+    active = shortcuts.load_entries(Vault(vault))
+    assert active[0]["score"] == 9 and active[0]["lesson"]["hook"] == "old"
+
+
+def test_form_diagram_asset_and_reference_are_published_together(tmp_path, monkeypatch):
+    import json
+    from pathlib import Path
+    from library_assets import read_bytes
+    build = _build(tmp_path, monkeypatch)
+    asset = build / 'Assets/P2/P2-1-geometry.svg'
+    asset.parent.mkdir(parents=True)
+    asset.write_bytes(read_bytes('build/out/Assets/P2/P2-1-geometry.svg'))
+    pack_path = build / 'packs/9701/9701-5.1.json'
+    pack = json.loads(pack_path.read_text())
+    pack['teach'] = {'kc': {'diagrams': ['Assets/P2/P2-1-geometry.svg'],
+                            'forms': [{'diagram': 'Assets/P2/P2-1-geometry.svg'}]}}
+    pack_path.write_text(json.dumps(pack))
+    vault = tmp_path / 'vault'
+    result = publish.publish(vault)
+    installed = json.loads((vault / '.tutor/packs' / result['version'] / 'specs/9701/packs/9701-5.1.json').read_text())
+    assert installed['teach']['kc']['forms'][0]['diagram'].startswith('Library/Courses/P2/Diagrams/')
+    assert list((vault / 'Library/Courses/P2/Diagrams').rglob('P2-1-geometry.svg'))
+
+
+def test_publish_rejects_missing_item_image_before_switching_current(tmp_path, monkeypatch):
+    import json
+    import pytest
+
+    build = _build(tmp_path, monkeypatch)
+    vault = tmp_path / 'vault'
+    assert publish.publish(vault)['version'] == 'v1'
+    pack_path = build / 'packs/9701/9701-5.1.json'
+    pack_path.write_text(json.dumps({'items': [{'id': 'q1', 'image': 'Assets/mcq/missing.png'}]}))
+
+    with pytest.raises(ValueError, match='unresolved pack asset.*Assets/mcq/missing.png'):
+        publish.publish(vault)
+
+    assert (vault / '.tutor/packs/CURRENT').read_text() == 'v1'
+
+
+def test_publish_rejects_missing_diagram_before_switching_current(tmp_path, monkeypatch):
+    import json
+    import pytest
+
+    build = _build(tmp_path, monkeypatch)
+    vault = tmp_path / 'vault'
+    assert publish.publish(vault)['version'] == 'v1'
+    pack_path = build / 'packs/9701/9701-5.1.json'
+    pack_path.write_text(json.dumps({'teach': {'kc': {'diagrams': ['Assets/diagrams/missing.svg']}}}))
+
+    with pytest.raises(ValueError, match='unresolved pack asset.*Assets/diagrams/missing.svg'):
+        publish.publish(vault)
+
+    assert (vault / '.tutor/packs/CURRENT').read_text() == 'v1'
+
+
+def test_publish_rejects_missing_structured_diagram_before_switching_current(tmp_path, monkeypatch):
+    import json
+    import pytest
+
+    build = _build(tmp_path, monkeypatch)
+    vault = tmp_path / 'vault'
+    assert publish.publish(vault)['version'] == 'v1'
+    pack_path = build / 'packs/9701/9701-5.1.json'
+    pack_path.write_text(json.dumps({'diagrams': [{'file': 'Assets/diagrams/missing.svg'}]}))
+
+    with pytest.raises(ValueError, match='unresolved pack asset.*Assets/diagrams/missing.svg'):
+        publish.publish(vault)
+
+    assert (vault / '.tutor/packs/CURRENT').read_text() == 'v1'
+
+
+def test_changed_same_name_asset_keeps_old_release_and_points_new_pack_to_new_content(tmp_path, monkeypatch):
+    import hashlib
+    import json
+    build = _build(tmp_path, monkeypatch)
+    asset = build / 'Assets/P2/figure.svg'
+    asset.parent.mkdir(parents=True)
+    old_bytes = b'<svg>old</svg>'
+    asset.write_bytes(old_bytes)
+    pack_path = build / 'packs/9701/9701-5.1.json'
+    pack = json.loads(pack_path.read_text())
+    pack['teach'] = {'kc': {'diagram': 'Assets/P2/figure.svg'}}
+    pack_path.write_text(json.dumps(pack))
+    vault = tmp_path / 'vault'
+    progress = vault / '.tutor/state.json'
+    progress.parent.mkdir(parents=True)
+    progress.write_text('{"learner":"keep"}')
+    held_note_rel = 'Subjects/9701 Chemistry/08 Reaction kinetics/8.1 Held.md'
+    held_note = build / 'notes' / held_note_rel
+    held_note.parent.mkdir(parents=True)
+    held_note.write_text('held draft')
+    held_pack = build / 'packs/9701/9701-8.1.json'
+    held_pack.write_text(json.dumps({'note': held_note_rel, 'items': []}))
+    hold_path = build / 'packs/HOLD.json'
+    hold_path.write_text('{"9701-8.1": "awaiting review"}')
+
+    first = publish.publish(vault)['version']
+    first_pack_path = vault / '.tutor/packs' / first / 'specs/9701/packs/9701-5.1.json'
+    first_pack = json.loads(first_pack_path.read_text())
+    assert not (vault / '.tutor/packs' / first / 'specs/9701/packs/9701-8.1.json').exists()
+    assert not list((vault / 'Library/Courses/9701/Notes').rglob('8.1 Held.md'))
+    old_target = first_pack['teach']['kc']['diagram']
+    old_asset = vault / old_target
+    assert old_asset.read_bytes() == old_bytes
+    old_catalog = json.loads((vault / 'Library/catalog.json').read_text())
+    old_owners = [entry for entry in old_catalog['assets'].values() if entry['path'] == old_target]
+    assert len(old_owners) == 1 and 'Assets/P2/figure.svg' in old_owners[0]['aliases']
+
+    new_bytes = b'<svg>new</svg>'
+    asset.write_bytes(new_bytes)
+    source_after_change = asset.read_bytes()
+    second = publish.publish(vault)['version']
+    second_pack_path = vault / '.tutor/packs' / second / 'specs/9701/packs/9701-5.1.json'
+    new_target = json.loads(second_pack_path.read_text())['teach']['kc']['diagram']
+    new_asset = vault / new_target
+
+    assert old_asset.read_bytes() == old_bytes
+    assert new_asset.read_bytes() == new_bytes
+    assert new_target != old_target and '--' in Path(new_target).name
+    assert asset.read_bytes() == source_after_change
+    assert json.loads(progress.read_text()) == {'learner': 'keep'}
+    assert hold_path.read_text() == '{"9701-8.1": "awaiting review"}'
+    # The old alias remains bound to the original immutable asset. The new pack
+    # uses the direct content-version path instead of stealing that alias.
+    final_catalog = json.loads((vault / 'Library/catalog.json').read_text())
+    old_entry = next(e for e in final_catalog['assets'].values() if e['path'] == old_target)
+    new_entry = next(e for e in final_catalog['assets'].values() if e['path'] == new_target)
+    assert 'Assets/P2/figure.svg' in old_entry['aliases']
+    assert 'Assets/P2/figure.svg' not in new_entry['aliases']
+    assert new_entry['sha256'] == hashlib.sha256(new_bytes).hexdigest()
+    assert (vault / 'Library/Releases' / first / 'manifest.json').exists()
+
+
+def test_install_engine_preserves_old_runtime_and_includes_vendored_dependencies(tmp_path, monkeypatch):
+    source = tmp_path / 'canonical/plugin/stem-tutor/skills/tutor/scripts'
+    (source / 'tutorlib').mkdir(parents=True)
+    (source / 'tutor.py').write_text('new runtime')
+    (source / 'tutorlib/session.py').write_text('vendored module')
+    monkeypatch.setattr(publish, 'ROOT', tmp_path / 'canonical')
+    vault = tmp_path / 'vault'
+    engine = vault / '.tutor/engine'
+    engine.mkdir(parents=True)
+    (engine / 'tutor.py').write_text('old runtime')
+    archive = tmp_path / 'Archive'
+
+    backup = publish.install_engine(vault, archive)
+
+    assert backup is not None and backup.parent == archive
+    assert (backup / 'tutor.py').read_text() == 'old runtime'
+    assert (engine / 'tutor.py').read_text() == 'new runtime'
+    assert (engine / 'tutorlib/session.py').read_text() == 'vendored module'
+
+
+def test_failed_engine_swap_restores_previous_runtime(tmp_path, monkeypatch):
+    source = tmp_path / 'canonical/plugin/stem-tutor/skills/tutor/scripts'
+    source.mkdir(parents=True)
+    (source / 'tutor.py').write_text('new runtime')
+    monkeypatch.setattr(publish, 'ROOT', tmp_path / 'canonical')
+    vault = tmp_path / 'vault'
+    engine = vault / '.tutor/engine'
+    engine.mkdir(parents=True)
+    (engine / 'tutor.py').write_text('old runtime')
+    real_replace = publish.os.replace
+    count = 0
+
+    def fail_install(src, dst):
+        nonlocal count
+        count += 1
+        if count == 2:
+            raise OSError('simulated failed activation')
+        return real_replace(src, dst)
+
+    monkeypatch.setattr(publish.os, 'replace', fail_install)
+    import pytest
+    with pytest.raises(OSError, match='simulated failed activation'):
+        publish.install_engine(vault, tmp_path / 'Archive')
+    assert (engine / 'tutor.py').read_text() == 'old runtime'
+    assert not list((vault / '.tutor').glob('engine.new-*'))
+
+
+def test_markdown_asset_rewrite_preserves_link_syntax_and_fenced_examples():
+    source = ('![diagram](Assets/a.svg) and [source](Assets/b.pdf "source title")\n'
+              '[[Assets/c.svg#shape|label]] ![[Assets/d.png]]\n'
+              '`![code](Assets/a.svg)` and \\[escaped](Assets/a.svg)\n'
+              '```md\n![example](Assets/a.svg)\n```\n')
+    mapping = {f'Assets/{name}': f'Library/Courses/P2/Diagrams/{name}'
+               for name in ('a.svg', 'b.pdf', 'c.svg', 'd.png')}
+    assert publish._rewrite_markdown_assets(source, mapping) == (
+        '![diagram](Library/Courses/P2/Diagrams/a.svg) and '
+        '[source](Library/Courses/P2/Diagrams/b.pdf "source title")\n'
+        '[[Library/Courses/P2/Diagrams/c.svg#shape|label]] '
+        '![[Library/Courses/P2/Diagrams/d.png]]\n'
+        '`![code](Assets/a.svg)` and \\[escaped](Assets/a.svg)\n'
+        '```md\n![example](Assets/a.svg)\n```\n')
+
+
+def test_explicit_candidate_overlay_publishes_candidate_without_touching_sources(tmp_path, monkeypatch):
+    import json
+    build = _build(tmp_path, monkeypatch)
+    sub = '9701-5.1'
+    pack = build / f'packs/9701/{sub}.json'
+    note_rel = 'Subjects/9701 Chemistry/5.1 Enthalpy.md'
+    pack.write_text(json.dumps({'subtopic': sub, 'spec': '9701', 'note': note_rel, 'outline': 'old'}))
+    other = build / 'packs/9701/9701-5.2.json'
+    other.write_text(json.dumps({'subtopic': '9701-5.2', 'note': note_rel, 'outline': 'untouched'}))
+    candidate = tmp_path / 'Preparation/pack.json'
+    candidate.parent.mkdir()
+    candidate.write_text(json.dumps({'subtopic': sub, 'spec': '9701', 'note': note_rel, 'outline': 'prepared'}))
+    note = candidate.with_suffix('.md')
+    note.write_text('# Improved lesson\n')
+    old = pack.read_bytes()
+    vault = tmp_path / 'vault'
+    (build / 'packs/HOLD.json').write_text(json.dumps({sub: 'pending review'}))
+    result = publish.publish(vault, build_root=build, candidate=(sub, candidate, note))
+    assert json.loads((build / 'packs/HOLD.json').read_text()) == {sub: 'pending review'}
+    release = vault / 'Library/Releases' / result['version']
+    prepared = json.loads((release / f'specs/9701/packs/{sub}.json').read_text())
+    assert prepared['outline'] == 'prepared'
+    assert (vault / prepared['note']).read_text() == '# Improved lesson\n'
+    assert json.loads((release / 'specs/9701/packs/9701-5.2.json').read_text())['outline'] == 'untouched'
+    assert pack.read_bytes() == old
+    from tutorlib.asset_library import AssetLibrary
+    assert AssetLibrary(vault).resolve(f'Library/Releases/{result["version"]}/specs/9701/packs/{sub}.json').is_file()
+
+
+def test_candidate_identity_mismatch_fails_before_vault_is_touched(tmp_path, monkeypatch):
+    import json
+    import pytest
+    build = _build(tmp_path, monkeypatch)
+    candidate = tmp_path / 'candidate.json'
+    candidate.write_text(json.dumps({'subtopic': '9702-2.1', 'note': '../unsafe.md'}))
+    vault = tmp_path / 'never-created'
+    with pytest.raises(ValueError, match='identity'):
+        publish.publish(vault, build_root=build, candidate=('9701-5.1', candidate, candidate))
+    assert not vault.exists()
+
+
+def test_publisher_reads_verified_library_note_adapter(tmp_path, monkeypatch):
+    import json
+    from tutorlib.asset_library import write_asset
+    build = _build(tmp_path, monkeypatch)
+    source_vault = tmp_path / 'source-vault'
+    source_vault.mkdir()
+    rel = 'Subjects/9701 Chemistry/5.1 Enthalpy.md'
+    canonical = 'Library/Courses/9701/Notes/original.md'
+    write_asset(source_vault, canonical, b'# Catalogued original\n')
+    note = build / 'notes' / rel
+    note.unlink()
+    note.symlink_to(source_vault / canonical)
+    pack = build / 'packs/9701/9701-5.1.json'
+    pack.write_text(json.dumps({'note': rel}))
+    vault = tmp_path / 'vault'
+    result = publish.publish(vault)
+    data = json.loads((vault / f'Library/Releases/{result["version"]}/specs/9701/packs/9701-5.1.json').read_text())
+    assert (vault / data['note']).is_file()
+    assert (vault / data['note']).read_text() == '# Catalogued original\n'

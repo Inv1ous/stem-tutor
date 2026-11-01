@@ -112,6 +112,37 @@ def test_a_torn_multibyte_character_loses_only_its_own_line(tmp_path):  # B-012 
     assert [e["add"] for e in v.events()] == [["a"], ["b"]] and v.bad_lines == ["2026-09.jsonl:2"]
 
 
+@pytest.mark.parametrize("invalid", ["null", "[]", '"bad"', "42", "true"])
+def test_non_object_json_line_does_not_block_other_events(tmp_path, invalid):  # B-149
+    v = store.Vault(make_vault(tmp_path))
+    path = v.tutor / "events" / "2026-09.jsonl"
+    path.parent.mkdir()
+    first = {"id": "first", "ts": "2026-09-01T10:00:00+08:00", "type": "gaps", "add": ["a"]}
+    last = {"id": "last", "ts": "2026-09-01T10:01:00+08:00", "type": "gaps", "add": ["b"]}
+    original = (json.dumps(first) + "\n" + invalid + "\n" + json.dumps(last) + "\n").encode()
+    path.write_bytes(original)
+
+    assert v.last_event_id() == "last"
+    assert list(v.events()) == [first, last]
+    assert v.bad_lines == ["2026-09.jsonl:2"]
+    assert path.read_bytes() == original
+
+
+@pytest.mark.parametrize('invalid_id', [[], {}])
+def test_unhashable_event_id_is_reported_without_losing_surrounding_events(tmp_path, invalid_id):
+    v = store.Vault(make_vault(tmp_path))
+    path = v.tutor / 'events' / '2026-11.jsonl'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    rows = [{'id': 'a', 'type': 'note'}, {'id': invalid_id, 'type': 'note'}, {'id': 'b', 'type': 'note'}]
+    original = ('\n'.join(json.dumps(row) for row in rows) + '\n').encode()
+    path.write_bytes(original)
+
+    assert [event['id'] for event in v.events()] == ['a', 'b']
+    assert v.bad_lines == ['2026-11.jsonl:2']
+    assert v.last_event_id() == 'b'
+    assert path.read_bytes() == original
+
+
 def test_unicode_line_separators_inside_an_answer_survive_replay(tmp_path):  # B-030
     v = store.Vault(make_vault(tmp_path))
     ev = v.append_event({"type": "answer", "response": "velocity displacement /time\x85\x0c"},

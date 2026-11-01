@@ -1,0 +1,24 @@
+{"model": "sonnet", "case": "physics_calculation", "ok": true, "seconds": 4.87, "message": ""}
+{"model": "sonnet", "case": "literal_code", "ok": true, "seconds": 2.87, "message": ""}
+{"model": "sonnet", "case": "speech", "ok": true, "seconds": 5.35, "message": ""}
+{"model": "sonnet", "case": "open_hint", "ok": true, "seconds": 2.43, "message": ""}
+{"model": "sonnet", "case": "context_seed_alkanes", "ok": true, "seconds": 3.0, "message": ""}
+{"model": "sonnet", "case": "context_seed_alcohols", "ok": true, "seconds": 2.94, "message": ""}
+{"model": "sonnet", "case": "context_seed_summary", "ok": true, "seconds": 2.11, "message": ""}
+{"model": "sonnet", "case": "long_context", "ok": true, "seconds": 2.21, "message": ""}
+{"model": "sonnet", "case": "mark_ionic_definition", "ok": true, "seconds": 3.59, "decisions_match_expected": true}
+{"model": "sonnet", "case": "mark_physics_units", "ok": true, "seconds": 4.45, "decisions_match_expected": true}
+{"model": "sonnet", "case": "mark_catalyst", "ok": true, "seconds": 3.88, "decisions_match_expected": true}
+{"model": "sonnet", "case": "mark_physics_omission", "ok": true, "seconds": 3.76, "decisions_match_expected": true}
+{"model": "codex:gpt-6.1-sol", "case": "physics_calculation", "ok": true, "seconds": 9.0, "message": ""}
+{"model": "codex:gpt-6.1-sol", "case": "literal_code", "ok": true, "seconds": 9.22, "message": ""}
+{"model": "codex:gpt-6.1-sol", "case": "speech", "ok": true, "seconds": 6.76, "message": ""}
+{"model": "codex:gpt-6.1-sol", "case": "open_hint", "ok": true, "seconds": 9.61, "message": ""}
+{"model": "codex:gpt-6.1-sol", "case": "context_seed_alkanes", "ok": true, "seconds": 12.12, "message": ""}
+{"model": "codex:gpt-6.1-sol", "case": "context_seed_alcohols", "ok": false, "seconds": 300.01, "message": "ChatGPT took too long to answer; try again."}
+{"model": "codex:gpt-6.1-sol", "case": "context_seed_summary", "ok": true, "seconds": 262.56, "message": ""}
+{"model": "codex:gpt-6.1-sol", "case": "long_context", "ok": true, "seconds": 7.59, "message": ""}
+{"model": "codex:gpt-6.1-sol", "case": "mark_ionic_definition", "ok": true, "seconds": 8.12, "decisions_match_expected": true}
+{"model": "codex:gpt-6.1-sol", "case": "mark_physics_units", "ok": true, "seconds": 8.52, "decisions_match_expected": true}
+{"model": "codex:gpt-6.1-sol", "case": "mark_catalyst", "ok": true, "seconds": 7.83, "decisions_match_expected": true}
+{"model": "codex:gpt-6.1-sol", "case": "mark_physics_omission", "ok": false, "seconds": 150.01, "decisions_match_expected": false}

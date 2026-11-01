@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "file",
+    "question_ids",
+    "answered_count"
+  ],
+  "properties": {
+    "file": {
+      "type": "string"
+    },
+    "question_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "answered_count": {
+      "type": "integer"
+    }
+  }
+}

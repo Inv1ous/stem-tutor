@@ -1,6 +1,8 @@
 """Mac helpers: Obsidian, the iPad inbox, and the health check (`tutor doctor`)."""
 from __future__ import annotations
 
+from contextlib import contextmanager
+from contextvars import ContextVar
 import hashlib
 import json
 import os
@@ -8,6 +10,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 from urllib.parse import quote
 
@@ -55,6 +58,25 @@ AUTOMATION_HELP = ("macOS has not allowed the tutor to switch this window's prof
                    "To allow it: System Settings › Privacy & Security › Automation › Terminal.")
 
 
+# Startup cosmetics share one synchronous budget: a failed Apple event must not
+# be followed by another full timeout before the first screen can appear.
+_terminal_deadline: ContextVar[float | None] = ContextVar("terminal_deadline", default=None)
+
+
+@contextmanager
+def terminal_budget(seconds: float = 2.0):
+    token = _terminal_deadline.set(time.monotonic() + seconds)
+    try:
+        yield
+    finally:
+        _terminal_deadline.reset(token)
+
+
+def terminal_time_left(limit: float) -> float:
+    deadline = _terminal_deadline.get()
+    return limit if deadline is None else max(0.0, min(limit, deadline - time.monotonic()))
+
+
 def terminal_tty() -> str | None:
     """The macOS Terminal tab this app runs in (/dev/ttys003), or None in any other terminal."""
     if os.environ.get("TERM_PROGRAM") != "Apple_Terminal":
@@ -71,11 +93,12 @@ def switch_terminal_profile(tty: str | None, name: str) -> tuple[str, str | None
     """Show the Terminal tab on `tty` in the profile `name` (only that tab). Returns ("ok", the profile it had),
     ("missing", None) when Terminal has no such profile, ("denied", None) when macOS refused the tutor control of
     Terminal (Automation permission, -1743), or ("", None) when it could not be asked (not in Terminal, too slow)."""
-    if not tty:
+    timeout = terminal_time_left(20)
+    if not tty or not timeout:
         return "", None
     try:
         done = subprocess.run(["osascript", "-", tty, name], input=SWITCH_PROFILE, capture_output=True, text=True,
-                              timeout=20)  # time to answer macOS's one-time prompt: killed under it, it comes back
+                              timeout=timeout)
     except (OSError, subprocess.SubprocessError):
         return "", None
     if "-1743" in done.stderr or "Not authorized" in done.stderr:
@@ -88,11 +111,12 @@ def terminal_font_size(tty: str | None, set_to: int | None = None) -> int | None
     """The text size, in points, of the Terminal tab on `tty` (after setting it to `set_to` when that is given); None when
     the tab cannot be asked. ⌘+ and ⌘− change one tab's size and nothing else: not the profile, so the next window, and
     this one after the tutor puts its profile back, start from the profile's size again."""
-    if not tty or os.environ.get("TERM_PROGRAM") != "Apple_Terminal":
+    timeout = terminal_time_left(10)
+    if not tty or not timeout or os.environ.get("TERM_PROGRAM") != "Apple_Terminal":
         return None
     args = ["osascript", "-", tty] + ([str(int(set_to))] if set_to else [])
     try:
-        done = subprocess.run(args, input=FONT_SIZE, capture_output=True, text=True, timeout=10)
+        done = subprocess.run(args, input=FONT_SIZE, capture_output=True, text=True, timeout=timeout)
     except (OSError, subprocess.SubprocessError):
         return None
     size = done.stdout.strip()
@@ -104,30 +128,31 @@ def cell_size() -> tuple[float, float] | None:
     over its columns and rows (CSI 18 t). ⌘+ and ⌘− zoom the text without changing the font size Terminal reports to
     AppleScript, but they do change this. Only while the app's own screen is not running (the answers arrive as typed
     input). None when it cannot be asked."""
-    if os.environ.get("TERM_PROGRAM") != "Apple_Terminal":
+    timeout = terminal_time_left(0.2)
+    if not timeout or os.environ.get("TERM_PROGRAM") != "Apple_Terminal":
         return None
     import select
     import termios
-    import time
     import tty
     try:
-        fd = os.open("/dev/tty", os.O_RDWR)
+        fd = os.open("/dev/tty", os.O_RDWR | os.O_NONBLOCK)
     except OSError:
         return None
     answers = []
     try:
         old = termios.tcgetattr(fd)
-        tty.setraw(fd)
+        tty.setraw(fd, termios.TCSANOW)
+        end = time.monotonic() + timeout
         try:
             for query in (14, 18):
                 os.write(fd, f"\x1b[{query}t".encode())
-                buf, end = b"", time.monotonic() + 1.0
+                buf = b""
                 while time.monotonic() < end and not re.search(rb"\[\d+;\d+;\d+t", buf):
-                    if select.select([fd], [], [], 0.1)[0]:
+                    if select.select([fd], [], [], max(0.0, min(0.02, end - time.monotonic())))[0]:
                         buf += os.read(fd, 64)
                 answers.append(buf)
         finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+            termios.tcsetattr(fd, termios.TCSANOW, old)
     except (OSError, termios.error):
         return None
     finally:
@@ -173,7 +198,10 @@ def open_in_obsidian(vault: Path, note: str = "Now", background: bool = True) ->
     else:
         url = f"obsidian://open?path={quote(str(vault / (note + '.md')))}"
     args = ["open"] + (["-g"] if background else []) + [url]
-    return subprocess.run(args, capture_output=True).returncode == 0
+    try:
+        return subprocess.run(args, capture_output=True).returncode == 0
+    except OSError:  # Obsidian, Launch Services, or macOS privacy controls can refuse the handoff
+        return False
 
 
 def import_ipad_inbox(vault: Path, inbox: Path) -> list[str]:

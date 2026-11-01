@@ -6,6 +6,7 @@ from rich.console import Console
 
 from tutor_app import cards
 from tutor_app.texmath import pretty_units, to_terminal
+from library_assets import aliases_with_prefix, read_json, read_text
 
 
 def shown(renderable, width: int = 80) -> str:
@@ -303,7 +304,8 @@ def test_a_card_never_draws_a_wobbly_glyph():
 
 def _cmaps():
     fonttools = pytest.importorskip("fontTools.ttLib")
-    out = {"JuliaMono": set(fonttools.TTFont(_REPO / "app/tutor_app/fonts/JuliaMono-Regular.ttf").getBestCmap())}
+    from library_assets import REAL_VAULT, canonical_path
+    out = {"JuliaMono": set(fonttools.TTFont(REAL_VAULT / canonical_path('app/tutor_app/fonts/JuliaMono-Regular.ttf')).getBestCmap())}
     menlo = Path("/System/Library/Fonts/Menlo.ttc")
     if menlo.exists():
         out["Menlo"] = set(fonttools.TTCollection(str(menlo)).fonts[0].getBestCmap())
@@ -337,11 +339,51 @@ def _strings(obj):
 
 
 def test_no_real_content_string_renders_with_an_unsafe_script_glyph():
-    import json
     seen: set[str] = set()
-    for f in sorted((_REPO / "build/out/packs").rglob("*.json")):
-        seen.update(_strings(json.loads(f.read_text(encoding="utf-8"))))
-    for f in sorted((_REPO / "build/out/notes").rglob("*.md")):
-        seen.update(f.read_text(encoding="utf-8").split("\n\n"))
+    packs = [alias for alias in aliases_with_prefix("build/out/packs/") if alias.endswith(".json")]
+    notes = [alias for alias in aliases_with_prefix("build/out/notes/") if alias.endswith(".md")]
+    assert packs and notes, "Library catalog has no published packs or notes"
+    for alias in packs:
+        seen.update(_strings(read_json(alias)))
+    for alias in notes:
+        seen.update(read_text(alias).split("\n\n"))
     bad = [s[:80] for s in seen if any(c in texmath.UNSAFE_GLYPHS for c in to_terminal(s))]
     assert not bad, bad[:5]
+
+
+@pytest.mark.parametrize("fence,closing", [
+    ("```python", "```"), ("```python", "````"), ("   ```python", "   ```"), ("~~~python", "~~~"),
+])
+def test_dollar_signs_in_fenced_code_do_not_consume_following_lines(fence, closing):
+    code = f'{fence}\nprice = "$5"\nformula = "$x^2$"\nprint("kept")\n{closing}\n'
+    assert to_terminal(code) == code
+
+
+def test_dollar_signs_in_unclosed_fenced_code_are_preserved_to_eof():
+    code = '```python\nprint("$price")\nprint("$total")'
+    assert to_terminal(code) == code
+
+
+@pytest.mark.parametrize("code", [
+    'Use `$price` and `$total` in code.',
+    'Use ``$x^2$ and m s^-2`` in code.',
+    'Use `first line\n$price and $total` in code.',
+])
+def test_inline_code_spans_are_preserved_byte_for_byte(code):
+    assert to_terminal(code) == code
+
+
+def test_backslash_does_not_escape_inline_code_closing_tick():
+    code = r'`$x$\` then $y$`'
+    # Markdown treats the first matching tick as the close; backslashes inside code are literal.
+    assert to_terminal(code) == r'`$x$\` then y`'
+
+
+def test_unmatched_inline_code_runs_leave_math_conversion_alone():
+    text = '`$x^2$ and ``$y^2$'
+    assert to_terminal(text) == '`x² and ``y²'
+
+
+def test_several_unmatched_inline_delimiter_lengths_do_not_hide_later_math():
+    text = 'A lone ` tick, a lone `` pair, a lone ``` triple, then $x^2$.'
+    assert to_terminal(text) == 'A lone ` tick, a lone `` pair, a lone ``` triple, then x².'

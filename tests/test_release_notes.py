@@ -5,6 +5,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from library_assets import current_guide_text
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "app"))
@@ -17,7 +18,7 @@ def test_the_changelog_status_readme_plugin_and_guide_name_the_current_version()
     assert f"Version **{__version__}**" in (REPO / "README.md").read_text(), "README.md"
     plugin = json.loads((REPO / "plugin/stem-tutor/.claude-plugin/plugin.json").read_text())
     assert plugin["version"] == __version__, "plugin.json"
-    guide = (REPO / "build/out/notes/How It Works.md").read_text()
+    guide = current_guide_text()
     assert f"_Version {__version__}_" in guide, "How It Works.md (the guide in the vault)"
 
 
@@ -25,6 +26,6 @@ def test_the_changelog_is_newest_first_and_the_guide_lists_the_current_minor_rel
     versions = re.findall(r"^## (\d+\.\d+\.\d+) — ", (REPO / "CHANGELOG.md").read_text(), re.M)
     key = lambda v: tuple(int(x) for x in v.split("."))  # noqa: E731
     assert versions == sorted(versions, key=key, reverse=True) and versions[0] == __version__
-    guide = (REPO / "build/out/notes/How It Works.md").read_text()
+    guide = current_guide_text()
     minor = ".".join(__version__.split(".")[:2])
     assert f"[!example] New in {minor}" in guide, "How It Works.md has no 'New in' note for this release line"

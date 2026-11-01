@@ -176,6 +176,85 @@ def test_learn_one_lesson_with_practice_then_a_note_with_no_lesson(tmp_path, mon
     assert syllabus_files(v) == before
 
 
+def test_auto_read_speaks_each_revealed_lesson_section_once_without_practice_answers(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    publish(v)
+    app.settings.tts_auto = True
+    spoken = []
+
+    class FakeSpeaker:
+        usable = True
+        active = False
+
+        def say(self, parts, limit=None):
+            spoken.append(list(parts) if not isinstance(parts, str) else [parts])
+
+        def stop(self):
+            pass
+
+        def problem(self):
+            return None
+
+        def close(self):
+            pass
+
+    app.speaker = FakeSpeaker()
+
+    async def steps(pilot):
+        scr = await open_from_menu(pilot, app, "shortcuts", "ShortcutsScreen")
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert scr.phase == "reveal"
+        expected = [f"{head}\n{body.plain}" for head, body in scr.secs]
+        assert len(spoken) == 1
+        assert spoken[0] == [expected[0]]
+        for n in range(1, len(expected)):
+            await pilot.press("enter")
+            await pilot.pause(0.05)
+            assert spoken[n] == [expected[n]]
+        assert len(spoken) == len(expected)
+        await pilot.press("enter")  # enter practice; its hidden answer/explanation must not be spoken
+        await pilot.pause(0.05)
+        assert scr.phase == "practice"
+        assert len(spoken) == len(expected)
+        assert all("9.0 m" not in part and "Answer:" not in part for group in spoken for part in group)
+        assert scr.readable == card(scr)  # manual Ctrl+E still reads the visible card
+        await pilot.press("ctrl+e")
+        await pilot.pause(0.05)
+        assert spoken[-1] == scr.readable_parts == [scr.readable]
+
+    run(app, steps)
+
+
+def test_help_key_opens_shared_help_from_home_and_shortcuts_at_narrow_size(tmp_path, monkeypatch):
+    from tutor_app.screens import HelpScreen, HomeScreen, SessionScreen
+
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()
+            assert isinstance(app.screen, HomeScreen)
+            await pilot.press("question_mark")
+            await pilot.pause()
+            assert isinstance(app.screen, HelpScreen)
+            await pilot.press("escape")
+            await pilot.pause()
+
+            app.push_screen(ss.ShortcutsScreen())
+            await pilot.pause()
+            assert isinstance(app.screen, ss.ShortcutsScreen)
+            await pilot.press("question_mark")
+            await pilot.pause()
+            assert isinstance(app.screen, HelpScreen)
+
+            lesson_keys = {binding.key for binding in SessionScreen.BINDINGS}
+            assert {"ctrl+t", "ctrl+r"} <= lesson_keys
+            await app.ai.close()
+
+    asyncio.run(go())
+
+
 def test_recall_a_due_card_rates_it_and_summarises(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
     publish(v)

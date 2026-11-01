@@ -34,6 +34,15 @@ if expects and expects.endswith("check.json"):
 elif expects and os.environ.get("FAKE_COPY"):
     os.makedirs(os.path.dirname(expects), exist_ok=True)
     shutil.copy(os.environ["FAKE_COPY"], expects)
+    if '.answers.part' in expects:
+        # The fixture key covers the bank; a real blind task answers only its shard.
+        questions = expects.replace('.answers.part', '.questions.part')
+        with open(questions) as stream:
+            ids = {question['id'] for question in json.load(stream)}
+        with open(expects) as stream:
+            answers = json.load(stream)
+        with open(expects, 'w') as stream:
+            json.dump({key: value for key, value in answers.items() if key in ids}, stream)
 report = json.loads(os.environ.get("FAKE_REPORT", '{"done": true}'))
 if "exec" in args:  # codex: the report goes into the file named after -o
     open(args[args.index("-o") + 1], "w").write(json.dumps(report))

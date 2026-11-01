@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import json
 import os
 import re
 import shutil
@@ -65,7 +66,27 @@ def model_dir(vault: Path | None = None) -> Path:
 
 def audio_dir(vault: Path | None = None) -> Path:
     """The cache of WAVs by key: the pre-generators write here, the app reads here first."""
-    return Path(vault or config.vault_path()) / ".tutor" / "audio"
+    root = Path(vault or config.vault_path())
+    legacy = root / '.tutor' / 'audio'
+    storage = root / '.tutor' / 'storage.json'
+    if storage.exists():
+        try:
+            settings = json.loads(storage.read_text(encoding='utf-8'))
+        except (OSError, ValueError):
+            return legacy
+        if not isinstance(settings, dict):
+            return legacy
+        audio = settings.get('audio_cache', {})
+        if not isinstance(audio, dict):
+            return legacy
+        if audio.get('mode') == 'device':
+            namespace = audio.get('namespace', '')
+            if not isinstance(namespace, str) or not re.fullmatch(r'[a-zA-Z0-9_-]{1,80}', namespace):
+                return legacy
+            default = Path.home() / ('Library/Caches' if sys.platform == 'darwin' else '.cache')
+            cache = Path(os.environ.get('STEM_TUTOR_CACHE_ROOT') or default)
+            return cache / 'STEM Tutor' / namespace / 'audio'
+    return legacy
 
 
 def __getattr__(name: str):  # MODEL_DIR / AUDIO_DIR: the current vault's (STEM_TUTOR_VAULT, STEM_TUTOR_TTS_DIR)
@@ -352,6 +373,7 @@ class Speaker:
         self._cond = threading.Condition()
         self._thread: threading.Thread | None = None
         self._closed = False
+        self._inflight: set[Path] = set()
 
     LIVE_KEEP = 200
 
@@ -490,14 +512,43 @@ class Speaker:
         texts = [t for t in (spoken(p) for p in parts) if t]
         if len(texts) == 1 and limit:
             texts = [clip(texts[0], limit)]
+        protected: set[Path] = set()
+        all_live = {path for text in texts for path in
+                    self.live_dir.glob(f"{key_for(text, voice, speed)}.wav")}
         for text in texts:
-            pieces = [text] if self._found(key_for(text, voice, speed)) else chunks(text) or [text]
-            for i, piece in enumerate(pieces):
+            for piece in chunks(text) or [text]:
+                path = self.live_dir / f"{key_for(piece, voice, speed)}.wav"
+                if path.is_file():
+                    all_live.add(path)
+        protected.update(all_live)
+        component_texts = []
+        for text in texts:
+            whole = key_for(text, voice, speed)
+            component_texts.extend([text] if (self.audio_dir / f"{whole}.wav").is_file()
+                                   or (self.live_dir / f"{whole}.wav").is_file() else (chunks(text) or [text]))
+        for piece in component_texts:
+            path = self.live_dir / f"{key_for(piece, voice, speed)}.wav"
+            if path.is_file():
+                protected.add(path)
+        protected.update(self.live_dir / f"{key_for(piece, voice, speed)}.wav" for piece in component_texts)
+        with self._cond:
+            self._inflight.update(protected)
+        try:
+            i = 0
+            for piece in component_texts:
                 if self._stale(gen):
                     return
                 if (path := self._one(piece, voice, speed)) is None:
                     return
+                protected.add(path)
+                with self._cond:
+                    self._inflight.add(path)
                 yield path, PAUSE_SECONDS * (1 if i else 2)
+                i += 1
+        finally:
+            with self._cond:
+                self._inflight.difference_update(protected)
+            self._prune()
 
     def _found(self, key: str) -> Path | None:
         """The audio already made for this key (the pre-generated line first); a live one counts as just used (Q-012)."""
@@ -521,13 +572,16 @@ class Speaker:
         except TTSUnavailable as e:
             self._say_once(str(e))
             return None
-        self._prune()
         return path
 
     def _prune(self) -> None:
         try:
             files = sorted(self.live_dir.glob("*.wav"), key=lambda p: p.stat().st_mtime)
-            for old in files[:-self.LIVE_KEEP]:
+            with self._cond:
+                protected = self._inflight.copy()
+            removable = [path for path in files if path not in protected]
+            excess = max(0, len(files) - self.LIVE_KEEP)
+            for old in removable[:excess]:
                 old.unlink(missing_ok=True)
         except OSError:
             pass

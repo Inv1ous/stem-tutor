@@ -29,6 +29,10 @@ Do not report style, wording preferences, missing extras, or anything you cannot
 
 `build/work/foundry/<subtopic>.check.json`:
 
+Use the report path and directory-creation command supplied in the job prompt. For manual work in the
+repository, use the relative path above. In shell commands, quote each entire path operand; never partially
+escape an absolute path or leave a space-containing segment unquoted.
+
 ```json
 {"findings": [{"where": "item 9702-2.2-i07 hint 2", "rule": "hint gives it away",
                "evidence": "the exact quoted text", "fix": "one-line suggestion"}]}
@@ -46,3 +50,37 @@ the library lacks, preferring official exam board and university sources, and ne
 ## Finish
 
 Reply with one line: the number of findings and the file you wrote.
+
+## Prepared teaching contract
+
+Prepare Learn a topic teaching with foundations and prerequisite bridges, explicit terms/notation,
+evidence-backed question forms, staged worked examples, separate independent checks, misconceptions,
+practice and review. Reuse the guided-card schema, lesson actions and reviewed Library diagrams first.
+An SVG or image must help a specific KC/form; retain its provenance, caption and accessible description,
+and inspect it before calling it reviewed. Live AI adapts explanations and practice to learner responses.
+Keep missing sources explicit; schema passes and model confidence do not establish teaching approval.
+
+Edit only the explicit candidate pack/note paths in the worker prompt. Library-backed file adapters are
+read-only references. Preserve stable IDs, historical answers, source-bound corrections and original
+baselines. Never replace a baseline or correction-review binding to clear a failed gate.
+
+Teaching the underlying definition, notation or general method is expected, including before a recall check.
+Reject leakage when the learner-visible material supplies the answer to this particular task (for example its
+computed result, option, or a duplicate worked question), rather than solely because the concept was taught.
+For a definition or symbol-recall check, prior teaching of that definition or symbol alone is not leakage. A hint
+that directly gives the requested answer is still leakage. Quote the exact visible disclosure when rejecting.
+Private model-answer/rubric fields, including nested `context.form_content` and retry marking fields, are review
+data; their presence alone does not show what the learner sees before attempting the check.
+
+Rubric keyword groups are advisory signals: `grade.py` still requests semantic judgement. Judge the complete
+answer against the stated mark point, accepting mathematically or scientifically equivalent expressions.
+A keyword match cannot establish correctness, and a missing literal keyword alone cannot establish an error.
+
+## Current candidate paths
+
+Use the exact pack/note/draft paths in this job's prompt. For manual work, resolve the chapter through this
+workflow's `pack_path` and note/draft resolver using its current state. A similarly named `Work/Candidates` file
+is not evidence that it is current. Record SHA-256 hashes of inputs before editing or reviewing; before writing,
+confirm the selected paths and source bytes have not changed since you read them, apart from your intentional
+edits. On a mismatch, preserve your work separately and report the conflict. Never guess a candidate filename,
+retarget a Library adapter, or overwrite a different candidate to make paths agree.

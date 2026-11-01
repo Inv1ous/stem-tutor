@@ -132,6 +132,36 @@ def test_normalise_range_and_garbage(packs):
     assert cfg["count"] == 1
 
 
+@pytest.mark.parametrize("key", ["count", "lo", "hi"])
+@pytest.mark.parametrize("value", ["9" * 400, float("inf"), 10 ** 400],
+                         ids=["digit-string", "infinity", "large-int"])
+def test_load_config_recovers_unrepresentable_numbers(vault, packs, key, value):
+    path = vault.tutor / "challenge/settings/last.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"topics": ["9702-5.1"], key: value}))
+    before = path.read_bytes()
+
+    cfg = ch.load_config(vault, packs)
+
+    assert cfg[key] == ch.DEFAULT_CONFIG[key]
+    assert cfg["topics"] == ["9702-5.1"]
+    assert len(ch.plan_slots(cfg)) == 10
+    assert path.read_bytes() == before
+
+
+def test_load_config_recovers_unrepresentable_typed_share(vault, packs):
+    path = vault.tutor / "challenge/settings/last.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"topics": ["9702-5.1"], "typed_share": 10 ** 400}))
+    before = path.read_bytes()
+
+    cfg = ch.load_config(vault, packs)
+
+    assert cfg["typed_share"] == 0.5 and cfg["topics"] == ["9702-5.1"]
+    assert [slot["kind"] for slot in ch.plan_slots(cfg)] == ["mcq", "typed"] * 5
+    assert path.read_bytes() == before
+
+
 def test_plan_slots_kinds_exact_and_not_clumped():
     for n in (1, 2, 5, 10, 17, 30):
         for share in (0.0, 0.25, 0.5, 0.75, 1.0):
@@ -404,7 +434,9 @@ def test_save_goes_through_store_write_text(monkeypatch, vault, cs):
     real = store.write_text
     monkeypatch.setattr("tutorlib.challenge.write_json", lambda p, d, indent=1: (calls.append(p), real(p, json.dumps(d)))[1])
     cs.record(0, "1", {"correct": True}, 1)
-    assert calls == [cs.path]
+    assert calls and set(calls) == {cs.path}
+    saved = json.loads(cs.path.read_text())
+    assert saved["answers"] == cs.answers and "pending_event" not in saved
 
 
 # ---------- challenge events must not disturb the learner's record ----------

@@ -7,7 +7,7 @@ is there: a `no-loss` gate proves it before anything reaches your vault.
 
 It runs exactly like the foundry (`foundry/README.md`): headless workers on your Claude and Codex allowances, chosen
 by the same router (`foundry/router.py`, imported, not copied), the blind solve by the other AI family, tiebreak,
-adjudicator, fixer, and signing that publishes into the vault and commits. Only the use differs.
+adjudicator, fixer, and signing that publishes into the vault and commits. Publication and commits occur only when enabled and successful. The persisted scope controls what may be added.
 
 ## Stages
 
@@ -17,6 +17,7 @@ adjudicator, fixer, and signing that publishes into the vault and commits. Only 
 | `refine` | **refiner** | A snapshot of the chapter is taken first. Then exactly the plan, by appending only: new items `<chapter>-r01…`, new note lines and sections, new card lines, new diagrams (rendered with `build/diagrams.py`) | The gates are green |
 | gates | (no tokens) | The foundry's gates (validator, note lint, syllabus, links + diagrams) **plus no-loss** (below) **plus the plan check** (new items are `-rNN`, what was planned exists, caps hold, diagrams rendered) | A failure sends the chapter back to the refiner, one tier up, with the list |
 | `solve` | **solver** (the other family, blind) + **checker** | Only the **new** questions are stripped and solved; the checker reads only the additions (`build/work/refine/<chapter>.additions.md`) | Both reported |
+| written review | **wsolver**, then **wreviewer** | The solver sees written-check stems only and writes blind solutions; the reviewer compares them with the checks, answers and rubrics. Accepted decisions are bound to review records; rejected or missing decisions become findings. | Pending written checks have decisions and valid bindings |
 | `tiebreak` | **tiebreak** (blind) | The disputed new questions only | Compared |
 | `check` | | Waiting for the checker | Findings in |
 | `adjudicate` | manager / **adjudicator** | Open disputes and findings, as in the foundry | Every item decided |
@@ -28,13 +29,15 @@ adjudicator, fixer, and signing that publishes into the vault and commits. Only 
 
 | Role | On Claude, first rung → next | On Codex, first rung → next | Web |
 |---|---|---|---|
-| **Scout** | Sonnet low → medium | `gpt-6-sol` low → medium | yes |
-| **Refiner** (the maker) | Opus low → medium | `gpt-6-sol` medium → `gpt-6-astra` medium | yes |
-| **Solver** | Haiku → Sonnet low | `gpt-6-sol` low → medium | |
-| **Checker** | Haiku → Sonnet low | `gpt-6-sol` low → medium | |
-| **Tiebreak** | Sonnet low → medium | `gpt-6-sol` low → medium | |
-| **Fixer** | Haiku → Sonnet low | `gpt-6-luna` low → `gpt-6-sol` low | |
-| **Adjudicator** | Opus medium → high | `gpt-6-astra` medium → high | |
+| **Scout** | Sonnet low → medium | `gpt-6.1-terra` low → medium | yes |
+| **Refiner** (the maker) | Opus low → medium | `gpt-6.1-terra` medium → `gpt-6.1-sol` medium | yes |
+| **Solver** | Haiku 5.5 → Sonnet low | `gpt-6.1-terra` low → medium | |
+| **Checker** | Haiku 5.5 → Sonnet low | `gpt-6.1-terra` low → medium | |
+| **Tiebreak** | Sonnet low → medium | `gpt-6.1-terra` low → medium | |
+| **Written solver** | Sonnet low → medium | `gpt-6.1-terra` low → medium | |
+| **Written reviewer** | Sonnet medium → Opus medium | `gpt-6.1-terra` medium → `gpt-6.1-sol` medium | |
+| **Fixer** | Haiku 5.5 → Sonnet low | `gpt-6-luna` low → `gpt-6.1-terra` low | |
+| **Adjudicator** | Opus medium → high | `gpt-6.1-sol` medium → high | |
 | **Manager** | Sonnet medium (`/refine`) | | |
 
 Each role starts on its first rung; a chapter's retry after its own failed job goes one rung up; a rung that fails a
@@ -42,6 +45,16 @@ role twice running is not used again (the router's notes are shared with the fou
 one system holds in the other). The allowance that the **refiner** ran on is the chapter's maker for this pass: its
 new questions are solved and tiebroken by the other family. `only codex|claude|off` is the foundry's own switch (one
 setting for both systems); a chapter signed with its own family checking it is marked `same_family`.
+
+## Lessons scope
+
+Lessons scope is strictly additive: preserve subject-note bytes and all existing assessment items, including stems,
+options, answers and rubrics; do not add unrelated assessment-bank questions. Add teaching cards, worked examples,
+checks, misconceptions and card-bound diagrams without changing existing entries. Record suspected source problems
+in `not_done` for an independent correction workflow; do not generate corrections files in lessons scope. Edit the
+exact `candidate_teach` path in the prompt and merge using its explicit `--draft` and `--pack` command. Use verified
+canonical Library paths and accessible descriptions for source graphics; omit and report unverifiable graphics rather
+than inventing embeds. These instructions apply to new prompts; active workers retain prompts already passed.
 
 ## The safety guarantee: no-loss
 
@@ -100,8 +113,8 @@ bin/refine install-skill
 
 ## Sources library
 
-The scout and the refiner read the learner's own PDFs (textbooks, school notes, revision guides) under
-`sources/library/` through `build/library.py`:
+The scout and refiner read the learner's catalogued PDFs (textbooks, school notes, revision guides) under
+`../STEM Tutor/Library/Courses/<course>/Sources/` through `build/library.py`:
 
 ```
 .venv/bin/python build/library.py for <chapter>              passages matched to this chapter
@@ -118,11 +131,11 @@ The scout may plan up to 3 `figure` entries (`{pdf, page, box, caption, kc, why}
 page of your library has a clearly useful figure for the chapter: one that shows what a syllabus point is about, is
 legible on its own and is something the diagram types cannot draw (apparatus, molecular models, mechanisms, real
 graphs). It looks at the page first (`library.py figures`, `page`, then the Read tool on the PNG); no figure beats a
-poor one. The refiner crops each with `library.py crop`, looks at the result, and embeds it with its source line and
-one line on what to notice. Gates: the foundry's `figures` check (file, sidecar, checksum, source caption within 2
-lines), at most 3 new figures, every planned figure embedded, each new embed backed by a file and a sidecar. A figure
-is only ever added, never in place of a diagram (the no-loss rule). The PNGs live in `build/out/assets/`, which git
-ignores: they are copied to your vault and never committed. See `sources/library/README.md`.
+poor one. The refiner crops each with `library.py crop` and inspects it. In lessons scope it binds a verified canonical Library
+path to a card with provenance and an accessible description; full scope uses the source-captioned note embed. Gates: the foundry's `figures` check (file, sidecar, checksum, source caption within 2
+lines for note embeds), at most 3 new figures, and scope-appropriate binding backed by a file and sidecar. A figure
+is only ever added, never in place of a diagram (the no-loss rule). PNGs and provenance live in the shared Library;
+use the canonical embed returned by the crop command. Historical paths remain catalog aliases.
 
 ## Web
 
@@ -139,7 +152,46 @@ itself has no such flag). The foundry has no such setting yet.
 | `refine/refine.py` | Board, gates (no-loss, plan), launcher, CLI; imports the foundry's helpers and router |
 | `refine/config.json` | Ladders, weights, caps (diagrams, figures, questions, additions), web roles, parallel slots, reserve |
 | `refine/roles/*.md` | Scout and refiner in full; solver, checker, tiebreak, fixer, adjudicator as short adaptations of the foundry's |
-| `refine/schemas/*.json` | Reports the scout, refiner, fixer and tiebreak return |
+| `refine/schemas/*.json` | Final worker reports, including written solver and reviewer reports; their answers and decisions are separate files |
 | `refine/skill/SKILL.md` | `/refine` |
 | `refine/state/<chapter>.json` | Each chapter's stage, pass, plan summary, maker, disputes, findings, refined count and date |
 | `bin/refine` | Runs it from any folder |
+
+## Run limits and report
+
+The board enforces a persisted 3600-second wall-clock budget per course across chapters/restarts;
+9701 and 9702 retain their large-course exception. At a deadline, leave incomplete work pending.
+Honor `weekly_launch_cap` and provider reserves in `refine/config.json`, plus any stricter current user limit.
+Do not launch when actual or projected use reaches a limit; unknown weekly usage means wait for a reading.
+Change limits only at the user's direction. Preserve the shared `only` preference and configured
+`publish_on_sign` / `commit_on_sign` switches. A signed candidate is in the learner vault only when
+publication actually ran successfully. No full-course paid regeneration is needed for verification.
+
+Report: completed candidate chapters and hashes/preparation timestamps; prepared teaching coverage
+(foundations, terms, forms, examples, separate checks, misconceptions, useful visuals); source gaps
+and independent review still required; queued/pending chapters and budget stop reasons; exact known
+allowance readings (state unknown explicitly); publication/commit outcome. Do not describe registration,
+schema validation or an audio cache as teaching approval or preparation age.
+
+An explicitly requested `bin/refine new-run COURSE` starts a distinct course run and archives
+the previous deadline/run ID. It refuses while a course worker/manual job is active, preserves
+pending chapter history/candidates, and permits intentional renewal after an expired run.
+Never invoke `new-run` automatically from continuation, add, retry, queue or restart.
+
+## Model policy (2026-10-30)
+
+Codex tiers are `gpt-6.1-sol` (maximum), `gpt-6.1-terra` (medium), and
+`gpt-6-luna` (lowest). The current configuration has ladders for both Claude and Codex; the shared `only` preference governs
+which provider may actually run. The blind solver uses another family when available, subject to that preference. Haiku slots explicitly use
+`claude-haiku-5-5`. Existing efforts, provider preferences and budgets remain in force.
+
+
+## Reliability and spending safeguards
+
+Run `bin/foundry doctor` before paid work; it exercises native SVG rendering and imports the PDF/image libraries, rather than only checking package names. Refine and Foundry direct launches also perform this check. Extraction verifies registered PDF hashes before each worker. Bugwatch must use its verified disposable vault and run the same doctor before an AI repair attempt.
+
+The shared paid-worker guard stops a role after two failed results in one pass/job, including timeouts, malformed output and failed gates. Changing model output does not reset this allowance. Inspect saved evidence and fix the root cause before explicitly clearing the guard. `bin/refine unstick CHAPTER "reason"`, `bin/foundry unstick CHAPTER`, or `bin/extract unstick JOB "reason"` archives the decision; never run these automatically. Provider preferences, review gates and course deadlines still apply. Repeated Refine failures preserve candidate work and leave the chapter pending.
+
+Existing question text containing PDF debris is a source-repair task, not a lesson-authoring task. Refine blocks lessons-scope workers before spending on such items. Never infer ×, −, Ω or another symbol solely from a control character: inspect the original PDF/image and bind independent source review to a new revision. Missing guided forms must be authored against the complete reviewed inventory, not filled with placeholders. Every planned lesson visual must be registered, inspected and bound to its teaching card with an accessible description. Written approval remains independent of authoring.
+
+Use the configured weekly launch cap and provider reserves, plus any stricter user limit. Unknown allowance readings block launches. Change limits only at the user's direction; do not automatically restart an expired course run. For Bugwatch, compare the current failure with the previous attempt: if inputs and blocker are unchanged, stop instead of asking another model to repeat the same repair. Source gaps and disputed content remain visible; tests do not establish teaching approval.

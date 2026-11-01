@@ -99,7 +99,7 @@ def _library_lines(subtopic: str) -> list[str]:
     if not rows:
         return []
     L = ["## Library hits for this chapter", "",
-         "Pages in the learner's library (`sources/library`) that match this chapter's points. Open the useful ones with "
+         "Pages in the learner's shared `STEM Tutor/Library` that match this chapter's points. Open the useful ones with "
          "`.venv/bin/python build/library.py text <pdf> --pages a-b` (or a figure with `figures`/`page`/`crop`), paraphrase, "
          "and cite file and page in your report.", ""]
     for kc, title, hits in rows[:12]:

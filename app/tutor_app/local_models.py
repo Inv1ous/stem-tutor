@@ -44,6 +44,10 @@ KEEP_ALIVE = {
 # Gemma's default 4096-token window can be consumed entirely by its input and hidden thinking.
 CONTEXT_LENGTH = {model: 8192 for model in LOCAL_MODELS if model not in ("ollama:qwen3.5:9b", "ollama:qwen3.8:27b")}
 MAX_CONTEXT_LENGTH = {model: 16384 for model in CONTEXT_LENGTH}
+# Native Qwen27 exhausted Metal memory on the measured long-history case. This
+# planning target prunes optional history only; full current evidence is preserved.
+# It changes no runtime context, reasoning, sampling or generation settings.
+HISTORY_PROMPT_LIMIT = {"ollama:qwen3.8:27b": 2048}
 
 
 def supports_vision(model: str | None) -> bool:

@@ -1,7 +1,8 @@
 """Ollama tutoring over loopback HTTP, with private histories and cancellable streams.
 
-Only the installed SSD models are accepted. Reply text and speech share the Claude client's parsing; local
-performance stays in Result.performance and never contributes to the Claude subscription's counters.
+Only the installed SSD models are accepted. Tutor documents share provider-neutral validation and rendering;
+legacy direct callers keep their reply envelope. Local performance stays in Result.performance and never
+contributes to the Claude subscription's counters.
 """
 from __future__ import annotations
 
@@ -29,9 +30,9 @@ class LocalError(Exception):
 
 
 class LocalAI:
-    def __init__(self, system: str, speech: bool = False):
+    def __init__(self, system: str, speech: bool = False, *, document: bool = False):
         from .ai import Result
-        self.system, self.speech = system, speech
+        self.system, self.speech, self.document = system, speech, document
         self.last = Result()
         self._history: dict[tuple[str, bool | str | None, bool], list[dict]] = {}
         self._shown: dict[tuple[str, bool | str | None, bool], tuple[str, str]] = {}
@@ -462,8 +463,12 @@ class LocalAI:
     @staticmethod
     def _failure(exc: Exception, text: str = ""):
         from .ai import Result
+        from .chat_output import DocumentError
+        from .local_context import ContextError
         message = ("The local AI took too long to answer; try again." if isinstance(exc, asyncio.TimeoutError)
-                   else str(exc) if isinstance(exc, LocalError)
+                   else f"The local AI returned an incomplete structured answer; try again. ({exc})"
+                   if isinstance(exc, DocumentError)
+                   else str(exc) if isinstance(exc, (LocalError, ContextError))
                    else "The local AI stopped or sent an unreadable reply. Check Ollama and the external SSD, then try again.")
         return Result(ok=False, status="error", message=message, text=text)
 
@@ -495,7 +500,13 @@ class LocalAI:
         generation = self._generation
         parts, first, finished = [], None, False
         self.last = Result(ok=False, status="error", message="The local reply was cancelled; try again.")
-        decoder = ReplyDecoder(speech=self.speech)
+        if self.document:
+            from .chat_output import DocumentDecoder, document_schema
+            decoder = DocumentDecoder(speech=self.speech)
+            schema = document_schema(self.speech)
+        else:
+            decoder = ReplyDecoder(speech=self.speech)
+            schema = chat_schema(self.speech)
         try:
             name = self._check(model)
             key = (model, self._effort(model, think), self.speech)
@@ -517,8 +528,19 @@ class LocalAI:
                 image_key = (str(image), hashlib.sha256(pixels).hexdigest())
                 if self._shown.get(key) != image_key:
                     user["images"] = [base64.b64encode(pixels).decode()]
-            schema = chat_schema(self.speech)
-            system = chat_system(self.system, speech=self.speech) + "\n\n" + json_instruction(schema)
+            system = chat_system(self.system, speech=self.speech, document=self.document)
+            if not self.document:
+                system += "\n\n" + json_instruction(schema)
+            if self.document:
+                from .local_context import DEFAULT_CONTEXT, select_history
+                context = self._contexts.get(model, local_models.CONTEXT_LENGTH.get(model, DEFAULT_CONTEXT))
+                history = select_history(system, schema, user, history, context=context,
+                                         history_prompt_limit=local_models.HISTORY_PROMPT_LIMIT.get(model))
+                # A matching image in _shown is useful only while its turn is retained.
+                if image_key is not None and not any(message.get("images") for message in history):
+                    user["images"] = [base64.b64encode(pixels).decode()]
+                    history = select_history(system, schema, user, history, context=context,
+                                             history_prompt_limit=local_models.HISTORY_PROMPT_LIMIT.get(model))
             payload = {"model": name, "stream": True, "think": think, "format": schema,
                        "keep_alive": local_models.KEEP_ALIVE[model],
                        "messages": [{"role": "system", "content": system},
@@ -535,19 +557,26 @@ class LocalAI:
                             parts.append(visible)
                             yield visible
                     if event.get("done"):
+                        if self.document and event.get("done_reason") in ("length", "max_tokens", "max_length"):
+                            raise LocalError("The local AI reached its context or output limit; the reply is incomplete. "
+                                             "Start a fresh chat or shorten the supplied material, then try again.")
                         self._check(model)  # an SSD removed during inference must not become a successful call
                         if generation != self._generation:
                             raise LocalError("The local conversation was reset; try again.")
                         text, speech = decoder.finish()
-                        if speech:
+                        if speech and not self.document:
                             text = text.rstrip()  # preserve the existing spoken-reply result contract
                         if not text.strip():
                             raise LocalError("The local AI returned an empty reply; try again.")
                         performance = self._performance(event, model, first)
                         performance["total_seconds"] = max(performance["total_seconds"], time.monotonic() - started)
                         self.last = Result(text=text, speech=speech.strip(), performance=performance)
-                        history_text = text + (f"\n{SPEECH_MARK} {speech}" if speech else "")
-                        self._history[key] = [*history, user, {"role": "assistant", "content": history_text}]
+                        history_text = decoder.wire if self.document else text + (f"\n{SPEECH_MARK} {speech}" if speech else "")
+                        committed = [*history, user, {"role": "assistant", "content": history_text}]
+                        if self.document:
+                            from .local_context import bounded_history
+                            committed = bounded_history(committed)
+                        self._history[key] = committed
                         if "images" in user:
                             self._shown[key] = image_key
                         finished = True

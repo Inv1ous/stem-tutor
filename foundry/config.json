@@ -1,113 +1,186 @@
 {
- "max_parallel": {
-  "codex": 3,
-  "claude": 4
- },
- "reserve": {
-  "codex": 30,
-  "claude": 5
- },
- "window_cap": {
-  "claude": {
-   "five_hour": {
-    "cap": 80,
-    "until": 1792075800,
-    "until_cap": 95
-   }
-  }
- },
- "web": [
-  "drafter",
-  "adjudicator"
- ],
- "ladders": {
-  "drafter": {
-   "codex": [
-    ["gpt-6-sol", "low"],
-    ["gpt-6-sol", "medium"]
-   ],
-   "claude": [
-    ["opus", "low"],
-    ["opus", "medium"]
-   ]
+  "max_parallel": {
+    "codex": 3,
+    "claude": 4
   },
-  "fixer": {
-   "codex": [
-    ["gpt-6-luna", "low"],
-    ["gpt-6-sol", "low"]
-   ],
-   "claude": [
-    ["haiku", ""],
-    ["sonnet", "low"]
-   ]
+  "reserve": {
+    "codex": 10,
+    "claude": 5
   },
-  "solver": {
-   "codex": [
-    ["gpt-6-sol", "low"],
-    ["gpt-6-sol", "medium"]
-   ],
-   "claude": [
-    ["haiku", ""],
-    ["sonnet", "low"]
-   ]
+  "window_cap": {
+    "claude": {
+      "five_hour": {
+        "cap": 80,
+        "until": 1792075800,
+        "until_cap": 95
+      }
+    }
   },
-  "tiebreak": {
-   "codex": [
-    ["gpt-6-sol", "low"],
-    ["gpt-6-sol", "medium"]
-   ],
-   "claude": [
-    ["sonnet", "low"],
-    ["sonnet", "medium"]
-   ]
+  "web": [
+    "drafter",
+    "adjudicator"
+  ],
+  "ladders": {
+    "drafter": {
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ],
+      "claude": [
+        [
+          "opus",
+          "low"
+        ],
+        [
+          "opus",
+          "medium"
+        ]
+      ]
+    },
+    "fixer": {
+      "codex": [
+        [
+          "gpt-6-luna",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "low"
+        ]
+      ],
+      "claude": [
+        [
+          "claude-haiku-5-5",
+          ""
+        ],
+        [
+          "sonnet",
+          "low"
+        ]
+      ]
+    },
+    "solver": {
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ],
+      "claude": [
+        [
+          "claude-haiku-5-5",
+          ""
+        ],
+        [
+          "sonnet",
+          "low"
+        ]
+      ]
+    },
+    "tiebreak": {
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ],
+      "claude": [
+        [
+          "sonnet",
+          "low"
+        ],
+        [
+          "sonnet",
+          "medium"
+        ]
+      ]
+    },
+    "checker": {
+      "codex": [
+        [
+          "gpt-6.1-terra",
+          "low"
+        ],
+        [
+          "gpt-6.1-terra",
+          "medium"
+        ]
+      ],
+      "claude": [
+        [
+          "claude-haiku-5-5",
+          ""
+        ],
+        [
+          "sonnet",
+          "low"
+        ]
+      ]
+    },
+    "adjudicator": {
+      "codex": [
+        [
+          "gpt-6.1-sol",
+          "medium"
+        ],
+        [
+          "gpt-6.1-sol",
+          "high"
+        ]
+      ],
+      "claude": [
+        [
+          "opus",
+          "medium"
+        ],
+        [
+          "opus",
+          "high"
+        ]
+      ]
+    }
   },
-  "checker": {
-   "codex": [
-    ["gpt-6-sol", "low"],
-    ["gpt-6-sol", "medium"]
-   ],
-   "claude": [
-    ["haiku", ""],
-    ["sonnet", "low"]
-   ]
+  "weights": {
+    "codex": {
+      "drafter": 1.0,
+      "adjudicator": 0.4,
+      "checker": 0.2,
+      "tiebreak": 0.15,
+      "solver": 0.15,
+      "fixer": 0.1
+    },
+    "claude": {
+      "drafter": 3.0,
+      "adjudicator": 0.8,
+      "checker": 0.2,
+      "tiebreak": 0.2,
+      "solver": 0.15,
+      "fixer": 0.1
+    }
   },
-  "adjudicator": {
-   "codex": [
-    ["gpt-6-astra", "medium"],
-    ["gpt-6-astra", "high"]
-   ],
-   "claude": [
-    ["opus", "medium"],
-    ["opus", "high"]
-   ]
-  }
- },
- "weights": {
-  "codex": {
-   "drafter": 1.0,
-   "adjudicator": 0.4,
-   "checker": 0.2,
-   "tiebreak": 0.15,
-   "solver": 0.15,
-   "fixer": 0.1
-  },
-  "claude": {
-   "drafter": 3.0,
-   "adjudicator": 0.8,
-   "checker": 0.2,
-   "tiebreak": 0.2,
-   "solver": 0.15,
-   "fixer": 0.1
-  }
- },
- "solver_shard_size": 20,
- "publish_on_sign": true,
- "commit_on_sign": true,
- "audit_reviewed": [
-  "D1-5.3",
-  "FP2-3.1",
-  "P2-6.1",
-  "P3-2.2",
-  "P3-4.1"
- ]
+  "solver_shard_size": 20,
+  "publish_on_sign": true,
+  "commit_on_sign": true,
+  "audit_reviewed": [
+    "D1-5.3",
+    "FP2-3.1",
+    "P2-6.1",
+    "P3-2.2",
+    "P3-4.1"
+  ],
+  "weekly_launch_cap": 90
 }

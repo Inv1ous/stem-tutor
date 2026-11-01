@@ -41,8 +41,9 @@ def test_exec_uses_subscription_and_isolated_tools_with_provider_usage(tmp_path,
     assert args[args.index("--sandbox") + 1] == "read-only"
     assert args[args.index("--model") + 1] == "gpt-6.1-sol"
     assert 'forced_login_method="chatgpt"' in args and 'web_search="disabled"' in args
-    for feature in ("shell_tool", "apps", "plugins", "hooks", "multi_agent"):
+    for feature in ("shell_tool", "apps", "plugins", "hooks", "multi_agent", "view_image"):
         assert f"features.{feature}=false" in args
+    assert "tools.view_image=false" not in args  # installed Codex reports this setting as ignored
     assert not row["api_key_present"] and row["cwd"] != str(tmp_path)
     assert "Tutor instructions" in row["instructions"] and "[[SPEECH]]" in row["instructions"]
     assert not Path(row["cwd"]).exists()
@@ -321,3 +322,42 @@ def test_queued_stream_deadline_cancels_without_launch_or_active_result_mutation
             await client.close()
 
     asyncio.run(go())
+
+
+@pytest.mark.parametrize("image_name,create", [("diagram.svg", True), ("missing.png", False)])
+def test_unavailable_diagram_stops_codex_help_before_request(tmp_path, monkeypatch, image_name, create):
+    client = make(tmp_path, monkeypatch)
+    image = tmp_path / image_name
+    if create:
+        image.write_text('<svg xmlns="http://www.w3.org/2000/svg"/>')
+
+    async def go():
+        chunks = [part async for part in client.stream("Explain this diagram", image=image, model=MODEL)]
+        result = client.last
+        await client.close()
+        return chunks, result
+
+    chunks, result = asyncio.run(go())
+    assert not result.ok and "diagram" in result.message.lower()
+    assert chunks == []
+    assert not (tmp_path / "requests.jsonl").exists()
+
+
+def test_removed_previous_diagram_stops_codex_follow_up(tmp_path, monkeypatch):
+    client = make(tmp_path, monkeypatch)
+    image = tmp_path / "diagram.png"
+    image.write_bytes(b"diagram")
+
+    async def go():
+        _ = [part async for part in client.stream("Explain this diagram", image=image, model=MODEL)]
+        assert client.last.ok
+        image.unlink()
+        chunks = [part async for part in client.stream("Explain it again", model=MODEL)]
+        result = client.last
+        await client.close()
+        return chunks, result
+
+    chunks, result = asyncio.run(go())
+    assert not result.ok and "diagram" in result.message.lower()
+    assert chunks == []
+    assert len(requests(tmp_path)) == 1

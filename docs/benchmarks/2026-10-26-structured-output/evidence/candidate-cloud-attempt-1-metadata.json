@@ -1,0 +1,47 @@
+{
+  "evidence": "Observed terminal output during first preliminary cloud run; complete response file was overwritten during rerun before archiving. These metadata are not used for content accuracy scores.",
+  "trials": [
+    {
+      "model": "sonnet",
+      "case": "bonding",
+      "ok": false,
+      "seconds": 29.86,
+      "error": "Prose contains nested Markdown structure; use semantic blocks",
+      "visible_prefix": "This is a revision overview built from the CAIE 9701 syllabus as I know it, not an official mark scheme. Check the wording against the current syllabus and past mark schemes."
+    },
+    {
+      "model": "sonnet",
+      "case": "calculus",
+      "ok": false,
+      "seconds": 10.48,
+      "error": "Prose contains nested Markdown structure; use semantic blocks",
+      "visible_prefix": ""
+    },
+    {
+      "model": "sonnet",
+      "case": "topic_change",
+      "ok": true,
+      "seconds": 14.28
+    },
+    {
+      "model": "codex:gpt-6.1-sol",
+      "case": "bonding",
+      "ok": false,
+      "seconds": 80.49,
+      "error": "Codex stopped or sent an unreadable reply. Check your ChatGPT sign-in, then try again.",
+      "visible_prefix": null
+    },
+    {
+      "model": "codex:gpt-6.1-sol",
+      "case": "calculus",
+      "ok": true,
+      "seconds": 21.12
+    },
+    {
+      "model": "codex:gpt-6.1-sol",
+      "case": "topic_change",
+      "ok": true,
+      "seconds": 18.73
+    }
+  ]
+}

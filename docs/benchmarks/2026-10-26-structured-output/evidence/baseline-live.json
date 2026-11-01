@@ -1,0 +1,539 @@
+{
+  "head": "aa558ff21ca1da5a46487a9ce6d0811c6f059d62",
+  "system": "You are a patient, exact A-Level tutor (CAIE 9701 Chemistry, CAIE 9702 Physics, Edexcel IAL Mathematics) inside a terminal study app. The student is 17, studying in Hong Kong. Write British English.\nRules:\n- Keep replies under 120 words unless asked for more. No headings. Use exam wording for definitions.\n- Ground everything in the CONTEXT you are given; if you are not sure of a fact, say so plainly.\n- If CONTEXT marks a question as OPEN, never state its answer, option letter or final value; give a nudge instead.\n- Teach by building from what they already know: why it matters, how it could have been discovered, how it connects.\n- When they are stuck, ask one guiding question at a time rather than lecturing.\n\nVisual writing (human-facing prose fields only; keep the requested JSON structure):\n- Write British English. Put the key idea first; use one topic per short paragraph, normally one or two sentences.\n- Number calculation or derivation steps. Use parallel bullets for independent points or comparisons.\n- Put a real blank line between logical blocks and substantial steps; keep each formula beside its explanation.\n- Use a short bold label only when helpful. A hint or marking verdict may need just one sentence; no fixed template.\n- Use tables only for compact comparisons that fit a narrow terminal; do not invent text diagrams.\n- Use well-formed Markdown and canonical LaTeX: $...$ inline, $$...$$ for a display equation. Balance delimiters and\n  braces; use italic variables and upright units, function names, chemical elements and differential d.\n- Preserve literal code, URLs, copied mark points, IDs, options, exact answers, expr, unit, values, private working\n  and speech. Keep marking layouts, teaching-card fields and revision-summary bullets in their requested structures.\n- Keep the task's brevity. When CONTEXT marks a question OPEN, give one useful nudge without its final answer.",
+  "rows": [
+    {
+      "model": "sonnet",
+      "think": false,
+      "case": "bonding",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Explain the bonding and structure facts I need for CAIE 9701: ionic, covalent and metallic bonds, intermolecular forces, and how bonding explains melting points and electrical conductivity. Include precise exam definitions and common mistakes.",
+      "result": {
+        "text": "**Definitions (exam wording)**\n\n- **Ionic bond:** electrostatic attraction between oppositely charged ions.\n- **Covalent bond:** electrostatic attraction between a shared pair of electrons and the nuclei of the bonded atoms.\n- **Metallic bond:** electrostatic attraction between positive metal ions in a lattice and a sea of delocalised electrons.\n\n**Intermolecular forces**\n\n- Instantaneous dipole-induced dipole (London): present in all molecules, stronger with more electrons.\n- Permanent dipole-dipole: in polar molecules.\n- Hydrogen bonding: H bonded to N, O or F, attracted to a lone pair on N, O or F of a neighbouring molecule.\n\n**Melting points and conductivity**\n\n- Giant ionic: high m.p., because a lot of energy is needed to overcome strong attractions between ions. It rises with higher charge and smaller ionic radius. It conducts only when molten or aqueous, because the ions are then mobile.\n- Simple molecular: low m.p., because only weak intermolecular forces break. It does not conduct, as there are no mobile charged particles.\n- Giant covalent: very high m.p., because many strong covalent bonds must break. Diamond does not conduct, but graphite does, thanks to delocalised electrons between its layers.\n- Metals: high m.p., and they conduct via mobile delocalised electrons. Strength rises with more delocalised electrons, higher ion charge and smaller radius.\n\n**Common mistakes**\n\n- Saying covalent bonds break when a simple molecular solid melts. Only intermolecular forces break.\n- Writing \"NaCl molecule\". It is a giant lattice.\n- Saying \"strong forces\" without naming them.\n- Claiming mobile ions in metals, or mobile electrons in molten ionic compounds.\n- Awarding hydrogen bonding to any molecule containing H.\n\nI can quiz you on any of these.",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1331,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 1443,
+          "output_tokens_details": {
+            "thinking_tokens": 792
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 1331,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 11.28584970801603,
+      "first_seconds": 7.592287832987495,
+      "canonical": "**Definitions (exam wording)**\n\n- **Ionic bond:** electrostatic attraction between oppositely charged ions.\n\n- **Covalent bond:** electrostatic attraction between a shared pair of electrons and the nuclei of the bonded atoms.\n\n- **Metallic bond:** electrostatic attraction between positive metal ions in a lattice and a sea of delocalised electrons.\n\n**Intermolecular forces**\n\n- Instantaneous dipole-induced dipole (London): present in all molecules, stronger with more electrons.\n\n- Permanent dipole-dipole: in polar molecules.\n\n- Hydrogen bonding: H bonded to N, O or F, attracted to a lone pair on N, O or F of a neighbouring molecule.\n\n**Melting points and conductivity**\n\n- Giant ionic: high m.p., because a lot of energy is needed to overcome strong attractions between ions. It rises with higher charge and smaller ionic radius. It conducts only when molten or aqueous, because the ions are then mobile.\n\n- Simple molecular: low m.p., because only weak intermolecular forces break. It does not conduct, as there are no mobile charged particles.\n\n- Giant covalent: very high m.p., because many strong covalent bonds must break. Diamond does not conduct, but graphite does, thanks to delocalised electrons between its layers.\n\n- Metals: high m.p., and they conduct via mobile delocalised electrons. Strength rises with more delocalised electrons, higher ion charge and smaller radius.\n\n**Common mistakes**\n\n- Saying covalent bonds break when a simple molecular solid melts. Only intermolecular forces break.\n\n- Writing \"NaCl molecule\". It is a giant lattice.\n\n- Saying \"strong forces\" without naming them.\n\n- Claiming mobile ions in metals, or mobile electrons in molten ionic compounds.\n\n- Awarding hydrogen bonding to any molecule containing H.\n\nI can quiz you on any of these."
+    },
+    {
+      "model": "sonnet",
+      "think": false,
+      "case": "calculus",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Show the method to differentiate y = x exp(-x), evaluate the integral of x squared from 0 to 1, and write the finite sum of r squared from r = 1 to n. Explain the notation and check each result.",
+      "result": {
+        "text": "**1. Differentiation (product rule)**\n\n1. Let $u = x$ and $v = e^{-x}$, so $u' = 1$ and $v' = -e^{-x}$.\n2. $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = u'v + uv' = e^{-x} - xe^{-x} = (1-x)e^{-x}$.\n\nCheck: at $x=0$ the gradient is $1$, matching $y \\approx x$ near $0$. The gradient is $0$ at $x=1$, a sensible peak.\n\n**2. Definite integral**\n\n$\\displaystyle\\int_0^1 x^2\\,\\mathrm{d}x = \\left[\\frac{x^3}{3}\\right]_0^1 = \\frac13 - 0 = \\frac13$\n\nThe notation means the area under $y=x^2$ from $x=0$ to $x=1$. Check: this is less than $1$, the area of the unit square above it, so it is plausible.\n\n**3. Finite sum**\n\n$\\displaystyle\\sum_{r=1}^{n} r^2 = 1^2+2^2+\\dots+n^2 = \\frac{n(n+1)(2n+1)}{6}$\n\nHere $\\Sigma$ means \"add up\", with $r$ running from $1$ to $n$. Check with $n=3$: $1+4+9=14$, and $\\frac{3\\cdot4\\cdot7}{6}=14$ ✓.",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 629,
+          "cache_read_input_tokens": 689,
+          "output_tokens": 865,
+          "output_tokens_details": {
+            "thinking_tokens": 386
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 629,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 6.181047375022899,
+      "first_seconds": 3.5785320410504937,
+      "canonical": "**1. Differentiation (product rule)**\n\n1. Let $u = x$ and $v = e^{-x}$, so $u' = 1$ and $v' = -e^{-x}$.\n\n2. $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = u'v + uv' = e^{-x} - xe^{-x} = (1-x)e^{-x}$.\n\nCheck: at $x=0$ the gradient is $1$, matching $y \\approx x$ near $0$. The gradient is $0$ at $x=1$, a sensible peak.\n\n**2. Definite integral**\n\n$\\displaystyle\\int_0^1 x^2\\,\\mathrm{d}x = \\left[\\frac{x^3}{3}\\right]_0^1 = \\frac13 - 0 = \\frac13$\n\nThe notation means the area under $y=x^2$ from $x=0$ to $x=1$. Check: this is less than $1$, the area of the unit square above it, so it is plausible.\n\n**3. Finite sum**\n\n$\\displaystyle\\sum_{r=1}^{n} r^2 = 1^2+2^2+\\dots+n^2 = \\frac{n(n+1)(2n+1)}{6}$\n\nHere $\\Sigma$ means \"add up\", with $r$ running from $1$ to $n$. Check with $n=3$: $1+4+9=14$, and $\\frac{3\\cdot4\\cdot7}{6}=14$ ✓."
+    },
+    {
+      "model": "sonnet",
+      "think": false,
+      "case": "topic_change",
+      "prompt": "CONTEXT\nSession: lesson on 9702-2.1 Motion. What they were taught: acceleration is rate of change of velocity. No OPEN questions.\n\nSTUDENT ASKS: Change topic to 9701 organic chemistry. List the general formulae for alkanes, alkenes, cycloalkanes, alcohols, aldehydes, ketones and carboxylic acids. State the structural assumptions and overlapping formulae so I do not confuse them.",
+      "result": {
+        "text": "Assumptions: one functional group, otherwise saturated and acyclic (unless the ring is the point), no branching restrictions.\n\n| Class | Formula | Assumption |\n|---|---|---|\n| Alkane | $\\mathrm{C}_n\\mathrm{H}_{2n+2}$ | $n\\ge1$ |\n| Alkene | $\\mathrm{C}_n\\mathrm{H}_{2n}$ | one C=C, $n\\ge2$ |\n| Cycloalkane | $\\mathrm{C}_n\\mathrm{H}_{2n}$ | one ring, $n\\ge3$ |\n| Alcohol | $\\mathrm{C}_n\\mathrm{H}_{2n+2}\\mathrm{O}$ | one –OH, $n\\ge1$ |\n| Aldehyde | $\\mathrm{C}_n\\mathrm{H}_{2n}\\mathrm{O}$ | $n\\ge1$ |\n| Ketone | $\\mathrm{C}_n\\mathrm{H}_{2n}\\mathrm{O}$ | $n\\ge3$ |\n| Carboxylic acid | $\\mathrm{C}_n\\mathrm{H}_{2n}\\mathrm{O}_2$ | $n\\ge1$ |\n\n**Overlaps (same formula, different compound):**\n\n- Alkenes and cycloalkanes are isomers, e.g. propene and cyclopropane.\n- Aldehydes and ketones are isomers, e.g. propanal and propanone.\n- Alcohols and ethers share $\\mathrm{C}_n\\mathrm{H}_{2n+2}\\mathrm{O}$.\n- Carboxylic acids and esters share $\\mathrm{C}_n\\mathrm{H}_{2n}\\mathrm{O}_2$.\n\n**Check:** start from $\\mathrm{C}_n\\mathrm{H}_{2n+2}$. Each C=C, C=O or ring removes 2 H. Adding O (as –OH or C=O) leaves H unchanged.\n\nWant a few formulae to practise on?",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 682,
+          "cache_read_input_tokens": 689,
+          "output_tokens": 1319,
+          "output_tokens_details": {
+            "thinking_tokens": 622
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 682,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 9.219795042008627,
+      "first_seconds": 5.699832124984823,
+      "canonical": "Assumptions: one functional group, otherwise saturated and acyclic (unless the ring is the point), no branching restrictions.\n\n| Class | Formula | Assumption |\n|---|---|---|\n| Alkane | $\\mathrm{C}_n\\mathrm{H}_{2n+2}$ | $n\\ge1$ |\n| Alkene | $\\mathrm{C}_n\\mathrm{H}_{2n}$ | one C=C, $n\\ge2$ |\n| Cycloalkane | $\\mathrm{C}_n\\mathrm{H}_{2n}$ | one ring, $n\\ge3$ |\n| Alcohol | $\\mathrm{C}_n\\mathrm{H}_{2n+2}\\mathrm{O}$ | one –OH, $n\\ge1$ |\n| Aldehyde | $\\mathrm{C}_n\\mathrm{H}_{2n}\\mathrm{O}$ | $n\\ge1$ |\n| Ketone | $\\mathrm{C}_n\\mathrm{H}_{2n}\\mathrm{O}$ | $n\\ge3$ |\n| Carboxylic acid | $\\mathrm{C}_n\\mathrm{H}_{2n}\\mathrm{O}_2$ | $n\\ge1$ |\n\n**Overlaps (same formula, different compound):**\n\n- Alkenes and cycloalkanes are isomers, e.g. propene and cyclopropane.\n\n- Aldehydes and ketones are isomers, e.g. propanal and propanone.\n\n- Alcohols and ethers share $\\mathrm{C}_n\\mathrm{H}_{2n+2}\\mathrm{O}$.\n\n- Carboxylic acids and esters share $\\mathrm{C}_n\\mathrm{H}_{2n}\\mathrm{O}_2$.\n\n**Check:** start from $\\mathrm{C}_n\\mathrm{H}_{2n+2}$. Each C=C, C=O or ring removes 2 H. Adding O (as –OH or C=O) leaves H unchanged.\n\nWant a few formulae to practise on?"
+    },
+    {
+      "model": "codex:gpt-6.1-sol",
+      "think": false,
+      "case": "bonding",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Explain the bonding and structure facts I need for CAIE 9701: ionic, covalent and metallic bonds, intermolecular forces, and how bonding explains melting points and electrical conductivity. Include precise exam definitions and common mistakes.",
+      "result": {
+        "text": "Bonding explains properties through two questions: **what attractions must be overcome, and are there mobile charged particles?**\n\n**Ionic bonding**\n- **Definition:** the electrostatic attraction between oppositely charged ions.\n- **Structure:** a giant ionic lattice, with strong attractions extending throughout it.\n- **Melting point:** usually high because much energy is needed to overcome these attractions.\n- **Conductivity:** solid ionic compounds do not conduct because their ions are fixed in position. When molten or dissolved in water, mobile ions carry charge.\n\n**Covalent bonding**\n- **Definition:** the electrostatic attraction between a shared pair of electrons and the nuclei of the bonded atoms.\n- Covalent substances can have **simple molecular** or **giant covalent** structures; these have very different properties.\n\nFor **simple molecular substances**:\n- Melting and boiling points are generally low because relatively little energy is needed to overcome intermolecular forces.\n- They generally do not conduct electricity because there are no mobile ions or delocalised electrons.\n\nFor **giant covalent structures**:\n- Melting points are high because many strong covalent bonds must be broken.\n- Diamond and silicon dioxide do not conduct: they have no mobile charged particles.\n- Graphite conducts because it has delocalised electrons that move along its layers. Each carbon bonds to three others; in diamond, each carbon bonds to four.\n- Graphite is soft because weak attractions between its layers allow them to slide.\n\n**Metallic bonding**\n- **Definition:** the electrostatic attraction between positive metal ions and delocalised electrons.\n- **Structure:** a giant lattice of positive metal ions surrounded by delocalised electrons.\n- Melting points are often high, although they vary, because metallic attractions require substantial energy to overcome.\n- Metals conduct when solid or molten because delocalised electrons move and carry charge.\n- Metals are malleable because layers can slide while metallic attraction is maintained.\n\n**Intermolecular forces**\n- **London dispersion forces:** attractions between instantaneous dipoles and induced dipoles. They occur between all atoms and molecules. More electrons and greater polarisability generally produce stronger forces.\n- **Permanent dipole–dipole attractions:** electrostatic attractions between oppositely charged ends of polar molecules.\n- **Hydrogen bonding:** attraction between a hydrogen atom covalently bonded to $\\mathrm{N}$, $\\mathrm{O}$ or $\\mathrm{F}$ and a lone pair on an $\\mathrm{N}$, $\\mathrm{O}$ or $\\mathrm{F}$ atom in another molecule.\n\nStronger intermolecular forces generally give higher boiling points. Melting points also depend on how particles pack in the solid.\n\n**Common mistakes**\n- Electron transfer **forms ions**; it is not the definition of ionic bonding.\n- Boiling a molecular substance overcomes **intermolecular forces**, not its covalent bonds.\n- Not all covalent substances have low melting points: distinguish molecular from giant covalent structures.\n- A polar bond does not guarantee a polar molecule: bond dipoles may cancel because of molecular shape.\n- Hydrogen-containing molecules do not necessarily form hydrogen bonds.\n- For conductivity, name the mobile charge carrier: **ions** in ionic melts or solutions; **electrons** in metals and graphite.",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {
+          "input_tokens": 10281,
+          "cached_input_tokens": 4864,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 700,
+          "reasoning_output_tokens": 31
+        },
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 34.96349404199282,
+      "first_seconds": 33.87556808302179,
+      "canonical": "Bonding explains properties through two questions: **what attractions must be overcome, and are there mobile charged particles?**\n\n**Ionic bonding**\n\n- **Definition:** the electrostatic attraction between oppositely charged ions.\n\n- **Structure:** a giant ionic lattice, with strong attractions extending throughout it.\n\n- **Melting point:** usually high because much energy is needed to overcome these attractions.\n\n- **Conductivity:** solid ionic compounds do not conduct because their ions are fixed in position. When molten or dissolved in water, mobile ions carry charge.\n\n**Covalent bonding**\n\n- **Definition:** the electrostatic attraction between a shared pair of electrons and the nuclei of the bonded atoms.\n\n- Covalent substances can have **simple molecular** or **giant covalent** structures; these have very different properties.\n\nFor **simple molecular substances**:\n\n- Melting and boiling points are generally low because relatively little energy is needed to overcome intermolecular forces.\n\n- They generally do not conduct electricity because there are no mobile ions or delocalised electrons.\n\nFor **giant covalent structures**:\n\n- Melting points are high because many strong covalent bonds must be broken.\n\n- Diamond and silicon dioxide do not conduct: they have no mobile charged particles.\n\n- Graphite conducts because it has delocalised electrons that move along its layers. Each carbon bonds to three others; in diamond, each carbon bonds to four.\n\n- Graphite is soft because weak attractions between its layers allow them to slide.\n\n**Metallic bonding**\n\n- **Definition:** the electrostatic attraction between positive metal ions and delocalised electrons.\n\n- **Structure:** a giant lattice of positive metal ions surrounded by delocalised electrons.\n\n- Melting points are often high, although they vary, because metallic attractions require substantial energy to overcome.\n\n- Metals conduct when solid or molten because delocalised electrons move and carry charge.\n\n- Metals are malleable because layers can slide while metallic attraction is maintained.\n\n**Intermolecular forces**\n\n- **London dispersion forces:** attractions between instantaneous dipoles and induced dipoles. They occur between all atoms and molecules. More electrons and greater polarisability generally produce stronger forces.\n\n- **Permanent dipole–dipole attractions:** electrostatic attractions between oppositely charged ends of polar molecules.\n\n- **Hydrogen bonding:** attraction between a hydrogen atom covalently bonded to $\\mathrm{N}$, $\\mathrm{O}$ or $\\mathrm{F}$ and a lone pair on an $\\mathrm{N}$, $\\mathrm{O}$ or $\\mathrm{F}$ atom in another molecule.\n\nStronger intermolecular forces generally give higher boiling points. Melting points also depend on how particles pack in the solid.\n\n**Common mistakes**\n\n- Electron transfer **forms ions**; it is not the definition of ionic bonding.\n\n- Boiling a molecular substance overcomes **intermolecular forces**, not its covalent bonds.\n\n- Not all covalent substances have low melting points: distinguish molecular from giant covalent structures.\n\n- A polar bond does not guarantee a polar molecule: bond dipoles may cancel because of molecular shape.\n\n- Hydrogen-containing molecules do not necessarily form hydrogen bonds.\n\n- For conductivity, name the mobile charge carrier: **ions** in ionic melts or solutions; **electrons** in metals and graphite."
+    },
+    {
+      "model": "codex:gpt-6.1-sol",
+      "think": false,
+      "case": "calculus",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Show the method to differentiate y = x exp(-x), evaluate the integral of x squared from 0 to 1, and write the finite sum of r squared from r = 1 to n. Explain the notation and check each result.",
+      "result": {
+        "text": "1. In $y=x\\exp(-x)$, $\\exp(-x)=e^{-x}$. Using the product and chain rules:\n$$\\frac{\\mathrm{d}y}{\\mathrm{d}x}=e^{-x}+x(-e^{-x})=e^{-x}(1-x).$$\nCheck: at $x=1$, the two product-rule terms cancel, giving zero gradient.\n\n2. The definite integral gives the area under $y=x^2$ between the stated limits:\n$$\\int_0^1 x^2\\,\\mathrm{d}x=\\left[\\frac{x^3}{3}\\right]_0^1=\\frac13.$$\nHere $\\mathrm{d}x$ identifies the integration variable. Check: differentiating $x^3/3$ returns $x^2$.\n\n3. For a positive integer $n$:\n$$\\sum_{r=1}^{n}r^2=1^2+2^2+\\cdots+n^2=\\frac{n(n+1)(2n+1)}6.$$\n$\\sum$ means “add”, and $r$ runs from $1$ to $n$. Check: $n=2$ gives $5$ on both sides.",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {
+          "input_tokens": 10283,
+          "cached_input_tokens": 4864,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 282,
+          "reasoning_output_tokens": 15
+        },
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 13.091948042041622,
+      "first_seconds": 11.73075270903064,
+      "canonical": "1. In $y=x\\exp(-x)$, $\\exp(-x)=e^{-x}$. Using the product and chain rules:\n$$\n\\frac{\\mathrm{d}y}{\\mathrm{d}x}=e^{-x}+x(-e^{-x})=e^{-x}(1-x).\n$$\nCheck: at $x=1$, the two product-rule terms cancel, giving zero gradient.\n\n2. The definite integral gives the area under $y=x^2$ between the stated limits:\n$$\n\\int_0^1 x^2\\,\\mathrm{d}x=\\left[\\frac{x^3}{3}\\right]_0^1=\\frac13.\n$$\nHere $\\mathrm{d}x$ identifies the integration variable. Check: differentiating $x^3/3$ returns $x^2$.\n\n3. For a positive integer $n$:\n$$\n\\sum_{r=1}^{n}r^2=1^2+2^2+\\cdots+n^2=\\frac{n(n+1)(2n+1)}6.\n$$\n$\\sum$ means “add”, and $r$ runs from $1$ to $n$. Check: $n=2$ gives $5$ on both sides."
+    },
+    {
+      "model": "codex:gpt-6.1-sol",
+      "think": false,
+      "case": "topic_change",
+      "prompt": "CONTEXT\nSession: lesson on 9702-2.1 Motion. What they were taught: acceleration is rate of change of velocity. No OPEN questions.\n\nSTUDENT ASKS: Change topic to 9701 organic chemistry. List the general formulae for alkanes, alkenes, cycloalkanes, alcohols, aldehydes, ketones and carboxylic acids. State the structural assumptions and overlapping formulae so I do not confuse them.",
+      "result": {
+        "text": "These formulae assume **saturated compounds**, except alkenes, and **one functional group** where applicable.\n\n| Homologous series | General formula | Structural assumptions |\n|---|---|---|\n| Alkanes | $\\mathrm{C_nH_{2n+2}}$ | Acyclic |\n| Alkenes | $\\mathrm{C_nH_{2n}}$ | Acyclic; one $\\mathrm{C=C}$ |\n| Cycloalkanes | $\\mathrm{C_nH_{2n}}$ | One ring; no multiple bonds |\n| Alcohols | $\\mathrm{C_nH_{2n+2}O}$ | Acyclic; one hydroxyl group |\n| Aldehydes | $\\mathrm{C_nH_{2n}O}$ | Acyclic; one terminal carbonyl |\n| Ketones | $\\mathrm{C_nH_{2n}O}$ | Acyclic; one non-terminal carbonyl |\n| Carboxylic acids | $\\mathrm{C_nH_{2n}O_2}$ | Acyclic; one carboxyl group |\n\n**Overlaps:** alkenes/cycloalkanes and aldehydes/ketones share formulae. Alcohols also overlap with ethers; carboxylic acids with esters. A molecular formula alone therefore cannot identify the homologous series.",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {
+          "input_tokens": 10312,
+          "cached_input_tokens": 4864,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 322,
+          "reasoning_output_tokens": 31
+        },
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 11.797818958992139,
+      "first_seconds": 10.641346833959688,
+      "canonical": "These formulae assume **saturated compounds**, except alkenes, and **one functional group** where applicable.\n\n| Homologous series | General formula | Structural assumptions |\n|---|---|---|\n| Alkanes | $\\mathrm{C_nH_{2n+2}}$ | Acyclic |\n| Alkenes | $\\mathrm{C_nH_{2n}}$ | Acyclic; one $\\mathrm{C=C}$ |\n| Cycloalkanes | $\\mathrm{C_nH_{2n}}$ | One ring; no multiple bonds |\n| Alcohols | $\\mathrm{C_nH_{2n+2}O}$ | Acyclic; one hydroxyl group |\n| Aldehydes | $\\mathrm{C_nH_{2n}O}$ | Acyclic; one terminal carbonyl |\n| Ketones | $\\mathrm{C_nH_{2n}O}$ | Acyclic; one non-terminal carbonyl |\n| Carboxylic acids | $\\mathrm{C_nH_{2n}O_2}$ | Acyclic; one carboxyl group |\n\n**Overlaps:** alkenes/cycloalkanes and aldehydes/ketones share formulae. Alcohols also overlap with ethers; carboxylic acids with esters. A molecular formula alone therefore cannot identify the homologous series."
+    },
+    {
+      "model": "ollama:gemma4:26b-tutor-mlx",
+      "think": false,
+      "case": "bonding",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Explain the bonding and structure facts I need for CAIE 9701: ionic, covalent and metallic bonds, intermolecular forces, and how bonding explains melting points and electrical conductivity. Include precise exam definitions and common mistakes.",
+      "result": {
+        "text": "In CAIE 9701, definitions must be precise to secure marks. Here are the core concepts:\n\n**Bonding Definitions**\n* **Ionic**: Electrostatic attraction between oppositely charged ions.\n* **Covalent**: The shared pair of electrons between two non-metal atoms.\n* **Metallic**: The electrostatic attraction between positive metal ions and a sea of delocalised electrons.\n\n**Structure & Properties**\n* **Ionic/Covalent Network**: Giant structures; high melting points due to many strong bonds broken.\n* **Molecular**: Simple molecules; low melting points due to weak intermolecular forces (e.g., London dispersion forces).\n\n**Conductivity**\n* Metals: Delocalised electrons are mobile. \n* Ionic: Ions are mobile only when molten or in aqueous solution.\n* Covalent: Usually non-conductive unless ions/delocalised electrons are present (e.g., graphite).\n\n**Common Mistake**: Describing covalent bonding as ",
+        "ok": false,
+        "status": "error",
+        "message": "The local AI took too long to answer; try again.",
+        "usage": {},
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 300.0076107919449,
+      "first_seconds": 32.66093729197746,
+      "canonical": "In CAIE 9701, definitions must be precise to secure marks. Here are the core concepts:\n\n**Bonding Definitions**\n\n- **Ionic**: Electrostatic attraction between oppositely charged ions.\n\n- **Covalent**: The shared pair of electrons between two non-metal atoms.\n\n- **Metallic**: The electrostatic attraction between positive metal ions and a sea of delocalised electrons.\n\n**Structure & Properties**\n\n- **Ionic/Covalent Network**: Giant structures; high melting points due to many strong bonds broken.\n\n- **Molecular**: Simple molecules; low melting points due to weak intermolecular forces (e.g., London dispersion forces).\n\n**Conductivity**\n\n- Metals: Delocalised electrons are mobile. \n- Ionic: Ions are mobile only when molten or in aqueous solution.\n\n- Covalent: Usually non-conductive unless ions/delocalised electrons are present (e.g., graphite).\n\n**Common Mistake**: Describing covalent bonding as "
+    },
+    {
+      "model": "ollama:gemma4:26b-tutor-mlx",
+      "think": false,
+      "case": "calculus",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Show the method to differentiate y = x exp(-x), evaluate the integral of x squared from 0 to 1, and write the finite sum of r squared from r = 1 to n. Explain the notation and check each result.",
+      "result": {
+        "text": "Let's tackle these three fundamental calculus and algebraic tools.\n\n**1. Differentiation**\nTo differentiate $y = x e^{-x}$, we use the **product rule**: $\\frac{dy}{dx} = u\\frac{dv}{dx} + v\\frac{du}{dx}$.\n\n*   Let $u = x \\implies \\frac{du}{dx} = 1$\n*   Let $v = e^{-x} \\implies \\frac{dv}{dx} = -e^{-x}$\n*   $\\frac{dy}{dx} = x(-e^{-x}) + e^{-x}(1) = e^{-x}(1 - x)$\n\n**2. Integration**\nTo evaluate $\\int_{0}^{1} x^{2} \\, dx$, we use the power rule $\\int x^{n} \\, dx = \\frac{x^{n+1}}{n+1}$:\n\n*   $\\left[ \\frac{x^{3}}{3} \\right]_{0}^{1} = \\frac{1^{3}}{3} - \\frac{0^{3}}{3} = \\frac{1}{3}$\n\n**3. Summation**\nThe notation $\\sum_{r=1}^{n} r^{2}$ represents the sum of the squares of the first $n$ natural numbers. The formula is:\n\n$$\\sum_{r=1}^{n} r^{2} = \\frac{n(n+1)(2n+1)}{6}$$",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {},
+        "speech": "",
+        "performance": {
+          "model": "ollama:gemma4:26b-tutor-mlx",
+          "total_seconds": 26.309776334033813,
+          "engine_seconds": 26.227134,
+          "retry_count": 0,
+          "preload_seconds": 0.06257420900510624,
+          "preload_count": 1,
+          "load_seconds": 0.000983583,
+          "thinking_seconds": 0,
+          "prompt_seconds": 1.873308542,
+          "generation_seconds": 24.241433541,
+          "input_tokens": 747,
+          "output_tokens": 346,
+          "cached_input_tokens": 689,
+          "tokens_per_second": 14.27308329001268,
+          "first_token_seconds": 2.3321341670234688
+        }
+      },
+      "seconds": 26.309994957991876,
+      "first_seconds": 2.332346957991831,
+      "canonical": "Let's tackle these three fundamental calculus and algebraic tools.\n\n**1. Differentiation**\nTo differentiate $y = x e^{-x}$, we use the **product rule**: $\\frac{dy}{dx} = u\\frac{dv}{dx} + v\\frac{du}{dx}$.\n\n- Let $u = x \\implies \\frac{du}{dx} = 1$\n\n- Let $v = e^{-x} \\implies \\frac{dv}{dx} = -e^{-x}$\n\n- $\\frac{dy}{dx} = x(-e^{-x}) + e^{-x}(1) = e^{-x}(1 - x)$\n\n**2. Integration**\nTo evaluate $\\int_{0}^{1} x^{2} \\, dx$, we use the power rule $\\int x^{n} \\, dx = \\frac{x^{n+1}}{n+1}$:\n\n- $\\left[ \\frac{x^{3}}{3} \\right]_{0}^{1} = \\frac{1^{3}}{3} - \\frac{0^{3}}{3} = \\frac{1}{3}$\n\n**3. Summation**\nThe notation $\\sum_{r=1}^{n} r^{2}$ represents the sum of the squares of the first $n$ natural numbers. The formula is:\n\n$$\n\\sum_{r=1}^{n} r^{2} = \\frac{n(n+1)(2n+1)}{6}\n$$"
+    },
+    {
+      "model": "ollama:gemma4:26b-tutor-mlx",
+      "think": false,
+      "case": "topic_change",
+      "prompt": "CONTEXT\nSession: lesson on 9702-2.1 Motion. What they were taught: acceleration is rate of change of velocity. No OPEN questions.\n\nSTUDENT ASKS: Change topic to 9701 organic chemistry. List the general formulae for alkanes, alkenes, cycloalkanes, alcohols, aldehydes, ketones and carboxylic acids. State the structural assumptions and overlapping formulae so I do not confuse them.",
+      "result": {
+        "text": "In organic chemistry, general formulae depend on the type of carbon skeleton. Here are the formulae for your requested functional groups:\n\n* **Alkanes**: $C_nH_{2n+2}$\n* **Cycloalkanes**: $C_nH_{2n}$\n* **Alkenes**: $C_nH_{2n}$\n* **Alcohols**: $C_nH_{2n+1}OH$\n* **Aldehydes**: $C_nH_{2n+1}CHO$\n* **Ketones**: $C_nH_{2n+1}CO$\n* **Carboxylic acids**: $C_nH_{2n+1}COOH$\n\n**Key assumptions and overlaps**:\n\n1. The formulae assume a straight-chain carbon skeleton with no branching. \n2. **Overlap**: Both cycloalkanes and alkenes share the formula $C_nH_{2n}$ because a ring effectively replaces a double bond in terms of hydrogen saturation.\n3. **Overlap**: Alcohols, aldehydes, ketones, and acids all relate to the same $C_nH_{2n+2}$ parent structure, differing only by the atoms added/removed to create the functional group.",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {},
+        "speech": "",
+        "performance": {
+          "model": "ollama:gemma4:26b-tutor-mlx",
+          "total_seconds": 25.751352708030026,
+          "engine_seconds": 25.71694675,
+          "retry_count": 0,
+          "preload_seconds": 0.01276700000744313,
+          "preload_count": 1,
+          "load_seconds": 0.00429925,
+          "thinking_seconds": 0,
+          "prompt_seconds": 5.945309875,
+          "generation_seconds": 19.674503709,
+          "input_tokens": 768,
+          "output_tokens": 268,
+          "cached_input_tokens": 0,
+          "tokens_per_second": 13.621690486525706,
+          "first_token_seconds": 6.267204831936397
+        }
+      },
+      "seconds": 25.751535499992315,
+      "first_seconds": 6.2674254170269705,
+      "canonical": "In organic chemistry, general formulae depend on the type of carbon skeleton. Here are the formulae for your requested functional groups:\n\n- **Alkanes**: $C_nH_{2n+2}$\n\n- **Cycloalkanes**: $C_nH_{2n}$\n\n- **Alkenes**: $C_nH_{2n}$\n\n- **Alcohols**: $C_nH_{2n+1}OH$\n\n- **Aldehydes**: $C_nH_{2n+1}CHO$\n\n- **Ketones**: $C_nH_{2n+1}CO$\n\n- **Carboxylic acids**: $C_nH_{2n+1}COOH$\n\n**Key assumptions and overlaps**:\n\n1. The formulae assume a straight-chain carbon skeleton with no branching. \n2. **Overlap**: Both cycloalkanes and alkenes share the formula $C_nH_{2n}$ because a ring effectively replaces a double bond in terms of hydrogen saturation.\n\n3. **Overlap**: Alcohols, aldehydes, ketones, and acids all relate to the same $C_nH_{2n+2}$ parent structure, differing only by the atoms added/removed to create the functional group."
+    },
+    {
+      "model": "ollama:gemma4:e4b",
+      "think": true,
+      "case": "bonding",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Explain the bonding and structure facts I need for CAIE 9701: ionic, covalent and metallic bonds, intermolecular forces, and how bonding explains melting points and electrical conductivity. Include precise exam definitions and common mistakes.",
+      "result": {
+        "text": "For CAIE 9701, remember that the *type* of bonding determines the *force* holding the substance together. \n\n**Bonding Types and Structure**\n\n*   **Ionic:** Formed by the electrostatic attraction between oppositely charged ions (usually metal and non-metal). These ions are held in a strong, fixed crystal lattice.\n*   **Covalent:** Formed by the sharing of valence electrons between non-metals. This can form discrete molecules (weak intermolecular forces) or vast giant covalent structures (strong network forces).\n*   **Metallic:** Involves a lattice of positive ions immersed in a sea of delocalised (mobile) valence electrons.\n\n**Properties Connection**\n\n*   **Melting Points:** Generally, network covalent structures have the highest M.P. because the entire structure is held by strong covalent bonds. Simple molecular compounds have the lowest.\n*   **Electrical Conductivity:** This depends on the presence of mobile charge carriers. Metals are conductive due to delocalised electrons; ionic substances must be molten or dissolved to allow ion movement.\n\n**Common Mistake:** Do not confuse *intramolecular* forces (the strong bonds within a molecule) with *intermolecular* forces (the weaker forces *between* molecules).",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {},
+        "speech": "",
+        "performance": {
+          "model": "ollama:gemma4:e4b",
+          "total_seconds": 49.600957125017885,
+          "engine_seconds": 41.257792333,
+          "retry_count": 0,
+          "preload_seconds": 8.325772959040478,
+          "preload_count": 1,
+          "load_seconds": 0.000362,
+          "thinking_seconds": 24.4002367919893,
+          "prompt_seconds": 2.875108417,
+          "generation_seconds": 38.379133625,
+          "input_tokens": 741,
+          "output_tokens": 723,
+          "cached_input_tokens": 0,
+          "tokens_per_second": 18.83836167497645,
+          "first_token_seconds": 36.17105420806911
+        }
+      },
+      "seconds": 49.60109983396251,
+      "first_seconds": 36.17133304197341,
+      "canonical": "For CAIE 9701, remember that the *type* of bonding determines the *force* holding the substance together. \n\n**Bonding Types and Structure**\n\n- **Ionic:** Formed by the electrostatic attraction between oppositely charged ions (usually metal and non-metal). These ions are held in a strong, fixed crystal lattice.\n\n- **Covalent:** Formed by the sharing of valence electrons between non-metals. This can form discrete molecules (weak intermolecular forces) or vast giant covalent structures (strong network forces).\n\n- **Metallic:** Involves a lattice of positive ions immersed in a sea of delocalised (mobile) valence electrons.\n\n**Properties Connection**\n\n- **Melting Points:** Generally, network covalent structures have the highest M.P. because the entire structure is held by strong covalent bonds. Simple molecular compounds have the lowest.\n\n- **Electrical Conductivity:** This depends on the presence of mobile charge carriers. Metals are conductive due to delocalised electrons; ionic substances must be molten or dissolved to allow ion movement.\n\n**Common Mistake:** Do not confuse *intramolecular* forces (the strong bonds within a molecule) with *intermolecular* forces (the weaker forces *between* molecules)."
+    },
+    {
+      "model": "ollama:gemma4:e4b",
+      "think": true,
+      "case": "calculus",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Show the method to differentiate y = x exp(-x), evaluate the integral of x squared from 0 to 1, and write the finite sum of r squared from r = 1 to n. Explain the notation and check each result.",
+      "result": {
+        "text": "To differentiate $y = x e^{-x}$, we apply the product rule: $\frac{d}{dx}(uv) = u\frac{dv}{dx} + v\frac{du}{dx}$.\n\n1. Differentiating $y = x e^{-x}$ yields $\\frac{dy}{dx} = 1 \\cdot e^{-x} + x \\cdot (-e^{-x})$, which simplifies to $e^{-x}(1 - x)$.\n\nNext, evaluating the definite integral $\\int_0^1 x^2 dx$ requires the power rule $\\int x^n dx = \\frac{x^{n+1}}{n+1}$.\n\n1. The antiderivative is $\\frac{x^3}{3}$.\\n2. Evaluating from 0 to 1: $\\left[\\frac{x^3}{3}\\right]_0^1 = \\frac{1^3}{3} - \\frac{0^3}{3} = \\frac{1}{3}$.\n\nFinally, the finite sum of $r^2$ from $r=1$ to $n$, $\\sum_{r=1}^n r^2$, is given by the formula: $\\frac{n(n+1)(2n+1)}{6}$.\n\n* These three concepts—differentiation, integration, and summation—are all fundamental techniques in analysis, showing how functions change, accumulate, and grow sequentially.",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {},
+        "speech": "",
+        "performance": {
+          "model": "ollama:gemma4:e4b",
+          "total_seconds": 33.233153042034246,
+          "engine_seconds": 33.210340875,
+          "retry_count": 0,
+          "preload_seconds": 0.006134541006758809,
+          "preload_count": 1,
+          "load_seconds": 0.000744541,
+          "thinking_seconds": 14.474191959016025,
+          "prompt_seconds": 3.5861055,
+          "generation_seconds": 29.620546,
+          "input_tokens": 745,
+          "output_tokens": 656,
+          "cached_input_tokens": 0,
+          "tokens_per_second": 22.14678959665362,
+          "first_token_seconds": 20.87118420796469
+        }
+      },
+      "seconds": 33.23326249996899,
+      "first_seconds": 20.87129924999317,
+      "canonical": "To differentiate $y = x e^{-x}$, we apply the product rule: $\\frac{d}{dx}(uv) = u\\frac{dv}{dx} + v\\frac{du}{dx}$.\n\n1. Differentiating $y = x e^{-x}$ yields $\\frac{dy}{dx} = 1 \\cdot e^{-x} + x \\cdot (-e^{-x})$, which simplifies to $e^{-x}(1 - x)$.\n\nNext, evaluating the definite integral $\\int_0^1 x^2 dx$ requires the power rule $\\int x^n dx = \\frac{x^{n+1}}{n+1}$.\n\n1. The antiderivative is $\\frac{x^3}{3}$.$\\n$2. Evaluating from 0 to 1: $\\left[\\frac{x^3}{3}\\right]_0^1 = \\frac{1^3}{3} - \\frac{0^3}{3} = \\frac{1}{3}$.\n\nFinally, the finite sum of $r^2$ from $r=1$ to $n$, $\\sum_{r=1}^n r^2$, is given by the formula: $\\frac{n(n+1)(2n+1)}{6}$.\n\n- These three concepts—differentiation, integration, and summation—are all fundamental techniques in analysis, showing how functions change, accumulate, and grow sequentially."
+    },
+    {
+      "model": "ollama:gemma4:e4b",
+      "think": true,
+      "case": "topic_change",
+      "prompt": "CONTEXT\nSession: lesson on 9702-2.1 Motion. What they were taught: acceleration is rate of change of velocity. No OPEN questions.\n\nSTUDENT ASKS: Change topic to 9701 organic chemistry. List the general formulae for alkanes, alkenes, cycloalkanes, alcohols, aldehydes, ketones and carboxylic acids. State the structural assumptions and overlapping formulae so I do not confuse them.",
+      "result": {
+        "text": "The general formulae define the characteristic skeletal structure of these homologous series. It is useful to see how they are built on a carbon chain ($\text{C}_n\text{H}_{2n+2}$ is the common saturated backbone).\n\nHere is the summary of the general formulae:\n\n*   **Alkanes (Saturated):** $\text{C}_n\text{H}_{2n+2}$\n*   **Alkenes/Cycloalkanes:** $\text{C}_n\text{H}_{2n}$ (Alkenes have a $\text{C}=\text{C}$ double bond; Cycloalkanes have a cyclic structure)\n*   **Alcohols:** $\text{R-OH}$ (An $\text{OH}$ group attached to an alkyl chain)\n*   **Aldehydes:** $\text{R-CHO}$ (The carbonyl ($\text{C}=\text{O}$) group is at the end of a chain, bonded to at least one other $\text{C$ atom)\n*   **Ketones:** $\text{R-CO-R'}$ (The carbonyl ($\text{C}=\text{O}$) group is sandwiched between two carbon atoms)\n*   **Carboxylic Acids:** $\text{R-COOH}$ (A $\text{C}=\text{O}$ group with a hydrogen atom attached to the carbonyl $\text{C}$)\n\n**Structural Assumptions:** The key differentiation is the functional group. Alcohols contain a simple hydroxyl ($\text{OH}$) group; while aldehydes and ketones contain a carbonyl ($\text{C}=\text{O}$) group, carboxylic acids contain a carboxyl ($\text{COOH}$) group, meaning the $\text{C}$ atom is bonded to both $\text{O}$ and another $\text{O}$ (via $\text{H}$).",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {},
+        "speech": "",
+        "performance": {
+          "model": "ollama:gemma4:e4b",
+          "total_seconds": 60.97390612500021,
+          "engine_seconds": 60.952726208,
+          "retry_count": 0,
+          "preload_seconds": 0.0060480000101961195,
+          "preload_count": 1,
+          "load_seconds": 0.000361083,
+          "thinking_seconds": 33.219473958946764,
+          "prompt_seconds": 3.642712959,
+          "generation_seconds": 57.30598225,
+          "input_tokens": 766,
+          "output_tokens": 1099,
+          "cached_input_tokens": 0,
+          "tokens_per_second": 19.177753470930167,
+          "first_token_seconds": 39.87565358396387
+        }
+      },
+      "seconds": 60.97403270803625,
+      "first_seconds": 39.87577387498459,
+      "canonical": "The general formulae define the characteristic skeletal structure of these homologous series. It is useful to see how they are built on a carbon chain ($\\text{C}_n\\text{H}_{2n+2}$ is the common saturated backbone).\n\nHere is the summary of the general formulae:\n\n- **Alkanes (Saturated):** $\\text{C}_n\\text{H}_{2n+2}$\n\n- **Alkenes/Cycloalkanes:** $\\text{C}_n\\text{H}_{2n}$ (Alkenes have a $\\text{C}=\\text{C}$ double bond; Cycloalkanes have a cyclic structure)\n\n- **Alcohols:** $\\text{R-OH}$ (An $\\text{OH}$ group attached to an alkyl chain)\n\n- **Aldehydes:** $\\text{R-CHO}$ (The carbonyl ($\\text{C}=\\text{O}$) group is at the end of a chain, bonded to at least one other **Unformatted expression:**\n\n```text\n$\text{C$\n```\n\n atom)\n\n- **Ketones:** $\\text{R-CO-R'}$ (The carbonyl ($\\text{C}=\\text{O}$) group is sandwiched between two carbon atoms)\n\n- **Carboxylic Acids:** $\\text{R-COOH}$ (A $\\text{C}=\\text{O}$ group with a hydrogen atom attached to the carbonyl $\\text{C}$)\n\n**Structural Assumptions:** The key differentiation is the functional group. Alcohols contain a simple hydroxyl ($\\text{OH}$) group; while aldehydes and ketones contain a carbonyl ($\\text{C}=\\text{O}$) group, carboxylic acids contain a carboxyl ($\\text{COOH}$) group, meaning the $\\text{C}$ atom is bonded to both $\\text{O}$ and another $\\text{O}$ (via $\\text{H}$)."
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "think": "low",
+      "case": "bonding",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Explain the bonding and structure facts I need for CAIE 9701: ionic, covalent and metallic bonds, intermolecular forces, and how bonding explains melting points and electrical conductivity. Include precise exam definitions and common mistakes.",
+      "result": {
+        "text": "# Bonding & Structure (CAIE 9701)\n\n## Ionic bonding\n\n**Definition:** Ionic bonding is the *electrostatic attraction between oppositely charged ions*.\n\n- Formed when a metal (Group 1 or 2) transfers electrons to a non-metal (Group 6 or 7), giving each ion a full outer shell.\n- Ions arrange in a **giant ionic lattice**: each ion is surrounded by ions of opposite charge in a 3D regular pattern.\n- No discrete molecules exist; the formula unit (e.g. NaCl) is an empirical ratio.\n\n**Common mistakes:**\n- Writing \"electrostatic attraction between a cation and an anion\" — you must say *oppositely charged ions*, not just name two specific ones.\n- Drawing only two ions and calling it a \"molecule\" — ionic compounds have no molecules.\n- Forgetting that the bond is between *all* ions in the lattice, not one Na⁺ and one Cl⁻.\n\n---\n\n## Covalent bonding\n\n**Definition:** Covalent bonding is the *electrostatic attraction between shared pairs of electrons and the nuclei of the bonded atoms*.\n\nTwo key sub-types you must distinguish:\n\n| Feature | Simple molecular | Giant covalent |\n|---|---|---|\n| Example | $\\text{H}_2\\text{O}$, $\\text{CO}_2$, $\\text{I}_2$ | Diamond, $\\text{SiO}_2$, graphite |\n| Structure | Small molecules held by weak IMF | Giant 3D network of covalent bonds |\n| Melting point | Low | Very high |\n| Conductivity | No (no mobile charge carriers) | No (diamond); yes (graphite, $\\text{Si}$ doped) |\n\n**Common mistakes:**\n- Saying \"covalent bonds hold the molecules together in ice\" — no, covalent bonds hold H and O *within* each $\\text{H}_2\\text{O}$ molecule; *hydrogen bonds* hold molecules together.\n- Confusing $\\text{SiO}_2$ (giant covalent) with $\\text{CO}_2$ (simple molecular) — similar formula, totally different structure.\n\n---\n\n## Metallic bonding\n\n**Definition:** Metallic bonding is the *electrostatic attraction between a lattice of positive metal ions and a sea of delocalised electrons*.\n\n- The \"sea\" is sometimes called an electron gas or electron cloud.\n- Layers",
+        "ok": false,
+        "status": "error",
+        "message": "The local AI took too long to answer; try again.",
+        "usage": {},
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 300.02431425004033,
+      "first_seconds": 143.40090037503978,
+      "canonical": "**Bonding & Structure (CAIE 9701)**\n**Ionic bonding**\n**Definition:** Ionic bonding is the *electrostatic attraction between oppositely charged ions*.\n\n- Formed when a metal (Group 1 or 2) transfers electrons to a non-metal (Group 6 or 7), giving each ion a full outer shell.\n\n- Ions arrange in a **giant ionic lattice**: each ion is surrounded by ions of opposite charge in a 3D regular pattern.\n\n- No discrete molecules exist; the formula unit (e.g. NaCl) is an empirical ratio.\n\n**Common mistakes:**\n\n- Writing \"electrostatic attraction between a cation and an anion\" — you must say *oppositely charged ions*, not just name two specific ones.\n\n- Drawing only two ions and calling it a \"molecule\" — ionic compounds have no molecules.\n\n- Forgetting that the bond is between *all* ions in the lattice, not one Na⁺ and one Cl⁻.\n\n---\n\n**Covalent bonding**\n**Definition:** Covalent bonding is the *electrostatic attraction between shared pairs of electrons and the nuclei of the bonded atoms*.\n\nTwo key sub-types you must distinguish:\n\n| Feature | Simple molecular | Giant covalent |\n|---|---|---|\n| Example | $\\text{H}_2\\text{O}$, $\\text{CO}_2$, $\\text{I}_2$ | Diamond, $\\text{SiO}_2$, graphite |\n| Structure | Small molecules held by weak IMF | Giant 3D network of covalent bonds |\n| Melting point | Low | Very high |\n| Conductivity | No (no mobile charge carriers) | No (diamond); yes (graphite, $\\text{Si}$ doped) |\n\n**Common mistakes:**\n\n- Saying \"covalent bonds hold the molecules together in ice\" — no, covalent bonds hold H and O *within* each $\\text{H}_2\\text{O}$ molecule; *hydrogen bonds* hold molecules together.\n\n- Confusing $\\text{SiO}_2$ (giant covalent) with $\\text{CO}_2$ (simple molecular) — similar formula, totally different structure.\n\n---\n\n**Metallic bonding**\n**Definition:** Metallic bonding is the *electrostatic attraction between a lattice of positive metal ions and a sea of delocalised electrons*.\n\n- The \"sea\" is sometimes called an electron gas or electron cloud.\n\n- Layers"
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "think": "low",
+      "case": "calculus",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Show the method to differentiate y = x exp(-x), evaluate the integral of x squared from 0 to 1, and write the finite sum of r squared from r = 1 to n. Explain the notation and check each result.",
+      "result": {
+        "text": "**1. Differentiate** $y = x\\,e^{-x}$\n\nProduct rule: $u=x$, $v=e^{-x}$, so $y' = u'v + uv'$.\n\n1. $u' = 1$, $\\;v' = -e^{-x}$\n2. $y' = e^{-x} + x(-e^{-x}) = e^{-x}(1-x)$\n\n**Check:** at $x=0$, $y'=1>0$; $y$ rises from the origin, so a positive gradient fits.\n\n---\n\n**2. Definite integral** $\\displaystyle\\int_0^1 x^2\\,dx$\n\nNotation: $\\int_a^b f(x)\\,dx$ is the signed area under $f$ from $a$ to $b$.\n\n1. Antiderivative: $\\frac{x^3}{3}$\n2. Evaluate: $\\left[\\frac{x^3}{3}\\right]_0^1 = \\frac{1}{3}-0 = \\frac{1}{3}$\n\n**Check:** $x^2\\leq 1$ on $[0,1]$, so area $\\leq 1$; $\\frac{1}{3}$ is plausible.\n\n---\n\n**3. Finite sum** $\\displaystyle\\sum_{r=1}^{n} r^2$\n\nNotation: $\\sum_{r=1}^{n}$ means add the expression for each integer $r$ from 1 to $n$.\n\n$$\\sum_{r=1}^{n} r^2 = \\frac{n(n+1)(2n+1)}{6}$$\n\n**Check:** $n=1$ gives $\\frac{1\\cdot2\\cdot3}{6}=1=1^2$ ✓",
+        "ok": false,
+        "status": "error",
+        "message": "The local AI took too long to answer; try again.",
+        "usage": {},
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 300.0934067090275,
+      "first_seconds": 176.49354191700695,
+      "canonical": "**1. Differentiate** $y = x\\,e^{-x}$\n\nProduct rule: $u=x$, $v=e^{-x}$, so $y' = u'v + uv'$.\n\n1. $u' = 1$, $\\;v' = -e^{-x}$\n\n2. $y' = e^{-x} + x(-e^{-x}) = e^{-x}(1-x)$\n\n**Check:** at $x=0$, $y'=1>0$; $y$ rises from the origin, so a positive gradient fits.\n\n---\n\n**2. Definite integral** $\\displaystyle\\int_0^1 x^2\\,dx$\n\nNotation: $\\int_a^b f(x)\\,dx$ is the signed area under $f$ from $a$ to $b$.\n\n1. Antiderivative: $\\frac{x^3}{3}$\n\n2. Evaluate: $\\left[\\frac{x^3}{3}\\right]_0^1 = \\frac{1}{3}-0 = \\frac{1}{3}$\n\n**Check:** $x^2\\leq 1$ on $[0,1]$, so area $\\leq 1$; $\\frac{1}{3}$ is plausible.\n\n---\n\n**3. Finite sum** $\\displaystyle\\sum_{r=1}^{n} r^2$\n\nNotation: $\\sum_{r=1}^{n}$ means add the expression for each integer $r$ from 1 to $n$.\n\n$$\n\\sum_{r=1}^{n} r^2 = \\frac{n(n+1)(2n+1)}{6}\n$$\n\n**Check:** $n=1$ gives $\\frac{1\\cdot2\\cdot3}{6}=1=1^2$ ✓"
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "think": "low",
+      "case": "topic_change",
+      "prompt": "CONTEXT\nSession: lesson on 9702-2.1 Motion. What they were taught: acceleration is rate of change of velocity. No OPEN questions.\n\nSTUDENT ASKS: Change topic to 9701 organic chemistry. List the general formulae for alkanes, alkenes, cycloalkanes, alcohols, aldehydes, ketones and carboxylic acids. State the structural assumptions and overlapping formulae so I do not confuse them.",
+      "result": {
+        "text": "**General formulae (acyclic, monofunctional):**\n\n- Alkanes: $C_nH_{2n+2}$\n- Alkenes: $C_nH_{2n}$\n- Cycloalkanes: $C_nH_{2n}$\n- Alcohols: $C_nH_{2n+1}OH$\n- Aldehydes: $C_nH",
+        "ok": false,
+        "status": "error",
+        "message": "The local AI took too long to answer; try again.",
+        "usage": {},
+        "speech": "",
+        "performance": {}
+      },
+      "seconds": 300.04597300000023,
+      "first_seconds": 278.1527552079642,
+      "canonical": "**General formulae (acyclic, monofunctional):**\n\n- Alkanes: $C_nH_{2n+2}$\n\n- Alkenes: $C_nH_{2n}$\n\n- Cycloalkanes: $C_nH_{2n}$\n\n- Alcohols: $C_nH_{2n+1}OH$\n\n- Aldehydes: **Unformatted expression:**\n\n```text\n$C_nH\n```\n\n"
+    },
+    {
+      "model": "mlx:gpt-oss:20b",
+      "think": "low",
+      "case": "bonding",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Explain the bonding and structure facts I need for CAIE 9701: ionic, covalent and metallic bonds, intermolecular forces, and how bonding explains melting points and electrical conductivity. Include precise exam definitions and common mistakes.",
+      "result": {
+        "text": "**Bonding Types and Structure**\n\n- **Ionic bond**: an electrostatic attraction between ions of opposite charge. *Exam wording*: \"A bond formed between…\". The bond energy is high, giving a strong lattice. \n\n- **Covalent bond**: sharing of electrons between two atoms. *Exam wording*: \"A bond characterised by the sharing of electron pairs…\". The bond may be polar or non‑polar depending on electronegativity difference. \n\n- **Metallic bond**: delocalised electrons move freely in a lattice of metal ions. The bond gives strength and electrical conductivity. \n\n**Intermolecular forces (IMFs)**\n\n| IMF | When it occurs | Effect on physical properties |\n|-----|----------------|------------------------------|\n| London dispersion | all molecules | increases with mol‑weight, raises melting/boiling points |\n| Dipole–dipole | polar molecules | raises MP/TP more than dispersion |\n| H‑bond | molecules that can donate & accept H (O,H,N) | very strong, high MP/TP |\n| Ion‑dipole | ionic & polar | very strong, high MP/TP |\n\n**Bonding → Physical Properties**\n\n1. **Melting points**\n   * Ionic lattices: very high MP because of strong coulombic attraction.\n   * Covalent network solids (e.g. diamond): high MP due to shared‑electron chains.\n   * Molecular solids: low MP; strength depends on IMF type.\n2. **Electrical conductivity**\n   * Solids – Ionic: none (free ions only in melt/solution).\n   * Solids – Metallic: good (delocalised electrons).\n   * Liquids/solutions – Ionic: conductive (charged particles).\n   * Liquids/solutions – Covalent (e.g. organic) : poor.\n\n**Common Mistakes**\n\n• Confusing polarity with the *existence* of a dipole – a molecule can be polar but lack H‑bonding.\n• Assuming all ionic compounds have the *same* MP; lattice energy depends on ion sizes.\n• Omitting that metallic bonds give both strength and *conductivity*.\n• Writing IMF rules without specifying the type (e.g. mixing dipole–dipole with H‑bond).\n\nThese points give you the exam‑ready definitions and links to why melting points and conductivity behave as they do.  ",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {},
+        "speech": "",
+        "performance": {
+          "model": "mlx:gpt-oss:20b",
+          "total_seconds": 67.34680116601521,
+          "engine_seconds": 56.23062375,
+          "retry_count": 0,
+          "preload_seconds": 11.095931166026276,
+          "preload_count": 1,
+          "load_seconds": 0.0,
+          "thinking_seconds": 0.685310542001389,
+          "prompt_seconds": 6.775972334,
+          "generation_seconds": 48.135453083,
+          "input_tokens": 773,
+          "output_tokens": 559,
+          "cached_input_tokens": null,
+          "tokens_per_second": 11.613061978166401,
+          "first_token_seconds": 20.109629999962635
+        }
+      },
+      "seconds": 67.34691562503576,
+      "first_seconds": 20.109705417009536,
+      "canonical": "**Bonding Types and Structure**\n\n- **Ionic bond**: an electrostatic attraction between ions of opposite charge. *Exam wording*: \"A bond formed between…\". The bond energy is high, giving a strong lattice. \n\n- **Covalent bond**: sharing of electrons between two atoms. *Exam wording*: \"A bond characterised by the sharing of electron pairs…\". The bond may be polar or non‑polar depending on electronegativity difference. \n\n- **Metallic bond**: delocalised electrons move freely in a lattice of metal ions. The bond gives strength and electrical conductivity. \n\n**Intermolecular forces (IMFs)**\n\n| IMF | When it occurs | Effect on physical properties |\n|-----|----------------|------------------------------|\n| London dispersion | all molecules | increases with mol‑weight, raises melting/boiling points |\n| Dipole–dipole | polar molecules | raises MP/TP more than dispersion |\n| H‑bond | molecules that can donate & accept H (O,H,N) | very strong, high MP/TP |\n| Ion‑dipole | ionic & polar | very strong, high MP/TP |\n\n**Bonding → Physical Properties**\n\n1. **Melting points**\n   - Ionic lattices: very high MP because of strong coulombic attraction.\n   - Covalent network solids (e.g. diamond): high MP due to shared‑electron chains.\n   - Molecular solids: low MP; strength depends on IMF type.\n\n2. **Electrical conductivity**\n   - Solids – Ionic: none (free ions only in melt/solution).\n   - Solids – Metallic: good (delocalised electrons).\n   - Liquids/solutions – Ionic: conductive (charged particles).\n   - Liquids/solutions – Covalent (e.g. organic) : poor.\n\n**Common Mistakes**\n\n- Confusing polarity with the *existence* of a dipole – a molecule can be polar but lack H‑bonding.\n\n- Assuming all ionic compounds have the *same* MP; lattice energy depends on ion sizes.\n\n- Omitting that metallic bonds give both strength and *conductivity*.\n\n- Writing IMF rules without specifying the type (e.g. mixing dipole–dipole with H‑bond).\n\nThese points give you the exam‑ready definitions and links to why melting points and conductivity behave as they do.  "
+    },
+    {
+      "model": "mlx:gpt-oss:20b",
+      "think": "low",
+      "case": "calculus",
+      "prompt": "CONTEXT\n(none: a general question, nothing answered yet)\n\nSTUDENT ASKS: Show the method to differentiate y = x exp(-x), evaluate the integral of x squared from 0 to 1, and write the finite sum of r squared from r = 1 to n. Explain the notation and check each result.",
+      "result": {
+        "text": "**Differentiation of**\\ \\(y=x\\,e^{-x}\\)\n\n1. Recognise it as a product: \\(u=x\\), \\(v=e^{-x}\\).\n2. Use the product rule: \\(y'=u'v+uv'\\).\n   * \\(u'=1\\)\n   * \\(v'= -e^{-x}\\) (chain rule, derivative of \\(-x\\) is \\(-1\\)).\n3. Substitute: \\(y' = 1\\cdot e^{-x}+x(-e^{-x}) = e^{-x}(1-x)\\).\n\n**Integral of**\\ \\(x^{2}\\)\\ **from 0 to 1**\n\n1. Use the power rule for integration: \\(\n   \n   \n   \n   \n   \\int x^{2}\\,dx = \\frac{x^{3}}{3}+C\\).\n2. Apply limits:\n   \\[\n   \\int_{0}^{1}x^{2}\\,dx = \\Big[\\frac{x^{3}}{3}\\Big]_{0}^{1}=\\frac{1^{3}}{3}-\\frac{0^{3}}{3}=\\frac{1}{3}\n   \n   \n   \n   \n   ;\n   \\]\n   Result: \\(\\frac{1}{3}\\).\n\n**Finite sum of**\\ \\(r^{2}\\)\\ **from**\\ \\(r=1\\)\\ **to**\\ \\(n\\)\n\n1. Write the series explicitly: \\(1^{2}+2^{2}+3^{2}+\\dots+n^{2}\\).\n2. Use the known closed‑form formula:\n   \\[\n   \\sum_{r=1}^{n} r^{2}=\\frac{n(n+1)(2n+1)}{6}\n   \n   \n   \n   \n   ;\n   \\]\n   That is the compact representation.\n\n**Notation explanation**\n- \\(\\sum\\) denotes a summation over the indicated index.\n- Limits inside the integral \\(\\int_{a}^{b}\\) give the area under the curve between \\(a\\) and \\(b\\).\n- The derivative \\(y'\\) refers to \\(\\frac{dy}{dx}\\).\n\n**Checks**\n- Differentiation: plug \\(x=0\\) → \\(y'=1\\), matches derivative of \\(0\\cdot e^{0}=0\\) gradient. Good.\n- Integral: numerical check – area under parabola from 0 to 1 is small; \\(1/3\\) is reasonable.\n- Sum formula: test with \\(n=3\\) → \\(1+4+9=14\\); formula gives \\(3\\cdot4\\cdot7/6=84/6=14\\). Works.",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {},
+        "speech": "",
+        "performance": {
+          "model": "mlx:gpt-oss:20b",
+          "total_seconds": 61.1664932090207,
+          "engine_seconds": 61.121334958,
+          "retry_count": 0,
+          "preload_seconds": 0.019403165963012725,
+          "preload_count": 1,
+          "load_seconds": 0.0,
+          "thinking_seconds": 3.8599124579923227,
+          "prompt_seconds": 5.163846791,
+          "generation_seconds": 55.920195666,
+          "input_tokens": 777,
+          "output_tokens": 724,
+          "cached_input_tokens": null,
+          "tokens_per_second": 12.947021936838443,
+          "first_token_seconds": 9.346863249957096
+        }
+      },
+      "seconds": 61.16658266703598,
+      "first_seconds": 9.3469367500511,
+      "canonical": "**Differentiation of**\\ $y=x\\,e^{-x}$\n\n1. Recognise it as a product: $u=x$, $v=e^{-x}$.\n\n2. Use the product rule: $y'=u'v+uv'$.\n   - $u'=1$\n   - $v'= -e^{-x}$ (chain rule, derivative of $-x$ is $-1$).\n\n3. Substitute: $y' = 1\\cdot e^{-x}+x(-e^{-x}) = e^{-x}(1-x)$.\n\n**Integral of**\\ $x^{2}$\\ **from 0 to 1**\n\n1. Use the power rule for integration: **Unformatted expression:**\n\n```text\n\\(\n```\n\n   \n   \n   \n   \n   $\\int$ $x^{2}$\\,dx = $\\frac{x^{3}}{3}$+C\\).\n\n2. Apply limits:\n   $$\n\\int_{0}^{1}x^{2}\\,dx = \\Big[\\frac{x^{3}}{3}\\Big]_{0}^{1}=\\frac{1^{3}}{3}-\\frac{0^{3}}{3}=\\frac{1}{3}\n   \n   \n   \n   \n   ;\n$$\n   Result: $\\frac{1}{3}$.\n\n**Finite sum of**\\ $r^{2}$\\ **from**\\ $r=1$\\ **to**\\ $n$\n\n1. Write the series explicitly: $1^{2}+2^{2}+3^{2}+\\dots+n^{2}$.\n\n2. Use the known closed‑form formula:\n   $$\n\\sum_{r=1}^{n} r^{2}=\\frac{n(n+1)(2n+1)}{6}\n   \n   \n   \n   \n   ;\n$$\n   That is the compact representation.\n\n**Notation explanation**\n\n- $\\sum$ denotes a summation over the indicated index.\n\n- Limits inside the integral $\\int_{a}^{b}$ give the area under the curve between $a$ and $b$.\n\n- The derivative $y'$ refers to $\\frac{dy}{dx}$.\n\n**Checks**\n\n- Differentiation: plug $x=0$ → $y'=1$, matches derivative of $0\\cdot e^{0}=0$ gradient. Good.\n\n- Integral: numerical check – area under parabola from 0 to 1 is small; $1/3$ is reasonable.\n\n- Sum formula: test with $n=3$ → $1+4+9=14$; formula gives $3\\cdot4\\cdot7/6=84/6=14$. Works."
+    },
+    {
+      "model": "mlx:gpt-oss:20b",
+      "think": "low",
+      "case": "topic_change",
+      "prompt": "CONTEXT\nSession: lesson on 9702-2.1 Motion. What they were taught: acceleration is rate of change of velocity. No OPEN questions.\n\nSTUDENT ASKS: Change topic to 9701 organic chemistry. List the general formulae for alkanes, alkenes, cycloalkanes, alcohols, aldehydes, ketones and carboxylic acids. State the structural assumptions and overlapping formulae so I do not confuse them.",
+      "result": {
+        "text": "For the classes listed:\n\n*Alkanes*\n- General formula: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}+2}\\]\n- Assumption: all bonds are single, saturated, linearly extendable.\n\n*Alkenes*\n- General formula: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}}\\]\n- Assumption: one carbon‑carbon double bond, reduces H count by 2.\n\n*Cycloalkanes*\n- General formula: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}}\\]\n- Assumption: ring closes, same H count as alkenes but no unsaturation.\n\n*Alcohols*\n- General formula: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}+1}\\text{OH}\\]\n- Assumption: one –OH group replaces one H.\n\n*Aldehydes*\n- General formula: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}}\\text{O}\\]\n- Assumption: one –CHO group (C=O with H).\n\n*Ketones*\n- General formula: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}}\\text{O}\\]\n- Assumption: one –CO– group (C=O bonded to two C atoms).\n\n*Carboxylic acids*\n- General formula: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}-1}\\text{COOH}\\]\n- Assumption: one –COOH group (C=O with OH).\n\n**Overlapping formulae**\n- Alkenes and cycloalkanes share \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}}\\]; decide by presence of a double bond or a ring.\n- Aldehydes and ketones both have \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}}\\text{O}\\]; carbonyl carbon position distinguishes them.\n- Alcohols and aldehydes/ketones differ by the number of hydrogen atoms on carbonyl:\n  – Alcohol: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}+1}\\text{OH}\\];\n  – Aldehyde/ketone: \\\\[\\text{C}_{\\text{n}}\\text{H}_{2\\text{n}}\\text{O}\\].",
+        "ok": true,
+        "status": "ready",
+        "message": "",
+        "usage": {},
+        "speech": "",
+        "performance": {
+          "model": "mlx:gpt-oss:20b",
+          "total_seconds": 54.345430084038526,
+          "engine_seconds": 54.307393291,
+          "retry_count": 0,
+          "preload_seconds": 0.01232920796610415,
+          "preload_count": 1,
+          "load_seconds": 0.0,
+          "thinking_seconds": 1.1698142920504324,
+          "prompt_seconds": 5.694160334,
+          "generation_seconds": 48.580323459,
+          "input_tokens": 806,
+          "output_tokens": 662,
+          "cached_input_tokens": null,
+          "tokens_per_second": 13.626916267008877,
+          "first_token_seconds": 7.131544582953211
+        }
+      },
+      "seconds": 54.34554641699651,
+      "first_seconds": 7.131637834012508,
+      "canonical": "For the classes listed:\n\n*Alkanes*\n\n- General formula: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$+2}\\]\n\n- Assumption: all bonds are single, saturated, linearly extendable.\n\n*Alkenes*\n\n- General formula: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$}\\]\n\n- Assumption: one carbon‑carbon double bond, reduces H count by 2.\n\n*Cycloalkanes*\n\n- General formula: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$}\\]\n\n- Assumption: ring closes, same H count as alkenes but no unsaturation.\n\n*Alcohols*\n\n- General formula: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$+1}$\\text{OH}$\\]\n\n- Assumption: one –OH group replaces one H.\n\n*Aldehydes*\n\n- General formula: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$}$\\text{O}$\\]\n\n- Assumption: one –CHO group (C=O with H).\n\n*Ketones*\n\n- General formula: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$}$\\text{O}$\\]\n\n- Assumption: one –CO– group (C=O bonded to two C atoms).\n\n*Carboxylic acids*\n\n- General formula: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$-1}$\\text{COOH}$\\]\n\n- Assumption: one –COOH group (C=O with OH).\n\n**Overlapping formulae**\n\n- Alkenes and cycloalkanes share \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$}\\]; decide by presence of a double bond or a ring.\n\n- Aldehydes and ketones both have \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$}$\\text{O}$\\]; carbonyl carbon position distinguishes them.\n\n- Alcohols and aldehydes/ketones differ by the number of hydrogen atoms on carbonyl:\n  – Alcohol: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$+1}$\\text{OH}$\\];\n  – Aldehyde/ketone: \\\\[$\\text{C}$_{$\\text{n}$}$\\text{H}$_{2$\\text{n}$}$\\text{O}$\\]."
+    }
+  ]
+}

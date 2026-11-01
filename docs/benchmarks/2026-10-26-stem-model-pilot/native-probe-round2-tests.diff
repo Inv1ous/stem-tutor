@@ -1,0 +1,129 @@
+--- v2-preflight/test_native_probe_preflight.py
++++ v3-recorder-fixed/test_native_probe_preflight.py
+@@ -174,5 +174,126 @@
+         self.assertIs(result['marking_labels_equal'], False)
+ 
+ 
++class RecorderMerge(unittest.TestCase):
++    def test_explicit_event_fields_override_repeated_context_fields(self):
++        context={'id':'context-case', 'turn':1, 'schema':{'private_to_context':True}}
++        event={'type':'turn_result', 'case_id':'event-case', 'turn':2, 'elapsed_seconds':.25}
++        before_context, before_event=deepcopy(context),deepcopy(event)
++        record=probe.contextual_event(context,event,9.0)
++        self.assertEqual(record, event)
++        self.assertEqual(context,before_context)
++        self.assertEqual(event,before_event)
++
++    def test_missing_event_fields_receive_context_defaults(self):
++        record=probe.contextual_event({'id':'case', 'turn':3}, {'type':'control_request'}, 2.0)
++        self.assertEqual(record,{'case_id':'case','turn':3,'elapsed_seconds':2.0,'type':'control_request'})
++
++
++class NormalExecuteRecording(unittest.TestCase):
++    """Real TutorAI/LocalAI/decoder; only HTTP transport and OS probes are stubbed."""
++    def execute_one(self, completion):
++        from tutor_app import local_models, local_ai, stem_training
++        case=next(json.loads(line) for line in (probe.ROOT/'inputs.jsonl').read_text().splitlines()
++                  if json.loads(line)['id']=='005c35460c204a0c150cd248')
++        gold=next(json.loads(line) for line in (probe.ROOT/'gold.jsonl').read_text().splitlines()
++                  if json.loads(line)['id']==case['id'])
++        mode='deep' if completion=='stop' else 'fast'
++        sentinel='HIDDEN_THOUGHT_MUST_NEVER_BE_RETAINED'
++        public=json.dumps(gold['expected']) if completion=='stop' else '{"blocks":[{"kind":"paragraph","text":"unfinished'
++        counters=dict(total_duration=100000000,load_duration=1000000,prompt_eval_duration=2000000,
++                      eval_duration=90000000,prompt_eval_count=100,prompt_eval_cached_count=0,
++                      eval_count=20 if completion=='stop' else 4096)
++        loaded=False
++        requests=[]
++        async def transport(self,payload,timeout,path='/api/chat',**kwargs):
++            nonlocal loaded
++            requests.append((path,deepcopy(payload)))
++            def decoded(value):
++                return self._decode(json.dumps(value).encode())
++            if path=='/api/version':
++                yield decoded({'version':'0.40.11'})
++            elif path=='/api/ps':
++                yield decoded({'models':[{'name':probe.NAME,'size_vram':1024}] if loaded else []})
++            elif not payload.get('messages'):
++                unloading=payload.get('keep_alive')==0
++                loaded=not unloading
++                yield decoded({'done':True,'done_reason':'unload' if unloading else 'load',
++                               'message':{'content':''}})
++            else:
++                self_test.assertEqual(payload['format'],case['schema'])
++                self_test.assertIs(payload['think'],mode=='deep')
++                if mode=='deep':
++                    yield decoded({'message':{'thinking':sentinel,'content':''}, 'context':[123456]})
++                yield decoded({'message':{'content':public}, 'context':[789012]})
++                yield decoded({'done':True,'done_reason':completion,'message':{'content':''},**counters})
++        self_test=self
++        fake_monitor=SimpleNamespace(initial={'pressure':1},latest={'pressure':1},check=lambda:None)
++        before={name:deepcopy(getattr(local_models,name)) for name in
++                ('LOCAL_MODELS','TEXT_MODELS','KEEP_ALIVE','CONTEXT_LENGTH','MAX_CONTEXT_LENGTH')}
++        with TemporaryDirectory() as temp:
++            root=Path(temp); (root/'stem-tutor-training').mkdir()
++            frozen=root/'frozen'; frozen.mkdir()
++            (frozen/'manifest.json').write_text('{}')
++            (frozen/'gold.jsonl').write_text(json.dumps(gold)+'\n')
++            native=root/'manifests-v2/ollama.com/library/stem-tutor-qwen35/pilot'
++            native.parent.mkdir(parents=True); native.write_text('{"runner":"mlx"}')
++            output=root/'result'
++            with patch.object(probe,'SSD',root), patch.object(probe,'ROOT',frozen), \
++                 patch.object(probe,'MODEL_MANIFEST',native), patch.object(local_models,'ROOT',root), \
++                 patch.object(local_ai.LocalAI,'_http_events',transport), \
++                 patch.object(stem_training,'ResourceMonitor',return_value=fake_monitor), \
++                 patch('subprocess.check_output',return_value='Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free: 400000.\nPages inactive: 0.\nPages speculative: 0.\n'), \
++                 patch('asyncio.open_connection',side_effect=AssertionError('CPU test must never open native socket')):
++                asyncio.run(probe.execute(SimpleNamespace(output=output,mode=mode),
++                                          {'options_status':'requested only'},[case]))
++            events=[json.loads(line) for line in (output/'public-events.jsonl').read_text().splitlines()]
++            receipt=json.loads((output/'receipt.json').read_text())
++            scores=json.loads((output/'scores.json').read_text())
++            text=(output/'public-events.jsonl').read_text()
++            for name,old in before.items():
++                self.assertEqual(getattr(local_models,name),old,name)
++            self.assertNotIn(sentinel,text)
++            self.assertNotIn('123456',text)
++            self.assertNotIn('789012',text)
++            self.assertNotIn('"thinking"',text)
++            self.assertFalse(loaded,'owned candidate must be unloaded by final cleanup')
++            self.assertEqual(receipt['cleanup'],'candidate released or no candidate loaded')
++            self.assertEqual(receipt['state'],'completed_requires_manual_review')
++            self.assertEqual(receipt['completed_turns'],1)
++            self.assertNotIn('scoring_error',receipt)
++            self.assertEqual(len(scores),1)
++            self.assertTrue(any(not payload.get('messages') and payload.get('keep_alive')==0
++                                for path,payload in requests if path=='/api/chat'))
++            turn_events=[e for e in events if e['type']=='turn_result']
++            self.assertEqual(len(turn_events),1)
++            turn=turn_events[0]
++            self.assertEqual(turn['case_id'],case['id'])
++            self.assertEqual(turn['id'],case['id'])
++            self.assertEqual(turn['turn'],1)
++            self.assertEqual(turn['actual_api_counters'],counters)
++            self.assertEqual(turn['missing_api_counters'],[])
++            self.assertEqual(turn['public_final'],public)
++            return turn,scores[0]['scores']
++
++    def test_normal_chat_completion_records_scores_and_cleans_up(self):
++        turn,score=self.execute_one('stop')
++        self.assertTrue(turn['app_ok'])
++        self.assertTrue(turn['thinking_observed'])
++        self.assertIsNotNone(turn['first_rendered_block_seconds'])
++        self.assertTrue(score['raw_schema_valid'])
++        self.assertTrue(score['decoder_finish'])
++        self.assertTrue(score['delivery_gate'])
++
++    def test_length_failed_model_completion_is_recorded_and_scored(self):
++        turn,score=self.execute_one('length')
++        self.assertFalse(turn['app_ok'])
++        self.assertIsNotNone(turn['error'])
++        self.assertEqual(turn['finish_reason'],'length')
++        self.assertIsNone(turn['first_rendered_block_seconds'])
++        self.assertFalse(score['raw_schema_valid'])
++        self.assertFalse(score['decoder_finish'])
++        self.assertFalse(score['delivery_gate'])
++
++
+ if __name__=='__main__':
+     unittest.main()

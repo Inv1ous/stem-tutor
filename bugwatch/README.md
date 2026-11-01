@@ -2,6 +2,19 @@
 
 Two AI agents work on the same repository at the same time.
 
+After the Library migration, start with `bugwatch/SCOPE.md` and the workspace
+contract in `../AGENTS.md`. Canonical engine source is `src/tutorlib/`; the plugin
+path is an adapter. `sandbox.sh` now copies the actual CURRENT release, topical
+bank and verified Library dependency closure into a disposable vault. It does
+not publish authoring drafts or modify registered plan bytes. Its temporary-vault
+guard blocks writes beside the learner's real Almanac.
+
+Claude entrypoint: `/bugwatch` runs the existing fixer loop; `/bugwatch status`
+reads the board; `/bugwatch check` runs bounded migration/teaching regressions.
+The installed skill points back to this repository. Spotters continue to use
+the separate prompt below. Reading real source assets is allowed; testing must
+never write to the real Library or learner records.
+
 - **Codex (spotter)** reads the code, runs things in a scratch sandbox, and reports possible bugs as it finds them.
 - **Claude (fixer)** reads those reports, confirms each one, fixes it with a test, and records what happened.
 
@@ -51,14 +64,18 @@ A finding is a level-3 heading plus fields. IDs run `B-001`, `B-002`, … (take 
 - **Suggested fix:** optional, at most two lines
 ```
 
-Everything else is a one-line log entry that starts `- HH:MM VERB`:
+Everything else is a one-line log entry that starts `- YYYY-MM-DD HH:MM VERB` in Hong Kong time:
 
 ```
-- 14:05 SWEEP · grade.py + units.py · ran check.sh, 40 property probes · findings: B-014 B-015   (or: clean)
-- 14:50 VERIFIED B-014 · tried 6 comma variants, all fine
-- 14:52 REOPEN B-014 · still splits on ';' — repro: <command>
-- 14:44 REPLY B-011 · answer to Claude's question
+- 2026-11-01 14:05 SWEEP · grade.py + units.py · ran check.sh, 40 property probes · findings: B-014 B-015   (or: clean)
+- 2026-11-01 14:50 VERIFIED B-014 · tried 6 comma variants, all fine
+- 2026-11-01 14:52 REOPEN B-014 · still splits on ';' — repro: <command>
+- 2026-11-01 14:44 REPLY B-011 · answer to Claude's question
 ```
+
+Codex may close its own checked findings in `codex/BUGS.md`: `VERIFIED B-nnn` closes a fixed finding after its regression and break-check pass, and `REJECTED B-nnn` closes a report disproved by reproduction. `REOPEN B-nnn` reopens either result. Claude's separate `FIXES.md` workflow remains unchanged.
+
+Codex may also close its own quality-of-life ideas in `codex/BUGS.md` with `DONE Q-nnn · proof` or `DECLINED Q-nnn · reason`. Record `VERIFIED Q-nnn · proof` after fresh behavior checks, or `REJECTED Q-nnn · reason` after disproving the idea. The board uses the newest dated QOL verdict across `BUGS.md` and Claude-owned `FIXES.md`, and includes Codex's QOL terminal lines in latest activity.
 
 **Priorities:** **P0** wrong grading, answer leak before an attempt, lost or corrupted progress or notes, crash on a
 normal path, writing outside the vault. **P1** wrong behaviour on a normal path. **P2** edge-case crash, UX trap, an action
@@ -66,7 +83,7 @@ slower than about a second, guide text the code doesn't honour. **P3** minor.
 
 ### Claude → `FIXES.md`
 
-One line per event, `- HH:MM B-nnn STATUS · detail`:
+One line per event, `- YYYY-MM-DD HH:MM B-nnn STATUS · detail` in Hong Kong time:
 
 | Status | Meaning |
 |---|---|
@@ -77,7 +94,7 @@ One line per event, `- HH:MM B-nnn STATUS · detail`:
 | `DEFERRED` | Real but not now (content work, feature, or needs the user) |
 | `NEEDS-INFO` | Question for Codex; Codex answers with a `REPLY` |
 
-Claude also appends `- HH:MM LAST-READ B-nnn` after each pass through `BUGS.md`, so `bugs.py --unseen` shows only new ones.
+Claude also appends `- YYYY-MM-DD HH:MM LAST-READ B-nnn` after each pass through `BUGS.md`, so `bugs.py --unseen` shows only new ones. Existing `HH:MM` entries remain valid and are treated as older than dated entries; their calendar order cannot be reconstructed, so new entries must include the date.
 
 ## Claude's loop
 
@@ -109,3 +126,19 @@ When Claude's allowance is spent, Codex runs alone. Start a NEW Codex thread who
 `Read bugwatch/CODEX_SOLO.md and follow it exactly.`
 Hunters post each bug (visual ones too, with a screenshot in `codex/shots/`) and each quality-of-life idea the moment they prove it, through `post.py`; watch them arrive with `python3 bugwatch/bugs.py --watch`. After the reset, start Claude in the repo and say:
 `Read bugwatch/README.md and bugwatch/SCOPE.md, then run the bug-fix loop on everything unseen in codex/BUGS.md; then triage codex/QOL.md.`
+
+Model tiers: use `gpt-6.1-sol` for the hardest coordination/review,
+`gpt-6.1-terra` for medium work, and `gpt-6-luna` for simple inventory tasks.
+Claude Haiku worker slots use `claude-haiku-5-5`. Preserve provider choices
+and usage limits; escalate only when task difficulty warrants it.
+
+
+## Reliability and spending safeguards
+
+Run `bin/foundry doctor` before paid work; it exercises native SVG rendering and imports the PDF/image libraries, rather than only checking package names. Refine and Foundry direct launches also perform this check. Extraction verifies registered PDF hashes before each worker. Bugwatch must use its verified disposable vault and run the same doctor before an AI repair attempt.
+
+The shared paid-worker guard stops a role after two failed results in one pass/job, including timeouts, malformed output and failed gates. Changing model output does not reset this allowance. Inspect saved evidence and fix the root cause before explicitly clearing the guard. `bin/refine unstick CHAPTER "reason"`, `bin/foundry unstick CHAPTER`, or `bin/extract unstick JOB "reason"` archives the decision; never run these automatically. Provider preferences, review gates and course deadlines still apply. Repeated Refine failures preserve candidate work and leave the chapter pending.
+
+Existing question text containing PDF debris is a source-repair task, not a lesson-authoring task. Refine blocks lessons-scope workers before spending on such items. Never infer ×, −, Ω or another symbol solely from a control character: inspect the original PDF/image and bind independent source review to a new revision. Missing guided forms must be authored against the complete reviewed inventory, not filled with placeholders. Every planned lesson visual must be registered, inspected and bound to its teaching card with an accessible description. Written approval remains independent of authoring.
+
+The weekly launch cap is 70% used and Codex reserve is at least 25%. Unknown allowance readings block launches. Do not relax these limits or automatically restart an expired course run. For Bugwatch, compare the current failure with the previous attempt: if inputs and blocker are unchanged, stop instead of asking another model to repeat the same repair. Source gaps and disputed content remain visible; tests do not establish teaching approval.

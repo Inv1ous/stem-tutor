@@ -53,13 +53,28 @@ def test_time_counts_only_on_a_study_screen_while_the_learner_is_there(tmp_path,
     run(app, steps)
 
 
-def test_a_pop_up_over_the_lesson_still_counts_and_settings_over_the_menu_does_not(tmp_path, monkeypatch):
+def test_ask_counts_but_help_and_settings_pause_a_lesson_clock(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 
     async def steps(pilot):
         clock = app.tutor.study_clock
         app._last_input = app._tick_at + 10_000
         app.push_screen(SessionScreen({"mode": "test", "minutes": 40, "focus": ["9702-2.1"]}))
+        await pilot.pause()
+        before = clock.today(day(app))
+        app.action_settings()
+        await pilot.pause()
+        assert not app.studying()
+        tick(app, 10)
+        assert clock.today(day(app)) == before
+        await pilot.press("escape")
+        await pilot.pause()
+        app.action_help()
+        await pilot.pause()
+        assert not app.studying()
+        tick(app, 10)
+        assert clock.today(day(app)) == before
+        await pilot.press("escape")
         await pilot.pause()
         await pilot.press("ctrl+t")  # the ask pop-up
         await pilot.pause()

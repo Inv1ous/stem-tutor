@@ -109,6 +109,12 @@ def apply(app, name: str) -> None:
     """Switch the running app to another look, and its macOS Terminal tab to the look's profile (in the background)."""
     use(name)
     app.theme = THEME[name]
+    # Rich renderables capture explicit role colours when each transcript card is built.
+    # Rebuild those cards from their saved content so existing session history follows the new palette.
+    from . import cards
+    for screen in app.screen_stack:
+        for widget in screen.query(".entry"):
+            widget.update(cards.redraw(widget.content))
     if mac.wants_truecolor(os.environ, name):  # started in Classic: Terminal's 24-bit colour is only asked for at start
         app.notify("For this look's exact colours, restart the tutor (q, then start it again).", timeout=10)
     if app.tty:

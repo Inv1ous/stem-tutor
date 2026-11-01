@@ -83,6 +83,27 @@ def test_misconception_flag_set_then_cleared_after_two_correct():
     assert s["kcs"]["K1"]["active_misconceptions"] == []
 
 
+def test_correct_term_recall_does_not_clear_an_unrelated_misconception():
+    events = [ans(score=0, correct=False, error="CONCEPT", mis="m1"),
+              {"type": "term_introduced", "ts": T0.isoformat(), "term_id": "term:one", "kc": "K1"},
+              {"type": "term_introduced", "ts": T0.isoformat(), "term_id": "term:two", "kc": "K1"}]
+    for i, tid in enumerate(("term:one", "term:two"), 1):
+        events.append({**ans(ts=T0 + timedelta(minutes=i), item=tid), "term_id": tid})
+    state = fold(events)
+    assert state["kcs"]["K1"]["active_misconceptions"] == ["m1"]
+    assert all(state["terms"][tid]["reviews"] == 1 for tid in ("term:one", "term:two"))
+
+
+def test_term_recall_does_not_change_parent_idea_mastery_or_schedule():
+    from copy import deepcopy
+    state = fold([ans(score=0, correct=False, error="CONCEPT", mis="m1"),
+                  {"type": "term_introduced", "ts": T0.isoformat(), "term_id": "term:one", "kc": "K1"}])
+    before = deepcopy(state["kcs"]["K1"])
+    model.apply(state, {**ans(ts=T0 + timedelta(days=1), item="term:one"), "term_id": "term:one"})
+    assert state["kcs"]["K1"] == before
+    assert state["terms"]["term:one"]["reviews"] == 1
+
+
 def test_high_confidence_error_counts_hypercorrection():
     s = fold([ans(score=0, correct=False, conf=4, error="CONCEPT", mis="m1")])
     assert s["traits"]["calibration"]["high_conf_errors"] == 1

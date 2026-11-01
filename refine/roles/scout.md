@@ -91,3 +91,31 @@ anything the refiner must know (a library passage to read, a source you could no
 ## Your run is checked
 
 The program reads your log when you finish. A run that never opened the library (when it has pages for this chapter: see "Library hits" at the end of the bundle) or never searched the web (when you may) is not accepted and is retried: use both, once, for something real, and say what you used in your report.
+
+## Prepared teaching contract
+
+Prepare Learn a topic teaching with foundations and prerequisite bridges, explicit terms/notation,
+evidence-backed question forms, staged worked examples, separate independent checks, misconceptions,
+practice and review. Reuse the guided-card schema, lesson actions and reviewed Library diagrams first.
+An SVG or image must help a specific KC/form; retain its provenance, caption and accessible description,
+and inspect it before calling it reviewed. Live AI adapts explanations and practice to learner responses.
+Keep missing sources explicit; schema passes and model confidence do not establish teaching approval.
+
+Edit only the explicit candidate pack/note paths in the worker prompt. Library-backed file adapters are
+read-only references. Preserve stable IDs, historical answers, source-bound corrections and original
+baselines. Never replace a baseline or correction-review binding to clear a failed gate.
+
+In lessons scope plan teaching-card/form/example/check improvements only. Never request subject-note
+edits or unrelated assessment-item additions. Use `feature` for card/schema improvements. Existing
+Library diagrams can be linked from teaching cards without embedding them in the subject note.
+Use `bin/refine preparation-queue` for missing preparation first, then oldest recorded preparation;
+unknown timestamps stay labelled unknown. TTS age is irrelevant.
+
+## Current candidate paths
+
+Use the exact pack/note/draft paths in this job's prompt. For manual work, resolve the chapter through this
+workflow's `pack_path` and note/draft resolver using its current state. A similarly named `Work/Candidates` file
+is not evidence that it is current. Record SHA-256 hashes of inputs before editing or reviewing; before writing,
+confirm the selected paths and source bytes have not changed since you read them, apart from your intentional
+edits. On a mismatch, preserve your work separately and report the conflict. Never guess a candidate filename,
+retarget a Library adapter, or overwrite a different candidate to make paths agree.

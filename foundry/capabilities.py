@@ -23,6 +23,15 @@ def _has(binary: str) -> bool:
 def check(cfg: dict | None = None, root: Path | None = None) -> list[tuple[bool, str, str, str]]:
     cfg = cfg or json.loads((REPO / "foundry/config.json").read_text())
     rows: list[tuple[bool, str, str, str]] = []
+    for module in ('pymupdf', 'PIL', 'pypdf', 'cairosvg'):
+        try:
+            imported = __import__(module)
+            if module == 'cairosvg':
+                imported.svg2png(bytestring=b'<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>')
+            rows.append((True, f'{module} import/native runtime', '', 'hard'))
+        except Exception as exc:
+            rows.append((False, f'{module} runtime ({type(exc).__name__})',
+                         'use .venv/bin/python -m pip install -r requirements-workflows.txt; check native Cairo', 'hard'))
     for tool in ("pdftotext", "pdftoppm", "pdfinfo"):
         rows.append((shutil.which(tool) is not None or Path("/opt/homebrew/bin", tool).exists(), f"poppler `{tool}` (library search, figures)",
                      "brew install poppler", "hard"))
@@ -51,7 +60,7 @@ def check(cfg: dict | None = None, root: Path | None = None) -> list[tuple[bool,
         files = list(library.pdfs(library.lib_root()))
         rows.append((True, f"sources library readable ({len(files)} PDFs)", "", "soft"))
         if not files:
-            rows.append((False, "the sources library has PDFs", "drop PDFs into sources/library/<any folder>", "soft"))
+            rows.append((False, "the sources library has PDFs", "add source PDFs under STEM Tutor/Library/Courses/<course>/Sources/Library", "soft"))
     except Exception as e:  # noqa: BLE001
         rows.append((False, f"sources library readable ({type(e).__name__})", "see build/library.py", "hard"))
     for mod, why in (("content_checks", "option-letter and LaTeX checks"), ("glyphs", "sub/superscript repair"),

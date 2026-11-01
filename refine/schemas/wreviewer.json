@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "file",
+    "item_ids",
+    "accepted_count",
+    "rejected_count"
+  ],
+  "properties": {
+    "file": {
+      "type": "string"
+    },
+    "item_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "accepted_count": {
+      "type": "integer"
+    },
+    "rejected_count": {
+      "type": "integer"
+    }
+  }
+}

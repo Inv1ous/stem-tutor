@@ -1,5 +1,6 @@
 """The Challenge screen: set up in words or a list, write a set (a fake generator here), answer it one by one."""
 import asyncio
+import time
 
 import pytest
 
@@ -351,6 +352,46 @@ def test_leave_mid_set_resumes_and_new_set_puts_it_aside(tmp_path, monkeypatch):
         await pilot.pause()
         scr = await open_challenge(pilot, app)
         assert scr.phase == "setup"  # the set put aside is not offered again
+    run(app, (60, 24), steps)
+
+
+def test_leave_resume_accumulates_unanswered_question_time(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    fake_generator(monkeypatch, questions=[mcq(1)])
+
+    async def steps(pilot):
+        scr = await open_challenge(pilot, app)
+        await set_up(pilot, scr, "1 question on 9702-2.1")
+        await start(pilot, scr)
+        scr.clock -= 12.4
+        await pilot.press("escape")
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "HomeScreen"
+        saved = ch.ChallengeSet.open_latest_unfinished(app.tutor.vault)
+        assert saved.elapsed[0] == 12
+
+        scr = await open_challenge(pilot, app)
+        await choose(pilot, scr, "resume")
+        scr.clock -= 8.7
+        await pilot.press("escape")
+        await pilot.pause()
+        saved = ch.ChallengeSet.open_latest_unfinished(app.tutor.vault)
+        assert saved.elapsed[0] == 20
+
+        scr = await open_challenge(pilot, app)
+        await choose(pilot, scr, "resume")
+        scr.clock -= 3.2
+        scr.action_leave()
+        await pilot.pause()
+        await pilot.press("down", "enter")  # Keep writing after the leave confirmation.
+        await pilot.pause()
+        assert scr.phase == "question" and scr.set.elapsed[0] == 23
+        scr.clock -= 2.4
+        scr.set.record(scr.i, "B", {"correct": True}, int(time.monotonic() - scr.clock))
+        answer = scr.set.answers[0]
+        assert answer["seconds"] == 25
+        assert "elapsed" not in __import__("json").loads(scr.set.path.read_text())
+        assert scr.set.summary()["seconds"] == 25
     run(app, (60, 24), steps)
 
 

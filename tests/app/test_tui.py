@@ -91,6 +91,66 @@ def test_home_menu_and_a_whole_lesson_by_keyboard(tmp_path, monkeypatch):
     assert (v / "Now.md").exists() and list((v / "Lessons").rglob("*.md")) and list((v / "My Notes").rglob("*.md"))
 
 
+def test_long_picker_filters_empty_subtopics_and_keeps_later_structured_kcs(tmp_path, monkeypatch):
+    app, _ = app_for(tmp_path, monkeypatch)
+    from tutor_app.screens import PickerScreen
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            app.push_screen(PickerScreen("long"))
+            await pilot.pause()
+            picker = app.screen
+            # First KC has no structured item; second KC does.
+            assert picker.built == ["9702-2.1"]
+            app.tutor.start("long", minutes=30, focus=["9702-2.1"])
+            assert app.tutor.session["blocks"][0]["kcs"] == ["9702-2.1.4"]
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_long_picker_explains_when_no_structured_topics_exist(tmp_path, monkeypatch):
+    app, _ = app_for(tmp_path, monkeypatch)
+    from tutor_app.screens import PickerScreen
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            monkeypatch.setattr(app.tutor.packs, "items_for", lambda kc: [])
+            app.push_screen(PickerScreen("long"))
+            await pilot.pause()
+            picker = app.screen
+            assert picker.built == []
+            assert "No long questions are available" in str(picker.query_one("#found").content)
+            picker.dismiss(None)
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_home_refresh_failure_still_reaches_session_summary(tmp_path, monkeypatch):
+    app, _ = app_for(tmp_path, monkeypatch)
+    notices = []
+    monkeypatch.setattr(app, "notify", lambda message, **kwargs: notices.append(message))
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            app.tutor.start("lesson", minutes=10, focus=["9702-2.1"])
+            from tutor_app.screens import SessionScreen
+            app.push_screen(SessionScreen(None))
+            await pilot.pause()
+            screen = app.screen
+            assert screen.__class__.__name__ == "SessionScreen"
+            monkeypatch.setattr("tutorlib.views.write_home",
+                                lambda *args, **kwargs: (_ for _ in ()).throw(OSError("disk unavailable")))
+            screen.finish()
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "SummaryScreen"
+            assert any("Home could not be updated" in message for message in notices)
+
+    asyncio.run(go())
+
+
 def test_chat_streams_an_ai_reply(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

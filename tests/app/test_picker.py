@@ -1,5 +1,7 @@
 import asyncio
 
+import pytest
+
 from test_tui import app_for
 from tutor_app.screens import PickerScreen
 
@@ -151,6 +153,53 @@ def test_enter_in_the_search_box_takes_the_first_match(tmp_path, monkeypatch):
         await pilot.press("q", "u", "a", "d", "enter")
         await pilot.pause()
         assert chosen == [["P1-2"]]
+    run(app, steps)
+
+
+@pytest.mark.parametrize("mode", ["lesson", "blurt"])
+@pytest.mark.parametrize("inside", [False, True])
+@pytest.mark.parametrize("input_state", ["untouched", "erased", "whitespace"])
+def test_enter_in_blank_search_opens_a_folder_instead_of_selecting_its_id(
+        tmp_path, monkeypatch, mode, inside, input_state):
+    app, _ = app_for(tmp_path, monkeypatch)
+    chosen = []
+
+    async def steps(pilot):
+        picker = PickerScreen(mode)
+        app.push_screen(picker, chosen.append)
+        await pilot.pause()
+        if inside:
+            await pilot.press("enter")  # Chemistry's chapter folders
+            await pilot.pause()
+        before_events = list(app.tutor.vault.events())
+        await pilot.press("slash")
+        if input_state == "erased":
+            await pilot.press("x", "backspace")
+        elif input_state == "whitespace":
+            picker.query_one("#find").value = "   "
+        await pilot.pause()
+        await pilot.press("enter")
+        await pilot.pause()
+        assert app.screen is picker and not chosen
+        assert picker.path == (["chem", "9701-1"] if inside else ["chem"])
+        assert picker.focused.id == "subs"
+        assert not picker.ticked and app.tutor.session is None
+        assert list(app.tutor.vault.events()) == before_events
+
+    run(app, steps)
+
+
+def test_enter_in_blank_leaf_search_still_selects_a_subtopic(tmp_path, monkeypatch):
+    app, _ = app_for(tmp_path, monkeypatch)
+    chosen = []
+
+    async def steps(pilot):
+        app.push_screen(PickerScreen("lesson"), chosen.append)
+        await pilot.pause()
+        await pilot.press("enter", "enter", "slash", "enter")
+        await pilot.pause()
+        assert chosen == [["9701-1.1"]]
+
     run(app, steps)
 
 

@@ -46,22 +46,29 @@ def main(argv: list[str] | None = None) -> int:
     from .app import TutorApp
     app = TutorApp(vault)
     app.tty = mac.terminal_tty()
-    if app.settings.theme != "classic":  # Classic leaves the tab as the launcher set it, as it always did
-        status, app.tty_profile = mac.switch_terminal_profile(app.tty, look.TERMINAL_PROFILES[app.settings.theme])
-        app.profile_missing = status == "missing"
-        app.profile_denied = status == "denied"
-    app.settle_font_size()  # the text size the learner chose last time, which the profile switch just reset
-    time.sleep(0.3)  # Terminal lays the window out again for the new size before it can be measured
-    cell = app.match_zoom(mac.cell_size(), mac.cell_size)  # a ⌘ zoom last time: matched exactly, in this unzoomed window
+    cell = None
+    if app.tty:
+        with mac.terminal_budget():
+            if os.environ.get("STEM_TUTOR_STUDY_PROFILE") == "1":
+                mac.switch_terminal_profile(app.tty, "Study")
+            if app.settings.theme != "classic":
+                status, app.tty_profile = mac.switch_terminal_profile(app.tty, look.TERMINAL_PROFILES[app.settings.theme])
+                app.profile_missing = status == "missing"
+                app.profile_denied = status == "denied"
+            app.settle_font_size()  # restore the learner's size after the profile switch
+            if mac.terminal_time_left(0.3) >= 0.3:
+                time.sleep(0.3)  # Terminal needs to finish laying out the new size
+                cell = app.match_zoom(mac.cell_size(), mac.cell_size)
     # (and `cell` is kept to see, at the end, whether the text was zoomed with ⌘+ / ⌘− this time)
     print(f"\x1b]0;{app.TITLE}\x07", end="", flush=True)  # name the terminal window: a terminal shows what it is told
     try:
         app.run()
     finally:
-        app.note_zoom(cell, mac.cell_size())  # before the tab gets its old profile back, and with it that profile's size
-        print("\x1b]0;\x07", end="", flush=True)  # hand the title back
-        if app.tty_profile:  # and the tab its own profile, as it was before the tutor
-            mac.switch_terminal_profile(app.tty, app.tty_profile)
+        with mac.terminal_budget():
+            app.note_zoom(cell, mac.cell_size() if app.tty else None)  # before the tab gets its old profile back, and with it that profile's size
+            print("\x1b]0;\x07", end="", flush=True)  # hand the title back
+            if app.tty_profile:  # and the tab its own profile, as it was before the tutor
+                mac.switch_terminal_profile(app.tty, app.tty_profile)
     return app.return_code or 0
 
 

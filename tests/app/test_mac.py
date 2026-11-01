@@ -48,6 +48,14 @@ def test_a_vault_opened_from_its_parent_folder_counts_as_known(tmp_path, monkeyp
     assert not mac.obsidian_vault_registered(vault)
 
 
+@pytest.mark.parametrize("error", [FileNotFoundError("open disappeared"), PermissionError("launch denied")])
+def test_obsidian_launch_oserror_returns_false_instead_of_raising(tmp_path, monkeypatch, error):
+    monkeypatch.setattr(mac, "obsidian_vault_registered", lambda _: "exact")
+    monkeypatch.setattr(mac.shutil, "which", lambda _: "/usr/bin/open")
+    monkeypatch.setattr(mac.subprocess, "run", lambda *a, **k: (_ for _ in ()).throw(error))
+    assert mac.open_in_obsidian(tmp_path) is False
+
+
 def test_one_unreadable_file_is_skipped_not_the_whole_import(tmp_path):
     vault, inbox = tmp_path / "vault", tmp_path / "ipad"
     vault.mkdir()

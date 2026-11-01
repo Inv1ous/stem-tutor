@@ -1,0 +1,438 @@
+--- v1-preflight/native_probe_v1.py
++++ v2-preflight-fixed/native_probe_v1.py
+@@ -7,7 +7,7 @@
+ from __future__ import annotations
+ import argparse
+ import asyncio
+-from contextlib import aclosing
++from contextlib import aclosing, contextmanager
+ import hashlib
+ import json
+ import os
+@@ -200,7 +200,7 @@
+     files = {p.name: sha(p) for p in ROOT.iterdir() if p.is_file()}
+     sources = {str(REPO / 'app/tutor_app' / (name + '.py')):
+                sha(REPO / 'app/tutor_app' / (name + '.py')) for name in DEPENDENCIES}
+-    write(ROOT / 'manifest.json', dict(version=1, state='frozen_before_native_output', files=files,
++    write(ROOT / 'manifest.json', dict(version=2, probe_revision='v2-preflight-fixed', state='frozen_before_native_output', files=files,
+           production_sources=sources, case_ids=[c['id'] for c in cases], jobs_per_mode=27, turns_per_mode=28,
+           source_original_sha256=sha(SOURCE / 'test.jsonl'),
+           source_files={name: sha(SOURCE / name) for name in ('test.jsonl', 'manifest.json', 'selection.json')},
+@@ -221,6 +221,7 @@
+ 
+ def check():
+     manifest = json.loads((ROOT / 'manifest.json').read_text())
++    assert manifest.get('version') == 2 and manifest.get('probe_revision') == 'v2-preflight-fixed', 'old probe manifest'
+     for name, digest in manifest['files'].items():
+         assert (ROOT / name).resolve().parent == ROOT.resolve() and sha(ROOT / name) == digest, name
+     assert sha(__file__) == manifest['files']['native_probe_v1.py'], 'probe source drift'
+@@ -261,6 +262,8 @@
+     from tutor_app.chat_output import DocumentDecoder
+     result = dict(delivered=done_reason == 'stop' and bool(raw.strip()), raw_schema_valid=False,
+                   decoder_finish=None, exact_criteria_order=None, marking_labels_equal=None,
++                  marking_envelope_valid=False, marking_vector_available=False,
++                  marking_decision_vector=None, marking_vector_correct=None,
+                   exact_literal_code=None, speech_separate=None, science='manual_review_required',
+                   open_protection='manual_review_required' if 'open' in case['task'] else 'not_applicable')
+     try:
+@@ -268,11 +271,24 @@
+         errors = schema_errors(value, case['schema'])
+         result.update(raw_schema_valid=not errors, schema_errors=errors)
+         if case['path'] == 'one_shot':
++            from tutor_app.stem_training_eval import _marking
+             rows = value.get('points', [])
+-            result['exact_criteria_order'] = [p.get('point') for p in rows] == case['criteria']
+-            labels = [p.get('met') for p in rows]
+-            result['marking_labels_equal'] = (labels == [p['met'] for p in gold['expected']['points']]
+-                                              if result['exact_criteria_order'] else None)
++            result['exact_criteria_order'] = (isinstance(rows, list)
++                and all(isinstance(row, dict) for row in rows)
++                and [row.get('point') for row in rows] == case['criteria'])
++            try:
++                # The requested marking envelope is stricter than the transport schema:
++                # exact keys, point/why strings and type(met) is bool are mandatory.
++                _marking(value)
++            except ValueError as exc:
++                result['marking_envelope_error'] = str(exc)
++            else:
++                result['marking_envelope_valid'] = True
++            if not errors and result['marking_envelope_valid'] and result['exact_criteria_order']:
++                labels = [row['met'] for row in rows]
++                correct = labels == [row['met'] for row in gold['expected']['points']]
++                result.update(marking_vector_available=True, marking_decision_vector=labels,
++                              marking_vector_correct=correct, marking_labels_equal=correct)
+         else:
+             decoder = DocumentDecoder(case['speech']); decoder.feed(raw); decoder.finish()
+             result['decoder_finish'] = True
+@@ -286,6 +302,32 @@
+         if case['path'] == 'chat':
+             result['decoder_finish'] = False
+     return result
++
++
++@contextmanager
++def temporary_catalogue(catalogue):
++    """Restore all five alias entries even if the first mutation or setup fails."""
++    mappings = (catalogue.LOCAL_MODELS, catalogue.KEEP_ALIVE,
++                catalogue.CONTEXT_LENGTH, catalogue.MAX_CONTEXT_LENGTH)
++    saved = [(mapping, ALIAS in mapping, mapping.get(ALIAS)) for mapping in mappings]
++    text_member = ALIAS in catalogue.TEXT_MODELS
++    try:
++        catalogue.LOCAL_MODELS[ALIAS] = 'STEM Tutor Qwen3.5 pilot (probe only)'
++        catalogue.TEXT_MODELS.add(ALIAS)
++        catalogue.KEEP_ALIVE[ALIAS] = '10m'
++        catalogue.CONTEXT_LENGTH[ALIAS] = 8192
++        catalogue.MAX_CONTEXT_LENGTH[ALIAS] = 8192  # Disable generic generation retries.
++        yield
++    finally:
++        for mapping, present, value in saved:
++            if present:
++                mapping[ALIAS] = value
++            else:
++                mapping.pop(ALIAS, None)
++        if text_member:
++            catalogue.TEXT_MODELS.add(ALIAS)
++        else:
++            catalogue.TEXT_MODELS.discard(ALIAS)
+ 
+ 
+ async def execute(args, manifest, cases):
+@@ -393,174 +435,174 @@
+             if model == ALIAS:
+                 payload['options'] = {**payload.get('options', {}), **requested_options(args.mode)}
+             return payload
+-    # Temporary process-local catalogue entries; native manifest is still required.
+-    local_models.LOCAL_MODELS[ALIAS] = 'STEM Tutor Qwen3.5 pilot (probe only)'
+-    local_models.TEXT_MODELS.add(ALIAS)
+-    local_models.KEEP_ALIVE[ALIAS] = '10m'
+-    local_models.CONTEXT_LENGTH[ALIAS] = 8192
+-    local_models.MAX_CONTEXT_LENGTH[ALIAS] = 8192  # Prevent the generic second-generation retry.
+-    tutor = TutorAI(cwd=output, model=ALIAS, document=True, usage_file=None)
+-    tutor.local_web = False
+-    tutor.local_vision_model = 'macos:vision'
+-    tutor._local = local = ProbeLocal()
+-    async def residency():
+-        found = None
+-        async with aclosing(local._http_events({}, 10, '/api/ps', method='GET', start_service=False)) as stream:
+-            async for event in stream:
+-                if 'models' in event:
+-                    found = event['models']
+-        if found is None:
+-            raise LocalError('Native server did not report residency')
+-        names = {m.get('model') or m.get('name') for m in found}
+-        if names - {NAME}:
+-            raise LocalError('Another native model is loaded; root must resolve GPU ownership')
+-        if any(m.get('size_vram', 0) > 14 * 1024**3 for m in found):
+-            raise LocalError('Native reported size_vram exceeds 14GiB')
+-        return found
+-    class ProbeResourceStop(LocalError):
+-        pass
+-    async def headroom():
+-        await asyncio.to_thread(resources.check)
+-        vm = await asyncio.to_thread(subprocess.check_output, ['vm_stat'], text=True, timeout=3)
+-        import re
+-        page = int(re.search(r'page size of (\d+) bytes', vm)[1])
+-        available = sum(int(v) for v in re.findall(r'^Pages (?:free|inactive|speculative):\s+(\d+)\.', vm, re.M)) * page
+-        if available < 3 * 1024**3:
+-            raise ProbeResourceStop('Available OS memory below 3GiB headroom')
+-        if time.monotonic() - started > 7200:
+-            raise TimeoutError('Native mode wall-time bound 7200s reached')
+-    async def guard():
+-        while True:
+-            await headroom()
+-            await asyncio.sleep(2)
+-    async def bounded(coro, seconds=300):
+-        try:
+-            # Check OS headroom before even scheduling the GPU-capable operation.
+-            await headroom()
+-        except BaseException:
+-            coro.close()
+-            raise
+-        work, monitor = asyncio.create_task(coro), asyncio.create_task(guard())
+-        try:
+-            done, _ = await asyncio.wait({work, monitor}, timeout=seconds, return_when=asyncio.FIRST_COMPLETED)
+-            if not done:
+-                raise TimeoutError('Native operation exceeded request deadline')
+-            if monitor in done:
+-                monitor.result()
+-            return await work
+-        finally:
+-            work.cancel(); monitor.cancel()
+-            await asyncio.gather(work, monitor, return_exceptions=True)
+-    async def unload():
+-        async with aclosing(local._http_events({'model': NAME, 'messages': [], 'stream': False, 'keep_alive': 0},
+-                                               30, start_service=False)) as stream:
+-            confirmed = False
+-            async for event in stream:
+-                confirmed |= event.get('done') is True and event.get('done_reason') == 'unload'
+-        if not confirmed:
+-            raise LocalError('Native unload was not acknowledged')
+-    candidate_owned = False
++    # The outer finally covers context entry, the first mutation and all setup.
+     try:
+-        # No service version is inferred from a successful generation response.
+-        async with aclosing(local._http_events({}, 10, '/api/version', method='GET', start_service=False)) as stream:
+-            versions = [e.get('version') async for e in stream]
+-        if versions != ['0.40.11']:
+-            raise LocalError('Native server must report version 0.40.11')
+-        receipt['server_version'] = versions[0]
+-        loaded = await residency()
+-        if loaded:
+-            await bounded(unload(), 30)
+-        candidate_owned = True  # The scheduler was verified empty before this run's first load.
+-        for label in ('cold_preload', 'warm_preload'):
+-            context.update(id=label, turn=None)
+-            before = time.monotonic()
+-            result = await bounded(local.warm(ALIAS, timeout=300))
+-            record({'type': 'preload_result', 'ok': result.ok, 'error': result.message,
+-                    'wall_seconds': time.monotonic() - before})
+-            if not result.ok:
+-                raise LocalError('Preload failed: ' + result.message)
+-            await residency()
+-        for case in cases:
+-            await tutor.reset(warm=False)
+-            tutor.speech = case['speech']
+-            for turn, prompt in enumerate(case['turns'], 1):
+-                context.update(id=case['id'], turn=turn, schema=case['schema'])
+-                local.final_content, local.finish_reason, local.actual_counters = [], None, {}
+-                local.thinking_observed = False
+-                before, first = time.monotonic(), None
+-                rendered = []
+-                async def request():
+-                    nonlocal first
+-                    if case['path'] == 'one_shot':
+-                        _, result = await tutor.one_shot(prompt, schema=case['schema'], model=ALIAS,
+-                                                       timeout=300, think=args.mode == 'deep')
+-                        return result
+-                    async with aclosing(tutor.stream(prompt, model=ALIAS, think=args.mode == 'deep')) as stream:
+-                        async for block in stream:
+-                            if first is None:
+-                                first = time.monotonic() - before
+-                            rendered.append(block)
+-                    return tutor.last
+-                fatal = None
++        with temporary_catalogue(local_models):
++            tutor = TutorAI(cwd=output, model=ALIAS, document=True, usage_file=None)
++            tutor.local_web = False
++            tutor.local_vision_model = 'macos:vision'
++            tutor._local = local = ProbeLocal()
++            async def residency():
++                found = None
++                async with aclosing(local._http_events({}, 10, '/api/ps', method='GET', start_service=False)) as stream:
++                    async for event in stream:
++                        if 'models' in event:
++                            found = event['models']
++                if found is None:
++                    raise LocalError('Native server did not report residency')
++                names = {m.get('model') or m.get('name') for m in found}
++                if names - {NAME}:
++                    raise LocalError('Another native model is loaded; root must resolve GPU ownership')
++                if any(m.get('size_vram', 0) > 14 * 1024**3 for m in found):
++                    raise LocalError('Native reported size_vram exceeds 14GiB')
++                return found
++            class ProbeResourceStop(LocalError):
++                pass
++            async def headroom():
++                await asyncio.to_thread(resources.check)
++                vm = await asyncio.to_thread(subprocess.check_output, ['vm_stat'], text=True, timeout=3)
++                import re
++                page = int(re.search(r'page size of (\d+) bytes', vm)[1])
++                available = sum(int(v) for v in re.findall(r'^Pages (?:free|inactive|speculative):\s+(\d+)\.', vm, re.M)) * page
++                if available < 3 * 1024**3:
++                    raise ProbeResourceStop('Available OS memory below 3GiB headroom')
++                if time.monotonic() - started > 7200:
++                    raise TimeoutError('Native mode wall-time bound 7200s reached')
++            async def guard():
++                while True:
++                    await headroom()
++                    await asyncio.sleep(2)
++            async def bounded(coro, seconds=300):
+                 try:
+-                    result = await bounded(request())
+-                    error = result.message if not result.ok else None
+-                    performance = result.performance
+-                    ok = result.ok
++                    # Check OS headroom before even scheduling the GPU-capable operation.
++                    await headroom()
++                except BaseException:
++                    coro.close()
++                    raise
++                work, monitor = asyncio.create_task(coro), asyncio.create_task(guard())
++                try:
++                    done, _ = await asyncio.wait({work, monitor}, timeout=seconds, return_when=asyncio.FIRST_COMPLETED)
++                    if not done:
++                        raise TimeoutError('Native operation exceeded request deadline')
++                    if monitor in done:
++                        monitor.result()
++                    return await work
++                finally:
++                    work.cancel(); monitor.cancel()
++                    await asyncio.gather(work, monitor, return_exceptions=True)
++            async def unload():
++                async with aclosing(local._http_events({'model': NAME, 'messages': [], 'stream': False, 'keep_alive': 0},
++                                                       30, start_service=False)) as stream:
++                    confirmed = False
++                    async for event in stream:
++                        confirmed |= event.get('done') is True and event.get('done_reason') == 'unload'
++                if not confirmed:
++                    raise LocalError('Native unload was not acknowledged')
++            candidate_owned = False
++            try:
++                # No service version is inferred from a successful generation response.
++                async with aclosing(local._http_events({}, 10, '/api/version', method='GET', start_service=False)) as stream:
++                    versions = [e.get('version') async for e in stream]
++                if versions != ['0.40.11']:
++                    raise LocalError('Native server must report version 0.40.11')
++                receipt['server_version'] = versions[0]
++                loaded = await residency()
++                if loaded:
++                    await bounded(unload(), 30)
++                candidate_owned = True  # The scheduler was verified empty before this run's first load.
++                for label in ('cold_preload', 'warm_preload'):
++                    context.update(id=label, turn=None)
++                    before = time.monotonic()
++                    result = await bounded(local.warm(ALIAS, timeout=300))
++                    record({'type': 'preload_result', 'ok': result.ok, 'error': result.message,
++                            'wall_seconds': time.monotonic() - before})
++                    if not result.ok:
++                        raise LocalError('Preload failed: ' + result.message)
++                    await residency()
++                for case in cases:
++                    await tutor.reset(warm=False)
++                    tutor.speech = case['speech']
++                    for turn, prompt in enumerate(case['turns'], 1):
++                        context.update(id=case['id'], turn=turn, schema=case['schema'])
++                        local.final_content, local.finish_reason, local.actual_counters = [], None, {}
++                        local.thinking_observed = False
++                        before, first = time.monotonic(), None
++                        rendered = []
++                        async def request():
++                            nonlocal first
++                            if case['path'] == 'one_shot':
++                                _, result = await tutor.one_shot(prompt, schema=case['schema'], model=ALIAS,
++                                                               timeout=300, think=args.mode == 'deep')
++                                return result
++                            async with aclosing(tutor.stream(prompt, model=ALIAS, think=args.mode == 'deep')) as stream:
++                                async for block in stream:
++                                    if first is None:
++                                        first = time.monotonic() - before
++                                    rendered.append(block)
++                            return tutor.last
++                        fatal = None
++                        try:
++                            result = await bounded(request())
++                            error = result.message if not result.ok else None
++                            performance = result.performance
++                            ok = result.ok
++                        except Exception as exc:
++                            error, performance, ok = f'{type(exc).__name__}: {exc}', {}, False
++                            if isinstance(exc, (TimeoutError, TrainingStopped, ProbeResourceStop)):
++                                fatal = exc
++                        observation = dict(id=case['id'], turn=turn, app_ok=ok, error=error,
++                            total_wall_seconds=time.monotonic() - before, first_rendered_block_seconds=first,
++                            first_rendered_block_status='not_applicable_marking' if case['path'] == 'one_shot' else 'measured',
++                            performance=performance, actual_api_counters=local.actual_counters,
++                            missing_api_counters=[key for key in COUNTERS if key not in local.actual_counters],
++                            finish_reason=local.finish_reason,
++                            thinking_observed=local.thinking_observed, public_final=''.join(local.final_content),
++                            rendered='\n\n'.join(rendered), requested_options=requested_options(args.mode))
++                        observations.append(observation)
++                        record({'type': 'turn_result', **observation})
++                        if fatal is not None:
++                            raise fatal  # Do not start another turn after guard/deadline cancellation.
++                        resources.check()
++                        await residency()
++                        if not ok and case['task'] == 'real_two_turn_topic_change':
++                            record({'type': 'continuation_status', 'status': 'next turn retained with actual failed first-turn history'})
++                receipt.update(state='completed_requires_manual_review', completed_turns=len(observations),
++                               native_kernel_timing_comparison='not direct Python parity',
++                               final_resources=resources.latest)
++            except BaseException as exc:
++                receipt.update(state='failed_or_stopped', error=f'{type(exc).__name__}: {exc}',
++                               completed_turns=len(observations), final_resources=resources.latest)
++                raise
++            finally:
++                context.update(id='cleanup', turn=None)
++                try:
++                    # Only unload the candidate acknowledged by this run; never evict another app's model.
++                    loaded = await residency()
++                    if loaded and candidate_owned:
++                        await unload()
++                    receipt['cleanup'] = 'candidate released or no candidate loaded'
+                 except Exception as exc:
+-                    error, performance, ok = f'{type(exc).__name__}: {exc}', {}, False
+-                    if isinstance(exc, (TimeoutError, TrainingStopped, ProbeResourceStop)):
+-                        fatal = exc
+-                observation = dict(id=case['id'], turn=turn, app_ok=ok, error=error,
+-                    total_wall_seconds=time.monotonic() - before, first_rendered_block_seconds=first,
+-                    first_rendered_block_status='not_applicable_marking' if case['path'] == 'one_shot' else 'measured',
+-                    performance=performance, actual_api_counters=local.actual_counters,
+-                    missing_api_counters=[key for key in COUNTERS if key not in local.actual_counters],
+-                    finish_reason=local.finish_reason,
+-                    thinking_observed=local.thinking_observed, public_final=''.join(local.final_content),
+-                    rendered='\n\n'.join(rendered), requested_options=requested_options(args.mode))
+-                observations.append(observation)
+-                record({'type': 'turn_result', **observation})
+-                if fatal is not None:
+-                    raise fatal  # Do not start another turn after guard/deadline cancellation.
+-                resources.check()
+-                await residency()
+-                if not ok and case['task'] == 'real_two_turn_topic_change':
+-                    record({'type': 'continuation_status', 'status': 'next turn retained with actual failed first-turn history'})
+-        receipt.update(state='completed_requires_manual_review', completed_turns=len(observations),
+-                       native_kernel_timing_comparison='not direct Python parity',
+-                       final_resources=resources.latest)
+-    except BaseException as exc:
+-        receipt.update(state='failed_or_stopped', error=f'{type(exc).__name__}: {exc}',
+-                       completed_turns=len(observations), final_resources=resources.latest)
+-        raise
++                    receipt['cleanup'] = 'failed: ' + type(exc).__name__ + ': ' + str(exc)
++                await tutor.close()
++                try:
++                    # Gold is read only after generation has finished. It never enters an API payload.
++                    gold = {r['id']: r for r in map(json.loads, (ROOT / 'gold.jsonl').read_text().splitlines())}
++                    scored = []
++                    by_id = {case['id']: case for case in cases}
++                    for item in observations:
++                        scores = score_case(by_id[item['id']], item['public_final'], item['finish_reason'], gold[item['id']])
++                        scores['native_control_valid'] = (not item['thinking_observed'] if args.mode == 'fast'
++                                                           else item['thinking_observed'])
++                        scores['delivery_gate'] = bool(item['app_ok'] and not item['error'] and scores['delivered'])
++                        scored.append(dict(id=item['id'], turn=item['turn'], scores=scores))
++                    write(output / 'scores.json', scored)
++                except Exception as exc:
++                    receipt['scoring_error'] = type(exc).__name__ + ': ' + str(exc)
++                receipt['elapsed_seconds'] = time.monotonic() - started
++                write(output / 'receipt.json', receipt)
++                events_file.close()
++                lock.close()
+     finally:
+-        context.update(id='cleanup', turn=None)
+-        try:
+-            # Only unload the candidate acknowledged by this run; never evict another app's model.
+-            loaded = await residency()
+-            if loaded and candidate_owned:
+-                await unload()
+-            receipt['cleanup'] = 'candidate released or no candidate loaded'
+-        except Exception as exc:
+-            receipt['cleanup'] = 'failed: ' + type(exc).__name__ + ': ' + str(exc)
+-        await tutor.close()
+-        try:
+-            # Gold is read only after generation has finished. It never enters an API payload.
+-            gold = {r['id']: r for r in map(json.loads, (ROOT / 'gold.jsonl').read_text().splitlines())}
+-            scored = []
+-            by_id = {case['id']: case for case in cases}
+-            for item in observations:
+-                scores = score_case(by_id[item['id']], item['public_final'], item['finish_reason'], gold[item['id']])
+-                scores['native_control_valid'] = (not item['thinking_observed'] if args.mode == 'fast'
+-                                                   else item['thinking_observed'])
+-                scores['delivery_gate'] = bool(item['app_ok'] and not item['error'] and scores['delivered'])
+-                scored.append(dict(id=item['id'], turn=item['turn'], scores=scores))
+-            write(output / 'scores.json', scored)
+-        except Exception as exc:
+-            receipt['scoring_error'] = type(exc).__name__ + ': ' + str(exc)
+-        receipt['elapsed_seconds'] = time.monotonic() - started
+-        write(output / 'receipt.json', receipt)
+         events_file.close()
+         lock.close()
+ 

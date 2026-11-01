@@ -46,6 +46,7 @@ Button:focus { background-tint: $button-focus-tint; }
 Button.-textual-compact { min-width: 0; }  /* as wide as its label: focused, no unstyled cells either side of it */
 Button.-textual-compact:focus { text-style: $button-compact-focus-text-style; }
 OptionList { height: auto; max-height: 12; border: none; }
+_TopicOptions > .option-list--option-highlighted { color: auto; }
 #note { margin-top: 1; min-height: 1; max-height: 5; }
 SelectionList { height: auto; max-height: 14; }
 #full { padding: 0 0 0 5; }
@@ -192,6 +193,10 @@ class TutorApp(App):
             return
         self.set_text_size(self.font_base if step == 0 else self.text_size() + step)
         size = self.text_size()
+        from .screens import SettingsScreen
+        for screen in self.screen_stack:
+            if isinstance(screen, SettingsScreen):
+                screen.sync_font_size(size)
         self.notify(f"Text size {size} pt" + (" (normal)" if size == self.font_base else " · ⌥0 for normal"), timeout=3)
 
     def note_zoom(self, before: tuple[float, float] | None, after: tuple[float, float] | None) -> None:
@@ -218,7 +223,11 @@ class TutorApp(App):
             return cell
 
         def try_size(size: int) -> tuple[float, float] | None:
+            if mac.terminal_time_left(settle) < settle:
+                return None
             mac.terminal_font_size(self.tty, size)
+            if mac.terminal_time_left(settle) < settle:
+                return None
             time.sleep(settle)
             return measure()
         size = self.text_size()
@@ -230,13 +239,21 @@ class TutorApp(App):
         if abs(seen[1] - target) < abs(cell[1] - target):
             size, cell = probe, seen
         else:
-            cell = try_size(size) or cell
+            restored = try_size(size)
+            if not restored:
+                return cell  # probe could not be restored/measured: retry the target next time
+            cell = restored
         for _ in range(8):  # one point at a time towards the height, stopping at the nearest
             if abs(cell[1] - target) < 0.05:
                 break
             nxt = min(self.FONT_RANGE[1], max(self.FONT_RANGE[0], size + (1 if cell[1] < target else -1)))
-            now = try_size(nxt) if nxt != size else None
-            if not now or abs(now[1] - target) >= abs(cell[1] - target):
+            if nxt == size:
+                break
+            now = try_size(nxt)
+            if not now:
+                mac.terminal_font_size(self.tty, size)
+                return cell  # incomplete: keep the saved target for a later start
+            if abs(now[1] - target) >= abs(cell[1] - target):
                 mac.terminal_font_size(self.tty, size)  # passed it: the one before was nearer
                 break
             size, cell = nxt, now
@@ -459,7 +476,11 @@ class TutorApp(App):
         """A study screen is open (the lesson, challenge, blurt, chat, shortcuts), perhaps with a pop-up over it."""
         from textual.screen import ModalScreen
         stack = list(self.screen_stack)
-        while stack and isinstance(stack[-1], ModalScreen) and not getattr(stack[-1], "studies", False):
+        while stack and isinstance(stack[-1], ModalScreen):
+            if getattr(stack[-1], "pauses_study", False):
+                return False
+            if getattr(stack[-1], "studies", False):
+                return True
             stack.pop()  # a pop-up over a study screen (ask the tutor, a hint) is still studying
         return bool(stack) and bool(getattr(stack[-1], "studies", False))
 
@@ -470,6 +491,13 @@ class TutorApp(App):
         now = time.monotonic() if now is None else now
         gap, self._tick_at = now - self._tick_at, now
         tutor = getattr(self, "tutor", None)
+        warnings = getattr(tutor, "view_warnings", {})
+        shown = getattr(self, "_shown_view_warnings", {})
+        for name, error in warnings.items():
+            if shown.get(name) is not error:
+                self.notify(f"{name} is read-only; its mirror was not updated. The tutor remains available.",
+                            severity="warning", timeout=10)
+        self._shown_view_warnings = dict(warnings)
         if tutor is None or not (0 < gap <= 2.5) or now - self._last_input > self.IDLE_LIMIT or not self.studying():
             return
         clock = tutor.study_clock

@@ -8,11 +8,12 @@ import math
 import os
 import platform
 import shutil
-import signal
 import sys
 import time
 from pathlib import Path
 from tempfile import TemporaryDirectory
+
+from tutor_workers.process_groups import own_process_group, process_group_stopped, stop_process_group
 
 from . import local_models
 from .ai import Result
@@ -42,28 +43,7 @@ class NativeOCR:
 
     @staticmethod
     async def _stop(proc) -> None:
-        if proc.returncode is not None:
-            return
-        def send(sig):
-            try:
-                if os.name == "posix":
-                    os.killpg(proc.pid, sig)
-                elif sig == signal.SIGTERM:
-                    proc.terminate()
-                else:
-                    proc.kill()
-            except ProcessLookupError:
-                pass
-        try:
-            send(signal.SIGTERM)
-            await asyncio.wait_for(proc.wait(), .5)
-        except asyncio.TimeoutError:
-            send(signal.SIGKILL)
-            await proc.wait()
-        except asyncio.CancelledError:
-            send(signal.SIGKILL)
-            await asyncio.shield(proc.wait())
-            raise
+        await stop_process_group(proc, grace=.5)
 
     async def _run(self, args: list[str], deadline: float, generation: int, image: bytes | None = None) -> bytes:
         proc, abandoned = None, False
@@ -71,12 +51,16 @@ class NativeOCR:
             child = await asyncio.create_subprocess_exec(
                 *args, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.DEVNULL, start_new_session=os.name == "posix")
+            own_process_group(child)
             self._procs.add(child)
             if abandoned or self._closed or generation != self._generation:
+                stopped = False
                 try:
                     await self._stop(child)
+                    stopped = True
                 finally:
-                    self._procs.discard(child)
+                    if stopped or process_group_stopped(child):
+                        self._procs.discard(child)
             return child
         starting = asyncio.create_task(launch())
         self._starting.add(starting)
@@ -98,10 +82,13 @@ class NativeOCR:
             if proc is None and starting.done() and not starting.cancelled() and starting.exception() is None:
                 proc = starting.result()
             if proc is not None:
+                stopped = False
                 try:
                     await self._stop(proc)
+                    stopped = True
                 finally:
-                    self._procs.discard(proc)
+                    if stopped or process_group_stopped(proc):
+                        self._procs.discard(proc)
 
     async def _binary(self, deadline: float, generation: int) -> tuple[Path, float]:
         if not local_models.ROOT.is_dir():
@@ -180,7 +167,9 @@ class NativeOCR:
 
     async def reset(self) -> None:
         self._generation += 1
-        await asyncio.gather(*(self._stop(proc) for proc in tuple(self._procs)))
+        processes = tuple(self._procs)
+        await asyncio.gather(*(self._stop(proc) for proc in processes))
+        self._procs.difference_update(processes)
 
     async def close(self) -> None:
         self._closed = True
@@ -191,3 +180,5 @@ class NativeOCR:
                                                      return_exceptions=True), 3)
             except asyncio.TimeoutError:
                 pass  # late launches still observe _closed and are terminated by their retained launch task
+        if self._procs:
+            await self.reset()  # reconcile only processes actually retained after the bounded launch wait

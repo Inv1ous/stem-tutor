@@ -26,7 +26,7 @@ def test_local_question_changes_topic_and_only_decoded_reply_reaches_the_caller(
             assert payload["format"]["properties"] == {"reply": {"type": "string"}}
             assert payload["messages"][-1]["content"] == prompt
             system = payload["messages"][0]["content"]
-            assert "not an exclusive knowledge source" in system
+            assert "not an exclusive knowledge source" in " ".join(system.split())
             assert "never state its answer" in system
             assert "Ground everything in the CONTEXT" not in system
             assert client._history[(model, False, False)][-1]["content"] == reply
@@ -76,7 +76,7 @@ def test_thinking_time_is_measured_without_retaining_hidden_text(models, monkeyp
     asyncio.run(go())
 
 
-def test_qwen_strength_selector_explains_maximum_effort(tmp_path, monkeypatch):
+def test_qwen_strength_selector_explains_maximum_effort(tmp_path, monkeypatch, models):
     from test_tui import app_for
     from textual.widgets import Select
     app, _ = app_for(tmp_path, monkeypatch)

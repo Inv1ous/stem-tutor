@@ -24,7 +24,10 @@ def backend(monkeypatch):
     async def events(self, payload, timeout, path="/api/chat"):
         if payload["messages"]:
             state.prompts.append(payload)
-            yield {"message": {"content": '{"reply":"A force can change motion."}'}, "done": True}
+            document = "blocks" in (payload.get("format") or {}).get("properties", {})
+            wire = ('{"blocks":[{"kind":"paragraph","text":"A force can change motion."}]}'
+                    if document else '{"reply":"A force can change motion."}')
+            yield {"message": {"content": wire}, "done": True}
         else:
             state.loads.append((payload["model"], self._generation))
             try:

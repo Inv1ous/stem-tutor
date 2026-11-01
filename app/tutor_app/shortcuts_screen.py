@@ -355,6 +355,9 @@ class _CourseScreen(ReadAloud, Screen):
     BINDINGS = [Binding("ctrl+b", "leave", "Menu", priority=True), Binding("escape", "back", "Back"),
                 Binding("enter", "advance", "Next", show=False), Binding("space", "advance", show=False),
                 Binding("left", "back_step", show=False), Binding("s", "settings", "Settings"),
+                Binding("alt+up", "scroll_log(-1)", show=False, priority=True),
+                Binding("alt+down", "scroll_log(1)", show=False, priority=True),
+                Binding("pageup", "scroll_log(-1)", show=False), Binding("pagedown", "scroll_log(1)", show=False),
                 Binding("question_mark", "app.help", "Help"), READ_KEY]
     TITLE = "Shortcuts"
 
@@ -383,11 +386,21 @@ class _CourseScreen(ReadAloud, Screen):
         self.course = sc.Course(self.vault)
         return self.course
 
-    def card(self, text: Text | str) -> None:
+    def card(self, text: Text | str, auto_read: list[str] | None = None) -> None:
         text = Text(text) if isinstance(text, str) else text
         self.query_one("#card", Static).update(text)
         self.query_one("#log", VerticalScroll).scroll_home(animate=False)
         self.readable_now(text.plain)
+        try:
+            from tutorlib import views
+            views.write_now(self.vault.root, f"Shortcuts · {self.app.tutor.now():%H:%M}", [text.plain])
+        except (OSError, ValueError):  # a failed catalog-backed mirror must not hide the visible card
+            pass
+        if auto_read:
+            sp = getattr(self.app, "speaker", None)
+            if (sp is not None and self.app.settings.tts_auto and not self.typing() and sp.usable
+                    and any(part.strip() for part in auto_read)):
+                sp.say(auto_read)
 
     def panel(self, widget=None) -> None:
         """Replace what is in the bottom box (nothing, a list or a text box) and put the cursor in it."""
@@ -415,15 +428,23 @@ class _CourseScreen(ReadAloud, Screen):
         return Text(text, style=C["muted"])
 
     # ---------- keys ----------
+    def action_scroll_log(self, direction: int) -> None:
+        """Review the current explanation without changing its reveal step."""
+        log = self.query_one("#log", VerticalScroll)
+        log.scroll_relative(y=direction * max(1, log.scrollable_content_region.height - 1), animate=False)
+
     def action_leave(self) -> None:
-        if not any(w.value.strip() for w in self.query(".sc-input")):
+        marking = self.phase == "self-mark"
+        if not marking and not any(w.value.strip() for w in self.query(".sc-input")):
             self.app.pop_screen()
             return
 
         def decided(choice: str | None) -> None:
             if choice == "leave" and self.is_current:
                 self.app.pop_screen()
-        self.app.push_screen(ConfirmScreen("Leave? Your typed answer will be lost.",
+        question = ("Leave? Your answer and pending mark will be lost." if marking else
+                    "Leave? Your typed answer will be lost.")
+        self.app.push_screen(ConfirmScreen(question,
                                             [("leave", "Leave"), ("stay", "Keep writing")]), decided)
 
     def action_back(self) -> None:
@@ -566,9 +587,9 @@ class ShortcutsScreen(_CourseScreen):
         self.phase = "reveal"
         self.update_bar(f"Learn {self.qi + 1}/{len(self.queue)}")
         self.panel()
-        self.show_reveal()
+        self.show_reveal(auto_read=True)
 
-    def show_reveal(self) -> None:
+    def show_reveal(self, auto_read: bool = False) -> None:
         e = self.queue[self.qi]
         t = self.header()
         if not isinstance(e.get("lesson"), dict):
@@ -582,14 +603,18 @@ class ShortcutsScreen(_CourseScreen):
         t.append("\n" + (f"⏎ or space: next ({self.shown} of {len(self.secs)}) · ← or Esc: back"
                          if more else "⏎ or space: " + ("practise it" if self.prac else "rate it") + " · ← back"),
                  style=C["muted"])
-        self.card(t)
+        spoken = None
+        if auto_read and isinstance(e.get("lesson"), dict) and self.secs:
+            head, body = self.secs[self.shown - 1]
+            spoken = [f"{head}\n{body.plain}"]
+        self.card(t, auto_read=spoken)
         self.query_one("#log", VerticalScroll).scroll_end(animate=False)
 
     def action_advance(self) -> None:
         if self.phase == "reveal":
             if self.shown < len(self.secs):
                 self.shown += 1
-                self.show_reveal()
+                self.show_reveal(auto_read=True)
             elif self.prac:
                 self.start_practice()
             else:

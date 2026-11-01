@@ -109,12 +109,16 @@ published course notes and mark schemes to verify revision facts; the client rep
 with verified syllabus retrieval. No claim is made that every reported issue was a RAM fault or that larger labels
 produce better teaching for every question.
 
-## Publishing with the existing version
+## Historical publishing with v2.6.0
 
-The application version remains 2.6.0. The existing annotated GitHub tag `v2.6.0` points to the original local-AI
+At the time of this diagnostic, the application version remained 2.6.0. The existing annotated GitHub tag `v2.6.0` points to the original local-AI
 release commit `f18f7811ba340ef71f644ff08376827e8d509f62`. Pushing new commits to `main` updates the repository without
 moving that tag. Consequently, the old tag's source archive remains the old release. No force-push, retag or release
 rewrite was performed. The learner's generated content/state changes are outside the suggested staging paths.
+
+The current release is v2.6.1; its [release notes](releases/v2.6.1.md) and
+[push instructions](PUSH_V2_6_1.md) supersede the earlier publishing instructions. Historical measurements below
+remain tied to their original repository state.
 
 ## Verification
 

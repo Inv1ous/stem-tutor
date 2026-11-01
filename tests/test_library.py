@@ -107,7 +107,7 @@ def test_text_pages_cap_and_ambiguity(lib, capsys):
 
 def test_cache_is_used_and_refreshed_on_change(lib, capsys, monkeypatch):
     run(capsys, "search", "discriminant")
-    assert len(list((lib / ".cache").glob("*.json"))) == 3
+    assert len(list(library.cache_root().glob("*.json"))) == 3
     monkeypatch.setattr(library, "extract", lambda p: pytest.fail("re-extracted an unchanged file"))
     assert "Quadratics.pdf" in run(capsys, "search", "discriminant")[1]
     monkeypatch.undo()
@@ -134,7 +134,7 @@ def test_corrupt_pdf_is_skipped(lib, capsys):
 def test_empty_library_message(tmp_path, monkeypatch, capsys):
     monkeypatch.setenv("STEM_LIBRARY_ROOT", str(tmp_path / "nothing/library"))
     for args in (("tree",), ("search", "x"), ("for", "9702-5.1")):
-        assert "library is empty: drop PDFs in sources/library/<any folder>" in run(capsys, *args)[1]
+        assert "library is empty: import PDFs into STEM Tutor/Library/Courses/<course>/Sources/Library" in run(capsys, *args)[1]
 
 
 def test_for_builds_queries_from_the_chapters_kcs(lib, tmp_path, monkeypatch, capsys):
@@ -247,11 +247,31 @@ def test_figures_lists_captions_with_boxes_rasters_and_skips_logos(figs, capsys)
 def test_page_renders_a_png_or_a_part_of_it(figs, capsys):
     from PIL import Image
     path = Path(run(capsys, "page", "physics/book", "1", "--dpi", "72")[1].strip())
-    assert path.is_file() and Image.open(path).size == (612, 792) and ".cache/pages" in str(path)
+    assert path.is_file() and Image.open(path).size == (612, 792) and path.parent == library.cache_root() / "pages"
     part = Path(run(capsys, "page", "physics/book", "1", "--dpi", "72", "--box", "0,0,0.5,0.5")[1].strip())
     assert Image.open(part).size == (306, 396)
     assert run(capsys, "page", "physics/book", "1", "--box", "0.5,0,0.2,1")[0] == 1
     assert run(capsys, "page", "physics/book", "7")[0] == 1
+
+
+def test_page_close_crop_boxes_do_not_reuse_another_region(figs, capsys):
+    from PIL import Image
+
+    args = ("page", "physics/book", "1", "--dpi", "72")
+    whole = Path(run(capsys, *args)[1].strip())
+    original = whole.read_bytes()
+    first = Path(run(capsys, *args, "--box", "0.115,0.075,0.9,0.27")[1].strip())
+    second = Path(run(capsys, *args, "--box", "0.116,0.075,0.9,0.27")[1].strip())
+    with Image.open(first) as crop:
+        assert crop.size == (481, 155)
+    with Image.open(second) as crop, Image.open(whole) as page:
+        assert crop.size == (480, 155)
+        assert crop.tobytes() == page.crop((71, 59, 551, 214)).tobytes()
+    assert first != second
+    before = second.stat().st_mtime_ns
+    repeated = Path(run(capsys, *args, "--box", "0.1160,0.0750,0.90,0.270")[1].strip())
+    assert repeated == second and repeated.stat().st_mtime_ns == before
+    assert whole.read_bytes() == original
 
 
 def test_crop_writes_trimmed_png_sidecar_and_embed_lines(figs, capsys, tmp_path):

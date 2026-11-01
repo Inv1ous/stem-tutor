@@ -141,7 +141,7 @@ def test_web_retrieval_and_model_load_overlap_without_sending_private_context(tm
                 await release.wait()
                 yield {"done": True, "done_reason": "load"}
             else:
-                yield {"message": {"content": '{"reply":"Here is the scope."}'}, "done": True}
+                yield {"message": {"content": '{"blocks":[{"kind":"paragraph","text":"Here is the scope."}]}'}, "done": True}
 
         monkeypatch.setattr(LocalAI, "_events", events)
         async def answer():
@@ -168,7 +168,7 @@ def test_plain_text_request_requires_preload_without_prior_preparation(tmp_path,
         calls = []
         async def events(self, payload, timeout, path="/api/chat"):
             calls.append(payload)
-            yield ({"message": {"content": '{"reply":"Use F = ma."}'}, "done": True}
+            yield ({"message": {"content": '{"blocks":[{"kind":"paragraph","text":"Use F = ma."}]}'}, "done": True}
                    if payload["messages"] else {"done": True, "done_reason": "load"})
         monkeypatch.setattr(LocalAI, "_events", events)
         assert "".join([p async for p in client.stream("Explain force", think=False)]) == "Use F = ma."
@@ -271,7 +271,7 @@ def test_web_timing_excludes_load_wait_but_total_includes_it(tmp_path, monkeypat
                 await asyncio.sleep(.04)
                 yield {"done": True, "done_reason": "load"}
             else:
-                yield {"message": {"content": '{"reply":"I cannot verify current facts."}'}, "done": True}
+                yield {"message": {"content": '{"blocks":[{"kind":"paragraph","text":"I cannot verify current facts."}]}'}, "done": True}
         monkeypatch.setattr(LocalAI, "_events", events)
         before = time.monotonic()
         [part async for part in client.stream("Explain", web_query="Look up the latest syllabus")]

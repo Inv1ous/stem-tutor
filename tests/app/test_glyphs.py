@@ -14,10 +14,11 @@ import pytest
 
 from test_tui import app_for
 from tutor_app.texmath import to_terminal
+from library_assets import aliases_with_prefix, read_bytes, read_json, read_text
 
 REPO = Path(__file__).resolve().parents[2]
 APP = REPO / "app" / "tutor_app"
-FONTS = APP / "fonts"
+_FONT_ALIAS = "app/tutor_app/fonts/"
 # Unicode 16.0 emoji-data.txt, property Emoji, its non-ASCII part below U+10000 (everything from U+1F000 is emoji)
 EMOJI = ("00A9 00AE 203C 2049 2122 2139 2194-2199 21A9-21AA 231A-231B 2328 23CF 23E9-23F3 23F8-23FA 24C2 25AA-25AB "
          "25B6 25C0 25FB-25FE 2600-2604 260E 2611 2614-2615 2618 261D 2620 2622-2623 2626 262A 262E-262F 2638-263A "
@@ -38,9 +39,8 @@ def _ranges(spec: str) -> set[int]:
 EMOJI_CODES = _ranges(EMOJI)
 
 
-def font_chars(path: Path) -> set[int]:
+def font_chars(data: bytes) -> set[int]:
     """The characters a TrueType font draws (its cmap: format 12, or format 4)."""
-    data = path.read_bytes()
     tables = {data[12 + 16 * i:16 + 16 * i]: struct.unpack(">I", data[20 + 16 * i:24 + 16 * i])[0]
               for i in range(struct.unpack(">H", data[4:6])[0])}
     cmap = tables[b"cmap"]
@@ -75,7 +75,7 @@ def font_chars(path: Path) -> set[int]:
     return chars
 
 
-COVERED = font_chars(FONTS / "JuliaMono-Regular.ttf")
+COVERED = font_chars(read_bytes(_FONT_ALIAS + "JuliaMono-Regular.ttf"))
 
 
 def problems(text: str, maths: bool = False) -> set[str]:
@@ -100,8 +100,8 @@ def test_the_bundled_font_is_the_pinned_release_with_its_licence():
             "JuliaMono-Bold.ttf": "a886d817cbd02fb7b646c3eb722de572bf6819ad223d66d64dbef33207964fea",
             "JuliaMono-RegularItalic.ttf": "35260252fa576b3e2ae6cda538475e6fa78a053eade7784518b53f0a5dbaa526"}
     for name, digest in want.items():
-        assert hashlib.sha256((FONTS / name).read_bytes()).hexdigest() == digest, name
-    assert "SIL Open Font License" in (FONTS / "OFL.txt").read_text()
+        assert hashlib.sha256(read_bytes(_FONT_ALIAS + name)).hexdigest() == digest, name
+    assert "SIL Open Font License" in read_text(_FONT_ALIAS + "OFL.txt")
     assert len(COVERED) > 10000 and {ord(c) for c in "θΔ∑∫√≤≥⇌⦵−×₁²⁺𝐅╭─╮│╰╯█░▁▔"} <= COVERED
 
 
@@ -151,19 +151,20 @@ def test_every_screen_draws_only_characters_of_the_font(tmp_path, monkeypatch):
 
 
 def _pack_strings():
-    for p in sorted((REPO / "build" / "out" / "packs").rglob("*.json")):
-        stack = [json.loads(p.read_text(encoding="utf-8"))]
+    for alias in aliases_with_prefix("build/out/packs/"):
+        if not alias.endswith(".json"):
+            continue
+        stack = [read_json(alias)]
         while stack:
             x = stack.pop()
             if isinstance(x, str):
-                yield p.name, x
+                yield Path(alias).name, x
             elif isinstance(x, dict):
                 stack.extend(x.values())
             elif isinstance(x, list):
                 stack.extend(x)
 
 
-@pytest.mark.skipif(not (REPO / "build" / "out" / "packs").exists(), reason="no published packs in this checkout")
 def test_all_published_content_shows_in_the_font_without_raw_latex():
     found = {}
     for name, s in _pack_strings():

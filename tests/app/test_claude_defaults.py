@@ -10,9 +10,9 @@ from tutor_app.screens import InsightsScreen, SessionScreen
 
 
 @pytest.mark.parametrize("ask,explain,want_model,want_think", [
-    ("haiku", "opus", None, False),
-    ("sonnet", "haiku", None, False),
-    ("opus", "sonnet", None, False),
+    ("haiku", "opus", "opus", False),
+    ("sonnet", "haiku", "haiku", False),
+    ("opus", "sonnet", "sonnet", False),
     ("haiku", "ollama:qwen3.5:9b", "ollama:qwen3.5:9b", True),
     ("ollama:qwen3.5:9b", "sonnet", "sonnet", False),
     ("haiku", "codex:gpt-6.1-sol", "codex:gpt-6.1-sol", True),
@@ -42,14 +42,44 @@ def test_cards_and_profiles_preserve_cloud_defaults(tmp_path, monkeypatch, ask, 
             seen.clear()
             worker = app.screen._write_cards([next(iter(app.tutor.packs.kcs))])
             await worker.wait()
-            assert seen == [(prompts.CARD, want_model, want_think)]
+            assert seen[0] == (prompts.CARD, want_model, want_think)
             app.pop_screen()
             app.push_screen(InsightsScreen())
             await pilot.pause()
             seen.clear()
             await app.screen._summarise().wait()
             profile_think = want_think if local_models.is_local(want_model) or codex_models.is_codex(want_model) else False
-            assert seen == [(prompts.PROFILE, want_model, profile_think)]
+            profile_model = None if ask in ("haiku", "sonnet", "opus") and explain in ("haiku", "sonnet", "opus") else want_model
+            assert seen == [(prompts.PROFILE, profile_model, profile_think)]
+            await app.ai.close()
+
+    asyncio.run(go())
+
+
+def test_cards_use_legacy_general_model_when_explain_setting_is_blank(tmp_path, monkeypatch):
+    app, _ = app_for(tmp_path, monkeypatch)
+    app.settings.model = "haiku"
+    app.settings.ai_ask_model = "opus"
+    app.settings.ai_explain_model = ""
+    monkeypatch.setattr(app, "prepare_local_ai", lambda mode: None)
+
+    async def go():
+        async with app.run_test(size=(100, 35)) as pilot:
+            await pilot.pause()
+            seen = []
+
+            async def one_shot(prompt, schema=None, model=None, think=False, **kwargs):
+                seen.append((schema, model, think))
+                return {"motivate": "Why it matters", "establish": "How it works", "note": "Remember this"}, ai.Result()
+
+            monkeypatch.setattr(app.ai, "one_shot", one_shot)
+            app.push_screen(SessionScreen({"mode": "test", "minutes": 40, "focus": ["9702-2.1"]}))
+            await pilot.pause()
+            await app.workers.wait_for_complete()
+            seen.clear()
+            worker = app.screen._write_cards([next(iter(app.tutor.packs.kcs))])
+            await worker.wait()
+            assert seen == [(prompts.CARD, "haiku", False)]
             await app.ai.close()
 
     asyncio.run(go())

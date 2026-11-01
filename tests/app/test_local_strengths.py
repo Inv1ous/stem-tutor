@@ -190,7 +190,7 @@ def test_unrelated_cloud_save_keeps_blank_legacy_effort(tmp_path, monkeypatch, i
             app.screen.query_one("#save", Button).press()
             await pilot.pause()
             saved = config.Settings.load(vault)
-            assert [getattr(saved, f"ai_{mode}_effort") for mode in config.AI_MODES] == ["", "", ""]
+            assert [getattr(saved, f"ai_{mode}_effort") for mode in config.AI_MODES] == ["", "", "", ""]
             await app.ai.close()
     asyncio.run(go())
 

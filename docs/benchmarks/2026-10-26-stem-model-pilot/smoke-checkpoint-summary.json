@@ -1,0 +1,74 @@
+{
+  "state": "completed",
+  "updates_completed": 5,
+  "checkpoint_eligibility": "accepted",
+  "last_checkpoint": "000005_adapters.safetensors",
+  "accepted_checkpoint": "000005_adapters.safetensors",
+  "adapter_reload_verified": true,
+  "trainable_parameters": 2260992,
+  "gradient_checkpointing": {
+    "decoder_classes": [
+      "DecoderLayer"
+    ],
+    "decoder_layers": 32,
+    "enabled": true,
+    "implementation": "mlx_lm.tuner.trainer.grad_checkpoint"
+  },
+  "elapsed_seconds": 24.846479500003625,
+  "peak_memory_bytes": 6323789631,
+  "train_loss": [
+    {
+      "loss": 1.1652556657791138,
+      "tokens": 31,
+      "update": 1
+    },
+    {
+      "loss": 2.258025884628296,
+      "tokens": 48,
+      "update": 2
+    },
+    {
+      "loss": 1.3357869386672974,
+      "tokens": 73,
+      "update": 3
+    },
+    {
+      "loss": 0.37463080883026123,
+      "tokens": 88,
+      "update": 4
+    },
+    {
+      "loss": 1.7992063760757446,
+      "tokens": 53,
+      "update": 5
+    }
+  ],
+  "validation_loss": [
+    {
+      "loss": 1.0687229415824668,
+      "update": 0
+    },
+    {
+      "loss": 1.0351127953064152,
+      "update": 5
+    }
+  ],
+  "initial_resources": {
+    "disk_free_bytes": 50424197120,
+    "pressure": 1,
+    "swap_used_bytes": 3640131584.0
+  },
+  "final_resources": {
+    "disk_free_bytes": 50406096896,
+    "pressure": 1,
+    "swap_used_bytes": 3614965760.0
+  },
+  "changed_tensor_count": 48,
+  "observed_peak_active_bytes": 2640121474,
+  "initial_adapter_sha256": "7efc031daa087ae3625700e5dd8bb4d6a85e3e0c0f75e640546087148eb2d3e6",
+  "final_adapter_sha256": "c28d0d215b8c4c2e077cff0ae34d8a1288a6233961d3eb5f596909cb44cb5367",
+  "canonical_adapter_sha256": "c28d0d215b8c4c2e077cff0ae34d8a1288a6233961d3eb5f596909cb44cb5367",
+  "all_reported_losses_finite": true,
+  "observed_memory_samples": 91,
+  "swap_growth_bytes": -25165824.0
+}

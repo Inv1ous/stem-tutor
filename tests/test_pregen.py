@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from test_foundry import SUB, fdy  # noqa: F401  (fixtures)
+from test_foundry import SUB, fdy, add_legacy_state  # noqa: F401  (fixtures)
 from test_refine import rf  # noqa: F401
 
 REPO = Path(__file__).resolve().parents[1]
@@ -136,7 +136,7 @@ def sign_ready(mod, sub=SUB):
 def test_foundry_sign_starts_a_detached_process_when_kokoro_is_ready(chapter, monkeypatch):
     calls = started(monkeypatch)
     fd = chapter.fd
-    fd.cmd_add([SUB])
+    add_legacy_state(fd, [SUB])
     sign_ready(fd)
     fd.cmd_sign(SUB)
     assert len(calls) == 1
@@ -152,7 +152,7 @@ def test_without_kokoro_signing_writes_the_script_and_notes_it_once(chapter, mon
     monkeypatch.setattr(tts, "available", lambda vault=None: False)
     calls = started(monkeypatch)
     fd = chapter.fd
-    fd.cmd_add([SUB])
+    add_legacy_state(fd, [SUB])
     sign_ready(fd)
     fd.cmd_sign(SUB)
     assert not calls and (chapter.root / f"build/out/speech/{SUB}.json").is_file()
@@ -165,7 +165,7 @@ def test_a_tts_failure_never_blocks_or_fails_the_sign(chapter, monkeypatch):
         raise RuntimeError("tts exploded")
     monkeypatch.setattr(tts, "available", boom)
     fd = chapter.fd
-    fd.cmd_add([SUB])
+    add_legacy_state(fd, [SUB])
     sign_ready(fd)
     fd.cmd_sign(SUB)
     assert fd.load(SUB)["stage"] == "ready"
@@ -189,7 +189,9 @@ def test_refine_sign_starts_pregeneration_with_its_own_log(rf, tmp_path, monkeyp
     with rf.chapter(SUB) as st:
         st["stage"] = "sign"
     rf.cmd_sign(SUB)
-    assert len(calls) == 1 and (tmp_path / "refine/logs").is_dir()
+    # git provenance for the pass snapshot also runs a process; only the pre-generation launch is counted here
+    speech = [c for c in calls if not (c[0] and c[0][0] and c[0][0][0] == "git")]
+    assert len(speech) == 1 and (tmp_path / "refine/logs").is_dir()
     assert any("pre-generating" in h["note"] for h in rf.load(SUB)["history"])
 
 

@@ -1,5 +1,7 @@
 """Small fixes to how the app behaves and fits, found by a hunter walking every screen at 60x24 to 120x40."""
 import asyncio
+import hashlib
+import json
 import time
 
 from textual.widgets import Button, Input, Select, Switch
@@ -406,6 +408,43 @@ def test_a_damaged_content_file_stops_the_app_with_one_clear_line(tmp_path, monk
     assert app.return_code == 1
 
 
+def test_a_damaged_library_catalog_stops_the_app_with_one_clear_line(tmp_path, monkeypatch, capsys):
+    app, v = app_for(tmp_path, monkeypatch)
+    catalog = v / "Library/catalog.json"
+    catalog.parent.mkdir(parents=True)
+    catalog.write_text('{"assets": [')
+
+    async def go():
+        async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()
+    asyncio.run(go())
+    err = capsys.readouterr().err
+    assert " ".join(err.split()) == ("The content file Library/catalog.json is damaged: reinstall the content "
+                                     "(run publish) — the rest of your data is untouched")
+    assert app.return_code == 1
+
+
+def test_a_broken_paper_asset_stops_the_app_with_one_clear_line(tmp_path, monkeypatch, capsys):
+    app, v = app_for(tmp_path, monkeypatch)
+    source = "Library/Courses/9702/Sources/paper.pdf"
+    path = v / source
+    path.parent.mkdir(parents=True)
+    path.write_bytes(b"changed paper")
+    (v / "Library/catalog.json").write_text(json.dumps({"format_version": 1, "assets": {
+        "paper": {"path": source, "sha256": hashlib.sha256(b"registered paper").hexdigest()}
+    }}))
+    (v / ".tutor/packs/v1/papers.json").write_text(json.dumps({"papers": [{"id": "sample", "qp": source}]}))
+
+    async def go():
+        async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()
+    asyncio.run(go())
+    err = capsys.readouterr().err
+    assert " ".join(err.split()) == ("The content file .tutor/packs/v1/papers.json is damaged: reinstall the content "
+                                     "(run publish) — the rest of your data is untouched")
+    assert app.return_code == 1
+
+
 def test_a_damaged_chapter_is_left_out_and_the_app_still_runs(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
     (v / ".tutor/packs/v1/specs/9702/packs/9702-2.1.json").write_text('{"items": [')
@@ -419,3 +458,30 @@ def test_a_damaged_chapter_is_left_out_and_the_app_still_runs(tmp_path, monkeypa
     monkeypatch.setattr(TutorApp, "notify", lambda self, msg, **k: said.append(msg))
     run(app, (100, 30), steps)
     assert any(".tutor/packs/v1/specs/9702/packs/9702-2.1.json is damaged" in m and "run publish" in m for m in said)
+
+
+def test_a_chapter_with_a_corrupt_library_asset_is_left_out_and_the_app_still_runs(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    diagram = "Library/Courses/9702/Diagrams/startup-test.svg"
+    asset = v / diagram
+    asset.parent.mkdir(parents=True)
+    asset.write_text("<svg>tampered</svg>")
+    (v / "Library/catalog.json").write_text(json.dumps({"format_version": 1, "assets": {
+        "startup-test": {"path": diagram, "sha256": hashlib.sha256(b"<svg>original</svg>").hexdigest()}
+    }}))
+    (v / ".tutor/packs/v1/papers.json").write_text('{"papers": []}')
+    pack = v / ".tutor/packs/v1/specs/9702/packs/9702-2.1.json"
+    content = json.loads(pack.read_text())
+    content["items"][0]["images"] = [diagram]
+    pack.write_text(json.dumps(content))
+    said = []
+
+    async def steps(pilot):
+        assert app.screen.__class__.__name__ == "HomeScreen"
+        app.action_settings()
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "SettingsScreen"
+    monkeypatch.setattr(TutorApp, "notify", lambda self, msg, **k: said.append(msg))
+    run(app, (100, 30), steps)
+    assert any(".tutor/packs/v1/specs/9702/packs/9702-2.1.json is damaged" in m and "run publish" in m
+               for m in said)

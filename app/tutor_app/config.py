@@ -24,7 +24,7 @@ def vault_path() -> Path:
 AI_MODELS = ("haiku", "sonnet", "opus", *LOCAL_MODELS, *CODEX_MODELS)
 USAGE_DISPLAYS = ("weekly", "ram", "both")
 SPEED_RANGE = (0.7, 1.5)  # reading aloud: the same as tts.SPEED_RANGE (tts imports the engine; this file must not)
-AI_MODES = ("mark", "explain", "ask")
+AI_MODES = ("mark", "explain", "ask", "learn")
 
 
 @dataclass
@@ -41,6 +41,9 @@ class Settings:
     ai_ask_model: str = ""          # ask the tutor (ctrl+t), talking it through, the chat
     ai_ask_think: bool = False
     ai_ask_effort: str = ""
+    ai_learn_model: str = ""        # live teaching during a lesson
+    ai_learn_think: bool = False
+    ai_learn_effort: str = ""
     usage_display: str = "weekly"   # the terminal's resource indicator: weekly Claude allowance, system RAM, or both
     local_web: bool = True          # retrieve sources for explicit web requests or questions needing fresh information
     local_vision_model: str = DEFAULT_VISION_MODEL  # literal Mac OCR for text-only models; geometry stays unknown
@@ -68,7 +71,10 @@ class Settings:
         data = data if isinstance(data, dict) else {}
         for key in ("tts_speed", "tts_volume", "font_zoom_cell"):
             if type(data.get(key)) is int:  # 1 written by hand is 1.0
-                data[key] = float(data[key])
+                try:
+                    data[key] = float(data[key])
+                except OverflowError:
+                    data.pop(key)  # an unrepresentable value cannot be a valid saved setting
         good = {k: v for k, v in data.items()
                 if k in cls.__dataclass_fields__ and type(v) is type(getattr(default, k))}
         if good.get("theme") not in THEMES:
@@ -98,7 +104,7 @@ class Settings:
         return cls(**good)
 
     def ai_for(self, mode: str) -> tuple[str, bool | str]:
-        """(model, think) for one kind of AI help: mark, explain or ask."""
+        """(model, think) for one kind of AI help: mark, explain, ask or learn."""
         model = getattr(self, f"ai_{mode}_model", "") or self.model
         effort = getattr(self, f"ai_{mode}_effort", "")
         think = bool(getattr(self, f"ai_{mode}_think", False))

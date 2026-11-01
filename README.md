@@ -1,6 +1,12 @@
 # STEM Tutor
 
-Version **2.6.0** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
+Version **2.6.1** — see [release notes](docs/releases/v2.6.1.md) and `CHANGELOG.md`;
+the evidence behind each feature is in `docs/RESEARCH.md`.
+
+This release brings the Library/Work storage migration, shared validated AI replies, local-model improvements,
+and the latest marking, recovery, screen and worker-cleanup fixes together. Extraction candidates remain unpublished;
+inspection, independent review and teaching approval are separate. See the release notes for verification limits and
+[the v2.6.1 push commands](docs/PUSH_V2_6_1.md) for the source-only staging list.
 
 A-Level study system (CAIE 9701/9702, Edexcel IAL Maths/Further Maths): a terminal app for studying, an Obsidian
 vault for reading, and a pure-Python engine that does the teaching logic without AI.
@@ -10,18 +16,28 @@ vault for reading, and a pure-Python engine that does the teaching logic without
 ## Layout
 | Path | What |
 |---|---|
-| `app/tutor_app/` | Textual terminal app (screens, answer panels, cards), AI client (`ai.py`: persistent lean `claude -p` on the subscription), prompts, LaTeX→Unicode (`texmath.py`), the Night/Day/Classic looks (`look.py`), the Terminal window setup (`setup_look.py`, `termprofile.py`, bundled JuliaMono in `fonts/`) |
-| `plugin/stem-tutor/skills/tutor/scripts/tutorlib/` | engine: sessions, lesson mode (`lesson.py`), Obsidian views (`views.py`), grading, FSRS/Elo model, experiments, reports, weekly bookkeeping |
+| `app/tutor_app/` | Textual terminal app (screens, answer panels, cards), AI client (`ai.py`: persistent lean `claude -p` on the subscription), prompts, LaTeX→Unicode (`texmath.py`), the Night/Day/Classic looks (`look.py`), the Terminal window setup (`setup_look.py`, `termprofile.py`, JuliaMono from the shared Library) |
+| `src/tutorlib/` | canonical engine: sessions, lesson mode (`lesson.py`), Obsidian views (`views.py`), grading, FSRS/Elo model, experiments, reports, weekly bookkeeping |
 | `plugin/stem-tutor/` | the older Cowork plugin (still works; the terminal app is now primary) |
 | `build/` | content pipeline: specs → graphs → packs (drafted, blind-solved, adjudicated), teach cards, publish to the vault |
 | `foundry/` | content foundry: chapters built by headless Claude and Codex workers, split between the two allowances as they run down (`foundry/README.md`) |
 | `refine/` | refine system: improves chapters already built, adding only (diagrams, questions, clarifications), on both allowances (`bin/refine`, the `/refine` skill) |
-| `sources/` | your PDF library (`sources/library/`, searched by `build/library.py`) and the shortcut notes (`sources/shortcuts/`) the Shortcuts course is made from |
+| `../STEM Tutor/Library/` | authoritative source PDFs/TQ files, questions, diagrams, notes, fonts and reusable test inputs; organized by course/type |
 | `bugwatch/` | live two-agent bug hunt (Codex spots, Claude fixes; `bugwatch/README.md`) |
 | `docs/` | `SHORTCUTS_COURSE.md` (the Shortcuts & Elegant Methods course: data, lessons, its own recall queue), `RESEARCH.md` |
 | `bin/` | `tutor` (launcher: `tutor`, `tutor doctor`, `tutor look`, `tutor tts setup`), `foundry`, `refine`, `shortcuts` (parse, generate lessons, publish) |
 | `bin/tutor` | launcher (`tutor`, `tutor doctor`, `tutor look`, `tutor --setup`) |
 | `tests/` | pytest (engine) and `tests/app/` (AI client with a fake `claude`, Textual pilot tests) |
+
+## Workspace storage
+
+The authoritative learning library is now `../STEM Tutor/Library/`. Courses contain `Sources/`, `Questions/`, `Diagrams/`, and `Notes/`; shared resources and review media live under `Shared/`. The catalog preserves hashes, provenance, stable references, and legacy aliases. Availability in the library is not evidence of course-content acceptance.
+
+`build/workspace_audit.py` inventories storage and references. `build/migrate_library.py` performs an expand-only, hash-verified copy. `build/migrate_library_links.py` repairs recognized Markdown links with exact-original journals. Reports are under `../Work/storage-migration/`; preserved originals are under `../Archive/`. The migration ledger is `docs/superpowers/plans/2026-10-30-workspace-storage-overhaul.md`. Legacy directories are compatibility adapters; originals and exact rollback records remain in Archive.
+
+Generated work lives under `../Work/Preparation/`, candidate builds under `../Work/Candidates/`, and worker state/logs under `../Work/Workers/`. Historical `build/work`, `build/out`, and worker paths remain symlink adapters. Generated audio lives in the device cache selected by the vault storage metadata.
+
+Tests share reusable learning inputs through `tests/library_assets.py`. Real-resource fixtures stage copies in a disposable Library; malformed-input scenarios and outputs stay disposable. Tests must not write learner state or production Library assets.
 
 ## Local AI
 
@@ -100,8 +116,11 @@ keeps its own explicit Sonnet/Opus selector; challenge explanations and re-marki
 
 ## Reading AI replies
 
-Local, Claude and ChatGPT tutoring share the same visual-writing brief: a key idea first, short paragraphs, numbered
-calculations, parallel bullets and clear gaps. The terminal renders mathematical variables in italic, keeps units
+Local, Claude and ChatGPT chat replies use shared content blocks. The app supplies paragraph gaps, headings, bullets,
+step numbers, equation wrappers and literal code fences. Only complete validated blocks enter the visible stream;
+an invalid or incomplete document is reported as failed. The shared brief requires qualified definitions, causal
+explanations, and justified calculation steps with units. Broad questions can receive enough detail
+to cover their scope; hints stay short. The terminal renders mathematical variables in italic, keeps units
 and function names upright, and uses complete Unicode subscript/superscript groups in the bundled JuliaMono font.
 Obsidian retains LaTeX for its richer equations. Code, links, percentages, currency, learner answers, grading data
 and separate speech remain protected.
@@ -111,6 +130,15 @@ source fallback instead of silently losing symbols or grouping. Formatting requi
 teaching-card and profile caches are formatted when read, without rewriting their files. This standard improves
 consistency; it does not promise identical model wording or arbitrary terminal typesetting. The complete renderer
 inventory, examples and research sources are in [STEM output formatting](docs/STEM_OUTPUT_FORMATTING.md).
+
+Ask can include a small set of relevant published study references with source identifiers. These are study material,
+not an official mark scheme. References are omitted while a practice question is open to protect its answer.
+Local chat history is bounded by complete conversation turns; the current question and assessment evidence take
+priority. Format validation does not establish factual correctness or complete coverage of the syllabus.
+
+An [experimental STEM fine-tuning pilot](docs/STEM_TUTOR_MODEL.md) produced and tested a separate 4B MLX model
+on the SSD, including native Fast/Deep controls. Content-fidelity and Deep-delivery gates failed, so it remains
+outside the tutor's model selectors and presets. The original models and saved provider choices are preserved.
 
 ## Run
 - `bin/tutor` — start (the vault also has a double-clickable `Start Tutor.command`)

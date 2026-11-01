@@ -17,13 +17,13 @@ from pathlib import Path
 import pytest
 
 from tutorlib import packs
-
-PACKS = Path(__file__).resolve().parents[1] / "build" / "out" / "packs"
-pytestmark = pytest.mark.skipif(not PACKS.exists(), reason="no published packs in this checkout")
+from library_assets import aliases_with_prefix, current_release_packs, read_json
 
 
 def _packs():
-    return [json.loads(p.read_text(encoding="utf-8")) for p in sorted(PACKS.glob("*/*-*.json"))]
+    aliases = [alias for alias in aliases_with_prefix("build/out/packs/") if alias.endswith(".json")]
+    assert aliases, "Library catalog has no published course packs"
+    return [read_json(alias) for alias in aliases]
 
 
 def _items():
@@ -44,6 +44,7 @@ LETTER_REF = re.compile("|".join([
     rf"{_LETTER}(?:\s*,\s*[A-D])*,?\s+(?:and|or)\s+[A-D](?![\w'’-])",         # B, C and D
     rf"(?:^|[.;:,!?]\s+|\b(?:and|but|while|whereas|so)\s+){_LETTER}\s+(?:{_VERBS})\b",  # ... and D ignores the charge
     rf"\b[Ii]n\s+[A-D](?:\s*,|\s+(?:the|it|this|that)\b)",                    # In A the 3d ...; in C, 4s ...
+    r"\b(?:alternative|option|choice)\s+in\s+[A-D]\s+is\s+wrong\b",          # the tempting alternative in B is wrong
     r"\b(?:answer|key)\s+(?:is\s+)?\(?[A-D]\b(?![\w'’-])",                    # the answer is B
     rf"\b[Oo]nly\s+{_LETTER}",                                               # Only A has zero resultant (B-129)
 ]))
@@ -84,7 +85,7 @@ def test_the_letter_pattern_leaves_labels_and_articles_alone(text):
 
 def test_shuffled_mcqs_never_name_an_option_by_its_letter():
     found = []
-    for p in _packs():
+    for p in current_release_packs():
         linked = set()
         for it in p["items"]:
             if not _shuffled(it):
@@ -208,20 +209,17 @@ def test_a_stacked_fraction_the_pdf_broke_is_repaired_and_found():
 
 
 def test_no_pack_in_the_repo_has_a_broken_fraction_or_charge_space():
-    import glob
-    import json
     import sys
     from pathlib import Path
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "build"))
     import content_checks as cc
     bad = []
-    for f in glob.glob(str(Path(__file__).resolve().parents[1] / "build/out/packs/*/*.json")):
-        try:
-            pack = json.loads(Path(f).read_text(encoding="utf8"))
-        except ValueError:
+    for alias in aliases_with_prefix("build/out/packs/"):
+        if not alias.endswith(".json"):
             continue
+        pack = read_json(alias)
         if isinstance(pack, dict) and (found := cc.stacked_problems(pack)):
-            bad.append((Path(f).name, found[0]))
+            bad.append((Path(alias).name, found[0]))
     assert not bad, bad
 
 

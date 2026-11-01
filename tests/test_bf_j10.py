@@ -11,6 +11,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from tutorlib import report
+from tutorlib.asset_library import AssetLibrary, write_asset
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -19,37 +20,37 @@ REPO = Path(__file__).resolve().parents[1]
 def test_scratch_sessions_leave_the_learners_files_untouched(monkeypatch) -> None:
     """B-062 (bug watch): isolate both Almanac sync and the app's automatic startup imports."""
     with tempfile.TemporaryDirectory(dir="/tmp", prefix="bf-j10-") as directory:
-        root = Path(directory)
+        root = Path(directory).resolve()
         (root / "bugwatch").mkdir()
         shutil.copy2(REPO / "bugwatch/sandbox.sh", root / "bugwatch/sandbox.sh")
+        shutil.copy2(REPO / "bugwatch/sandbox.py", root / "bugwatch/sandbox.py")
         (root / ".venv/bin").mkdir(parents=True)
         (root / ".venv/bin/python").symlink_to(sys.executable)
         (root / "plugin").symlink_to(REPO / "plugin", target_is_directory=True)
+        (root / "src").symlink_to(REPO / "src", target_is_directory=True)
         planner = root / "A-Levels.html"
         planner.write_text("<html></html>", encoding="utf-8")
         original = {"source": planner.name, "source_path": str(planner), "source_sha256": "abc",
                     "weeks": {"1": [{"title": "Kinematics"}]}}
         (root / "plan.json").write_text(json.dumps(original), encoding="utf-8")
-        (root / "build").mkdir()
-        # Stand in for publishing; never run the real content pipeline or copy the learner's data.
-        (root / "build/publish.py").write_text(
-            "import sys, shutil\nfrom pathlib import Path\n"
-            "packs = Path(sys.argv[2]) / '.tutor/packs'\n"
-            "(packs / 'v7').mkdir(parents=True)\n"
-            "(packs / 'CURRENT').write_text('v7\\n')\n"
-            "shutil.copy2(Path(__file__).parents[1] / 'plan.json', packs / 'v7/plan.json')\n",
-            encoding="utf-8",
-        )
+        # Snapshot synthetic content; do not publish drafts or copy learner data.
+        source = root / 'learner-vault'; source.mkdir()
+        write_asset(source, 'Library/Releases/v7/plan.json', json.dumps(original).encode())
+        write_asset(source, 'Library/Releases/v7/manifest.json', b'{"specs":[]}')
+        pointer=source/'.tutor/packs/CURRENT'; pointer.parent.mkdir(parents=True); pointer.write_text('v7')
+        monkeypatch.setenv('STEM_TUTOR_BUGWATCH_SOURCE', str(source))
         done = subprocess.run(["bash", str(root / "bugwatch/sandbox.sh"), str(root / "scratch")],
                               capture_output=True, text=True, timeout=30)
         assert done.returncode == 0, done.stderr
-        plan = json.loads((root / "scratch/mnt/STEM Tutor/.tutor/packs/v7/plan.json").read_text())
+        scratch = root / 'scratch/mnt/STEM Tutor'
+        plan = json.loads(AssetLibrary(scratch).read('Library/Releases/v7/plan.json'))
         written = []
         monkeypatch.setattr(report, "_write_text", lambda path, text: written.append(path))
         monkeypatch.setattr(report, "almanac_payload", lambda tutor: {})
-        report.almanac_push(SimpleNamespace(packs=SimpleNamespace(plan=plan)))
+        monkeypatch.setattr(report, '_in_temp', lambda path: Path(path).is_relative_to(root / 'scratch'))
+        report.almanac_push(SimpleNamespace(packs=SimpleNamespace(plan=plan), vault=SimpleNamespace(root=scratch)))
         assert written == [], "A scratch session would overwrite the learner's Almanac sidecar"
-        assert plan == {"source": planner.name, "weeks": original["weeks"]}
+        assert plan == original, 'registered release bytes must remain exact'
         assert json.loads((root / "plan.json").read_text()) == original
 
         # Stand in for the learner's folders outside the disposable vault. No live path is used.
@@ -72,7 +73,7 @@ def test_scratch_sessions_leave_the_learners_files_untouched(monkeypatch) -> Non
         # Execute the helper's printed Python setup, just as a scratch pilot does before startup.
         setup = done.stdout.partition("# Python setup before constructing any scratch TutorApp:\n")[2]
         exec(setup, {})
-        app, vault = app_for(root / "scratch", monkeypatch)
+        app, vault = app_for(root / "scratch" / "ui-pilot", monkeypatch)
 
         async def go() -> None:
             async with app.run_test(size=(120, 40)) as pilot:
