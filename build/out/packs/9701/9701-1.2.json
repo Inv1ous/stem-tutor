@@ -44,6 +44,30 @@
    "refutation": "Extra neutrons add mass, so isotopes have different atomic masses. Any physical property that depends on mass, such as the density of a sample, then differs slightly.",
    "contrast": "At the same temperature and pressure, $^{37}\\mathrm{Cl_2}$ gas is denser than $^{35}\\mathrm{Cl_2}$ gas, although both react chemically in the same way.",
    "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-1.2.2",
+   "statement": "The lower number in a nuclide symbol is the neutron number.",
+   "refutation": "The lower number is the proton (atomic) number. The neutron number is the upper number minus the lower number.",
+   "contrast": "$^{37}_{17}\\mathrm{Cl}$ has 17 protons and $37-17=20$ neutrons, not 17 neutrons.",
+   "source": "research"
+  },
+  {
+   "id": "m7",
+   "kc": "9701-1.2.3",
+   "statement": "Isotopes form different compounds because their neutron numbers differ.",
+   "refutation": "Bonding uses electrons. Neutral isotopes have the same electron arrangement, so they form the same compounds with the same formulae; only the molar mass of the compound changes.",
+   "contrast": "$^{12}\\mathrm{C}$ and $^{14}\\mathrm{C}$ both burn to give $\\mathrm{CO}_2$; the $^{14}\\mathrm{CO}_2$ molecules are simply heavier.",
+   "source": "research"
+  },
+  {
+   "id": "m8",
+   "kc": "9701-1.2.4",
+   "statement": "Each isotope of an element has the same relative atomic mass.",
+   "refutation": "Each isotope has its own mass. The relative atomic mass of an element is a weighted average over its isotopes.",
+   "contrast": "Chlorine has $A_\\mathrm{r}=35.5$, an average of $^{35}\\mathrm{Cl}$ and $^{37}\\mathrm{Cl}$; no single chlorine atom has mass 35.5.",
+   "source": "research"
   }
  ],
  "worked": [
@@ -94,6 +118,59 @@
     "problem": "State the number of electrons in the ion $^{71}_{31}\\mathrm{Ga}^{3+}$.",
     "answer": {
      "value": 28,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 2
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9701-1.2.2",
+   "problem": "State the numbers of protons, neutrons and electrons in the ion $^{24}_{12}\\mathrm{Mg}^{2+}$.",
+   "steps": [
+    {
+     "do": "Protons = the bottom number = 12.",
+     "why": "The proton (atomic) number is the lower number; the charge does not change it.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 12,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Neutrons = top − bottom $=24-12=12$.",
+     "why": "The nucleon number counts protons plus neutrons, so subtract the protons; the charge does not change the nucleus.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 12,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Electrons = protons − 2 $=12-2=10$.",
+     "why": "The 2+ charge means two electrons were lost; a positive ion has fewer electrons than protons.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 10,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "State the number of electrons in the ion $^{52}_{24}\\mathrm{Cr}^{3+}$.",
+    "answer": {
+     "value": 21,
      "unit": "",
      "exact": true
     },
@@ -1192,7 +1269,154 @@
    "connect": "This definition builds on proton and nucleon number. Next, nuclide notation makes the two counts visible in one symbol.",
    "note": "- Isotopes: atoms of the same element with the same number of protons but different numbers of neutrons.\n- $^{35}_{17}\\mathrm{Cl}$ and $^{37}_{17}\\mathrm{Cl}$ both have 17 protons, but have 18 and 20 neutrons.\n- Different nucleon number alone does not define isotopes; check that proton number is the same.",
    "self_explain": "Why are $^{35}_{17}\\mathrm{Cl}$ and $^{37}_{17}\\mathrm{Cl}$ isotopes? Name both particle counts.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "An isotope is an atom of the same element with the same number of protons but a different number of neutrons. The proton number fixes the element, so only the neutron count, and therefore the nucleon number, can vary. Equal nucleon numbers alone do not make isotopes.",
+   "terms": [
+    {
+     "term": "Isotope",
+     "meaning": "Atoms of the same element with the same proton number but different neutron numbers.",
+     "notation": "none",
+     "spoken": "isotope",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    },
+    {
+     "term": "Proton (atomic) number",
+     "meaning": "The number of protons in the nucleus; it fixes the element.",
+     "notation": "$y$ in $^{x}_{y}\\mathrm{A}$",
+     "spoken": "proton number, or atomic number",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    },
+    {
+     "term": "Nucleon (mass) number",
+     "meaning": "The total number of protons and neutrons in the nucleus.",
+     "notation": "$x$ in $^{x}_{y}\\mathrm{A}$",
+     "spoken": "nucleon number, or mass number",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    },
+    {
+     "term": "Neutron number",
+     "meaning": "The number of neutrons: nucleon number minus proton number.",
+     "notation": "$N=x-y$",
+     "spoken": "N equals x minus y",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Define isotope",
+     "wordings": [
+      "Define the term isotope.",
+      "State what is meant by isotopes.",
+      "Explain what makes two atoms isotopes of each other."
+     ],
+     "example": "- Both atoms have $17$ protons, so both are chlorine.\n- Neutrons: $35-17=18$ and $37-17=20$, so the neutron numbers differ.\n- Definition: atoms of the same element with the same number of protons but different numbers of neutrons.",
+     "check": "$^{24}_{12}\\mathrm{Mg}$ and $^{24}_{11}\\mathrm{Na}$ both have nucleon number 24. Are they isotopes? Give a reason.",
+     "answer": "No. Their proton numbers are 12 and 11, so they are atoms of different elements. Equal nucleon numbers do not make isotopes.",
+     "source": "SaveMyExams notes 9701 c1.2 p.2; TQ 9701 c1.3 p.11 (define isotope)",
+     "rubric": [
+      {
+       "point": "Says they are not isotopes.",
+       "keywords": [
+        [
+         "not",
+         "no"
+        ]
+       ]
+      },
+      {
+       "point": "Gives different proton numbers, 12 and 11, so they are different elements.",
+       "keywords": [
+        [
+         "12"
+        ],
+        [
+         "11"
+        ],
+        [
+         "proton"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "$^{12}_{6}\\mathrm{C}$ and $^{14}_{6}\\mathrm{C}$ are atoms of carbon. State the protons and neutrons in each, then say whether they are isotopes.",
+      "answer": "Both have 6 protons. Carbon-12 has 6 neutrons and carbon-14 has 8. The proton numbers are the same and the neutron numbers differ, so they are isotopes.",
+      "rubric": [
+       {
+        "point": "Gives 6 protons in both atoms.",
+        "keywords": [
+         [
+          "6"
+         ],
+         [
+          "proton"
+         ]
+        ]
+       },
+       {
+        "point": "Gives 6 neutrons for carbon-12 and 8 for carbon-14.",
+        "keywords": [
+         [
+          "6"
+         ],
+         [
+          "8"
+         ],
+         [
+          "neutron"
+         ]
+        ]
+       },
+       {
+        "point": "Concludes they are isotopes because the proton number is the same.",
+        "keywords": [
+         [
+          "isotope"
+         ],
+         [
+          "same",
+          "equal"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Atoms with the same mass (nucleon) number are isotopes of the same element.",
+     "temptation": "Two atoms with the same nucleon number look like the same kind of atom.",
+     "fix": "Check the proton number first. Equal nucleon numbers can belong to different elements, as with Mg-24 and Na-24.",
+     "id": "m1"
+    },
+    {
+     "idea": "Isotopes differ in their numbers of protons or electrons, not neutrons.",
+     "temptation": "A heavier isotope seems to have a different number of electrons too.",
+     "fix": "Only the neutron number changes. A neutral isotope has as many electrons as protons, so isotopes have equal electrons.",
+     "id": "m2"
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-1-2-fig-hydrogen-isotopes.png"
+   ],
+   "diagram_descriptions": [
+    "Three hydrogen isotopes, each labelled with protons, neutrons and electrons. Each atom has one proton and one electron; only the neutron count changes."
+   ],
+   "source_gaps": [
+    "The definition is taken from the notes and the TQ 9701 question set; no examiner report on the isotope definition was read in this pass."
+   ],
+   "guided_discover": {
+    "stem": "Neutral atoms of boron-10 and boron-11 are compared. Which statement is correct?",
+    "options": {
+     "A": "They have different numbers of protons.",
+     "B": "They have the same number of protons and different numbers of neutrons.",
+     "C": "They have different numbers of electrons.",
+     "D": "They have the same number of neutrons."
+    },
+    "answer": "B",
+    "explanation": "Boron has proton number 5, so both atoms have 5 protons and 5 electrons. The neutron numbers are $10-5=5$ and $11-5=6$, so the atoms are isotopes."
+   }
   },
   "9701-1.2.2": {
    "motivate": "A nuclide symbol carries enough information to count the particles in its nucleus. Reading the two numbers in the right places avoids mixing up elements and isotopes.",
@@ -1209,9 +1433,239 @@
    },
    "establish": "In $^{x}_{y}\\mathrm{A}$, the upper number $x$ is the **mass or nucleon number**, the total number of protons and neutrons. The lower number $y$ is the **atomic or proton number**, the number of protons. Therefore neutrons $=x-y$. In $^{37}_{17}\\mathrm{Cl}$, there are 17 protons and 20 neutrons. The element symbol is fixed by the proton number, so isotopes of chlorine all have 17 at the bottom.",
    "connect": "The shared lower number shows why two atoms are the same element; different upper numbers show the neutron difference. This also supports particle counting in ions.",
-   "note": "- In $^{x}_{y}\\mathrm{A}$, $x$ is nucleon (mass) number: protons plus neutrons.\n- $y$ is proton (atomic) number: the number of protons.\n- Neutrons $=x-y$; $^{37}_{17}\\mathrm{Cl}$ has $37-17=20$ neutrons.",
+   "note": "- In $^{x}_{y}\\mathrm{A}$, $x$ is nucleon (mass) number: protons plus neutrons.\n- $y$ is proton (atomic) number: the number of protons.\n- Neutrons $=x-y$; $^{37}_{17}\\mathrm{Cl}$ has $37-17=20$ neutrons.\n- An isotope differs in neutrons; an ion differs in electrons. Charge never changes the proton or neutron count.",
    "self_explain": "Explain how the top and bottom numbers of $^{37}_{17}\\mathrm{Cl}$ tell you its proton and neutron counts.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "In $^{x}_{y}\\mathrm{A}$, the top number $x$ is the nucleon number and the bottom number $y$ is the proton number. Read the bottom number first to identify the element. Neutrons are $x-y$, and a neutral atom has $y$ electrons.",
+   "terms": [
+    {
+     "term": "Nuclide notation",
+     "meaning": "A symbol showing an atom's element, nucleon number and proton number.",
+     "notation": "$^{x}_{y}\\mathrm{A}$",
+     "spoken": "A with x above and y below",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    },
+    {
+     "term": "Nucleon (mass) number",
+     "meaning": "The total number of protons and neutrons in the nucleus.",
+     "notation": "$x$",
+     "spoken": "nucleon number, or mass number",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    },
+    {
+     "term": "Proton (atomic) number",
+     "meaning": "The number of protons in the nucleus; it identifies the element.",
+     "notation": "$y$",
+     "spoken": "proton number, or atomic number",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    },
+    {
+     "term": "Nuclear equation",
+     "meaning": "An equation in which nucleon numbers balance and proton numbers balance, each on its own.",
+     "notation": "none",
+     "spoken": "nuclear equation",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Read particle counts from nuclide notation",
+     "wordings": [
+      "State the number of protons and neutrons in this isotope.",
+      "Give the proton, neutron and electron numbers of this atom."
+     ],
+     "example": "For $^{37}_{17}\\mathrm{Cl}$:\n- Protons $=17$, the lower number.\n- Nucleons $=37$, the upper number.\n- Neutrons $=37-17=20$.",
+     "check": "State the number of protons, neutrons and electrons in a neutral atom of $^{56}_{26}\\mathrm{Fe}$.",
+     "answer": "Protons 26 (lower number). Neutrons $56-26=30$. A neutral atom has as many electrons as protons, so 26 electrons.",
+     "source": "SaveMyExams notes 9701 c1.2 p.2 (general chemical symbol); 9701 2020-2025 Paper 2.pdf p.159 (answer to 9701/21 Summer 2022 Q1(d)(i))",
+     "rubric": [
+      {
+       "point": "Gives 26 protons from the lower number.",
+       "keywords": [
+        [
+         "26"
+        ],
+        [
+         "proton"
+        ]
+       ]
+      },
+      {
+       "point": "Gives 30 neutrons as 56 minus 26.",
+       "keywords": [
+        [
+         "30"
+        ],
+        [
+         "neutron"
+        ]
+       ]
+      },
+      {
+       "point": "Gives 26 electrons for the neutral atom.",
+       "keywords": [
+        [
+         "26"
+        ],
+        [
+         "electron"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "State the number of protons, neutrons and electrons in the ion $^{81}_{35}\\mathrm{Br}^{-}$.",
+      "answer": "Protons 35 (lower number). Neutrons $81-35=46$. The 1- charge means one extra electron, so electrons $=35+1=36$.",
+      "rubric": [
+       {
+        "point": "Gives 35 protons.",
+        "keywords": [
+         [
+          "35"
+         ],
+         [
+          "proton"
+         ]
+        ]
+       },
+       {
+        "point": "Gives 46 neutrons as 81 minus 35.",
+        "keywords": [
+         [
+          "46"
+         ],
+         [
+          "neutron"
+         ]
+        ]
+       },
+       {
+        "point": "Gives 36 electrons, one more than the protons, for the 1- ion.",
+        "keywords": [
+         [
+          "36"
+         ],
+         [
+          "electron"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Find the missing particle in a nuclear equation",
+     "wordings": [
+      "Identify the missing particle X in this nuclear equation.",
+      "Deduce the identity of particle X, giving its nucleon and proton numbers."
+     ],
+     "example": "$^{14}_{7}\\mathrm{N}+{}^{4}_{2}\\mathrm{He}\\to{}^{17}_{8}\\mathrm{O}+\\mathrm{X}$\n- Nucleon numbers: $14+4=18=17+x$, so $x=1$.\n- Proton numbers: $7+2=9=8+y$, so $y=1$.\n- Nucleon number 1 and proton number 1 is a proton, $^{1}_{1}\\mathrm{p}$.",
+     "check": "$^{10}_{5}\\mathrm{B}+{}^{1}_{0}\\mathrm{n}\\to{}^{7}_{3}\\mathrm{Li}+\\mathrm{X}$. Identify X.",
+     "answer": "Nucleon numbers: $10+1=11=7+x$, so $x=4$. Proton numbers: $5+0=5=3+y$, so $y=2$. X is an alpha particle, $^{4}_{2}\\mathrm{He}$.",
+     "source": "Pattern of ER 9701 w20 P11 Q3, as cited in pack misconception m3 (not re-read in this pass)",
+     "rubric": [
+      {
+       "point": "Balances nucleon numbers and finds 4.",
+       "keywords": [
+        [
+         "4"
+        ],
+        [
+         "nucleon",
+         "mass"
+        ]
+       ]
+      },
+      {
+       "point": "Balances proton numbers and finds 2.",
+       "keywords": [
+        [
+         "2"
+        ],
+        [
+         "proton"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies X as an alpha particle or helium-4.",
+       "keywords": [
+        [
+         "alpha",
+         "helium",
+         "He"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "$^{24}_{11}\\mathrm{Na}\\to{}^{24}_{12}\\mathrm{Mg}+\\mathrm{X}$. Identify X.",
+      "answer": "Nucleon numbers: $24=24+x$, so $x=0$. Proton numbers: $11=12+y$, so $y=-1$. X is an electron, $^{0}_{-1}\\mathrm{e}$.",
+      "rubric": [
+       {
+        "point": "Balances nucleon numbers and finds 0.",
+        "keywords": [
+         [
+          "0"
+         ],
+         [
+          "nucleon",
+          "mass"
+         ]
+        ]
+       },
+       {
+        "point": "Balances proton numbers and finds -1.",
+        "keywords": [
+         [
+          "-1",
+          "minus 1",
+          "minus one"
+         ],
+         [
+          "proton"
+         ]
+        ]
+       },
+       {
+        "point": "Identifies X as an electron.",
+        "keywords": [
+         [
+          "electron",
+          "beta",
+          "β"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "In a nuclear equation only one of the two numbers has to balance; a particle such as an electron can be ignored when balancing the mass number.",
+     "temptation": "Electrons are so light that they can be left out of a nuclear balance.",
+     "fix": "Balance the nucleon numbers and the proton numbers separately. An electron has nucleon number 0 and charge -1, so it cannot fill a nucleon gap.",
+     "id": "m3"
+    },
+    {
+     "idea": "The lower number in a nuclide symbol is the neutron number.",
+     "temptation": "The lower number looks like a count of the smaller particles, so it seems to be neutrons.",
+     "fix": "The lower number y is the proton (atomic) number. The neutron number is x minus y, so $^{37}_{17}\\mathrm{Cl}$ has 20 neutrons, not 17.",
+     "id": "m6"
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-1-2-fig-hydrogen-isotopes.png"
+   ],
+   "diagram_descriptions": [
+    "Nuclide symbols for the three hydrogen isotopes: each has lower (proton) number 1, while the upper (nucleon) number is 1, 2 or 3 as the neutron count rises."
+   ],
+   "source_gaps": [
+    "The nuclear-equation form relies on the examiner report cited in pack misconception m3, which was not re-read in this pass.",
+    "The notes use mass number and nucleon number interchangeably; the card uses nucleon number to match the syllabus wording.",
+    "The isotope versus ion contrast follows SaveMyExams notes 9701 c1.2 p.2 and pack misconception m2; no examiner report was reached on it."
+   ]
   },
   "9701-1.2.3": {
    "motivate": "Chlorine atoms with different neutron counts still take part in the same chemical reactions. What stays the same in the part of the atom that forms bonds?",
@@ -1230,7 +1684,161 @@
    "connect": "The isotope definition gives the same proton number; this fixes the electron count of neutral atoms. The different neutron counts instead affect mass and density.",
    "note": "- Neutral isotopes have the same number of electrons and the same electron configuration.\n- Chemical reactions depend on electrons, so isotopes of the same element have the same chemical properties.\n- Different neutron counts do not change the electron configuration.",
    "self_explain": "Explain why two neutral isotopes of chlorine react in the same way even though their nuclei contain different numbers of neutrons.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Chemical reactions involve electrons, especially the outer ones. Isotopes of one element have the same proton number, so neutral isotopes have the same number of electrons and the same arrangement. Neutrons carry no charge and do not change bonding.",
+   "terms": [
+    {
+     "term": "Chemical properties",
+     "meaning": "How an atom or element reacts and bonds; set by its electrons, especially the outer ones.",
+     "notation": "none",
+     "spoken": "chemical properties",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    },
+    {
+     "term": "Electron configuration",
+     "meaning": "The arrangement of electrons in shells and subshells.",
+     "notation": "$1s^2\\,2s^2\\,2p^6$",
+     "spoken": "one s two, two s two, two p six",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    },
+    {
+     "term": "Outer (valence) shell",
+     "meaning": "The highest-energy electrons, which take part in bonding.",
+     "notation": "none",
+     "spoken": "outer shell, or valence shell",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain identical chemical properties",
+     "wordings": [
+      "Explain why isotopes of an element have the same chemical properties.",
+      "Explain why both isotopes of potassium have the same chemical properties.",
+      "Explain why isotopes react in the same way."
+     ],
+     "example": "- Neutral $^{35}\\mathrm{Cl}$ and $^{37}\\mathrm{Cl}$ atoms each have $17$ electrons.\n- Both have the same electron arrangement, $1s^2\\,2s^2\\,2p^6\\,3s^2\\,3p^5$.\n- Reactions use the outer electrons, which are the same; neutrons carry no charge and take no part.",
+     "check": "Potassium-39 and potassium-41 both form $\\mathrm{K}^+$ ions. Explain why they form the same ion.",
+     "answer": "Both neutral atoms have 19 electrons with the same arrangement, $1s^2\\,2s^2\\,2p^6\\,3s^2\\,3p^6\\,4s^1$. Each loses the outer $4s$ electron, so the same ion forms. The extra neutrons do not change the electrons.",
+     "source": "TQ 9701 c1.3 p.11 (explain identical chemical properties); 9701 2020-2025 Paper 2.pdf p.18 (potassium isotopes with the same chemical properties)",
+     "rubric": [
+      {
+       "point": "Both isotopes have the same number of electrons, equal to the protons when neutral.",
+       "keywords": [
+        [
+         "electron"
+        ],
+        [
+         "same",
+         "equal"
+        ]
+       ]
+      },
+      {
+       "point": "The electron arrangement is the same, so the outer electrons match.",
+       "keywords": [
+        [
+         "arrangement",
+         "configuration"
+        ],
+        [
+         "outer",
+         "valence",
+         "4s"
+        ]
+       ]
+      },
+      {
+       "point": "Neutrons do not change the electrons or bonding.",
+       "keywords": [
+        [
+         "neutron"
+        ],
+        [
+         "electron",
+         "bond",
+         "charge"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Carbon-12 and carbon-14 both form carbon dioxide, $\\mathrm{CO}_2$. Explain why they form the same compound.",
+      "answer": "Both neutral atoms have 6 electrons with configuration $1s^2\\,2s^2\\,2p^2$. The outer 2s and 2p electrons form the same bonds in $\\mathrm{CO}_2$. The extra neutrons take no part in bonding.",
+      "rubric": [
+       {
+        "point": "Both atoms have 6 electrons.",
+        "keywords": [
+         [
+          "6"
+         ],
+         [
+          "electron"
+         ]
+        ]
+       },
+       {
+        "point": "The outer electrons form the same bonds.",
+        "keywords": [
+         [
+          "outer",
+          "valence"
+         ],
+         [
+          "bond"
+         ]
+        ]
+       },
+       {
+        "point": "Neutrons do not take part in bonding.",
+        "keywords": [
+         [
+          "neutron"
+         ],
+         [
+          "bond",
+          "charge"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Isotopes with different numbers of neutrons must have different chemical properties.",
+     "temptation": "Heavier isotopes seem to react differently because their masses differ.",
+     "fix": "Chemical properties depend on the outer electrons, which are the same. Neutrons carry no charge and do not change the electron configuration.",
+     "id": "m4"
+    },
+    {
+     "idea": "Isotopes form different compounds because their neutron numbers differ.",
+     "temptation": "Neutrons are part of the atom that bonds, so changing them seems to change which compounds form.",
+     "fix": "Bonding uses electrons. Neutral isotopes have the same electron arrangement, so they form the same compounds with the same formulae; only the molar mass of the compound changes.",
+     "id": "m7"
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-1-2-fig-hydrogen-isotopes.png"
+   ],
+   "diagram_descriptions": [
+    "Labelled isotopes of hydrogen: the electron count and arrangement are the same in each, while the neutron count changes."
+   ],
+   "source_gaps": [
+    "The notes say chemical properties depend on the electron arrangement but do not discuss isotopes whose reaction rates differ; that is outside the 1.2.3 statement and is not taught here.",
+    "The exact Cambridge mark-scheme phrasing for the same-chemical-properties point was not obtained; a web search found only the syllabus wording, so the rubric follows pack misconception m4 and the notes (SaveMyExams 9701 c1.2 p.3)."
+   ],
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Give the reason: link same protons to same electrons, same configuration, then same reactions."
+    },
+    {
+     "name": "State and explain",
+     "meaning": "First state the fact (same chemical properties), then give the electron-based reason."
+    }
+   ]
   },
   "9701-1.2.4": {
    "motivate": "Two samples made from different isotopes can react alike yet have different masses for the same number of atoms. What measurable property of the samples might change?",
@@ -1249,7 +1857,190 @@
    "connect": "The same electrons explain matching chemical properties; the different neutrons explain different masses and densities. State each reason with its own particle.",
    "note": "- Different neutron numbers give isotopes different atomic masses.\n- Different mass can give samples different densities under comparable conditions.\n- Link the physical difference to neutrons; link the chemical similarity to electrons.",
    "self_explain": "Explain why $^{37}\\mathrm{Cl}_2$ is denser than $^{35}\\mathrm{Cl}_2$ at the same temperature and pressure.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Isotopes have different numbers of neutrons, so their atoms have different masses. A sample of a heavier isotope has more mass for the same number of atoms, so under the same conditions it can have a different density. Physical properties that depend on mass can therefore differ.",
+   "terms": [
+    {
+     "term": "Physical property",
+     "meaning": "A property such as mass or density that a sample has without a chemical reaction.",
+     "notation": "none",
+     "spoken": "physical property",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.3-4"
+    },
+    {
+     "term": "Density",
+     "meaning": "Mass per unit volume.",
+     "notation": "$\\rho=m/V$",
+     "spoken": "rho equals m over V",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.3-4"
+    },
+    {
+     "term": "Relative atomic mass",
+     "meaning": "The weighted average mass of an element's isotopes, compared with one twelfth of the mass of carbon-12.",
+     "notation": "$A_\\mathrm{r}$",
+     "spoken": "A r",
+     "source": "CAIE 9701 syllabus 1.2 (bundle); SaveMyExams notes 9701 c1.2 p.3-4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain a density difference between isotopes",
+     "wordings": [
+      "Explain why isotopes have different densities.",
+      "Explain why samples of two isotopes differ in density.",
+      "Explain which of two isotopic gases is denser."
+     ],
+     "example": "- $^{35}\\mathrm{Cl}_2$ has molar mass $\\approx 70\\ \\mathrm{g\\,mol^{-1}}$; $^{37}\\mathrm{Cl}_2$ has $\\approx 74\\ \\mathrm{g\\,mol^{-1}}$.\n- At the same temperature and pressure, equal volumes hold equal numbers of molecules.\n- So the $^{37}\\mathrm{Cl}_2$ sample has more mass per volume and is denser. The extra neutrons cause the mass difference.",
+     "check": "$^{20}\\mathrm{Ne}$ gas and $^{22}\\mathrm{Ne}$ gas are compared at the same temperature and pressure. Which is denser, and why? Answer in terms of the particles in each atom.",
+     "answer": "$^{22}\\mathrm{Ne}$ is denser. Equal volumes contain equal numbers of atoms at the same temperature and pressure. Each $^{22}\\mathrm{Ne}$ atom has two more neutrons, so the sample has more mass per volume.",
+     "source": "SaveMyExams notes 9701 c1.2 p.3-4 (physical properties: different mass and slight differences in density)",
+     "rubric": [
+      {
+       "point": "Identifies the 22 isotope as denser.",
+       "keywords": [
+        [
+         "22"
+        ],
+        [
+         "denser",
+         "more dense",
+         "greater density",
+         "higher density"
+        ]
+       ]
+      },
+      {
+       "point": "Links the difference to the extra neutrons adding mass.",
+       "keywords": [
+        [
+         "neutron"
+        ],
+        [
+         "mass",
+         "heavier",
+         "more massive"
+        ]
+       ]
+      },
+      {
+       "point": "States that equal volumes hold equal numbers of particles at the same conditions.",
+       "keywords": [
+        [
+         "same temperature",
+         "same conditions",
+         "same pressure"
+        ],
+        [
+         "volume"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Argon-36 and argon-40 gases are compared at the same temperature and pressure. Which is denser, and why? Answer in terms of the particles in each atom.",
+      "answer": "Argon-40 is denser. At the same temperature and pressure, equal volumes contain equal numbers of atoms. Each argon-40 atom has four more neutrons, so its sample has more mass per volume.",
+      "rubric": [
+       {
+        "point": "Identifies argon-40 as denser.",
+        "keywords": [
+         [
+          "40"
+         ],
+         [
+          "denser",
+          "more dense",
+          "greater density",
+          "higher density"
+         ]
+        ]
+       },
+       {
+        "point": "Links the difference to the extra neutrons adding mass.",
+        "keywords": [
+         [
+          "neutron"
+         ],
+         [
+          "mass",
+          "heavier",
+          "more massive"
+         ]
+        ]
+       },
+       {
+        "point": "States that equal volumes hold equal numbers of atoms at the same conditions.",
+        "keywords": [
+         [
+          "same temperature",
+          "same conditions",
+          "same pressure"
+         ],
+         [
+          "volume"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Isotopes are the same element, so all their properties are identical, including mass and density.",
+     "temptation": "Two isotopes are the same element, so they should weigh the same.",
+     "fix": "Extra neutrons add mass, so isotopes have different atomic masses. A property that depends on mass, such as the density of a sample, then differs slightly.",
+     "id": "m5"
+    },
+    {
+     "idea": "Each isotope of an element has the same relative atomic mass.",
+     "temptation": "The periodic table gives one mass for chlorine, so every chlorine atom should have that mass.",
+     "fix": "Each isotope has its own mass. The relative atomic mass of chlorine, 35.5, is a weighted average of the $^{35}\\mathrm{Cl}$ and $^{37}\\mathrm{Cl}$ isotopes.",
+     "id": "m8"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No suitable notes drawing shows mass or density differences between isotopes; the explanation is given in words.",
+   "source_gaps": [
+    "The notes give no worked density calculation for isotopes, so the density form uses a same-conditions argument rather than a numerical value from a paper.",
+    "The exact Cambridge mark-scheme phrasing for the different-physical-properties point was not obtained; the syllabus limits it to mass and density, so the card follows pack misconception m5 and SaveMyExams 9701 c1.2 p.3-4.",
+    "Other mass-dependent properties, such as rate of diffusion, also differ between isotopes; this is beyond the stated syllabus wording and is not assessed here."
+   ],
+   "guided_discover": {
+    "stem": "Neutral atoms of lithium-6 and lithium-7 are compared. Which property is different?",
+    "options": {
+     "A": "Number of protons",
+     "B": "Number of electrons",
+     "C": "Mass of one atom",
+     "D": "Electron configuration"
+    },
+    "answer": "C",
+    "explanation": "Both atoms have 3 protons and 3 electrons with the same configuration. Lithium-7 has one more neutron, so each atom has a greater mass."
+   },
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Give the cause chain: different neutrons, so different mass, so different density."
+    },
+    {
+     "name": "State and explain",
+     "meaning": "Name the property that differs (mass or density), then link it to the neutron difference."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-1.2.1": [
+   "Define isotope"
+  ],
+  "9701-1.2.2": [
+   "Read particle counts from nuclide notation",
+   "Find the missing particle in a nuclear equation"
+  ],
+  "9701-1.2.3": [
+   "Explain identical chemical properties"
+  ],
+  "9701-1.2.4": [
+   "Explain a density difference between isotopes"
+  ]
  }
 }

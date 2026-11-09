@@ -1,0 +1,21 @@
+# Shared semantic admission for verified prepared source families
+
+> Use subagent-driven-development. All fourteen-course objective, user delegated autonomy and10% reserve remain binding. This extends the existing actual model runner/publisher; no second model or publication engine.
+
+## Design / global constraints
+
+The native worker currently directly reads descriptor.json. New PMT explicit complete profile and CAIE descriptor have different shapes but the same verified sourcepractice result contract. Resolve a source-derived partmanifest and packet behind a small workerhelper; existing native branch must return byte-identical manifests/packets/requestwire and preserve every completedreceipt. Fresh source replay still precedes every model launch and rootpublication. Actualrecordedmodel ladder and max3canonicalattempts, transporthold, freshquota, providerpause, requestwire/imagebyteprovenance, currentguards/oldquarantine andCAS/dedupe remain unchanged. No fake semantics, oldhistory/Librarywrites, resets/purchases or commits. Root solepublisher. Workers own no source-family identity interpretation beyond requiring the independently reviewed verifiers and literal supportedprofiletypes. Unknownfamilieshold.
+
+## Source parts
+
+Native descriptor: retain current derive + bound_packet exactly. Complete PMT: sourcepractice.verify authenticates allregionwords/pixels, publicwholeTotal andprivatefinalbracketagreement. Use actualQPwords within replayedregions, same LABEL/gutter/leafmaxima logic as reviewed derive_nested, with truthful totalproof referencing verified PMT publictotal andprivatebracketregions. Any synthetic internal descriptor adapter is a transparent algorithm input, not a claim that a Pearson/native descriptor exists. Its evidence must identify PMTprofile and originalsource geometry. Require explicit perleaf maxima sum toverifiedwhole. Do not divide sharedmarkgroups or inventparts. Unpartitionedwhole allowed only when source has no actual partlabels and no ambiguous label-likeguttertokens. PMTfixture 2/3/2 should yield either actual source-leafmanifest or explicitheldreason, never inventmodel-requiredparts.
+
+CAIE: newcaie verifiers return source-derived required_parts/partproof. Only accept from freshcaie verify, uniquepositiveparts sumrowmarks, sourceQP/MSproofbound. Work with builder's actual interface once ready; otherwise implement PMT+native now and mark CAIE pending rather than trust rawdescriptor.
+
+Newfamily packets bind realregisteredcourse/prerequisitechaptercatalog, sourceprofile/partproof and fullpublic/private media. Reuse chapter_catalog/plan_request helper; chapterproposals nevermastery. Preserve oldnative allowedcatalog/statusbytebehavior.
+
+## Task1: Worker integration
+
+Own new R/prepared_source_packet.py; narrow R/check_current.py packagepacket construction, R/publish_native.py packetconstruction, R/semantic_queue.py optionalmanifestinput/outputnames, new tests/test_prepared_source_checks.py. R=Work/Workers/extraction/overnight-20261105-10pct. No source_practice or sourcefamily/core/nestedhelper edits. Sourcecode tasks have separate owners. Keep existingnativefunctions/defaultCLIbackwardcompatible. Rootcanprovide combinedqueueJSON in sameentriesformat; optional --manifest-file and --name-prefix prevent overwriting nativequeue histories. Publisher optional --inventory default existingnativewrittenpreparations; same status/qids/package metadata, actualsourceverify andfreshmodelreceipt filters retained.
+
+Read actualnew PMTadapter + nativeworker; freeze preimages. TDD adapter/packet exactnativecompatibility, realPMTsource-leafderivation andholds, digest/provenance/graphchanges, forgedsum/unsupportedprofile, no attempt reset, sameprivatebyte replay cache, pendingnotpermanentquarantine. Actualproviders/prod writes forbidden in tests; fixtureassets via tests/library_assets disposablevault. After RED implement narrow helper use. Existingtargettests only wherechanged, no fullprojectrepeats. Freeze exactpatch/pins/REDGREEN/report underR/prepared-source-checks. Independent Spec/Standards andriskgatebeforeoperations. No subagents/commits/publishing. Root will review sourcefamilygates separately and form queues only from current verifiedresults.

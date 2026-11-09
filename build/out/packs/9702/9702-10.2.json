@@ -52,6 +52,22 @@
    "refutation": "The junction law conserves charge; a separate closed-loop equation conserves energy.",
    "contrast": "Use both independent laws.",
    "source": "ER 9702 w23 P13 Q35"
+  },
+  {
+   "id": "m7",
+   "kc": "9702-10.2.4",
+   "statement": "Resistances stated in different units can be added without conversion.",
+   "refutation": "Convert all resistances to the same unit before adding them.",
+   "contrast": "One kilohm is one thousand ohms.",
+   "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 7–8; bundle ER 9702 s22 P22 Q6"
+  },
+  {
+   "id": "m8",
+   "kc": "9702-10.2.6",
+   "statement": "Terminal potential difference always equals source e.m.f.",
+   "refutation": "For a discharging cell with internal resistance, terminal potential difference is e.m.f. minus the internal voltage drop.",
+   "contrast": "Equality requires negligible internal drop; a loaded real cell can have a lower terminal p.d.",
+   "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp. 6–9"
   }
  ],
  "worked": [
@@ -2534,7 +2550,7 @@
     "ref": "CAIE 9702 · Nov 2022 · P11 · Q36",
     "qid": "9702_w22_11_q36"
    },
-   "stem": "A circuit consists of a battery, a voltmeter and five fixed resistors, as shown.\nV\n2.0 \u0001\n5.0 \u0001\n8.0 \u0001\nR\n10.0 \u0001\nThe voltmeter reading is zero.\nWhat is the resistance of resistor R?",
+   "stem": "A circuit consists of a battery, a voltmeter and five fixed resistors, as shown.\nV\n2.0 Ω\n5.0 Ω\n8.0 Ω\nR\n10.0 Ω\nThe voltmeter reading is zero.\nWhat is the resistance of resistor R?",
    "options": {
     "A": "1.1 Ω",
     "B": "2.1 Ω",
@@ -2586,7 +2602,7 @@
     "ref": "CAIE 9702 · Nov 2022 · P12 · Q36",
     "qid": "9702_w22_12_q36"
    },
-   "stem": "A circuit consists of a battery, a high-resistance voltmeter and four fixed resistors, as shown. The\nbattery has an electromotive force (e.m.f.) of 15.0 V and negligible internal resistance.\nV\n24.0 \u0002\n6.0 \u0002\n6.0 \u0002\n9.0 \u0002\n15.0 V\nWhat is the reading on the voltmeter?",
+   "stem": "A circuit consists of a battery, a high-resistance voltmeter and four fixed resistors, as shown. The\nbattery has an electromotive force (e.m.f.) of 15.0 V and negligible internal resistance.\nV\n24.0 Ω\n6.0 Ω\n6.0 Ω\n9.0 Ω\n15.0 V\nWhat is the reading on the voltmeter?",
    "options": {
     "A": "3.0 V",
     "B": "6.0 V",
@@ -3126,7 +3142,7 @@
     "ref": "CAIE 9702 · Nov 2024 · P12 · Q35",
     "qid": "9702_w24_12_q35"
    },
-   "stem": "Three resistors are connected to a cell of negligible internal resistance.\nWhich circuit has a combined resistance of 100 Ω?\n100 \u0002\n50 \u0002\n100 \u0002",
+   "stem": "Three resistors are connected to a cell of negligible internal resistance.\nWhich circuit has a combined resistance of 100 Ω?\n100 Ω\n50 Ω\n100 Ω",
    "options": null,
    "answer": "B",
    "image": "Assets/mcq/9702_w24_12_q35.png",
@@ -3220,7 +3236,7 @@
     "ref": "CAIE 9702 · Nov 2025 · P11 · Q34",
     "qid": "9702_w25_11_q34"
    },
-   "stem": "The diagram shows a circuit containing a battery and cells with negligible internal resistance.\nSome values of current, electromotive force (e.m.f.) and resistance are shown.\nOne resistor is labelled P.\n9.0 V\n3.0 A\n2.0 A\nP\n1.0 V\n2.0 \u0001\nWhat is the resistance of resistor P?",
+   "stem": "The diagram shows a circuit containing a battery and cells with negligible internal resistance.\nSome values of current, electromotive force (e.m.f.) and resistance are shown.\nOne resistor is labelled P.\n9.0 V\n3.0 A\n2.0 A\nP\n1.0 V\n2.0 Ω\nWhat is the resistance of resistor P?",
    "options": {
     "A": "0.40 Ω",
     "B": "0.80 Ω",
@@ -3307,7 +3323,123 @@
    "connect": "This is the conservation of charge applied to a junction; it will supply equations when parallel branches split or rejoin.",
    "note": "- First law: total current in = total current out at a junction.\n- It follows from conservation of charge.",
    "self_explain": "Why would unequal incoming and outgoing currents cause charge to accumulate?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "This form specifies every connection and current direction in words. The existing series-loop asset cannot show a junction or a parallel network, so it is not used to depict this topology.",
+   "source_gaps": [
+    "The reviewed sources support the listed forms; this is not an exhaustive audit of all examination series. New checks and examples are original applications and await independent written review."
+   ],
+   "plain_words": "Current measures charge passing each second. At a steady junction, add all currents whose arrows point in and equate this to the sum whose arrows point out.",
+   "prerequisite_bridge": "Use $I=Q/t$: multiply every current by the same time interval to compare incoming and outgoing charge.",
+   "terms": [
+    {
+     "term": "junction",
+     "meaning": "A meeting of circuit branches.",
+     "notation": "No special symbol",
+     "spoken": "junction",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf p. 2"
+    },
+    {
+     "term": "current",
+     "meaning": "Rate of flow of charge.",
+     "notation": "$I=Q/t$",
+     "spoken": "current equals charge divided by time",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf p. 2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Apply charge balance at a junction",
+     "wordings": [
+      "Calculate an unknown current.",
+      "Explain a junction equation using charge."
+     ],
+     "example": "At a junction, $2.4\\,\\mathrm{A}$ enters and $0.9\\,\\mathrm{A}$ leaves in one branch. Let $x$ leave in the other branch. Charge balance gives $2.4=0.9+x$, so $x=1.5\\,\\mathrm{A}$; in one second the incoming and outgoing charges are both $2.4\\,\\mathrm{C}$.",
+     "check": "Two arrows of $0.70\\,\\mathrm{A}$ and $1.1\\,\\mathrm{A}$ point into a junction. An arrow of $2.3\\,\\mathrm{A}$ points out; a fourth arrow $J$ is assumed outward. Calculate $J$ and state its actual direction. Explain what the sign means for charge balance.",
+     "answer": "$0.70+1.1=2.3+J$, so $J=-0.50\\,\\mathrm{A}$. The actual current is $0.50\\,\\mathrm{A}$ into the junction: $0.70+1.1+0.50=2.3$. No charge accumulates.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 2–3",
+     "rubric": [
+      {
+       "point": "Use all incoming and outgoing currents with a consistent direction convention.",
+       "keywords": [
+        [
+         "0.70",
+         "0.7",
+         "charge balance"
+        ]
+       ]
+      },
+      {
+       "point": "Find a current of 0.50 A into the junction; a signed value must match the chosen arrow.",
+       "keywords": [
+        [
+         "0.50",
+         "0.5"
+        ]
+       ]
+      },
+      {
+       "point": "Relate the sign/direction to no net charge accumulation.",
+       "keywords": [
+        [
+         "accumulat",
+         "charge balance",
+         "conserved"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Distinguish junction and loop conservation",
+     "wordings": [
+      "Identify which conservation law tests a proposed equation."
+     ],
+     "example": "The equation $I_a+I_b=I_c$ compares charge flow rates at one junction. It is a first-law equation. A relation between potential rises and drops along a closed route instead tests energy per charge.",
+     "check": "For a steady junction an instrument reports $3.2\\,\\mathrm{C}$ entering during $2.0\\,\\mathrm{s}$, while another reports $2.8\\,\\mathrm{C}$ leaving during that same interval. There are no other paths. Can both readings be correct? Identify the violated conservation condition and quantify the inconsistency.",
+     "answer": "No. The readings imply $0.40\\,\\mathrm{C}$ accumulates in $2.0\\,\\mathrm{s}$, or a $0.20\\,\\mathrm{A}$ imbalance. This violates the steady-junction charge balance (first law), not a closed-loop energy equation.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 2–4",
+     "rubric": [
+      {
+       "point": "Reject simultaneous readings for a steady junction with no other path.",
+       "keywords": [
+        [
+         "no",
+         "inconsistent",
+         "cannot"
+        ]
+       ]
+      },
+      {
+       "point": "Quantify 0.40 C charge accumulation or equivalent 0.20 A imbalance.",
+       "keywords": [
+        [
+         "0.40",
+         "0.4",
+         "0.20",
+         "0.2"
+        ]
+       ]
+      },
+      {
+       "point": "Identify charge conservation at a steady junction.",
+       "keywords": [
+        [
+         "charge"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Current is used up at a junction.",
+     "temptation": "A branch seems to consume some of the arriving charge.",
+     "fix": "Charge cannot accumulate at a steady junction: total current entering equals total leaving."
+    }
+   ]
   },
   "9702-10.2.2": {
    "motivate": "A charge goes all the way around a circuit and returns to its starting point. What is its net energy change?",
@@ -3315,7 +3447,125 @@
    "connect": "The loop law gives the voltage equations needed alongside the junction law.",
    "note": "- Second law: signed e.m.f.s equal signed p.d.s around a closed loop.\n- It follows from conservation of energy.",
    "self_explain": "Why must a full loop have zero net potential change?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "This form specifies every connection and current direction in words. The existing series-loop asset cannot show a junction or a parallel network, so it is not used to depict this topology.",
+   "source_gaps": [
+    "The reviewed sources support the listed forms; this is not an exhaustive audit of all examination series. New checks and examples are original applications and await independent written review."
+   ],
+   "plain_words": "Follow one route back to its starting point. The signed changes in electric potential add to zero because the net energy change per coulomb is zero.",
+   "prerequisite_bridge": "Recall that e.m.f. and potential difference are energies per charge, measured in volts. A closed path returns to the same potential.",
+   "terms": [
+    {
+     "term": "closed loop",
+     "meaning": "A continuous path returning to its starting point.",
+     "notation": "$\\sum \\Delta V=0$",
+     "spoken": "sum of potential changes is zero",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 4–5"
+    },
+    {
+     "term": "e.m.f.",
+     "meaning": "Energy supplied by a source per unit charge.",
+     "notation": "$E$",
+     "spoken": "electromotive force",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p. 6"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Write and test a closed-loop equation",
+     "wordings": [
+      "State the second law.",
+      "Determine an unknown potential difference around a closed loop."
+     ],
+     "example": "An ideal $14\\,\\mathrm{V}$ source supplies two series resistors. One drop is $5.0\\,\\mathrm{V}$. Traversing through the source from minus to plus and through the resistors with current gives $+14-5.0-V_x=0$. Thus $V_x=9.0\\,\\mathrm{V}$. The loop is closed; energy per coulomb gained and transferred balances.",
+     "check": "Two resistor branches join nodes A and B. Current goes A to B in both. One branch has successive drops $2.2\\,\\mathrm{V}$ and $3.4\\,\\mathrm{V}$; the other has one unknown drop $U$. Traverse A to B down the first branch and return B to A down the other. Write the signed loop equation, find $U$, and name the conserved quantity.",
+     "answer": "$-2.2-3.4+U=0$, giving $U=5.6\\,\\mathrm{V}$. Traversing against the current in the return resistor gives a rise. Energy is conserved; reversing the entire loop changes all signs but gives the same result.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 4–5; bundle 9702 s21 P13 Q37",
+     "rubric": [
+      {
+       "point": "Write a signed equation around the specified closed path; accept its overall negative.",
+       "keywords": [
+        [
+         "2.2",
+         "loop"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain U = 5.6 V.",
+       "keywords": [
+        [
+         "5.6"
+        ]
+       ]
+      },
+      {
+       "point": "Identify conservation of energy.",
+       "keywords": [
+        [
+         "energy"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Solve a loop with opposing cells",
+     "wordings": [
+      "Assign signs from cell polarity.",
+      "Interpret a negative current."
+     ],
+     "example": "Choose clockwise traversal and current. Ideal cells give a $+10\\,\\mathrm{V}$ rise and a $-4\\,\\mathrm{V}$ fall; total resistance is $3.0\\,\\Omega$. Then $10-4-3I=0$, so $I=2.0\\,\\mathrm{A}$ clockwise.",
+     "check": "Choose clockwise traversal and current $I$. An ideal cell is crossed from minus to plus and has e.m.f. $3.0\\,\\mathrm{V}$; a second is crossed plus to minus and has e.m.f. $9.0\\,\\mathrm{V}$. The series resistance is $5.0\\,\\Omega$. Write the closed-loop equation, solve and interpret $I$.",
+     "answer": "$3.0-9.0-5.0I=0$. Thus $I=-1.2\\,\\mathrm{A}$: the current is $1.2\\,\\mathrm{A}$ anticlockwise.",
+     "source": "https://www.cambridgeinternational.org/Images/567861-june-2023-examiner-report.pdf; 9702 s23 P12 Q36 (opposing polarity); signed-current extension verified algebraically",
+     "rubric": [
+      {
+       "point": "Assign opposite signs to the two cell crossings and a consistent resistor term.",
+       "keywords": [
+        [
+         "3.0",
+         "3",
+         "polarity"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain I = -1.2 A relative to the chosen arrow.",
+       "keywords": [
+        [
+         "-1.2"
+        ]
+       ]
+      },
+      {
+       "point": "State actual current is anticlockwise.",
+       "keywords": [
+        [
+         "anticlockwise",
+         "counterclockwise",
+         "opposite"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "Potential differences of parallel branches are added.",
+     "temptation": "Both branches have drops, so adding them can look plausible.",
+     "fix": "Each branch joins the same two nodes and has the same p.d.; add drops only along one complete path."
+    },
+    {
+     "id": "m3",
+     "idea": "All cell e.m.f.s aid one another.",
+     "temptation": "The cells all have positive labelled e.m.f. magnitudes.",
+     "fix": "A cell traversed from positive to negative is a potential fall, so its e.m.f. has the opposite sign."
+    }
+   ]
   },
   "9702-10.2.3": {
    "motivate": "Why do several resistors along one path act like a larger resistor?",
@@ -3323,7 +3573,101 @@
    "connect": "The proof uses a common current and summed p.d.s; these are the features to recognise before using the formula.",
    "note": "- Series resistors carry the same current.\n- Loop law: $V=\\sum IR_i$, so $R=\\sum R_i$.",
    "self_explain": "Where does the common current enter the derivation?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [
+    "Library/Courses/9702/Diagrams/9702/9702-10.2-series-loop.svg"
+   ],
+   "source_gaps": [
+    "The reviewed sources support the listed forms; this is not an exhaustive audit of all examination series. New checks and examples are original applications and await independent written review."
+   ],
+   "plain_words": "The same charge passes through each series resistor each second. The separate energy transfers per coulomb add, so the resistances add.",
+   "prerequisite_bridge": "Use the first law to establish a common current; then use the second law and $V=IR$ for each component and its equivalent.",
+   "terms": [
+    {
+     "term": "equivalent resistance",
+     "meaning": "One resistor drawing the same current at the same applied p.d. as the network.",
+     "notation": "$R_{eq}=V/I$",
+     "spoken": "equivalent resistance equals voltage divided by current",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 6–7"
+    },
+    {
+     "term": "series",
+     "meaning": "Components joined in one unbranched path.",
+     "notation": "$I_1=I_2$",
+     "spoken": "same current",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf p. 6"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Derive a series equivalent from Kirchhoff laws",
+     "wordings": [
+      "Derive the combined resistance.",
+      "Show each algebraic step."
+     ],
+     "example": "Two resistors $a$ and $b$ carry common current $I$ because there is no junction. Step 1: loop law, $V=V_a+V_b$. Step 2: substitute $V_a=Ia$ and $V_b=Ib$, so $V=Ia+Ib$. Step 3: define a single equivalent resistor with the same terminal $V$ and $I$, hence $V=IR_{eq}$. Step 4: equate $IR_{eq}=I(a+b)$. For nonzero test current, cancel $I$: $R_{eq}=a+b$. Any further series resistor contributes another voltage drop.",
+     "check": "Three ohmic resistors $r$, $2r$ and an unknown $X$ are in series, with $r>0$. Their equivalent resistance must be $8r$. Starting from common current and the loop law, derive the required $X$, showing the equation for the single equivalent resistor before cancelling.",
+     "answer": "All carry $I$. $V=V_1+V_2+V_3=Ir+I(2r)+IX$. The equivalent gives $V=I(8r)$. Thus $I(8r)=I(3r+X)$ and cancellation of nonzero $I$ gives $X=5r$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf p. 6; bundle ER 9702 s22 P22 Q6",
+     "rubric": [
+      {
+       "point": "Identify common current in the unbranched path.",
+       "keywords": [
+        [
+         "common current",
+         "same current"
+        ]
+       ]
+      },
+      {
+       "point": "Start from summed p.d.s and substitute V = IR in the individual drops.",
+       "keywords": [
+        [
+         "Ir",
+         "voltage",
+         "potential"
+        ]
+       ]
+      },
+      {
+       "point": "Use V = I(8r) for the equivalent and cancel the common nonzero current.",
+       "keywords": [
+        [
+         "8r",
+         "equivalent"
+        ]
+       ]
+      },
+      {
+       "point": "Derive X = 5r; accept any equivalent algebra.",
+       "keywords": [
+        [
+         "5r",
+         "5 r"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "Series resistors share equal p.d.",
+     "temptation": "The series components may look similar even when their resistances differ.",
+     "fix": "They carry the same current; their p.d.s are proportional to resistance."
+    }
+   ],
+   "diagram_descriptions": {
+    "Library/Courses/9702/Diagrams/9702/9702-10.2-series-loop.svg": "A single closed series loop contains a battery labelled E, two resistors labelled R one and R two, and an ammeter labelled I. No branches occur, so the same current passes through both resistors. For negligible internal and ammeter resistances, the two resistor voltage drops sum to E."
+   },
+   "diagram_provenance": {
+    "Library/Courses/9702/Diagrams/9702/9702-10.2-series-loop.svg": {
+     "sha256": "85a2ad920811ed9bb749bb0d7d30b6492ba93f9fb9e606ac9ed91c7daed99931",
+     "source": "Existing registered chapter circuit; canonical path verified through AssetLibrary; rendered with CairoSVG and visually inspected in this pass.",
+     "caption": "Series loop: common current and summed resistor p.d.s."
+    }
+   }
   },
   "9702-10.2.4": {
    "motivate": "If resistors are end to end with no branch, what single resistance can replace them?",
@@ -3331,7 +3675,86 @@
    "connect": "This calculation uses the series result derived from Kirchhoff’s second law.",
    "note": "- Add all series resistances: $R=R_1+R_2+\\cdots$.\n- The same current passes through each resistor.",
    "self_explain": "Why can the individual p.d.s differ although the current is common?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [
+    "Library/Courses/9702/Diagrams/9702/9702-10.2-series-loop.svg"
+   ],
+   "source_gaps": [
+    "The reviewed sources support the listed forms; this is not an exhaustive audit of all examination series. New checks and examples are original applications and await independent written review."
+   ],
+   "plain_words": "For an unbranched chain, convert all values to one unit and add every resistor. Use the total resistance to find the common current.",
+   "prerequisite_bridge": "First verify there is no split in current. Use the series rule just derived and Ohm’s law.",
+   "terms": [
+    {
+     "term": "kilohm",
+     "meaning": "A resistance unit equal to one thousand ohms.",
+     "notation": "$1\\,\\mathrm{k\\Omega}=1000\\,\\Omega$",
+     "spoken": "one kilohm equals one thousand ohms",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 7–8; bundle ER 9702 s22 P22 Q6"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Use a series total and recover component values",
+     "wordings": [
+      "Calculate combined series resistance.",
+      "Determine an unknown series resistor."
+     ],
+     "example": "A $0.40\\,\\mathrm{k\\Omega}$ resistor and a $600\\,\\Omega$ resistor form an unbranched path across an ideal $5.0\\,\\mathrm{V}$ supply. Convert $0.40\\,\\mathrm{k\\Omega}=400\\,\\Omega$. Then $R_{eq}=400+600=1000\\,\\Omega$, $I=5.0/1000=0.0050\\,\\mathrm{A}$. Drops are $2.0\\,\\mathrm{V}$ and $3.0\\,\\mathrm{V}$, summing to $5.0\\,\\mathrm{V}$.",
+     "check": "An ideal $15\\,\\mathrm{V}$ source drives $5.0\\,\\mathrm{mA}$ through an unbranched chain of $0.80\\,\\mathrm{k\\Omega}$, $1200\\,\\Omega$ and an unknown resistor $X$. Calculate $X$ and its p.d.; verify the three drops sum to the supply.",
+     "answer": "$R_{eq}=15/0.0050=3000\\,\\Omega$. Hence $X=3000-800-1200=1000\\,\\Omega=1.0\\,\\mathrm{k\\Omega}$. Drops are $4.0$, $6.0$ and $5.0\\,\\mathrm{V}$ respectively, summing to $15\\,\\mathrm{V}$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 7–8",
+     "rubric": [
+      {
+       "point": "Use consistent current/resistance units and R = V/I to obtain 3000 ohms.",
+       "keywords": [
+        [
+         "3000",
+         "3.0"
+        ]
+       ]
+      },
+      {
+       "point": "Subtract the known series resistances to obtain X = 1000 ohms.",
+       "keywords": [
+        [
+         "1000",
+         "1.0",
+         "1 k"
+        ]
+       ]
+      },
+      {
+       "point": "Find 5.0 V across X and verify 4 + 6 + 5 = 15 V.",
+       "keywords": [
+        [
+         "5.0",
+         "5 V",
+         "15"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m7",
+     "idea": "Resistances stated in different units can be added without conversion.",
+     "temptation": "Numerals can be added quickly while overlooking the unit labels.",
+     "fix": "Convert all resistances to the same unit before adding them."
+    }
+   ],
+   "diagram_descriptions": {
+    "Library/Courses/9702/Diagrams/9702/9702-10.2-series-loop.svg": "A single closed series loop contains a battery labelled E, two resistors labelled R one and R two, and an ammeter labelled I. No branches occur, so the same current passes through both resistors. For negligible internal and ammeter resistances, the two resistor voltage drops sum to E."
+   },
+   "diagram_provenance": {
+    "Library/Courses/9702/Diagrams/9702/9702-10.2-series-loop.svg": {
+     "sha256": "85a2ad920811ed9bb749bb0d7d30b6492ba93f9fb9e606ac9ed91c7daed99931",
+     "source": "Existing registered chapter circuit; canonical path verified through AssetLibrary; rendered with CairoSVG and visually inspected in this pass.",
+     "caption": "Series loop: common current and summed resistor p.d.s."
+    }
+   }
   },
   "9702-10.2.5": {
    "motivate": "Why does adding another path reduce a network’s resistance?",
@@ -3339,7 +3762,90 @@
    "connect": "The proof combines equal branch p.d.s with added branch currents.",
    "note": "- Parallel branches share the same p.d.\n- Junction law gives $I=\\sum V/R_i$, so $1/R=\\sum 1/R_i$.",
    "self_explain": "Why do the branch currents add but their p.d.s do not?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "This form specifies every connection and current direction in words. The existing series-loop asset cannot show a junction or a parallel network, so it is not used to depict this topology.",
+   "source_gaps": [
+    "The reviewed sources support the listed forms; this is not an exhaustive audit of all examination series. New checks and examples are original applications and await independent written review."
+   ],
+   "plain_words": "Parallel branches share two end nodes and therefore the same p.d. Their currents add. Express each current as voltage divided by resistance before cancelling the common voltage.",
+   "prerequisite_bridge": "Recognise common nodes, apply charge conservation at the split, and use Ohm’s law in each branch and the equivalent resistor.",
+   "terms": [
+    {
+     "term": "parallel",
+     "meaning": "Branches joining the same pair of nodes.",
+     "notation": "$V_1=V_2=V$",
+     "spoken": "same voltage across each branch",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 9–10"
+    },
+    {
+     "term": "reciprocal resistance",
+     "meaning": "Current per unit p.d.; parallel values add.",
+     "notation": "$1/R$",
+     "spoken": "one divided by resistance",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 10–11"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Derive a parallel equivalent from Kirchhoff laws",
+     "wordings": [
+      "Derive the reciprocal resistance formula.",
+      "Show the common voltage and summed currents."
+     ],
+     "example": "Resistors $a$ and $b$ join the same two nodes. Step 1: a loop down one branch and back along the other gives $V_a=V_b=V$. Step 2: the junction law gives $I=I_a+I_b$. Step 3: use Ohm’s law in each branch: $I=V/a+V/b$. Step 4: define a single equivalent with the same terminal $V$ and total $I$, so $I=V/R_{eq}$. Step 5: equate $V/R_{eq}=V/a+V/b$ and cancel a nonzero test voltage: $1/R_{eq}=1/a+1/b$. An additional branch contributes its own current term.",
+     "check": "A resistor $r$ is connected in parallel with an unknown $X$, where $r>0$. The required equivalent is $3r/4$. Derive $X$ from the common branch p.d. and the junction law, explicitly writing Ohm’s law for the equivalent before cancelling.",
+     "answer": "Let the common p.d. be $V$. $I=I_r+I_X=V/r+V/X$. For the equivalent, $I=V/(3r/4)=4V/(3r)$. Equate and cancel nonzero $V$: $4/(3r)=1/r+1/X$. Hence $1/X=1/(3r)$, so $X=3r$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 9–10; bundle ER 9702 w23 P21 Q6",
+     "rubric": [
+      {
+       "point": "Establish common branch p.d. and summed branch currents.",
+       "keywords": [
+        [
+         "common",
+         "same",
+         "junction"
+        ]
+       ]
+      },
+      {
+       "point": "Substitute branch Ohm laws and equivalent I = V/(3r/4).",
+       "keywords": [
+        [
+         "3r",
+         "equivalent"
+        ]
+       ]
+      },
+      {
+       "point": "Cancel the common nonzero p.d. and obtain reciprocal equation.",
+       "keywords": [
+        [
+         "1/X",
+         "reciprocal"
+        ]
+       ]
+      },
+      {
+       "point": "Invert to derive X = 3r.",
+       "keywords": [
+        [
+         "3r",
+         "3 r"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "Parallel resistances add directly.",
+     "temptation": "The series formula is simpler and is easy to carry over.",
+     "fix": "Parallel currents add at the junction while branch p.d.s are equal, giving $1/R=\\sum 1/R_i$."
+    }
+   ]
   },
   "9702-10.2.6": {
    "motivate": "How can two resistors have less resistance together than either has alone?",
@@ -3347,7 +3853,132 @@
    "connect": "This formula follows from common branch p.d. and conservation of charge at the splitting junction.",
    "note": "- Parallel: add reciprocals, $1/R=\\sum 1/R_i$.\n- The result is below every individual branch resistance.",
    "self_explain": "What quick check shows that a calculated parallel resistance is impossible?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "This form specifies every connection and current direction in words. The existing series-loop asset cannot show a junction or a parallel network, so it is not used to depict this topology.",
+   "source_gaps": [
+    "The reviewed sources support the listed forms; this is not an exhaustive audit of all examination series. New checks and examples are original applications and await independent written review."
+   ],
+   "plain_words": "Add reciprocal resistances and then invert. Extra positive-resistance branches increase the total current at fixed p.d., reducing the equivalent resistance.",
+   "prerequisite_bridge": "Keep resistance separate from its reciprocal. If a real source has internal resistance, the external load shares the e.m.f. with that internal resistance.",
+   "terms": [
+    {
+     "term": "reciprocal sum",
+     "meaning": "The sum giving the inverse of the parallel equivalent.",
+     "notation": "$1/R_p=\\sum 1/R_i$",
+     "spoken": "one over parallel resistance equals the sum of branch reciprocals",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 10–11"
+    },
+    {
+     "term": "terminal p.d.",
+     "meaning": "Voltage across the external terminals of a source.",
+     "notation": "$V_t=E-Ir$",
+     "spoken": "terminal voltage equals e.m.f. minus current times internal resistance",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp. 8–9"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Calculate parallel resistance with explicit inversion",
+     "wordings": [
+      "Calculate the combined parallel resistance.",
+      "Find an unknown parallel branch."
+     ],
+     "example": "For $8.0\\,\\Omega$, $12\\,\\Omega$ and $24\\,\\Omega$ between the same nodes: $1/R_p=1/8+1/12+1/24=6/24=0.25\\,\\Omega^{-1}$. This is $1/R_p$, not $R_p$. Invert: $R_p=1/0.25=4.0\\,\\Omega$, smaller than $8.0\\,\\Omega$.",
+     "check": "A $15\\,\\Omega$ resistor and an unknown $X$ are connected in parallel. Their equivalent is $6.0\\,\\Omega$. Determine $X$, showing the reciprocal subtraction and inversion. Check the equivalent against both branches.",
+     "answer": "$1/X=1/6-1/15=1/10\\,\\Omega^{-1}$. Thus $X=10\\,\\Omega$. The equivalent $6.0\\,\\Omega$ is smaller than both $10\\,\\Omega$ and $15\\,\\Omega$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 10–11; bundle ER 9702 w23 P21 Q6",
+     "rubric": [
+      {
+       "point": "Subtract known branch reciprocal from equivalent reciprocal.",
+       "keywords": [
+        [
+         "1/6",
+         "reciprocal"
+        ]
+       ]
+      },
+      {
+       "point": "Invert the remaining reciprocal to obtain 10 ohms.",
+       "keywords": [
+        [
+         "10"
+        ]
+       ]
+      },
+      {
+       "point": "Compare 6 ohms with both branch resistances.",
+       "keywords": [
+        [
+         "smaller",
+         "less",
+         "below"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Predict added-branch effects for a real source",
+     "wordings": [
+      "Explain how an extra parallel path changes resistance and source current.",
+      "Distinguish terminal p.d. from e.m.f."
+     ],
+     "example": "A discharging cell has fixed $E$ and positive internal resistance $r$. Adding a finite positive-resistance parallel load adds a positive term to $1/R_p$, so $R_p$ falls. Since $I=E/(r+R_p)$, current rises; the internal drop $Ir$ rises and terminal p.d. $E-Ir$ falls. With an ideal source ($r=0$), terminal p.d. would stay equal to $E$.",
+     "check": "A $12\\,\\mathrm{V}$ cell has internal resistance $2.0\\,\\Omega$ and supplies an $18\\,\\Omega$ load. A $9.0\\,\\Omega$ resistor is added in parallel with the load. Calculate the external equivalent resistance, source current and terminal p.d. before and after the change. State which source quantity remains constant, assuming its model parameters do not change.",
+     "answer": "Before: $R_L=18\\,\\Omega$, $I=12/(18+2)=0.60\\,\\mathrm{A}$, $V_t=12-0.60(2)=10.8\\,\\mathrm{V}$. After: $1/R_L=1/18+1/9=1/6$, so $R_L=6.0\\,\\Omega$, $I=12/(6+2)=1.5\\,\\mathrm{A}$, $V_t=12-1.5(2)=9.0\\,\\mathrm{V}$. The e.m.f. remains $12\\,\\mathrm{V}$; terminal p.d. is not constant.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf p. 10; SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp. 8–9; bundle ER 9702 s23 P13 Q34",
+     "rubric": [
+      {
+       "point": "Find external equivalent resistances 18 ohms before and 6 ohms after.",
+       "keywords": [
+        [
+         "18",
+         "6"
+        ]
+       ]
+      },
+      {
+       "point": "Include internal resistance to obtain source currents 0.60 A and 1.5 A.",
+       "keywords": [
+        [
+         "0.60",
+         "0.6",
+         "1.5"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain terminal p.d.s 10.8 V and 9.0 V using either E - Ir or load current times load resistance.",
+       "keywords": [
+        [
+         "10.8",
+         "9.0",
+         "9 V"
+        ]
+       ]
+      },
+      {
+       "point": "Identify unchanged e.m.f. under the stated model.",
+       "keywords": [
+        [
+         "e.m.f.",
+         "emf",
+         "electromotive"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m8",
+     "idea": "Terminal potential difference always equals source e.m.f.",
+     "temptation": "An ideal-source example can hide the internal voltage drop.",
+     "fix": "For a discharging cell with internal resistance, terminal potential difference is e.m.f. minus the internal voltage drop."
+    }
+   ]
   },
   "9702-10.2.7": {
    "motivate": "A circuit can have branches and opposing cells. How can you solve it systematically?",
@@ -3355,7 +3986,167 @@
    "connect": "Series and parallel resistance formulas shorten the arithmetic, while the two conservation laws justify every equation.",
    "note": "- Choose directions, write junction equations, then closed-loop equations.\n- Check current balance and signed p.d.s after solving.",
    "self_explain": "What does a negative answer for an assumed branch current tell you?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "This form specifies every connection and current direction in words. The existing series-loop asset cannot show a junction or a parallel network, so it is not used to depict this topology.",
+   "source_gaps": [
+    "The reviewed sources support the listed forms; this is not an exhaustive audit of all examination series. New checks and examples are original applications and await independent written review."
+   ],
+   "plain_words": "Identify the connections before calculating. Reduce genuine series and parallel groups, then recover the individual currents and voltages and check both conservation laws.",
+   "prerequisite_bridge": "Use both resistor-combination rules and Ohm’s law. State whether internal resistance is negligible before setting external p.d. equal to e.m.f.",
+   "terms": [
+    {
+     "term": "node",
+     "meaning": "Points joined by ideal wire with no component between them; they share a potential.",
+     "notation": "A, B",
+     "spoken": "node A and node B",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 3–5"
+    },
+    {
+     "term": "assumed current",
+     "meaning": "A signed unknown relative to a chosen arrow.",
+     "notation": "$I$",
+     "spoken": "signed current",
+     "source": "https://www.cambridgeinternational.org/Images/567861-june-2023-examiner-report.pdf; 9702 s23 P12 Q36 (opposing polarity); signed-current extension verified algebraically"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Reduce and recover a series-plus-parallel circuit",
+     "wordings": [
+      "Calculate source and branch currents.",
+      "Verify junction and loop balances."
+     ],
+     "example": "An ideal $21\\,\\mathrm{V}$ supply drives a $3.0\\,\\Omega$ series resistor, followed by $6.0\\,\\Omega$ and $12\\,\\Omega$ branches between nodes A and B. Step 1: those two branches share both nodes; the $3.0\\,\\Omega$ resistor is before the split. Step 2: $1/R_p=1/6+1/12=1/4$, so $R_p=4.0\\,\\Omega<6.0\\,\\Omega$. Step 3: $R_T=3+4=7.0\\,\\Omega$; $I=21/7=3.0\\,\\mathrm{A}$. Step 4: series drop $=3(3)=9.0\\,\\mathrm{V}$; $V_{AB}=21-9=12\\,\\mathrm{V}$. Step 5: branch currents $12/6=2.0\\,\\mathrm{A}$ and $12/12=1.0\\,\\mathrm{A}$. Junction check: $3=2+1$. Loop checks: $21-9-2(6)=0$ and $21-9-1(12)=0$.",
+     "check": "An ideal $20\\,\\mathrm{V}$ supply feeds $4.0\\,\\Omega$ in series with two branches between nodes P and Q. The first branch is $6.0\\,\\Omega$; the second contains $3.0\\,\\Omega$ and $9.0\\,\\Omega$ in series. Identify the parallel groups, find source current, p.d. across P and Q, both branch currents and the p.d. across the $9.0\\,\\Omega$ resistor. Check one junction and a loop through each branch.",
+     "answer": "The second branch is $3+9=12\\,\\Omega$; only this whole branch is parallel to $6\\,\\Omega$. $1/R_p=1/6+1/12=1/4$, so $R_p=4.0\\,\\Omega<6.0\\,\\Omega$. $R_T=4+4=8.0\\,\\Omega$, $I=20/8=2.5\\,\\mathrm{A}$. The series drop is $10\\,\\mathrm{V}$; $V_{PQ}=10\\,\\mathrm{V}$. Branch currents are $10/6=5/3\\,\\mathrm{A}$ and $10/12=5/6\\,\\mathrm{A}$ (about $1.67$ and $0.833\\,\\mathrm{A}$). The $9\\,\\Omega$ drop is $(5/6)9=7.5\\,\\mathrm{V}$. Junction: $2.5=5/3+5/6$. Loops: $20-10-(5/3)6=0$ and $20-10-(5/6)3-(5/6)9=0$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c10.2.pdf pp. 2–5, 7–11; bundle ER 9702 w23 P21 Q6",
+     "rubric": [
+      {
+       "point": "Recognise the 3 and 9 ohm series branch in parallel with 6 ohms; obtain parallel equivalent 4 ohms.",
+       "keywords": [
+        [
+         "12",
+         "parallel"
+        ]
+       ]
+      },
+      {
+       "point": "Find total resistance 8 ohms and source current 2.5 A.",
+       "keywords": [
+        [
+         "2.5"
+        ]
+       ]
+      },
+      {
+       "point": "Recover common branch p.d. 10 V and currents 5/3 A and 5/6 A, accepting sensible rounding.",
+       "keywords": [
+        [
+         "10",
+         "1.67",
+         "5/3"
+        ]
+       ]
+      },
+      {
+       "point": "Find 7.5 V across 9 ohms.",
+       "keywords": [
+        [
+         "7.5"
+        ]
+       ]
+      },
+      {
+       "point": "Verify the branch currents sum to 2.5 A and zero signed voltage change around both loops; accept equivalent equations.",
+       "keywords": [
+        [
+         "20",
+         "loop",
+         "junction"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Solve and interpret signed current with opposing sources",
+     "wordings": [
+      "Choose signs from cell polarities and solve the loop."
+     ],
+     "example": "In one closed loop choose anticlockwise current and traversal. Ideal sources give rises $+7\\,\\mathrm{V}$ and $-11\\,\\mathrm{V}$; series resistance is $8\\,\\Omega$. Then $7-11-8I=0$, giving $I=-0.50\\,\\mathrm{A}$, so actual current is clockwise.",
+     "check": "Choose clockwise traversal and current in a single loop. Ideal cells are crossed minus to plus at $5.0\\,\\mathrm{V}$ and plus to minus at $14\\,\\mathrm{V}$. Series resistors are $2.0\\,\\Omega$ and $4.0\\,\\Omega$; all other resistance is negligible. Determine signed current and actual direction, then verify the loop using the signed resistor changes.",
+     "answer": "$5-14-(2+4)I=0$ gives $I=-1.5\\,\\mathrm{A}$, hence $1.5\\,\\mathrm{A}$ anticlockwise. Check: $5-14-(-1.5)(2)-(-1.5)(4)=0$.",
+     "source": "https://www.cambridgeinternational.org/Images/567861-june-2023-examiner-report.pdf; 9702 s23 P12 Q36 (opposing polarity); signed-current extension verified algebraically",
+     "rubric": [
+      {
+       "point": "Use opposing source signs and total resistance 6 ohms.",
+       "keywords": [
+        [
+         "5",
+         "14",
+         "6"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain signed current -1.5 A and interpret it as anticlockwise.",
+       "keywords": [
+        [
+         "-1.5",
+         "anticlockwise",
+         "opposite"
+        ]
+       ]
+      },
+      {
+       "point": "Verify the signed loop sums to zero; accept the reversed traversal.",
+       "keywords": [
+        [
+         "zero",
+         "=0",
+         "= 0"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "A junction equation can replace a loop equation.",
+     "temptation": "A correct current balance may seem enough to fix all the branch voltages.",
+     "fix": "The junction law conserves charge; a separate closed-loop equation conserves energy."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "9702-10.2.1": [
+   "Apply charge balance at a junction",
+   "Distinguish junction and loop conservation"
+  ],
+  "9702-10.2.2": [
+   "Write and test a closed-loop equation",
+   "Solve a loop with opposing cells"
+  ],
+  "9702-10.2.3": [
+   "Derive a series equivalent from Kirchhoff laws"
+  ],
+  "9702-10.2.4": [
+   "Use a series total and recover component values"
+  ],
+  "9702-10.2.5": [
+   "Derive a parallel equivalent from Kirchhoff laws"
+  ],
+  "9702-10.2.6": [
+   "Calculate parallel resistance with explicit inversion",
+   "Predict added-branch effects for a real source"
+  ],
+  "9702-10.2.7": [
+   "Reduce and recover a series-plus-parallel circuit",
+   "Solve and interpret signed current with opposing sources"
+  ]
  }
 }

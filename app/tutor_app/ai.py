@@ -37,7 +37,8 @@ VISUAL_BRIEF = """Visual writing (human-facing prose fields only; keep the reque
 - Use a short bold label only when helpful. A hint or marking verdict may need just one sentence; no fixed template.
 - Use tables only for compact comparisons that fit a narrow terminal; do not invent text diagrams.
 - Use well-formed Markdown and canonical LaTeX: $...$ inline, $$...$$ for a display equation. Balance delimiters and
-  braces; use italic variables and upright units, function names, chemical elements and differential d.
+  braces; use italic variables and upright units, function names, chemical elements and differential d. Never write
+  mathematics as HTML entities (&#x222B;, &int;) or spell digits as entities; keep fractions as \\frac{1}{2}.
 - Preserve literal code, URLs, copied mark points, IDs, options, exact answers, expr, unit, values, private working
   and speech. Keep marking layouts, teaching-card fields and revision-summary bullets in their requested structures.
 - Keep the task's brevity. When CONTEXT marks a question OPEN, give one useful nudge without its final answer."""
@@ -624,14 +625,25 @@ def complete(data, schema: dict) -> bool:
     """The reply has every field the schema requires, each of the right basic type."""
     if not isinstance(data, dict):
         return False
-    kinds = {"string": str, "boolean": bool, "array": list, "object": dict, "integer": int, "number": (int, float)}
+    kinds = {"string": str, "boolean": bool, "array": list, "object": dict,
+             "integer": int, "number": (int, float), "null": type(None)}
     props = schema.get("properties", {})
     for key in schema.get("required", list(props)):
         if key not in data:
             return False
-        want = kinds.get((props.get(key) or {}).get("type"))
-        if want and not isinstance(data[key], want):
+        declared = (props.get(key) or {}).get("type")
+        if isinstance(declared, list):
+            if (not declared or any(not isinstance(kind, str) or kind not in kinds for kind in declared)
+                    or len(set(declared)) != len(declared)):
+                return False
+            if not any(isinstance(data[key], kinds[kind]) for kind in declared):
+                return False
+        elif declared is not None and not isinstance(declared, str):
             return False
+        else:
+            want = kinds.get(declared)
+            if want and not isinstance(data[key], want):
+                return False
     return True
 
 

@@ -1,0 +1,502 @@
+{
+  "subtopic": "M1-6",
+  "spec": "M1",
+  "version": 1,
+  "note": "Subjects/Maths/M1 Mechanics 1/6 Moments.md",
+  "outline": "A moment measures the turning effect of a force about a point: multiply force by perpendicular distance to its line of action. For equilibrium of a body under coplanar parallel forces, the resultant force and resultant moment are zero. Draw and label the forces, choose a pivot, balance clockwise and anticlockwise moments, then resolve forces to find any remaining reaction. A uniform rod has its weight acting at its midpoint.",
+  "guided_forms": {
+    "M1-6.1": [
+      "Calculate a moment",
+      "Find a force or position by moments",
+      "Find support reactions"
+    ]
+  },
+  "misconceptions": [
+    {
+      "id": "m1",
+      "kc": "M1-6.1",
+      "statement": "Use any distance from the pivot.",
+      "refutation": "The distance must be perpendicular to the line of action of the force.",
+      "contrast": "Measure the shortest distance to that line.",
+      "source": "research"
+    },
+    {
+      "id": "m2",
+      "kc": "M1-6.1",
+      "statement": "Zero resultant force alone guarantees equilibrium of a body.",
+      "refutation": "A couple can have zero resultant force but a nonzero turning effect.",
+      "contrast": "Check both resultant force and resultant moment.",
+      "source": "research"
+    },
+    {
+      "id": "m3",
+      "kc": "M1-6.1",
+      "statement": "The weight of a uniform rod acts at the pivot.",
+      "refutation": "Its weight acts at its centre, which need not be the pivot.",
+      "contrast": "Locate the midpoint before measuring its moment arm.",
+      "source": "research"
+    }
+  ],
+  "worked": [
+    {
+      "id": "we1",
+      "kc": "M1-6.1",
+      "problem": "A light horizontal beam $AB$ of length $4\\,\\mathrm{m}$ rests on supports at its ends. A $60\\,\\mathrm{N}$ load acts downwards $1.5\\,\\mathrm{m}$ from $A$. Find both upward reactions.",
+      "steps": [
+        {
+          "do": "Label the reactions $R_A$ and $R_B$ and the downward load.",
+          "why": "All forces on the beam must be included."
+        },
+        {
+          "do": "Taking moments about $A$: $4R_B=60(1.5)$, so $R_B=22.5\\,\\mathrm{N}$.",
+          "why": "The reaction at $A$ has zero moment about $A$.",
+          "check": {
+            "kind": "numeric",
+            "answer": {
+              "value": 22.5,
+              "unit": "N",
+              "sf_ok": [
+                2,
+                3
+              ]
+            }
+          }
+        },
+        {
+          "do": "Vertically $R_A+R_B=60$, giving $R_A=37.5\\,\\mathrm{N}$.",
+          "why": "Rotational equilibrium must be accompanied by zero resultant force.",
+          "check": {
+            "kind": "numeric",
+            "answer": {
+              "value": 37.5,
+              "unit": "N",
+              "sf_ok": [
+                2,
+                3
+              ]
+            }
+          }
+        }
+      ],
+      "faded": {
+        "id": "we1f",
+        "problem": "A light horizontal beam of length $5\\,\\mathrm{m}$ is supported at both ends. An $80\\,\\mathrm{N}$ load acts $2\\,\\mathrm{m}$ from $A$. Find the reaction at the other end.",
+        "answer": {
+          "value": 32.0,
+          "unit": "N",
+          "sf_ok": [
+            2,
+            3
+          ]
+        },
+        "blank_from": 1
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "M1-6-i01",
+      "kcs": [
+        "M1-6.1"
+      ],
+      "kind": "numeric",
+      "difficulty": 2,
+      "command_word": "Calculate",
+      "source": {
+        "type": "generated"
+      },
+      "stem": "A vertical force of $[[F]]\\,\\mathrm{N}$ acts downwards at a point $[[d]]\\,\\mathrm{m}$ to the right of a pivot on a horizontal rod. Calculate its clockwise moment about the pivot.",
+      "marks": 2,
+      "explanation": "The perpendicular distance is $d$, so the clockwise moment is $Fd$.",
+      "hints": [
+        "Identify the line of action.",
+        "Find its perpendicular distance from the pivot.",
+        "Multiply force by that distance."
+      ],
+      "answer": {
+        "unit": "N m",
+        "sf_ok": [
+          2,
+          3
+        ]
+      },
+      "template": {
+        "params": {
+          "F": {
+            "choices": [
+              10,
+              15,
+              20
+            ]
+          },
+          "d": {
+            "choices": [
+              2,
+              3
+            ]
+          }
+        },
+        "answer": "F*d",
+        "distractors": [
+          {
+            "expr": "F/d",
+            "misconception": "m1"
+          }
+        ],
+        "constraints": []
+      }
+    },
+    {
+      "id": "M1-6-i02",
+      "kcs": [
+        "M1-6.1"
+      ],
+      "kind": "numeric",
+      "difficulty": 3,
+      "command_word": "Calculate",
+      "source": {
+        "type": "generated"
+      },
+      "stem": "A light horizontal rod is pivoted at its centre. A downward $[[F]]\\,\\mathrm{N}$ force acts $[[a]]\\,\\mathrm{m}$ left of the pivot. A downward force $P$ acts $[[b]]\\,\\mathrm{m}$ right of it. The rod is in equilibrium. Calculate $P$.",
+      "marks": 2,
+      "explanation": "Equating opposite moments gives $Fa=Pb$.",
+      "hints": [
+        "Identify the two turning directions.",
+        "Equate clockwise and anticlockwise moments.",
+        "Write the moment of the left force as force times its distance."
+      ],
+      "answer": {
+        "unit": "N",
+        "sf_ok": [
+          2,
+          3
+        ]
+      },
+      "template": {
+        "params": {
+          "F": {
+            "choices": [
+              12,
+              18,
+              24
+            ]
+          },
+          "a": {
+            "choices": [
+              2,
+              3
+            ]
+          },
+          "b": {
+            "choices": [
+              4,
+              5
+            ]
+          }
+        },
+        "answer": "F*a/b",
+        "distractors": [
+          {
+            "expr": "F*b/a",
+            "misconception": "m1"
+          }
+        ],
+        "constraints": []
+      }
+    },
+    {
+      "id": "M1-6-i03",
+      "kcs": [
+        "M1-6.1"
+      ],
+      "kind": "numeric",
+      "difficulty": 4,
+      "command_word": "Calculate",
+      "source": {
+        "type": "generated"
+      },
+      "stem": "A light horizontal beam of length $[[L]]\\,\\mathrm{m}$ rests on supports at its ends $A$ and $B$. A downward load of $[[W]]\\,\\mathrm{N}$ acts $[[x]]\\,\\mathrm{m}$ from $A$. Calculate the upward reaction at $B$.",
+      "marks": 2,
+      "explanation": "Taking moments about $A$ gives $R_B L=Wx$.",
+      "hints": [
+        "Draw both reactions and the load.",
+        "Take moments about a support to eliminate its reaction.",
+        "Use the load distance measured from $A$."
+      ],
+      "answer": {
+        "unit": "N",
+        "sf_ok": [
+          2,
+          3
+        ]
+      },
+      "template": {
+        "params": {
+          "L": {
+            "choices": [
+              6,
+              8
+            ]
+          },
+          "W": {
+            "choices": [
+              40,
+              60
+            ]
+          },
+          "x": {
+            "choices": [
+              1,
+              2
+            ]
+          }
+        },
+        "answer": "W*x/L",
+        "distractors": [
+          {
+            "expr": "W*(L-x)/L",
+            "misconception": "m1"
+          }
+        ],
+        "constraints": []
+      }
+    },
+    {
+      "id": "M1-6-i04",
+      "kcs": [
+        "M1-6.1"
+      ],
+      "kind": "short",
+      "difficulty": 4,
+      "command_word": "Explain",
+      "source": {
+        "type": "generated"
+      },
+      "stem": "Explain why zero resultant force is not sufficient for a rigid body to be in equilibrium.",
+      "marks": 2,
+      "rubric": [
+        {
+          "point": "Opposite equal forces with different lines of action can have zero resultant force.",
+          "keywords": [
+            [
+              "opposite"
+            ],
+            [
+              "equal"
+            ],
+            [
+              "force"
+            ]
+          ]
+        },
+        {
+          "point": "They can still produce a nonzero resultant moment; equilibrium also requires zero resultant moment.",
+          "keywords": [
+            [
+              "moment",
+              "turn"
+            ],
+            [
+              "zero",
+              "nonzero",
+              "not zero"
+            ]
+          ]
+        }
+      ],
+      "explanation": "Equal opposite forces on different parallel lines form a couple, so they can cause rotation despite zero resultant force.",
+      "hints": [
+        "Consider two equal opposite forces.",
+        "Place their lines of action apart.",
+        "Ask whether the two turning effects reinforce each other."
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "fc1",
+      "kc": "M1-6.1",
+      "front": "State the moment of a force about a point.",
+      "back": "The force multiplied by the perpendicular distance from the point to its line of action."
+    }
+  ],
+  "diagrams": [
+    {
+      "file": "Assets/M1/M1-6-forces.svg",
+      "type": "free_body",
+      "params": {
+        "body": "box",
+        "forces": [
+          {
+            "label": "upward reactions",
+            "angle": 90,
+            "length": 1.5
+          },
+          {
+            "label": "downward weights",
+            "angle": 270,
+            "length": 1.5
+          }
+        ]
+      }
+    }
+  ],
+  "teach": {
+    "M1-6.1": {
+      "motivate": "A balanced beam must neither move bodily nor start to turn.",
+      "plain_words": "A force turns a body more strongly when it acts farther from the pivot, measured perpendicular to its line of action. Balance both turning and total force.",
+      "establish": "For a force $F$, its moment about a point is $Fd$, where $d$ is the perpendicular distance from that point to the force’s line of action. Record clockwise and anticlockwise senses. For equilibrium the resultant force is zero and the total clockwise and anticlockwise moments about the same point are equal. For a uniform rod, its weight acts at the midpoint. A force through the chosen pivot has zero moment about it.",
+      "connect": "Particle equilibrium uses zero resultant force. An extended body also needs zero resultant moment.",
+      "note": "- Moment is force times perpendicular distance from pivot to line of action.\n- Equilibrium requires zero resultant force and zero resultant moment.\n- A uniform rod’s weight acts at its midpoint.",
+      "self_explain": "Why can equal and opposite forces fail to keep a body in equilibrium?",
+      "terms": [
+        {
+          "term": "moment",
+          "meaning": "Turning effect of a force about a point, equal to force times perpendicular distance to its line of action.",
+          "notation": "$M=Fd$",
+          "spoken": "moment equals force times perpendicular distance",
+          "source": "Pearson WME01 January 2025 Q2 and mark scheme; Save My Exams 9702 c4.2 pp.2–4"
+        },
+        {
+          "term": "equilibrium",
+          "meaning": "The body has zero resultant force and zero resultant moment.",
+          "notation": "$\\sum F=0$ and $\\sum M=0$",
+          "spoken": "sum of forces and sum of moments are both zero",
+          "source": "Pearson WME01 January 2025 Q2 and mark scheme; Save My Exams 9702 c4.2 pp.2–4"
+        }
+      ],
+      "forms": [
+        {
+          "name": "Calculate a moment",
+          "wordings": [
+            "Calculate the moment about a point."
+          ],
+          "example": "A 10 N downward force acts 2 m to the right of a pivot: moment $10(2)=20\\,\\mathrm{N\\,m}$ clockwise.",
+          "check": "A 6 N downward force acts 3 m to the left of a pivot on a horizontal rod. Find its moment about the pivot.",
+          "answer": "$18\\,\\mathrm{N\\,m}$ anticlockwise.",
+          "source": "Pearson WME01 January 2025 Q2 and mark scheme; Save My Exams 9702 c4.2 pp.2–4",
+          "rubric": [
+            {
+              "point": "Multiply force by perpendicular distance.",
+              "keywords": [
+                [
+                  "6"
+                ],
+                [
+                  "3"
+                ]
+              ]
+            },
+            {
+              "point": "Give 18 N m anticlockwise.",
+              "keywords": [
+                [
+                  "18"
+                ],
+                [
+                  "anticlockwise",
+                  "counterclockwise"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Find a force or position by moments",
+          "wordings": [
+            "Find the force needed for equilibrium."
+          ],
+          "example": "A light rod pivoted at its centre has 12 N down 2 m left and $P$ down 3 m right. $12(2)=3P$, so $P=8\\,\\mathrm{N}$.",
+          "check": "A light rod is pivoted at its centre. A 15 N force acts down 2 m left and $P$ acts down 5 m right. Find $P$ for equilibrium.",
+          "answer": "$P=6\\,\\mathrm{N}$.",
+          "source": "Pearson WME01 January 2025 Q2 and mark scheme; Save My Exams 9702 c4.2 pp.2–4",
+          "rubric": [
+            {
+              "point": "Equate opposite moments: $15(2)=5P$.",
+              "keywords": [
+                [
+                  "15"
+                ],
+                [
+                  "2"
+                ],
+                [
+                  "5"
+                ]
+              ]
+            },
+            {
+              "point": "Find $P=6\\,\\mathrm{N}$.",
+              "keywords": [
+                [
+                  "6"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Find support reactions",
+          "wordings": [
+            "Find the reactions at the supports."
+          ],
+          "example": "A light 4 m beam supports a 60 N load 1 m from A. Taking moments about A gives $4R_B=60(1)$, so $R_B=15\\,\\mathrm{N}$; vertical balance gives $R_A=45\\,\\mathrm{N}$.",
+          "check": "A light 5 m beam rests on supports A and B at its ends. A 40 N load acts 2 m from A. Find both reactions.",
+          "answer": "$R_B=16\\,\\mathrm{N}$ and $R_A=24\\,\\mathrm{N}$.",
+          "source": "Pearson WME01 January 2025 Q2 and mark scheme; Save My Exams 9702 c4.2 pp.2–4",
+          "rubric": [
+            {
+              "point": "Take moments about A: $5R_B=40(2)$.",
+              "keywords": [
+                [
+                  "5"
+                ],
+                [
+                  "40"
+                ],
+                [
+                  "2"
+                ]
+              ]
+            },
+            {
+              "point": "Use vertical balance and give both reactions.",
+              "keywords": [
+                [
+                  "16"
+                ],
+                [
+                  "24"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "misconceptions": [
+        {
+          "idea": "Any distance can be used.",
+          "temptation": "Measure along an arbitrary diagonal to the force.",
+          "fix": "Use the perpendicular distance to the line of action.",
+          "id": "m1"
+        },
+        {
+          "idea": "Balanced forces suffice.",
+          "temptation": "Stop after summing forces.",
+          "fix": "Also balance moments about one point.",
+          "id": "m2"
+        }
+      ],
+      "diagrams": [
+        "Assets/M1/M1-6-forces.svg"
+      ],
+      "diagram_descriptions": [
+        "A box represents the body, with one arrow upwards representing reactions and one downwards representing weights. It shows force balance schematically; their positions and moment arms are not shown."
+      ],
+      "source_gaps": [
+        "The bundle contains no tagged M1 past MCQs or examiner-report excerpts; the listed forms are supported by the available Pearson paper and adjacent physics notes, not an exhaustive paper review."
+      ],
+      "source": "pack"
+    }
+  }
+}

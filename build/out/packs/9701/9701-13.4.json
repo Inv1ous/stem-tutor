@@ -44,6 +44,22 @@
    "refutation": "One structural formula can give multiple geometrical or optical forms, so the count depends on which types the question includes.",
    "contrast": "List structures first, then add eligible stereoisomers only when asked.",
    "source": "ER 9701 w20 P13 Q20"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-13.4.2",
+   "statement": "Same molecular formula defines stereoisomerism.",
+   "refutation": "The definition must also require the same structural formula and different arrangement in space.",
+   "contrast": "Both categories share an atom count.",
+   "source": "ER 9701 s21 P22 Q4"
+  },
+  {
+   "id": "m7",
+   "kc": "9701-13.4.5",
+   "statement": "Both ring bonds go to carbon, so the groups must match.",
+   "refutation": "Trace complete paths and compare the first difference in substitution.",
+   "contrast": "Only the nearest atoms were compared.",
+   "source": "SaveMyExams 9701 c13.4.pdf pp.10–11; Cambridge syllabus 2025–2027 p.32, 13.4.5"
   }
  ],
  "worked": [
@@ -3550,7 +3566,164 @@
    "connect": "Compare the displayed or structural formulae before thinking about three-dimensional shape.",
    "note": "- Same molecular formula, different structural formulae.\n- Types: chain, positional, functional group.",
    "self_explain": "How would you distinguish positional isomerism from functional group isomerism?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "First read the formula: a subscript counts atoms; brackets multiply the atoms inside. Isomers must have the same atom totals. Compare carbon skeleton, group position, then functional group to classify a structural difference.",
+   "terms": [
+    {
+     "term": "molecular formula",
+     "meaning": "The number of atoms of each element in one molecule.",
+     "notation": "$\\ce{C4H10O}$",
+     "spoken": "C four H ten O",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.2–4; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4"
+    },
+    {
+     "term": "structural formula",
+     "meaning": "Shows how atoms or groups are connected.",
+     "notation": "$\\ce{CH3CH2OH}$",
+     "spoken": "C H three, C H two, O H",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.2–4; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4"
+    },
+    {
+     "term": "structural isomerism",
+     "meaning": "Same molecular formula, different structural formulae.",
+     "notation": "chain / positional / functional group",
+     "spoken": "chain, positional, functional group",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.2–4; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Compare chain isomers",
+     "wordings": [
+      "Identify the type of structural isomerism.",
+      "Explain why these structures are chain isomers."
+     ],
+     "example": "Step 1: Pentane, $\\ce{CH3CH2CH2CH2CH3}$, and 2-methylbutane, $\\ce{CH3CH(CH3)CH2CH3}$, both total $\\ce{C5H12}$. Step 2: one skeleton is unbranched and one branched. Step 3: classify as chain isomerism; turning a chain on the page does not create a branch.",
+     "check": "Compare hexane and 2-methylpentane. State their common molecular formula and explain the structural isomerism.",
+     "answer": "Both are $\\ce{C6H14}$. They are chain isomers because their carbon skeletons differ: hexane is unbranched and 2-methylpentane is branched.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.2–4; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4",
+     "rubric": [
+      {
+       "point": "Same molecular formula C6H14.",
+       "keywords": [
+        [
+         "C6H14",
+         "six carbons and fourteen hydrogens"
+        ]
+       ]
+      },
+      {
+       "point": "Chain isomerism with different skeletons.",
+       "keywords": [
+        [
+         "chain",
+         "skeleton",
+         "branch"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Compare positional isomers",
+     "wordings": [
+      "Identify positional isomers.",
+      "Explain the change in functional-group position."
+     ],
+     "example": "Step 1: $\\ce{CH3CH2CH2Cl}$ and $\\ce{CH3CHClCH3}$ both have formula $\\ce{C3H7Cl}$. Step 2: keep the propane skeleton and chloro group. Step 3: chlorine is on carbon 1 or 2, so these are positional isomers.",
+     "check": "Compare butan-1-ol and butan-2-ol. State the common formula and explain the type of structural isomerism.",
+     "answer": "Both are $\\ce{C4H10O}$; they are positional isomers. The same alcohol group occupies carbon 1 or carbon 2 of the same unbranched four-carbon skeleton.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.2–4; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4",
+     "rubric": [
+      {
+       "point": "Same formula C4H10O.",
+       "keywords": [
+        [
+         "C4H10O"
+        ]
+       ]
+      },
+      {
+       "point": "Positional: same skeleton and alcohol group, different position.",
+       "keywords": [
+        [
+         "positional",
+         "position"
+        ]
+       ]
+      },
+      {
+       "point": "OH on carbon 1 versus 2.",
+       "keywords": [
+        [
+         "1",
+         "first"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Compare functional-group isomers",
+     "wordings": [
+      "Identify functional group isomerism.",
+      "Compare the functional groups in two isomers."
+     ],
+     "example": "Step 1: Propanal, $\\ce{CH3CH2CHO}$, and propanone, $\\ce{CH3COCH3}$, both total $\\ce{C3H6O}$. Step 2: an aldehyde end group differs from an internal ketone group. Step 3: these are functional-group isomers.",
+     "check": "Compare propan-1-ol and methoxyethane, $\\ce{CH3OCH2CH3}$. Give the common formula and type of isomerism with a reason.",
+     "answer": "Both are $\\ce{C3H8O}$. They are functional-group isomers: propan-1-ol is an alcohol and methoxyethane is an ether.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.2–4; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4",
+     "rubric": [
+      {
+       "point": "Same formula C3H8O.",
+       "keywords": [
+        [
+         "C3H8O"
+        ]
+       ]
+      },
+      {
+       "point": "Functional-group isomerism.",
+       "keywords": [
+        [
+         "functional"
+        ]
+       ]
+      },
+      {
+       "point": "Alcohol versus ether.",
+       "keywords": [
+        [
+         "alcohol",
+         "hydroxyl"
+        ]
+       ]
+      },
+      {
+       "point": "Recognises ether.",
+       "keywords": [
+        [
+         "ether"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Same molecular formula alone proves stereoisomerism.",
+     "temptation": "Both categories share the same atom totals.",
+     "fix": "Compare connections first: different structural formulae give structural isomers; the same structural formula with different spatial arrangements gives stereoisomers.",
+     "id": "m1"
+    }
+   ],
+   "source_gaps": [
+    "These sources support the three comparison forms; the examples and independent checks here are newly authored, not official questions."
+   ],
+   "diagrams": [],
+   "diagram_descriptions": [],
+   "diagram_reason": "The existing pack has no diagrams or registered source graphics to link. The lessons plan requests teaching additions only; no new figure is requested. Text examples name every group explicitly; a reviewed molecular model or graphic remains useful for spatial work."
   },
   "9701-13.4.2": {
    "motivate": "Two molecules can have exactly the same atom connections and still be distinct.",
@@ -3558,7 +3731,90 @@
    "connect": "Both categories share a molecular formula, but stereoisomers share a structural formula too.",
    "note": "- Same structural formula, different spatial arrangement.\n- Types: geometrical and optical.",
    "self_explain": "Why is matching molecular formula alone insufficient to establish stereoisomerism?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Use two tests: do the atom totals agree, and do the connections agree? Different connections give structural isomers. With identical connections, distinct fixed arrangements in space can give stereoisomers.",
+   "terms": [
+    {
+     "term": "stereoisomerism",
+     "meaning": "Same structural formula but different arrangement of atoms in space.",
+     "notation": "geometrical / optical",
+     "spoken": "geometrical or optical",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.5–7; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s21 P22 Q4"
+    },
+    {
+     "term": "connectivity",
+     "meaning": "Which atoms are bonded to which other atoms.",
+     "notation": "same structural formula",
+     "spoken": "same structural formula",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.5–7; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s21 P22 Q4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Distinguish structural and stereoisomers",
+     "wordings": [
+      "Describe stereoisomerism.",
+      "Distinguish structural isomers from stereoisomers."
+     ],
+     "example": "Step 1: But-1-ene and but-2-ene both have $\\ce{C4H8}$ but their double bond has different connections/position: structural isomers. Step 2: Cis-but-2-ene and trans-but-2-ene have the same structural formula. Step 3: methyl groups on the same or opposite sides give geometrical stereoisomers. A non-superimposable mirror pair is the optical type.",
+     "check": "Compare propanal with propanone, then compare the two non-superimposable mirror images of butan-2-ol. Classify each pair and define stereoisomerism.",
+     "answer": "Propanal and propanone are functional-group structural isomers. The two mirror images of butan-2-ol are optical stereoisomers (enantiomers). Stereoisomers have the same structural formula but different arrangements of atoms in space.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.5–7; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s21 P22 Q4",
+     "rubric": [
+      {
+       "point": "Propanal/propanone: structural, functional group.",
+       "keywords": [
+        [
+         "functional"
+        ]
+       ]
+      },
+      {
+       "point": "Mirror pair: optical stereoisomers/enantiomers.",
+       "keywords": [
+        [
+         "optical",
+         "enantiomer"
+        ]
+       ]
+      },
+      {
+       "point": "Same structural formula/connectivity.",
+       "keywords": [
+        [
+         "same structural",
+         "same connectivity",
+         "same connections"
+        ]
+       ]
+      },
+      {
+       "point": "Different spatial arrangements.",
+       "keywords": [
+        [
+         "space",
+         "spatial",
+         "three-dimensional"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Same molecular formula defines stereoisomerism.",
+     "temptation": "Both categories share an atom count.",
+     "fix": "The definition must also require the same structural formula and different arrangement in space.",
+     "id": "m6"
+    }
+   ],
+   "source_gaps": [
+    "E/Z nomenclature is accepted but not required by syllabus 13.4.2; no E/Z assignment form is added."
+   ],
+   "diagrams": [],
+   "diagram_descriptions": [],
+   "diagram_reason": "The existing pack has no diagrams or registered source graphics to link. The lessons plan requests teaching additions only; no new figure is requested. Text examples name every group explicitly; a reviewed molecular model or graphic remains useful for spatial work."
   },
   "9701-13.4.3": {
    "motivate": "A double bond locks some arrangements into separate molecules.",
@@ -3566,7 +3822,87 @@
    "connect": "Apply the two-different-groups test to both C=C carbons before drawing isomers.",
    "note": "- π bond restricts C=C rotation.\n- Each C=C carbon needs two different groups.\n- Cis: same side; trans: opposite sides.",
    "self_explain": "Why does CH2=CHCH3 have no cis/trans pair?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "An alkene needs both a rotation barrier and distinguishable groups on each double-bond carbon. Check the left carbon and the right carbon separately before using cis/trans.",
+   "terms": [
+    {
+     "term": "pi bond",
+     "meaning": "Sideways overlap of p orbitals that prevents free rotation about a carbon–carbon double bond.",
+     "notation": "$\\pi$",
+     "spoken": "pi bond",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.7–8; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 w23 P21 Q4"
+    },
+    {
+     "term": "cis/trans",
+     "meaning": "For a suitable common pair of groups, cis places them on the same side and trans on opposite sides of the double bond.",
+     "notation": "cis / trans",
+     "spoken": "cis or trans",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.7–8; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 w23 P21 Q4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Test and explain alkene geometrical isomerism",
+     "wordings": [
+      "Explain why an alkene has geometrical isomers.",
+      "Explain why an alkene cannot show cis/trans isomerism."
+     ],
+     "example": "Step 1: In but-2-ene each double-bond carbon has H and methyl, so both pass. Step 2: sideways p-orbital overlap makes a $\\pi$ bond; rotation would destroy the overlap, so the arrangements are locked. Step 3: methyl groups same side gives cis, opposite sides gives trans. Contrast 2-methylbut-2-ene: one double-bond carbon has two methyl groups, so swapping its groups makes no different arrangement.",
+     "check": "Explain which of pent-2-ene and 2-methylpent-2-ene has cis/trans isomers. For the eligible alkene describe the cis form and explain restricted rotation.",
+     "answer": "Pent-2-ene has H/methyl on one double-bond carbon and H/ethyl on the other: both pass. Its cis form has methyl and ethyl on the same side. The pi bond restricts rotation because rotating would destroy sideways p-orbital overlap. 2-methylpent-2-ene fails: carbon 2 has two identical methyl groups.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.7–8; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 w23 P21 Q4",
+     "rubric": [
+      {
+       "point": "Pent-2-ene passes at both double-bond carbons.",
+       "keywords": [
+        [
+         "pent-2-ene"
+        ]
+       ]
+      },
+      {
+       "point": "2-methylpent-2-ene has identical methyl groups on carbon 2.",
+       "keywords": [
+        [
+         "two methyl",
+         "identical methyl"
+        ]
+       ]
+      },
+      {
+       "point": "Cis has the carbon-containing groups on the same side.",
+       "keywords": [
+        [
+         "same side"
+        ]
+       ]
+      },
+      {
+       "point": "Pi bond/sideways overlap prevents free rotation.",
+       "keywords": [
+        [
+         "pi",
+         "overlap"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Any carbon–carbon double bond guarantees two geometrical forms.",
+     "temptation": "Rotation is restricted.",
+     "fix": "Also require two different groups on each double-bond carbon; one failed carbon is enough to rule it out.",
+     "id": "m2"
+    }
+   ],
+   "source_gaps": [
+    "The source report supports both positive and negative group tests; advanced E/Z priority rules are outside this prepared form."
+   ],
+   "diagrams": [],
+   "diagram_descriptions": [],
+   "diagram_reason": "The existing pack has no diagrams or registered source graphics to link. The lessons plan requests teaching additions only; no new figure is requested. Text examples name every group explicitly; a reviewed molecular model or graphic remains useful for spatial work."
   },
   "9701-13.4.4": {
    "motivate": "A molecule and its mirror image can have identical bonds yet fail to overlap.",
@@ -3574,7 +3910,118 @@
    "connect": "This is the optical branch of stereoisomerism.",
    "note": "- Chiral carbon: four different groups.\n- Enantiomers: non-superimposable mirror images.\n- More than one chiral centre is possible.",
    "self_explain": "What makes butan-2-ol chiral but propan-2-ol achiral?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "At each tetrahedral carbon write down all four complete groups. Four different groups make a chiral centre. For a molecule with one such centre, the two mirror arrangements cannot be placed exactly on top of each other.",
+   "terms": [
+    {
+     "term": "chiral centre",
+     "meaning": "A tetrahedral carbon bonded to four different atoms or groups.",
+     "notation": "four different groups",
+     "spoken": "four different groups",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.6–10; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4"
+    },
+    {
+     "term": "enantiomers",
+     "meaning": "Optical isomers that are non-superimposable mirror images.",
+     "notation": "mirror pair",
+     "spoken": "non-superimposable mirror images",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.6–10; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Identify a chiral centre using four groups",
+     "wordings": [
+      "Explain what is meant by a chiral centre.",
+      "Identify the chiral carbon."
+     ],
+     "example": "Step 1: Inspect carbon 2 of butan-2-ol. Step 2: list H, OH, methyl and ethyl; all four differ, so it is chiral. Step 3: compare pentan-3-ol: its central carbon has H, OH and two ethyl groups, so it is not chiral. Compare whole groups, even when two begin with carbon.",
+     "check": "Identify all chiral centres in 2-bromopentane and 3-bromopentane. List the four groups at each candidate carbon.",
+     "answer": "2-bromopentane has one chiral centre, carbon 2: H, Br, methyl and propyl. Carbon 3 of 3-bromopentane has H, Br and two ethyl groups, so 3-bromopentane has no chiral centre. Other carbons in both molecules have repeated H atoms.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.6–10; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4",
+     "rubric": [
+      {
+       "point": "Only carbon 2 of 2-bromopentane is chiral.",
+       "keywords": [
+        [
+         "carbon 2",
+         "C2"
+        ]
+       ]
+      },
+      {
+       "point": "Lists H, Br, methyl and propyl.",
+       "keywords": [
+        [
+         "propyl",
+         "CH2CH2CH3"
+        ]
+       ]
+      },
+      {
+       "point": "No centre in 3-bromopentane because two ethyl groups match.",
+       "keywords": [
+        [
+         "two ethyl",
+         "identical ethyl"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Explain the enantiomer relationship",
+     "wordings": [
+      "Explain why a chiral centre gives optical isomers.",
+      "Describe the relationship between two optical isomers."
+     ],
+     "example": "Step 1: In 2-chlorobutane carbon 2 has H, Cl, methyl and ethyl. Step 2: reflecting the tetrahedral arrangement produces the same connections but a different spatial arrangement. Step 3: rotating the whole molecule cannot superimpose these mirror images: the two forms are enantiomers.",
+     "check": "Explain why 2-bromobutane can form two enantiomers and state their relationship.",
+     "answer": "Carbon 2 is tetrahedral and bonded to H, Br, methyl and ethyl: four different groups. Two spatial arrangements are possible with identical connections. They are optical isomers called enantiomers, non-superimposable mirror images.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.6–10; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 s22 P22 Q4",
+     "rubric": [
+      {
+       "point": "Four different groups at tetrahedral carbon 2.",
+       "keywords": [
+        [
+         "four different"
+        ]
+       ]
+      },
+      {
+       "point": "Non-superimposable mirror images.",
+       "keywords": [
+        [
+         "non-superimposable",
+         "cannot be superimposed"
+        ]
+       ]
+      },
+      {
+       "point": "Mirror images.",
+       "keywords": [
+        [
+         "mirror"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Any tetrahedral carbon bonded to four atoms is chiral.",
+     "temptation": "Four bonds look like four different attachments.",
+     "fix": "List four complete groups and check they all differ; methyl and ethyl differ although both begin with carbon, while two ethyl groups match.",
+     "id": "m3"
+    }
+   ],
+   "source_gaps": [
+    "The syllabus excludes required knowledge of meso compounds and diastereoisomer nomenclature; multiple centres do not justify an unchecked universal count."
+   ],
+   "diagrams": [],
+   "diagram_descriptions": [],
+   "diagram_reason": "The existing pack has no diagrams or registered source graphics to link. The lessons plan requests teaching additions only; no new figure is requested. Text examples name every group explicitly; a reviewed molecular model or graphic remains useful for spatial work."
   },
   "9701-13.4.5": {
    "motivate": "A complex structure can contain both chiral centres and geometrical alternatives.",
@@ -3582,7 +4029,170 @@
    "connect": "These checks apply the definitions to displayed, structural and skeletal formulae.",
    "note": "- Test four complete groups at a tetrahedral carbon.\n- Test both carbons of each C=C.\n- In rings compare same and opposite faces.",
    "self_explain": "Why can two paths from a substituted ring carbon be different?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "For an unfamiliar formula first restore implicit hydrogens using carbon valency four. Test tetrahedral carbons, trace both directions around rings, and test each double bond. Ring cis/trans refers to faces of the ring, not left and right on the paper.",
+   "terms": [
+    {
+     "term": "ring path",
+     "meaning": "The entire sequence of atoms reached in one direction from a ring carbon.",
+     "notation": "clockwise / anticlockwise",
+     "spoken": "clockwise or anticlockwise ring path",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.5–6, 10–14; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf"
+    },
+    {
+     "term": "ring cis/trans",
+     "meaning": "Substituents on different ring carbons lie on the same face for cis and opposite faces for trans.",
+     "notation": "same face / opposite faces",
+     "spoken": "same face or opposite faces",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.5–6, 10–14; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Compare ring paths for chirality",
+     "wordings": [
+      "Identify chiral centres in a cyclic molecule.",
+      "Explain whether the two ring groups differ."
+     ],
+     "example": "Step 1: Number the OH-bearing carbon in 2-methylcyclohexan-1-ol as carbon 1. Step 2: its four groups are H, OH and the two ring paths. The path through carbon 2 meets a methyl-substituted CH immediately; the path through carbon 6 meets CH2, so they differ. Carbon 1 is chiral. Step 3: carbon 2 is also chiral: H, methyl, the path through carbon 1 bearing OH and the path through carbon 3 differ. Other ring carbons are CH2. In cyclohexanol alone the two paths from carbon 1 are identical, so it has no chiral centre.",
+     "check": "Identify the chiral centres in 2-bromocyclopentan-1-ol, numbering the OH-bearing carbon 1. Contrast carbon 1 of cyclopentanol. Explain using ring paths.",
+     "answer": "Carbons 1 and 2 of 2-bromocyclopentan-1-ol are chiral. At carbon 1 the path via carbon 2 reaches Br sooner; at carbon 2 the path via carbon 1 reaches OH sooner. Each also has H and OH or Br respectively, giving four different groups. Cyclopentanol has identical paths from carbon 1 and no chiral centre.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.5–6, 10–14; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf",
+     "rubric": [
+      {
+       "point": "Chiral centres at carbons 1 and 2.",
+       "keywords": [
+        [
+         "1 and 2",
+         "C1 and C2"
+        ]
+       ]
+      },
+      {
+       "point": "Different ring paths reach substituted atoms at different distances.",
+       "keywords": [
+        [
+         "path",
+         "direction"
+        ]
+       ]
+      },
+      {
+       "point": "Cyclopentanol paths are identical, so no chiral centre.",
+       "keywords": [
+        [
+         "identical",
+         "equivalent",
+         "same"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Identify ring cis/trans arrangements",
+     "wordings": [
+      "Identify geometrical isomerism in a ring.",
+      "Describe cis and trans ring substituents."
+     ],
+     "example": "Step 1: In 1,2-dichlorocyclobutane the chlorine groups are on different ring carbons. Step 2: both above or both below the ring gives cis; one above and one below gives trans. Step 3: limited rotation within the closed ring preserves this distinction. In 1,1-dichlorocyclobutane the groups occupy the same ring carbon, so this substituent pair does not give ring cis/trans isomerism.",
+     "check": "Describe the cis and trans forms of 1,2-dimethylcyclopentane. Explain why 1,1-dimethylcyclopentane does not give this cis/trans pair.",
+     "answer": "Cis-1,2-dimethylcyclopentane has both methyl groups on the same ring face; trans has them on opposite faces. In 1,1-dimethylcyclopentane both methyl groups are attached to the same ring carbon, so they do not define a same-face/opposite-face pair across different ring carbons.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.5–6, 10–14; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf",
+     "rubric": [
+      {
+       "point": "Cis: same ring face.",
+       "keywords": [
+        [
+         "same face",
+         "both above",
+         "both below"
+        ]
+       ]
+      },
+      {
+       "point": "Trans: opposite ring faces.",
+       "keywords": [
+        [
+         "opposite",
+         "one above"
+        ]
+       ]
+      },
+      {
+       "point": "1,1 groups are on the same carbon.",
+       "keywords": [
+        [
+         "same carbon"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Audit a structure for both types of stereoisomerism",
+     "wordings": [
+      "Identify all chiral centres and geometrical isomerism.",
+      "Determine which stereochemical features are present."
+     ],
+     "example": "Step 1: Write hex-3-en-2-ol as $\\ce{CH3CH(OH)CH=CHCH2CH3}$. Carbon 2 has H, OH, methyl and an alkenyl group, so it is chiral. Step 2: at carbon 3 the groups are H and CH(OH)CH3; at carbon 4 they are H and ethyl. Both double-bond carbons pass. Step 3: this structure has optical and geometrical isomerism; neither test replaces the other.",
+     "check": "For hept-4-en-2-ol, $\\ce{CH3CH(OH)CH2CH=CHCH2CH3}$, identify chiral centres and any double bond that permits geometrical isomerism. Give group evidence.",
+     "answer": "Carbon 2 is the only chiral centre: H, OH, methyl and CH2CH=CHCH2CH3 differ. The carbon 4–carbon 5 double bond permits geometrical isomerism because each carbon has H and a different carbon-containing group. Remaining saturated carbons have repeated H atoms.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.5–6, 10–14; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf",
+     "rubric": [
+      {
+       "point": "Only carbon 2 is chiral.",
+       "keywords": [
+        [
+         "carbon 2",
+         "C2"
+        ]
+       ]
+      },
+      {
+       "point": "Four different groups at carbon 2.",
+       "keywords": [
+        [
+         "four different",
+         "methyl"
+        ]
+       ]
+      },
+      {
+       "point": "C4=C5 passes both two-group tests.",
+       "keywords": [
+        [
+         "4",
+         "C4"
+        ]
+       ]
+      },
+      {
+       "point": "Each alkene carbon bears H and a carbon group.",
+       "keywords": [
+        [
+         "each",
+         "both"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Both ring bonds go to carbon, so the groups must match.",
+     "temptation": "Only the nearest atoms were compared.",
+     "fix": "Trace complete paths and compare the first difference in substitution.",
+     "id": "m7"
+    }
+   ],
+   "source_gaps": [
+    "The official syllabus requires cyclic identification but supplies no worked ring-path procedure; this procedure combines that requirement with the library explanation on pp.10–11. No claim is made that every official question form has been exhaustively audited."
+   ],
+   "diagrams": [],
+   "diagram_descriptions": [],
+   "diagram_reason": "The existing pack has no diagrams or registered source graphics to link. The lessons plan requests teaching additions only; no new figure is requested. Text examples name every group explicitly; a reviewed molecular model or graphic remains useful for spatial work."
   },
   "9701-13.4.6": {
    "motivate": "Counting isomers accurately requires a method that catches each structure once.",
@@ -3590,7 +4200,195 @@
    "connect": "Use structural isomerism first, then apply geometrical and optical tests.",
    "note": "- List skeletons, groups and positions.\n- Check formula and symmetry.\n- Add eligible geometrical and optical forms.",
    "self_explain": "How does the count for acyclic C4H8 alkenes change when stereoisomers are included?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Read the restrictions before counting. List distinct connections first and check atom counts. Split only eligible structures into stereoisomers; remove symmetry duplicates. Subtract already shown compounds only after finding the total under the same counting rules.",
+   "terms": [
+    {
+     "term": "structural-only count",
+     "meaning": "Each distinct connectivity counts once, even when it has stereoisomers.",
+     "notation": "structural only",
+     "spoken": "structural isomerism only",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.15–17; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 w20 P13 Q20 and w20 P12 Q20; ER 9701 s22 P12 Q26"
+    },
+    {
+     "term": "other isomers",
+     "meaning": "The requested total excluding the distinct isomers already supplied.",
+     "notation": "total minus shown",
+     "spoken": "total minus the number already shown",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.15–17; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 w20 P13 Q20 and w20 P12 Q20; ER 9701 s22 P12 Q26"
+    },
+    {
+     "term": "symmetry duplicate",
+     "meaning": "Two proposed cases describe the same molecule after relabelling or reorientation.",
+     "notation": "one distinct structure",
+     "spoken": "count once",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.15–17; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 w20 P13 Q20 and w20 P12 Q20; ER 9701 s22 P12 Q26"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Enumerate under explicit restrictions",
+     "wordings": [
+      "Deduce all isomers of a molecular formula.",
+      "Determine how many other isomers exist."
+     ],
+     "example": "Example: deduce acyclic alkene isomers of $\\ce{C4H8}$, then the others if but-1-ene is shown. Step 1: the straight skeleton gives but-1-ene and but-2-ene; reversing numbering adds none. The branched skeleton gives 2-methylpropene. All total four carbons and eight hydrogens. Step 2: only but-2-ene passes both group tests; no tetrahedral carbon is chiral. Step 3: structural-only total is 3. Including stereoisomers the contributions are 1 + 2 + 1 = 4, so there are 3 others besides but-1-ene.",
+     "check": "Deduce all acyclic monoalkene isomers of $\\ce{C5H10}$, first structural only and then including stereoisomers. If cis-pent-2-ene is already shown, how many other compounds remain when both types are counted? Show the list and group tests.",
+     "answer": "The five structural isomers are pent-1-ene, pent-2-ene, 2-methylbut-1-ene, 3-methylbut-1-ene and 2-methylbut-2-ene. Only pent-2-ene gives cis/trans: each alkene carbon has H and a different carbon group. The terminal alkenes have CH2 at one end; 2-methylbut-2-ene has two methyl groups at carbon 2. None has a chiral centre. Thus the total including stereoisomers is 1 + 2 + 1 + 1 + 1 = 6; excluding the supplied cis form leaves 5 others.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.15–17; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 w20 P13 Q20 and w20 P12 Q20; ER 9701 s22 P12 Q26",
+     "rubric": [
+      {
+       "point": "Lists all five structural isomers without duplicates.",
+       "keywords": [
+        [
+         "pent-1-ene"
+        ]
+       ]
+      },
+      {
+       "point": "Includes both branched terminal alkenes.",
+       "keywords": [
+        [
+         "2-methylbut-1-ene"
+        ]
+       ]
+      },
+      {
+       "point": "Includes 3-methylbut-1-ene.",
+       "keywords": [
+        [
+         "3-methylbut-1-ene"
+        ]
+       ]
+      },
+      {
+       "point": "Includes 2-methylbut-2-ene.",
+       "keywords": [
+        [
+         "2-methylbut-2-ene"
+        ]
+       ]
+      },
+      {
+       "point": "Only pent-2-ene splits into cis/trans; identifies group restrictions.",
+       "keywords": [
+        [
+         "only pent-2-ene",
+         "pent-2-ene alone"
+        ]
+       ]
+      },
+      {
+       "point": "Totals: five structural, six overall, five others.",
+       "keywords": [
+        [
+         "6",
+         "six"
+        ]
+       ]
+      },
+      {
+       "point": "Subtracts the single supplied form to obtain five others.",
+       "keywords": [
+        [
+         "5",
+         "five"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Count stereochemical combinations with symmetry",
+     "wordings": [
+      "Determine the number of distinct stereoisomers.",
+      "Explain why multiplying choices can overcount."
+     ],
+     "example": "Example: hexa-2,4-diene has two eligible double bonds. Step 1: write same/same, same/opposite, opposite/same, opposite/opposite for the two relative group arrangements. Step 2: the chain has identical ends, so reversing it interchanges the middle two descriptions; they are one compound. Step 3: there are three distinct geometrical isomers, not four. Use this as a symmetry check rather than assuming every binary choice is independent.",
+     "check": "Determine the number of geometrical isomers of hepta-2,4-diene, $\\ce{CH3CH=CHCH=CHCH2CH3}$. Test both double bonds and explain whether reversal makes the mixed arrangements identical. Ignore conformers produced by single-bond rotation.",
+     "answer": "Both double bonds have two different groups at each carbon. There are four geometrical combinations. Unlike the symmetric example, the ends are methyl and ethyl: reversal cannot exchange the two double bonds while preserving connectivity. The two mixed arrangements are therefore distinct, giving 4. There are no chiral centres.",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.4.pdf, pp.15–17; Cambridge 9701 syllabus 2025–2027, p.32, section 13.4; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; ER 9701 w20 P13 Q20 and w20 P12 Q20; ER 9701 s22 P12 Q26",
+     "rubric": [
+      {
+       "point": "Both double bonds pass the group test.",
+       "keywords": [
+        [
+         "both",
+         "two"
+        ]
+       ]
+      },
+      {
+       "point": "Unequal methyl and ethyl ends prevent the symmetry identification.",
+       "keywords": [
+        [
+         "methyl",
+         "unequal",
+         "different ends",
+         "ethyl"
+        ]
+       ]
+      },
+      {
+       "point": "Four distinct geometrical isomers.",
+       "keywords": [
+        [
+         "4",
+         "four"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Add independent stereochemical choices to count isomers.",
+     "temptation": "Each new feature seems to add another pair.",
+     "fix": "Multiply only independent choices after each feature passes its group test, then check whole-molecule symmetry for duplicates.",
+     "id": "m4"
+    },
+    {
+     "idea": "Structural and stereochemical counts are interchangeable.",
+     "temptation": "The same molecular formula seems to imply one fixed count.",
+     "fix": "Read whether structural only or both types are required; list connections, split eligible stereoisomers when requested, then subtract the distinct compounds already shown if asked for others.",
+     "id": "m5"
+    }
+   ],
+   "source_gaps": [
+    "Enumeration examples deliberately exclude rings and additional functional groups; those restrictions must stay visible.",
+    "The octatetraene examiner reports motivate symmetry checking; the authored diene examples transfer the method rather than reproducing an official question.",
+    "This inventory covers the reviewed syllabus/library and bundle evidence, not an exhaustive audit of all 110 tagged past-paper questions."
+   ],
+   "diagrams": [],
+   "diagram_descriptions": [],
+   "diagram_reason": "The existing pack has no diagrams or registered source graphics to link. The lessons plan requests teaching additions only; no new figure is requested. Text examples name every group explicitly; a reviewed molecular model or graphic remains useful for spatial work."
   }
+ },
+ "guided_forms": {
+  "9701-13.4.1": [
+   "Compare chain isomers",
+   "Compare positional isomers",
+   "Compare functional-group isomers"
+  ],
+  "9701-13.4.2": [
+   "Distinguish structural and stereoisomers"
+  ],
+  "9701-13.4.3": [
+   "Test and explain alkene geometrical isomerism"
+  ],
+  "9701-13.4.4": [
+   "Identify a chiral centre using four groups",
+   "Explain the enantiomer relationship"
+  ],
+  "9701-13.4.5": [
+   "Compare ring paths for chirality",
+   "Identify ring cis/trans arrangements",
+   "Audit a structure for both types of stereoisomerism"
+  ],
+  "9701-13.4.6": [
+   "Enumerate under explicit restrictions",
+   "Count stereochemical combinations with symmetry"
+  ]
  }
 }

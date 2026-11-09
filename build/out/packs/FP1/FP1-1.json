@@ -52,6 +52,22 @@
    "refutation": "Use conjugacy where applicable, divide by the resulting factor, then solve the residual quadratic.",
    "contrast": "A root $2+i$ gives factor $(x-2)^2+1$.",
    "source": "research"
+  },
+  {
+   "id": "m7",
+   "kc": "FP1-1.4",
+   "statement": "$\\sqrt{-q}=-\\sqrt q$ for positive real $q$.",
+   "refutation": "The square root is $i\\sqrt q$; squaring it gives $-q$ because $i^2=-1$.",
+   "contrast": "$\\sqrt{-25}=5i$, whereas $(-5)^2=25$.",
+   "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf pp.2-3"
+  },
+  {
+   "id": "m8",
+   "kc": "FP1-1.1",
+   "statement": "The inverse tangent of imaginary part divided by real part always gives the principal argument.",
+   "refutation": "Choose the quadrant first, and check both coordinates; the origin has no argument.",
+   "contrast": "For $-1+i$, the principal argument is $3\\pi/4$, not $-\\pi/4$.",
+   "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.13-16"
   }
  ],
  "worked": [
@@ -1971,7 +1987,309 @@
    "connect": "The coordinates $(a,b)$ lead directly to the Argand diagram and make arithmetic visible.",
    "note": "- $z=a+ib=r\\cos\\theta+ir\\sin\\theta$; $i^2=-1$.\n- $\\operatorname{Re}(z)=a$, $\\operatorname{Im}(z)=b$, $z^*=a-ib$.\n- $|z|=\\sqrt{a^2+b^2}$; $\\theta$ is measured from the positive real axis.\n- Equality requires both components to match.",
    "self_explain": "For $3-4i$, identify both parts, the conjugate, modulus, and the quadrant of its argument.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A complex number stores two real coordinates. The number $i$ satisfies $i^2=-1$. The coefficient of $i$ is the imaginary part. Conjugating reverses that coordinate; modulus gives distance and argument gives direction.",
+   "terms": [
+    {
+     "term": "real part",
+     "meaning": "The real coordinate in $a+ib$.",
+     "notation": "$\\operatorname{Re}(z)=a$",
+     "spoken": "real part of z equals a",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.2-3"
+    },
+    {
+     "term": "imaginary part",
+     "meaning": "The real coefficient of $i$, including its sign.",
+     "notation": "$\\operatorname{Im}(z)=b$",
+     "spoken": "imaginary part of z equals b",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.2-3"
+    },
+    {
+     "term": "conjugate",
+     "meaning": "Change only the sign of the imaginary part.",
+     "notation": "$z^*=a-ib$",
+     "spoken": "z star equals a minus i b",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf p.6"
+    },
+    {
+     "term": "equality",
+     "meaning": "Both coordinates match; $a,b,c,d$ are real.",
+     "notation": "$a+ib=c+id\\iff a=c\\text{ and }b=d$",
+     "spoken": "equal real parts and equal imaginary parts",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.3-4"
+    },
+    {
+     "term": "modulus",
+     "meaning": "Nonnegative distance from the origin.",
+     "notation": "$|z|=\\sqrt{a^2+b^2}$",
+     "spoken": "modulus of z equals square root of a squared plus b squared",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.11-12"
+    },
+    {
+     "term": "argument",
+     "meaning": "An angle anticlockwise from the positive real axis.",
+     "notation": "$\\arg z=\\theta$",
+     "spoken": "argument of z equals theta",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf p.13"
+    },
+    {
+     "term": "principal argument",
+     "meaning": "The chosen argument in $-\\pi<\\theta\\leq\\pi$.",
+     "notation": "$\\operatorname{Arg}z$",
+     "spoken": "principal argument of z",
+     "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Teaching-and-Learning-Materials/ial-further-pure-1-final.pdf PDF p.9"
+    },
+    {
+     "term": "polar form",
+     "meaning": "Distance and direction describe the same coordinates: $a=r\\cos\\theta$, $b=r\\sin\\theta$.",
+     "notation": "$z=r(\\cos\\theta+i\\sin\\theta)$",
+     "spoken": "z equals r times cosine theta plus i sine theta",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf p.16; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32"
+    }
+   ],
+   "forms": [
+    {
+     "name": "State real and imaginary parts and the conjugate",
+     "wordings": [
+      "State real and imaginary parts and the conjugate",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: for $z=-5+12i$, read the real coordinate $-5$ and imaginary coefficient $12$. Change only the imaginary sign to get $z^*=-5-12i$. Check that $z+z^*=-10$ is real.",
+     "check": "For $w=8i-6$, state its real part, imaginary part and conjugate.",
+     "answer": "$\\operatorname{Re}(w)=-6$, $\\operatorname{Im}(w)=8$, $w^*=-6-8i$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.2-3,6",
+     "rubric": [
+      {
+       "point": "State the real part as -6 (accept equivalent notation or words).",
+       "keywords": [
+        [
+         "-6",
+         "−6",
+         "minus six"
+        ]
+       ]
+      },
+      {
+       "point": "State the imaginary part as 8, the real coefficient of i (not 8i).",
+       "keywords": [
+        [
+         "8",
+         "eight"
+        ]
+       ]
+      },
+      {
+       "point": "State the conjugate as -6-8i, accepting reordered terms and equivalent spacing or wording; the word conjugate alone earns no credit.",
+       "keywords": [
+        [
+         "-6",
+         "−6",
+         "minus six"
+        ],
+        [
+         "-8i",
+         "- 8i",
+         "−8i",
+         "− 8i",
+         "-i8",
+         "minus eight i"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Find unknowns by equality of complex numbers",
+     "wordings": [
+      "Find unknowns by equality of complex numbers",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: real $p,q$ satisfy $(p-2)+(q+1)i=4-3i$. Match real parts: $p-2=4$, so $p=6$. Match imaginary parts: $q+1=-3$, so $q=-4$. Substitution gives $4-3i$ on each side.",
+     "check": "For real $u,v$, find them if $(2u+1)+(v-4)i=-7+5i$.",
+     "answer": "$2u+1=-7$ and $v-4=5$, so $u=-4$, $v=9$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.3-4",
+     "rubric": [
+      {
+       "point": "Equate both corresponding parts: 2u+1=-7 and v-4=5; accept equivalent rearranged equations or explicit component working.",
+       "keywords": [
+        [
+         "2u+1=-7",
+         "2u + 1 = -7",
+         "2u=-8",
+         "2u = -8",
+         "u=(-7-1)/2",
+         "twice u plus one equals minus seven"
+        ],
+        [
+         "v-4=5",
+         "v - 4 = 5",
+         "v=5+4",
+         "v = 5 + 4",
+         "v minus four equals five"
+        ]
+       ]
+      },
+      {
+       "point": "Solve both equations, giving u=-4 and v=9; both assignments are required.",
+       "keywords": [
+        [
+         "u=-4",
+         "u = -4",
+         "u=−4",
+         "u = −4",
+         "u equals minus four"
+        ],
+        [
+         "v=9",
+         "v = 9",
+         "v equals nine"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Find modulus and a quadrant-aware argument",
+     "wordings": [
+      "Find modulus and a quadrant-aware argument",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $z=-\\sqrt3+i$ lies in quadrant II. Pythagoras gives $r=\\sqrt{3+1}=2$. The reference angle is $\\pi/6$, so the principal argument is $\\pi-\\pi/6=5\\pi/6$. Check $2\\cos(5\\pi/6)=-\\sqrt3$ and $2\\sin(5\\pi/6)=1$.",
+     "check": "Find the exact modulus and principal argument of $w=-2-2i$. Also state whether zero has an argument.",
+     "answer": "$|w|=\\sqrt{4+4}=2\\sqrt2$. Quadrant III gives principal argument $-3\\pi/4$. Zero has no argument.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.11-16",
+     "rubric": [
+      {
+       "point": "Give the exact modulus 2 sqrt(2), or an exact equivalent such as sqrt(8); saying modulus or root alone earns no credit.",
+       "keywords": [
+        [
+         "2sqrt2",
+         "2sqrt(2)",
+         "2 sqrt(2)",
+         "2 sqrt 2",
+         "2√2",
+         "2 √2",
+         "sqrt8",
+         "sqrt(8)",
+         "√8",
+         "two root two",
+         "two square root two",
+         "2\\sqrt2",
+         "2\\sqrt{2}",
+         "\\sqrt8",
+         "\\sqrt{8}",
+         "2 \\sqrt2",
+         "2 \\sqrt{2}"
+        ]
+       ]
+      },
+      {
+       "point": "Give the exact principal argument -3pi/4 radians, or -135 degrees with degree units explicitly stated; accept equivalent exact notation. Check the stated units: -135 radians is incorrect. A quadrant label alone earns no credit.",
+       "keywords": [
+        [
+         "-3pi/4",
+         "-3*pi/4",
+         "-3 pi/4",
+         "-3π/4",
+         "−3π/4",
+         "-3\\pi/4",
+         "minus three pi over four",
+         "-135°",
+         "−135°",
+         "-135 degrees",
+         "−135 degrees",
+         "-\\frac{3\\pi}{4}",
+         "-\\dfrac{3\\pi}{4}"
+        ]
+       ]
+      },
+      {
+       "point": "State that zero has no defined argument.",
+       "keywords": [
+        [
+         "undefined",
+         "no argument",
+         "no direction",
+         "not defined"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Convert between Cartesian and polar notation",
+     "wordings": [
+      "Convert between Cartesian and polar notation",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $-\\sqrt3+i=2(\\cos(5\\pi/6)+i\\sin(5\\pi/6))$ using its distance and quadrant. In reverse, $6(\\cos(-\\pi/3)+i\\sin(-\\pi/3))=6(1/2-i\\sqrt3/2)=3-3\\sqrt3i$. Evaluate both trigonometric coordinates, including their signs.",
+     "check": "Write $3-3i$ in polar form using the principal argument. Separately express $4(\\cos(2\\pi/3)+i\\sin(2\\pi/3))$ as $a+ib$.",
+     "answer": "$3\\sqrt2(\\cos(-\\pi/4)+i\\sin(-\\pi/4))$; the second number is $-2+2\\sqrt3i$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.11-16; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32 section 1.1",
+     "rubric": [
+      {
+       "point": "Give a complete polar expression equal to 3-3i with modulus 3sqrt(2) and principal direction -pi/4. Accept 3sqrt(2)(cos(-pi/4)+i sin(-pi/4)) and the equivalent 3sqrt(2)(cos(pi/4)-i sin(pi/4)), including Unicode, spacing, degree-unit equivalents and LaTeX fraction notation. Check the entire expression mathematically, including the outside factor and signs; keywords are examples of notation, not an exhaustive list or sufficient proof.",
+       "keywords": [
+        [
+         "3\\sqrt2(\\cos(-\\pi/4)+i\\sin(-\\pi/4))",
+         "3\\sqrt{2}(\\cos(-\\pi/4)+i\\sin(-\\pi/4))",
+         "3sqrt2(cos(-pi/4)+isin(-pi/4))",
+         "3sqrt(2)(cos(-pi/4)+i sin(-pi/4))",
+         "3√2(cos(-π/4)+i sin(-π/4))",
+         "3√2(cos(-π/4)+isin(-π/4))",
+         "3 root 2 times (cos(-pi/4) plus i sin(-pi/4))",
+         "3√2(cos(π/4)−i sin(π/4))",
+         "3sqrt(2)(cos(pi/4)-i sin(pi/4))",
+         "3\\sqrt{2}(\\cos(-\\frac{\\pi}{4})+i\\sin(-\\frac{\\pi}{4}))",
+         "3\\sqrt{2}(\\cos(\\frac{\\pi}{4})-i\\sin(\\frac{\\pi}{4}))"
+        ]
+       ]
+      },
+      {
+       "point": "Give the Cartesian result with real part -2 AND imaginary coefficient 2sqrt(3), attached to i; accept reordered terms or equivalent exact notation.",
+       "keywords": [
+        [
+         "-2",
+         "−2",
+         "minus two"
+        ],
+        [
+         "2\\sqrt3i",
+         "2\\sqrt{3}i",
+         "2i\\sqrt3",
+         "2i\\sqrt{3}",
+         "2sqrt3i",
+         "2sqrt(3)i",
+         "2√3i",
+         "2i√3",
+         "2 root 3 i",
+         "two root three i"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "The imaginary part includes $i$.",
+     "temptation": "It appears in the imaginary term.",
+     "fix": "Report the signed real coefficient of $i$.",
+     "id": "m1"
+    },
+    {
+     "idea": "The inverse tangent always gives the argument.",
+     "temptation": "A calculator supplies an angle immediately.",
+     "fix": "Locate the quadrant first; check both sine and cosine signs. On an axis use its direction directly.",
+     "id": "m8"
+    }
+   ],
+   "prerequisite_bridge": "Bridge: recall signed Cartesian coordinates, Pythagoras, right-triangle trigonometry and radians. Keep the two types of term separate.",
+   "diagrams": [],
+   "diagram_reason": "The existing Argand visual is bound to FP1-1.3; these notation and equality forms use symbolic steps rather than an additional figure.",
+   "source_gaps": [
+    "The reviewed sources establish the form and method; no individual official paper mark scheme was audited for these new examples and checks. Rubrics are teaching criteria, not official allocations."
+   ]
   },
   "FP1-1.2": {
    "motivate": "Arithmetic with complex numbers follows familiar expansion, with one extra rule: $i^2=-1$.",
@@ -1979,7 +2297,184 @@
    "connect": "The arithmetic becomes geometric on an Argand diagram: sums translate points, while products change size and direction.",
    "note": "- Add corresponding real and imaginary parts.\n- Expand products and use $i^2=-1$.\n- Divide using the denominator's conjugate.\n- $|z_1z_2|=|z_1||z_2|$.",
    "self_explain": "Why does multiplying top and bottom by a conjugate make a quotient easier to express as $a+ib$?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Collect matching terms for sums. Expand products as ordinary brackets, then use $i^2=-1$. To divide, multiply the whole numerator and denominator by the denominator conjugate. Division requires a nonzero denominator. Moduli multiply, even though moduli of sums generally do not add. In particular, $i^2$ is $-1$, never $+1$.",
+   "terms": [
+    {
+     "term": "sum",
+     "meaning": "Add corresponding coordinates.",
+     "notation": "$(a+ib)+(c+id)=(a+c)+i(b+d)$",
+     "spoken": "add real parts and add imaginary parts",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf p.3"
+    },
+    {
+     "term": "product",
+     "meaning": "Expand and replace $i^2$ by $-1$.",
+     "notation": "$(a+ib)(c+id)=(ac-bd)+i(ad+bc)$",
+     "spoken": "real part a c minus b d; imaginary part a d plus b c",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.4-6"
+    },
+    {
+     "term": "quotient",
+     "meaning": "For $c+di\\ne0$, multiply top and bottom by $c-di$ to get denominator $c^2+d^2>0$.",
+     "notation": "$\\dfrac{a+ib}{c+di}$",
+     "spoken": "a plus i b divided by c plus d i",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.6-8"
+    },
+    {
+     "term": "modulus product rule",
+     "meaning": "The distance of a product is the product of the distances.",
+     "notation": "$|z_1z_2|=|z_1||z_2|$",
+     "spoken": "modulus of the product equals product of the moduli",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf p.12"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Calculate a sum in Cartesian form",
+     "wordings": [
+      "Calculate a sum in Cartesian form",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $(2-5i)+(-4+3i)=(2-4)+(-5+3)i=-2-2i$. Collect the two real terms and the two coefficients of $i$ separately.",
+     "check": "Calculate $(-3+7i)+(8-2i)$ in the form $a+ib$.",
+     "answer": "$(-3+8)+(7-2)i=5+5i$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf p.3",
+     "rubric": [
+      {
+       "point": "Add corresponding real and imaginary components.",
+       "keywords": [
+        [
+         "parts",
+         "components",
+         "-3+8",
+         "7-2"
+        ]
+       ]
+      },
+      {
+       "point": "Give $5+5i$ or an equivalent Cartesian expression.",
+       "keywords": [
+        [
+         "5+5i",
+         "5 + 5i"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Calculate a product by expansion",
+     "wordings": [
+      "Calculate a product by expansion",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $(2+i)(3-4i)=6-8i+3i-4i^2$. Since $i^2=-1$, the final term is $+4$, giving $10-5i$. Check the sign before collecting.",
+     "check": "Calculate $(3-2i)(-1+4i)$ in Cartesian form.",
+     "answer": "$-3+12i+2i-8i^2=5+14i$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.4-6",
+     "rubric": [
+      {
+       "point": "Expand including both cross terms and the term in $i^2$.",
+       "keywords": [
+        [
+         "expand",
+         "12i",
+         "i^2"
+        ]
+       ]
+      },
+      {
+       "point": "Use $i^2=-1$ and collect to give $5+14i$.",
+       "keywords": [
+        [
+         "5+14i",
+         "5 + 14i"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Calculate a quotient using a conjugate",
+     "wordings": [
+      "Calculate a quotient using a conjugate",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $(4+3i)/(2-i)$ has nonzero denominator. Multiply both parts by $2+i$: numerator $8+4i+6i+3i^2=5+10i$, denominator $4-i^2=5$. Divide each numerator term by $5$ to get $1+2i$. Check $(1+2i)(2-i)=4+3i$.",
+     "check": "Calculate $(7-i)/(1+2i)$ in Cartesian form, showing the conjugate method and checking by multiplication.",
+     "answer": "Multiply top and bottom by $1-2i$. The numerator is $5-15i$ and denominator $5$, giving $1-3i$. Check $(1-3i)(1+2i)=7-i$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.6-8",
+     "rubric": [
+      {
+       "point": "Multiply the whole numerator and denominator by $1-2i$, or give another valid algebraic method.",
+       "keywords": [
+        [
+         "conjugate",
+         "1-2i",
+         "equate"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain $1-3i$ and verify multiplication recovers $7-i$.",
+       "keywords": [
+        [
+         "1-3i",
+         "1 - 3i"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Use and verify the modulus product rule",
+     "wordings": [
+      "Use and verify the modulus product rule",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: for $z=1+2i$, $w=2-i$, both moduli are $\\sqrt5$. Thus $|zw|=5$. Independently expand $zw=4+3i$; its modulus is $\\sqrt{16+9}=5$, confirming the rule. Do not apply this multiplication rule to a sum.",
+     "check": "For $z=2+3i$, $w=1-2i$, use the modulus product rule to find $|zw|$. Verify by expanding the product.",
+     "answer": "$|z|=\\sqrt{13}$, $|w|=\\sqrt5$, so $|zw|=\\sqrt{65}$. Also $zw=8-i$, with modulus $\\sqrt{64+1}=\\sqrt{65}$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.4,11-12",
+     "rubric": [
+      {
+       "point": "Find the separate moduli and multiply to get $\\sqrt{65}$.",
+       "keywords": [
+        [
+         "65",
+         "sqrt",
+         "root"
+        ]
+       ]
+      },
+      {
+       "point": "Expand to $8-i$ and check its modulus agrees.",
+       "keywords": [
+        [
+         "8-i",
+         "8 - i",
+         "64+1"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Divide the coordinates separately.",
+     "temptation": "That works for division by a real scalar.",
+     "fix": "Use the denominator conjugate for a complex divisor; multiply the result back to check.",
+     "id": "m2"
+    }
+   ],
+   "prerequisite_bridge": "Bridge: collect like terms, expand two brackets and use the difference of two squares; the conjugate method mirrors rationalising a surd denominator.",
+   "diagrams": [],
+   "diagram_reason": "The existing visual on FP1-1.3 illustrates the geometric meaning; no separate diagram is needed to follow these algebraic expansions.",
+   "source_gaps": [
+    "The reviewed sources establish the form and method; no individual official paper mark scheme was audited for these new examples and checks. Rubrics are teaching criteria, not official allocations."
+   ]
   },
   "FP1-1.3": {
    "motivate": "A complex number can be seen as a point and as a vector from the origin.",
@@ -1987,7 +2482,347 @@
    "connect": "Modulus measures distance on this diagram; argument records direction.",
    "note": "- Plot $a+ib$ at $(a,b)$.\n- Sums are vector sums.\n- Products combine scaling and rotation; $i$ rotates anticlockwise by $90^\\circ$.\n- Quotients reverse the denominator's scale and rotation.",
    "self_explain": "Where does $1+i$ move after multiplication by $i$, and how does its modulus change?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "An Argand point uses the real part horizontally and the imaginary coefficient vertically. The arrow from the origin represents the same number. Add arrows head to tail; products scale and rotate, while division undoes the divisor transformation. A conjugate reflects across the real axis.",
+   "terms": [
+    {
+     "term": "Argand diagram",
+     "meaning": "Cartesian plane with real horizontal and imaginary vertical axes.",
+     "notation": "$a+ib\\longleftrightarrow(a,b)$",
+     "spoken": "a plus i b corresponds to coordinates a comma b",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.9-10"
+    },
+    {
+     "term": "vector sum",
+     "meaning": "Place the second displacement at the end of the first, or complete the parallelogram.",
+     "notation": "$z+w$",
+     "spoken": "z plus w",
+     "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32 section 1.3"
+    },
+    {
+     "term": "scale and rotation",
+     "meaning": "Multiplying by $ki$ for positive real $k$ scales lengths by $k$ and rotates anticlockwise through a right angle.",
+     "notation": "$ki(a+ib)=-kb+ika$",
+     "spoken": "k i times a plus i b equals minus k b plus i k a",
+     "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32 sections 1.2-1.3"
+    },
+    {
+     "term": "conjugate reflection",
+     "meaning": "Keep the horizontal coordinate and reverse the vertical one.",
+     "notation": "$(a,b)\\mapsto(a,-b)$",
+     "spoken": "a comma b maps to a comma minus b",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.6,9-10"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Sketch labelled points and conjugate reflections",
+     "wordings": [
+      "Sketch labelled points and conjugate reflections",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: plot $-3+2i$ at $(-3,2)$ in quadrant II. Its conjugate $-3-2i$ is $(-3,-2)$ in quadrant III, reflected in the real axis. Plot $4i$ at $(0,4)$ on the imaginary axis. Label axes Re and Im and label each point with its number.",
+     "check": "Sketch and label $2-3i$, its conjugate and $-5i$ on one Argand diagram. State the coordinates and quadrants where applicable.",
+     "answer": "Points $(2,-3)$ in IV, $(2,3)$ in I, and $(0,-5)$ on the negative imaginary axis. Label horizontal Re, vertical Im and the three numbers; the first pair reflect in the real axis.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.6,9-10; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Teaching-and-Learning-Materials/ial-further-pure-1-final.pdf PDF p.8",
+     "rubric": [
+      {
+       "point": "Label BOTH axes: horizontal Re (real), vertical Im (imaginary). Credit correctly labelled sketches or equivalent descriptions.",
+       "keywords": [
+        [
+         "horizontal Re",
+         "horizontal real",
+         "real horizontal",
+         "Re horizontal",
+         "real axis horizontal",
+         "real axis is horizontal"
+        ],
+        [
+         "vertical Im",
+         "vertical imaginary",
+         "imaginary vertical",
+         "Im vertical",
+         "imaginary axis vertical",
+         "imaginary axis is vertical"
+        ]
+       ]
+      },
+      {
+       "point": "Plot and label 2-3i at (2,-3), accepting equivalent coordinate notation; both the point and its number must be identified.",
+       "keywords": [
+        [
+         "2-3i",
+         "2 - 3i",
+         "2−3i",
+         "2 − 3i",
+         "two minus three i"
+        ],
+        [
+         "(2,-3)",
+         "(2, -3)",
+         "(2,−3)",
+         "(2, −3)",
+         "x=2, y=-3",
+         "real part 2 and imaginary part -3"
+        ]
+       ]
+      },
+      {
+       "point": "Plot and label the conjugate 2+3i at (2,3), accepting equivalent coordinate notation.",
+       "keywords": [
+        [
+         "2+3i",
+         "2 + 3i",
+         "two plus three i"
+        ],
+        [
+         "(2,3)",
+         "(2, 3)",
+         "x=2, y=3",
+         "real part 2 and imaginary part 3"
+        ]
+       ]
+      },
+      {
+       "point": "Plot and label -5i at (0,-5), accepting equivalent coordinate notation.",
+       "keywords": [
+        [
+         "-5i",
+         "−5i",
+         "minus five i"
+        ],
+        [
+         "(0,-5)",
+         "(0, -5)",
+         "(0,−5)",
+         "(0, −5)",
+         "x=0, y=-5",
+         "real part 0 and imaginary part -5"
+        ]
+       ]
+      },
+      {
+       "point": "Identify 2-3i as lying in quadrant IV.",
+       "keywords": [
+        [
+         "quadrant IV",
+         "quadrant 4",
+         "quadrant four",
+         "fourth quadrant"
+        ]
+       ]
+      },
+      {
+       "point": "Identify 2+3i as lying in quadrant I.",
+       "keywords": [
+        [
+         "quadrant I",
+         "quadrant 1",
+         "quadrant one",
+         "first quadrant"
+        ]
+       ]
+      },
+      {
+       "point": "Identify -5i at (0,-5) as lying on the negative imaginary axis, with no quadrant; accept an imaginary-axis statement together with its negative coordinate.",
+       "keywords": [
+        [
+         "negative imaginary axis",
+         "negative Im axis",
+         "imaginary axis below",
+         "below the origin on the imaginary axis",
+         "(0,-5) on the imaginary axis",
+         "(0, -5) on the imaginary axis",
+         "imaginary axis at -5",
+         "imaginary axis at −5"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Interpret a sum as vector addition",
+     "wordings": [
+      "Interpret a sum as vector addition",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $z=-2+i$ and $w=3+2i$. Draw the arrow to $(-2,1)$, then a displacement $(3,2)$ from that endpoint. It ends at $(1,3)$, representing $z+w=1+3i$. The other head-to-tail order or a parallelogram gives the same resultant.",
+     "check": "For $z=4-i$ and $w=-1+3i$, sketch labelled vectors showing $z+w$. Explain the resultant coordinates.",
+     "answer": "Add $(4,-1)$ and $(-1,3)$ to get $(3,2)$, so $z+w=3+2i$. A labelled head-to-tail construction or parallelogram has resultant from the origin to $(3,2)$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf p.3; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32 section 1.3",
+     "rubric": [
+      {
+       "point": "Give a correctly labelled construction. Head-to-tail: O to (4,-1) labelled z, then displacement (-1,3) labelled w ending at (3,2), with resultant O to (3,2) labelled z+w; reverse order also valid. Alternatively use a labelled parallelogram with vertices O,(4,-1),(-1,3),(3,2) and the correct diagonal. Verify endpoints, displacements, arrow directions and labels; a construction word alone is insufficient. Credit an equivalent complete description. The names head-to-tail and parallelogram are optional: credit a complete, correctly labelled endpoint-and-arrow description with the stated displacements, directions and resultant. The arrow labelled w from (4,-1) to (3,2) establishes displacement (-1,3); do not require that displacement to be written separately. Assess endpoints, arrow directions and labels mathematically; keyword matches alone neither establish nor limit credit.",
+       "keywords": [
+        [
+         "(4,-1)",
+         "(4, -1)",
+         "4-i",
+         "4 - i",
+         "(3,2)",
+         "(3, 2)"
+        ]
+       ]
+      },
+      {
+       "point": "Explain BOTH coordinate additions, accepting (4,-1)+(-1,3)=(3,2), (4+(-1),-1+3)=(3,2), or separate calculations 4+(-1)=3 and -1+3=2, with equivalent mathematical notation. Evaluate both component calculations semantically; keywords are illustrative and are neither exhaustive nor sufficient for credit.",
+       "keywords": [
+        [
+         "(4,-1)+(-1,3)=(3,2)",
+         "(4, -1) + (-1, 3) = (3, 2)",
+         "4+(-1)=3",
+         "4 + (-1) = 3",
+         "4-1=3",
+         "4 - 1 = 3",
+         "real parts add to 3",
+         "(4+(-1),-1+3)=(3,2)",
+         "(4 + (-1), -1 + 3) = (3, 2)",
+         "(4 + (−1), −1 + 3) = (3, 2)",
+         "(4-1,-1+3)=(3,2)"
+        ],
+        [
+         "(4,-1)+(-1,3)=(3,2)",
+         "(4, -1) + (-1, 3) = (3, 2)",
+         "-1+3=2",
+         "-1 + 3 = 2",
+         "imaginary parts add to 2",
+         "(4+(-1),-1+3)=(3,2)",
+         "(4 + (-1), -1 + 3) = (3, 2)",
+         "(4 + (−1), −1 + 3) = (3, 2)",
+         "(4-1,-1+3)=(3,2)"
+        ]
+       ]
+      },
+      {
+       "point": "State the resultant coordinates (3,2), accepting z+w=3+2i as an equivalent way to specify them; both representations are not required.",
+       "keywords": [
+        [
+         "(3,2)",
+         "(3, 2)",
+         "coordinates 3 and 2",
+         "3+2i",
+         "3 + 2i",
+         "three plus two i"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Library/Courses/FP1/Diagrams/FP1/FP1-1-argand-sum-rotation.svg"
+    },
+    {
+     "name": "Interpret multiplication as scaling and rotation",
+     "wordings": [
+      "Interpret multiplication as scaling and rotation",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $z=2-i$. Then $2iz=4i-2i^2=2+4i$. The vector $(2,-1)$ becomes $(2,4)$: its length doubles and it turns $90^\\circ$ anticlockwise about the origin. For a general nonzero multiplier, its modulus sets the scale and its direction sets the rotation; here expansion establishes the special case without an argument-product formula.",
+     "check": "For $z=-1+3i$, find $(-2i)z$ and interpret its scale and rotation about the origin.",
+     "answer": "$(-2i)(-1+3i)=6+2i$. Lengths scale by $2$ and directions turn $90^\\circ$ clockwise (equivalently $270^\\circ$ anticlockwise).",
+     "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32 sections 1.2-1.3",
+     "rubric": [
+      {
+       "point": "Expand correctly to $6+2i$.",
+       "keywords": [
+        [
+         "6+2i",
+         "6 + 2i"
+        ]
+       ]
+      },
+      {
+       "point": "Identify scale factor $2$ and a clockwise right angle about the origin; equivalent rotation accepted.",
+       "keywords": [
+        [
+         "clockwise",
+         "270",
+         "-90"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Library/Courses/FP1/Diagrams/FP1/FP1-1-argand-sum-rotation.svg"
+    },
+    {
+     "name": "Interpret division as inverse scaling and rotation",
+     "wordings": [
+      "Interpret division as inverse scaling and rotation",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $z=-2+4i$. Division by $2i$ reverses multiplication by $2i$: scale by $1/2$ and turn $90^\\circ$ clockwise. Algebra gives $z/(2i)=(-2+4i)(-i)/2=(4+2i)/2=2+i$. Multiplying the result by $2i$ recovers $z$. A zero divisor has no inverse, so division by it is undefined.",
+     "check": "For $z=-1+3i$, find $z/(-2i)$ and explain the transformation, including why the divisor is allowed.",
+     "answer": "$z/(-2i)=-3/2-i/2$. The nonzero divisor has modulus $2$ and a clockwise quarter-turn; division scales by $1/2$ and turns $90^\\circ$ anticlockwise. Multiplication by $-2i$ recovers $-1+3i$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.1.pdf pp.7,12; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32 section 1.3",
+     "rubric": [
+      {
+       "point": "Obtain $-3/2-i/2$ by valid algebra.",
+       "keywords": [
+        [
+         "-3/2",
+         "-1.5",
+         "minus three halves"
+        ]
+       ]
+      },
+      {
+       "point": "Explain reciprocal scale and reversed rotation.",
+       "keywords": [
+        [
+         "half",
+         "1/2",
+         "anticlockwise"
+        ]
+       ]
+      },
+      {
+       "point": "State that the divisor is nonzero.",
+       "keywords": [
+        [
+         "nonzero",
+         "non-zero",
+         "not zero"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "Multiplication on an Argand diagram is vector addition.",
+     "temptation": "Both operations use two complex numbers represented by vectors.",
+     "fix": "Use head-to-tail vectors for addition. For multiplication identify the scale and rotation, checking coordinates by expansion."
+    }
+   ],
+   "prerequisite_bridge": "Bridge: revise Cartesian plotting, signed displacement vectors, Pythagoras and rotations about the origin. Sketch the quadrant before assigning an angle. Label both axes: a pure imaginary number lies on the vertical axis. Conjugation reflects in the real axis and keeps the horizontal coordinate.",
+   "diagrams": [
+    "Library/Courses/FP1/Diagrams/FP1/FP1-1-argand-sum-rotation.svg",
+    "Assets/FP1/FP1-1-argand-sum-rotation.svg"
+   ],
+   "diagram_reason": "Reuses the verified existing Argand diagram; no new visual requested by this lessons plan.",
+   "source_gaps": [
+    "The reviewed sources establish the form and method; no individual official paper mark scheme was audited for these new examples and checks. Rubrics are teaching criteria, not official allocations.",
+    "The retained visual illustrates one sum and multiplication by i; it does not supply a separate general quotient or conjugate-reflection picture."
+   ],
+   "diagram_descriptions": [
+    "Argand diagram with real horizontal and imaginary vertical axes. Blue $z=1+i$ ends at $(1,1)$; orange $iz=-1+i$ ends at $(-1,1)$. An anticlockwise quarter-turn about the origin takes the first vector to the second, preserving length. Dashed segments complete a parallelogram with resultant $z+iz=2i$ at $(0,2)$. The angle label denotes ninety degrees; its degree glyph may display poorly. Division by $i$ reverses the rotation. This example does not depict general scaling or conjugate reflection.",
+    "Compatibility binding for the same registered canonical Library diagram: real horizontal and imaginary vertical axes; vectors from the origin to z = 1 + i at (1, 1), i z = -1 + i at (-1, 1), and their sum 2 i at (0, 2). Dashed sides complete the addition parallelogram. The curved arrow shows a ninety-degree anticlockwise rotation from z to i z without changing length. Division by i reverses this rotation. The degree symbol in the existing image is poorly rendered; the angle is ninety degrees. This is a special case with scale factor one, not a general scaling or conjugate-reflection diagram."
+   ],
+   "diagram_provenance": [
+    {
+     "file": "Library/Courses/FP1/Diagrams/FP1/FP1-1-argand-sum-rotation.svg",
+     "sha256": "8b934fe579888276777f4339191c3e5346eb2a2e1a96cfd09cd1425571212fd4",
+     "source": "Registered Library diagram; legacy alias Assets/FP1/FP1-1-argand-sum-rotation.svg; catalog origins retain the original vault/build paths.",
+     "review": "Hash and provenance verified; canonical SVG rendered to PNG and visually inspected in this pass. Existing asset retained unchanged."
+    },
+    {
+     "file": "Assets/FP1/FP1-1-argand-sum-rotation.svg",
+     "canonical": "Library/Courses/FP1/Diagrams/FP1/FP1-1-argand-sum-rotation.svg",
+     "sha256": "8b934fe579888276777f4339191c3e5346eb2a2e1a96cfd09cd1425571212fd4",
+     "source": "Existing registered catalog alias of the canonical Library asset; original catalog origins preserved. No graphic created or replaced.",
+     "review": "Catalog resolution and SHA-256 verified; canonical SVG rendered with CairoSVG to /tmp/FP1-1-argand-review.png and visually inspected in this pass."
+    }
+   ]
   },
   "FP1-1.4": {
    "motivate": "The quadratic formula continues to work when its discriminant is negative.",
@@ -1995,7 +2830,116 @@
    "connect": "Conjugate pairing is the key to solving real-coefficient cubic and quartic equations too.",
    "note": "- Use the quadratic formula for all discriminant signs.\n- If $b^2-4ac<0$, write $\\sqrt{b^2-4ac}=i\\sqrt{4ac-b^2}$.\n- Non-real roots occur as conjugates.",
    "self_explain": "Solve $x^2-2x+5=0$ and explain why the roots form a conjugate pair.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A negative discriminant means there are no real roots, but there are two non-real roots. Keep the quadratic formula intact, turn the negative square root into a multiple of $i$, and divide both numerator terms by $2a$. Real coefficients give a conjugate pair.",
+   "terms": [
+    {
+     "term": "discriminant",
+     "meaning": "For real $a,b,c$ with $a\\ne0$, its sign classifies the quadratic roots.",
+     "notation": "$\\Delta=b^2-4ac$",
+     "spoken": "delta equals b squared minus four a c",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf pp.2-3"
+    },
+    {
+     "term": "quadratic formula",
+     "meaning": "Both signs are needed to obtain both roots.",
+     "notation": "$x=\\dfrac{-b\\pm\\sqrt{\\Delta}}{2a}$",
+     "spoken": "x equals minus b plus or minus square root delta all over two a",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf pp.2-3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Solve a real quadratic with negative discriminant",
+     "wordings": [
+      "Solve a real quadratic with negative discriminant",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: solve $2x^2+4x+10=0$. Here $a=2$, $b=4$, $c=10$. Compute $\\Delta=4^2-4(2)(10)=-64$. Thus $\\sqrt\\Delta=8i$, and $x=(-4\\pm8i)/4=-1\\pm2i$. The roots have identical real parts and opposite imaginary parts. Check by factorisation: $2((x+1)^2+4)$ expands to the original polynomial; either root makes the bracket zero.",
+     "check": "Solve $3x^2-6x+15=0$. Show the discriminant, simplify both roots, and verify that they form a conjugate pair.",
+     "answer": "$\\Delta=(-6)^2-4(3)(15)=-144$. Therefore $x=(6\\pm12i)/6=1\\pm2i$. Both roots have real part 1 and their imaginary parts are +2 and −2, so they are conjugates. Also, $3((x-1)^2+4)$ verifies the polynomial and the roots.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf pp.2-3",
+     "rubric": [
+      {
+       "point": "Explicitly compute the discriminant of the original quadratic: Delta=(-6)^2-4(3)(15)=-144. An equivalent discriminant expression is valid; a completed square alone does not meet the request.",
+       "keywords": [
+        [
+         "-144",
+         "−144",
+         "minus one hundred and forty-four",
+         "minus one hundred forty-four"
+        ]
+       ]
+      },
+      {
+       "point": "State BOTH roots 1+2i and 1-2i, or the combined notation 1±2i; accept equivalent exact notation.",
+       "keywords": [
+        [
+         "1+2i",
+         "1 + 2i",
+         "1±2i",
+         "1 ± 2i",
+         "1\\pm2i",
+         "1 \\pm 2i",
+         "one plus two i",
+         "one plus or minus two i"
+        ],
+        [
+         "1-2i",
+         "1 - 2i",
+         "1−2i",
+         "1 − 2i",
+         "1±2i",
+         "1 ± 2i",
+         "1\\pm2i",
+         "1 \\pm 2i",
+         "one minus two i",
+         "one plus or minus two i"
+        ]
+       ]
+      },
+      {
+       "point": "Explain conjugacy: the roots have the same real part 1 and opposite imaginary parts +2 and -2. Substitution or expansion is not required.",
+       "keywords": [
+        [
+         "same real",
+         "identical real",
+         "real part 1",
+         "real parts 1"
+        ],
+        [
+         "opposite imaginary",
+         "opposite signs",
+         "2 and -2",
+         "2 and −2",
+         "+2 and -2",
+         "+2 and −2"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "A negative discriminant means no roots exist.",
+     "temptation": "The square root is not real.",
+     "fix": "There are no real roots, but the quadratic formula gives two non-real conjugate roots."
+    },
+    {
+     "idea": "$\\sqrt{-q}=-\\sqrt q$ for $q>0$.",
+     "temptation": "A negative sign is moved outside the radical.",
+     "fix": "Use $i\\sqrt q$; squaring it gives $-q$ because $i^2=-1$.",
+     "id": "m7"
+    }
+   ],
+   "prerequisite_bridge": "Bridge: identify a, b and c including their signs, calculate the discriminant, simplify surds and divide a sum by a common denominator. Divide both numerator terms by the common denominator.",
+   "diagrams": [],
+   "diagram_reason": "These roots are established by algebra; the Argand card already explains conjugate reflections. No extra figure is requested.",
+   "source_gaps": [
+    "The reviewed sources establish the form and method; no individual official paper mark scheme was audited for these new examples and checks. Rubrics are teaching criteria, not official allocations."
+   ]
   },
   "FP1-1.5": {
    "motivate": "One non-real root of a real-coefficient cubic gives a second root immediately.",
@@ -2003,7 +2947,89 @@
    "connect": "The same conjugate-factor method extends to quartics, leaving a quadratic to solve.",
    "note": "- Pair $u+vi$ with $u-vi$ for real coefficients.\n- Their factor is $(x-u)^2+v^2$.\n- Divide the cubic by it and solve the remaining linear factor.",
    "self_explain": "Given a root $1+2i$, what real quadratic factor must divide the cubic?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "With real coefficients, a non-real root forces its conjugate. Combine their factors into a real quadratic, divide the cubic exactly, and solve the remaining linear factor. This accounts for all three roots, counting multiplicity.",
+   "terms": [
+    {
+     "term": "conjugate root theorem",
+     "meaning": "A polynomial with real coefficients has conjugate non-real roots, with matching multiplicities.",
+     "notation": "$f(u+vi)=0\\Longrightarrow f(u-vi)=0$",
+     "spoken": "a non-real root u plus v i brings u minus v i",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf pp.4-5"
+    },
+    {
+     "term": "real quadratic factor",
+     "meaning": "The product of the two conjugate linear factors.",
+     "notation": "$(x-u-vi)(x-u+vi)=(x-u)^2+v^2$",
+     "spoken": "x minus u squared plus v squared",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf pp.4-5"
+    },
+    {
+     "term": "factor theorem",
+     "meaning": "An exact root gives a linear factor; division should leave remainder zero.",
+     "notation": "$f(r)=0\\iff(x-r)\\text{ divides }f(x)$",
+     "spoken": "f of r equals zero if and only if x minus r is a factor",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf p.5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Find all cubic roots from one non-real root",
+     "wordings": [
+      "Find all cubic roots from one non-real root",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $-1+2i$ is a root of $f(x)=x^3-x^2-x-15$. Real coefficients give $-1-2i$. Their factor is $(x+1)^2+4=x^2+2x+5$. Divide: subtract $x(x^2+2x+5)$ to leave $-3x^2-6x-15$; subtract $-3(x^2+2x+5)$ to leave zero. Thus $f(x)=(x^2+2x+5)(x-3)$, giving roots $-1\\pm2i$ and $3$. Multiplying the factors recovers every original coefficient, verifying completeness.",
+     "check": "Given that $2+i$ is a root of $x^3-2x^2-3x+10=0$, find all roots. Show exact division or full coefficient matching and verify your factorisation.",
+     "answer": "The conjugate is $2-i$ and its pair gives $(x-2)^2+1=x^2-4x+5$. Division gives $x+2$ with remainder zero: after subtracting $x$ times the quadratic the remainder is $2x^2-8x+10$, exactly twice the quadratic. Hence roots are $2+i$, $2-i$, $-2$; expansion verifies $(x^2-4x+5)(x+2)=x^3-2x^2-3x+10$.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf pp.4-5",
+     "rubric": [
+      {
+       "point": "Use real coefficients to identify $2-i$ and form $x^2-4x+5$.",
+       "keywords": [
+        [
+         "conjugate",
+         "x^2-4x+5"
+        ]
+       ]
+      },
+      {
+       "point": "Use valid division or coefficient matching to obtain quotient $x+2$ and zero remainder.",
+       "keywords": [
+        [
+         "x+2",
+         "x + 2",
+         "matching"
+        ]
+       ]
+      },
+      {
+       "point": "List all three roots and verify the factor product or each root.",
+       "keywords": [
+        [
+         "-2",
+         "verify",
+         "expand"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Any polynomial with a non-real root has its conjugate as a root.",
+     "temptation": "The coefficient condition is easy to omit.",
+     "fix": "The theorem requires real coefficients: $f(x)=x-i$ has root $i$ but $f(-i)=-2i\\ne0$.",
+     "id": "m5"
+    }
+   ],
+   "prerequisite_bridge": "Bridge: recall the factor theorem and exact polynomial division. Alternatively write the quotient as a linear expression, expand and match every coefficient. In the pair factor, $(vi)^2=-v^2$, so the constant contribution is positive.",
+   "diagrams": [],
+   "diagram_reason": "The relevant new form is polynomial factorisation; symbolic division and a reconstruction check convey it without a new diagram.",
+   "source_gaps": [
+    "The reviewed sources establish the form and method; no individual official paper mark scheme was audited for these new examples and checks. Rubrics are teaching criteria, not official allocations."
+   ]
   },
   "FP1-1.6": {
    "motivate": "A quartic has four roots counting multiplicity; known roots can reduce it to an ordinary quadratic.",
@@ -2011,7 +3037,174 @@
    "connect": "This combines the factor theorem, conjugate-root rule and quadratic formula.",
    "note": "- A non-real root gives its conjugate when coefficients are real.\n- Form the corresponding real quadratic factor and divide.\n- Two given real roots give two linear factors.\n- Solve the remaining quadratic completely.",
    "self_explain": "Given that $2+i$ is a root, what factor should you divide a real-coefficient quartic by?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A known conjugate pair or two known real roots gives a quadratic factor of a real quartic. Divide by it, solve the residual quadratic and keep every root, counting repeats. A repeated value uses more than one of the four root positions.",
+   "terms": [
+    {
+     "term": "quartic",
+     "meaning": "A degree-four polynomial, with nonzero leading coefficient.",
+     "notation": "$ax^4+bx^3+cx^2+dx+e$",
+     "spoken": "a x to the fourth plus b x cubed plus c x squared plus d x plus e",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf p.5"
+    },
+    {
+     "term": "residual quadratic",
+     "meaning": "The exact quotient after dividing a quartic by a known quadratic factor.",
+     "notation": "$f(x)=q(x)r(x)$",
+     "spoken": "f of x equals q of x times r of x",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf p.5"
+    },
+    {
+     "term": "multiplicity",
+     "meaning": "How many times the same linear factor occurs; count repeated roots accordingly.",
+     "notation": "$(x-r)^m$",
+     "spoken": "x minus r to power m",
+     "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed pp.30-32; algebraic factor counting"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Solve a quartic given a non-real root",
+     "wordings": [
+      "Solve a quartic given a non-real root",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $-2+i$ is a root of $f(x)=x^4+x^3-5x^2-7x+10$. Coefficients are real, so $-2-i$ is another root; their factor is $(x+2)^2+1=x^2+4x+5$. Divide by this factor: successive quotient terms $x^2,-3x,2$ leave remainders $-3x^3-10x^2-7x+10$, then $2x^2+8x+10$, then zero. The quotient is $x^2-3x+2=(x-1)(x-2)$. All roots are $-2\\pm i,1,2$, each once. Expand $(x^2+4x+5)(x^2-3x+2)$ to verify every coefficient.",
+     "check": "Given that $1+3i$ is a root of $x^4+8x^2+16x+20=0$, find all roots by algebra. Verify the factorisation and account for four roots.",
+     "answer": "Real coefficients give $1-3i$, so divide by $x^2-2x+10$. The quotient is $x^2+2x+2$, with zero remainder: subtraction of $x^2$, $2x$, then $2$ times the divisor gives successive remainders $2x^3-2x^2+16x+20$, $2x^2-4x+20$, and zero. Solve $x^2+2x+2=0$ to get $-1\\pm i$. The four roots are $1\\pm3i,-1\\pm i$, all simple; multiplying the two quadratics recovers the quartic.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf p.5; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32 section 1.6(i)",
+     "rubric": [
+      {
+       "point": "Use the conjugate and form $x^2-2x+10$.",
+       "keywords": [
+        [
+         "conjugate",
+         "10"
+        ]
+       ]
+      },
+      {
+       "point": "Divide or match coefficients to get $x^2+2x+2$ with zero remainder.",
+       "keywords": [
+        [
+         "x^2+2x+2",
+         "quotient",
+         "matching"
+        ]
+       ]
+      },
+      {
+       "point": "Solve the residual quadratic and state both conjugate pairs; verify the factor product.",
+       "keywords": [
+        [
+         "-1",
+         "1",
+         "3i",
+         "verify"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Solve a quartic given two real roots",
+     "wordings": [
+      "Solve a quartic given two real roots",
+      "Show your working and give exact values where possible."
+     ],
+     "example": "Example: $f(x)=x^4+7x^3+9x^2-27x-54$ has roots $-3$ and $2$. Form $(x+3)(x-2)=x^2+x-6$. Division uses quotient terms $x^2,6x,9$: the remainders are $6x^3+15x^2-27x-54$, $9x^2+9x-54$, then zero. The quotient $x^2+6x+9=(x+3)^2$ has a repeated root $-3$. Thus $f(x)=(x-2)(x+3)^3$, verified by expansion. The root $2$ is simple and $-3$ has multiplicity three; these account for four roots.",
+     "check": "Given real roots $1$ and $-2$ of $x^4-x^3-2x^2+6x-4=0$, use algebra to solve completely. State multiplicities and verify the factors.",
+     "answer": "The known factor is $(x-1)(x+2)=x^2+x-2$. Division gives $x^2-2x+2$: successive quotient terms $x^2,-2x,2$ leave $-2x^3+6x-4$, then $2x^2+2x-4$, then zero. The residual discriminant is $-4$, so the remaining roots are $1\\pm i$. All four roots $1,-2,1+i,1-i$ have multiplicity one. Expanding $(x^2+x-2)(x^2-2x+2)$ verifies the original quartic.",
+     "source": "Library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf p.5; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf printed p.32 section 1.6(ii)",
+     "rubric": [
+      {
+       "point": "Form the two known linear factors and multiply to $x^2+x-2$.",
+       "keywords": [
+        [
+         "x-1",
+         "x+2",
+         "factor"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain residual $x^2-2x+2$ by division or coefficient matching.",
+       "keywords": [
+        [
+         "x^2-2x+2",
+         "quotient",
+         "matching"
+        ]
+       ]
+      },
+      {
+       "point": "Solve to $1\\pm i$, list the known real roots and state each multiplicity is one.",
+       "keywords": [
+        [
+         "1",
+         "-2",
+         "multiplicity",
+         "simple"
+        ]
+       ]
+      },
+      {
+       "point": "Verify the factor product by expansion or an equivalent exact check.",
+       "keywords": [
+        [
+         "verify",
+         "expand",
+         "substitut"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "One given root of a quartic identifies every other root immediately.",
+     "temptation": "The conjugate rule seems to finish the equation.",
+     "fix": "Use conjugacy only for real coefficients, divide by the paired quadratic and solve the residual quadratic. State repeated-root multiplicities to account for four roots."
+    }
+   ],
+   "prerequisite_bridge": "Bridge: use the cubic conjugate-factor method or form factors from two real roots; revise quadratic solving, polynomial division and coefficient comparison.",
+   "diagrams": [],
+   "diagram_reason": "The two starting conditions require exact factorisation steps and root accounting; the existing Argand card supplies the geometric prerequisite, so no additional visual is requested.",
+   "source_gaps": [
+    "The reviewed sources establish the form and method; no individual official paper mark scheme was audited for these new examples and checks. Rubrics are teaching criteria, not official allocations."
+   ]
   }
+ },
+ "guided_forms": {
+  "FP1-1.1": [
+   "State real and imaginary parts and the conjugate",
+   "Find unknowns by equality of complex numbers",
+   "Find modulus and a quadrant-aware argument",
+   "Convert between Cartesian and polar notation"
+  ],
+  "FP1-1.2": [
+   "Calculate a sum in Cartesian form",
+   "Calculate a product by expansion",
+   "Calculate a quotient using a conjugate",
+   "Use and verify the modulus product rule"
+  ],
+  "FP1-1.3": [
+   "Sketch labelled points and conjugate reflections",
+   "Interpret a sum as vector addition",
+   "Interpret multiplication as scaling and rotation",
+   "Interpret division as inverse scaling and rotation"
+  ],
+  "FP1-1.4": [
+   "Solve a real quadratic with negative discriminant"
+  ],
+  "FP1-1.5": [
+   "Find all cubic roots from one non-real root"
+  ],
+  "FP1-1.6": [
+   "Solve a quartic given a non-real root",
+   "Solve a quartic given two real roots"
+  ]
  }
 }

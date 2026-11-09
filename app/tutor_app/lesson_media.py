@@ -39,8 +39,23 @@ class FigurePixels:
 
 def figure_preview(vault_root: Path, reference: str) -> Panel | None:
     """Fail closed on absent, corrupt, external or unsupported assets; prose remains usable."""
+    return figure_previews(vault_root, [reference])[0]
+
+
+def figure_previews(vault_root: Path, references) -> list[Panel | None]:
+    """Verify one ordered preview scope using one fresh catalog, never cached payloads."""
+    references = list(references)
+    if not references:
+        return []
     try:
         library = AssetLibrary(vault_root)
+    except Exception:
+        return [None for _ in references]
+    return [_figure_preview(library, reference) for reference in references]
+
+
+def _figure_preview(library: AssetLibrary, reference: str) -> Panel | None:
+    try:
         record = library.record(reference)
         suffix = Path(record['path']).suffix.lower()
         if suffix not in {'.svg', '.png', '.jpg', '.jpeg'}:

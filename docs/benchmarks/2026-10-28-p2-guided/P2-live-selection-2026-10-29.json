@@ -1,0 +1,51 @@
+{
+  "model": "qwen3.5:4b",
+  "method": "Direct Ollama selection calls; draft cards; synthetic new-student context; not interactive and no marking",
+  "results": [
+    {
+      "question": "I tested the statement for five numbers and they all work. Why is that not a proof?",
+      "seconds": 6.02,
+      "selection": {
+        "sections": [
+          "P2-1.1|plain_words",
+          "P2-1.1|misconception:0"
+        ]
+      },
+      "rendered": "A proof explains why a claim follows from its assumptions. A few successful examples can suggest a pattern, but they do not establish a claim about every integer.\n\n**Common misconception:** Several examples prove a universal claim.\n\nWhy it is tempting: All checked examples fit the pattern.\n\nFix: Give a general argument or a complete set of cases.",
+      "problem": null
+    },
+    {
+      "question": "I do not understand what a counterexample is. Can you explain?",
+      "seconds": 5.65,
+      "selection": {
+        "sections": [
+          "P2-1.3|plain_words",
+          "P2-1.3|establish"
+        ]
+      },
+      "rendered": "One valid counterexample disproves a claim that says something is true for every allowed value. The value must obey the assumptions and make the conclusion fail.\n\nDisproof by counterexample means giving one input that satisfies the assumptions but makes the claimed conclusion false. For '$n^2-n+1$ is prime for all positive integers $n$', choose $n=5$. Then $n^2-n+1=25-5+1=21=3\\times7$. Because 21 has factors other than 1 and itself, it is composite. Therefore the claim is false. A prime output at another input proves only that instance. The counterexample must lie inside the domain: a negative integer cannot refute a statement restricted to positive integers. Calculate and justify the failure explicitly; merely guessing that a value is not prime is insufficient.",
+      "problem": null
+    },
+    {
+      "question": "How do I know my cases cover every integer?",
+      "seconds": 5.8,
+      "selection": {
+        "sections": [
+          "P2-1.2|plain_words",
+          "P2-1.2|establish"
+        ]
+      },
+      "rendered": "Exhaustion divides the allowed possibilities into cases, then proves the claim in every case. The cases must cover the whole domain. A finite number of cases can also cover infinitely many numbers.\n\nProof by exhaustion means covering all possible cases. First establish a finite, complete list of cases from the assumptions. A case can be a single value or a class containing infinitely many values; prove the conclusion for every value in each case. For positive odd integers less than 7, the only values are $1,3,5$. If both $x$ and $y$ may take these values, the unordered pairs are $(1,1),(1,3),(1,5),(3,3),(3,5),(5,5)$. For the claim that $x+y$ is divisible by 2, their sums are $2,4,6,6,8,10$, all even. Swapping a pair gives the same sum, so unordered pairs suffice here. If the question merely says 'odd integers less than 7', negative odd integers are also allowed and this three-value list is incomplete.",
+      "problem": null
+    },
+    {
+      "question": "What is the capital of France?",
+      "seconds": 0.35,
+      "selection": {
+        "sections": []
+      },
+      "rendered": "",
+      "problem": "No matching explanation was found in these teaching cards."
+    }
+  ]
+}

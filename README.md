@@ -1,12 +1,13 @@
 # STEM Tutor
 
-Version **2.6.1** — see [release notes](docs/releases/v2.6.1.md) and `CHANGELOG.md`;
+Version **2.7.0** — see `CHANGELOG.md`;
 the evidence behind each feature is in `docs/RESEARCH.md`.
 
-This release brings the Library/Work storage migration, shared validated AI replies, local-model improvements,
-and the latest marking, recovery, screen and worker-cleanup fixes together. Extraction candidates remain unpublished;
-inspection, independent review and teaching approval are separate. See the release notes for verification limits and
-[the v2.6.1 push commands](docs/PUSH_V2_6_1.md) for the source-only staging list.
+This release merges Test prep, Topical past papers and Source-verified practice into one Practice mode with an
+entire-course/module picker, groups the home menu into folders (Learn & revise, Questions, Profile & progress, Tools),
+extends "Can I solve this?" to every question, registers 4,461 tagged source-verified questions per course, and starts
+and responds faster. Extraction candidates remain unpublished; inspection, independent review and teaching approval
+are separate. See the release notes for verification limits.
 
 A-Level study system (CAIE 9701/9702, Edexcel IAL Maths/Further Maths): a terminal app for studying, an Obsidian
 vault for reading, and a pure-Python engine that does the teaching logic without AI.

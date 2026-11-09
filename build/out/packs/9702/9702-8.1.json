@@ -44,6 +44,54 @@
    "refutation": "Air motion sweeps powder away from antinodes, leaving heaps at displacement nodes.",
    "contrast": "heaps at nodes versus antinodes",
    "source": "ER 9702 w22 P13 Q26"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-8.1.1",
+   "statement": "Superposition itself requires opposite directions and equal frequencies.",
+   "refutation": "Separate the general addition rule for same-type waves from this particular recurring interference pattern.",
+   "contrast": "Those conditions are used to explain a stationary pattern.",
+   "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 2–5; bundle ER 9702 s23 P11 Q25 and s22 P13 Q27"
+  },
+  {
+   "id": "m7",
+   "kc": "9702-8.1.2",
+   "statement": "A low microwave reading always establishes a node.",
+   "refutation": "Translate a detector with unchanged alignment and locate repeatable minima; rotation also changes its response.",
+   "contrast": "Nodes give low signal readings.",
+   "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 7–8; University of Illinois Physics 401 Experiment 34 pp. 10–12, https://courses.physics.illinois.edu/phys401/fa2013/Files/Microwaves/E34_Spring09.pdf"
+  },
+  {
+   "id": "m8",
+   "kc": "9702-8.1.3",
+   "statement": "The two lines of the existing diagram are component waves to be added.",
+   "refutation": "Read the time labels: these are opposite extreme snapshots of one resultant wave.",
+   "contrast": "Superposition examples often draw two components together.",
+   "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5; bundle MCQ 9702 w21 P13 Q27"
+  },
+  {
+   "id": "m9",
+   "kc": "9702-8.1.3",
+   "statement": "Similar but unequal counter-travelling amplitudes produce exact nodes.",
+   "refutation": "Exact permanent zero-amplitude nodes require equal component amplitudes; unequal amplitudes leave nonzero minima.",
+   "contrast": "Approximate stationary patterns can still show clear minima.",
+   "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5; bundle MCQ 9702 w21 P13 Q27"
+  },
+  {
+   "id": "m10",
+   "kc": "9702-8.1.4",
+   "statement": "Six marked antinodes span six gaps.",
+   "refutation": "Count the intervals between them: the first to sixth position spans five gaps.",
+   "contrast": "The count of positions is given explicitly.",
+   "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf p. 9; bundle ER 9702 s19 P11 Q27; University of Illinois Physics 401 Experiment 34 pp. 10–11, https://courses.physics.illinois.edu/phys401/fa2013/Files/Microwaves/E34_Spring09.pdf"
+  },
+  {
+   "id": "m11",
+   "kc": "9702-8.1.4",
+   "statement": "Any two neighbouring special points are half a wavelength apart.",
+   "refutation": "Check the point types: adjacent same-kind points are half a wavelength apart; a node and its nearest antinode are a quarter wavelength apart.",
+   "contrast": "Adjacent nodes have that separation.",
+   "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf p. 9; bundle ER 9702 s19 P11 Q27; University of Illinois Physics 401 Experiment 34 pp. 10–11, https://courses.physics.illinois.edu/phys401/fa2013/Files/Microwaves/E34_Spring09.pdf"
   }
  ],
  "worked": [
@@ -2198,12 +2246,12 @@
     "ref": "CAIE 9702 · Nov 2022 · P12 · Q26",
     "qid": "9702_w22_12_q26"
    },
-   "stem": "The wavelength of sound in air may be determined by using stationary waves.\nIn one experiment, a loudspeaker produces a sound wave of constant frequency which is\nreflected directly back along its original path by a metal plate approximately 1 m away. A\nmicrophone connected to a cathode-ray oscilloscope (CRO) is moved between the loudspeaker\nand plate to identify regions of high sound intensity (‘loud’ spots) and low sound intensity (‘quiet’\nspots).\nThe wavelength of the sound is determined using the least possible number of measured\nquantities.\nWhich row shows the quantities that are needed?\nfrequency\nof sound\nmean separation\nof ‘quiet’ spots\nspeed of sound\nin air",
+   "stem": "The wavelength of sound in air may be determined by using stationary waves.\nIn one experiment, a loudspeaker produces a sound wave of constant frequency which is\nreflected directly back along its original path by a metal plate approximately 1 m away. A\nmicrophone connected to a cathode-ray oscilloscope (CRO) is moved between the loudspeaker\nand plate to identify regions of high sound intensity (‘loud’ spots) and low sound intensity (‘quiet’\nspots).\nThe wavelength of the sound is determined using the least possible number of measured\nquantities.\nWhich row shows the quantities that are needed?\nfrequency\nof sound\nmean separation\nof ‘quiet’ spots\nspeed of sound\nin air\nKey: ✓ = needed; ✗ = not needed.",
    "options": {
-    "A": "\u0016 \u0016 \u001a key",
-    "B": "\u0016 \u001a \u0016 \u0016 = needed",
-    "C": "\u0016 \u001a \u001a \u001a = not needed",
-    "D": "\u001a \u0016 \u001a"
+    "A": "✓  ✓  ✗",
+    "B": "✓  ✗  ✓",
+    "C": "✓  ✗  ✗",
+    "D": "✗  ✓  ✗"
    },
    "answer": "D",
    "image": "Assets/mcq/9702_w22_12_q26.png",
@@ -3972,7 +4020,103 @@
    "connect": "Stationary waves are a special outcome of superposition: the opposing progressive waves repeatedly combine to produce a fixed pattern.",
    "note": "- Add instantaneous, signed displacements at the same point.\n- Resultant displacement equals their algebraic sum.\n- Equal amplitudes are not required for superposition.",
    "self_explain": "Two pulses have displacements $+4$ mm and $-3$ mm at one point. Explain which quantities you add and why the resultant is positive.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Start with displacement, the signed distance from equilibrium at one instant, from [[7.1 Progressive waves]]. When same-type waves overlap, add what each would do at that same position and time. The maximum excursion, called amplitude, is a different quantity. A stationary pattern needs additional conditions.",
+   "terms": [
+    {
+     "term": "instantaneous displacement",
+     "meaning": "Signed distance from equilibrium at the stated point and instant.",
+     "notation": "$y$",
+     "spoken": "y, displacement",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 2–5; bundle ER 9702 s23 P11 Q25 and s22 P13 Q27"
+    },
+    {
+     "term": "amplitude",
+     "meaning": "Largest magnitude of displacement during an oscillation; it is not the current displacement.",
+     "notation": "$a$",
+     "spoken": "a, amplitude",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 2–5; bundle ER 9702 s23 P11 Q25 and s22 P13 Q27"
+    },
+    {
+     "term": "principle of superposition",
+     "meaning": "When same-type waves overlap, the resultant displacement at a point is their algebraic displacement sum at that instant.",
+     "notation": "$y=y_1+y_2$",
+     "spoken": "resultant y equals y one plus y two",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 2–5; bundle ER 9702 s23 P11 Q25 and s22 P13 Q27"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Signed displacement and conditions for superposition",
+     "wordings": [
+      "State the principle of superposition.",
+      "Determine the resultant displacement and distinguish superposition from stationary-wave conditions."
+     ],
+     "example": "Two sound waves give displacements $+6.0$ mm and $-2.5$ mm at one point and time.\n1. Choose positive displacement in one fixed direction; retain the minus sign for the second wave.\n2. Add instantaneous values: $y=6.0+(-2.5)=+3.5$ mm.\n3. This establishes superposition, even if the sound waves have different frequencies. A stationary pattern with permanent nodes instead needs coherent waves of the same frequency travelling in opposite directions, with equal amplitudes for exact cancellation at nodes. Equal amplitude is not a general superposition condition.",
+     "check": "Two overlapping sound waves at P have instantaneous displacements $-4.5$ mm and $+1.5$ mm. Their frequencies differ. State the principle used, determine the resultant displacement, and explain whether different frequencies prevent superposition or allow a fixed stationary pattern.",
+     "answer": "The resultant displacement at the same point and instant is the algebraic sum: $-4.5+1.5=-3.0$ mm. Both waves are sound, so they superpose despite different frequencies. Their changing relative phase prevents a fixed stationary pattern; that requires the same frequency and opposite travel directions, with equal amplitudes for permanent zero-amplitude nodes.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 2–5; bundle ER 9702 s23 P11 Q25 and s22 P13 Q27",
+     "rubric": [
+      {
+       "point": "Adds instantaneous signed displacements at the same point and time.",
+       "keywords": [
+        [
+         "algebraic sum",
+         "signed displacements",
+         "add displacements"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains $-3.0$ mm, or equivalent signed value and unit.",
+       "keywords": [
+        [
+         "-3",
+         "negative three"
+        ]
+       ]
+      },
+      {
+       "point": "Different frequencies do not prevent same-type waves from superposing.",
+       "keywords": [
+        [
+         "same type",
+         "both sound"
+        ]
+       ]
+      },
+      {
+       "point": "Different frequencies do not produce the fixed stationary pattern described.",
+       "keywords": [
+        [
+         "same frequency",
+         "changing relative phase",
+         "no fixed"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Always add amplitudes when waves overlap.",
+     "temptation": "Amplitude and displacement both have units of length.",
+     "fix": "Read signed instantaneous displacements at the same point and time; amplitudes alone do not specify them.",
+     "id": "m1"
+    },
+    {
+     "idea": "Superposition itself requires opposite directions and equal frequencies.",
+     "temptation": "Those conditions are used to explain a stationary pattern.",
+     "fix": "Separate the general addition rule for same-type waves from this particular recurring interference pattern.",
+     "id": "m6"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The existing asset shows resultant stationary-wave snapshots, not the individual overlapping waves needed for this signed-displacement example; the staged calculation states the signed readings explicitly.",
+   "source_gaps": [
+    "The library introduction sometimes says amplitudes combine; use its formal displacement definition and the Cambridge examiner distinction in the bundle instead."
+   ]
   },
   "9702-8.1.2": {
    "motivate": "How could you observe a wave pattern that stays in place even though its component waves move? Use reflection to send a wave back through the incident wave.",
@@ -3980,7 +4124,191 @@
    "connect": "The fixed minima and maxima in each apparatus are the nodes and antinodes used to analyse formation and wavelength.",
    "note": "- Microwave: transmitter, reflector, moving detector.\n- String: driver, reflected wave, stable loops.\n- Air column: resonance; closed-end node, open-end antinode.\n- Powder gathers at displacement nodes.",
    "self_explain": "Describe one measurement or observation that shows a stationary wave in each of the three apparatuses.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Use reflection to create a returning wave that overlaps the incident wave. From the superposition rule, predict a fixed pattern and then name the actual observation for each apparatus: detector readings, string loops, or powder heaps in a resonant air column.",
+   "terms": [
+    {
+     "term": "incident and reflected waves",
+     "meaning": "The wave approaching a boundary and the wave returning from it; their overlap can form a stationary pattern.",
+     "notation": "incident / reflected",
+     "spoken": "incident and reflected",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6–8"
+    },
+    {
+     "term": "resonance",
+     "meaning": "A large steady response when the driving frequency matches an allowed vibration of the system.",
+     "notation": "$f$",
+     "spoken": "f, driving frequency",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6–8"
+    },
+    {
+     "term": "displacement node in air",
+     "meaning": "A fixed location where air-particle displacement amplitude is zero.",
+     "notation": "N",
+     "spoken": "displacement node",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Microwave demonstration",
+     "wordings": [
+      "Describe how to demonstrate stationary microwaves.",
+      "Explain what a moving detector records between a transmitter and reflector."
+     ],
+     "example": "A transmitter faces a metal plate.\n1. Align the plate perpendicular to propagation so a reflected wave returns through the incident wave.\n2. Keep source and plate fixed and move a suitably aligned detector along the path.\n3. Record repeatable signal maxima and minima at fixed positions. These identify a stationary field pattern rather than a crest moving past the detector. Keep detector orientation unchanged so rotation does not imitate a signal minimum.",
+     "check": "A microwave detector gives alternating high and low signals when translated towards a fixed metal reflector. Explain the origin of the two waves, what observation establishes a stationary pattern, and why detector orientation should be kept fixed.",
+     "answer": "The transmitter supplies the incident microwave and the metal plate reflects it back. They overlap while travelling in opposite directions at the same frequency. Repeatable maxima and minima at fixed positions reveal the stationary pattern. Maintain detector alignment because its signal also depends on orientation; a low reading caused by rotation alone is not evidence of a node.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 7–8; University of Illinois Physics 401 Experiment 34 pp. 10–12, https://courses.physics.illinois.edu/phys401/fa2013/Files/Microwaves/E34_Spring09.pdf",
+     "rubric": [
+      {
+       "point": "Identifies the transmitter wave and its reflection at the metal plate.",
+       "keywords": [
+        [
+         "reflection",
+         "reflected"
+        ]
+       ]
+      },
+      {
+       "point": "Relates fixed repeatable spatial maxima and minima to the overlapping counter-travelling waves.",
+       "keywords": [
+        [
+         "fixed",
+         "repeatable"
+        ]
+       ]
+      },
+      {
+       "point": "Keeps detector orientation unchanged because response depends on alignment.",
+       "keywords": [
+        [
+         "orientation",
+         "alignment",
+         "rotation"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Driven stretched-string demonstration",
+     "wordings": [
+      "Describe how a driven stretched string demonstrates stationary waves.",
+      "Explain the observation of stable loops on a string."
+     ],
+     "example": "A string under steady tension is driven by an oscillator and reflects waves from its far end.\n1. Adjust the driving frequency until clear stable loops appear.\n2. Observe positions that remain still between the vibrating loops: these are nodes.\n3. The centres of the loops have the greatest amplitude. Incident and reflected waves of the driving frequency superpose; the pattern remains fixed although particles move transversely.",
+     "check": "A stretched string driven at a suitable constant frequency forms two stable loops separated by a point that stays still. Explain how the pattern forms, identify the still point and the loop centres, and state whether the loops travel along the string.",
+     "answer": "The driver launches an incident wave that reflects at the far end. Same-frequency waves travelling in opposite directions superpose. The point that remains still is a node; each loop centre is an antinode of maximum amplitude. The loops remain in fixed positions while string particles vibrate transversely.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6–7",
+     "rubric": [
+      {
+       "point": "Incident driver wave overlaps a wave reflected at the far end.",
+       "keywords": [
+        [
+         "reflected",
+         "reflection"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies still point as a node and loop centres as antinodes.",
+       "keywords": [
+        [
+         "node"
+        ]
+       ]
+      },
+      {
+       "point": "States that the loop pattern stays fixed while particles oscillate.",
+       "keywords": [
+        [
+         "fixed",
+         "do not travel",
+         "remain in"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Resonant air-column demonstration",
+     "wordings": [
+      "Describe a stationary sound-wave experiment in a closed-open tube.",
+      "Identify displacement nodes and antinodes from powder heaps and boundaries."
+     ],
+     "example": "Place a loudspeaker at the open end of a horizontal tube closed at the far end, containing a little dry powder.\n1. Vary the driving frequency until resonance produces a clear pattern. Sound reflects at the closed end and overlaps the incident sound.\n2. Powder is displaced from regions of strong air motion and collects in regularly spaced heaps where motion is least: displacement nodes.\n3. The closed end is a displacement node; the open end is a displacement antinode. Air particles oscillate along the tube. End corrections are neglected.",
+     "check": "A loudspeaker drives a horizontal tube closed at the far end. At one frequency, dry powder forms evenly spaced heaps. Explain the wave formation and what the heaps show; identify the displacement condition at each end and the direction of air-particle oscillation. Neglect end corrections.",
+     "answer": "Incident sound from the speaker reflects at the closed end. The same-frequency incident and reflected waves overlap in opposite directions, creating a stationary pattern. The heaps mark displacement nodes where air motion is least. The closed end is a displacement node and the open end a displacement antinode. Air particles oscillate longitudinally, parallel to the tube.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf p. 8; bundle ER 9702 s19 P23 Q5 and MCQ 9702 w22 P13 Q26",
+     "rubric": [
+      {
+       "point": "Sound reflects at the closed end and overlaps the incident wave.",
+       "keywords": [
+        [
+         "reflection",
+         "reflected"
+        ]
+       ]
+      },
+      {
+       "point": "Powder heaps mark displacement nodes with least air motion.",
+       "keywords": [
+        [
+         "node",
+         "least motion",
+         "minimum amplitude"
+        ]
+       ]
+      },
+      {
+       "point": "Closed end is a displacement node.",
+       "keywords": [
+        [
+         "closed"
+        ]
+       ]
+      },
+      {
+       "point": "Open end is a displacement antinode.",
+       "keywords": [
+        [
+         "antinode"
+        ]
+       ]
+      },
+      {
+       "point": "Air particles oscillate parallel to the tube.",
+       "keywords": [
+        [
+         "parallel",
+         "longitudinal",
+         "along the tube"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "A low microwave reading always establishes a node.",
+     "temptation": "Nodes give low signal readings.",
+     "fix": "Translate a detector with unchanged alignment and locate repeatable minima; rotation also changes its response.",
+     "id": "m7"
+    },
+    {
+     "idea": "Powder heaps mark displacement antinodes.",
+     "temptation": "The heaps are the most conspicuous feature.",
+     "fix": "They form where air motion is least, at displacement nodes; distinguish visible powder from air-particle motion.",
+     "id": "m5"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The only existing pack diagram is a displacement snapshot, with no transmitter, string driver or tube apparatus; it cannot serve as an apparatus drawing. The three staged descriptions name the apparatus and observations explicitly.",
+   "source_gaps": [
+    "The reviewed library pages describe apparatus qualitatively; detector orientation control is supplied by the university laboratory manual."
+   ]
   },
   "9702-8.1.3": {
    "motivate": "A snapshot of a string can cross equilibrium in many places. Which of those places stay still through an entire oscillation?",
@@ -3988,7 +4316,181 @@
    "connect": "The sequence of fixed nodes and antinodes supplies a spatial ruler for determining wavelength.",
    "note": "- Opposite directions, same frequency, similar amplitudes.\n- Add two profiles point by point at successive times.\n- Node: zero amplitude; antinode: maximum amplitude.\n- Adjacent loops oscillate in antiphase.",
    "self_explain": "How would two displacement snapshots distinguish a genuine node from a point momentarily at equilibrium?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Build on the incident and reflected waves in the experiments: at each position add their signed displacements, then repeat at later times. A node stays at zero for the whole cycle; an antinode has the largest amplitude even though it also passes through equilibrium. For ideal exact nodes, take equal component amplitudes.",
+   "terms": [
+    {
+     "term": "node",
+     "meaning": "Fixed position with zero amplitude: displacement is zero throughout the cycle.",
+     "notation": "N",
+     "spoken": "node",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5"
+    },
+    {
+     "term": "antinode",
+     "meaning": "Fixed position at which oscillation amplitude is greatest.",
+     "notation": "A",
+     "spoken": "antinode",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5"
+    },
+    {
+     "term": "phase in a loop",
+     "meaning": "Non-node particles between adjacent nodes reach corresponding stages together; neighbouring loops oscillate oppositely.",
+     "notation": "$0$ or $\\pi$ rad",
+     "spoken": "zero or pi radians phase difference",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5"
+    },
+    {
+     "term": "period",
+     "meaning": "Time for one complete oscillation; half a period reverses the displacement profile.",
+     "notation": "$T$",
+     "spoken": "T, period",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6–9"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Graphical formation by signed displacement addition",
+     "wordings": [
+      "Use a graphical method to explain formation of a stationary wave.",
+      "Construct the resultant profile at successive instants."
+     ],
+     "example": "Take two equal-amplitude waves of the same frequency moving in opposite directions. Their component amplitude is $2$ mm. Use a common position axis marked $x/\\lambda=0,1/4,1/2,3/4,1$.\n1. At $t=0$, each component has signed readings $(0,+2,0,-2,0)$ mm. Add corresponding values, giving resultant $(0,+4,0,-4,0)$ mm; plot and smoothly join these points.\n2. A quarter-period later the components have readings $(-2,0,+2,0,-2)$ mm and $(+2,0,-2,0,+2)$ mm. Each sum is zero; draw the equilibrium line.\n3. At $t=T/2$, both have readings $(0,-2,0,+2,0)$ mm, giving $(0,-4,0,+4,0)$ mm. Plot the reversed resultant profile. The individual profiles move in opposite directions while the resultant node positions remain fixed.\n4. Across the whole cycle, the two component displacements cancel at $x=0,\\lambda/2,\\lambda$. These are nodes; $\\lambda/4$ and $3\\lambda/4$ have maximum amplitude. The existing diagram shows only the resultant at the two extremes, not the component profiles.",
+     "check": "Two equal-amplitude counter-travelling waves of the same frequency produce an ideal stationary wave. At one instant the whole string is at equilibrium. At X the component displacements are then $+1$ mm and $-1$ mm; later they are $+2$ mm and $+2$ mm. At Y the components cancel at every instant of the cycle. Determine the two stated resultants at X, identify which point is a node, and explain the phase relation of non-node particles in neighbouring loops.",
+     "answer": "At X the resultants are $0$ mm and then $+4$ mm, so X is not a node despite its first zero displacement. Y is a node because cancellation persists throughout the cycle, giving zero amplitude. Particles in neighbouring loops are in antiphase: when one loop moves upwards the other moves downwards, with phase difference $\\pi$ rad. Nodes themselves do not oscillate and have no oscillation phase.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5; bundle MCQ 9702 w21 P13 Q27",
+     "rubric": [
+      {
+       "point": "Adds corresponding signed displacements to obtain $0$ mm and $+4$ mm at X.",
+       "keywords": [
+        [
+         "+4",
+         "4 mm",
+         "four"
+        ]
+       ]
+      },
+      {
+       "point": "X is not a node because it later has nonzero displacement.",
+       "keywords": [
+        [
+         "not a node",
+         "nonzero",
+         "non-zero"
+        ]
+       ]
+      },
+      {
+       "point": "Y is a node because its displacement is always zero.",
+       "keywords": [
+        [
+         "always zero",
+         "throughout",
+         "every instant"
+        ]
+       ]
+      },
+      {
+       "point": "Neighbouring loops oscillate in antiphase.",
+       "keywords": [
+        [
+         "antiphase",
+         "180",
+         "pi"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Nodes, antinodes and phase from snapshots",
+     "wordings": [
+      "Identify nodes and antinodes on a stationary-wave diagram.",
+      "Explain why a zero displacement is insufficient evidence of a node."
+     ],
+     "example": "In the linked diagram, inspect the solid profile at $t=0$ and dashed profile at $t=T/2$.\n1. N marks the fixed nodes at $0,\\lambda/2,\\lambda$; A marks maximum-amplitude positions halfway between them.\n2. An antinode reverses displacement after half a period and crosses equilibrium between these extremes, so zero displacement on one snapshot does not identify a node.\n3. Non-node particles inside one loop oscillate in phase; those in adjacent loops oscillate in antiphase. Their amplitudes need not be equal. The two curves show two times, not two waves to be added.",
+     "check": "On an ideal stationary string Z stays still throughout a cycle. P and Q are non-node points in the same loop but at unequal distances from its antinode. R lies in the neighbouring loop. Identify Z and explain whether P and Q must have equal amplitudes, how their phases compare, and how P and R compare in phase.",
+     "answer": "Z is a node. P and Q oscillate in phase but need not have equal amplitudes because amplitude varies with position within a loop. P and R oscillate in antiphase. Phase describes timing within a cycle, whereas amplitude describes maximum displacement.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5; bundle ER 9702 s19 P23 Q5 and MCQ 9702 w23 P11 Q25",
+     "rubric": [
+      {
+       "point": "Identifies Z as a node.",
+       "keywords": [
+        [
+         "node"
+        ]
+       ]
+      },
+      {
+       "point": "P and Q oscillate in phase.",
+       "keywords": [
+        [
+         "in phase"
+        ]
+       ]
+      },
+      {
+       "point": "P and Q need not have equal amplitudes.",
+       "keywords": [
+        [
+         "unequal",
+         "different amplitudes",
+         "need not"
+        ]
+       ]
+      },
+      {
+       "point": "P and R oscillate in antiphase.",
+       "keywords": [
+        [
+         "antiphase",
+         "180",
+         "pi"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Zero displacement in a snapshot means a node.",
+     "temptation": "A node always has zero displacement.",
+     "fix": "Check motion over an entire cycle: an antinode also crosses equilibrium, whereas a node has zero amplitude.",
+     "id": "m2"
+    },
+    {
+     "idea": "The two lines of the existing diagram are component waves to be added.",
+     "temptation": "Superposition examples often draw two components together.",
+     "fix": "Read the time labels: these are opposite extreme snapshots of one resultant wave.",
+     "id": "m8"
+    },
+    {
+     "idea": "Similar but unequal counter-travelling amplitudes produce exact nodes.",
+     "temptation": "Approximate stationary patterns can still show clear minima.",
+     "fix": "Exact permanent zero-amplitude nodes require equal component amplitudes; unequal amplitudes leave nonzero minima.",
+     "id": "m9"
+    }
+   ],
+   "diagrams": [
+    "Assets/9702/9702-8.1-stationary-snapshots.svg"
+   ],
+   "diagram_descriptions": [
+    "Registered stationary-string diagram: solid at time zero and dashed half a period later show opposite extrema of the same resultant, not component waves. Nodes stay at positions zero, half a wavelength and one wavelength. Antinodes are a quarter and three quarters of a wavelength from the left node. Neighbouring loops have opposite signs. The bottom bracket spans a quarter wavelength from the first node to its nearest antinode; its arrow glyphs render as boxes, so use the written description."
+   ],
+   "diagram_provenance": [
+    {
+     "reference": "Assets/9702/9702-8.1-stationary-snapshots.svg",
+     "canonical_path": "Library/Courses/9702/Diagrams/9702/9702-8.1-stationary-snapshots.svg",
+     "sha256": "90a2fc0696cda1a90fa4272cd3515f0b48731726988907b48dc64dc379cb8361",
+     "source": "Existing registered Library diagram, original provenance retained.",
+     "caption": "Opposite extreme displacement profiles half a period apart.",
+     "inspection": "CairoSVG raster compared with the inspected renderer output: fixed nodes, opposite loops and quarter-wavelength bracket; bracket arrow glyph limitation reported for source-bound review."
+    }
+   ],
+   "source_gaps": [
+    "The existing diagram contains only resultant snapshots; the numerical component profiles in the graphical example are an original construction checked against two counter-travelling sinusoids."
+   ]
   },
   "9702-8.1.4": {
    "motivate": "The wave moves back and forth, but the node positions stay fixed. Their spacing lets you measure the travelling waves' wavelength.",
@@ -3996,7 +4498,175 @@
    "connect": "Once wavelength is known, the progressive-wave relation $v=f\\lambda$ can give frequency or speed when the other quantity is supplied.",
    "note": "- Adjacent nodes or antinodes: $\\lambda/2$.\n- Nearest node to antinode: $\\lambda/4$.\n- Count gaps, average their separation, then double.\n- Closed-open fundamental: $L=\\lambda/4$.",
    "self_explain": "The first and fourth nodes are $0.90$ m apart. Explain the interval count before finding the wavelength.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "From the fixed node pattern, use adjacent positions of the same kind as a ruler: each gap is half a wavelength. Count gaps, not the marked points. Spread the same position-reading uncertainty over several gaps by measuring a longer span.",
+   "terms": [
+    {
+     "term": "wavelength",
+     "meaning": "Distance over one spatial cycle of either component progressive wave.",
+     "notation": "$\\lambda$",
+     "spoken": "lambda, wavelength",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf p. 9; bundle ER 9702 s19 P11 Q27; University of Illinois Physics 401 Experiment 34 pp. 10–11, https://courses.physics.illinois.edu/phys401/fa2013/Files/Microwaves/E34_Spring09.pdf"
+    },
+    {
+     "term": "successive nodes or antinodes",
+     "meaning": "Neighbouring positions of the same kind, separated by half a wavelength.",
+     "notation": "$d=\\lambda/2$",
+     "spoken": "d equals half lambda",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf p. 9; bundle ER 9702 s19 P11 Q27; University of Illinois Physics 401 Experiment 34 pp. 10–11, https://courses.physics.illinois.edu/phys401/fa2013/Files/Microwaves/E34_Spring09.pdf"
+    },
+    {
+     "term": "nearest node to antinode",
+     "meaning": "A node and its nearest antinode are separated by one quarter wavelength.",
+     "notation": "$s=\\lambda/4$",
+     "spoken": "s equals one quarter lambda",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5"
+    },
+    {
+     "term": "interval count",
+     "meaning": "Number of gaps between the first and last marked position, one fewer than the number of successive positions.",
+     "notation": "$n$",
+     "spoken": "n, number of intervals",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf p. 9; bundle ER 9702 s19 P11 Q27; University of Illinois Physics 401 Experiment 34 pp. 10–11, https://courses.physics.illinois.edu/phys401/fa2013/Files/Microwaves/E34_Spring09.pdf"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Wavelength from several successive nodes or antinodes",
+     "wordings": [
+      "Determine wavelength from several successive nodes or antinodes.",
+      "Explain why measuring across several intervals improves the result."
+     ],
+     "example": "The second and seventh successive nodes have ruler coordinates $12.0$ cm and $87.0$ cm.\n1. Subtract coordinates: total distance $D=87.0-12.0=75.0$ cm.\n2. Count gaps: $n=7-2=5$, rather than six marked nodes.\n3. Average spacing $d=D/n=15.0$ cm; each adjacent-node gap is $\\lambda/2$, so $\\lambda=2d=30.0$ cm, or $0.300$ m.\n4. With comparable endpoint-position uncertainty, the longer span has smaller fractional uncertainty; division by five reduces its contribution to the mean gap. Repeating measurements helps test repeatability. The same method works for successive antinodes or detector minima.",
+     "check": "The first and sixth successive antinodes have ruler coordinates $8.0$ cm and $68.0$ cm. Determine the wavelength, showing the gap count. Explain why this span is preferable to measuring just one adjacent-antinode gap when the endpoint-position uncertainty is comparable.",
+     "answer": "There are $6-1=5$ gaps. The span is $68.0-8.0=60.0$ cm, so average spacing is $60.0/5=12.0$ cm and $\\lambda=2(12.0)=24.0$ cm, or $0.240$ m. Measuring a longer span makes a comparable absolute endpoint uncertainty a smaller fraction of the distance, and division by the gap count reduces uncertainty in the mean spacing. Any equivalent direct method such as $\\lambda=2D/5$ is valid.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf p. 9; bundle ER 9702 s19 P11 Q27; University of Illinois Physics 401 Experiment 34 pp. 10–11, https://courses.physics.illinois.edu/phys401/fa2013/Files/Microwaves/E34_Spring09.pdf",
+     "rubric": [
+      {
+       "point": "Counts five intervals between the six successive antinodes.",
+       "keywords": [
+        [
+         "5",
+         "five"
+        ]
+       ]
+      },
+      {
+       "point": "Determines span $60.0$ cm and mean spacing $12.0$ cm, or equivalent direct method.",
+       "keywords": [
+        [
+         "60",
+         "0.60",
+         "12",
+         "0.12"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains wavelength $24.0$ cm or $0.240$ m with unit.",
+       "keywords": [
+        [
+         "24",
+         "0.240",
+         "0.24"
+        ]
+       ]
+      },
+      {
+       "point": "Explains smaller fractional uncertainty for a longer measured span with comparable endpoint uncertainty.",
+       "keywords": [
+        [
+         "fractional",
+         "percentage",
+         "relative uncertainty",
+         "divid"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Wavelength from nearest node and antinode",
+     "wordings": [
+      "Determine wavelength from a node and its nearest antinode.",
+      "Distinguish half-wavelength spacing from quarter-wavelength spacing."
+     ],
+     "example": "A node and its nearest antinode are $7.5$ cm apart.\n1. Identify unlike neighbours: this is $\\lambda/4$, not $\\lambda/2$.\n2. Multiply by four: $\\lambda=4(7.5)=30$ cm, or $0.30$ m.\n3. Check the pattern: the next node is another $7.5$ cm beyond that antinode, making adjacent-node spacing $15$ cm, exactly half the calculated wavelength.",
+     "check": "A stationary pattern has a node at coordinate $5.0$ cm and its nearest antinode at $11.0$ cm. Determine the wavelength and the coordinate of the next node beyond that antinode.",
+     "answer": "The nearest node-antinode separation is $11.0-5.0=6.0$ cm, equal to $\\lambda/4$. Hence $\\lambda=24.0$ cm, or $0.240$ m. The next node is another $6.0$ cm beyond the antinode, at $17.0$ cm.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c8.1.pdf pp. 6, 8–9; bundle ER 9702 w20 P21 Q6 and s19 P23 Q5; bundle ER 9702 w20 P21 Q6",
+     "rubric": [
+      {
+       "point": "Recognises nearest unlike neighbours are separated by a quarter wavelength.",
+       "keywords": [
+        [
+         "quarter",
+         "/4"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains wavelength $24.0$ cm or $0.240$ m.",
+       "keywords": [
+        [
+         "24",
+         "0.240",
+         "0.24"
+        ]
+       ]
+      },
+      {
+       "point": "Locates next node at coordinate $17.0$ cm.",
+       "keywords": [
+        [
+         "17"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Six marked antinodes span six gaps.",
+     "temptation": "The count of positions is given explicitly.",
+     "fix": "Count the intervals between them: the first to sixth position spans five gaps.",
+     "id": "m10"
+    },
+    {
+     "idea": "Any two neighbouring special points are half a wavelength apart.",
+     "temptation": "Adjacent nodes have that separation.",
+     "fix": "Check the point types: adjacent same-kind points are half a wavelength apart; a node and its nearest antinode are a quarter wavelength apart.",
+     "id": "m11"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9702/Diagrams/9702/9702-8.1-stationary-snapshots.svg"
+   ],
+   "diagram_descriptions": [
+    "The existing registered displacement diagram marks nodes at zero, half a wavelength and one wavelength, with an antinode midway between each pair. The first node to its nearest antinode bracket spans a quarter wavelength. Two consecutive node gaps together span one wavelength; the solid and dashed curves show different times, not different measured spacings."
+   ],
+   "source_gaps": [
+    "The linked existing diagram marks spacing relations but is schematic and has no calibrated ruler; the numerical examples provide their own position data."
+   ]
   }
+ },
+ "guided_forms": {
+  "9702-8.1.1": [
+   "Signed displacement and conditions for superposition"
+  ],
+  "9702-8.1.2": [
+   "Microwave demonstration",
+   "Driven stretched-string demonstration",
+   "Resonant air-column demonstration"
+  ],
+  "9702-8.1.3": [
+   "Graphical formation by signed displacement addition",
+   "Nodes, antinodes and phase from snapshots"
+  ],
+  "9702-8.1.4": [
+   "Wavelength from several successive nodes or antinodes",
+   "Wavelength from nearest node and antinode"
+  ]
  }
 }

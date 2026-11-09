@@ -625,11 +625,381 @@
     "answer": "A",
     "explanation": "Sigma notation adds the indicated power of each indexed term. Here the terms are $1^3$, $2^3$, and $3^3$."
    },
-   "establish": "A finite series $\\sum_{r=a}^{b}f(r)$ adds $f(a)+f(a+1)+\\cdots+f(b)$. For the first $n$ positive integers, $\\sum r=n(n+1)/2$, $\\sum r^2=n(n+1)(2n+1)/6$, and $\\sum r^3=[n(n+1)/2]^2$, with every sum running from $r=1$ to $n$. To sum $r(r+2)$, expand it as $r^2+2r$ and use linearity: $\\sum r(r+2)=\\sum r^2+2\\sum r=n(n+1)(2n+7)/6$. For a lower limit $a>1$, subtract the terms up to $a-1$ from the sum up to $b$. The method of differences is not required. Verify a result by direct addition for a small upper limit.",
-   "connect": "The integer-sum formula builds on arithmetic series in P2. Splitting a polynomial sum extends that idea to squares, cubes, and products such as $r(r+2)$.",
-   "note": "- $\\sum_{r=1}^{n}r^2=n(n+1)(2n+1)/6$.\n- $\\sum_{r=1}^{n}r^3=[n(n+1)/2]^2$.\n- Expand $r(r+2)=r^2+2r$, then split the sum.\n- For $r=a$ to $b$, subtract the sum through $a-1$ from the sum through $b$.",
+   "establish": "A finite series $\\sum_{r=a}^{b}f(r)$ adds $f(a)+f(a+1)+\\cdots+f(b)$. For the first $n$ positive integers, $\\sum r=n(n+1)/2$, $\\sum r^2=n(n+1)(2n+1)/6$, and $\\sum r^3=[n(n+1)/2]^2$, with every sum running from $r=1$ to $n$. To sum $r(r+2)$, expand it as $r^2+2r$ and use linearity: $\\sum r(r+2)=\\sum r^2+2\\sum r=n(n+1)(2n+7)/6$. For a lower limit $a>1$, subtract the terms up to $a-1$ from the sum up to $b$. The method of differences is not required. Verify a result by direct addition for a small upper limit.\nA small-$n$ test is a diagnostic: a failure disproves a proposed identity, but successful tests do not establish it for every positive integer. For Show that, expand, split, substitute the standard formulae and factor for arbitrary $n$.",
+   "connect": "The integer-sum formula builds on arithmetic series in P2. Splitting a polynomial sum extends that idea to squares, cubes, and products such as $r(r+2)$.\nPrerequisite bridge, P2-4.2: in [[4 Sequences and series]], take first term $1$, common difference $1$, last term $n$ and $n$ terms. The arithmetic-series formula gives $S=n(1+n)/2$. Squares and cubes are not arithmetic sequences: use their own standard sum formulae.",
+   "note": "- $\\sum_{r=1}^{n}r^2=n(n+1)(2n+1)/6$.\n- $\\sum_{r=1}^{n}r^3=[n(n+1)/2]^2$.\n- Expand $r(r+2)=r^2+2r$, then split the sum.\n- For $r=a$ to $b$, subtract the sum through $a-1$ from the sum through $b$.\n- A small-$n$ test can reveal an error; a general algebraic derivation establishes the identity.",
    "self_explain": "Why is $\\sum_{r=1}^{n}r(r+2)$ a sum of squares plus twice a sum of integers, and why does a sum starting at $r=a$ subtract through $a-1$?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A series adds terms; sigma notation tells you which terms to add. First read the limits, then expand the term and split it into standard sums. The index changes inside the sum, while the final answer depends only on the limits. Here $n$ is a positive integer.",
+   "terms": [
+    {
+     "term": "finite series",
+     "meaning": "The total obtained by adding finitely many terms.",
+     "notation": "$f(a)+f(a+1)+\\cdots+f(b)$",
+     "spoken": "f of a plus f of a plus one, continuing up to f of b",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, p.2"
+    },
+    {
+     "term": "index",
+     "meaning": "The integer that selects the current term; it changes by one at each step.",
+     "notation": "$r$",
+     "spoken": "r",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, p.2"
+    },
+    {
+     "term": "limits",
+     "meaning": "The inclusive starting and ending index values; there are b minus a plus one terms.",
+     "notation": "$a,b$ in $\\sum_{r=a}^{b}f(r)$",
+     "spoken": "lower limit a and upper limit b",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, p.2"
+    },
+    {
+     "term": "sigma notation",
+     "meaning": "Compact notation for adding the indicated terms over the stated integer range.",
+     "notation": "$\\sum_{r=a}^{b}f(r)$",
+     "spoken": "sum of f of r from r equals a to b",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, p.2"
+    },
+    {
+     "term": "summand",
+     "meaning": "The expression evaluated at each index before the results are added.",
+     "notation": "$f(r)$",
+     "spoken": "f of r",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, p.2"
+    },
+    {
+     "term": "linearity",
+     "meaning": "You can split addition and subtraction and take constant coefficients outside sums with identical limits.",
+     "notation": "$\\sum(af(r)+bg(r))=a\\sum f(r)+b\\sum g(r)$",
+     "spoken": "sum of a f of r plus b g of r equals a times the first sum plus b times the second sum",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, p.8"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Expansion and linearity",
+     "wordings": [
+      "Write out the terms.",
+      "Expand and split the sum."
+     ],
+     "example": "Find $\\sum_{r=2}^{4}r(r+3)$. Step 1: read the inclusive indices $2,3,4$, giving $2(5)+3(6)+4(7)$. Step 2: expand $r(r+3)=r^2+3r$, so this is $\\sum_{r=2}^{4}r^2+3\\sum_{r=2}^{4}r$. Step 3: evaluate $(4+9+16)+3(2+3+4)=29+27=56$. Each term is counted once; multiplying two sums would introduce unwanted cross terms.",
+     "check": "Write out and evaluate $\\sum_{r=3}^{5}r(r+4)$, then give its split into standard sums.",
+     "answer": "$3(7)+4(8)+5(9)=21+32+45=98$; the split is $\\sum_{r=3}^{5}r^2+4\\sum_{r=3}^{5}r$.",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, pp.2,8",
+     "rubric": [
+      {
+       "point": "Uses precisely the terms at indices 3, 4 and 5.",
+       "keywords": [
+        [
+         "3",
+         "21"
+        ]
+       ]
+      },
+      {
+       "point": "Splits into the squares sum plus four times the integer sum with limits 3 to 5.",
+       "keywords": [
+        [
+         "split",
+         "squares",
+         "\\sum"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains the exact total 98.",
+       "keywords": [
+        [
+         "98"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Standard sums",
+     "wordings": [
+      "Calculate a sum of squares or cubes.",
+      "Use the standard summation formulae."
+     ],
+     "example": "Calculate $\\sum_{r=1}^{6}r^2$ and $\\sum_{r=1}^{4}r^3$. Step 1: match each power to its own formula. Step 2: the squares give $6(7)(13)/6=91$. Step 3: the cubes give $[4(5)/2]^2=10^2=100$. The square outside the brackets belongs to the cube-sum identity, not to the squares sum.",
+     "check": "Calculate $\\sum_{r=1}^{8}r^2$ and $\\sum_{r=1}^{5}r^3$, showing the substitutions.",
+     "answer": "$8(9)(17)/6=204$ and $[5(6)/2]^2=225$.",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, pp.4–8",
+     "rubric": [
+      {
+       "point": "Substitutes 8 into the square-sum formula.",
+       "keywords": [
+        [
+         "8",
+         "squares"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains 204.",
+       "keywords": [
+        [
+         "204"
+        ]
+       ]
+      },
+      {
+       "point": "Substitutes 5 into the cube-sum formula and squares the triangular number.",
+       "keywords": [
+        [
+         "5",
+         "cubes"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains 225.",
+       "keywords": [
+        [
+         "225"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Changed lower limits",
+     "wordings": [
+      "Calculate a sum whose lower limit exceeds one.",
+      "Express the sum as a difference of two standard sums."
+     ],
+     "example": "Find $\\sum_{r=4}^{7}r^2$. Step 1: set $S_2(k)=k(k+1)(2k+1)/6$. Step 2: write $S_2(7)-S_2(3)$, since only indices 1, 2 and 3 must be removed. Step 3: substitute $7(8)(15)/6-3(4)(7)/6=140-14=126$. Direct addition $16+25+36+49=126$ checks the arithmetic.",
+     "check": "Calculate $\\sum_{r=5}^{8}r^3$ using standard sums and explain your subtraction limit.",
+     "answer": "$S_3(8)-S_3(4)=[8(9)/2]^2-[4(5)/2]^2=1296-100=1196$. Subtract through 4 so the term at index 5 remains.",
+     "source": "Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, pp.2,5,8",
+     "rubric": [
+      {
+       "point": "Subtracts the cube sum through 4 from the cube sum through 8.",
+       "keywords": [
+        [
+         "4",
+         "S_3(4)"
+        ]
+       ]
+      },
+      {
+       "point": "Uses the cube-sum formula at both limits, giving 1296 and 100.",
+       "keywords": [
+        [
+         "1296"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains 1196 and explains that the term at index 5 must remain.",
+       "keywords": [
+        [
+         "1196"
+        ]
+       ]
+      },
+      {
+       "point": "Explains that only terms preceding the lower limit are removed.",
+       "keywords": [
+        [
+         "before",
+         "preceding",
+         "remains",
+         "retain"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Cubic products",
+     "wordings": [
+      "Expand a product and sum using the cube and integer formulae.",
+      "Find a simplified expression in n."
+     ],
+     "example": "Find $\\sum_{r=1}^{n}r(r^2+2)$. Step 1: expand $r(r^2+2)=r^3+2r$. Step 2: split $\\sum_{r=1}^{n}r^3+2\\sum_{r=1}^{n}r$. Step 3: substitute $n^2(n+1)^2/4+n(n+1)$. Step 4: factor $n(n+1)/4$ to obtain $n(n+1)[n(n+1)+4]/4=n(n+1)(n^2+n+4)/4$. At $n=2$ the terms total $3+12=15$, consistent with the expression; the algebra, rather than this single test, establishes the result for all positive integers.",
+     "check": "Find a simplified expression for $\\sum_{r=1}^{n}r(r^2+6)$, showing expansion, splitting and substitution.",
+     "answer": "$r(r^2+6)=r^3+6r$, so the sum is $n^2(n+1)^2/4+3n(n+1)=n(n+1)(n^2+n+12)/4$. An equivalent expanded polynomial is valid.",
+     "source": "Pearson Edexcel IAL Mathematics specification Issue 3, printed p.34 (PDF p.40), FP1 7.1: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf; Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, p.8 (general polynomial combinations); original teaching example",
+     "rubric": [
+      {
+       "point": "Expands to the cube term plus six times the linear term.",
+       "keywords": [
+        [
+         "r^3",
+         "cube"
+        ]
+       ]
+      },
+      {
+       "point": "Splits into a cube sum and six times an integer sum with the same limits.",
+       "keywords": [
+        [
+         "6",
+         "six"
+        ]
+       ]
+      },
+      {
+       "point": "Correctly substitutes both standard formulae.",
+       "keywords": [
+        [
+         "n(n+1)",
+         "standard"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains the stated polynomial or an algebraically equivalent expression.",
+       "keywords": [
+        [
+         "12",
+         "equivalent"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Find $\\sum_{r=1}^{n}r(2r^2+3)$ in factorised form, showing your standard-sum substitutions.",
+      "answer": "$2\\sum r^3+3\\sum r=n^2(n+1)^2/2+3n(n+1)/2=n(n+1)(n^2+n+3)/2$.",
+      "rubric": [
+       {
+        "point": "Expands and splits to twice the cube sum plus three times the integer sum.",
+        "keywords": [
+         [
+          "2",
+          "twice"
+         ]
+        ]
+       },
+       {
+        "point": "Substitutes both standard formulae correctly.",
+        "keywords": [
+         [
+          "n(n+1)",
+          "formula"
+         ]
+        ]
+       },
+       {
+        "point": "Obtains the given factorised expression or an equivalent one.",
+        "keywords": [
+         [
+          "3",
+          "equivalent"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Show that and diagnostic checks",
+     "wordings": [
+      "Show that an identity holds for every positive integer.",
+      "Explain whether checking a few values proves an identity."
+     ],
+     "example": "Show that $\\sum_{r=1}^{n}r(r+1)=n(n+1)(n+2)/3$. Step 1: expand $r(r+1)=r^2+r$. Step 2: split into $\\sum r^2+\\sum r$, both from 1 to $n$. Step 3: substitute $n(n+1)(2n+1)/6+n(n+1)/2$. Step 4: factor $n(n+1)[(2n+1)+3]/6=n(n+1)(n+2)/3$. Testing $n=1$ gives $2=2$, a useful diagnostic but not proof of the general identity. The displayed algebra applies to arbitrary positive integer $n$.",
+     "check": "A learner tests $n=1$ and $n=2$ and says this proves $\\sum_{r=1}^{n}r(r+4)=n(n+1)(2n+13)/6$. Explain the limitation and supply a complete algebraic derivation.",
+     "answer": "Two tests only check two cases. For arbitrary positive integer $n$, expand $r(r+4)=r^2+4r$, split into $\\sum r^2+4\\sum r$, then substitute $n(n+1)(2n+1)/6+2n(n+1)$. Factor to get $n(n+1)[(2n+1)+12]/6=n(n+1)(2n+13)/6$. This establishes the identity for every positive integer; a failed test would refute it.",
+     "source": "Library: sources/library/SaveMyExams/YMA01 pure-2/YMA01 c1.1.pdf, pp.4–5; Library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, pp.3–4,8; chapter bundle command word Show that",
+     "rubric": [
+      {
+       "point": "Explains why success at two values does not establish all positive integer cases.",
+       "keywords": [
+        [
+         "two",
+         "all",
+         "general"
+        ]
+       ]
+      },
+      {
+       "point": "Expands and splits into a squares sum plus four times an integer sum.",
+       "keywords": [
+        [
+         "4",
+         "four"
+        ]
+       ]
+      },
+      {
+       "point": "Substitutes the two standard formulae for arbitrary n.",
+       "keywords": [
+        [
+         "substitute",
+         "n(n+1)",
+         "formula"
+        ]
+       ]
+      },
+      {
+       "point": "Shows factorisation to the target expression rather than merely quoting it.",
+       "keywords": [
+        [
+         "13",
+         "factor"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "The sum of squares is the square of the sum of the integers.",
+     "temptation": "The notation for squaring each term resembles squaring the total.",
+     "fix": "$\\sum r^2$ adds the square of each term; $(\\sum r)^2$ contains extra cross terms. For $r=1,2$, $1^2+2^2=5$, whereas $(1+2)^2=9$."
+    },
+    {
+     "id": "m2",
+     "idea": "The sum of cubes is the cube of the sum of the integers.",
+     "temptation": "A cube in the summand suggests cubing the triangular number.",
+     "fix": "$\\sum_{r=1}^n r^3=[n(n+1)/2]^2$, not $[n(n+1)/2]^3$. The cube-sum formula is the square of the triangular number."
+    },
+    {
+     "id": "m3",
+     "idea": "A product inside a sum can be replaced by a product of sums.",
+     "temptation": "Multiplication looks as if it should distribute over the sigma sign.",
+     "fix": "In general $\\sum r(r+2)=\\sum r^2+2\\sum r$ after expanding each summand; it is not $(\\sum r)(\\sum(r+2))$. Expand the summand first and apply linearity."
+    },
+    {
+     "id": "m4",
+     "idea": "For a sum from $r=a$ to $b$, subtract the sum through $a$ from the sum through $b$.",
+     "temptation": "The lower limit looks like the number to substitute in the subtracted sum.",
+     "fix": "The term at $r=a$ must remain, so subtract the sum through $a-1$. $\\sum_{r=a}^b f(r)=\\sum_{r=1}^b f(r)-\\sum_{r=1}^{a-1} f(r)$."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing reviewed, registered visual for this KC was identified. The relevant library pages explain the algebra in text and worked calculations; copying a worked-answer screenshot would disclose a solution without adding a useful visual model. Staged symbolic sums show exactly which terms are retained.",
+   "source_gaps": [
+    "No tagged official past-paper questions or examiner-report excerpts are present in this bundle, so the form inventory uses the specification and reviewed library notes; it is not an exhaustive paper audit.",
+    "The library chapter search returned no KC match, but manual reads verified the standard-series notes on pages 2–5 and 7–8.",
+    "The official specification supports finite polynomial summation; the cubic-product examples here are original combinations of that guidance and the library method, not quoted examination questions.",
+    "No appropriate existing registered visual was identified; no new figure is requested by the plan.",
+    "The examples, checks and rubrics are prepared candidates pending independent mathematical and teaching review."
+   ],
+   "exam_language": [
+    {
+     "name": "Show that",
+     "meaning": "Give a derivation for arbitrary allowed n, including splitting, standard-sum substitutions and simplification to the stated result; isolated numerical tests are insufficient."
+    },
+    {
+     "name": "Find",
+     "meaning": "Work out the exact requested sum or expression and show the method."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "FP1-7.1": [
+   "Expansion and linearity",
+   "Standard sums",
+   "Changed lower limits",
+   "Cubic products",
+   "Show that and diagnostic checks"
+  ]
  }
 }

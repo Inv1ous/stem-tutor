@@ -52,6 +52,22 @@
    "refutation": "Accumulating acceleration over time gives the change in velocity, so the area must be added to the initial velocity to obtain the velocity at the end of the interval.",
    "contrast": "With $u=5\\,\\mathrm{m\\,s^{-1}}$ and a total signed area of $2\\,\\mathrm{m\\,s^{-1}}$, the final velocity is $7\\,\\mathrm{m\\,s^{-1}}$, not $2\\,\\mathrm{m\\,s^{-1}}$.",
    "source": "research"
+  },
+  {
+   "id": "m7",
+   "kc": "M1-3.1",
+   "statement": "Always discard one of two positive time roots.",
+   "refutation": "Check both against the interval: a particle can pass the same height twice. Only reject a root for a physical or stated-domain reason.",
+   "contrast": "A numerical question appears to require one answer.",
+   "source": "SaveMyExams XMA01 c2.2.pdf pp.2–4; P1-1.5 algebraic time-domain reasoning"
+  },
+  {
+   "id": "m8",
+   "kc": "M1-3.1",
+   "statement": "One average acceleration works in every suvat equation across several stages.",
+   "refutation": "Apply suvat separately in each constant-acceleration interval, carrying velocity and position continuously across the boundary.",
+   "contrast": "A single formula feels shorter than treating each interval.",
+   "source": "SaveMyExams XMA01 c2.1.pdf pp.14–17; XMA01 c2.2.pdf p.2"
   }
  ],
  "worked": [
@@ -922,7 +938,688 @@
    "connect": "These equations and graphs describe the same motion: a constant velocity–time gradient is the acceleration, and the area under that line produces $s=ut+\\tfrac12at^2$. If the line crosses the time axis, split the journey there to calculate distance.",
    "note": "- Choose one positive direction and keep displacement, velocity and acceleration signed.\n- Use a suvat equation only within an interval of constant acceleration.\n- Displacement–time gradient is velocity; velocity–time gradient is acceleration.\n- Velocity–time signed area is displacement; speed–time area is distance.\n- Acceleration–time signed area is change in velocity.\n- Learn all five equations, including $s=vt-\\tfrac12at^2$: the paper does not give them.",
    "self_explain": "Why does a velocity–time graph crossing below the time axis require two different area calculations for displacement and distance?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Constant acceleration means the velocity changes by the same amount every second, so the velocity–time graph is a straight line. Pick a positive direction, write down the three suvat values you know, and choose the equation that contains them and the one you want. Graphs say the same thing: gradient and area turn one quantity into the next.",
+   "prerequisite_bridges": [
+    {
+     "kc": "M1-2.2",
+     "bridge": "Choose one positive direction, just as for vector components. A negative velocity means movement in the opposite direction; speed is its magnitude."
+    },
+    {
+     "kc": "P1-1.5",
+     "bridge": "Rearrange a time equation to a quadratic, solve both roots, then test each against the specified time interval. A negative root is excluded when time is measured from the stated start; two positive roots may both describe valid visits."
+    }
+   ],
+   "terms": [
+    {
+     "term": "Displacement",
+     "meaning": "Change in position measured in a chosen positive direction; it may be positive, zero or negative.",
+     "notation": "$s$",
+     "spoken": "s",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.2.pdf, pp.2–4; bundle M1-3.1."
+    },
+    {
+     "term": "Initial and final velocity",
+     "meaning": "Velocity at the start and at the end of the interval of constant acceleration; both are signed.",
+     "notation": "$u,\\ v$",
+     "spoken": "u and v",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.2.pdf, pp.2–4; bundle M1-3.1."
+    },
+    {
+     "term": "Constant acceleration",
+     "meaning": "Acceleration that does not change during the interval, so the velocity–time graph is straight.",
+     "notation": "$a$",
+     "spoken": "a",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.2.pdf, pp.2–4; bundle M1-3.1."
+    },
+    {
+     "term": "suvat equations",
+     "meaning": "The five formulae linking $s,u,v,a,t$ for constant acceleration in a straight line; none is given in the paper.",
+     "notation": "$v=u+at$",
+     "spoken": "v equals u plus a t",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.2.pdf, pp.2–4; bundle M1-3.1."
+    },
+    {
+     "term": "Velocity–time graph",
+     "meaning": "Graph of velocity against time: gradient is acceleration, signed area is displacement.",
+     "notation": "none",
+     "spoken": "velocity time graph",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.1.pdf, pp.14–17; bundle M1-3.1."
+    },
+    {
+     "term": "Acceleration due to gravity",
+     "meaning": "Downward acceleration in the ideal free-fall model with air resistance neglected; use the bundle value.",
+     "notation": "$g=9.8\\,\\mathrm{m\\,s^{-2}}$",
+     "spoken": "g equals nine point eight metres per second squared",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.2.pdf, pp.2–4; bundle M1-3.1."
+    },
+    {
+     "term": "Elapsed time",
+     "meaning": "Duration since the start of the selected interval.",
+     "notation": "$t$",
+     "spoken": "t",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.1.pdf, pp.14–17; bundle M1-3.1."
+    },
+    {
+     "term": "Speed",
+     "meaning": "Magnitude of velocity; always nonnegative.",
+     "notation": "$|v|$",
+     "spoken": "magnitude of v",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.1.pdf, pp.14–17; bundle M1-3.1."
+    },
+    {
+     "term": "Distance",
+     "meaning": "Total length of the path, adding both directions positively.",
+     "notation": "$d$",
+     "spoken": "d",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.1.pdf, pp.14–17; bundle M1-3.1."
+    },
+    {
+     "term": "Displacement–time graph",
+     "meaning": "Its tangent gradient gives instantaneous velocity.",
+     "notation": "$s$ against $t$",
+     "spoken": "displacement against time",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.1.pdf, pp.14–17; bundle M1-3.1."
+    },
+    {
+     "term": "Acceleration–time area",
+     "meaning": "Signed area gives change in velocity; initial velocity must be added to obtain final velocity.",
+     "notation": "$v-u$",
+     "spoken": "v minus u",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.1.pdf, pp.14–17; bundle M1-3.1."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Select and apply suvat with signed quantities",
+     "wordings": [
+      "Find the acceleration and elapsed time",
+      "Calculate displacement with a chosen positive direction"
+     ],
+     "example": "A particle moves left, changing velocity uniformly from $-2$ to $-8\\,\\mathrm{m\\,s^{-1}}$ over displacement $-15\\,\\mathrm{m}$. Find acceleration and time.\n1. Take right as positive: $u=-2$, $v=-8$, $s=-15$. No time is given, so select $v^2=u^2+2as$.\n2. $64=4-30a$, hence $a=-2\\,\\mathrm{m\\,s^{-2}}$.\n3. $v=u+at$ gives $-8=-2-2t$, hence $t=3\\,\\mathrm{s}$.\n4. Check: average velocity is $-5\\,\\mathrm{m\\,s^{-1}}$; multiplying by $3\\,\\mathrm{s}$ gives $-15\\,\\mathrm{m}$. Both velocity and acceleration point left, so speed increases.",
+     "check": "A particle moves right with constant acceleration, changing velocity from $3$ to $9\\,\\mathrm{m\\,s^{-1}}$ through $24\\,\\mathrm{m}$. Find $a$ and $t$. Explain how its velocity changes in each second.",
+     "answer": "$a=(9^2-3^2)/(2(24))=1.5\\,\\mathrm{m\\,s^{-2}}$ and $t=(9-3)/1.5=4\\,\\mathrm{s}$. Its velocity increases by $1.5\\,\\mathrm{m\\,s^{-1}}$ each second.",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.2.pdf, pp.2–4; bundle M1-3.1.",
+     "rubric": [
+      {
+       "point": "Uses a valid constant-acceleration relation with the given values, or an equivalent average-velocity method.",
+       "keywords": [
+        [
+         "81",
+         "equation",
+         "average velocity",
+         "suvat",
+         "24",
+         "area"
+        ]
+       ]
+      },
+      {
+       "point": "Finds acceleration $1.5\\,\\mathrm{m\\,s^{-2}}$.",
+       "keywords": [
+        [
+         "1.5",
+         "one point five"
+        ]
+       ]
+      },
+      {
+       "point": "Finds elapsed time $4\\,\\mathrm{s}$.",
+       "keywords": [
+        [
+         "4",
+         "four"
+        ]
+       ]
+      },
+      {
+       "point": "Explains velocity increases by $1.5\\,\\mathrm{m\\,s^{-1}}$ each second.",
+       "keywords": [
+        [
+         "1.5",
+         "one point five"
+        ],
+        [
+         "each second",
+         "per second",
+         "every second"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A particle changes uniformly from $-5$ to $-11\\,\\mathrm{m\\,s^{-1}}$ through $-48\\,\\mathrm{m}$. Find acceleration and elapsed time.",
+      "answer": "$a=(121-25)/(-96)=-1\\,\\mathrm{m\\,s^{-2}}$ and $t=(-11+5)/(-1)=6\\,\\mathrm{s}$.",
+      "rubric": [
+       {
+        "point": "Uses signed data in a valid constant-acceleration relation; accept average velocity followed by acceleration, including -48=(-5-11)t/2 giving t=6 and a=(-11+5)/6=-1. Credit algebraically equivalent signed substitutions without requiring named formulae or exact wording.",
+        "keywords": [
+         [
+          "equation",
+          "121",
+          "suvat",
+          "area",
+          "average velocity",
+          "(u+v)/2",
+          "v=u+at",
+          "-48=(-5-11)t/2",
+          "(-11+5)/6",
+          "-48=-8t",
+          "-8t"
+         ]
+        ]
+       },
+       {
+        "point": "Acceleration $-1\\,\\mathrm{m\\,s^{-2}}$.",
+        "keywords": [
+         [
+          "-1",
+          "negative one"
+         ]
+        ]
+       },
+       {
+        "point": "Time $6\\,\\mathrm{s}$.",
+        "keywords": [
+         [
+          "6",
+          "six"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Solve a time quadratic and select physical roots",
+     "wordings": [
+      "Find the time when the particle reaches the ground",
+      "Explain which quadratic roots are physically possible"
+     ],
+     "example": "A particle starts with velocity $-2\\,\\mathrm{m\\,s^{-1}}$ and constant acceleration $2\\,\\mathrm{m\\,s^{-2}}$. Find when it first reaches displacement $15\\,\\mathrm{m}$ after the start.\n1. Choose $s=ut+\\tfrac12at^2$: $15=-2t+t^2$.\n2. Rearrange and factor: $t^2-2t-15=(t-5)(t+3)=0$.\n3. The roots are $5$ and $-3\\,\\mathrm{s}$. The specified interval is $t\\geq0$, so only $t=5\\,\\mathrm{s}$ applies.\n4. Substitute: $-2(5)+5^2=15$. Never discard a root just because it is smaller: judge against the actual time interval.",
+     "check": "A stone is projected vertically upward at $4.9\\,\\mathrm{m\\,s^{-1}}$ from $9.8\\,\\mathrm{m}$ above the ground. Neglect air resistance and use $g=9.8\\,\\mathrm{m\\,s^{-2}}$. Find its time to reach the ground and its impact velocity, taking upward as positive.",
+     "answer": "$s=-9.8$, $u=4.9$, $a=-9.8$. Thus $-9.8=4.9t-4.9t^2$, so $(t-2)(t+1)=0$. The root $-1\\,\\mathrm{s}$ precedes projection; impact is at $2.0\\,\\mathrm{s}$. Then $v=4.9-9.8(2)=-14.7\\,\\mathrm{m\\,s^{-1}}$, or $-15\\,\\mathrm{m\\,s^{-1}}$ to 2 s.f.; direction is downward.",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.2.pdf, pp.2–4; bundle M1-3.1. The quadratic-root selection is algebraic application of P1-1.5, not an audited M1 mark-scheme form.",
+     "rubric": [
+      {
+       "point": "Assigns downward displacement and acceleration negative.",
+       "keywords": [
+        [
+         "-9.8",
+         "downward"
+        ]
+       ]
+      },
+      {
+       "point": "Uses a valid constant-acceleration method with signed data to determine the impact time and velocity; accept a time quadratic or first finding the downward impact velocity from v^2=u^2+2as and then using v=u+at. Finding both time roots is not required.",
+       "keywords": [
+        [
+         "quadratic",
+         "t^2",
+         "roots",
+         "(t-2)",
+         "v^2",
+         "v²",
+         "v=u+at",
+         "equation",
+         "suvat",
+         "4.9"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains the physically valid time after projection, t=2 s; an explicit explanation of a negative root is not required.",
+       "keywords": [
+        [
+         "2",
+         "two"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains downward impact velocity -14.7 m s^-1 (or -15 m s^-1 to 2 significant figures).",
+       "keywords": [
+        [
+         "14.7",
+         "15",
+         "fourteen point seven",
+         "fifteen"
+        ],
+        [
+         "-14.7",
+         "-15",
+         "negative",
+         "minus",
+         "downward",
+         "downwards",
+         "down"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A particle starts with velocity $u=-3\\,\\mathrm{m\\,s^{-1}}$ and moves with constant acceleration $a=2\\,\\mathrm{m\\,s^{-2}}$. Find the time after the start when $s=28\\,\\mathrm{m}$, and explain the rejected root.",
+      "answer": "$28=-3t+t^2$, so $(t-7)(t+4)=0$. Choose $t=7\\,\\mathrm{s}$; $t=-4\\,\\mathrm{s}$ is before the stated start.",
+      "rubric": [
+       {
+        "point": "Forms a valid quadratic.",
+        "keywords": [
+         [
+          "28",
+          "quadratic"
+         ]
+        ]
+       },
+       {
+        "point": "Obtains roots $7$ and $-4$.",
+        "keywords": [
+         [
+          "7",
+          "seven"
+         ],
+         [
+          "-4",
+          "negative four",
+          "minus four"
+         ]
+        ]
+       },
+       {
+        "point": "Identifies rejected root $-4$ as before the start.",
+        "keywords": [
+         [
+          "-4",
+          "negative four",
+          "minus four"
+         ]
+        ]
+       },
+       {
+        "point": "Explains the time restriction.",
+        "keywords": [
+         [
+          "before",
+          "negative",
+          "start"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Interpret and sketch four motion graphs with reversal and stages",
+     "wordings": [
+      "Sketch displacement–time, velocity–time, speed–time and acceleration–time graphs",
+      "Find displacement and distance from a piecewise graph"
+     ],
+     "example": "Start at $s=0$ with $u=6\\,\\mathrm{m\\,s^{-1}}$. For $0\\leq t\\leq4\\,\\mathrm{s}$ let $a=-3\\,\\mathrm{m\\,s^{-2}}$; then keep the resulting velocity for $2\\,\\mathrm{s}$. Sketch all four graphs and find final displacement and distance.\n1. Velocity: $v=6-3t$ until $t=4$, then $v=-6$ to $t=6$. Label $(0,6),(2,0),(4,-6),(6,-6)$ with SI axes. The zero crossing is a reversal.\n2. Displacement: $s=6t-1.5t^2$ until $t=4$; it rises from zero to a maximum $6\\,\\mathrm{m}$ at $t=2$, returns to zero at $t=4$, then follows $s=-6(t-4)$ to $-12\\,\\mathrm{m}$. The first curve is concave down, with horizontal tangent at reversal; displacement and velocity remain continuous at the stage boundary.\n3. Speed: reflect the negative velocity segment upward, giving a V through $(0,6),(2,0),(4,6)$, then a horizontal line to $(6,6)$.\n4. Acceleration: horizontal at $-3$ until $t=4$, then at zero. Show a jump at $t=4$, with no sloping connector; the instantaneous boundary value is not specified.\n5. Signed velocity areas give $6-6-12=-12\\,\\mathrm{m}$ displacement. Magnitudes give $6+6+12=24\\,\\mathrm{m}$ distance.",
+     "check": "Start at $s=0$, $u=8\\,\\mathrm{m\\,s^{-1}}$. Acceleration is $-4\\,\\mathrm{m\\,s^{-2}}$ for the first $3\\,\\mathrm{s}$, then zero until $t=5\\,\\mathrm{s}$. Sketch and label all four motion graphs. Find total displacement and distance.",
+     "answer": "Velocity is a straight line through $(0,8),(2,0),(3,-4)$, then horizontal to $(5,-4)$. Displacement is $s=8t-2t^2$ for the first stage: concave down through $(0,0),(2,8),(3,6)$, with horizontal tangent at its maximum. Then $s=6-4(t-3)$, ending at $(5,-2)$, joined continuously with matching slope. Speed is a V through $(0,8),(2,0),(3,4)$ then horizontal to $(5,4)$. Acceleration is $-4$ for the first stage and zero for the second, with a jump at $t=3$. Label time in seconds and the other axes in metres, metres per second and metres per second squared respectively. Areas give displacement $8-2-8=-2\\,\\mathrm{m}$ and distance $8+2+8=18\\,\\mathrm{m}$.",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.1.pdf, pp.14–17; bundle M1-3.1.",
+     "rubric": [
+      {
+       "point": "Velocity sketch labels the line, reversal and constant second stage.",
+       "keywords": [
+        [
+         "velocity",
+         "v"
+        ]
+       ]
+      },
+      {
+       "point": "Reversal occurs at 2 seconds and subsequent velocity is negative.",
+       "keywords": [
+        [
+         "2",
+         "two"
+        ]
+       ]
+      },
+      {
+       "point": "Displacement sketch has a concave-down curve, maximum 8 metres and continuous straight final segment to -2 metres.",
+       "keywords": [
+        [
+         "displacement",
+         "s"
+        ]
+       ]
+      },
+      {
+       "point": "Speed sketch reflects negative velocity upward, then stays at 4 metres per second.",
+       "keywords": [
+        [
+         "speed",
+         "magnitude",
+         "absolute"
+        ]
+       ]
+      },
+      {
+       "point": "Acceleration sketch has horizontal levels -4 and zero and a jump at 3 seconds.",
+       "keywords": [
+        [
+         "acceleration",
+         "a"
+        ]
+       ]
+      },
+      {
+       "point": "All four axes show time and suitable SI units.",
+       "keywords": [
+        [
+         "units",
+         "metres",
+         "m",
+         "seconds"
+        ]
+       ]
+      },
+      {
+       "point": "Signed area or equivalent algebra gives displacement -2 metres.",
+       "keywords": [
+        [
+         "-2",
+         "negative two"
+        ]
+       ]
+      },
+      {
+       "point": "Area magnitudes or split displacements give distance 18 metres.",
+       "keywords": [
+        [
+         "18",
+         "eighteen"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "From $s=0$, a particle has $u=5\\,\\mathrm{m\\,s^{-1}}$, $a=-2\\,\\mathrm{m\\,s^{-2}}$ for $5\\,\\mathrm{s}$, then moves at constant velocity until $t=7\\,\\mathrm{s}$. Sketch all four motion graphs and find displacement and distance.",
+      "answer": "Velocity is $5-2t$ until $t=5$, then $-5$ until $t=7$; reversal at $t=2.5$. Displacement is $5t-t^2$, with maximum $6.25\\,\\mathrm{m}$ at $t=2.5$, returning to zero at $t=5$, followed by $-5(t-5)$ to $-10\\,\\mathrm{m}$. Speed is the magnitude of velocity: V from 5 to zero to 5, then horizontal. Acceleration steps from $-2$ to zero at $t=5$. Displacement $=6.25-6.25-10=-10\\,\\mathrm{m}$; distance $=6.25+6.25+10=22.5\\,\\mathrm{m}$. Label all axes with SI units and time in seconds.",
+      "rubric": [
+       {
+        "point": "Velocity sketch includes reversal at 2.5 seconds and constant -5 final stage.",
+        "keywords": [
+         [
+          "2.5"
+         ]
+        ]
+       },
+       {
+        "point": "Displacement sketch is concave down with maximum 6.25 and a continuous straight final stage.",
+        "keywords": [
+         [
+          "6.25"
+         ]
+        ]
+       },
+       {
+        "point": "Speed sketch is nonnegative with a V and constant final stage.",
+        "keywords": [
+         [
+          "speed",
+          "absolute",
+          "magnitude"
+         ]
+        ]
+       },
+       {
+        "point": "Acceleration sketch is horizontal at -2 then zero.",
+        "keywords": [
+         [
+          "acceleration",
+          "-2"
+         ]
+        ]
+       },
+       {
+        "point": "Axes and SI units are labelled.",
+        "keywords": [
+         [
+          "units",
+          "m",
+          "metres"
+         ]
+        ]
+       },
+       {
+        "point": "Final displacement is -10 metres.",
+        "keywords": [
+         [
+          "-10"
+         ]
+        ]
+       },
+       {
+        "point": "Total distance is 22.5 metres.",
+        "keywords": [
+         [
+          "22.5"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Use signed acceleration-time area as change in velocity",
+     "wordings": [
+      "Find final velocity from an acceleration–time graph",
+      "Explain why area alone is insufficient for final velocity"
+     ],
+     "example": "A particle starts at $u=-7\\,\\mathrm{m\\,s^{-1}}$. Acceleration is $3\\,\\mathrm{m\\,s^{-2}}$ for $2\\,\\mathrm{s}$ and then $-2\\,\\mathrm{m\\,s^{-2}}$ for $3\\,\\mathrm{s}$. Find the final velocity.\n1. First rectangle: $\\Delta v_1=3(2)=6\\,\\mathrm{m\\,s^{-1}}$; velocity becomes $-7+6=-1\\,\\mathrm{m\\,s^{-1}}$.\n2. Second rectangle is below the axis: $\\Delta v_2=-2(3)=-6\\,\\mathrm{m\\,s^{-1}}$.\n3. Total change is zero, so final velocity is still $-7\\,\\mathrm{m\\,s^{-1}}$, not zero. The initial velocity supplies the missing starting level.",
+     "check": "A particle initially moves at $-5\\,\\mathrm{m\\,s^{-1}}$. Its acceleration is $4\\,\\mathrm{m\\,s^{-2}}$ for $3\\,\\mathrm{s}$, then $-1\\,\\mathrm{m\\,s^{-2}}$ for $2\\,\\mathrm{s}$. Find its velocity at the end of each stage. During which stage does it reverse direction? Explain using the velocity at the stage boundaries.",
+     "answer": "After the first stage $v=-5+4(3)=7\\,\\mathrm{m\\,s^{-1}}$; after the second $v=7-1(2)=5\\,\\mathrm{m\\,s^{-1}}$. It reverses during the first stage because its velocity changes continuously from negative to positive; it stays positive throughout the second stage.",
+     "source": "Library: SaveMyExams/XMA01 mechanics-1/XMA01 c2.1.pdf, pp.14–17; bundle M1-3.1. Pearson WPH11/01 January 2025 examiner report, PDF p.4, item 5 (Physics, not an M1 paper): https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Physics/2018/Exam-materials/wph11-01-pef-20250306.pdf",
+     "rubric": [
+      {
+       "point": "Finds first-stage velocity $+7\\,\\mathrm{m\\,s^{-1}}$ using the signed change.",
+       "keywords": [
+        [
+         "7",
+         "seven"
+        ]
+       ]
+      },
+      {
+       "point": "Finds final velocity $+5\\,\\mathrm{m\\,s^{-1}}$.",
+       "keywords": [
+        [
+         "5",
+         "five"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies the first stage as the reversal and explains that velocity changes from negative to positive; the second stage remains positive.",
+       "keywords": [
+        [
+         "first",
+         "0 to 3",
+         "0–3"
+        ],
+        [
+         "negative",
+         "-5"
+        ],
+        [
+         "positive",
+         "7"
+        ]
+       ]
+      },
+      {
+       "point": "Gives velocity units.",
+       "keywords": [
+        [
+         "m",
+         "metres",
+         "meters"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A particle starts at $7\\,\\mathrm{m\\,s^{-1}}$. Its acceleration is $-3\\,\\mathrm{m\\,s^{-2}}$ for $4\\,\\mathrm{s}$ and then $2\\,\\mathrm{m\\,s^{-2}}$ for $1\\,\\mathrm{s}$. Find its final velocity and determine whether it reverses direction during the second stage. Explain using the velocities at both ends of that stage.",
+      "answer": "At the start of the second stage $v=7-3(4)=-5\\,\\mathrm{m\\,s^{-1}}$; at its end $v=-5+2(1)=-3\\,\\mathrm{m\\,s^{-1}}$. It does not reverse during that stage: velocity remains negative throughout as it increases uniformly from $-5$ to $-3\\,\\mathrm{m\\,s^{-1}}$.",
+      "rubric": [
+       {
+        "point": "Finds velocity $-5\\,\\mathrm{m\\,s^{-1}}$ at the start of the second stage.",
+        "keywords": [
+         [
+          "-5",
+          "negative five",
+          "minus five"
+         ]
+        ]
+       },
+       {
+        "point": "Finds final velocity $-3\\,\\mathrm{m\\,s^{-1}}$.",
+        "keywords": [
+         [
+          "-3",
+          "negative three",
+          "minus three"
+         ]
+        ]
+       },
+       {
+        "point": "Explains no reversal in the second stage because velocity remains negative between its endpoints.",
+        "keywords": [
+         [
+          "no",
+          "not",
+          "does not"
+         ],
+         [
+          "negative",
+          "same sign",
+          "below zero"
+         ]
+        ]
+       },
+       {
+        "point": "Gives velocity units.",
+        "keywords": [
+         [
+          "m",
+          "metres",
+          "meters"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "A negative acceleration always means the particle is slowing down.",
+     "temptation": "In everyday speech, deceleration and negative acceleration sound the same.",
+     "fix": "The sign only shows direction. If velocity is also negative, the speed increases; slowing down needs $a$ and $v$ with opposite signs."
+    },
+    {
+     "id": "m2",
+     "idea": "All the area between a velocity–time graph and the axis adds to displacement.",
+     "temptation": "Areas feel like positive quantities, and the graph shows a shape, not signs.",
+     "fix": "Area below the axis is negative displacement. Subtract it for displacement; add its magnitude only for distance."
+    },
+    {
+     "idea": "An acceleration–time area is always the final velocity.",
+     "temptation": "Multiplying acceleration by time has velocity units.",
+     "fix": "It gives the change; add the velocity at the interval start, including its sign.",
+     "id": "m6"
+    },
+    {
+     "idea": "Always discard one of two positive time roots.",
+     "temptation": "A numerical question appears to require one answer.",
+     "fix": "Check both against the interval: a particle can pass the same height twice. Only reject a root for a physical or stated-domain reason.",
+     "id": "m7"
+    },
+    {
+     "idea": "One average acceleration works in every suvat equation across several stages.",
+     "temptation": "A single formula feels shorter than treating each interval.",
+     "fix": "Apply suvat separately in each constant-acceleration interval, carrying velocity and position continuously across the boundary.",
+     "id": "m8"
+    }
+   ],
+   "source_gaps": [
+    "The bundle supplies the M1-3.1 syllabus but no tagged M1 past-paper questions or examiner excerpts; M1-specific past-paper form wording and official mark allocations have not been established.",
+    "The January 2025 WPH11/01 report (PDF p.4, item 5) supports the initial-velocity distinction only; it is Physics evidence, not an M1 paper or M1 mark scheme.",
+    "The rubrics and numerical examples are authored teaching material grounded in the cited library methods, not copied official questions or mark schemes.",
+    "Two-particle pursuit and simultaneous-equation problems have not been audited as separate M1 forms in this pass; the scope is the four declared lesson forms."
+   ],
+   "diagrams": [
+    "Assets/M1/M1-3-vt-turning.svg",
+    "Assets/M1/M1-3-at-area.svg",
+    "Library/Courses/M1/Diagrams/M1/m1-3-notes-suvat-derivation.png"
+   ],
+   "diagram_descriptions": [
+    "Velocity against time: a straight line falls from $8\\,\\mathrm{m\\,s^{-1}}$ at zero seconds to $-6\\,\\mathrm{m\\,s^{-1}}$ at seven seconds. It crosses zero at four seconds. Shaded signed areas are $+16\\,\\mathrm{m}$ above and $-9\\,\\mathrm{m}$ below: displacement is seven metres and distance twenty-five metres. Supports graph reversal and signed-area reasoning.",
+    "Acceleration against time: a horizontal line at $3\\,\\mathrm{m\\,s^{-2}}$ lasts five seconds. The shaded rectangle has area $15\\,\\mathrm{m\\,s^{-1}}$, a change in velocity; add the initial velocity to obtain final velocity. Supports the acceleration-time area form.",
+    "SaveMyExams XMA01 c2.2 PDF page 3: a general straight velocity–time line rises from $u$ to $v$ over time $t$. The gradient triangle gives $(v-u)/t=a$. A trapezium gives $s=(u+v)t/2$; rectangle plus triangle gives $s=ut+at^2/2$, and rectangle minus triangle gives $s=vt-at^2/2$. Supports selection of constant-acceleration equations; this is a general derivation, with no numerical check answer."
+   ],
+   "diagram_provenance": [
+    {
+     "display": "Assets/M1/M1-3-vt-turning.svg",
+     "canonical": "Library/Courses/M1/Diagrams/M1/M1-3-vt-turning.svg",
+     "sha256": "28a9e006ee3f2dc86c7b8a022886270953be62c1f9a3852590416dbfb765599c",
+     "source": [
+      "STEM Tutor/Assets/M1/M1-3-vt-turning.svg",
+      "stem-tutor/build/out/assets/M1/M1-3-vt-turning.svg",
+      "stem-tutor/build/out/Assets/M1/M1-3-vt-turning.svg"
+     ],
+     "provenance": null,
+     "review": "Hash verified and visually inspected in this pass; inspection does not constitute teaching approval."
+    },
+    {
+     "display": "Assets/M1/M1-3-at-area.svg",
+     "canonical": "Library/Courses/M1/Diagrams/M1/M1-3-at-area.svg",
+     "sha256": "fb40e9f1371ee3da9422b4fa9e48ee4ee3215b5f77c3e6467461e2984e84951e",
+     "source": [
+      "STEM Tutor/Assets/M1/M1-3-at-area.svg",
+      "stem-tutor/build/out/assets/M1/M1-3-at-area.svg",
+      "stem-tutor/build/out/Assets/M1/M1-3-at-area.svg"
+     ],
+     "provenance": null,
+     "review": "Hash verified and visually inspected in this pass; inspection does not constitute teaching approval."
+    },
+    {
+     "display": "Library/Courses/M1/Diagrams/M1/m1-3-notes-suvat-derivation.png",
+     "canonical": "Library/Courses/M1/Diagrams/M1/m1-3-notes-suvat-derivation.png",
+     "sha256": "437ee700371e7b508feb14d1d68d2581757e16c83f1bdcc39c58129797009b0d",
+     "source": [
+      "stem-tutor/build/out/assets/M1/m1-3-notes-suvat-derivation.png",
+      "stem-tutor/build/out/Assets/M1/m1-3-notes-suvat-derivation.png"
+     ],
+     "provenance": {
+      "sidecars": [
+       "asset:legacy-d4fc358e1be3a739251c2bbf"
+      ]
+     },
+     "review": "Hash verified and visually inspected in this pass; inspection does not constitute teaching approval."
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Sketch",
+     "meaning": "Label axes, units, important times and values; show the right shape and joins without requiring an exact scale."
+    },
+    {
+     "name": "Find",
+     "meaning": "State a suitable relation or graph operation, show signed substitution, and give units."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "M1-3.1": [
+   "Select and apply suvat with signed quantities",
+   "Solve a time quadratic and select physical roots",
+   "Interpret and sketch four motion graphs with reversal and stages",
+   "Use signed acceleration-time area as change in velocity"
+  ]
  }
 }

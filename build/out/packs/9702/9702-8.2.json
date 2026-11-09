@@ -1314,20 +1314,20 @@
   }
  ],
  "diagrams": [
- {
-  "file": "Assets/9702/9702-8.2-wavelength.svg",
-  "type": "wave",
-  "params": {
-   "amplitude": 1,
-   "wavelength": 2,
-   "cycles": 2,
-   "show_amplitude": false,
-   "show_wavelength": true,
-   "xlabel": "distance along wave travel",
-   "ylabel": "displacement"
+  {
+   "file": "Assets/9702/9702-8.2-wavelength.svg",
+   "type": "wave",
+   "params": {
+    "amplitude": 1,
+    "wavelength": 2,
+    "cycles": 2,
+    "show_amplitude": false,
+    "show_wavelength": true,
+    "xlabel": "distance along wave travel",
+    "ylabel": "displacement"
+   }
   }
- }
-],
+ ],
  "teach": {
   "9702-8.2.1": {
    "motivate": "Why can you hear someone speaking around a corner even when you cannot see them? A wave can spread into a region beyond an opening or edge.",
@@ -1346,7 +1346,100 @@
     "answer": "B",
     "explanation": "Spreading around an obstacle edge is diffraction."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Waves can spread into places that straight-line travel past a gap or edge would leave sheltered. This spreading is diffraction; a change of medium is not needed.",
+   "terms": [
+    {
+     "term": "diffraction",
+     "meaning": "Spreading of waves through an aperture or around an obstacle edge.",
+     "notation": "No special symbol.",
+     "spoken": "diffraction",
+     "source": "CAIE 9702 syllabus 2025–2027, 8.2; chapter bundle 9702-8.2"
+    },
+    {
+     "term": "aperture",
+     "meaning": "An opening through which waves pass.",
+     "notation": "Gap width may be labelled $w$.",
+     "spoken": "aperture",
+     "source": "CAIE 9702 syllabus 2025–2027, 8.2; chapter bundle 9702-8.2"
+    },
+    {
+     "term": "wavefront",
+     "meaning": "A line or surface joining points at the same phase; successive crest lines are a useful example.",
+     "notation": "No special symbol.",
+     "spoken": "wavefront",
+     "source": "https://openstax.org/books/college-physics-2e/pages/27-2-huygenss-principle-diffraction, Fig.27.4"
+    },
+    {
+     "term": "geometrical shadow",
+     "meaning": "The region behind a barrier that waves following straight paths from the source would not reach.",
+     "notation": "No special symbol.",
+     "spoken": "geometrical shadow",
+     "source": "https://www.met.reading.ac.uk/pplato2/h-flap/phys6_1.html, section 3.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Identify and explain diffraction",
+     "wordings": [
+      "Explain what is meant by diffraction.",
+      "Identify an observation showing diffraction."
+     ],
+     "example": "Example: Water ripples pass an isolated post and enter the sheltered region behind it. Step 1: Identify the edge of the post. Step 2: Note that waves spread around this edge into the sheltered region. Step 3: Name this spreading diffraction; no second medium is needed.",
+     "check": "Normally incident plane water waves approach a harbour wall in uniform-depth water. Observation P: waves travel back towards the sea after striking the wall. Observation Q: waves passing through the entrance reach a boat in the geometrical shadow behind the wall, outside the straight-line projection of the entrance. Identify which observation demonstrates diffraction and explain why; name the behaviour in the other observation.",
+     "answer": "Q demonstrates diffraction: the waves spread through the entrance into a region outside the straight-through path. P is reflection at the wall.",
+     "source": "CAIE 9702 syllabus 2025–2027, 8.2; chapter bundle 9702-8.2; CAIE 9702 Nov 2022 P12 Q28 and Nov 2020 P13 Q28, in chapter bundle; Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.2.pdf, pp.4–5",
+     "rubric": [
+      {
+       "point": "Select Q as diffraction.",
+       "keywords": [
+        [
+         "Q"
+        ]
+       ]
+      },
+      {
+       "point": "Explain that waves spread through the entrance beyond the straight-through path.",
+       "keywords": [
+        [
+         "spread",
+         "spreading"
+        ],
+        [
+         "entrance",
+         "gap",
+         "opening"
+        ]
+       ]
+      },
+      {
+       "point": "Identify P as reflection.",
+       "keywords": [
+        [
+         "P"
+        ],
+        [
+         "reflection",
+         "reflected"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Diffraction is reflection or refraction.",
+     "temptation": "All three can change the direction in which a wave travels.",
+     "fix": "Look for spreading at a gap or edge. Reflection sends waves back from a surface; refraction involves a change of wave speed between regions."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The existing wavelength side-profile diagram supports the experiment KC; it does not depict spreading at an edge or aperture, so it is not presented as a diffraction picture here.",
+   "source_gaps": [
+    "The planned Cambridge interactive candidate-response PDF redirected to its revision landing page and was not available for direct inspection; no candidate-response wording or marking claim has been inferred from it."
+   ]
   },
   "9702-8.2.2": {
    "motivate": "A ripple tank lets you see how the same waves behave at wide and narrow gaps. The visible change is the angle through which the wavefronts spread.",
@@ -1365,7 +1458,207 @@
     "answer": "C",
     "explanation": "Narrowing the gap makes its width closer to the wavelength, so the wave spreads more."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Compare the gap width with the crest-to-crest spacing. A ripple tank makes the emerging curved crests visible. Use the same water depth when comparing trials so that the standard constant-speed approximation applies.",
+   "terms": [
+    {
+     "term": "gap width",
+     "meaning": "Distance between the two barrier edges that form the opening.",
+     "notation": "$w$",
+     "spoken": "w",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.2.pdf, pp.4–5"
+    },
+    {
+     "term": "wavelength",
+     "meaning": "Distance between successive crests, measured along the local direction of wave travel.",
+     "notation": "$\\lambda$",
+     "spoken": "lambda",
+     "source": "https://openstax.org/books/college-physics-2e/pages/27-2-huygenss-principle-diffraction, Fig.27.4"
+    },
+    {
+     "term": "frequency",
+     "meaning": "Number of oscillations per second, set by the vibrator.",
+     "notation": "$f$, measured in hertz.",
+     "spoken": "f",
+     "source": "CAIE 9702 June 2022 examiner report, P11 Q28 and P12 Q28, excerpts in chapter bundle 9702-8.2"
+    },
+    {
+     "term": "wave speed",
+     "meaning": "Distance travelled by the disturbance per unit time; approximately constant here at fixed water depth.",
+     "notation": "$v=f\\lambda$",
+     "spoken": "v equals f times lambda",
+     "source": "CAIE 9702 June 2022 examiner report, P11 Q28 and P12 Q28, excerpts in chapter bundle 9702-8.2"
+    },
+    {
+     "term": "ripple tank",
+     "meaning": "A shallow-water tray in which a vibrating source produces visible water waves.",
+     "notation": "No special symbol.",
+     "spoken": "ripple tank",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.2.pdf, pp.4–5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Describe and interpret a ripple-tank demonstration",
+     "wordings": [
+      "Describe an experiment to demonstrate diffraction.",
+      "Explain how observations demonstrate spreading through a gap."
+     ],
+     "example": "Example: To demonstrate diffraction, use a straight vibrating bar to make parallel water-wave crests. Step 1: Put two barriers with a gap in their path. Step 2: Set the gap width near one crest spacing. Step 3: View from above, directly or using a lamp and projection, and observe curved crests spreading beyond the gap.",
+     "check": "A student compares two gap widths, but also changes the water depth between trials. The crests look more curved in the second trial. Explain why this does not isolate the effect of gap width, and describe a fair repeat, including what to observe.",
+     "answer": "Changing depth may change wave speed and hence wavelength at the same source frequency, so gap width was not the only relevant change. Repeat at unchanged water depth and source frequency, changing only gap width; alternatively ensure the wavelength is the same in both trials while changing gap width. Compare the angle or lateral extent of spreading, or curvature of emerging wavefronts, beyond the gap.",
+     "source": "CAIE 9702 syllabus 2025–2027, 8.2; chapter bundle 9702-8.2; Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.2.pdf, pp.4–5; CAIE 9702 June 2022 examiner report, P11 Q28 and P12 Q28, excerpts in chapter bundle 9702-8.2",
+     "rubric": [
+      {
+       "point": "Explain that changing depth may alter speed or wavelength, confounding the width comparison.",
+       "keywords": [
+        [
+         "depth"
+        ],
+        [
+         "speed",
+         "wavelength"
+        ],
+        [
+         "change",
+         "alter",
+         "affect"
+        ]
+       ]
+      },
+      {
+       "point": "Repeat varying gap width while keeping wavelength the same, for example by fixing water depth and source frequency.",
+       "keywords": [
+        [
+         "wavelength",
+         "depth"
+        ],
+        [
+         "same",
+         "fixed",
+         "constant",
+         "unchanged"
+        ],
+        [
+         "gap",
+         "width"
+        ]
+       ]
+      },
+      {
+       "point": "Observe outgoing wavefront curvature or spreading beyond the gap.",
+       "keywords": [
+        [
+         "curvature",
+         "curved",
+         "spread",
+         "spreading"
+        ],
+        [
+         "emerging",
+         "outgoing",
+         "beyond",
+         "after"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Predict effects of gap width and frequency",
+     "wordings": [
+      "Predict how changing gap width affects spreading.",
+      "Explain the effect of changing frequency at constant depth."
+     ],
+     "example": "Example: Double the source frequency while keeping depth and gap width fixed. Step 1: In the constant-speed ripple-tank model, $v=f\\lambda$ gives $\\lambda=v/f$. Step 2: Doubling $f$ halves $\\lambda$. Step 3: The wavelength is now smaller relative to the unchanged gap, so spreading decreases. Crest spacing decreases because the source frequency changed; changing a gap alone would not do this. For a wide gap, some diffraction still occurs near its edges.",
+     "check": "Initially a ripple-tank gap is eight wavelengths wide. At constant water depth the source frequency is doubled and the gap width is reduced to one quarter of its original value. Determine the new gap width in units of the new wavelength and predict whether spreading increases or decreases relative to the original trial. Show your reasoning.",
+     "answer": "At unchanged depth take speed as constant, so doubling frequency halves wavelength. The new gap is one quarter of eight original wavelengths, or two original wavelengths. Each original wavelength equals two new wavelengths, so the new gap is four new wavelengths wide. The wavelength-to-gap ratio has doubled from one eighth to one quarter; spreading increases.",
+     "source": "CAIE 9702 June 2022 examiner report, P11 Q28 and P12 Q28, excerpts in chapter bundle 9702-8.2; Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.2.pdf, pp.4–5; CAIE 9702 Jun 2023 P13 Q27, in chapter bundle",
+     "rubric": [
+      {
+       "point": "Use constant speed and doubled frequency to obtain half the original wavelength.",
+       "keywords": [
+        [
+         "half",
+         "halves",
+         "0.5"
+        ],
+        [
+         "wavelength"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain a new gap width of four new wavelengths by comparing both changes.",
+       "keywords": [
+        [
+         "four",
+         "4"
+        ],
+        [
+         "wavelength"
+        ]
+       ]
+      },
+      {
+       "point": "Predict greater spreading because wavelength is larger relative to gap width.",
+       "keywords": [
+        [
+         "more",
+         "greater",
+         "increases",
+         "increase"
+        ],
+        [
+         "spread",
+         "spreading",
+         "diffraction"
+        ],
+        [
+         "ratio",
+         "relative",
+         "four",
+         "4"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "Widening the gap increases spreading.",
+     "temptation": "A wider opening seems to let the waves fan out more.",
+     "fix": "At fixed wavelength a wider gap is larger relative to the wavelength, so the spread decreases; it need not vanish."
+    },
+    {
+     "id": "m3",
+     "idea": "Passing through a gap changes the wavelength.",
+     "temptation": "Curved crests can look farther apart in a top view.",
+     "fix": "Measure successive crest spacing along the local direction of travel. At fixed depth and source frequency the speed and wavelength remain unchanged across the gap."
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9702/Diagrams/9702/9702-8.2-wavelength.svg"
+   ],
+   "diagram_descriptions": [
+    "A displacement-versus-distance side profile at one instant shows two crests. The double-headed arrow labelled lambda runs horizontally from one crest to the next: this distance is wavelength, not wave height. Compare this crest spacing with gap width in a ripple tank. Viewed from above, crest lines are wavefronts and spacing is measured along the local direction of travel; this graph itself does not show a barrier or diffraction."
+   ],
+   "source_gaps": [
+    "Only the existing registered wavelength diagram is bound in this pass; it is a prerequisite illustration rather than a plan view of a ripple-tank apparatus.",
+    "The Cambridge June 2022 report URL was unavailable directly on the web; its P11 Q28 and P12 Q28 excerpts were reviewed in the supplied chapter bundle.",
+    "The constant-speed treatment is the qualitative Cambridge ripple-tank approximation at unchanged depth; no exact angular formula or general water-wave dispersion law is asserted."
+   ]
   }
+ },
+ "guided_forms": {
+  "9702-8.2.1": [
+   "Identify and explain diffraction"
+  ],
+  "9702-8.2.2": [
+   "Describe and interpret a ripple-tank demonstration",
+   "Predict effects of gap width and frequency"
+  ]
  }
 }

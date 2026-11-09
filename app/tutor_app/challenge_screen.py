@@ -26,7 +26,7 @@ from tutorlib import challenge_gen, grade, model
 from tutorlib.challenge_gen import generate_set
 from tutorlib.session import _display_answer
 
-from . import cards, codex_models, local_models, prompts, tts
+from . import abacus_models, cards, codex_models, local_models, prompts, solvable, tts
 from .look import C
 from .output_format import normalise_visual
 from .panels import ChoicePanel, Composer, ContinuePanel, Panel, TickList, ValuePanel
@@ -39,8 +39,17 @@ KINDS = [("mcq", "Multiple choice only"), ("typed", "Typed answers only (no opti
          ("mix:0.5", "Mix: about half typed"), ("mix:0.75", "Mix: mostly typed"),
          ("mix:0.25", "Mix: mostly multiple choice")]
 MODELS = {"sonnet": "Sonnet: faster, lighter on your limit",
-          "opus": "Opus: slower and stronger, uses much more of your limit"}
-MINUTES = {"sonnet": 1.5, "opus": 4.0}  # rough minutes to write and check one question; three are made at a time
+          "opus": "Opus: slower and stronger, uses much more of your limit",
+          "abacus:claude-sonnet-5-5": "Abacus Sonnet: uses your Abacus credits, not your Claude limit",
+          "abacus:claude-opus-5-5": "Abacus Opus: slower and stronger, uses more Abacus credits"}
+MODEL_NAMES = {"sonnet": "Sonnet", "opus": "Opus", "abacus:claude-sonnet-5-5": "Abacus Sonnet",
+               "abacus:claude-opus-5-5": "Abacus Opus"}
+MINUTES = {"sonnet": 1.5, "opus": 4.0, "abacus:claude-sonnet-5-5": 1.5, "abacus:claude-opus-5-5": 4.0}
+# rough minutes to write and check one question; three are made at a time
+
+
+def model_name(model: str) -> str:
+    return MODEL_NAMES.get(model, model.title())
 SUBJECT = {"9701": "Chem", "9702": "Phys"}
 WORDS_HINT = "e.g. 12 questions, easy to extreme, fast then slow"  # fits the box at 60 columns
 
@@ -60,7 +69,7 @@ def plan_text(slots: list[dict]) -> str:
 def wait_text(cfg: dict) -> str:
     n, m = cfg["count"], cfg["model"]
     mins = max(1, round(n * MINUTES[m] / 3))
-    return (f"About {4 * n} AI calls (4 a question, more when one is retried); roughly {mins} min with {m.title()}."
+    return (f"About {4 * n} AI calls (4 a question, more when one is retried); roughly {mins} min with {model_name(m)}."
             + (" Opus uses much more of your limit." if m == "opus" else ""))
 
 
@@ -77,8 +86,8 @@ def fallback_text(fb, chosen: str) -> str:
         return ""
     if isinstance(fb, dict) and fb.get("note"):
         return str(fb["note"])
-    other = "sonnet" if chosen == "opus" else "opus"
-    return (f"{chosen.title()} declined {count} request{'s' if count > 1 else ''}; {other.title()} did "
+    other = challenge_gen._other(chosen)
+    return (f"{model_name(chosen)} declined {count} request{'s' if count > 1 else ''}; {model_name(other)} did "
             f"{'them' if count > 1 else 'it'} instead.")
 
 
@@ -317,7 +326,8 @@ class ChallengeScreen(ReadAloud, Screen):
                 Binding("alt+up", "scroll_log(-1)", show=False, priority=True),
                 Binding("alt+down", "scroll_log(1)", show=False, priority=True),
                 Binding("pageup", "scroll_log(-1)", show=False), Binding("pagedown", "scroll_log(1)", show=False),
-                Binding("question_mark", "app.help", "Help"), READ_KEY]
+                Binding("question_mark", "app.help", "Help"), READ_KEY,
+                Binding("ctrl+y", "check_solvable", "Can I solve this?", show=False, priority=True)]
 
     def __init__(self) -> None:
         super().__init__()
@@ -328,6 +338,7 @@ class ChallengeScreen(ReadAloud, Screen):
     def compose(self) -> ComposeResult:
         yield Static(id="bar")
         yield VerticalScroll(id="log", can_focus=False)
+        yield Button("Can I solve this? · ctrl+y", id="check-solvable", compact=True)
         yield Container(id="panel")
         yield Footer()
 
@@ -376,6 +387,24 @@ class ChallengeScreen(ReadAloud, Screen):
         box.remove_children()
         box.mount(widget)
         self.showing = widget
+        # on every question that is waiting for an answer; not on setup, feedback or the score
+        self.query_one("#check-solvable", Button).display = (
+            self.phase == "question" and self.fb is None and isinstance(widget, (ChoicePanel, ValuePanel)))
+
+    @on(Button.Pressed, "#check-solvable")
+    def _solvable_button(self, event: Button.Pressed) -> None:
+        event.stop()
+        self.action_check_solvable()
+
+    def action_check_solvable(self) -> None:
+        """Say whether the topics this set draws on have been started. Challenge questions are a stretch and never
+        change mastery, so nothing is skipped or recorded."""
+        if self.phase != "question" or self.fb is not None or not self.set:
+            return
+        topics = list(self.set.cfg.get("topics") or [])
+        info = solvable.normalise(solvable.challenge_check(topics, self.app.tutor.state, self.packs))
+        role, title, body = solvable.card_parts(info)
+        self.say(cards.card(role, title, body), mirror=None)
 
     def ai_ok(self, mode: str | None = None) -> bool:
         if mode:
@@ -391,6 +420,7 @@ class ChallengeScreen(ReadAloud, Screen):
                 + (a.message or "Check that Claude Code is installed and signed in (claude auth login)."))
 
     def on_mount(self) -> None:
+        self.query_one("#check-solvable", Button).display = False  # shown with each question that awaits an answer
         self.app.apply_answer_only(self)
         self.cfg = ch.load_config(self.vault, self.packs)
         self.set_interval(1, self.update_bar)
@@ -453,12 +483,18 @@ class ChallengeScreen(ReadAloud, Screen):
         topics = c["topics"]
         shown = ", ".join(topics[:3]) + (f" +{len(topics) - 3}" if len(topics) > 3 else "") if topics else \
             "none yet: ⏎ to choose"
-        return [("topics", f"Topics     {shown}"), ("count", f"How many   {c['count']}"),
-                ("kinds", f"Types      {kinds_text(c)}"),
-                ("lo", f"Easiest    level {c['lo']} · {LEVEL[c['lo']]['name']}"),
-                ("hi", f"Hardest    level {c['hi']} · {LEVEL[c['hi']]['name']}"),
-                ("ramp", f"Ramp       {c['ramp']}"), ("model", f"Model      {c['model'].title()}"),
+        return [("h:what", "What to practise"),
+                ("topics", f"  Topics     {shown}"), ("count", f"  How many   {c['count']}"),
+                ("kinds", f"  Types      {kinds_text(c)}"),
+                ("h:level", "How hard"),
+                ("lo", f"  Easiest    level {c['lo']} · {LEVEL[c['lo']]['name']}"),
+                ("hi", f"  Hardest    level {c['hi']} · {LEVEL[c['hi']]['name']}"),
+                ("ramp", f"  Ramp       {c['ramp']}"),
+                ("h:ai", "Who writes it"), ("model", f"  Model      {model_name(c['model'])}"),
                 ("start", "Start ⏎")]
+
+    def row_index(self, key: str) -> int:
+        return [k for k, _ in self.rows()].index(key)
 
     def detail(self, key: str | None) -> str:
         c = self.cfg
@@ -479,8 +515,9 @@ class ChallengeScreen(ReadAloud, Screen):
         lst = self.query_one("#settings", SettingsList)
         keep = lst.highlighted
         lst.clear_options()
-        lst.add_options([Option(escape(label), id=key) for key, label in self.rows()])
-        lst.highlighted = keep if keep is not None else 0
+        lst.add_options([Option(Text(label, style=f"bold {C['muted']}"), id=key, disabled=True) if key.startswith("h:")
+                         else Option(escape(label), id=key) for key, label in self.rows()])
+        lst.highlighted = keep if keep is not None else self.row_index("topics")
         self.show_detail()
         preview = Text()
         preview.append("Scope: ", style="bold")
@@ -573,7 +610,7 @@ class ChallengeScreen(ReadAloud, Screen):
         if not self.cfg["topics"]:
             self.app.notify("Choose at least one topic first: Topics, then ⏎.", severity="warning", timeout=6)
             if self.query("#settings"):
-                self.query_one("#settings", SettingsList).highlighted = 0
+                self.query_one("#settings", SettingsList).highlighted = self.row_index("topics")
             return
         if not self.ai_ok():
             self.app.notify(self.ai_problem(), severity="warning", timeout=10)
@@ -583,7 +620,7 @@ class ChallengeScreen(ReadAloud, Screen):
         self.fold()
         self.say(cards.card("plan", "Writing your set",
                             f"{self.cfg['count']} questions, levels {self.cfg['lo']} to {self.cfg['hi']}, "
-                            f"{self.cfg['ramp']}, by {self.cfg['model'].title()}. Each one is written, solved "
+                            f"{self.cfg['ramp']}, by {model_name(self.cfg['model'])}. Each one is written, solved "
                             "separately by a second model, then checked against your syllabus, so you only get "
                             f"questions that can be solved. {wait_text(self.cfg)}"))
         self.progress = self.say(self.progress_card(0, self.cfg["count"], ""))
@@ -677,7 +714,7 @@ class ChallengeScreen(ReadAloud, Screen):
             w.display = False  # the last feedback goes: the new question stands alone
         self.page = []
         title = (f"[b]Q{i + 1}[/b] of {len(self.set.questions)} · {escape(level_text(q))}"  # the rest is in the bar
-                 + (f" · by {q['model'].title()}" if q.get("model") and q["model"] != self.set.cfg.get("model") else ""))
+                 + (f" · by {model_name(q['model'])}" if q.get("model") and q["model"] != self.set.cfg.get("model") else ""))
         head = [Text(self.first_note + "\n", style=C["dim"])] if getattr(self, "first_note", "") else []
         body = ([f"*{self.first_note}*", ""] if head else []) + [item["stem"]]
         if item.get("options"):  # the choices are in the answer panel below; Obsidian lists them with the question
@@ -758,12 +795,15 @@ class ChallengeScreen(ReadAloud, Screen):
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
         view = {"kind": item["kind"], "stem": item["stem"], "options": item.get("options")}
         selected, selected_think = self.app.settings.ai_for("mark")
-        model = selected if local_models.is_local(selected) or codex_models.is_codex(selected) else prompts.REMARK_MODEL
+        model = (selected if local_models.is_local(selected) or codex_models.is_codex(selected) or abacus_models.is_abacus(selected)
+                 else prompts.REMARK_MODEL)
         image = self.app.vault / item["image"] if item.get("image") and local_models.is_local(model) else None
         think = (selected_think if local_models.thinking_levels(model) and self.app.settings.ai_mark_effort else
                  local_models.supports_thinking(model)) if local_models.is_local(model) else True
         with LocalActivity(self, model, task="Checking the marking"):
-            res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=think,
+            res, r = await self.app.ai.one_shot(prompts.remark(view, fb, strictness=self.app.settings.marking_strictness,
+                                                              mode='challenge'),
+                                                schema=prompts.REMARK, model=model, think=think,
                                                 **({"image": image} if image is not None else {}),
                                                 **spoken_too(self.app))
         if res:

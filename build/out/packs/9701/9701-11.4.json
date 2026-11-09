@@ -1036,7 +1036,305 @@
     "explanation": "A is correct: chlorine goes from 0 in $\\ce{Cl2}$ to +1 in $\\ce{NaClO}$ and to -1 in $\\ce{NaCl}$, so it is oxidised and reduced in the same reaction, which is disproportionation. B ignores the chloride product, and with no other element changing there would be nothing to accept the electrons. C ignores the chlorate(I) product, so nothing would release the electrons. D is wrong because chlorine is 0 only in the element $\\ce{Cl2}$; bonded to $\\ce{Na}$ at +1 or $\\ce{O}$ at -2 it cannot stay at 0."
    },
    "self_explain": "In the hot-alkali reaction, identify the chlorine species that is reduced and the one that is oxidised, and state their oxidation numbers.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Prerequisite bridge: an element on its own has oxidation number 0; the oxidation numbers in an ion sum to its charge. Oxygen is -2 here. A rise means oxidation and a fall means reduction. Chlorine does both in aqueous alkali: chloride forms alongside an oxygen-containing chlorine ion. The latter differs between cold and hot conditions.",
+   "terms": [
+    {
+     "term": "Oxidation number",
+     "meaning": "A bookkeeping number assigned to one atom; sum all contributions to obtain the species charge.",
+     "notation": "$x$ for chlorine; $x+3(-2)=-1$ in $\\ce{ClO3-}$",
+     "spoken": "x plus three times minus two equals minus one",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf pp.2-3; bundle: Cambridge 9701 w19 P12 Q15 and ER s23 P21 Q3"
+    },
+    {
+     "term": "Disproportionation",
+     "meaning": "The same element is oxidised and reduced in one reaction.",
+     "notation": "$\\ce{Cl2}$ gives chlorine at both lower and higher oxidation numbers",
+     "spoken": "disproportionation",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf pp.2-3; bundle: Cambridge 9701 w19 P12 Q15 and ER s23 P21 Q3"
+    },
+    {
+     "term": "Chlorate(I) and chlorate(V)",
+     "meaning": "The Roman numeral names the oxidation number of chlorine, not the charge of the ion.",
+     "notation": "$\\ce{ClO-}$ and $\\ce{ClO3-}$",
+     "spoken": "chlorate one and chlorate five",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf pp.2-3; bundle: Cambridge 9701 w19 P12 Q15 and ER s23 P21 Q3"
+    },
+    {
+     "term": "Aqueous alkali",
+     "meaning": "Hydroxide ions dissolved in water; sodium ions are spectators in the net ionic equation.",
+     "notation": "$\\ce{NaOH(aq)}$ supplies $\\ce{OH-(aq)}$",
+     "spoken": "aqueous sodium hydroxide",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf pp.2-3; bundle: Cambridge 9701 w19 P12 Q15 and ER s23 P21 Q3"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Cold alkali makes chlorate(V).",
+     "temptation": "Remembering the hot equation and using it for both temperatures.",
+     "fix": "Cold dilute alkali gives $\\ce{ClO-}$, with chlorine at +1; hot concentrated alkali gives $\\ce{ClO3-}$, with chlorine at +5."
+    },
+    {
+     "id": "m2",
+     "idea": "Chlorine is only oxidised in disproportionation.",
+     "temptation": "Looking only at the oxygen-containing product.",
+     "fix": "Follow chloride too: chlorine changes from 0 to -1 as well as increasing its oxidation number in the oxyanion."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The plan requests no figure. The relevant source pages explain equations and oxidation-number bookkeeping; staged equations show the required relationships directly.",
+   "source_gaps": [
+    "The bundle supplies a keyed w19 P12 Q15 coefficient question and a truncated s23 P21 Q3 examiner report, not the complete structured-paper mark scheme; the new lesson rubrics are author-written criteria, not official mark schemes."
+   ],
+   "guided_discover": {
+    "stem": "Before studying chlorine, which rule is valid for assigning oxidation numbers in a polyatomic ion?",
+    "options": {
+     "A": "Their sum must always be zero.",
+     "B": "Their sum equals the overall charge of the ion.",
+     "C": "Each atom has the same oxidation number.",
+     "D": "Each atom has the oxidation number of the whole ion."
+    },
+    "answer": "B",
+    "explanation": "Sum the assigned oxidation numbers for every atom and equate that sum to the charge. Zero applies to a neutral species. The atoms need not have equal oxidation numbers."
+   },
+   "forms": [
+    {
+     "name": "Equations for cold and hot aqueous alkali",
+     "wordings": [
+      "Describe the reaction under the stated conditions.",
+      "Write a balanced molecular or ionic equation."
+     ],
+     "example": "Worked hot-alkali example. 1. Products are $\\ce{NaCl}$, $\\ce{NaClO3}$ and water. 2. Chlorine starts at 0 in $\\ce{Cl2}$; in chloride it is -1. For $\\ce{ClO3-}$, solve $x+3(-2)=-1$, giving +5. 3. One chlorine atom going from 0 to +5 loses five electrons; five atoms each going from 0 to -1 gain five electrons altogether. Hence chloride:chlorate(V) is 5:1, requiring six chlorine atoms, or three chlorine molecules. 4. Balance the remaining atoms: $\\ce{3Cl2(aq) + 6NaOH(aq) -> 5NaCl(aq) + NaClO3(aq) + 3H2O(l)}$. 5. Cancel spectator sodium ions: $\\ce{3Cl2(aq) + 6OH-(aq) -> 5Cl-(aq) + ClO3-(aq) + 3H2O(l)}$. Both sides have charge -6 and six chlorine atoms.",
+     "check": "In cold aqueous alkali, chlorine forms chlorate(I). Construct a balanced ionic half-equation for its oxidation to $\\ce{ClO-}$, using $\\ce{OH-}$ and water as needed. State the number of electrons lost per chlorine atom.",
+     "answer": "$\\ce{Cl2 + 4OH- -> 2ClO- + 2H2O + 2e-}$. Each chlorine atom loses one electron. Equivalent half-equations with fractional coefficients are accepted.",
+     "rubric": [
+      {
+       "point": "Balanced oxidation half-equation with hydroxide, water and electrons on the correct sides; equivalent multiples accepted.",
+       "keywords": [
+        [
+         "Cl2"
+        ],
+        [
+         "OH-",
+         "hydroxide"
+        ],
+        [
+         "ClO-",
+         "OCl-"
+        ],
+        [
+         "H2O",
+         "water"
+        ],
+        [
+         "e-",
+         "electron"
+        ]
+       ]
+      },
+      {
+       "point": "One electron lost per chlorine atom.",
+       "keywords": [
+        [
+         "one",
+         "1"
+        ],
+        [
+         "electron"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Cold aqueous sodium hydroxide reacts completely with 0.150 mol of chlorine. Calculate the amount of sodium hydroxide consumed and the total amount of chlorine-containing product ions formed.",
+      "answer": "The equation has 2 mol $\\ce{NaOH}$ per mol $\\ce{Cl2}$, so 0.300 mol $\\ce{NaOH}$ is consumed. Each chlorine molecule supplies two chlorine atoms, giving 0.300 mol chlorine-containing ions in total.",
+      "rubric": [
+       {
+        "point": "Calculates 0.300 mol sodium hydroxide.",
+        "keywords": [
+         [
+          "0.300",
+          "0.30",
+          "0.3"
+         ],
+         [
+          "NaOH",
+          "sodium hydroxide"
+         ]
+        ]
+       },
+       {
+        "point": "Calculates 0.300 mol total chlorine-containing product ions.",
+        "keywords": [
+         [
+          "0.300",
+          "0.30",
+          "0.3"
+         ],
+         [
+          "ions",
+          "products",
+          "chloride",
+          "chlorate"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf pp.2-3; bundle: Cambridge 9701 w19 P12 Q15 and ER s23 P21 Q3"
+    },
+    {
+     "name": "Explain disproportionation using oxidation numbers",
+     "wordings": [
+      "Explain why this is disproportionation.",
+      "Use oxidation numbers to justify the product ratio."
+     ],
+     "example": "Worked cold-alkali interpretation. In $\\ce{Cl2 + 2OH- -> Cl- + ClO- + H2O}$ chlorine starts at 0. For $\\ce{ClO-}$, $x-2=-1$, so chlorine is +1: oxidation. In $\\ce{Cl-}$ it is -1: reduction. One chlorine atom loses one electron and another gains one, giving equal amounts of the two ions. Both changes involve chlorine in the same reaction.",
+     "check": "After reaction with hot concentrated aqueous sodium hydroxide, a sample contains 0.30 mol of chloride ions. Deduce the amount of chlorate(V) ions formed using oxidation-number changes, and explain why the reaction is disproportionation.",
+     "answer": "Chlorine changes from 0 to -1 in chloride (reduction) and from 0 to +5 in chlorate(V) (oxidation). One oxidised chlorine balances five reduced chlorine atoms, so $n(\\ce{ClO3-})=0.30/5=0.060\\ \\mathrm{mol}$. Chlorine undergoes both changes in the same reaction.",
+     "rubric": [
+      {
+       "point": "Reduction: chlorine goes from 0 to -1 in chloride.",
+       "keywords": [
+        [
+         "0",
+         "zero"
+        ],
+        [
+         "-1",
+         "minus one"
+        ],
+        [
+         "reduced",
+         "reduction"
+        ]
+       ]
+      },
+      {
+       "point": "Oxidation: chlorine goes from 0 to +5 in chlorate(V).",
+       "keywords": [
+        [
+         "0",
+         "zero"
+        ],
+        [
+         "+5",
+         "five"
+        ],
+        [
+         "oxidised",
+         "oxidation"
+        ]
+       ]
+      },
+      {
+       "point": "Balances five electrons lost by one chlorine with one gained by each of five chlorine atoms.",
+       "keywords": [
+        [
+         "five",
+         "5"
+        ],
+        [
+         "electron",
+         "oxidation number"
+        ]
+       ]
+      },
+      {
+       "point": "Uses the 5:1 ratio to obtain 0.060 mol chlorate(V).",
+       "keywords": [
+        [
+         "0.060",
+         "0.06",
+         "6.0e-2"
+        ]
+       ]
+      },
+      {
+       "point": "Both oxidation and reduction involve chlorine in the same reaction.",
+       "keywords": [
+        [
+         "chlorine"
+        ],
+        [
+         "same reaction",
+         "one reaction"
+        ],
+        [
+         "oxidation",
+         "oxidised"
+        ],
+        [
+         "reduction",
+         "reduced"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A cold-alkali reaction forms 0.12 mol of chlorate(I). Deduce the amount of chloride formed and the amount of chlorine molecules consumed. Justify both amounts using chlorine oxidation numbers.",
+      "answer": "Chlorine goes from 0 to +1 in chlorate(I) and 0 to -1 in chloride, so equal amounts of chlorine atoms undergo oxidation and reduction. Thus 0.12 mol chloride forms. There are 0.24 mol chlorine atoms in the products, supplied by 0.12 mol $\\ce{Cl2}$.",
+      "rubric": [
+       {
+        "point": "Correct changes: 0 to +1 oxidation and 0 to -1 reduction.",
+        "keywords": [
+         [
+          "0",
+          "zero"
+         ],
+         [
+          "+1",
+          "plus one"
+         ],
+         [
+          "-1",
+          "minus one"
+         ],
+         [
+          "oxidation",
+          "oxidised"
+         ],
+         [
+          "reduction",
+          "reduced"
+         ]
+        ]
+       },
+       {
+        "point": "Equal one-electron changes give 0.12 mol chloride.",
+        "keywords": [
+         [
+          "0.12"
+         ],
+         [
+          "chloride",
+          "Cl-"
+         ]
+        ]
+       },
+       {
+        "point": "Two chlorine atoms per molecule give 0.12 mol chlorine molecules consumed.",
+        "keywords": [
+         [
+          "0.12"
+         ],
+         [
+          "Cl2",
+          "chlorine molecules"
+         ],
+         [
+          "two",
+          "2",
+          "0.24"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf pp.2-3; bundle: Cambridge 9701 w19 P12 Q15 and ER s23 P21 Q3"
+    }
+   ]
   },
   "9701-11.4.2": {
    "motivate": "Adding chlorine to drinking water kills bacteria. The useful species arise when chlorine reacts with water, so identify them from the equations rather than assuming chlorine gas alone does the job.",
@@ -1058,7 +1356,178 @@
     }
    },
    "self_explain": "Write the two equations that lead from added chlorine to the two active species, then explain why chlorine is +1 in $\\ce{ClO-}$.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Bridge from redox: chlorine can form two products with different oxidation numbers. In water it forms hydrochloric acid and hypochlorous acid. Hypochlorous acid can release a hydrogen ion to form chlorate(I). Hypochlorous acid and chlorate(I) are the two active species required here for killing bacteria; chloride is a different ion.",
+   "terms": [
+    {
+     "term": "Hypochlorous acid",
+     "meaning": "The chlorine-containing acid formed when chlorine reacts with water; also called chloric(I) acid.",
+     "notation": "$\\ce{HOCl}$, also written $\\ce{HClO}$",
+     "spoken": "hypochlorous acid",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf p.3; Cambridge 9701 syllabus 2025-2027 section 11.4.2, https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf (official scope confirmed in indexed search; full PDF retrieval timed out)"
+    },
+    {
+     "term": "Chlorate(I) ion",
+     "meaning": "The ion produced by dissociation of hypochlorous acid; also called hypochlorite.",
+     "notation": "$\\ce{ClO-}$, also written $\\ce{OCl-}$",
+     "spoken": "chlorate one ion",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf p.3; Cambridge 9701 syllabus 2025-2027 section 11.4.2, https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf (official scope confirmed in indexed search; full PDF retrieval timed out)"
+    },
+    {
+     "term": "Chloride ion",
+     "meaning": "The ion with chlorine at -1; distinguish it from chlorate(I).",
+     "notation": "$\\ce{Cl-}$",
+     "spoken": "chloride ion",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf p.3; Cambridge 9701 syllabus 2025-2027 section 11.4.2, https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf (official scope confirmed in indexed search; full PDF retrieval timed out)"
+    },
+    {
+     "term": "Dissociation",
+     "meaning": "Separation of the acid into hydrogen ions and its conjugate base in water.",
+     "notation": "$\\ce{HOCl(aq) <=> H+(aq) + ClO-(aq)}$",
+     "spoken": "hypochlorous acid is in equilibrium with hydrogen ions and hypochlorite ions",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf p.3; Cambridge 9701 syllabus 2025-2027 section 11.4.2, https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf (official scope confirmed in indexed search; full PDF retrieval timed out); Oklahoma State University Extension, Guidelines for the Use of Chlorine Bleach as a Sanitizer in Food Processing Operations, https://extension.okstate.edu/fact-sheets/guidelines-for-the-use-of-chlorine-bleach-as-a-sanitizer-in-food-processing-operations (equilibrium context only)"
+    }
+   ],
+   "guided_discover": {
+    "stem": "Before discussing water treatment, what does a reversible arrow between reactants and products tell you?",
+    "options": {
+     "A": "Every reactant molecule must have disappeared.",
+     "B": "Reactants and products must have equal concentrations.",
+     "C": "Forward and reverse reactions are possible.",
+     "D": "No chemical reaction can happen."
+    },
+    "answer": "C",
+    "explanation": "The arrow permits reaction in either direction. It alone gives neither complete conversion nor equal concentrations."
+   },
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "Chloride ions are the bacteria-killing species in chlorinated water.",
+     "temptation": "Both chloride and chlorate(I) contain chlorine and have one negative charge.",
+     "fix": "Trace the oxygen-containing branch: $\\ce{HOCl}$ and $\\ce{ClO-}$ kill bacteria. $\\ce{Cl-}$ lacks oxygen and is a separate product."
+    },
+    {
+     "id": "m4",
+     "idea": "Chlorine is -1 in both hypochlorous acid and chlorate(I).",
+     "temptation": "Confusing the charge of the whole ion with the oxidation number of its chlorine atom.",
+     "fix": "Use the sum rule: in $\\ce{HOCl}$, $1+x-2=0$; in $\\ce{ClO-}$, $x-2=-1$. Both give $x=+1$."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The plan requests no figure. The two staged equilibria trace the active species directly; no registered source graphic is needed for these equation-based forms.",
+   "source_gaps": [
+    "The reviewed sources do not specify a fraction of added chlorine remaining as molecular chlorine for a defined water sample; no such fraction is inferred here.",
+    "Only indexed official syllabus text was retrieved online; the official PDF request timed out. The bundle supplies the section 11.4 statement.",
+    "The source-reviewed equation form is based on the syllabus and textbook; its new checks and rubrics are original lesson material, not official examination questions or marking schemes."
+   ],
+   "forms": [
+    {
+     "name": "Trace the active species in water purification",
+     "wordings": [
+      "Explain chlorination using equations.",
+      "Distinguish chloride from the active chlorine species."
+     ],
+     "example": "Worked explanation. 1. Write $\\ce{Cl2(aq) + H2O(l) <=> HCl(aq) + HOCl(aq)}$. This produces hypochlorous acid. 2. Follow that acid: $\\ce{HOCl(aq) <=> H+(aq) + ClO-(aq)}$. This is acid dissociation, not a further oxidation-number change: chlorine remains +1. 3. Name both $\\ce{HOCl}$ and $\\ce{ClO-}$ as active species that kill bacteria. The chloride supplied by hydrochloric acid is a different species. The reversible arrows do not specify the proportions present.",
+     "check": "For the chlorination equilibrium $\\ce{Cl2 + H2O <=> H+ + Cl- + HOCl}$, a learner proposes replacing the coefficient of $\\ce{H+}$ with 2 while leaving all other coefficients unchanged. Check both hydrogen-atom balance and charge balance to determine whether this is valid.",
+     "answer": "It is invalid: the left side has two H atoms and zero charge, while the proposed right side has three H atoms and net charge +1. The original coefficient of $\\ce{H+}$ is 1.",
+     "rubric": [
+      {
+       "point": "Compares hydrogen atoms: 2 on the left and 3 on the proposed right.",
+       "keywords": [
+        [
+         "2",
+         "two"
+        ],
+        [
+         "3",
+         "three"
+        ],
+        [
+         "hydrogen",
+         "H atoms"
+        ]
+       ]
+      },
+      {
+       "point": "Compares net charge: 0 on the left and +1 on the proposed right, and rejects the proposal.",
+       "keywords": [
+        [
+         "0",
+         "zero",
+         "neutral"
+        ],
+        [
+         "+1",
+         "plus one",
+         "positive"
+        ],
+        [
+         "charge"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "In chlorinated water, $\\ce{HOCl <=> H+ + ClO-}$. Assuming equilibrium is re-established at constant temperature, predict the direction of shift when a small amount of acid is added. Explain using the equation, and identify which of these two bacteria-killing species increases in proportion.",
+      "answer": "Adding acid increases $\\ce{H+}$. The equilibrium shifts left, consuming some added hydrogen ions, so the proportion of $\\ce{HOCl}$ increases relative to $\\ce{ClO-}$.",
+      "rubric": [
+       {
+        "point": "Predicts a shift left, towards HOCl.",
+        "keywords": [
+         [
+          "left",
+          "reverse",
+          "HOCl",
+          "HClO"
+         ]
+        ]
+       },
+       {
+        "point": "Explains that added hydrogen ions are consumed as equilibrium shifts.",
+        "keywords": [
+         [
+          "H+",
+          "hydrogen",
+          "acid"
+         ],
+         [
+          "consume",
+          "remove",
+          "oppose",
+          "react"
+         ]
+        ]
+       },
+       {
+        "point": "Identifies HOCl as increasing in proportion.",
+        "keywords": [
+         [
+          "HOCl",
+          "HClO",
+          "hypochlorous"
+         ],
+         [
+          "increase",
+          "greater",
+          "more",
+          "rise"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.4.pdf p.3; Cambridge 9701 syllabus 2025-2027 section 11.4.2, https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf (official scope confirmed in indexed search; full PDF retrieval timed out); Oklahoma State University Extension, Guidelines for the Use of Chlorine Bleach as a Sanitizer in Food Processing Operations, https://extension.okstate.edu/fact-sheets/guidelines-for-the-use-of-chlorine-bleach-as-a-sanitizer-in-food-processing-operations (equilibrium context only)"
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-11.4.1": [
+   "Equations for cold and hot aqueous alkali",
+   "Explain disproportionation using oxidation numbers"
+  ],
+  "9701-11.4.2": [
+   "Trace the active species in water purification"
+  ]
  }
 }

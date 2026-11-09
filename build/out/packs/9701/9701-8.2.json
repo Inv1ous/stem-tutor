@@ -36,6 +36,38 @@
    "refutation": "The major effect is a greater fraction of collisions with energy at least the activation energy.",
    "contrast": "More collisions versus a larger proportion effective.",
    "source": "9701_s22_13_q16"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-8.2.1",
+   "statement": "Every collision above the threshold must react.",
+   "refutation": "Enough energy is necessary; a suitable orientation is also needed for an effective collision.",
+   "contrast": "The shaded tail is often labelled particles with enough energy to react.",
+   "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed). SaveMyExams/9701 a-level-chemistry-cie-25/9701 c8.1.pdf, p.3 (learner library). Definition from syllabus; application and rubric authored from the collision-theory conditions."
+  },
+  {
+   "id": "m6",
+   "kc": "9701-8.2.2",
+   "statement": "The height at the activation-energy line counts every molecule with sufficient energy.",
+   "refutation": "A height describes one narrow energy interval; integrate visually across the whole tail by identifying its area.",
+   "contrast": "Height and area can both be described loosely as number of molecules.",
+   "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed). SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c8.2.pdf, pp.12–13 (learner library); temperature-curve selection, adapted into an original sketch-and-interpret task. Cambridge June 2022 examiner report, ER 9701 s22 P23 Q3(v), cached in build/work/er/9701.json; warns about taller hot peaks and merging curves. Rubric authored for this original cooling check."
+  },
+  {
+   "id": "m7",
+   "kc": "9701-8.2.3",
+   "statement": "Cooling slows reaction by increasing activation energy.",
+   "refutation": "The pathway and threshold stay fixed; fewer particles meet the energy condition.",
+   "contrast": "A slower rate may be mistaken for a higher barrier.",
+   "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed). Bundle CAIE 9701 Jun 2022 P13 Q16 (official key C): higher-temperature rate explanation uses more collisions above activation energy. Cambridge June 2022 examiner report, ER 9701 s22 P23 Q3(v), cached in build/work/er/9701.json; warns about taller hot peaks and merging curves. Original example, cooling check and rubric are authored adaptations."
+  },
+  {
+   "id": "m8",
+   "kc": "9701-8.2.3",
+   "statement": "A catalyst heats particles in order to increase rate.",
+   "refutation": "At fixed temperature a catalyst changes the pathway, lowering activation energy; it does not raise average kinetic energy.",
+   "contrast": "Both a catalyst and heating speed reaction.",
+   "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed). Bundle CAIE 9701 Jun 2022 P13 Q16 (official key C): higher-temperature rate explanation uses more collisions above activation energy. Cambridge June 2022 examiner report, ER 9701 s22 P23 Q3(v), cached in build/work/er/9701.json; warns about taller hot peaks and merging curves. Original example, cooling check and rubric are authored adaptations."
   }
  ],
  "worked": [
@@ -1426,6 +1458,93 @@
     "Consider successively higher energies far beyond the peak: what should happen to the number of molecules in equal-width energy intervals? Use this to describe the tail."
    ],
    "shuffle": true
+  },
+  {
+   "id": "9701-8.2-r02",
+   "kcs": [
+    "9701-8.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A reaction has an activation energy of $60\\ \\mathrm{kJ\\,mol^{-1}}$. Three collisions are modelled on the same molar energy scale: P has energy $49\\ \\mathrm{kJ\\,mol^{-1}}$ and a suitable orientation; Q has energy $62\\ \\mathrm{kJ\\,mol^{-1}}$ and an unsuitable orientation; R has energy $68\\ \\mathrm{kJ\\,mol^{-1}}$ and a suitable orientation. Define activation energy, identify which collision can be effective, and explain why the other two are ineffective.",
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "Activation energy is the minimum energy required for a collision to be effective.",
+     "keywords": [
+      [
+       "minimum",
+       "least"
+      ],
+      [
+       "energy"
+      ],
+      [
+       "effective",
+       "successful",
+       "reaction"
+      ]
+     ]
+    },
+    {
+     "point": "R can be effective because it meets both the energy and orientation conditions.",
+     "keywords": [
+      [
+       "R"
+      ],
+      [
+       "orientation",
+       "alignment"
+      ],
+      [
+       "energy",
+       "threshold"
+      ]
+     ]
+    },
+    {
+     "point": "P has insufficient energy despite a suitable orientation.",
+     "keywords": [
+      [
+       "P"
+      ],
+      [
+       "below",
+       "less",
+       "insufficient",
+       "not enough"
+      ]
+     ]
+    },
+    {
+     "point": "Q has an unsuitable orientation despite sufficient energy.",
+     "keywords": [
+      [
+       "Q"
+      ],
+      [
+       "orientation",
+       "alignment"
+      ],
+      [
+       "unsuitable",
+       "incorrect",
+       "wrong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "R meets both collision conditions. P falls below the minimum energy threshold; Q exceeds it but has an unsuitable orientation, so sufficient energy alone does not guarantee reaction.",
+   "hints": [
+    "Recall the two conditions for an effective collision.",
+    "Compare the energy of each encounter with the reaction threshold, then examine orientation separately.",
+    "For each rejected encounter, identify the condition that it fails."
+   ],
+   "shuffle": true
   }
  ],
  "flashcards": [
@@ -1438,12 +1557,12 @@
  ],
  "diagrams": [
   {
-   "file": "Assets/9701/9701-8.2-distribution.svg",
+   "file": "Library/Courses/9701/Diagrams/9701-8.2-reviewed-distribution-cd560798efdc6d9e.svg",
    "type": "maxwell_boltzmann",
    "params": {
     "temps": [
-     300,
-     400
+     1,
+     1.7
     ],
     "labels": [
      "Lower temperature",
@@ -1457,27 +1576,449 @@
  "teach": {
   "9701-8.2.1": {
    "motivate": "Why do some collisions between reactant particles lead to products while others do not? A collision must meet an energy threshold.",
-   "establish": "Activation energy, $E_A$, is the minimum energy required for a collision to be effective. Particles in a sample do not all have the same energy. A collision whose energy is below $E_A$ is ineffective; one that reaches this threshold can be effective. The definition concerns the collision, not the average energy of the sample.",
+   "establish": "Activation energy, $E_A$, is the minimum energy required for a collision to be effective. Particles in a sample do not all have the same energy. A collision whose energy is below $E_A$ is ineffective; one that reaches this threshold can be effective. The definition concerns the collision, not the average energy of the sample.\nPrerequisite bridge: an effective collision from 8.1 forms products; simply counting all collisions includes encounters that lack enough energy or a suitable orientation.",
    "connect": "Use this threshold on a Boltzmann distribution: particles to the right of $E_A$ have sufficient energy to react.",
    "note": "- $E_A$: minimum energy required for a collision to be effective.\n- Collisions below $E_A$ are ineffective.\n- The threshold belongs to the reaction pathway.",
    "self_explain": "Define $E_A$ precisely, then explain why a collision below it cannot produce reaction.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Reactant particles must collide with enough energy and a suitable orientation. Activation energy is the minimum collision-energy threshold. Reaching the threshold satisfies the energy condition; it does not remove the orientation requirement.",
+   "terms": [
+    {
+     "term": "activation energy",
+     "meaning": "Minimum energy required for a collision to be effective.",
+     "notation": "$E_A$",
+     "spoken": "activation energy",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed)."
+    },
+    {
+     "term": "effective collision",
+     "meaning": "A collision that leads to chemical reaction.",
+     "notation": "words only",
+     "spoken": "effective collision",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c8.1.pdf, p.3 (learner library)."
+    },
+    {
+     "term": "average kinetic energy",
+     "meaning": "The mean kinetic energy of the particles, which increases with absolute temperature; it is not the reaction threshold.",
+     "notation": "words only",
+     "spoken": "average kinetic energy",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed)."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Define and apply activation energy",
+     "wordings": [
+      "Define activation energy.",
+      "Explain why sufficient collision energy alone does not guarantee reaction."
+     ],
+     "example": "Problem: a collision has energy below the activation-energy threshold, although the particles approach in a suitable orientation. Can it form products?\nStep 1: state the definition: activation energy is the minimum energy required for a collision to be effective.\nStep 2: compare collision energy with the threshold: this collision falls short.\nStep 3: conclude that it is ineffective; orientation cannot compensate for insufficient energy.",
+     "check": "A collision reaches the activation-energy threshold, but the reactant particles meet in an unsuitable orientation. Define activation energy and explain whether this collision is effective.",
+     "answer": "Activation energy is the minimum energy required for a collision to be effective. The energy condition is met, but the unsuitable orientation prevents this collision from producing reaction; it is ineffective.",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed). SaveMyExams/9701 a-level-chemistry-cie-25/9701 c8.1.pdf, p.3 (learner library). Definition from syllabus; application and rubric authored from the collision-theory conditions.",
+     "rubric": [
+      {
+       "point": "Define activation energy as the minimum energy required for a collision to be effective.",
+       "keywords": [
+        [
+         "minimum",
+         "least"
+        ],
+        [
+         "energy"
+        ],
+        [
+         "effective",
+         "successful",
+         "reaction"
+        ]
+       ]
+      },
+      {
+       "point": "Recognise that this collision meets the energy condition.",
+       "keywords": [
+        [
+         "energy",
+         "threshold"
+        ],
+        [
+         "sufficient",
+         "met",
+         "reaches",
+         "enough"
+        ]
+       ]
+      },
+      {
+       "point": "Conclude that the unsuitable orientation makes this collision ineffective.",
+       "keywords": [
+        [
+         "orientation",
+         "alignment"
+        ],
+        [
+         "ineffective",
+         "unsuccessful",
+         "does not react",
+         "no reaction",
+         "prevents"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Activation energy is the average energy of particles.",
+     "temptation": "Both quantities are energies, so their roles may seem interchangeable.",
+     "fix": "The average describes the sample; activation energy sets a minimum collision threshold for the pathway.",
+     "id": "m1"
+    },
+    {
+     "idea": "Every collision above the threshold must react.",
+     "temptation": "The shaded tail is often labelled particles with enough energy to react.",
+     "fix": "Enough energy is necessary; a suitable orientation is also needed for an effective collision.",
+     "id": "m5"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701-8.2-reviewed-distribution-cd560798efdc6d9e.svg"
+   ],
+   "diagram_descriptions": [
+    "Molecular energy is horizontal and number of molecules vertical. The hotter orange distribution has a lower peak farther right and a broader tail than the cooler blue distribution. Both represent the same number of molecules and have equal total areas over all energies. At the same fixed activation energy, the hotter distribution has a larger shaded tail. The scale is qualitative; tails approach zero and continue beyond the displayed range."
+   ],
+   "source_gaps": [
+    "The library page supplies the collision conditions but no official mark scheme for this original application; its rubric is source-informed, not an official scheme."
+   ]
   },
   "9701-8.2.2": {
    "motivate": "At one temperature, why are only some particles energetic enough to react? The Boltzmann distribution displays their range of energies.",
-   "establish": "Sketch molecular energy on the horizontal axis and number or proportion of molecules on the vertical axis. The Boltzmann distribution starts at the origin, rises to a peak at the most probable energy, then has a long tail towards high energy. The area under the whole curve is the total number or proportion of particles. Mark $E_A$ as a vertical energy threshold. The area under the curve to the right of $E_A$ represents particles with enough energy to react. For a fixed sample at higher temperature, sketch a lower, broader peak shifted right, the same total area, and a larger region beyond the unchanged $E_A$.",
+   "establish": "Sketch molecular energy on the horizontal axis and number or proportion of molecules on the vertical axis. The Boltzmann distribution starts at the origin, rises to a peak at the most probable energy, then has a long tail towards high energy. The area under the whole curve is the total number or proportion of particles. Mark $E_A$ as a vertical energy threshold. The area under the curve to the right of $E_A$ represents particles with enough energy to react. For a fixed sample at higher temperature, sketch a lower, broader peak shifted right, the same total area, and a larger region beyond the unchanged $E_A$.\nPrerequisite bridge: transfer the minimum collision-energy threshold from 8.2.1 to a vertical line on an energy axis. Use an area, rather than the height at that line, to represent all particles meeting the energy condition.",
    "connect": "That increased area explains why heating makes effective collisions more frequent.",
    "note": "- Horizontal axis: molecular energy; vertical axis: number or proportion of molecules.\n- Area under curve: total number or proportion.\n- Area right of $E_A$: particles with sufficient energy.\n- Heating lowers and shifts the peak right while preserving total area.",
    "self_explain": "Sketch two temperature curves for the same sample and explain why their areas beyond $E_A$ differ.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A distribution shows how the sample is spread across molecular energies. Its height refers to an energy interval; an area collects molecules across a range of energies. Heating redistributes the same particles and increases the area beyond the unchanged reaction threshold.",
+   "terms": [
+    {
+     "term": "Boltzmann distribution",
+     "meaning": "A curve showing the spread of molecular energies in a sample.",
+     "notation": "words only",
+     "spoken": "Boltzmann distribution",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed)."
+    },
+    {
+     "term": "most probable energy",
+     "meaning": "The molecular energy at the position of the peak on the horizontal axis, not the peak height.",
+     "notation": "words only",
+     "spoken": "most probable energy",
+     "source": "SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c8.2.pdf, pp.12–13 (learner library); temperature-curve selection, adapted into an original sketch-and-interpret task."
+    },
+    {
+     "term": "area beyond activation energy",
+     "meaning": "The number, or fraction for a normalised curve, with energy at least the threshold.",
+     "notation": "$E \\geq E_A$",
+     "spoken": "energy greater than or equal to activation energy",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed)."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Sketch and interpret a Boltzmann distribution",
+     "wordings": [
+      "Sketch Boltzmann distributions for the same sample at two temperatures.",
+      "Identify the region representing particles with sufficient energy to react."
+     ],
+     "example": "Problem: sketch a fixed gas sample before and after heating, with the reaction pathway unchanged.\nStep 1: label horizontal molecular energy and vertical number of molecules; draw each curve from the origin with a peak and a high-energy tail approaching the axis from above.\nStep 2: draw the hotter curve with a lower, broader peak to the right; preserve equal total areas because the number of particles is unchanged.\nStep 3: draw one fixed activation-energy line and shade the area under each curve to its right. The hotter shaded area is larger.\nStep 4: distinguish height at the line, referring to a narrow energy interval, from the entire shaded population meeting the threshold.",
+     "check": "Draw two labelled Boltzmann curves for the same fixed sample at 320 K and 280 K with an unchanged reaction pathway. Mark activation energy and identify the region at 280 K representing all molecules with enough energy to react. State whether the total area or the height at the activation-energy line gives that population.",
+     "answer": "Label molecular energy horizontally and number or proportion of molecules vertically. Both curves begin at the origin, rise to a peak and have tails approaching the axis from above without turning up or crossing it. The 280 K curve is taller and narrower with its peak farther left than the 320 K curve; total areas are equal. Use the same activation-energy line for both. The required population at 280 K is the area under that curve to the right of the line, not its height at the line and not the total area of the whole curve.",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed). SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c8.2.pdf, pp.12–13 (learner library); temperature-curve selection, adapted into an original sketch-and-interpret task. Cambridge June 2022 examiner report, ER 9701 s22 P23 Q3(v), cached in build/work/er/9701.json; warns about taller hot peaks and merging curves. Rubric authored for this original cooling check.",
+     "rubric": [
+      {
+       "point": "Correct axes: molecular energy horizontally and number or proportion of molecules vertically.",
+       "keywords": [
+        [
+         "energy"
+        ],
+        [
+         "number",
+         "proportion",
+         "fraction",
+         "molecules"
+        ]
+       ]
+      },
+      {
+       "point": "Curves begin at the origin, peak, and tail towards the energy axis without an upturn.",
+       "keywords": [
+        [
+         "origin",
+         "zero"
+        ],
+        [
+         "peak",
+         "maximum"
+        ],
+        [
+         "tail",
+         "approach",
+         "asymptote"
+        ]
+       ]
+      },
+      {
+       "point": "Colder curve has a taller peak farther left and equal total area for the same sample.",
+       "keywords": [
+        [
+         "taller",
+         "higher"
+        ],
+        [
+         "left",
+         "lower energy"
+        ],
+        [
+         "equal",
+         "same",
+         "unchanged"
+        ],
+        [
+         "area"
+        ]
+       ]
+      },
+      {
+       "point": "Activation energy stays at the same horizontal position for both curves.",
+       "keywords": [
+        [
+         "activation",
+         "threshold"
+        ],
+        [
+         "same",
+         "fixed",
+         "unchanged"
+        ]
+       ]
+      },
+      {
+       "point": "Select the area under the 280 K curve at or beyond the activation-energy line, not the height at the line.",
+       "keywords": [
+        [
+         "area"
+        ],
+        [
+         "right",
+         "beyond",
+         "at least",
+         "greater than"
+        ],
+        [
+         "280",
+         "colder",
+         "cooler"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Library/Courses/9701/Diagrams/9701-8.2-reviewed-distribution-cd560798efdc6d9e.svg"
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "The height at the activation-energy line counts every molecule with sufficient energy.",
+     "temptation": "Height and area can both be described loosely as number of molecules.",
+     "fix": "A height describes one narrow energy interval; integrate visually across the whole tail by identifying its area.",
+     "id": "m6"
+    },
+    {
+     "idea": "Heating moves the activation-energy line left.",
+     "temptation": "Both heating and adding a catalyst increase rate.",
+     "fix": "Heating changes the distribution; a catalyst changes the pathway and its threshold.",
+     "id": "m3"
+    },
+    {
+     "idea": "A hotter sample needs a taller peak or an upward-turning tail.",
+     "temptation": "More energetic particles may be confused with a larger height everywhere.",
+     "fix": "Conserve total area: make the hot peak lower and farther right, with a long decreasing tail.",
+     "id": "m2"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701-8.2-reviewed-distribution-cd560798efdc6d9e.svg"
+   ],
+   "diagram_descriptions": [
+    "Molecular energy is horizontal and number of molecules vertical. The hotter orange distribution has a lower peak farther right and a broader tail than the cooler blue distribution. Both represent the same number of molecules and have equal total areas over all energies. At the same fixed activation energy, the hotter distribution has a larger shaded tail. The scale is qualitative; tails approach zero and continue beyond the displayed range."
+   ],
+   "source_gaps": [
+    "The reviewed TQ pages test selecting a temperature curve; the explicit sketch requirement comes from the official syllabus, and no official sketch mark scheme was available in these pages.",
+    "The legacy diagram request is preserved verbatim but its display alias resolves to the reviewed replacement because rendering its original temperature parameters gives rising tails."
+   ]
   },
   "9701-8.2.3": {
    "motivate": "A modest temperature rise can markedly speed a reaction. The important change is how many collisions meet the energy threshold.",
-   "establish": "Increasing temperature gives particles greater average kinetic energy and broadens the Boltzmann distribution towards higher energies. The fraction with energy at least $E_A$ rises, even though $E_A$ remains unchanged for the same pathway. Particles also move faster and collide somewhat more often. Most importantly, a larger fraction of collisions is effective, so the frequency of effective collisions increases and the reaction rate rises. Cooling reverses these changes: the fraction beyond $E_A$, frequency of effective collisions and rate all fall.",
+   "establish": "Increasing temperature gives particles greater average kinetic energy and broadens the Boltzmann distribution towards higher energies. The fraction with energy at least $E_A$ rises, even though $E_A$ remains unchanged for the same pathway. Particles also move faster and collide somewhat more often. Most importantly, a larger fraction of collisions is effective, so the frequency of effective collisions increases and the reaction rate rises. Cooling reverses these changes: the fraction beyond $E_A$, frequency of effective collisions and rate all fall.\nPrerequisite bridge: use the tail area from 8.2.2 as the fraction meeting the energy condition, then connect this with the frequency of effective collisions from 8.1. Explain the rate, rather than predicting an equilibrium yield.",
    "connect": "Distinguish this temperature effect from increasing concentration, which chiefly raises collision frequency, and from a catalyst, which lowers the threshold through an alternative pathway.",
    "note": "- Heating broadens the Boltzmann distribution towards high energies.\n- More particles have energy at least $E_A$.\n- Effective collisions occur more frequently, increasing rate.\n- Cooling produces the reverse effect.",
    "self_explain": "Explain a temperature increase by linking the energy distribution, $E_A$, effective-collision frequency and rate.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Heating increases the fraction of particles with enough energy for the same reaction pathway. Effective collisions then occur more frequently and the reaction is faster. Cooling gives the reverse change. The activation-energy threshold itself stays fixed.",
+   "terms": [
+    {
+     "term": "frequency of effective collisions",
+     "meaning": "Number of collisions producing reaction per unit time.",
+     "notation": "words only",
+     "spoken": "frequency of effective collisions",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed)."
+    },
+    {
+     "term": "temperature change",
+     "meaning": "A change in average molecular kinetic energy and in the energy distribution.",
+     "notation": "$T$",
+     "spoken": "temperature",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed)."
+    },
+    {
+     "term": "reaction pathway",
+     "meaning": "The route by which reactants become products; a catalyst can provide an alternative route with lower activation energy.",
+     "notation": "words only",
+     "spoken": "reaction pathway",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed)."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain the effect of a temperature change on rate",
+     "wordings": [
+      "Explain why increasing temperature increases reaction rate using the Boltzmann distribution.",
+      "Explain the effect of cooling in terms of the frequency of effective collisions."
+     ],
+     "example": "Problem: compare initial rates at 300 K and 330 K for identical initial concentrations and the same catalyst conditions.\nStep 1: the hotter sample has greater average kinetic energy; its distribution is broader with a lower peak farther right.\nStep 2: keep activation energy unchanged for the same pathway; the fraction in the tail at or above it increases.\nStep 3: a larger fraction of encounters can satisfy the energy condition, so effective collisions occur more frequently and the rate increases. Faster motion also raises encounter frequency, but this alone is an incomplete explanation.\nStep 4: do not attribute heating to a lower threshold or assume that every energetic collision has a suitable orientation.",
+     "check": "A reaction is run in two trials with identical initial reactant concentrations and catalyst conditions. Explain why its initial rate is lower at 290 K than at 310 K. Use both the Boltzmann distribution and effective collisions, and state what happens to activation energy.",
+     "answer": "At 290 K the particles have lower average kinetic energy; the distribution has a taller peak farther left. For the unchanged pathway, activation energy is the same. A smaller fraction lies at or above it, so fewer encounters meet the energy requirement and effective collisions occur less frequently. The initial rate is therefore lower. Do not say that cooling raises the activation-energy threshold.",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.25, sections 8.1–8.3 (official search-index text reviewed). Bundle CAIE 9701 Jun 2022 P13 Q16 (official key C): higher-temperature rate explanation uses more collisions above activation energy. Cambridge June 2022 examiner report, ER 9701 s22 P23 Q3(v), cached in build/work/er/9701.json; warns about taller hot peaks and merging curves. Original example, cooling check and rubric are authored adaptations.",
+     "rubric": [
+      {
+       "point": "At lower temperature the distribution is shifted towards lower energies.",
+       "keywords": [
+        [
+         "lower",
+         "less",
+         "left",
+         "colder"
+        ],
+        [
+         "energy",
+         "energies",
+         "kinetic",
+         "peak"
+        ]
+       ]
+      },
+      {
+       "point": "Activation energy is unchanged because the pathway is unchanged.",
+       "keywords": [
+        [
+         "activation",
+         "threshold"
+        ],
+        [
+         "unchanged",
+         "same",
+         "fixed"
+        ]
+       ]
+      },
+      {
+       "point": "A smaller fraction of particles has energy at least activation energy.",
+       "keywords": [
+        [
+         "fewer",
+         "smaller",
+         "less",
+         "decrease"
+        ],
+        [
+         "fraction",
+         "proportion",
+         "particles",
+         "molecules",
+         "collisions"
+        ],
+        [
+         "activation",
+         "threshold",
+         "sufficient",
+         "enough"
+        ]
+       ]
+      },
+      {
+       "point": "Effective collisions are less frequent, causing a lower rate.",
+       "keywords": [
+        [
+         "effective",
+         "successful"
+        ],
+        [
+         "less frequent",
+         "fewer",
+         "less often",
+         "decrease",
+         "lower frequency"
+        ],
+        [
+         "rate",
+         "slower"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Library/Courses/9701/Diagrams/9701-8.2-reviewed-distribution-cd560798efdc6d9e.svg"
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Cooling slows reaction by increasing activation energy.",
+     "temptation": "A slower rate may be mistaken for a higher barrier.",
+     "fix": "The pathway and threshold stay fixed; fewer particles meet the energy condition.",
+     "id": "m7"
+    },
+    {
+     "idea": "Temperature affects only the total collision frequency.",
+     "temptation": "Faster particles are easier to picture than a changing distribution.",
+     "fix": "Include the larger fraction at or above the threshold and the resulting greater frequency of effective collisions.",
+     "id": "m4"
+    },
+    {
+     "idea": "A catalyst heats particles in order to increase rate.",
+     "temptation": "Both a catalyst and heating speed reaction.",
+     "fix": "At fixed temperature a catalyst changes the pathway, lowering activation energy; it does not raise average kinetic energy.",
+     "id": "m8"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701-8.2-reviewed-distribution-cd560798efdc6d9e.svg"
+   ],
+   "diagram_descriptions": [
+    "Molecular energy is horizontal and number of molecules vertical. The hotter orange distribution has a lower peak farther right and a broader tail than the cooler blue distribution. Both represent the same number of molecules and have equal total areas over all energies. At the same fixed activation energy, the hotter distribution has a larger shaded tail. The scale is qualitative; tails approach zero and continue beyond the displayed range."
+   ],
+   "source_gaps": [
+    "The specified official June 2022 report URL https://www.cambridgeinternational.org/Images/567188-june-2022-examiner-report.pdf could not be fetched; the cached s22 P23 Q3 excerpt supports sketch errors but does not establish the plan's claimed temperature-versus-activation-energy examiner comment.",
+    "The cooling check and its rubric are independently authored reversals of the syllabus temperature effect; no official cooling mark scheme was reviewed."
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-8.2.1": [
+   "Define and apply activation energy"
+  ],
+  "9701-8.2.2": [
+   "Sketch and interpret a Boltzmann distribution"
+  ],
+  "9701-8.2.3": [
+   "Explain the effect of a temperature change on rate"
+  ]
  }
 }

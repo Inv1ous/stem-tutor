@@ -52,6 +52,86 @@
    "refutation": "The change is inside $f$, so it acts on the input: $y=f(ax)$ takes at $x$ the value $f$ had at $ax$, so a feature of $y=f(x)$ at $x=p$ appears at $x=\\dfrac{p}{a}$ — every $x$-coordinate is multiplied by $\\dfrac{1}{a}$, and the period of a trigonometric graph is divided by $a$.",
    "contrast": "$y=\\sin x$ has period $360^\\circ$ with its first maximum at $x=90^\\circ$; $y=\\sin 2x$ has period $180^\\circ$ with its first maximum at $x=45^\\circ$, not period $720^\\circ$ with a maximum at $x=180^\\circ$.",
    "source": "research"
+  },
+  {
+   "id": "m7",
+   "kc": "P1-1.1",
+   "statement": "Add exponents when adding terms",
+   "refutation": "Only combine exponents for multiplication of the same base; $a^2+a^3$ is a sum.",
+   "contrast": "Simplify $9^3\\times3^{-4}$. 1. Use base 3: $9^3=3^6$. 2. Add exponents: $3^{6-4}=3^2$. 3. Evaluate to get $9$; direct calculation agrees.",
+   "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.1.pdf pp.2–3; original example and check, not copied"
+  },
+  {
+   "id": "m8",
+   "kc": "P1-1.3",
+   "statement": "Read the bracket sign as the vertex coordinate",
+   "refutation": "Set $x-h=0$ to get the vertex abscissa $h$.",
+   "contrast": "For $y=3x^2+12x+7$, 1. Factor 3 from the variable terms: $3(x^2+4x)+7$. 2. Complete the square: $3(x+2)^2-5$. 3. The vertex is $(-2,-5)$, axis $x=-2$, opening upwards, with intercept $(0,7)$. Roots are $-2\\pm\\sqrt{15}/3$. These labelled features fix the sketch.",
+   "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.10–11; original example and check, not copied"
+  },
+  {
+   "id": "m9",
+   "kc": "P1-1.4",
+   "statement": "Include equality for distinct roots",
+   "refutation": "Distinct roots need $\\Delta>0$; equality gives repeated roots.",
+   "contrast": "For $3x^2+2x+4=0$, 1. Record $a=3,b=2,c=4$. 2. Compute $\\Delta=4-48=-44$. 3. Since it is negative, there are no real roots and the parabola does not meet the horizontal axis.",
+   "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.5–6; original example and check, not copied"
+  },
+  {
+   "id": "m10",
+   "kc": "P1-1.5",
+   "statement": "Keep only the positive square root",
+   "refutation": "If $u^2=c>0$, then $u=\\pm\\sqrt c$.",
+   "contrast": "Solve $2x^2+7x+3=0$. 1. Factorise as $(2x+1)(x+3)=0$. 2. Set each factor to zero: $x=-1/2$ or $x=-3$. 3. Substitution verifies both.",
+   "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.14–16; original example and check, not copied"
+  },
+  {
+   "id": "m11",
+   "kc": "P1-1.6",
+   "statement": "Mix an x-value with the other root’s y-value",
+   "refutation": "Substitute and verify each complete pair in both original equations.",
+   "contrast": "Solve $y=2x+1$, $y=x^2-2$. 1. Substitute: $x^2-2=2x+1$. 2. Solve $(x-3)(x+1)=0$. 3. Pair each root with its ordinate: $(3,7)$ and $(-1,-1)$. 4. Each pair satisfies both original equations.",
+   "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.3.pdf pp.4, 7; original example and check, not copied"
+  },
+  {
+   "id": "m12",
+   "kc": "P1-1.7",
+   "statement": "Multiply by a variable without checking its sign",
+   "refutation": "Use sign cases or multiply by its positive square on the nonzero domain.",
+   "contrast": "Interpret $x^2-4x<5$. 1. Compare $y=x^2-4x$ with $y=5$. 2. Intersections solve $(x-5)(x+1)=0$. 3. The upward parabola lies below the line between the crossings, so $-1<x<5$. Equality points are excluded.",
+   "source": "Edexcel IAL P1 specification, P1-1.7 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4; original example and check, not copied"
+  },
+  {
+   "id": "m13",
+   "kc": "P1-1.8",
+   "statement": "Include the corner of two boundaries automatically",
+   "refutation": "A corner is included only if it satisfies every inequality, including each strict condition.",
+   "contrast": "Represent $y>x+2$ and $y\\le-2x+11$. 1. Draw the first line dashed, the second solid. 2. The origin fails the first inequality, so shade above it; shade on or below the second. 3. Their intersection is $(3,5)$, excluded because the first boundary is strict. The overlap continues leftwards.",
+   "source": "Edexcel IAL P1 specification, P1-1.8 (chapter bundle); original example and check, not copied"
+  },
+  {
+   "id": "m14",
+   "kc": "P1-1.9",
+   "statement": "Give the roots as the inequality answer",
+   "refutation": "Roots divide the number line; test each interval and report the full set of values.",
+   "contrast": "Solve $5-3x\\ge14$. 1. Subtract 5: $-3x\\ge9$. 2. Divide by $-3$ and reverse the sign: $x\\le-3$. 3. A test such as $x=-4$ satisfies the original.",
+   "source": "Edexcel IAL P1 specification, P1-1.9 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4; original example and check, not copied"
+  },
+  {
+   "id": "m15",
+   "kc": "P1-1.10",
+   "statement": "Stop after taking out a common factor",
+   "refutation": "Factorise the remaining quadratic too when possible; re-expand to check.",
+   "contrast": "Expand $(2x-1)(x+4)$. 1. Multiply all four term pairs: $2x^2+8x-x-4$. 2. Collect only like powers: $2x^2+7x-4$. 3. At $x=0$, both forms give $-4$ as a quick check, though one value alone is not proof.",
+   "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.5.pdf pp.2, 4; original example and check, not copied"
+  },
+  {
+   "id": "m16",
+   "kc": "P1-1.11",
+   "statement": "Every repeated root touches the axis",
+   "refutation": "Even multiplicity touches without sign change; odd multiplicity crosses, including a triple root.",
+   "contrast": "Sketch $y=(x+2)(x-1)^2$. 1. Roots are $-2$ and 1; the latter is double. 2. Cross at $(-2,0)$ and touch smoothly at $(1,0)$. 3. The vertical intercept is $(0,2)$. 4. Positive leading coefficient gives a lower left end and upper right end. No calculus is needed to locate the other turning point exactly.",
+   "source": "Edexcel IAL P1 specification, P1-1.11 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q6, p.5; original example and check, not copied"
   }
  ],
  "worked": [
@@ -3617,11 +3697,102 @@
     "answer": "C",
     "explanation": "Any non-zero number divided by itself is 1, and subtracting indices gives $3^{4-4}=3^0$, so $3^0$ has to be 1. Defining $a^0=1$ keeps the index laws consistent."
    },
-   "establish": "Start from what an index means: $a^n$ is $n$ factors of $a$ multiplied together.\n\n- $a^m\\times a^n$ is $m$ factors then $n$ more, so $m+n$ factors: $a^m\\times a^n=a^{m+n}$.\n- Cancelling common factors gives $a^m\\div a^n=a^{m-n}$.\n- $(a^m)^n$ is $n$ copies of $m$ factors, so $mn$ factors: $(a^m)^n=a^{mn}$.\n\nFor the laws to keep working with other indices:\n- $a^0=a^{n-n}=1$.\n- $a^{-n}=a^{0-n}=\\dfrac{1}{a^n}$.\n- $\\left(a^{1/n}\\right)^n=a^1$, so $a^{1/n}$ is the number that gives $a$ when multiplied $n$ times: $a^{1/n}=\\sqrt[n]{a}$. Hence $a^{m/n}=(\\sqrt[n]{a})^m$.\n\nExample: $8^{-2/3}=\\dfrac{1}{(\\sqrt[3]{8})^2}=\\dfrac{1}{4}$.",
+   "establish": "Start from what an index means: $a^n$ is $n$ factors of $a$ multiplied together.\n\n- $a^m\\times a^n$ is $m$ factors then $n$ more, so $m+n$ factors: $a^m\\times a^n=a^{m+n}$.\n- Cancelling common factors gives $a^m\\div a^n=a^{m-n}$.\n- $(a^m)^n$ is $n$ copies of $m$ factors, so $mn$ factors: $(a^m)^n=a^{mn}$.\n\nFor the laws to keep working with other indices:\n- $a^0=a^{n-n}=1$.\n- $a^{-n}=a^{0-n}=\\dfrac{1}{a^n}$.\n- $\\left(a^{1/n}\\right)^n=a^1$, so $a^{1/n}$ is the number that gives $a$ when multiplied $n$ times: $a^{1/n}=\\sqrt[n]{a}$. Hence $a^{m/n}=(\\sqrt[n]{a})^m$.\n\nExample: $8^{-2/3}=\\dfrac{1}{(\\sqrt[3]{8})^2}=\\dfrac{1}{4}$.\n\nFor unrestricted use of these rational-index laws over the reals, take the base positive. Zero cannot be used with a negative exponent; a negative base needs separate attention to the root and its real domain.",
    "connect": "This builds only on counting repeated multiplication from GCSE. It unlocks surds, since $\\sqrt a=a^{1/2}$, and later differentiating and integrating powers of $x$.",
    "note": "- $a^m\\times a^n=a^{m+n}$, $a^m\\div a^n=a^{m-n}$, $(a^m)^n=a^{mn}$.\n- $a^0=1$ and $a^{-n}=\\dfrac{1}{a^n}$.\n- $a^{1/n}=\\sqrt[n]{a}$ and $a^{m/n}=(\\sqrt[n]{a})^m$.\n- Root first, then power, then reciprocal for a negative index: $8^{-2/3}=\\dfrac{1}{4}$.\n- Multiplying same-base powers adds indices; a power of a power multiplies them.",
    "self_explain": "Explain why $a^2\\times a^3$ gives $a^5$ but $(a^2)^3$ gives $a^6$, by thinking about how many factors of $a$ there are in each.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Powers describe repeated multiplication; roots undo powers and negative indices take reciprocals. Match bases before combining exponents.",
+   "prerequisite_bridge": "Recall factors and reciprocals. Start with positive bases for unrestricted rational-index laws; division and negative powers require nonzero bases.",
+   "terms": [
+    {
+     "term": "index",
+     "meaning": "The exponent tells which power is taken.",
+     "notation": "$a^r$",
+     "spoken": "a to the power r",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.1.pdf pp.2–3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Combine powers and change base",
+     "wordings": [
+      "Simplify $25^2\\div5^3$, showing the common base."
+     ],
+     "example": "Simplify $9^3\\times3^{-4}$. 1. Use base 3: $9^3=3^6$. 2. Add exponents: $3^{6-4}=3^2$. 3. Evaluate to get $9$; direct calculation agrees.",
+     "check": "Simplify $25^2\\div5^3$, showing the common base.",
+     "answer": "$5$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.1.pdf pp.2–3; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Rewrite in a common base and apply the quotient law.",
+       "keywords": [
+        [
+         "base",
+         "power",
+         "exponent",
+         "index"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the exact value, accepting an equivalent power.",
+       "keywords": [
+        [
+         "5",
+         "five"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Evaluate rational and negative indices",
+     "wordings": [
+      "Find the exact value of $81^{-3/4}$."
+     ],
+     "example": "Evaluate $32^{-3/5}$. 1. The fifth root of 32 is 2. 2. Cube it to get 8. 3. Take the reciprocal: $1/8$. For general rational exponents use positive bases in this real-valued method.",
+     "check": "Find the exact value of $81^{-3/4}$.",
+     "answer": "$1/27$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.1.pdf pp.2–3; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Use a fourth root, a cube and a reciprocal in a valid order.",
+       "keywords": [
+        [
+         "root",
+         "power",
+         "index"
+        ]
+       ]
+      },
+      {
+       "point": "Give the exact reciprocal.",
+       "keywords": [
+        [
+         "27",
+         "twenty-seven"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Add exponents when adding terms",
+     "temptation": "The product law looks like a rule for every operation.",
+     "fix": "Only combine exponents for multiplication of the same base; $a^2+a^3$ is a sum.",
+     "id": "m7"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review."
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new graphic is requested for this KC in the approved plan; the staged symbolic examples and interval/coordinate descriptions carry the method. Existing linked chapter visuals remain available in their relevant cards.",
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.2": {
    "motivate": "Some exact answers, like the diagonal of a unit square, cannot be written as fractions. We need a tidy way to keep them exact and to remove roots from denominators so answers can be compared.",
@@ -3640,7 +3811,97 @@
    "connect": "Surds are just fractional indices, $\\sqrt a=a^{1/2}$, from the index laws. Rationalising is needed to give exact answers to quadratic equations that do not factorise.",
    "note": "- A surd is an irrational root left unevaluated so the answer stays exact.\n- $\\sqrt a\\times\\sqrt b=\\sqrt{ab}$ and $\\sqrt a\\times\\sqrt a=a$.\n- Simplify by taking out square factors: $\\sqrt{50}=5\\sqrt2$.\n- $\\sqrt a+\\sqrt b\\neq\\sqrt{a+b}$.\n- Rationalise: $\\dfrac{1}{\\sqrt a}=\\dfrac{1}{\\sqrt a}\\times\\dfrac{\\sqrt a}{\\sqrt a}=\\dfrac{\\sqrt a}{a}$.\n- \"Exact\" means leave as a surd, not a rounded decimal.",
    "self_explain": "Explain in your own words why multiplying the top and bottom of a fraction by $\\sqrt3$ does not change its value, and why we choose $\\sqrt3$ specifically.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Keep irrational roots exact. Extract square factors, collect matching surds, and remove denominator roots using equivalent fractions.",
+   "prerequisite_bridge": "Use the index law for a square root and recall square numbers. Real square-root product rules use nonnegative radicands; denominators must be nonzero.",
+   "terms": [
+    {
+     "term": "conjugate",
+     "meaning": "Change the sign between two terms to form a difference of squares.",
+     "notation": "$u+\\sqrt v,\\ u-\\sqrt v$",
+     "spoken": "u plus root v, u minus root v",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.1.pdf pp.4–8"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Simplify and collect surds",
+     "wordings": [
+      "Simplify $\\sqrt{75}+\\sqrt{12}$."
+     ],
+     "example": "Simplify $\\sqrt{72}-\\sqrt{8}$. 1. Extract square factors: $6\\sqrt2-2\\sqrt2$. 2. Collect the common surd: $4\\sqrt2$. Squaring the extracted factors checks the simplification.",
+     "check": "Simplify $\\sqrt{75}+\\sqrt{12}$.",
+     "answer": "$7\\sqrt3$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.1.pdf pp.4–8; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Extract square factors correctly.",
+       "keywords": [
+        [
+         "square",
+         "factor",
+         "root"
+        ]
+       ]
+      },
+      {
+       "point": "Combine like surds to the exact result.",
+       "keywords": [
+        [
+         "7",
+         "seven"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Rationalise a denominator",
+     "wordings": [
+      "Rationalise $5/(\\sqrt6+1)$ and simplify."
+     ],
+     "example": "Rationalise $3/(\\sqrt7+2)$. 1. Multiply top and bottom by $\\sqrt7-2$. 2. The denominator becomes $7-4=3$. 3. Cancel the common 3 to get $\\sqrt7-2$; multiplying by the original denominator returns 3.",
+     "check": "Rationalise $5/(\\sqrt6+1)$ and simplify.",
+     "answer": "$\\sqrt6-1$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.1.pdf pp.4–8; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Multiply by an appropriate conjugate or use equivalent exact algebra.",
+       "keywords": [
+        [
+         "conjugate",
+         "multiply",
+         "denominator"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the simplified exact surd.",
+       "keywords": [
+        [
+         "6",
+         "six"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Split a root over a sum",
+     "temptation": "The valid product rule is overgeneralised.",
+     "fix": "$\\sqrt{a+b}$ does not generally equal $\\sqrt a+\\sqrt b$; test $a=9,b=16$.",
+     "id": "m2"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review."
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new graphic is requested for this KC in the approved plan; the staged symbolic examples and interval/coordinate descriptions carry the method. Existing linked chapter visuals remain available in their relevant cards.",
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.3": {
    "motivate": "Quadratics model projectiles, areas and optimisation, and their graphs are the standard curve in the course. Before solving anything, we should know what shape the graph has and where its highest or lowest point sits.",
@@ -3659,7 +3920,100 @@
    "connect": "This uses expanding brackets and index notation you already know. The vertex tells us whether the graph reaches the $x$-axis, which leads directly to the discriminant.",
    "note": "- Quadratic: $y=ax^2+bx+c$, $a\\neq0$; graph is a parabola.\n- $a>0$ is a $\\cup$ shape with a minimum; $a<0$ is a $\\cap$ shape with a maximum.\n- $y$-intercept is $(0,c)$.\n- $y=a(x+p)^2+q$ has turning point $(-p,\\,q)$ and axis of symmetry $x=-p$.\n- Turning point is where the squared bracket equals zero.",
    "self_explain": "Explain why $y=(x+2)^2-5$ has a lowest value of $-5$, and why it happens at $x=-2$ rather than $x=2$.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A quadratic is a parabola. Its squared form reveals the turning point and symmetry; intercepts locate it on the axes.",
+   "prerequisite_bridge": "Recall expansion of a squared bracket. Re-expand your completed square before reading the vertex.",
+   "terms": [
+    {
+     "term": "vertex",
+     "meaning": "The turning point of a parabola.",
+     "notation": "$y=a(x-h)^2+k$",
+     "spoken": "y equals a times x minus h squared plus k",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.10–11"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Complete the square and sketch a quadratic",
+     "wordings": [
+      "Write $y=2x^2-12x+11$ in completed-square form and state its vertex, symmetry axis and minimum."
+     ],
+     "example": "For $y=3x^2+12x+7$, 1. Factor 3 from the variable terms: $3(x^2+4x)+7$. 2. Complete the square: $3(x+2)^2-5$. 3. The vertex is $(-2,-5)$, axis $x=-2$, opening upwards, with intercept $(0,7)$. Roots are $-2\\pm\\sqrt{15}/3$. These labelled features fix the sketch.",
+     "check": "Write $y=2x^2-12x+11$ in completed-square form and state its vertex, symmetry axis and minimum.",
+     "answer": "$y=2(x-3)^2-7$; vertex $(3,-7)$; axis $x=3$; minimum $-7$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.10–11; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Produce an equivalent completed-square form.",
+       "keywords": [
+        [
+         "square",
+         "2"
+        ]
+       ]
+      },
+      {
+       "point": "Identify the vertex, axis and minimum consistently.",
+       "keywords": [
+        [
+         "3",
+         "three"
+        ]
+       ]
+      },
+      {
+       "point": "Give the minimum ordinate.",
+       "keywords": [
+        [
+         "-7",
+         "minus seven"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Read the bracket sign as the vertex coordinate",
+     "temptation": "The visible sign feels like the coordinate.",
+     "fix": "Set $x-h=0$ to get the vertex abscissa $h$.",
+     "id": "m8"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review.",
+    "Visual audit: the six pre-existing SVGs were resolved through the authoritative Library catalog, their registered hashes and provenance checked, and their rasterised renders inspected during this pass; no new diagram was drawn. Canonical Library references retain registered Assets aliases."
+   ],
+   "diagrams": [
+    "Library/Courses/P1/Diagrams/P1/P1-1-quadratic-vertex.svg"
+   ],
+   "diagram_descriptions": [
+    "Upward parabola $y=2(x-2)^2-5$ with vertex $(2,-5)$, symmetry axis $x=2$ and vertical intercept $(0,3)$. The vertex gives the minimum."
+   ],
+   "diagram_provenance": [
+    {
+     "path": "Library/Courses/P1/Diagrams/P1/P1-1-quadratic-vertex.svg",
+     "sha256": "abcb402f577600a0d8217dc6a00219f1b85b355155e9d433efbb5030baf449b4",
+     "aliases": [
+      "Assets/P1/P1-1-quadratic-vertex.svg",
+      "build/out/assets/P1/P1-1-quadratic-vertex.svg",
+      "build/out/Assets/P1/P1-1-quadratic-vertex.svg"
+     ],
+     "course": "P1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/P1/P1-1-quadratic-vertex.svg",
+      "stem-tutor/build/out/assets/P1/P1-1-quadratic-vertex.svg",
+      "stem-tutor/build/out/Assets/P1/P1-1-quadratic-vertex.svg"
+     ],
+     "requested_path": "Assets/P1/P1-1-quadratic-vertex.svg",
+     "caption": "P1-1-quadratic-vertex",
+     "review": "Hash-verified registered bytes and visually inspected rendered SVG in this pass; this does not establish teaching approval."
+    }
+   ],
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.4": {
    "motivate": "Before solving a quadratic, it helps to know whether it has any real solutions at all. The discriminant answers this from the coefficients alone, saving time and telling us about the graph.",
@@ -3674,11 +4028,117 @@
     "answer": "C",
     "explanation": "A real number squared is never negative, so $x^2=k$ has no real solution exactly when $k<0$. For $k=0$ there is one (repeated) solution $x=0$, and for $k>0$ there are two."
    },
-   "establish": "The quadratic formula gives the roots of $ax^2+bx+c=0$ as\n$$x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}.$$\n\nWhether the roots are real depends only on the expression under the square root, called the **discriminant**, $\\Delta=b^2-4ac$:\n\n- $b^2-4ac>0$: $\\sqrt{\\ }$ is a positive real number, so $\\pm$ gives **two distinct real roots**. The graph crosses the $x$-axis twice.\n- $b^2-4ac=0$: $\\pm0$ gives the same value, so **equal (repeated) roots**. The graph touches the $x$-axis.\n- $b^2-4ac<0$: the square root of a negative is not real, so **no real roots**. The graph does not meet the $x$-axis.\n\nExample: for $2x^2-5x+7=0$, $\\Delta=25-56=-31<0$, so no real roots.",
+   "establish": "The quadratic formula gives the roots of $ax^2+bx+c=0$ as\n$$x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}.$$\n\nWhether the roots are real depends only on the expression under the square root, called the **discriminant**, $\\Delta=b^2-4ac$:\n\n- $b^2-4ac>0$: $\\sqrt{\\ }$ is a positive real number, so $\\pm$ gives **two distinct real roots**. The graph crosses the $x$-axis twice.\n- $b^2-4ac=0$: $\\pm0$ gives the same value, so **equal (repeated) roots**. The graph touches the $x$-axis.\n- $b^2-4ac<0$: the square root of a negative is not real, so **no real roots**. The graph does not meet the $x$-axis.\n\nExample: for $2x^2-5x+7=0$, $\\Delta=25-56=-31<0$, so no real roots.\n\nBefore using a discriminant condition involving a parameter, check that the coefficient of $x^2$ is nonzero. If it vanishes, solve the resulting linear or constant equation separately. The examples in these guided forms keep that coefficient equal to 1.",
    "connect": "It builds on the shape and vertex of a parabola from the previous point. It is also used to find unknown constants, for example the value of $k$ that gives a repeated root.",
    "note": "- Discriminant of $ax^2+bx+c=0$ is $b^2-4ac$.\n- $b^2-4ac>0$: two distinct real roots.\n- $b^2-4ac=0$: equal (repeated) real roots; the curve touches the $x$-axis.\n- $b^2-4ac<0$: no real roots; the curve does not meet the $x$-axis.\n- Write down $a$, $b$, $c$ with their signs before substituting.",
    "self_explain": "In your own words, explain why the sign of $b^2-4ac$ tells you how many times the parabola meets the $x$-axis.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "The discriminant decides how many real roots a quadratic has before you solve it.",
+   "prerequisite_bridge": "Use the quadratic formula and the fact that a real square cannot be negative. Check the leading coefficient is nonzero before applying quadratic root conditions.",
+   "terms": [
+    {
+     "term": "discriminant",
+     "meaning": "The expression under the square root in the quadratic formula.",
+     "notation": "$\\Delta=b^2-4ac$",
+     "spoken": "delta equals b squared minus four a c",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.5–6"
+    },
+    {
+     "term": "distinct real roots",
+     "meaning": "Two different real solutions; equality in the discriminant condition instead gives a repeated root, provided the leading coefficient is nonzero.",
+     "notation": "$b^2-4ac>0,\\ a\\ne0$",
+     "spoken": "b squared minus four a c is positive, with a nonzero",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.5–6; chapter bundle P1-1.4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Classify roots using the discriminant",
+     "wordings": [
+      "State the nature of the roots of $4x^2+12x+9=0$, using its discriminant."
+     ],
+     "example": "For $3x^2+2x+4=0$, 1. Record $a=3,b=2,c=4$. 2. Compute $\\Delta=4-48=-44$. 3. Since it is negative, there are no real roots and the parabola does not meet the horizontal axis.",
+     "check": "State the nature of the roots of $4x^2+12x+9=0$, using its discriminant.",
+     "answer": "$\\Delta=144-144=0$; one repeated real root.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.5–6; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Evaluate the discriminant.",
+       "keywords": [
+        [
+         "0",
+         "zero"
+        ]
+       ]
+      },
+      {
+       "point": "Relate zero discriminant to a repeated real root.",
+       "keywords": [
+        [
+         "repeated",
+         "equal",
+         "double"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Find parameter ranges from root conditions",
+     "wordings": [
+      "For $x^2+(t-2)x+4=0$, find the values of $t$ giving no real roots, and identify the values giving repeated roots."
+     ],
+     "example": "For $x^2+(k+1)x+9=0$, find when the roots are distinct and real. 1. The leading coefficient is 1 for every $k$, so the equation remains quadratic. 2. Require $(k+1)^2-36>0$. 3. Factor: $(k-5)(k+7)>0$. Thus $k<-7$ or $k>5$. At $k=-7,5$ roots repeat; for $-7<k<5$ there are no real roots. Distinct roots exclude equality; at least one real root would include it.",
+     "check": "For $x^2+(t-2)x+4=0$, find the values of $t$ giving no real roots, and identify the values giving repeated roots.",
+     "answer": "No real roots for $-2<t<6$; repeated roots at $t=-2$ or $t=6$. The coefficient of $x^2$ stays 1.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.5–6; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Use negative discriminant for no real roots.",
+       "keywords": [
+        [
+         "negative",
+         "<",
+         "less than"
+        ]
+       ]
+      },
+      {
+       "point": "Solve the strict parameter inequality with both endpoints.",
+       "keywords": [
+        [
+         "-2",
+         "minus two"
+        ]
+       ]
+      },
+      {
+       "point": "State the upper endpoint and equality cases correctly.",
+       "keywords": [
+        [
+         "6",
+         "six"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Include equality for distinct roots",
+     "temptation": "A boundary value is assumed to count.",
+     "fix": "Distinct roots need $\\Delta>0$; equality gives repeated roots.",
+     "id": "m9"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review."
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new graphic is requested for this KC in the approved plan; the staged symbolic examples and interval/coordinate descriptions carry the method. Existing linked chapter visuals remain available in their relevant cards.",
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.5": {
    "motivate": "Knowing whether a quadratic has roots is not enough: exams want their values. There are three methods, and knowing which to use, and how they connect, saves time and avoids sign errors.",
@@ -3697,7 +4157,155 @@
    "connect": "This uses the vertex form from quadratic graphs and the discriminant to know how many roots to expect. The same solving is then reused in simultaneous equations and inequalities.",
    "note": "- Factorising: $(x-p)(x-q)=0\\Rightarrow x=p$ or $x=q$.\n- Formula: $x=\\dfrac{-b\\pm\\sqrt{b^2-4ac}}{2a}$.\n- Completing the square: $ax^2+bx+c=a\\left(x+\\dfrac{b}{2a}\\right)^2+c-\\dfrac{b^2}{4a}$.\n- $x^2+8x+3=(x+4)^2-13$: halve the coefficient, subtract its square.\n- Try factorising first; use the formula if it does not factorise.\n- Give exact roots as surds unless a decimal is asked for.",
    "self_explain": "Explain how completing the square on $ax^2+bx+c=0$ leads to the quadratic formula, and why the formula starts with $-b$.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Solving a quadratic means finding every input that makes its expression zero. Factorisation, completed squares and the formula express the same roots.",
+   "prerequisite_bridge": "Use the zero-product rule, surd simplification and signed substitution. A square-root step generally needs both signs.",
+   "terms": [
+    {
+     "term": "root",
+     "meaning": "An input for which the function is zero.",
+     "notation": "$f(r)=0$",
+     "spoken": "f of r equals zero",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.14–16"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Solve a quadratic by factorisation",
+     "wordings": [
+      "Solve $3x^2-11x+6=0$."
+     ],
+     "example": "Solve $2x^2+7x+3=0$. 1. Factorise as $(2x+1)(x+3)=0$. 2. Set each factor to zero: $x=-1/2$ or $x=-3$. 3. Substitution verifies both.",
+     "check": "Solve $3x^2-11x+6=0$.",
+     "answer": "$x=2/3$ or $x=3$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.14–16; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Factorise or use another valid solution method.",
+       "keywords": [
+        [
+         "factor",
+         "formula",
+         "square"
+        ]
+       ]
+      },
+      {
+       "point": "Give both roots in exact form.",
+       "keywords": [
+        [
+         "2/3",
+         "0.666",
+         "two thirds"
+        ]
+       ]
+      },
+      {
+       "point": "Give the second root.",
+       "keywords": [
+        [
+         "3",
+         "three"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Solve by completing the square",
+     "wordings": [
+      "Solve $x^2-6x+2=0$ by completing the square."
+     ],
+     "example": "Solve $x^2+10x+17=0$. 1. Rewrite as $(x+5)^2-8=0$. 2. Take both square roots: $x+5=\\pm2\\sqrt2$. 3. Hence $x=-5\\pm2\\sqrt2$. Substitution into the square form verifies both signs.",
+     "check": "Solve $x^2-6x+2=0$ by completing the square.",
+     "answer": "$(x-3)^2=7$; $x=3\\pm\\sqrt7$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.14–16; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Form the completed square equation.",
+       "keywords": [
+        [
+         "square",
+         "(x-3)"
+        ]
+       ]
+      },
+      {
+       "point": "Give both exact roots.",
+       "keywords": [
+        [
+         "plus or minus",
+         "pm",
+         "±",
+         "both"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Use the quadratic formula and check a calculator result",
+     "wordings": [
+      "Solve $2x^2+3x-7=0$ exactly, then give each root to 3 decimal places."
+     ],
+     "example": "Solve $3x^2-4x-2=0$. 1. With signed coefficients, $\\Delta=16+24=40$. 2. The formula gives $(4\\pm\\sqrt{40})/6=(2\\pm\\sqrt{10})/3$. 3. A calculator gives about $1.721$ and $-0.387$; use these only as a check when exact answers are required.",
+     "check": "Solve $2x^2+3x-7=0$ exactly, then give each root to 3 decimal places.",
+     "answer": "$x=(-3\\pm\\sqrt{65})/4$; approximately $1.266$ and $-2.766$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.2.pdf pp.14–16; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Substitute signed coefficients into a valid formula or equivalent method.",
+       "keywords": [
+        [
+         "formula",
+         "discriminant",
+         "square"
+        ]
+       ]
+      },
+      {
+       "point": "Give both exact roots.",
+       "keywords": [
+        [
+         "65",
+         "sixty-five"
+        ]
+       ]
+      },
+      {
+       "point": "Round both roots to the requested precision.",
+       "keywords": [
+        [
+         "1.266"
+        ]
+       ]
+      },
+      {
+       "point": "Give the second rounded value.",
+       "keywords": [
+        [
+         "-2.766"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Keep only the positive square root",
+     "temptation": "The calculator root button returns one principal value.",
+     "fix": "If $u^2=c>0$, then $u=\\pm\\sqrt c$.",
+     "id": "m10"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review."
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new graphic is requested for this KC in the approved plan; the staged symbolic examples and interval/coordinate descriptions carry the method. Existing linked chapter visuals remain available in their relevant cards.",
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.6": {
    "motivate": "Two conditions on two unknowns often arise, such as where a line meets a curve. We need a reliable way to reduce two equations with two unknowns to something we can already solve.",
@@ -3716,7 +4324,74 @@
    "connect": "This is the quadratic solving from the last point applied to a new setting. Geometrically, each pair of solutions is a point where a line meets a curve.",
    "note": "- Simultaneous linear + quadratic: make one variable the subject of the linear equation and substitute into the quadratic.\n- Solve the resulting quadratic in one variable.\n- Substitute each root into the linear equation to find its matching value.\n- Give solutions as pairs: $(3,5)$ and $(-2,0)$.\n- Two distinct roots means two intersection points; repeated root means the line is a tangent.",
    "self_explain": "Explain why, after finding the values of $x$, you must substitute back into the linear equation rather than just stopping, and why pairs matter.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A simultaneous solution is one pair of values satisfying both equations. Substitution makes one equation in one unknown.",
+   "prerequisite_bridge": "Practise making a variable the subject and solving a quadratic. Carry each root back separately to preserve the pairing.",
+   "terms": [
+    {
+     "term": "simultaneous solution",
+     "meaning": "A pair making both original equations true.",
+     "notation": "$(x,y)$",
+     "spoken": "ordered pair x, y",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.3.pdf pp.4, 7"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Solve linear and quadratic simultaneous equations",
+     "wordings": [
+      "Solve $y=x-1$ and $y=x^2-7$ simultaneously, giving coordinate pairs."
+     ],
+     "example": "Solve $y=2x+1$, $y=x^2-2$. 1. Substitute: $x^2-2=2x+1$. 2. Solve $(x-3)(x+1)=0$. 3. Pair each root with its ordinate: $(3,7)$ and $(-1,-1)$. 4. Each pair satisfies both original equations.",
+     "check": "Solve $y=x-1$ and $y=x^2-7$ simultaneously, giving coordinate pairs.",
+     "answer": "$(3,2)$ and $(-2,-3)$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.3.pdf pp.4, 7; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Eliminate one variable by substitution.",
+       "keywords": [
+        [
+         "substitut",
+         "equal"
+        ]
+       ]
+      },
+      {
+       "point": "Solve the resulting quadratic for both abscissae.",
+       "keywords": [
+        [
+         "3",
+         "three"
+        ]
+       ]
+      },
+      {
+       "point": "Give both correctly paired ordinates.",
+       "keywords": [
+        [
+         "-3",
+         "minus three"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Mix an x-value with the other root’s y-value",
+     "temptation": "Both lists contain correct individual values.",
+     "fix": "Substitute and verify each complete pair in both original equations.",
+     "id": "m11"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review."
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new graphic is requested for this KC in the approved plan; the staged symbolic examples and interval/coordinate descriptions carry the method. Existing linked chapter visuals remain available in their relevant cards.",
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.7": {
    "motivate": "Inequalities ask for a range of values, not single answers. Reading that range from a picture is faster and much safer than memorising rules, especially for quadratics.",
@@ -3731,11 +4406,129 @@
     "answer": "B",
     "explanation": "Sketching shows the parabola $y=x^2$ sitting below $y=4$ between its two intersections, so $x^2<4$ holds for $-2<x<2$. Outside those points the parabola is above the line."
    },
-   "establish": "An inequality like $f(x)>g(x)$ asks: **for which $x$ is the graph of $f$ above the graph of $g$?**\n\nSo we:\n1. Sketch $y=f(x)$ and $y=g(x)$ (or use $y=0$ if comparing with zero).\n2. Find where they meet: these $x$-values are the **critical values**.\n3. Read off the $x$-range where the required curve is higher or lower.\n\nExamples:\n- $px^2+qx+r\\ge0$: where is the parabola on or above the $x$-axis?\n- $px^2+qx+r<ax+b$: where is the curve $y=px^2+qx+r$ below the line $y=ax+b$?\n- $\\dfrac{a}{x}<b$: multiply by $x^2$ (always positive, so the sign stays) to get $ax<bx^2$, with $x\\ne0$.\n\nSolutions of quadratic inequalities are usually ranges, such as $x<\\alpha$ or $x>\\beta$, or $\\alpha<x<\\beta$.\n\nWorked: $\\dfrac{3}{x}\\le2$ gives $x(2x-3)\\ge0$, so $x\\le0$ or $x\\ge\\tfrac32$; removing the undefined $x=0$ leaves $x<0$ or $x\\ge\\tfrac32$.",
+   "establish": "An inequality like $f(x)>g(x)$ asks: **for which $x$ is the graph of $f$ above the graph of $g$?**\n\nSo we:\n1. Sketch $y=f(x)$ and $y=g(x)$ (or use $y=0$ if comparing with zero).\n2. Find where they meet: these $x$-values are the **critical values**.\n3. Read off the $x$-range where the required curve is higher or lower.\n\nExamples:\n- $px^2+qx+r\\ge0$: where is the parabola on or above the $x$-axis?\n- $px^2+qx+r<ax+b$: where is the curve $y=px^2+qx+r$ below the line $y=ax+b$?\n- $\\dfrac{a}{x}<b$: multiply by $x^2$ (always positive, so the sign stays) to get $ax<bx^2$, with $x\\ne0$.\n\nSolutions of quadratic inequalities are usually ranges, such as $x<\\alpha$ or $x>\\beta$, or $\\alpha<x<\\beta$.\n\nWorked: $\\dfrac{3}{x}\\le2$ gives $x(2x-3)\\ge0$, so $x\\le0$ or $x\\ge\\tfrac32$; removing the undefined $x=0$ leaves $x<0$ or $x\\ge\\tfrac32$.\n\nGraph comparison asks for horizontal coordinates: first locate equality points, then choose the intervals where the first graph is below or above the second. For a denominator $x$, exclude $x=0$ before multiplying by $x^2>0$; the resulting polynomial may have zero as a root even though the original fraction is undefined there.\n\nFor $f(x)\\le g(x)$, compare the two heights at the same input, then project the qualifying part onto the $x$-axis. Include an intersection only when equality is permitted and both original functions are defined there.",
    "connect": "It relies on the parabola shapes and roots from earlier points, and on solving equations for the critical values. The next two points turn this picture into shading and full solving.",
    "note": "- $f(x)>g(x)$ means the graph of $f$ is above the graph of $g$.\n- Critical values are where the graphs meet (roots when comparing with the $x$-axis).\n- Sketch first, then read the range of $x$ from the picture.\n- Upward parabola: $>0$ outside the roots, $<0$ between them.\n- For $\\dfrac{a}{x}<b$, multiply both sides by $x^2$ to get $ax<bx^2$, $x\\neq0$.\n- With $\\le$ or $\\ge$, remember to drop $x=0$ from the final answer.",
    "self_explain": "Explain how you would use a sketch of a line and a parabola to decide which $x$-values satisfy $px^2+qx+r<ax+b$.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "An inequality compares graph heights. Its answer is a range of horizontal coordinates where that comparison is true.",
+   "prerequisite_bridge": "Locate graph intersections, then test which curve lies higher on each interval. Domain breaks also split intervals even when graphs do not intersect there.",
+   "terms": [
+    {
+     "term": "solution set",
+     "meaning": "Every allowed input satisfying the comparison.",
+     "notation": "$f(x)<g(x)$",
+     "spoken": "f of x is less than g of x",
+     "source": "Edexcel IAL P1 specification, P1-1.7 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4"
+    },
+    {
+     "term": "solution set from a graph comparison",
+     "meaning": "The input values for which the first graph has the required height relative to the second graph; a range in x, rather than the heights themselves.",
+     "notation": "$\\{x:f(x)\\le g(x)\\}$",
+     "spoken": "the x values for which f of x is at most g of x",
+     "source": "Chapter bundle P1-1.7; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, PDF p.4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Compare a line with a quadratic graph",
+     "wordings": [
+      "Find the range where $y=x^2-2x$ is on or below $y=8$, explaining the graph comparison."
+     ],
+     "example": "Interpret $x^2-4x<5$. 1. Compare $y=x^2-4x$ with $y=5$. 2. Intersections solve $(x-5)(x+1)=0$. 3. The upward parabola lies below the line between the crossings, so $-1<x<5$. Equality points are excluded.",
+     "check": "Find the range where $y=x^2-2x$ is on or below $y=8$, explaining the graph comparison.",
+     "answer": "$-2\\le x\\le4$; the parabola is on or below the line between their intersections.",
+     "source": "Edexcel IAL P1 specification, P1-1.7 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Find the two intersections or equivalent roots.",
+       "keywords": [
+        [
+         "-2",
+         "minus two"
+        ]
+       ]
+      },
+      {
+       "point": "Select the between interval and include equality endpoints.",
+       "keywords": [
+        [
+         "4",
+         "four"
+        ]
+       ]
+      },
+      {
+       "point": "Explain the vertical graph comparison.",
+       "keywords": [
+        [
+         "below",
+         "lower",
+         "on or below"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Interpret a reciprocal inequality graphically",
+     "wordings": [
+      "Find where $y=10/x$ lies on or below $y=5$, explaining both branches and the boundary values."
+     ],
+     "example": "Find where $y=8/x$ lies above $y=2$. 1. Exclude $x=0$. 2. Multiplying $8/x>2$ by $x^2>0$ gives $8x>2x^2$. 3. Thus $x(x-4)<0$, giving $0<x<4$. The negative branch lies below the positive horizontal line; at $x=4$ the graphs meet, so strict comparison excludes it. Multiplying by $x$ without a sign case would be unsafe.",
+     "check": "Find where $y=10/x$ lies on or below $y=5$, explaining both branches and the boundary values.",
+     "answer": "$x<0$ or $x\\ge2$; $0$ is undefined and excluded, $2$ is included.",
+     "source": "Edexcel IAL P1 specification, P1-1.7 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Exclude the zero denominator and use a safe comparison.",
+       "keywords": [
+        [
+         "zero",
+         "0",
+         "undefined"
+        ]
+       ]
+      },
+      {
+       "point": "Identify the whole negative branch.",
+       "keywords": [
+        [
+         "negative",
+         "x<0",
+         "x < 0"
+        ]
+       ]
+      },
+      {
+       "point": "Include the positive interval with equality at 2.",
+       "keywords": [
+        [
+         "2",
+         "two"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Multiply by a variable without checking its sign",
+     "temptation": "This works in equations and seems quicker.",
+     "fix": "Use sign cases or multiply by its positive square on the nonzero domain.",
+     "id": "m12"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review.",
+    "The chapter-matched library passages did not supply inequality teaching; the specification supplies scope, with Pearson Q3 supporting denominator-sign and graph-comparison teaching where relevant.",
+    "Source audit: Pearson October 2021 WMA11/01 examiner report, Q3, PDF page 4 (https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf), was read for method pitfalls; the URL filename date does not identify the examination session. It is not a mark scheme or approval of these original checks."
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new graphic is requested for this KC in the approved plan; the staged symbolic examples and interval/coordinate descriptions carry the method. Existing linked chapter visuals remain available in their relevant cards.",
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.8": {
    "motivate": "Some inequalities involve both $x$ and $y$, and the solution is a whole region of the plane. We need conventions so that someone reading the graph knows exactly which points are included.",
@@ -3743,7 +4536,141 @@
    "connect": "This extends solving inequalities on a number line to two variables, and uses the line and curve sketching from earlier. Finding corners reuses simultaneous equations.",
    "note": "- Draw the boundary by replacing the inequality sign with $=$.\n- Strict inequality ($<$, $>$): dotted or dashed boundary.\n- Inclusive inequality ($\\le$, $\\ge$): solid boundary.\n- Test a point (e.g. the origin) to decide which side to shade.\n- For several inequalities, the required region is the overlap.\n- Vertices come from solving the boundary equations simultaneously.",
    "self_explain": "Explain how you decide whether a boundary is dotted or solid, and how a single test point tells you which side to shade.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A two-variable inequality describes a region. The boundary shows equality; solid or dashed style tells whether it belongs to the solution.",
+   "prerequisite_bridge": "Recall straight-line and parabola sketches. Test a point away from the boundary, then take the overlap for simultaneous inequalities.",
+   "terms": [
+    {
+     "term": "boundary",
+     "meaning": "The equality curve separating the two sides.",
+     "notation": "$y=f(x)$",
+     "spoken": "y equals f of x",
+     "source": "Edexcel IAL P1 specification, P1-1.8 (chapter bundle)"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Represent overlapping half-plane regions",
+     "wordings": [
+      "Describe the region $y\\ge2x-3$ and $y<-x+6$: boundary styles, shaded sides and whether their meeting point is included."
+     ],
+     "example": "Represent $y>x+2$ and $y\\le-2x+11$. 1. Draw the first line dashed, the second solid. 2. The origin fails the first inequality, so shade above it; shade on or below the second. 3. Their intersection is $(3,5)$, excluded because the first boundary is strict. The overlap continues leftwards.",
+     "check": "Describe the region $y\\ge2x-3$ and $y<-x+6$: boundary styles, shaded sides and whether their meeting point is included.",
+     "answer": "Solid $y=2x-3$, dashed $y=-x+6$; shade on/above the first and below the second, to the left of $(3,3)$; the meeting point is excluded.",
+     "source": "Edexcel IAL P1 specification, P1-1.8 (chapter bundle); original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Choose solid and dashed styles consistently.",
+       "keywords": [
+        [
+         "solid"
+        ]
+       ]
+      },
+      {
+       "point": "Shade the overlap on the correct sides.",
+       "keywords": [
+        [
+         "above",
+         "greater"
+        ]
+       ]
+      },
+      {
+       "point": "Exclude the meeting point on the strict boundary.",
+       "keywords": [
+        [
+         "excluded",
+         "not included",
+         "open"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Represent a quadratic inequality region",
+     "wordings": [
+      "Describe how to represent $y>-(x+2)^2+4$ graphically."
+     ],
+     "example": "Represent $y\\le(x-1)^2-2$. 1. Mark vertex $(1,-2)$ and sketch an upward parabola. 2. Use a solid boundary. 3. Test $(1,0)$: $0\\le-2$ is false, so shade below the curve, including its boundary.",
+     "check": "Describe how to represent $y>-(x+2)^2+4$ graphically.",
+     "answer": "Downward parabola with vertex $(-2,4)$, dashed boundary; shade above it, excluding every boundary point.",
+     "source": "Edexcel IAL P1 specification, P1-1.8 (chapter bundle); original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Identify the downward parabola and vertex.",
+       "keywords": [
+        [
+         "-2",
+         "minus two"
+        ]
+       ]
+      },
+      {
+       "point": "Use a strict boundary convention.",
+       "keywords": [
+        [
+         "dashed",
+         "dotted",
+         "broken"
+        ]
+       ]
+      },
+      {
+       "point": "Choose the upper region.",
+       "keywords": [
+        [
+         "above",
+         "greater"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Include the corner of two boundaries automatically",
+     "temptation": "A labelled vertex looks like a solution.",
+     "fix": "A corner is included only if it satisfies every inequality, including each strict condition.",
+     "id": "m13"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review.",
+    "The chapter-matched library passages did not supply inequality teaching; the specification supplies scope, with Pearson Q3 supporting denominator-sign and graph-comparison teaching where relevant.",
+    "Visual audit: the six pre-existing SVGs were resolved through the authoritative Library catalog, their registered hashes and provenance checked, and their rasterised renders inspected during this pass; no new diagram was drawn. Canonical Library references retain registered Assets aliases."
+   ],
+   "diagrams": [
+    "Library/Courses/P1/Diagrams/P1/P1-1-inequality-region.svg"
+   ],
+   "diagram_descriptions": [
+    "The dashed line $y=x-1$ is excluded; the solid line $y=-2x+8$ is included where the other condition holds. Shade above the first and on or below the second. They meet at $(3,2)$, which is excluded. The region continues indefinitely leftward; the displayed left edge of shading is a plotting cutoff, not an extra boundary."
+   ],
+   "diagram_provenance": [
+    {
+     "path": "Library/Courses/P1/Diagrams/P1/P1-1-inequality-region.svg",
+     "sha256": "bed686ed568808ad69b6a9451bdde8be3c8d40ebef731566ebb1a6677a5c4163",
+     "aliases": [
+      "Assets/P1/P1-1-inequality-region.svg",
+      "build/out/assets/P1/P1-1-inequality-region.svg",
+      "build/out/Assets/P1/P1-1-inequality-region.svg"
+     ],
+     "course": "P1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/P1/P1-1-inequality-region.svg",
+      "stem-tutor/build/out/assets/P1/P1-1-inequality-region.svg",
+      "stem-tutor/build/out/Assets/P1/P1-1-inequality-region.svg"
+     ],
+     "requested_path": "Assets/P1/P1-1-inequality-region.svg",
+     "caption": "P1-1-inequality-region",
+     "review": "Hash-verified registered bytes and visually inspected rendered SVG in this pass; this does not establish teaching approval."
+    }
+   ],
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.9": {
    "motivate": "Reading a range off a sketch is good for understanding, but exam answers need the range stated precisely. We need a routine that turns any linear or quadratic inequality into a correct solution set.",
@@ -3758,11 +4685,158 @@
     "answer": "B",
     "explanation": "On the number line, $-2$ lies to the right of $-5$, so $-2>-5$. Multiplying or dividing by a negative number reverses the inequality sign."
    },
-   "establish": "**Linear inequalities** are solved like equations, with one difference: multiplying or dividing both sides by a **negative** number reverses the sign.\n\nExample: $-3x>12\\Rightarrow x<-4$. (Test $x=-5$: $15>12$ is true.)\n\n**Quadratic inequalities:**\n1. Rearrange so one side is 0.\n2. Solve the equation to find the critical values.\n3. Sketch the parabola (upward if $a>0$).\n4. Read the range: for an upward parabola, $>0$ is outside the roots and $<0$ is between them; the other way round for a downward parabola.\n\nExample: $x^2-5x+6\\ge0$ gives roots $2$ and $3$, so $x\\le2$ or $x\\ge3$.\n\nTwo conditions together need the overlap of both ranges.",
+   "establish": "**Linear inequalities** are solved like equations, with one difference: multiplying or dividing both sides by a **negative** number reverses the sign.\n\nExample: $-3x>12\\Rightarrow x<-4$. (Test $x=-5$: $15>12$ is true.)\n\n**Quadratic inequalities:**\n1. Rearrange so one side is 0.\n2. Solve the equation to find the critical values.\n3. Sketch the parabola (upward if $a>0$).\n4. Read the range: for an upward parabola, $>0$ is outside the roots and $<0$ is between them; the other way round for a downward parabola.\n\nExample: $x^2-5x+6\\ge0$ gives roots $2$ and $3$, so $x\\le2$ or $x\\ge3$.\n\nTwo conditions together need the overlap of both ranges.\n\nA sign table must split at both zeros and excluded denominator values. Multiplication by $x^2$ preserves the inequality only on the original domain $x\\ne0$. Test one point in each interval in the original inequality and decide equality endpoints separately.\n\nFor a rational inequality, keep the domain restriction beside the working. A zero of the transformed polynomial is only a candidate boundary: check it in the original expression before including it.",
    "connect": "This puts the graphical reading of inequalities together with the quadratic solving you have already met. The critical values come from factorising or the formula.",
    "note": "- Solve linear inequalities like equations, but reverse the sign when multiplying or dividing by a negative.\n- Quadratic: rearrange to $\\ldots\\gtrless0$, find roots (critical values), sketch, read off the range.\n- Upward parabola: $>0$ outside the roots, $<0$ between the roots.\n- $x^2-5x+6\\ge0\\Rightarrow x\\le2$ or $x\\ge3$.\n- Two inequalities together: give the overlap of the ranges.",
    "self_explain": "Explain why the solution of $(x-2)(x-3)\\ge0$ is two separate ranges but that of $(x-2)(x-3)\\le0$ is one range, using the graph.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Solve for whole intervals, then check signs and endpoints. Reversing an inequality when dividing by a negative preserves its meaning.",
+   "prerequisite_bridge": "Use quadratic roots as interval boundaries, but exclude all original denominator zeros even after algebra removes the denominator.",
+   "terms": [
+    {
+     "term": "critical value",
+     "meaning": "A root or excluded domain value separating sign intervals.",
+     "notation": "$f(x)=0$",
+     "spoken": "f of x equals zero",
+     "source": "Edexcel IAL P1 specification, P1-1.9 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4"
+    },
+    {
+     "term": "excluded value",
+     "meaning": "An input at which the original expression is undefined; it cannot become a solution after clearing a denominator.",
+     "notation": "$x\\ne0$ for $c/x$",
+     "spoken": "x must not equal zero for c divided by x",
+     "source": "Chapter bundle P1-1.9; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, PDF p.4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Solve a linear inequality with a negative coefficient",
+     "wordings": [
+      "Solve $7-4x<19$."
+     ],
+     "example": "Solve $5-3x\\ge14$. 1. Subtract 5: $-3x\\ge9$. 2. Divide by $-3$ and reverse the sign: $x\\le-3$. 3. A test such as $x=-4$ satisfies the original.",
+     "check": "Solve $7-4x<19$.",
+     "answer": "$x>-3$.",
+     "source": "Edexcel IAL P1 specification, P1-1.9 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Rearrange without changing the solution set.",
+       "keywords": [
+        [
+         "-4",
+         "subtract"
+        ]
+       ]
+      },
+      {
+       "point": "Reverse the inequality for negative division and give the correct interval.",
+       "keywords": [
+        [
+         ">",
+         "greater"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Solve a quadratic inequality using signs",
+     "wordings": [
+      "Solve $2x^2+x-6>0$."
+     ],
+     "example": "Solve $-x^2+x+12\\ge0$. 1. Factorise as $-(x-4)(x+3)\\ge0$. 2. Critical values are $-3,4$. 3. This downward parabola is nonnegative between its roots: $-3\\le x\\le4$. Include both because equality is allowed.",
+     "check": "Solve $2x^2+x-6>0$.",
+     "answer": "$x<-2$ or $x>3/2$.",
+     "source": "Edexcel IAL P1 specification, P1-1.9 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Find the two critical values.",
+       "keywords": [
+        [
+         "-2",
+         "minus two"
+        ]
+       ]
+      },
+      {
+       "point": "Choose the exterior intervals with strict endpoints.",
+       "keywords": [
+        [
+         "or",
+         "union"
+        ]
+       ]
+      },
+      {
+       "point": "Give the positive endpoint correctly.",
+       "keywords": [
+        [
+         "3/2",
+         "1.5",
+         "three halves"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Solve a rational inequality using a positive square",
+     "wordings": [
+      "Solve $6/x>-3$, stating the excluded value and explaining why multiplication by $x$ alone needs separate cases."
+     ],
+     "example": "Solve $12/x\\le3$. 1. Require $x\\ne0$, then multiply by $x^2>0$. 2. Obtain $12x\\le3x^2$, or $3x(x-4)\\ge0$. 3. Signs are positive on $x<0$ and $x>4$, negative on $0<x<4$. Hence $x<0$ or $x\\ge4$. Exclude 0 despite its being a root of the transformed polynomial; include 4. Direct tests at $-1,1,5$ confirm the signs.",
+     "check": "Solve $6/x>-3$, stating the excluded value and explaining why multiplication by $x$ alone needs separate cases.",
+     "answer": "$x<-2$ or $x>0$; exclude $x=0$. Multiplication by $x^2$ gives $3x(x+2)>0$; $x$ alone may be negative and reverse the sign. The equality point $-2$ is excluded.",
+     "source": "Edexcel IAL P1 specification, P1-1.9 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q3, p.4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "State the domain and use a sign-safe method.",
+       "keywords": [
+        [
+         "0",
+         "zero"
+        ]
+       ]
+      },
+      {
+       "point": "Find the negative solution interval and strict endpoint.",
+       "keywords": [
+        [
+         "-2",
+         "minus two"
+        ]
+       ]
+      },
+      {
+       "point": "Include all positive values and explain the sign issue.",
+       "keywords": [
+        [
+         "positive",
+         "x>0",
+         "x > 0"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Give the roots as the inequality answer",
+     "temptation": "Solving the associated equation is the familiar step.",
+     "fix": "Roots divide the number line; test each interval and report the full set of values.",
+     "id": "m14"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review.",
+    "The chapter-matched library passages did not supply inequality teaching; the specification supplies scope, with Pearson Q3 supporting denominator-sign and graph-comparison teaching where relevant.",
+    "Source audit: Pearson October 2021 WMA11/01 examiner report, Q3, PDF page 4 (https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf), was read for method pitfalls; the URL filename date does not identify the examination session. It is not a mark scheme or approval of these original checks."
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new graphic is requested for this KC in the approved plan; the staged symbolic examples and interval/coordinate descriptions carry the method. Existing linked chapter visuals remain available in their relevant cards.",
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.10": {
    "motivate": "Almost every algebra topic, from solving equations to sketching curves, starts by rewriting an expression in a more useful form. Expanding and factorising are the two moves that make this possible.",
@@ -3781,7 +4855,105 @@
    "connect": "These are the GCSE algebra skills that quadratic solving depends on. Factorised cubics are used next when sketching curves and reading off where they cross the axes.",
    "note": "- Expand by multiplying every term by every term, then collect like terms.\n- Factorise fully: take out the common factor first, then factorise what is left.\n- $x^3+4x^2+3x=x(x+1)(x+3)$.\n- Difference of two squares: $x^2-a^2=(x-a)(x+a)$.\n- Check a factorisation by expanding it back.\n- Roots come from setting each factor equal to zero.",
    "self_explain": "Explain why taking out the common factor should come before trying to factorise a cubic, and what would go wrong if you skipped it.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Expanding rewrites products as sums; factorising rewrites sums as products. Either form must have exactly the same value for every input.",
+   "prerequisite_bridge": "Recall distributivity and like terms. Pull out common factors before attempting the remaining quadratic.",
+   "terms": [
+    {
+     "term": "factor",
+     "meaning": "An expression multiplied with other expressions.",
+     "notation": "$f(x)=x(x+2)(x-4)$",
+     "spoken": "f of x equals x times x plus two times x minus four",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.5.pdf pp.2, 4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Expand brackets and collect like terms",
+     "wordings": [
+      "Expand and simplify $(3x+2)(x-5)$."
+     ],
+     "example": "Expand $(2x-1)(x+4)$. 1. Multiply all four term pairs: $2x^2+8x-x-4$. 2. Collect only like powers: $2x^2+7x-4$. 3. At $x=0$, both forms give $-4$ as a quick check, though one value alone is not proof.",
+     "check": "Expand and simplify $(3x+2)(x-5)$.",
+     "answer": "$3x^2-13x-10$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.5.pdf pp.2, 4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Multiply each term by each term.",
+       "keywords": [
+        [
+         "multiply",
+         "expand",
+         "product"
+        ]
+       ]
+      },
+      {
+       "point": "Collect the middle terms and preserve the constant sign.",
+       "keywords": [
+        [
+         "-13",
+         "minus thirteen"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Factorise a cubic fully",
+     "wordings": [
+      "Factorise fully $3x^3+3x^2-18x$."
+     ],
+     "example": "Factorise $2x^3-2x^2-12x$. 1. Remove $2x$: $2x(x^2-x-6)$. 2. Factor the quadratic: $2x(x-3)(x+2)$. 3. Expansion returns the original polynomial.",
+     "check": "Factorise fully $3x^3+3x^2-18x$.",
+     "answer": "$3x(x+3)(x-2)$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.5.pdf pp.2, 4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Remove a common numerical and variable factor.",
+       "keywords": [
+        [
+         "3x",
+         "common factor"
+        ]
+       ]
+      },
+      {
+       "point": "Factorise the remaining quadratic fully.",
+       "keywords": [
+        [
+         "x+3",
+         "x + 3"
+        ]
+       ]
+      },
+      {
+       "point": "Give the remaining factor.",
+       "keywords": [
+        [
+         "x-2",
+         "x - 2"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Stop after taking out a common factor",
+     "temptation": "The cubic has already become a product.",
+     "fix": "Factorise the remaining quadratic too when possible; re-expand to check.",
+     "id": "m15"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review."
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new graphic is requested for this KC in the approved plan; the staged symbolic examples and interval/coordinate descriptions carry the method. Existing linked chapter visuals remain available in their relevant cards.",
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.11": {
    "motivate": "To use a graph, we do not need every point, only its shape, where it crosses the axes and what it approaches. A good sketch also shows where two graphs meet, which are the solutions of an equation.",
@@ -3796,11 +4968,243 @@
     "answer": "D",
     "explanation": "The values of $y$ are $100$, $10\\,000$, $1\\,000\\,000$, growing without limit. Since $x^2>0$, $y$ is always positive, and $x=0$ is excluded from the domain."
    },
-   "establish": "**Cubics.** $y=(x-a)(x-b)(x-c)$ crosses the $x$-axis at $a$, $b$ and $c$. A cubic has one, two or three real roots; at a repeated root the curve touches the axis instead of crossing. Sketch: mark roots, the $y$-intercept and the end behaviour.\n\n**Reciprocals** $y=\\dfrac{k}{x}$ and $y=\\dfrac{k}{x^2}$, with $x\\ne0$:\n- An **asymptote** is a line the curve gets closer and closer to. Both have asymptotes $x=0$ and $y=0$.\n- $y=k/x$ has two branches; $y=k/x^2$ lies entirely above the axis for $k>0$.\n\n**Intersections.** Where two graphs meet they share $(x,y)$, so the $x$-values solve $f(x)=g(x)$.\n\nExample: $\\dfrac{12}{x}=x-1\\Rightarrow12=x^2-x\\Rightarrow(x-4)(x+3)=0$, giving $x=4$ or $-3$.",
+   "establish": "**Cubics.** $y=(x-a)(x-b)(x-c)$ crosses the $x$-axis at $a$, $b$ and $c$. A cubic has one, two or three real roots; at a repeated root the curve touches the axis instead of crossing. Sketch: mark roots, the $y$-intercept and the end behaviour.\n\n**Reciprocals** $y=\\dfrac{k}{x}$ and $y=\\dfrac{k}{x^2}$, with $x\\ne0$:\n- An **asymptote** is a line the curve gets closer and closer to. Both have asymptotes $x=0$ and $y=0$.\n- $y=k/x$ has two branches; $y=k/x^2$ lies entirely above the axis for $k>0$.\n\n**Intersections.** Where two graphs meet they share $(x,y)$, so the $x$-values solve $f(x)=g(x)$.\n\nExample: $\\dfrac{12}{x}=x-1\\Rightarrow12=x^2-x\\Rightarrow(x-4)(x+3)=0$, giving $x=4$ or $-3$.\n\nFor a polynomial root of odd multiplicity the graph crosses the axis; for even multiplicity it touches without crossing. Thus a triple root crosses with a flattened shape. For the reciprocal families the stated two-axis asymptotes assume $k\\ne0$; when $k=0$, the function is zero on its domain $x\\ne0$ and has a removable missing point rather than a vertical asymptote.",
    "connect": "It uses factorising to find where cubics cross the axis and quadratic solving for intersections. The next point moves these sketches around with transformations.",
    "note": "- A cubic crosses the $x$-axis at each single root and touches it at a repeated root.\n- $y=\\dfrac{k}{x}$ and $y=\\dfrac{k}{x^2}$ have $x\\neq0$ and asymptotes $x=0$, $y=0$.\n- An asymptote is a straight line the curve approaches as $x$ or $y\\to\\infty$.\n- Sketch: label axis crossings, turning points and asymptotes.\n- Intersections of $y=f(x)$ and $y=g(x)$ are the solutions of $f(x)=g(x)$.",
    "self_explain": "Explain why the curve $y=\\dfrac{k}{x}$ can never touch the $x$-axis or the $y$-axis, and what it does instead.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A sketch records shape, intercepts, asymptotes and branch behaviour. Intersections show inputs for which two outputs agree.",
+   "prerequisite_bridge": "Use factorisation for roots and substitution for intercepts. Distinguish even and odd root multiplicities: double roots touch, triple roots cross. For the reciprocal families here assume a nonzero numerator constant.",
+   "terms": [
+    {
+     "term": "asymptote",
+     "meaning": "A straight line approached by a branch in a limiting direction; other curve families can cross horizontal asymptotes.",
+     "notation": "$x=0,\\ y=0$",
+     "spoken": "x equals zero, y equals zero",
+     "source": "Edexcel IAL P1 specification, P1-1.11 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q6, p.5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Sketch a cubic from its factors",
+     "wordings": [
+      "Sketch $y=-(x-2)(x+1)^2$, labelling intercepts, root behaviour and end directions."
+     ],
+     "example": "Sketch $y=(x+2)(x-1)^2$. 1. Roots are $-2$ and 1; the latter is double. 2. Cross at $(-2,0)$ and touch smoothly at $(1,0)$. 3. The vertical intercept is $(0,2)$. 4. Positive leading coefficient gives a lower left end and upper right end. No calculus is needed to locate the other turning point exactly.",
+     "check": "Sketch $y=-(x-2)(x+1)^2$, labelling intercepts, root behaviour and end directions.",
+     "answer": "Cross at $(2,0)$, touch at $(-1,0)$, vertical intercept $(0,2)$; left end up, right end down.",
+     "source": "Edexcel IAL P1 specification, P1-1.11 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q6, p.5; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Label the roots and distinguish crossing from touching.",
+       "keywords": [
+        [
+         "touch",
+         "tangent"
+        ]
+       ]
+      },
+      {
+       "point": "Label the vertical intercept.",
+       "keywords": [
+        [
+         "2",
+         "two"
+        ]
+       ]
+      },
+      {
+       "point": "Show negative-cubic end behaviour.",
+       "keywords": [
+        [
+         "down",
+         "negative"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Sketch reciprocal families and asymptotes",
+     "wordings": [
+      "Compare $y=9/x$ with $y=9/x^2$: state domain exclusions, asymptotes, branch positions and symmetry."
+     ],
+     "example": "Compare $y=-4/x$ and $y=-4/x^2$. 1. Both exclude zero and approach $x=0$ and $y=0$. 2. The first has branches in quadrants II and IV. 3. The second is entirely below the horizontal axis, symmetric in the vertical axis. 4. At $x=2$, their ordinates are $-2$ and $-1$. Neither graph meets either axis.",
+     "check": "Compare $y=9/x$ with $y=9/x^2$: state domain exclusions, asymptotes, branch positions and symmetry.",
+     "answer": "Both have $x\\ne0$, asymptotes $x=0,y=0$. For $9/x$: quadrants I and III, origin symmetry. For $9/x^2$: quadrants I and II, vertical-axis symmetry.",
+     "source": "Edexcel IAL P1 specification, P1-1.11 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q6, p.5; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Give both axis asymptotes and the domain exclusion.",
+       "keywords": [
+        [
+         "0",
+         "zero"
+        ]
+       ]
+      },
+      {
+       "point": "Locate the reciprocal branches.",
+       "keywords": [
+        [
+         "III",
+         "third",
+         "3"
+        ]
+       ]
+      },
+      {
+       "point": "Locate the squared reciprocal branches and symmetry.",
+       "keywords": [
+        [
+         "symmetr",
+         "even"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Use intersections to solve an equation",
+     "wordings": [
+      "Find the intersection points of $y=8/x$ and $y=x+2$."
+     ],
+     "example": "Find intersections of $y=15/x$ and $y=x-2$. 1. Exclude zero; equate: $15/x=x-2$. 2. Multiply the equation by nonzero $x$: $(x-5)(x+3)=0$. 3. Intersections are $(5,3)$ and $(-3,-5)$. Multiplying an equation has no inequality-direction issue.",
+     "check": "Find the intersection points of $y=8/x$ and $y=x+2$.",
+     "answer": "$(2,4)$ and $(-4,-2)$.",
+     "source": "Edexcel IAL P1 specification, P1-1.11 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q6, p.5; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Equate the ordinates and solve without allowing a zero denominator.",
+       "keywords": [
+        [
+         "equat",
+         "equal"
+        ]
+       ]
+      },
+      {
+       "point": "Give both paired intersection points.",
+       "keywords": [
+        [
+         "4",
+         "four"
+        ]
+       ]
+      },
+      {
+       "point": "Give the negative pair consistently.",
+       "keywords": [
+        [
+         "-4",
+         "minus four"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Sketch standard trigonometric curves",
+     "wordings": [
+      "Sketch $y=\\tan x$ for $-\\pi<x<\\pi$, stating its zeros, vertical asymptotes and period in radians."
+     ],
+     "example": "In radians, sketch $y=\\sin x$ and $y=\\cos x$ on $0\\le x\\le2\\pi$. 1. Sine takes values $0,1,0,-1,0$ at quarter-period points. 2. Cosine takes $1,0,-1,0,1$ at those same points. 3. Both have amplitude 1 and period $2\\pi$. Join smoothly rather than with straight segments.",
+     "check": "Sketch $y=\\tan x$ for $-\\pi<x<\\pi$, stating its zeros, vertical asymptotes and period in radians.",
+     "answer": "Only zero in this open interval is $(0,0)$; vertical asymptotes $x=-\\pi/2,\\pi/2$; increasing branches; period $\\pi$.",
+     "source": "Edexcel IAL P1 specification, P1-1.11 (chapter bundle); https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q6, p.5; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Label the zero and appropriate excluded asymptote positions.",
+       "keywords": [
+        [
+         "pi",
+         "π"
+        ]
+       ]
+      },
+      {
+       "point": "Give both vertical asymptotes.",
+       "keywords": [
+        [
+         "asymptot"
+        ]
+       ]
+      },
+      {
+       "point": "Show increasing branches and the correct period.",
+       "keywords": [
+        [
+         "increas"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Every repeated root touches the axis",
+     "temptation": "A double-root example is treated as a universal rule.",
+     "fix": "Even multiplicity touches without sign change; odd multiplicity crosses, including a triple root.",
+     "id": "m16"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review.",
+    "No matched library passage was available for reciprocal and trigonometric sketches; those forms follow the chapter specification, with Pearson Q6 supporting cubic-sketch features.",
+    "Source audit: the cited report Q6 is on PDF page 6 and supports cubic sketching only; it does not establish the reciprocal, intersections or tangent form inventory. Those forms currently rely on the chapter specification and still need a dedicated official-paper/mark-scheme survey.",
+    "Visual audit: the six pre-existing SVGs were resolved through the authoritative Library catalog, their registered hashes and provenance checked, and their rasterised renders inspected during this pass; no new diagram was drawn. Canonical Library references retain registered Assets aliases."
+   ],
+   "diagrams": [
+    "Library/Courses/P1/Diagrams/P1/P1-1-reciprocal-asymptotes.svg",
+    "Library/Courses/P1/Diagrams/P1/P1-1-reciprocal-squared.svg"
+   ],
+   "diagram_descriptions": [
+    "Graph of $y=6/x$, with positive branch in quadrant I and negative branch in quadrant III. Both axes are asymptotes and neither is met; $x=0$ is undefined.",
+    "Graph of $y=6/x^2$, positive on both sides of zero and symmetric in the vertical axis. Points $(2,1.5)$ and $(-4,0.375)$ are labelled. Both axes are asymptotes; zero is excluded from the domain."
+   ],
+   "diagram_provenance": [
+    {
+     "path": "Library/Courses/P1/Diagrams/P1/P1-1-reciprocal-asymptotes.svg",
+     "sha256": "18c1595c21ef4e3f8d648287011305bc6b884a9be858fcd11b3c05064dc42c81",
+     "aliases": [
+      "Assets/P1/P1-1-reciprocal-asymptotes.svg",
+      "build/out/assets/P1/P1-1-reciprocal-asymptotes.svg",
+      "build/out/Assets/P1/P1-1-reciprocal-asymptotes.svg"
+     ],
+     "course": "P1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/P1/P1-1-reciprocal-asymptotes.svg",
+      "stem-tutor/build/out/assets/P1/P1-1-reciprocal-asymptotes.svg",
+      "stem-tutor/build/out/Assets/P1/P1-1-reciprocal-asymptotes.svg"
+     ],
+     "requested_path": "Assets/P1/P1-1-reciprocal-asymptotes.svg",
+     "caption": "P1-1-reciprocal-asymptotes",
+     "review": "Hash-verified registered bytes and visually inspected rendered SVG in this pass; this does not establish teaching approval."
+    },
+    {
+     "path": "Library/Courses/P1/Diagrams/P1/P1-1-reciprocal-squared.svg",
+     "sha256": "ea3cd646bdcb7e5355a59b53797b5cceeca296533c31878ebd3b5dd5a9a5c70f",
+     "aliases": [
+      "Assets/P1/P1-1-reciprocal-squared.svg",
+      "build/out/assets/P1/P1-1-reciprocal-squared.svg",
+      "build/out/Assets/P1/P1-1-reciprocal-squared.svg"
+     ],
+     "course": "P1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/P1/P1-1-reciprocal-squared.svg",
+      "stem-tutor/build/out/assets/P1/P1-1-reciprocal-squared.svg",
+      "stem-tutor/build/out/Assets/P1/P1-1-reciprocal-squared.svg"
+     ],
+     "requested_path": "Assets/P1/P1-1-reciprocal-squared.svg",
+     "caption": "P1-1-reciprocal-squared",
+     "review": "Hash-verified registered bytes and visually inspected rendered SVG in this pass; this does not establish teaching approval."
+    }
+   ],
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   },
   "P1-1.12": {
    "motivate": "Many graphs are the same basic shape moved or stretched. If we know how a change to the equation moves the graph, one sketch can generate many others without plotting points.",
@@ -3815,11 +5219,215 @@
     "answer": "D",
     "explanation": "The bracket $(x-3)$ is zero when $x=3$, so the lowest point is at $x=3$, giving the vertex $(3,0)$. Replacing $x$ by $x-3$ moves the graph 3 units to the right."
    },
-   "establish": "Start with $y=f(x)$ and change the equation.\n\n**Change outside** $f$ (affects $y$):\n- $y=f(x)+a$: every $y$ increases by $a$, so a translation by $\\begin{pmatrix}0\\\\a\\end{pmatrix}$ (up $a$).\n- $y=af(x)$: every $y$ is multiplied by $a$, so a stretch parallel to the $y$-axis, scale factor $a$.\n\n**Change inside** $f$ (affects $x$, and works \"backwards\"):\n- $y=f(x+a)$: the output at $x$ is what $f$ gave at $x+a$, so features appear $a$ earlier: translation by $\\begin{pmatrix}-a\\\\0\\end{pmatrix}$ (left $a$).\n- $y=f(ax)$: $x$ needs to be only $\\tfrac1a$ as large to give the same output: stretch parallel to the $x$-axis, scale factor $\\tfrac1a$.\n\nExample: $f$ has a root at $x=2$. Then $f(x+3)$ has it at $x=-1$, and $f(x-3)$ has it at $x=5$.\n\nIn points: $y=af(x)$ sends $(x,y)$ to $(x,ay)$; $y=f(ax)$ sends $(x,y)$ to $\\left(\\dfrac{x}{a},y\\right)$. If $a<0$ there is a reflection as well: in the $x$-axis for $af(x)$, in the $y$-axis for $f(ax)$.",
+   "establish": "Start with $y=f(x)$ and change the equation.\n\n**Change outside** $f$ (affects $y$):\n- $y=f(x)+a$: every $y$ increases by $a$, so a translation by $\\begin{pmatrix}0\\\\a\\end{pmatrix}$ (up $a$).\n- $y=af(x)$: every $y$ is multiplied by $a$, so a stretch parallel to the $y$-axis, scale factor $a$.\n\n**Change inside** $f$ (affects $x$, and works \"backwards\"):\n- $y=f(x+a)$: the output at $x$ is what $f$ gave at $x+a$, so features appear $a$ earlier: translation by $\\begin{pmatrix}-a\\\\0\\end{pmatrix}$ (left $a$).\n- $y=f(ax)$: $x$ needs to be only $\\tfrac1a$ as large to give the same output: stretch parallel to the $x$-axis, scale factor $\\tfrac1a$.\n\nExample: $f$ has a root at $x=2$. Then $f(x+3)$ has it at $x=-1$, and $f(x-3)$ has it at $x=5$.\n\nIn points: $y=af(x)$ sends $(x,y)$ to $(x,ay)$; $y=f(ax)$ sends $(x,y)$ to $\\left(\\dfrac{x}{a},y\\right)$. If $a<0$ there is a reflection as well: in the $x$-axis for $af(x)$, in the $y$-axis for $f(ax)$.\n\nIf $f$ is periodic with period $T$ and $a\\ne0$, the corresponding period of $f(ax)$ is $T/|a|$. A negative $a$ includes a reflection in the vertical axis. For $af(x)$ a negative multiplier reflects in the horizontal axis; the geometric stretch uses the positive factor $|a|$. At $a=0$ the graphs collapse to constant outputs, rather than invertible stretches.",
    "connect": "It works on all the graphs from the previous point (quadratics, cubics, reciprocals) and the completed-square form $a(x+p)^2+q$ is exactly a translation of $y=ax^2$.",
    "note": "- $y=f(x)+a$: translation $\\begin{pmatrix}0\\\\a\\end{pmatrix}$.\n- $y=f(x+a)$: translation $\\begin{pmatrix}-a\\\\0\\end{pmatrix}$ (left $a$ for $a>0$).\n- $y=af(x)$: stretch parallel to the $y$-axis, scale factor $a$.\n- $y=f(ax)$: stretch parallel to the $x$-axis, scale factor $\\dfrac{1}{a}$.\n- Changes inside the brackets affect $x$ and act \"backwards\".\n- Transform each key point (turning points, intercepts, asymptotes).\n- $y=\\sin ax$ has period $\\dfrac{360^\\circ}{a}$: the period is divided by $a$.",
    "self_explain": "Explain why $y=f(x+3)$ moves the graph left instead of right, using what happens to a root of $f$.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Outside changes alter outputs directly. Inside changes ask which new input produces the old input, so the horizontal mapping uses the inverse operation.",
+   "prerequisite_bridge": "Read a plotted point as an input-output pair. Map labelled points and asymptotes; keep the angle unit consistent for trigonometric graphs.",
+   "terms": [
+    {
+     "term": "horizontal scale factor",
+     "meaning": "For an input multiplier a, horizontal distances scale by its reciprocal magnitude, with reflection if a is negative.",
+     "notation": "$y=f(ax),\\ a\\ne0$",
+     "spoken": "y equals f of a x, a nonzero",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.7.pdf pp.3–5, 8–12; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q4, p.4"
+    },
+    {
+     "term": "corresponding point",
+     "meaning": "The image of an original input-output pair under the stated graph transformation. An inside change requires solving for the new input.",
+     "notation": "$(u,v)\\mapsto(u/a,v)$ for $y=f(ax)$, $a\\ne0$",
+     "spoken": "u v maps to u divided by a, v, when a is nonzero",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.7.pdf pp.3–4, 8–9"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Map points under translations",
+     "wordings": [
+      "If $(-3,7)$ lies on $y=f(x)$, give the corresponding point on $y=f(x-5)$ and on $y=f(x)-5$."
+     ],
+     "example": "If $(5,-2)$ lies on $y=f(x)$, compare $f(x+4)$ with $f(x)+4$. 1. Inside change: solve $x+4=5$, giving $(1,-2)$, a shift left by 4. 2. Outside change: add to the output, giving $(5,2)$, a shift up by 4. Only the indicated coordinate changes.",
+     "check": "If $(-3,7)$ lies on $y=f(x)$, give the corresponding point on $y=f(x-5)$ and on $y=f(x)-5$.",
+     "answer": "$(2,7)$ on $f(x-5)$; $(-3,2)$ on $f(x)-5$.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.7.pdf pp.3–5, 8–12; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q4, p.4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Map the horizontal translation using the input equation.",
+       "keywords": [
+        [
+         "2",
+         "two"
+        ]
+       ]
+      },
+      {
+       "point": "Map the vertical translation without altering the abscissa.",
+       "keywords": [
+        [
+         "-3",
+         "minus three"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Map points under stretches and reflections",
+     "wordings": [
+      "If $(6,-4)$ lies on $f$, give its image under $f(x/3)$ and $-2f(x)$; describe each transformation."
+     ],
+     "example": "If $(8,-3)$ is on $f$, compare $f(4x)$, $4f(x)$ and $f(-x)$. 1. Set $4x=8$: point $(2,-3)$, horizontal factor $1/4$. 2. Multiply only the output: $(8,-12)$, vertical factor 4. 3. Negate the input: $(-8,-3)$, reflection in the vertical axis. For $f(ax)$ the mapping needs $a\\ne0$; for $a<0$ use factor $1/|a|$ with a reflection. For $af(x)$ a negative $a$ reflects in the horizontal axis; $a=0$ collapses outputs and is not an invertible stretch.",
+     "check": "If $(6,-4)$ lies on $f$, give its image under $f(x/3)$ and $-2f(x)$; describe each transformation.",
+     "answer": "$(18,-4)$: horizontal stretch factor 3. $(6,8)$: vertical stretch factor 2 and reflection in the horizontal axis.",
+     "source": "Library/Courses/P1/Sources/Library/SaveMyExams/YMA01 pure-1/YMA01 c1.7.pdf pp.3–5, 8–12; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf Q4, p.4; original example and check, not copied",
+     "rubric": [
+      {
+       "point": "Use the reciprocal input scale and preserve the output.",
+       "keywords": [
+        [
+         "18",
+         "eighteen"
+        ]
+       ]
+      },
+      {
+       "point": "Scale and reflect the output while preserving the input.",
+       "keywords": [
+        [
+         "8",
+         "eight"
+        ]
+       ]
+      },
+      {
+       "point": "Describe the horizontal and vertical directions.",
+       "keywords": [
+        [
+         "horizontal",
+         "parallel to the x"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Treat an input multiplier as a vertical scale",
+     "temptation": "Both equations visibly contain the same multiplier.",
+     "fix": "Solve $ax_{new}=x_{old}$ for an inside change; multiply $y$ directly only for $af(x)$.",
+     "id": "m6"
+    }
+   ],
+   "source_gaps": [
+    "This is a limited inventory reviewed against the listed sources and chapter specification, not an exhaustive survey of official question papers or mark schemes; rubrics are original and require independent review.",
+    "Source audit: Pearson October 2021 WMA11/01 examiner report, Q4, PDF page 4 (https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wma11-01-pef-20220113.pdf), was read for method pitfalls; the URL filename date does not identify the examination session. It is not a mark scheme or approval of these original checks.",
+    "Visual audit: the six pre-existing SVGs were resolved through the authoritative Library catalog, their registered hashes and provenance checked, and their rasterised renders inspected during this pass; no new diagram was drawn. Canonical Library references retain registered Assets aliases."
+   ],
+   "diagrams": [
+    "Library/Courses/P1/Diagrams/P1/P1-1-transformation-shift.svg",
+    "Library/Courses/P1/Diagrams/P1/P1-1-sine-stretch.svg"
+   ],
+   "diagram_descriptions": [
+    "The blue graph is $f(x)=(x-1)(x-3)$ and the orange graph is $f(x-3)$. The vertex moves from $(2,-1)$ to $(5,-1)$; all horizontal coordinates increase by 3 and ordinates stay fixed.",
+    "In radians, $y=\\sin x$ and $y=\\sin(2x)$ have the same amplitude 1. Their periods are $2\\pi$ and $\\pi$, respectively. The second has its first maximum at $x=\\pi/4$ because horizontal coordinates are halved."
+   ],
+   "diagram_provenance": [
+    {
+     "path": "Library/Courses/P1/Diagrams/P1/P1-1-transformation-shift.svg",
+     "sha256": "7f896d6e72a3d14265e5db48b8e267651646f49a4bdbec33dd4d392927d62a29",
+     "aliases": [
+      "Assets/P1/P1-1-transformation-shift.svg",
+      "build/out/assets/P1/P1-1-transformation-shift.svg",
+      "build/out/Assets/P1/P1-1-transformation-shift.svg"
+     ],
+     "course": "P1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/P1/P1-1-transformation-shift.svg",
+      "stem-tutor/build/out/assets/P1/P1-1-transformation-shift.svg",
+      "stem-tutor/build/out/Assets/P1/P1-1-transformation-shift.svg"
+     ],
+     "requested_path": "Assets/P1/P1-1-transformation-shift.svg",
+     "caption": "P1-1-transformation-shift",
+     "review": "Hash-verified registered bytes and visually inspected rendered SVG in this pass; this does not establish teaching approval."
+    },
+    {
+     "path": "Library/Courses/P1/Diagrams/P1/P1-1-sine-stretch.svg",
+     "sha256": "d0911d4c908b4906b0a59b3bd4c27e46bda2430255152fb9240ec8c9e8513be3",
+     "aliases": [
+      "Assets/P1/P1-1-sine-stretch.svg",
+      "build/out/assets/P1/P1-1-sine-stretch.svg",
+      "build/out/Assets/P1/P1-1-sine-stretch.svg"
+     ],
+     "course": "P1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/P1/P1-1-sine-stretch.svg",
+      "stem-tutor/build/out/assets/P1/P1-1-sine-stretch.svg",
+      "stem-tutor/build/out/Assets/P1/P1-1-sine-stretch.svg"
+     ],
+     "requested_path": "Assets/P1/P1-1-sine-stretch.svg",
+     "caption": "P1-1-sine-stretch",
+     "review": "Hash-verified registered bytes and visually inspected rendered SVG in this pass; this does not establish teaching approval."
+    }
+   ],
+   "practice": "Attempt each form check with its answer hidden; explain the chosen method and verify in the original relation before revealing feedback.",
+   "review": "Revisit any missed form with fresh numbers supplied by the teaching AI, then explain the misconception and the prerequisite used."
   }
+ },
+ "guided_forms": {
+  "P1-1.1": [
+   "Combine powers and change base",
+   "Evaluate rational and negative indices"
+  ],
+  "P1-1.2": [
+   "Simplify and collect surds",
+   "Rationalise a denominator"
+  ],
+  "P1-1.3": [
+   "Complete the square and sketch a quadratic"
+  ],
+  "P1-1.4": [
+   "Classify roots using the discriminant",
+   "Find parameter ranges from root conditions"
+  ],
+  "P1-1.5": [
+   "Solve a quadratic by factorisation",
+   "Solve by completing the square",
+   "Use the quadratic formula and check a calculator result"
+  ],
+  "P1-1.6": [
+   "Solve linear and quadratic simultaneous equations"
+  ],
+  "P1-1.7": [
+   "Compare a line with a quadratic graph",
+   "Interpret a reciprocal inequality graphically"
+  ],
+  "P1-1.8": [
+   "Represent overlapping half-plane regions",
+   "Represent a quadratic inequality region"
+  ],
+  "P1-1.9": [
+   "Solve a linear inequality with a negative coefficient",
+   "Solve a quadratic inequality using signs",
+   "Solve a rational inequality using a positive square"
+  ],
+  "P1-1.10": [
+   "Expand brackets and collect like terms",
+   "Factorise a cubic fully"
+  ],
+  "P1-1.11": [
+   "Sketch a cubic from its factors",
+   "Sketch reciprocal families and asymptotes",
+   "Use intersections to solve an equation",
+   "Sketch standard trigonometric curves"
+  ],
+  "P1-1.12": [
+   "Map points under translations",
+   "Map points under stretches and reflections"
+  ]
  }
 }

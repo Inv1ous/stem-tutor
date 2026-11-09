@@ -56,7 +56,9 @@ def vault() -> store.Vault:
 def tutor(v: store.Vault) -> Tutor:
     fixed = os.environ.get("STEM_TUTOR_NOW")
     now = (lambda: datetime.fromisoformat(fixed)) if fixed else None
-    return Tutor(v, rng=random.Random(), now=now)
+    t = Tutor(v, rng=random.Random(), now=now)
+    t.enable_map_refresh(background=False)  # one command per process: recolour the maps before it exits
+    return t
 
 
 def cmd_doctor(args) -> None:

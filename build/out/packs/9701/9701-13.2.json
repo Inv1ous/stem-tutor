@@ -44,6 +44,22 @@
    "refutation": "This is elimination: atoms are removed and a carbon–carbon double bond forms. Hydrolysis uses water to break a bond; substitution replaces an atom or group.",
    "contrast": "Addition consumes a multiple bond; elimination forms one. Water produced is not water used in hydrolysis.",
    "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-13.2.1",
+   "statement": "Every propagation step increases the number of radicals.",
+   "refutation": "A standard propagation step consumes one radical and produces one radical, maintaining the chain carrier.",
+   "contrast": "Initiation generates radicals; propagation regenerates the carrier; termination removes radicals.",
+   "source": "SaveMyExams, 9701 a-level-chemistry-cie-25/9701 c13.2.pdf pp.9–10"
+  },
+  {
+   "id": "m7",
+   "kc": "9701-13.2.2",
+   "statement": "The protonation arrow starts at the proton and points to negative oxygen.",
+   "refutation": "The full curly arrow begins at the oxygen lone pair and points to the proton, because oxygen supplies the electron pair.",
+   "contrast": "Follow the electrons from oxygen to hydrogen, rather than drawing the movement of a proton.",
+   "source": "Cambridge 9701 s23 P23 Q6(b)(ii), official examiner report indexed excerpt"
   }
  ],
  "worked": [],
@@ -967,7 +983,589 @@
     "answer": "B",
     "explanation": "Equal division of the bonding pair forms two radicals."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "First ask what changes: bonds, atoms or electron ownership. A covalent bond holds two electrons. Sharing out one each makes radicals; keeping the pair together on one atom makes ions. Reaction labels describe the overall change, whereas chain-stage labels describe what happens to radicals.",
+   "prerequisite_bridge": "Recall covalent bonding: count the two bonding electrons before and after a bond breaks. Recall redox: electron loss is oxidation and electron gain is reduction; for organic structures compare oxygen and hydrogen content of the organic molecule. For example, turning ethanol into ethanal removes two hydrogen atoms and is oxidation.",
+   "terms": [
+    {
+     "term": "homologous series",
+     "meaning": "A family with the same functional group and general formula and similar chemical properties; neighbouring members differ by a methylene unit.",
+     "notation": "$\\ce{CH2}$",
+     "spoken": "C H two",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, p.2; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "saturated and unsaturated",
+     "meaning": "Saturated means no carbon–carbon multiple bond; unsaturated means a carbon–carbon double or triple bond is present.",
+     "notation": "$\\ce{C-C}$; $\\ce{C=C}$; $\\ce{C#C}$",
+     "spoken": "carbon single bond carbon; carbon double bond carbon; carbon triple bond carbon",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.2–3; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "homolytic fission",
+     "meaning": "A covalent bond breaks with one bonding electron going to each atom, forming radicals.",
+     "notation": "$\\ce{Cl2 -> 2Cl.}$",
+     "spoken": "chlorine molecule forms two chlorine radicals",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.3–4,9; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "heterolytic fission",
+     "meaning": "A covalent bond breaks with both bonding electrons going to one atom, forming ions.",
+     "notation": "$\\ce{H-Cl -> H+ + Cl-}$",
+     "spoken": "hydrogen chloride forms a hydrogen ion and a chloride ion",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.3–4; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "free radical",
+     "meaning": "A species with an unpaired electron.",
+     "notation": "$\\ce{CH3.}$",
+     "spoken": "methyl radical; dot means an unpaired electron",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, p.4; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "initiation, propagation and termination",
+     "meaning": "Initiation generates radicals from non-radical reactants; each propagation step consumes a radical and regenerates one; termination combines radicals with no radical product.",
+     "notation": "0 to 2; 1 to 1; 2 to 0 radicals",
+     "spoken": "zero to two; one to one; two to zero radicals",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.9–10; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "nucleophile and electrophile",
+     "meaning": "A nucleophile donates an electron pair; an electrophile accepts an electron pair. Charge alone does not define either role.",
+     "notation": "$\\ce{NH3}$; $\\ce{H+}$",
+     "spoken": "ammonia may donate its nitrogen lone pair; a proton accepts a pair",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.5–6; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "addition, substitution and elimination",
+     "meaning": "Addition joins reactants without another product; substitution replaces an atom or group; elimination removes a small molecule, often forming a multiple bond.",
+     "notation": "$\\ce{C=C}$",
+     "spoken": "carbon double bond carbon may be consumed by addition or formed by elimination",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.6–7; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "hydrolysis and condensation",
+     "meaning": "Hydrolysis breaks a bond using water or aqueous acid or alkali; condensation joins molecules while losing a small molecule, commonly water.",
+     "notation": "$\\ce{H2O}$",
+     "spoken": "water is used in hydrolysis and may be produced in condensation",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.6–7; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "oxidation, reduction and reagent symbols",
+     "meaning": "Organic oxidation gains oxygen or loses hydrogen; reduction loses oxygen or gains hydrogen. Each bracketed symbol represents one atom supplied by the relevant reagent.",
+     "notation": "$[O]$; $[H]$",
+     "spoken": "one oxygen atom from an oxidising agent; one hydrogen atom from a reducing agent",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, p.8; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Allocate electrons in bond fission",
+     "wordings": [
+      "Describe the fate of the bonding electrons.",
+      "Deduce whether ions or radicals form."
+     ],
+     "example": "1. Start with the two electrons in $\\ce{Cl-Cl}$. 2. In homolysis one goes to each Cl, giving $\\ce{2Cl.}$, with no ionic charges. 3. Contrast heterolysis of $\\ce{H-Cl}$ toward Cl: both electrons go to Cl, giving $\\ce{H+}$ and $\\ce{Cl-}$. 4. Check that two electrons have been allocated and total charge remains zero.",
+     "check": "Describe the products and electron allocation when $\\ce{Br-Br}$ undergoes homolytic fission. Contrast this with heterolytic fission of $\\ce{CH3-Br}$ when the bonding pair goes to Br.",
+     "answer": "Homolysis gives $\\ce{2Br.}$, each receiving one bonding electron. Heterolysis gives $\\ce{CH3+ + Br-}$, with both bonding electrons on Br. Each process conserves the bonding pair and total charge.",
+     "rubric": [
+      {
+       "point": "Homolysis of Br–Br forms two bromine radicals (2Br· or Br· + Br·), each receiving one of the two bonding electrons. Require bromine identity, two radicals, and one bonding electron to each; accept equivalent radical drawings and wording. An unspecified radical or a different radical is insufficient, even if matching words occur elsewhere in the heterolysis answer.",
+       "keywords": [
+        [
+         "bromine",
+         "Br"
+        ],
+        [
+         "radical",
+         "Br·",
+         "Br•",
+         "Br.",
+         "·Br",
+         "•Br",
+         ".Br"
+        ],
+        [
+         "two",
+         "2",
+         "Br· + Br·",
+         "Br• + Br•",
+         "Br. + Br."
+        ],
+        [
+         "one bonding electron",
+         "one electron",
+         "1 electron"
+        ],
+        [
+         "each"
+        ]
+       ]
+      },
+      {
+       "point": "Heterolysis forms methyl cation and bromide, both bonding electrons to Br. Accept equivalent displayed charged structures.",
+       "keywords": [
+        [
+         "methyl cation",
+         "CH3+",
+         "CH3⁺",
+         "CH₃⁺"
+        ],
+        [
+         "bromide",
+         "Br-",
+         "Br−",
+         "Br⁻"
+        ],
+        [
+         "both",
+         "pair"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "An isolated $\\ce{H-Br}$ bond is broken in two hypothetical ways: one electron to each atom, or both electrons to Br. Name each fission and give the species formed.",
+      "answer": "One each: homolytic fission, $\\ce{H. + Br.}$. Both to Br: heterolytic fission, $\\ce{H+ + Br-}$. The radical dot and ionic charge describe different electron arrangements.",
+      "rubric": [
+       {
+        "point": "One each is homolytic, giving hydrogen and bromine radicals.",
+        "keywords": [
+         [
+          "homolytic",
+          "homolysis"
+         ],
+         [
+          "hydrogen",
+          "H·",
+          "H.",
+          "H•",
+          "·H",
+          ".H",
+          "•H"
+         ],
+         [
+          "bromine",
+          "Br·",
+          "Br.",
+          "Br•",
+          "·Br",
+          ".Br",
+          "•Br"
+         ],
+         [
+          "radical",
+          "H·",
+          "H.",
+          "H•",
+          "·H",
+          ".H",
+          "•H"
+         ],
+         [
+          "radical",
+          "Br·",
+          "Br.",
+          "Br•",
+          "·Br",
+          ".Br",
+          "•Br"
+         ]
+        ]
+       },
+       {
+        "point": "Both to Br is heterolytic, giving a proton and bromide. Accept equivalent correctly displayed ionic structures.",
+        "keywords": [
+         [
+          "heterolytic",
+          "heterolysis"
+         ],
+         [
+          "H+",
+          "proton",
+          "H⁺"
+         ],
+         [
+          "Br-",
+          "bromide",
+          "Br−",
+          "Br⁻"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.3–4,9; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "name": "Identify radical chain stages",
+     "wordings": [
+      "Identify initiation, propagation or termination.",
+      "Explain using the radical inventory."
+     ],
+     "example": "1. $\\ce{Cl2 ->[UV] 2Cl.}$ starts the chain: initiation. 2. $\\ce{Cl. + CH4 -> HCl + CH3.}$ consumes one radical and makes one: propagation. 3. $\\ce{CH3. + Cl2 -> CH3Cl + Cl.}$ regenerates the chain carrier: propagation. 4. $\\ce{CH3. + CH3. -> C2H6}$ removes two radicals: termination. Count radicals rather than guessing from the product name.",
+     "check": "Classify each step and justify with radical counts: (i) $\\ce{Br2 ->[UV] 2Br.}$; (ii) $\\ce{Br. + C2H6 -> HBr + C2H5.}$; (iii) $\\ce{C2H5. + Br. -> C2H5Br}$.",
+     "answer": "Initiation: zero to two radicals. Propagation: one radical consumed and one produced. Termination: two radicals combine and no radical remains.",
+     "rubric": [
+      {
+       "point": "First step is initiation because radicals are generated from a molecule.",
+       "keywords": [
+        [
+         "initiation"
+        ],
+        [
+         "two",
+         "radicals"
+        ]
+       ]
+      },
+      {
+       "point": "Second is propagation because a radical is regenerated.",
+       "keywords": [
+        [
+         "propagation"
+        ],
+        [
+         "one",
+         "regenerated"
+        ]
+       ]
+      },
+      {
+       "point": "Third is termination because two radicals combine without a radical product.",
+       "keywords": [
+        [
+         "termination"
+        ],
+        [
+         "two"
+        ],
+        [
+         "no radical",
+         "zero",
+         "combine"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Classify and explain: (i) $\\ce{C2H5. + Cl2 -> C2H5Cl + Cl.}$; (ii) $\\ce{Cl. + Cl. -> Cl2}$; (iii) $\\ce{CH3Cl ->[UV] CH3. + Cl.}$.",
+      "answer": "The first is propagation (one radical to one). The second is termination (two radicals to zero). The third is initiation (a non-radical molecule forms radicals by homolytic fission).",
+      "rubric": [
+       {
+        "point": "First is propagation with radical regeneration.",
+        "keywords": [
+         [
+          "propagation"
+         ],
+         [
+          "one",
+          "regeneration"
+         ]
+        ]
+       },
+       {
+        "point": "Second is termination with radical removal.",
+        "keywords": [
+         [
+          "termination"
+         ],
+         [
+          "two",
+          "combine",
+          "removal"
+         ]
+        ]
+       },
+       {
+        "point": "Third is initiation by homolysis.",
+        "keywords": [
+         [
+          "initiation"
+         ],
+         [
+          "homolysis",
+          "homolytic",
+          "radicals"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.9–10; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "name": "Classify overall reaction changes",
+     "wordings": [
+      "Identify the reaction type and explain what changes.",
+      "Distinguish hydrolysis from elimination or condensation."
+     ],
+     "example": "1. $\\ce{CH2=CH2 + H2 -> CH3CH3}$ is addition because two reactants give one product across a double bond; it is also reduction because hydrogen is gained. 2. $\\ce{CH3CH2Br + OH- -> CH3CH2OH + Br-}$ is substitution because OH replaces Br; with aqueous hydroxide it is also hydrolysis. 3. $\\ce{CH3CH2OH -> CH2=CH2 + H2O}$ is elimination: water leaves a single organic molecule. 4. Ethanoic acid and ethanol joining to make ethyl ethanoate and water is condensation. Labels can overlap when they describe different aspects.",
+     "check": "Identify and justify the changes: (i) propan-2-ol to propene plus water; (ii) propanal plus $2[H]$ to propan-1-ol; (iii) methyl ethanoate plus water to ethanoic acid and methanol. State what $[H]$ represents.",
+     "answer": "The first is elimination: water is removed and a carbon–carbon double bond forms. The second is reduction: the aldehyde gains hydrogen; [H] means one hydrogen atom supplied by a reducing agent. The third is hydrolysis: water breaks the ester linkage.",
+     "rubric": [
+      {
+       "point": "First is elimination with water loss and double-bond formation.",
+       "keywords": [
+        [
+         "elimination"
+        ],
+        [
+         "water",
+         "double bond"
+        ]
+       ]
+      },
+      {
+       "point": "Second is reduction by hydrogen gain; [H] is one atom from a reducing agent.",
+       "keywords": [
+        [
+         "reduction"
+        ],
+        [
+         "hydrogen"
+        ],
+        [
+         "atom"
+        ],
+        [
+         "reducing agent"
+        ]
+       ]
+      },
+      {
+       "point": "Third is hydrolysis because water breaks the ester bond. Accept water splitting the ester linkage.",
+       "keywords": [
+        [
+         "hydrolysis"
+        ],
+        [
+         "water"
+        ],
+        [
+         "break",
+         "cleave",
+         "split",
+         "hydrolyse",
+         "hydrolyze"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Classify and justify: (i) propan-1-ol plus $[O]$ to propanal plus water; (ii) propene plus bromine to 1,2-dibromopropane; (iii) methanoic acid plus propan-1-ol to propyl methanoate plus water. State what $[O]$ represents.",
+      "answer": "The first is oxidation by loss of hydrogen from the alcohol; [O] represents one oxygen atom supplied by an oxidising agent. The second is addition across the carbon–carbon double bond. The third is condensation: two organic molecules join and water is lost.",
+      "rubric": [
+       {
+        "point": "Oxidation removes hydrogen from propan-1-ol; [O] denotes one oxygen atom supplied by an oxidising agent, not an oxygen molecule. Accept a single atom, 1 atom or one atom, and oxidising/oxidizing agent. An explicit claim that [O] means O2 or an oxygen molecule does not earn this point, even if other keywords occur.",
+        "keywords": [
+         [
+          "oxidation"
+         ],
+         [
+          "hydrogen"
+         ],
+         [
+          "oxygen"
+         ],
+         [
+          "one atom",
+          "one oxygen atom",
+          "single atom",
+          "single oxygen atom",
+          "1 atom",
+          "1 oxygen atom"
+         ],
+         [
+          "oxidising agent",
+          "oxidizing agent"
+         ]
+        ]
+       },
+       {
+        "point": "Second is addition across the double bond.",
+        "keywords": [
+         [
+          "addition"
+         ],
+         [
+          "double bond",
+          "C=C"
+         ]
+        ]
+       },
+       {
+        "point": "Third is condensation with joining and water loss.",
+        "keywords": [
+         [
+          "condensation"
+         ],
+         [
+          "join",
+          "combine",
+          "ester",
+          "propyl methanoate"
+         ],
+         [
+          "water"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.6–8; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "name": "Apply organic vocabulary to structures and species",
+     "wordings": [
+      "Explain whether compounds belong to the same homologous series.",
+      "Identify a nucleophile or electrophile from electron-pair behaviour."
+     ],
+     "example": "1. Ethanol and propan-1-ol have the alcohol functional group and differ by $\\ce{CH2}$: the same homologous series. 2. Ethene has $\\ce{C=C}$, so is unsaturated. 3. Ammonia can donate its nitrogen lone pair, so is a neutral nucleophile. 4. $\\ce{H+}$ accepts that pair, so acts as an electrophile. Use electron-pair roles rather than charge alone.",
+     "check": "Compare butane and pentane as homologues and state whether they are saturated. Explain the role of $\\ce{H2O}$ when its oxygen donates a lone pair to $\\ce{H+}$, and identify the role of $\\ce{H+}$.",
+     "answer": "Butane and pentane are saturated alkanes: only carbon–carbon single bonds, the same general formula $\\ce{C_{n}H_{2n+2}}$, and neighbouring members differing by $\\ce{CH2}$. Water is the nucleophile because it donates an electron pair; the proton is the electrophile because it accepts the pair.",
+     "rubric": [
+      {
+       "point": "Same alkane series and adjacent members differ by CH2.",
+       "keywords": [
+        [
+         "alkane"
+        ],
+        [
+         "CH2",
+         "methylene"
+        ]
+       ]
+      },
+      {
+       "point": "Saturated because there is no carbon–carbon multiple bond.",
+       "keywords": [
+        [
+         "saturated"
+        ],
+        [
+         "single",
+         "no carbon–carbon multiple"
+        ]
+       ]
+      },
+      {
+       "point": "Water donates and proton accepts the electron pair.",
+       "keywords": [
+        [
+         "water",
+         "H2O"
+        ],
+        [
+         "nucleophile",
+         "donates"
+        ],
+        [
+         "electrophile",
+         "accepts"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Explain whether ethene and propene are homologues and whether they are saturated. In a bond-forming step $\\ce{OH-}$ donates an oxygen lone pair to an electron-deficient carbon; identify the electron-pair roles of both partners.",
+      "answer": "Ethene and propene are unsaturated alkenes with the same general formula $\\ce{C_{n}H_{2n}}$; they differ by $\\ce{CH2}$. Hydroxide is the nucleophile; the electron-deficient carbon is the electrophilic centre accepting the pair.",
+      "rubric": [
+       {
+        "point": "Same alkene series; CH2 difference.",
+        "keywords": [
+         [
+          "alkene"
+         ],
+         [
+          "CH2",
+          "methylene"
+         ]
+        ]
+       },
+       {
+        "point": "Unsaturated because each contains a carbon–carbon double bond.",
+        "keywords": [
+         [
+          "unsaturated"
+         ],
+         [
+          "double bond",
+          "C=C"
+         ]
+        ]
+       },
+       {
+        "point": "Hydroxide donates as nucleophile; carbon accepts as electrophilic centre.",
+        "keywords": [
+         [
+          "nucleophile"
+         ],
+         [
+          "electrophil"
+         ],
+         [
+          "pair",
+          "donat",
+          "accept"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.2–6; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Homolytic fission produces ions rather than radicals.",
+     "temptation": "Both radicals and ions are reactive, so their symbols seem interchangeable.",
+     "fix": "Count the bonding electrons: one each gives unpaired electrons and radical dots; both to one gives the charge separation in these neutral bond-fission examples.",
+     "id": "m1"
+    },
+    {
+     "idea": "Propagation increases the radical count at every step.",
+     "temptation": "A chain grows, so there should be more radicals after each reaction.",
+     "fix": "Each standard propagation step consumes one radical and forms one; the chain continues because the carrier is regenerated.",
+     "id": "m6"
+    },
+    {
+     "idea": "Water among the products always means hydrolysis.",
+     "temptation": "The word hydrolysis suggests any reaction involving water.",
+     "fix": "Check its role: hydrolysis consumes water to split a bond; elimination can produce water from one organic molecule, and condensation joins molecules while losing water.",
+     "id": "m5"
+    }
+   ],
+   "source_gaps": [
+    "The notes establish the vocabulary and chain stages; no exhaustive official structured-paper audit of every reaction label was available, so these original practice forms are illustrative rather than a complete exam inventory."
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-13-2-fig-nucleophile-electrophile.png"
+   ],
+   "diagram_descriptions": [
+    "Hydroxide oxygen donates a lone pair to a proton to form water: the red full curly arrow starts at the oxygen electron pair and points to H. This shows electron-pair donation and acceptance, not a complete organic mechanism. Source: SaveMyExams, 9701 c13.2.pdf p.18; registered crop visually inspected in this pass. The figure’s charged example does not imply every nucleophile or electrophile is an ion."
+   ],
+   "diagram_provenance": [
+    {
+     "file": "Library/Courses/9701/Diagrams/9701/9701-13-2-fig-nucleophile-electrophile.png",
+     "asset": "asset:legacy-4424312bd63d88c64da5778d",
+     "sha256": "bd49b8db9e8175223e67b4d756b3d79954a8a902695323a80d449888573679e6",
+     "sidecar": "asset:legacy-92960b729e62836317aef1bd",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, p.18",
+     "caption": "Hydroxide donates an oxygen lone pair to a proton; the pair forms an O–H bond.",
+     "review": "Visually inspected for complete labels, legibility and relevance; registration is not teaching approval."
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant changes and steps; for a mechanism identify each arrow source and destination."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the classification to electron movement or the observed bond change; a name alone is insufficient."
+    }
+   ]
   },
   "9701-13.2.2": {
    "motivate": "A mechanism explains a reaction at electron level. Its name predicts both the attacking species and the overall bond change.",
@@ -986,7 +1584,443 @@
     "answer": "C",
     "explanation": "The tail identifies the electron-pair source; the head shows where the pair moves."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Use two decisions: who supplies the electron pair, and what changes overall? An alkene donates its bond pair to an electrophile in electrophilic addition. A nucleophile donates a lone pair: replacing a leaving group is substitution, whereas opening a carbonyl double bond is addition. Every full curly arrow follows a pair from its source.",
+   "prerequisite_bridge": "From covalent and dative bonding, recall that a bond forms when two atoms share an electron pair, and a donor can supply both electrons. From bond polarity, oxygen and halogens draw bonding electrons toward themselves, making their bonded carbon electron-deficient. Use the reaction labels from the first card only after comparing reactant and product bonds.",
+   "terms": [
+    {
+     "term": "full curly arrow",
+     "meaning": "Shows movement of an electron pair from a bond or lone pair to its destination. A reaction arrow instead shows the overall change.",
+     "notation": "$\\ce{->}$ is a reaction arrow, not a curly electron-pair arrow.",
+     "spoken": "full curly arrow; one electron pair moves",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, p.9; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "electrophilic addition",
+     "meaning": "Addition beginning with donation of an alkene bond pair to an electrophile.",
+     "notation": "$\\ce{C=C}$",
+     "spoken": "carbon double bond carbon donates a pi electron pair",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.10–11; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "nucleophilic substitution",
+     "meaning": "A nucleophile supplies an electron pair to a carbon as an atom or group is replaced by the nucleophile.",
+     "notation": "$\\ce{C-Br}$",
+     "spoken": "carbon bonded to bromine; bromide can leave",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.11–12; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "nucleophilic addition",
+     "meaning": "A nucleophile supplies a lone pair to the electron-deficient carbonyl carbon as the carbonyl pi pair moves to oxygen.",
+     "notation": "$\\ce{C=O}$",
+     "spoken": "carbon double bond oxygen",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, p.12; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "polarity and formal charge",
+     "meaning": "Partial charges indicate unequal sharing in a polar bond. An alkoxide intermediate has a full negative charge on oxygen, not just partial negative polarity.",
+     "notation": "$\\delta^+$; $\\delta^-$; $\\ce{O-}$",
+     "spoken": "delta plus; delta minus; oxygen with a full negative charge",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.11–12; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "term": "carbocation and alkoxide",
+     "meaning": "A carbocation has a positively charged carbon; an alkoxide has a negatively charged oxygen bonded to an organic group.",
+     "notation": "$\\ce{CH3CH2+}$; $\\ce{CH3CH2O-}$",
+     "spoken": "ethyl carbocation; ethoxide ion",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.10–12; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Classify mechanisms from attacker and bond change",
+     "wordings": [
+      "Name the mechanism and justify both parts of its name.",
+      "Distinguish nucleophilic substitution from nucleophilic addition."
+     ],
+     "example": "1. Ethene plus HBr: the alkene bond pair goes to an electrophile and atoms add across $\\ce{C=C}$, so electrophilic addition. 2. Bromoethane plus cyanide: a lone-pair donor replaces bromide, so nucleophilic substitution. 3. Propanone plus HCN: cyanide supplies a lone pair and the carbonyl opens without a leaving group being replaced, so nucleophilic addition. 4. Methane plus chlorine under UV replaces H by Cl through a radical chain, so free-radical substitution.",
+     "check": "Name and justify the mechanism in each stated transformation: (i) aqueous hydroxide replaces I in iodomethane; (ii) HCl adds across the double bond in but-2-ene; (iii) cyanide adds to pentan-2-one followed by protonation.",
+     "answer": "The first is nucleophilic substitution: hydroxide donates a lone pair and iodide leaves. The second is electrophilic addition: the alkene supplies its pi pair to electrophilic hydrogen, and H and Cl add across the double bond. The third is nucleophilic addition: cyanide donates a carbon lone pair to the carbonyl carbon without replacement of a leaving group.",
+     "rubric": [
+      {
+       "point": "First is nucleophilic substitution with donor and leaving group identified.",
+       "keywords": [
+        [
+         "nucleophilic substitution"
+        ],
+        [
+         "hydroxide",
+         "OH"
+        ],
+        [
+         "iodide",
+         "leav"
+        ]
+       ]
+      },
+      {
+       "point": "Electrophilic addition: the alkene pi electron pair attacks/ is donated to electrophilic H of the hydrogen halide, and H and halogen add across C=C. Accept equivalent prose or correctly directed arrows; a mechanism name plus bond label alone is insufficient. Accept the electron-rich C=C or double bond attacking electrophilic H followed by halide addition, without explicitly saying electron pair.",
+       "keywords": [
+        [
+         "electrophilic addition"
+        ],
+        [
+         "pi",
+         "bond pair",
+         "electron pair",
+         "C=C",
+         "double bond",
+         "electron-rich"
+        ],
+        [
+         "H",
+         "hydrogen",
+         "proton"
+        ],
+        [
+         "attack",
+         "donat",
+         "to H",
+         "to hydrogen",
+         "to the hydrogen",
+         "to the H",
+         "to electrophilic"
+        ],
+        [
+         "across",
+         "adds",
+         "add across",
+         "addition across"
+        ]
+       ]
+      },
+      {
+       "point": "Nucleophilic addition: cyanide attacks the electron-deficient carbonyl carbon and the alkoxide is protonated; alternatively describe carbon lone-pair donation and addition across C=O. Explicit electron-pair and no-replacement wording is not required for the attack-and-protonation explanation. A mechanism name plus carbonyl label alone is insufficient; accept equivalent correctly directed arrows.",
+       "keywords": [
+        [
+         "nucleophilic addition"
+        ],
+        [
+         "cyanide",
+         "CN"
+        ],
+        [
+         "carbonyl carbon",
+         "carbonyl C",
+         "carbon of the carbonyl",
+         "C of C=O"
+        ],
+        [
+         "donat",
+         "attack",
+         "to carbonyl",
+         "to the carbonyl"
+        ],
+        [
+         "across",
+         "no leaving",
+         "without replac",
+         "not replac",
+         "no replac",
+         "adds",
+         "added",
+         "protonat",
+         "alkoxide"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Name and justify: (i) HBr adds to cyclohexene; (ii) cyanide adds to butanal and the alkoxide is protonated; (iii) ammonia replaces Br in 1-bromopropane.",
+      "answer": "(i) Electrophilic addition: the cyclohexene C=C pi electron pair attacks the electrophilic H of HBr; H and Br add across the double bond. (ii) Nucleophilic addition: cyanide donates its carbon lone pair to the carbonyl carbon of butanal, moving the C=O pi pair onto oxygen; protonation of the alkoxide gives the hydroxynitrile, with no leaving group replaced. (iii) Nucleophilic substitution: ammonia donates its nitrogen lone pair to the carbon bonded to Br, replacing the bromide leaving group.",
+      "rubric": [
+       {
+        "point": "Electrophilic addition: the alkene pi electron pair attacks/ is donated to electrophilic H of the hydrogen halide, and H and halogen add across C=C. Accept equivalent prose or correctly directed arrows; a mechanism name plus bond label alone is insufficient. Accept C=C attacking electrophilic H followed by addition across the double bond without explicitly saying electron pair.",
+        "keywords": [
+         [
+          "electrophilic addition"
+         ],
+         [
+          "pi",
+          "bond pair",
+          "electron pair",
+          "C=C",
+          "double bond",
+          "electron-rich"
+         ],
+         [
+          "H",
+          "hydrogen",
+          "proton"
+         ],
+         [
+          "attack",
+          "donat",
+          "to H",
+          "to hydrogen",
+          "to the hydrogen",
+          "to the H",
+          "to electrophilic"
+         ],
+         [
+          "across",
+          "adds",
+          "add across",
+          "addition across"
+         ]
+        ]
+       },
+       {
+        "point": "Nucleophilic addition: cyanide attacks the electron-deficient carbonyl carbon and the alkoxide is protonated; alternatively describe carbon lone-pair donation and addition across C=O. Explicit electron-pair and no-replacement wording is not required for the attack-and-protonation explanation. A mechanism name plus carbonyl label alone is insufficient; accept equivalent correctly directed arrows.",
+        "keywords": [
+         [
+          "nucleophilic addition"
+         ],
+         [
+          "cyanide",
+          "CN"
+         ],
+         [
+          "carbonyl carbon",
+          "carbonyl C",
+          "carbon of the carbonyl",
+          "C of C=O"
+         ],
+         [
+          "donat",
+          "attack",
+          "to carbonyl",
+          "to the carbonyl"
+         ],
+         [
+          "across",
+          "no leaving",
+          "without replac",
+          "not replac",
+          "no replac",
+          "adds",
+          "added",
+          "protonat",
+          "alkoxide"
+         ]
+        ]
+       },
+       {
+        "point": "Ammonia is a lone-pair donor in nucleophilic substitution.",
+        "keywords": [
+         [
+          "nucleophilic substitution"
+         ],
+         [
+          "lone pair",
+          "donor"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.9–12; bundle official MCQs 9701_s20_12_q22 and 9701_w24_12_q28; Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    },
+    {
+     "name": "Describe alkene–hydrogen halide curly arrows",
+     "wordings": [
+      "Describe the mechanism including arrow origins and intermediate.",
+      "Explain why an arrow must start at the alkene bond."
+     ],
+     "example": "Worked example: ethene plus HCl. 1. Show H in H–Cl as $\\delta^+$ and Cl as $\\delta^-$. Draw a full curly arrow from the middle of the alkene pi bond to H, while another runs from the H–Cl bond to Cl. 2. One carbon gains H; the other is the positively charged carbon in $\\ce{CH3CH2+}$, accompanied by $\\ce{Cl-}$. 3. Draw a full curly arrow from a chloride lone pair to that positive carbon, giving chloroethane. 4. Check: every arrow starts at a pair, carbon valencies are valid, and total charge is conserved.",
+     "check": "Describe the full mechanism for HBr addition to symmetrical but-2-ene, including the two first-stage arrows, intermediate charge and final arrow.",
+     "answer": "Show $\\ce{H^{\\delta+}-Br^{\\delta-}}$. An arrow runs from the $\\ce{C=C}$ pi bond to H; simultaneously one runs from H–Br to Br. The intermediate is the secondary carbocation $\\ce{CH3CH2CH+CH3}$ plus bromide. An arrow from a bromide lone pair to the positively charged carbon forms 2-bromobutane. Either equivalent orientation is valid.",
+     "rubric": [
+      {
+       "point": "First-stage full curly arrow runs from the alkene pi bond to H of HBr.",
+       "keywords": [
+        [
+         "pi bond",
+         "C=C",
+         "double bond"
+        ],
+        [
+         "H",
+         "hydrogen"
+        ]
+       ]
+      },
+      {
+       "point": "Second arrow runs from H–Br bond to Br.",
+       "keywords": [
+        [
+         "H–Br",
+         "H-Br"
+        ],
+        [
+         "Br",
+         "bromine"
+        ],
+        [
+         "bond"
+        ]
+       ]
+      },
+      {
+       "point": "Correct secondary carbocation and bromide, then bromide lone pair to positive carbon gives 2-bromobutane. Accept CH3CH+CH2CH3 or CH3CH2CH+CH3 and equivalent charged drawings; accept any correct displayed or structural formula of 2-bromobutane in either chain orientation, without requiring a particular stereoisomer. Accept equivalent displayed charged structures in either chain orientation without requiring the word carbocation.",
+       "keywords": [
+        [
+         "carbocation",
+         "CH+",
+         "CH₃CH⁺CH₂CH₃",
+         "CH₃CH₂CH⁺CH₃",
+         "CH3CH⁺CH2CH3",
+         "CH3CH2CH⁺CH3"
+        ],
+        [
+         "bromide",
+         "Br-",
+         "Br−",
+         "Br⁻"
+        ],
+        [
+         "lone pair"
+        ],
+        [
+         "2-bromobutane",
+         "CH3CH(Br)CH2CH3",
+         "CH3CH2CH(Br)CH3",
+         "CH₃CH(Br)CH₂CH₃",
+         "CH₃CH₂CH(Br)CH₃"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Describe HCl addition to cyclohexene: give the first-stage arrow tails and heads, the intermediate charges, and the final electron-pair movement. Name the organic product.",
+      "answer": "The alkene pi-bond arrow points to the partially positive H of HCl; the H–Cl bond arrow points to Cl. This gives a cyclohexyl carbocation and chloride. A chloride lone pair donates to the positive carbon, forming chlorocyclohexane.",
+      "rubric": [
+       {
+        "point": "Pi bond to H; H–Cl bond to Cl.",
+        "keywords": [
+         [
+          "pi bond",
+          "double bond"
+         ],
+         [
+          "H",
+          "hydrogen"
+         ],
+         [
+          "H–Cl",
+          "H-Cl"
+         ],
+         [
+          "Cl",
+          "chlorine"
+         ]
+        ]
+       },
+       {
+        "point": "Require the cyclohexyl carbocation (also called cyclohexyl cation or cyclohexan-1-yl cation), with the positive charge on a former alkene carbon, and chloride; accept equivalent correctly charged ring drawings.",
+        "keywords": [
+         [
+          "carbocation",
+          "cyclohexyl cation",
+          "cyclohexan-1-yl cation"
+         ],
+         [
+          "chloride",
+          "Cl−",
+          "Cl-",
+          "Cl⁻"
+         ]
+        ]
+       },
+       {
+        "point": "Chloride lone pair to positive carbon forms chlorocyclohexane. Accept 1-chlorocyclohexane or an equivalent displayed/skeletal saturated six-carbon ring with one Cl substituent; the chloride lone-pair arrow must end at the positively charged carbon.",
+        "keywords": [
+         [
+          "lone pair"
+         ],
+         [
+          "carbon"
+         ],
+         [
+          "chlorocyclohexane",
+          "1-chlorocyclohexane"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, pp.9–11; bundle ER 9701 s22 P23 Q4(a)(i); Bundle 9701-13.2, syllabus statements 13.2.1 and 13.2.2"
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Start an arrow at the species being attacked.",
+     "temptation": "The reaction is described as attack on an atom, so that atom seems the natural starting point.",
+     "fix": "The tail locates the electron pair: use the alkene bond, a nucleophile lone pair or the bond being broken. The head gives its destination.",
+     "id": "m3"
+    },
+    {
+     "idea": "A carbonyl first loses oxygen to form a positive carbon intermediate.",
+     "temptation": "The carbonyl carbon is partially positive, which can be mistaken for a carbocation.",
+     "fix": "Carbonyl addition moves the pi pair onto oxygen while a new carbon–carbon bond forms. Oxygen remains bonded and carries the negative charge in the alkoxide.",
+     "id": "m4"
+    },
+    {
+     "idea": "Draw protonation from the proton to oxygen.",
+     "temptation": "Hydrogen is joining the molecule, so its movement seems to determine arrow direction.",
+     "fix": "Curly arrows track electrons, not atoms. The electron pair begins on oxygen and ends at hydrogen.",
+     "id": "m7"
+    },
+    {
+     "idea": "All nucleophiles are negative and attack double bonds.",
+     "temptation": "Cyanide and hydroxide are familiar negative ions.",
+     "fix": "Neutral ammonia is also a donor. In substitution the donor attacks a carbon bonded to a leaving group; a double bond is not required.",
+     "id": "m2"
+    }
+   ],
+   "source_gaps": [
+    "The official June 2023 report was verified through its indexed Q6 excerpt; the direct PDF endpoint returned 404, and a complete official mark-scheme audit was not available in this pass.",
+    "The reviewed Library image illustrates lone-pair donation and protonation only; it does not show the full alkene or carbonyl mechanism, so those arrow sequences are described in staged worked examples rather than presented as inspected graphics."
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-13-2-fig-nucleophile-electrophile.png"
+   ],
+   "diagram_descriptions": [
+    "Hydroxide oxygen donates a lone pair to a proton to form water: the red full curly arrow starts at the oxygen electron pair and points to H. This shows electron-pair donation and acceptance, not a complete organic mechanism. Source: SaveMyExams, 9701 c13.2.pdf p.18; registered crop visually inspected in this pass. The figure’s charged example does not imply every nucleophile or electrophile is an ion."
+   ],
+   "diagram_provenance": [
+    {
+     "file": "Library/Courses/9701/Diagrams/9701/9701-13-2-fig-nucleophile-electrophile.png",
+     "asset": "asset:legacy-4424312bd63d88c64da5778d",
+     "sha256": "bd49b8db9e8175223e67b4d756b3d79954a8a902695323a80d449888573679e6",
+     "sidecar": "asset:legacy-92960b729e62836317aef1bd",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.2.pdf, p.18",
+     "caption": "Hydroxide donates an oxygen lone pair to a proton; the pair forms an O–H bond.",
+     "review": "Visually inspected for complete labels, legibility and relevance; registration is not teaching approval."
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant changes and steps; for a mechanism identify each arrow source and destination."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the classification to electron movement or the observed bond change; a name alone is insufficient."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-13.2.1": [
+   "Allocate electrons in bond fission",
+   "Identify radical chain stages",
+   "Classify overall reaction changes",
+   "Apply organic vocabulary to structures and species"
+  ],
+  "9701-13.2.2": [
+   "Classify mechanisms from attacker and bond change",
+   "Describe alkene–hydrogen halide curly arrows"
+  ]
  }
 }

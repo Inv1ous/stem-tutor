@@ -1,4 +1,5 @@
 import asyncio
+from contextlib import asynccontextmanager
 import os
 from pathlib import Path
 
@@ -16,7 +17,17 @@ def app_for(tmp_path, monkeypatch, mode="ok"):
     monkeypatch.setenv("FAKE_CLAUDE_MODE", mode)
     monkeypatch.setenv("STEM_TUTOR_NOW", "2026-09-29T17:00:00+08:00")
     v = make_vault(tmp_path)
-    return TutorApp(v, claude_binary=FAKE, open_obsidian=False, seed=1), v
+    app = TutorApp(v, claude_binary=FAKE, open_obsidian=False, seed=1)
+    run_test = app.run_test
+    @asynccontextmanager
+    async def ready_test(*args, **kwargs):
+        async with run_test(*args, **kwargs) as pilot:
+            # Startup now paints its acknowledgement before loading the engine.
+            # Test actions start after that initial event queue has completed.
+            await pilot.pause()
+            yield pilot
+    app.run_test = ready_test
+    return app, v
 
 
 async def shot(pilot, name):
@@ -78,7 +89,7 @@ def test_home_menu_and_a_whole_lesson_by_keyboard(tmp_path, monkeypatch):
             await pilot.pause()
             await shot(pilot, "home")
             assert app.screen.__class__.__name__ == "HomeScreen"
-            await pilot.press("down", "enter")  # Learn a topic (after Today's plan)
+            await pilot.press("enter", "down", "enter")  # Learn & revise, then Learn a topic (after Today's plan)
             await pilot.pause()
             assert app.screen.__class__.__name__ == "PickerScreen"
             await pilot.press("enter")  # the only subtopic
@@ -117,6 +128,8 @@ def test_long_picker_explains_when_no_structured_topics_exist(tmp_path, monkeypa
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
             monkeypatch.setattr(app.tutor.packs, "items_for", lambda kc: [])
+            from tutor_app import display_inventory
+            display_inventory._clear_cache(app)  # the pickers read the cached display summary, taken at start-up
             app.push_screen(PickerScreen("long"))
             await pilot.pause()
             picker = app.screen
@@ -158,7 +171,7 @@ def test_chat_streams_an_ai_reply(tmp_path, monkeypatch):
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [o.id for o in menu.options].index("chat")
+            menu.reveal("chat")
             await pilot.press("enter")
             await pilot.pause()
             await pilot.press(*"why is velocity a vector", "enter")
@@ -179,8 +192,7 @@ def test_ai_login_needed_is_explained_not_crashing(tmp_path, monkeypatch):
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            idx = [o.id for o in menu.options].index("chat")
-            menu.highlighted = idx
+            menu.reveal("chat")
             await pilot.press("enter")
             await pilot.pause()
             await pilot.press(*"what is a vector", "enter")
@@ -200,7 +212,7 @@ def test_long_question_typed_then_self_marked(tmp_path, monkeypatch):
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [o.id for o in menu.options].index("long")
+            menu.reveal("long")
             await pilot.press("enter")
             await pilot.pause()
             await pilot.press("enter")  # the only subtopic
@@ -254,7 +266,7 @@ def test_short_answer_self_judged_when_ai_is_off(tmp_path, monkeypatch):
 
 def _menu(app, key):
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [o.id for o in menu.options].index(key)
+    menu.reveal(key)
 
 
 def test_ctrl_keys_work_while_typing_and_ctrl_q_returns_to_menu(tmp_path, monkeypatch):
@@ -263,7 +275,7 @@ def test_ctrl_keys_work_while_typing_and_ctrl_q_returns_to_menu(tmp_path, monkey
     async def go():
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
-            await pilot.press("down", "enter", "enter")  # learn -> the only subtopic
+            await pilot.press("enter", "down", "enter", "enter")  # Learn & revise -> learn -> the only subtopic
             await pilot.pause()
             for _ in range(20):  # walk to the first typed-answer panel
                 panel = next(iter(app.screen.query("#panel > *")), None)
@@ -338,7 +350,7 @@ def test_starting_something_new_asks_before_abandoning(tmp_path, monkeypatch):
 
 async def _open_long_and_submit(pilot, app, text):
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [o.id for o in menu.options].index("long")
+    menu.reveal("long")
     await pilot.press("enter")
     await pilot.pause()
     await pilot.press("enter")  # the only subtopic
@@ -705,7 +717,10 @@ def test_the_home_screen_shows_this_weeks_almanac_plan_and_starts_it(tmp_path, m
             assert "Almanac week 5" in today and f"Suggested {app.settings.minutes}-minute session" in today
             menu = home.query_one("#menu")
             assert [menu.get_option_at_index(i).id for i in range(menu.option_count)
-                    if not menu.get_option_at_index(i).disabled][0] == "today"  # after the "Studied today" line, which is no choice
+                    if not menu.get_option_at_index(i).disabled][0] == "dir:learn"  # after the "Studied today" line, which is no choice
+            menu.reveal("today")
+            assert [menu.get_option_at_index(i).id for i in range(menu.option_count)
+                    if not menu.get_option_at_index(i).disabled][:2] == ["back", "today"]
             home._start("today")
             await pilot.pause()
             assert app.screen.__class__.__name__ == "SessionScreen"
@@ -756,8 +771,7 @@ def test_insights_screen_and_ai_summary(tmp_path, monkeypatch):
     async def go():
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
-            menu = app.screen.query_one("#menu")
-            ids = [menu.get_option_at_index(i).id for i in range(menu.option_count)]
+            ids = [key for key, _ in app.screen._menu_items]  # every line, whichever folder it lives in
             assert "insights" in ids and "weak" in ids
             app.screen._start("insights")
             await pilot.pause()
@@ -840,6 +854,7 @@ def test_home_counts_almanac_ticks_and_follows_you_ahead(tmp_path, monkeypatch):
             assert (v / "Almanac/almanac-progress-2026-09-29.json").exists()
             stats = home.stats_text(app.tutor.now(), []).plain
             assert "Almanac week 6" in stats and "Dynamics" in stats and "ahead" in stats
+            home.query_one("#menu").reveal("today")
             assert "week 6" in str(home.query_one("#menu").get_option("today").prompt)
             assert "Almanac week 6" in (v / "Today.md").read_text()
             home._start("today")

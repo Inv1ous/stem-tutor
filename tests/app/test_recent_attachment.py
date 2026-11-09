@@ -13,8 +13,8 @@ from test_validate import V, good_pack
 from tutor_app import prompts
 from tutorlib import session, store
 
-PAGES = ['Library/Courses/9701/Questions/Media/9701_m24_12_q1-423c4ef583aa76cf.png',
-         'Library/Courses/9701/Questions/Media/9701-periodic-table-2025-2027-a03a57bd6adb1bdf.png']
+PAGES = ['Library/Courses/9701/Questions/Media/MCQ/9701_m24_12_q01_mcq_423c4ef583aa.png',
+         'Library/Courses/9701/Questions/Media/MCQ/9701_s19_11_q21_p02_mcq_b656410d05b6.png']
 KC = '9702-2.1.1'
 NOW = datetime.fromisoformat('2026-11-01T21:30:00+08:00')
 

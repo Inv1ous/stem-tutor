@@ -151,6 +151,7 @@ def apply(report: dict, journal: Path) -> dict:
             entry = catalog['assets'][move['id']]
             entry['path'] = move['to']
             entry['aliases'] = list(dict.fromkeys([*entry.get('aliases', []), move['from']]))
+            entry.update(move.get('catalog') or {})  # e.g. a source-practice crop now filed under its course
         validate_catalog(catalog)
         updated = (json.dumps(catalog, ensure_ascii=False, indent=2) + '\n').encode()
         saved['catalog_after_sha256'] = _sha(updated)

@@ -68,6 +68,30 @@
    "refutation": "Friction opposes the actual or impending relative motion.",
    "contrast": "A particle sliding down has friction up the plane; one sliding up has friction down it.",
    "source": "research"
+  },
+  {
+   "id": "m9",
+   "kc": "M1-4.2",
+   "statement": "Inextensible alone guarantees equal acceleration in every phase.",
+   "refutation": "First check that the string is taut and the pulley fixed; a slack string no longer imposes that constraint.",
+   "contrast": "Keep the original equations after impact. Instead, First check that the string is taut and the pulley fixed; a slack string no longer imposes that constraint.",
+   "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.7-8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+  },
+  {
+   "id": "m10",
+   "kc": "M1-4.3",
+   "statement": "Any individual force impulse equals momentum change.",
+   "refutation": "Momentum change equals the sum of all force impulses; isolate one only after accounting for the others.",
+   "contrast": "Remember the formula without its system boundary. Instead, Momentum change equals the sum of all force impulses; isolate one only after accounting for the others.",
+   "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.4.pdf pp.3-6; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+  },
+  {
+   "id": "m11",
+   "kc": "M1-4.4",
+   "statement": "Friction always opposes acceleration.",
+   "refutation": "Friction opposes relative sliding; an upward-moving slowing particle has friction and acceleration both downhill.",
+   "contrast": "A sliding particle often happens to accelerate along its motion. Instead, Friction opposes relative sliding; an upward-moving slowing particle has friction and acceleration both downhill.",
+   "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.3.pdf pp.8-9; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
   }
  ],
  "worked": [
@@ -1427,7 +1451,124 @@
    "connect": "Constant acceleration links the force model to the kinematics equations. Once $a$ is found from the resultant force, use the appropriate equation of motion for the requested velocity, time or displacement.",
    "note": "- Zero resultant force means constant velocity, including rest.\n- $\\sum\\mathbf F=m\\mathbf a$ for constant mass.\n- Third-law partners act on different bodies.\n- In a plane, resolve force and acceleration by components.",
    "self_explain": "Why can two equal and opposite third-law forces not cancel in the force equation for just one particle?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "First choose one body. Add only the forces acting on it, then divide the resultant by its constant mass to find acceleration. Zero acceleration allows a nonzero constant velocity. Before this lesson, recall how to add signed vector components and how acceleration changes velocity.",
+   "terms": [
+    {
+     "term": "resultant force",
+     "meaning": "Vector sum of all forces acting on the chosen body.",
+     "notation": "$\\sum\\mathbf F$",
+     "spoken": "sum of the force vectors",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.2-3,23-24; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "acceleration",
+     "meaning": "Rate of change of velocity; it follows resultant force, not necessarily velocity.",
+     "notation": "$\\mathbf a$",
+     "spoken": "acceleration vector",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.2-3,23-24; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "third-law pair",
+     "meaning": "Equal opposite interaction forces on two different bodies.",
+     "notation": "$\\mathbf F_{AB}=-\\mathbf F_{BA}$",
+     "spoken": "force on B by A is opposite to force on A by B",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.2-3,23-24; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain zero resultant and third-law partners",
+     "wordings": [
+      "Explain whether a moving particle needs a nonzero resultant force.",
+      "Identify the two bodies in a third-law force pair."
+     ],
+     "example": "Example: a puck moves at constant velocity on smooth horizontal ice. Stage 1: unchanged velocity gives $\\mathbf a=0$. Stage 2: $\\sum\\mathbf F=m\\mathbf a=0$ despite motion. Stage 3: weight and reaction both act on the puck, so are not third-law partners; the partner of the Earth pulling the puck is the puck pulling the Earth.",
+     "check": "A crate moves steadily on a level rough floor while a rope pulls it horizontally. Explain its horizontal resultant and identify the partner of the force exerted by the rope on the crate.",
+     "answer": "The horizontal resultant is zero because velocity is constant; the pull balances friction. The partner is the force exerted by the crate on the rope, equal in magnitude and opposite in direction, acting on the rope rather than the crate.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.2-3,23-24; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)",
+     "rubric": [
+      {
+       "point": "Relate constant velocity to zero acceleration and hence zero horizontal resultant.",
+       "keywords": [
+        [
+         "constant velocity",
+         "zero acceleration",
+         "zero resultant"
+        ]
+       ]
+      },
+      {
+       "point": "Identify the force exerted by the crate on the rope. Equal magnitude and opposite direction are valid supporting details, not required.",
+       "keywords": [
+        [
+         "crate on rope",
+         "crate pulls",
+         "on the rope"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Apply Newton’s second law by vector components",
+     "wordings": [
+      "Find the acceleration of a particle subject to two constant vector forces."
+     ],
+     "example": "Example: the only forces on a $3\\,\\mathrm{kg}$ particle are $(7\\mathbf i+2\\mathbf j)\\,\\mathrm N$ and $(-1\\mathbf i+7\\mathbf j)\\,\\mathrm N$. Stage 1: add corresponding components to obtain $(6\\mathbf i+9\\mathbf j)\\,\\mathrm N$. Stage 2: $3\\mathbf a=6\\mathbf i+9\\mathbf j$. Stage 3: $\\mathbf a=(2\\mathbf i+3\\mathbf j)\\,\\mathrm{m\\,s^{-2}}$. Its direction is that of the resultant, regardless of initial velocity.",
+     "check": "The only forces on a $4\\,\\mathrm{kg}$ particle are $(-8\\mathbf i+5\\mathbf j)\\,\\mathrm N$ and $(2\\mathbf i+3\\mathbf j)\\,\\mathrm N$. Find its acceleration as a vector.",
+     "answer": "$\\sum\\mathbf F=(-6\\mathbf i+8\\mathbf j)\\,\\mathrm N$, so $\\mathbf a=(-1.5\\mathbf i+2\\mathbf j)\\,\\mathrm{m\\,s^{-2}}$.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.2-3,23-24; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)",
+     "rubric": [
+      {
+       "point": "Add force components with their signs to obtain the resultant.",
+       "keywords": [
+        [
+         "-6",
+         "8"
+        ]
+       ]
+      },
+      {
+       "point": "Apply the same mass to both components and state acceleration with units.",
+       "keywords": [
+        [
+         "-1.5",
+         "-3/2"
+        ]
+       ]
+      },
+      {
+       "point": "Give the vertical component as positive two metres per second squared.",
+       "keywords": [
+        [
+         "2",
+         "two"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Zero resultant means the body must be at rest.",
+     "temptation": "Confuse velocity with change in velocity.",
+     "fix": "Zero resultant means constant velocity; rest is one possible constant velocity.",
+     "id": "m1"
+    },
+    {
+     "idea": "Third-law partners cancel on a single body.",
+     "temptation": "Both forces are equal and opposite.",
+     "fix": "Label which body each force acts on before writing its equation.",
+     "id": "m2"
+    }
+   ],
+   "diagrams": [],
+   "source_gaps": [
+    "The sources reviewed support these selected forms; no exhaustive official paper and mark-scheme survey or independent teaching approval is claimed."
+   ],
+   "diagram_reason": "The component equations and named interacting bodies are explicit in these forms; no additional registered vector or interaction-pair visual was reviewed for this pass."
   },
   "M1-4.2": {
    "motivate": "A string can make two particles move together, while a ground impact can suddenly change which forces act. Separate force diagrams and motion phases keep the model accurate.",
@@ -1435,7 +1576,199 @@
    "connect": "The acceleration from Newton's second law feeds into constant-acceleration kinematics. At a force change, the velocity is carried across the phase boundary, while acceleration may change.",
    "note": "- Draw a separate force diagram for each particle.\n- A taut light string gives one tension and equal acceleration magnitudes.\n- Resolve slope weight as $mg\\sin\\theta$ parallel and $mg\\cos\\theta$ perpendicular.\n- After impact, start a new force and kinematics phase.",
    "self_explain": "Why can tension disappear when two connected-particle equations are added, yet still be needed to find the tension itself?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Use one force equation for each particle. A taut string constrains their motion; after contact, ask whether that constraint still holds. Before starting, recall simultaneous equations and the constant-acceleration equations. Use $g=9.8\\,\\mathrm{m\\,s^{-2}}$.",
+   "terms": [
+    {
+     "term": "light string",
+     "meaning": "Negligible mass; together with a smooth pulley this permits one tension.",
+     "notation": "$T$",
+     "spoken": "tension",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.7-8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "inextensible string",
+     "meaning": "Its total length does not change; when taut over a fixed pulley it gives equal endpoint speed and acceleration magnitudes.",
+     "notation": "$a$",
+     "spoken": "common acceleration magnitude while taut",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.7-8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "smooth pulley",
+     "meaning": "No friction at the pulley; the ideal light-string model uses equal tensions on the two sides.",
+     "notation": "$T$",
+     "spoken": "equal tension on each side",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.7-8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "taut and slack",
+     "meaning": "A taut string is stretched straight and can pull; a slack string cannot transmit tension.",
+     "notation": "$T=0$ when slack",
+     "spoken": "tension is zero when slack",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.7-8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Separate connected-particle equations and string assumptions",
+     "wordings": [
+      "Find the common acceleration and tension.",
+      "Explain the consequences of light, inextensible and smooth."
+     ],
+     "example": "Example: $4\\,\\mathrm{kg}$ and $6\\,\\mathrm{kg}$ particles hang on a taut light inextensible string over a smooth fixed pulley. Stage 1: take the heavier particle downward and lighter upward as positive. Stage 2: $6g-T=6a$ and $T-4g=4a$. Stage 3: addition gives $2g=10a$, hence $a=1.96\\,\\mathrm{m\\,s^{-2}}$. Substitute back: $T=4(g+a)=47.0\\,\\mathrm N$ to three significant figures. The common acceleration requires tautness and inextensibility; equal tension uses the light string and smooth pulley.",
+     "check": "Particles of masses $2\\,\\mathrm{kg}$ and $5\\,\\mathrm{kg}$ hang on a taut light inextensible string over a smooth fixed pulley. Find acceleration and tension; state which assumptions justify equal acceleration magnitudes and a single tension.",
+     "answer": "$5g-T=5a$ and $T-2g=2a$ give $a=4.20\\,\\mathrm{m\\,s^{-2}}$, with the heavier particle downward, and $T=28.0\\,\\mathrm N$. Tautness plus inextensibility gives equal acceleration magnitudes; the light string and smooth pulley give equal tensions.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.7-8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)",
+     "rubric": [
+      {
+       "point": "Use a correct force method: either separate signed equations for both particles, or a whole-system acceleration equation followed by a particle equation for tension.",
+       "keywords": [
+        [
+         "5g",
+         "49",
+         "3g",
+         "29.4",
+         "7a"
+        ]
+       ]
+      },
+      {
+       "point": "Solve for acceleration, heavier mass downward, and tension.",
+       "keywords": [
+        [
+         "4.2",
+         "4.20"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain tension of twenty-eight newtons.",
+       "keywords": [
+        [
+         "28",
+         "28.0"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguish the taut inextensible constraint from the light-string smooth-pulley tension assumptions.",
+       "keywords": [
+        [
+         "inextensible",
+         "fixed length"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Change of phase after ground contact",
+     "wordings": [
+      "Find the further rise after the heavier particle hits the ground.",
+      "Explain why the tension changes after contact."
+     ],
+     "example": "Example: $1\\,\\mathrm{kg}$ and $3\\,\\mathrm{kg}$ masses start from rest on a taut light inextensible string over a smooth fixed pulley. The heavier mass descends $0.80\\,\\mathrm m$ then stays on the ground; the lighter mass remains clear of the pulley. Stage 1: $a=(3-1)g/(3+1)=4.9\\,\\mathrm{m\\,s^{-2}}$. Stage 2: $v^2=2a(0.80)=7.84$. Stage 3: the lighter mass keeps moving upward at $2.8\\,\\mathrm{m\\,s^{-1}}$ immediately after contact, so the endpoint distance to the pulley shrinks and the string slackens. Its tension is zero and upward acceleration is $-g$. Stage 4: $0=7.84-2gh$ gives further rise $h=0.40\\,\\mathrm m$. Carry velocity across for the non-impacting mass, not the mass that strikes the ground.",
+     "check": "Masses $3\\,\\mathrm{kg}$ and $7\\,\\mathrm{kg}$ start from rest on a taut light inextensible string over a smooth fixed pulley. The heavier mass falls $1.50\\,\\mathrm m$ then stays on the ground. The lighter mass stays clear of the pulley. Find its speed at contact and its further rise, explaining the changed force model.",
+     "answer": "Before contact $a=3.92\\,\\mathrm{m\\,s^{-2}}$ and $v^2=11.76$, so speed is $3.43\\,\\mathrm{m\\,s^{-1}}$. The lighter particle continues upward while the grounded endpoint stays still, so the string slackens and $T=0$. The lighter particle has acceleration $-9.8\\,\\mathrm{m\\,s^{-2}}$ upward-positive, giving $h=11.76/(2g)=0.600\\,\\mathrm m$. Its velocity is continuous at contact; its acceleration changes.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.2.pdf pp.7-8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)",
+     "rubric": [
+      {
+       "point": "Obtain the first-phase acceleration using a correct force method, including a whole-system equation.",
+       "keywords": [
+        [
+         "3.92"
+        ]
+       ]
+      },
+      {
+       "point": "Use the fall distance to obtain the speed at contact.",
+       "keywords": [
+        [
+         "3.43",
+         "11.76"
+        ]
+       ]
+      },
+      {
+       "point": "Identify that the string is slack and tension is zero; credit the gravity-only model without requiring endpoint geometry.",
+       "keywords": [
+        [
+         "slack",
+         "zero tension",
+         "gravity alone"
+        ]
+       ]
+      },
+      {
+       "point": "Use gravity alone and the carried upward speed to obtain further rise.",
+       "keywords": [
+        [
+         "0.6",
+         "0.600"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Resolve motion on a smooth incline",
+     "wordings": [
+      "Find acceleration directly up or down a smooth plane."
+     ],
+     "example": "Example: a particle slides upward on a smooth plane at $30^\\circ$ to the horizontal with no applied force. Stage 1: weight is vertical and reaction normal to the plane. Stage 2: no normal acceleration gives $R=mg\\cos30^\\circ$. Stage 3: upward-positive, $-mg\\sin30^\\circ=ma$, hence $a=-4.90\\,\\mathrm{m\\,s^{-2}}$; it slows while moving upward. Smooth means no friction.",
+     "check": "A $5\\,\\mathrm{kg}$ particle slides down a smooth plane with $\\sin\\theta=0.6$ and $\\cos\\theta=0.8$. Only weight and reaction act. Find reaction and acceleration down the plane.",
+     "answer": "$R=5g(0.8)=39.2\\,\\mathrm N$; $5g(0.6)=5a$, so $a=5.88\\,\\mathrm{m\\,s^{-2}}$ down the plane.",
+     "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)",
+     "rubric": [
+      {
+       "point": "Use the perpendicular component for reaction.",
+       "keywords": [
+        [
+         "39.2",
+         "0.8"
+        ]
+       ]
+      },
+      {
+       "point": "Resolve weight down the plane in Newton’s second law.",
+       "keywords": [
+        [
+         "0.6",
+         "sin"
+        ]
+       ]
+      },
+      {
+       "point": "Give acceleration with direction and units.",
+       "keywords": [
+        [
+         "5.88"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Inextensible alone guarantees equal acceleration in every phase.",
+     "temptation": "Keep the original equations after impact.",
+     "fix": "First check that the string is taut and the pulley fixed; a slack string no longer imposes that constraint.",
+     "id": "m9"
+    },
+    {
+     "idea": "Both masses keep the same velocity across ground contact.",
+     "temptation": "Apply continuity to the particle that collides with the ground.",
+     "fix": "Only the non-impacting particle carries its velocity into the slack-string phase; the impacting one stops in this model.",
+     "id": "m3"
+    }
+   ],
+   "diagrams": [],
+   "source_gaps": [
+    "The sources reviewed support these selected forms; no exhaustive official paper and mark-scheme survey or independent teaching approval is claimed.",
+    "The library pages reviewed explain string models and slackness; the ground-contact extension is an original Newton-law and kinematics derivation within the official specification, not a quoted official worked example."
+   ],
+   "diagram_reason": "The registered incline diagram includes friction and is therefore not used to represent a smooth-plane or two-mass pulley force diagram. Separate signed force equations and phase geometry are stated in words; no additional pulley diagram was reviewed."
   },
   "M1-4.3": {
    "motivate": "During a brief collision, large contact forces act for a short time. Momentum and impulse describe the motion change without needing the detailed force history.",
@@ -1443,7 +1776,166 @@
    "connect": "Newton's second law connects force with momentum change. The collision equation treats both particles as one system, so their internal impulses cancel.",
    "note": "- Momentum is signed: $p=mv$.\n- Impulse equals change in momentum: $J=m(v-u)$.\n- Negligible external impulse gives conservation of total momentum.\n- Direct collisions here are one-dimensional; kinetic energy need not be conserved.",
    "self_explain": "Why can total momentum be conserved when the two colliding particles exert large forces on each other?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Choose a positive direction before writing momentum. The sum of all external impulses changes a particle’s momentum. For two colliding particles, internal impulses cancel, so total momentum is conserved when external impulse is negligible. Recall signed velocity before starting.",
+   "terms": [
+    {
+     "term": "momentum",
+     "meaning": "Mass times signed velocity in one dimension.",
+     "notation": "$p=mv$",
+     "spoken": "momentum equals mass times velocity",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.4.pdf pp.3-6; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "impulse of a force",
+     "meaning": "For a constant force, its signed force multiplied by duration.",
+     "notation": "$J=Ft$",
+     "spoken": "impulse equals force times time",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.4.pdf pp.3-6; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "net impulse",
+     "meaning": "Sum of impulses of all forces on the chosen body; this equals change of momentum.",
+     "notation": "$J_{net}=m(v-u)$",
+     "spoken": "net impulse equals mass times final velocity minus initial velocity",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.4.pdf pp.3-6; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "direct collision",
+     "meaning": "Collision with both particles moving along one straight line.",
+     "notation": "$m_1u_1+m_2u_2=m_1v_1+m_2v_2$",
+     "spoken": "total signed momentum before equals total signed momentum after when external impulse is negligible",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.4.pdf pp.3-6; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Signed impulse and reversal",
+     "wordings": [
+      "Find the impulse and constant resultant force when a particle reverses direction.",
+      "Distinguish the impulse of one force from the total impulse."
+     ],
+     "example": "Example: a $0.40\\,\\mathrm{kg}$ ball initially moves right at $5\\,\\mathrm{m\\,s^{-1}}$ and leaves left at $3\\,\\mathrm{m\\,s^{-1}}$ after $0.10\\,\\mathrm s$. Stage 1: right-positive gives $u=5$, $v=-3$. Stage 2: $J_{net}=0.40(-3-5)=-3.2\\,\\mathrm{N\\,s}$. Stage 3: if resultant force is constant, it is $-32\\,\\mathrm N$, leftward. The net impulse $-3.2\\,\\mathrm{N\\,s}$ equals the contact-force impulse only when other impulses are negligible; otherwise subtract their signed sum from the net impulse to find it.",
+     "check": "A $0.60\\,\\mathrm{kg}$ ball initially travels left at $4\\,\\mathrm{m\\,s^{-1}}$ and after $0.20\\,\\mathrm s$ travels right at $1\\,\\mathrm{m\\,s^{-1}}$. Find net impulse and constant resultant force. Explain whether this determines the impulse of a particular contact force when another force has non-negligible impulse.",
+     "answer": "Right-positive: $u=-4$, $v=1$. Net impulse is $0.60(1-(-4))=3.0\\,\\mathrm{N\\,s}$ rightward. Constant resultant force is $3.0/0.20=15\\,\\mathrm N$ rightward. A contact impulse alone is not determined unless the other impulse is known; subtract the other impulse from the net impulse.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.4.pdf pp.3-6; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)",
+     "rubric": [
+      {
+       "point": "Use opposite signs for initial and final velocities.",
+       "keywords": [
+        [
+         "-4",
+         "left"
+        ]
+       ]
+      },
+      {
+       "point": "Calculate the signed momentum change with its direction.",
+       "keywords": [
+        [
+         "3.0",
+         "3"
+        ]
+       ]
+      },
+      {
+       "point": "Divide net impulse by duration for resultant force.",
+       "keywords": [
+        [
+         "15"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguish net impulse from the contact impulse by accounting for other forces.",
+       "keywords": [
+        [
+         "subtract",
+         "other impulse",
+         "sum"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Signed direct collision with negligible external impulse",
+     "wordings": [
+      "Find a common velocity when particles coalesce.",
+      "Find an unknown velocity after a direct collision."
+     ],
+     "example": "Example: on a smooth horizontal line, a $2\\,\\mathrm{kg}$ particle moving right at $3\\,\\mathrm{m\\,s^{-1}}$ meets a $1\\,\\mathrm{kg}$ particle moving left at $4\\,\\mathrm{m\\,s^{-1}}$; they stick. External impulse along the line is negligible. Stage 1: right-positive gives $u_1=3$, $u_2=-4$. Stage 2: $2(3)+1(-4)=(2+1)v$. Stage 3: $v=2/3\\,\\mathrm{m\\,s^{-1}}$, rightward. The particles share velocity because they stick; kinetic energy conservation is not assumed.",
+     "check": "A $1.5\\,\\mathrm{kg}$ particle moves right at $2\\,\\mathrm{m\\,s^{-1}}$ and a $2.5\\,\\mathrm{kg}$ particle moves left at $4\\,\\mathrm{m\\,s^{-1}}$ on the same smooth horizontal line. They collide and stick, with negligible external impulse along the line. Find and interpret their common velocity. State whether kinetic energy must be conserved.",
+     "answer": "Right-positive: $1.5(2)+2.5(-4)=4v$, so $v=-1.75\\,\\mathrm{m\\,s^{-1}}$, or $1.8\\,\\mathrm{m\\,s^{-1}}$ leftward to two significant figures. The negative sign means leftward motion. Sticking does not conserve kinetic energy; total signed momentum is conserved because external impulse is negligible.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.4.pdf pp.3-6; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)",
+     "rubric": [
+      {
+       "point": "Use negligible external impulse to conserve total signed momentum.",
+       "keywords": [
+        [
+         "momentum",
+         "external impulse"
+        ]
+       ]
+      },
+      {
+       "point": "Use a common final velocity for the combined mass.",
+       "keywords": [
+        [
+         "4v",
+         "4 v",
+         "combined mass"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain $1.75\\,\\mathrm{m\\,s^{-1}}$ leftward (or $1.8\\,\\mathrm{m\\,s^{-1}}$ to two significant figures), with any sign consistent with the chosen positive axis.",
+       "keywords": [
+        [
+         "1.75",
+         "1.8",
+         "left"
+        ]
+       ]
+      },
+      {
+       "point": "Do not assume kinetic energy conservation for a sticking collision.",
+       "keywords": [
+        [
+         "not conserved",
+         "not necessarily",
+         "does not conserve"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Subtract speeds to find momentum change during reversal.",
+     "temptation": "Both speeds were given positive in the question.",
+     "fix": "Assign signed velocities first; the momentum change includes reversal.",
+     "id": "m5"
+    },
+    {
+     "idea": "Any individual force impulse equals momentum change.",
+     "temptation": "Remember the formula without its system boundary.",
+     "fix": "Momentum change equals the sum of all force impulses; isolate one only after accounting for the others.",
+     "id": "m10"
+    },
+    {
+     "idea": "Momentum conservation also guarantees kinetic energy conservation.",
+     "temptation": "Use the same conservation word for both.",
+     "fix": "External impulse controls momentum; collisions can transfer kinetic energy into other forms.",
+     "id": "m6"
+    }
+   ],
+   "diagrams": [],
+   "source_gaps": [
+    "The sources reviewed support these selected forms; no exhaustive official paper and mark-scheme survey or independent teaching approval is claimed."
+   ],
+   "diagram_reason": "The one-dimensional directions are explicitly specified in each example and check. No registered collision or impulse visual was reviewed; an incline force diagram would not clarify these forms."
   },
   "M1-4.4": {
    "motivate": "A surface pushes perpendicular to itself and resists sliding along itself. On a slope, finding the perpendicular push is essential before calculating friction.",
@@ -1451,7 +1943,135 @@
    "connect": "Use the resolved friction force in Newton's second-law equation along the surface. The resulting acceleration can then be used in the constant-acceleration equations.",
    "note": "- For a moving particle, friction magnitude is $F=\\mu R$.\n- Friction opposes relative motion.\n- Resolve perpendicular to find $R$; on a simple slope, $R=mg\\cos\\theta$.\n- Then apply $\\sum F=ma$ along the surface.",
    "self_explain": "Why does friction point down the plane when a particle is sliding upward?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Find the force perpendicular to the surface first; then calculate sliding friction from it. Friction opposes sliding, which can differ from the direction of acceleration. Recall resolving weight parallel and perpendicular to a slope before starting.",
+   "terms": [
+    {
+     "term": "normal reaction",
+     "meaning": "Contact force perpendicular to the surface.",
+     "notation": "$R$",
+     "spoken": "normal reaction",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.3.pdf pp.8-9; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "coefficient of friction",
+     "meaning": "Dimensionless ratio of sliding friction magnitude to normal reaction in this model.",
+     "notation": "$\\mu$",
+     "spoken": "mu",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.3.pdf pp.8-9; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    },
+    {
+     "term": "moving friction",
+     "meaning": "Contact force along the surface opposite relative sliding, of magnitude mu times reaction.",
+     "notation": "$F=\\mu R$",
+     "spoken": "friction magnitude equals mu times reaction",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.3.pdf pp.8-9; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Moving friction on an incline",
+     "wordings": [
+      "Find the reaction, friction and acceleration of a sliding particle.",
+      "Explain the friction direction for motion up or down a rough plane."
+     ],
+     "example": "Example: a $2\\,\\mathrm{kg}$ particle slides upward on a $30^\\circ$ rough plane with $\\mu=0.20$; only weight, reaction and friction act. Stage 1: the registered diagram shows friction down the slope because sliding is upward. Stage 2: perpendicular balance gives $R=2g\\cos30^\\circ=16.97\\,\\mathrm N$. Stage 3: $F=0.20R=3.39\\,\\mathrm N$. Stage 4: upward-positive, $-2g\\sin30^\\circ-F=2a$, giving $a=-6.60\\,\\mathrm{m\\,s^{-2}}$. If the particle later slides down, friction reverses to point uphill; at rest use a separate static model, not an automatic sliding equation.",
+     "check": "A $4\\,\\mathrm{kg}$ particle slides down a rough plane with $\\sin\\theta=0.6$, $\\cos\\theta=0.8$ and $\\mu=0.25$. Only weight, reaction and friction act. Find reaction, friction magnitude and acceleration. An additional force is then applied parallel to the plane while the particle continues sliding down. Find the force needed to make its velocity constant.",
+     "answer": "$R=4g(0.8)=31.36\\,\\mathrm N$ and $F=0.25R=7.84\\,\\mathrm N$, uphill. Down-slope positive: $4g(0.6)-7.84=4a$, so $a=3.92\\,\\mathrm{m\\,s^{-2}}$ downhill. For constant velocity the resultant is zero, so the additional force is $4g(0.6)-7.84=15.68\\,\\mathrm N$ uphill, or $15.7\\,\\mathrm N$ to three significant figures.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c3.3.pdf pp.8-9; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (Issue 3, printed p.45, M1 section 4)",
+     "rubric": [
+      {
+       "point": "Resolve perpendicular with zero normal acceleration to find reaction.",
+       "keywords": [
+        [
+         "31.36",
+         "31.4"
+        ]
+       ]
+      },
+      {
+       "point": "Calculate friction from reaction and oppose downward sliding.",
+       "keywords": [
+        [
+         "7.84",
+         "uphill",
+         "up the"
+        ]
+       ]
+      },
+      {
+       "point": "Use the signed parallel resultant to find acceleration.",
+       "keywords": [
+        [
+         "3.92"
+        ]
+       ]
+      },
+      {
+       "point": "Set the resultant along the plane to zero and find an additional force of $15.68\\,\\mathrm N$ uphill, accepting suitable rounding.",
+       "keywords": [
+        [
+         "15.68",
+         "15.7",
+         "uphill"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Assets/M1/M1-4-incline-forces.svg"
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Reaction is always equal to weight.",
+     "temptation": "Reuse the horizontal formula on a slope.",
+     "fix": "Resolve perpendicular; other applied forces may also change reaction.",
+     "id": "m7"
+    },
+    {
+     "idea": "Friction always opposes acceleration.",
+     "temptation": "A sliding particle often happens to accelerate along its motion.",
+     "fix": "Friction opposes relative sliding; an upward-moving slowing particle has friction and acceleration both downhill.",
+     "id": "m11"
+    }
+   ],
+   "diagrams": [
+    "Assets/M1/M1-4-incline-forces.svg"
+   ],
+   "source_gaps": [
+    "The sources reviewed support these selected forms; no exhaustive official paper and mark-scheme survey or independent teaching approval is claimed."
+   ],
+   "diagram_descriptions": [
+    "A block on a plane rising to the right at $30^\\circ$. Weight $mg$ is vertical downward, reaction $R$ points up and left perpendicular to the plane, and friction $F$ points down and left along it. This force diagram represents upward sliding; no motion arrow is drawn. For downward sliding reverse only the friction arrow. Weight components used in calculations are not additional forces."
+   ],
+   "diagram_provenance": [
+    {
+     "reference": "Assets/M1/M1-4-incline-forces.svg",
+     "canonical_path": "Library/Courses/M1/Diagrams/M1/M1-4-incline-forces.svg",
+     "sha256": "a77a04d038be9ccf016e8da2d4225184ba8b1095ff9100e0e356427319303fb4",
+     "origin": "Existing registered generated free_body diagram; immutable pack request retained.",
+     "caption": "Forces on a particle sliding up a rough incline.",
+     "inspection": "Hash-verified registered SVG rendered to a PNG and visually inspected in this pass; registration and inspection do not establish independent teaching approval."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "M1-4.1": [
+   "Explain zero resultant and third-law partners",
+   "Apply Newton’s second law by vector components"
+  ],
+  "M1-4.2": [
+   "Separate connected-particle equations and string assumptions",
+   "Change of phase after ground contact",
+   "Resolve motion on a smooth incline"
+  ],
+  "M1-4.3": [
+   "Signed impulse and reversal",
+   "Signed direct collision with negligible external impulse"
+  ],
+  "M1-4.4": [
+   "Moving friction on an incline"
+  ]
  }
 }

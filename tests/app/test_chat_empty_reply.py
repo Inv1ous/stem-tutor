@@ -34,7 +34,7 @@ def test_empty_chat_reply_finishes_visibly_and_accepts_retry(tmp_path, monkeypat
             await pilot.pause()
             monkeypatch.setattr(app.ai, 'stream', fake_stream)
             menu = app.screen.query_one('#menu')
-            menu.highlighted = [o.id for o in menu.options].index('chat')
+            menu.reveal('chat')
             await pilot.press('enter')
             await pilot.pause()
             screen = app.screen

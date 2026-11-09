@@ -17,7 +17,7 @@ def test_non_test_picker_search_keeps_native_input_editing(tmp_path, monkeypatch
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [option.id for option in menu.options].index(route)
+            menu.reveal(route)
             await pilot.press("enter")
             await pilot.pause()
             picker = app.screen
@@ -57,8 +57,7 @@ def test_test_picker_keeps_its_documented_tick_shortcuts_while_searching(tmp_pat
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [option.id for option in menu.options].index("test")
-            await pilot.press("enter")
+            app.screen.activate("test")  # an old id: no longer in the menu, still starts the picker
             await pilot.pause()
             picker = app.screen
             await pilot.press("slash", *"motion", "ctrl+a")

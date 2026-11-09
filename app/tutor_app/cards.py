@@ -139,12 +139,20 @@ def card(kind: str, title: str, body: str = "", subtitle: str | None = None, *, 
                      lambda: card(kind, title, body, subtitle, ai_output=ai_output))
 
 
+def no_credit(view: dict) -> bool:
+    """A source-verified question (practice from the original papers), or any question marked as giving no mastery
+    credit."""
+    return bool(view.get("source_verified")) or view.get("mastery_credit") is False
+
+
 def question(view: dict, *, ai_output: bool = False) -> Panel:
     n, kind = view["n"], view.get("kind", "")
     marks = view.get("marks", 1)
     tags = [kind.upper(), f"{marks} mark{'s' if marks != 1 else ''}"]
     if view.get("unassisted"):
         tags.append("no hints")
+    if no_credit(view):
+        tags.append("no mastery credit" if view.get("mastery_credit") is False else "source-verified")
     if view.get("support"):
         tags.append("support below · alt+↓")
     stem = view.get("stem", "")
@@ -152,7 +160,7 @@ def question(view: dict, *, ai_output: bool = False) -> Panel:
     # and values vertically; other cards and wider screens retain the original Markdown.
     if len(stem.splitlines()) >= 3 and any(line.lstrip().startswith("|") for line in stem.splitlines()):
         stem = _narrow_question_tables(stem, 68)
-    parts = [md(stem, ai_output=ai_output)]
+    parts = [md(stem, ai_output=ai_output)] if stem else []
     if (bad := view.get("garbled")) and view.get("image"):  # some text did not copy from the paper; the picture is whole
         from tutorlib.views import unreadable
         parts = [md(unreadable(view.get("stem", "")))] if bad.get("stem") else parts
@@ -164,6 +172,8 @@ def question(view: dict, *, ai_output: bool = False) -> Panel:
         parts.append(Text("◆ This question has a figure: see Now in Obsidian (press o).", style=C["hint"]))
     if view.get("source"):
         parts.append(Text(linearize(view["source"]), style=C["dim"]))
+    if (adapted := view.get("adapted_prompt")):  # "Can I solve this?" narrowed the question to the parts you can do
+        parts.append(framed(md(adapted), C["hint"], "[b]Answer these parts[/b]", title_align="left"))
     return _redraws(framed(Group(*parts), C["question"], f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left"),
                     lambda: question(view, ai_output=ai_output))
 

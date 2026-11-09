@@ -16,11 +16,7 @@ def fingerprint(item: dict, vault_root: Path) -> str:
     whitespace, optional fields, protected answers/citations, or prose content.
     """
     library = AssetLibrary(vault_root)
-    references = {}
-    for identifier, record in library.records().items():
-        stable = 'asset:' + identifier
-        for reference in [stable, record['path'], *record.get('aliases', [])]:
-            references[reference] = stable
+    references = library.reference_map()
 
     def normalize(value, *, asset_field=False):
         if isinstance(value, dict):
@@ -47,9 +43,7 @@ class Reviews:
         if not (vault_root / 'Library/catalog.json').exists():
             return
         library = AssetLibrary(vault_root)
-        for identifier, record in library.records().items():
-            if record.get('kind') != 'question_duplicate_review':
-                continue
+        for identifier, record in library.records_of_kind('question_duplicate_review').items():
             reference = 'asset:' + identifier
             course = record.get('course')
             try:

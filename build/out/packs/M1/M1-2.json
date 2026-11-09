@@ -848,11 +848,214 @@
     "answer": "A",
     "explanation": "Add corresponding signed components: $3-5=-2$ and $4+2=6$."
    },
-   "establish": "A vector has both magnitude and direction. In a plane, $\\mathbf{i}$ and $\\mathbf{j}$ are perpendicular unit vectors along the positive horizontal and vertical axes. Write $\\mathbf{v}=x\\mathbf{i}+y\\mathbf{j}$ with signs showing direction. Its magnitude is $\\sqrt{x^2+y^2}$. To give its direction, name the reference axis and sense of rotation, then use the component signs to select the quadrant. The resultant of several vectors is their componentwise sum; alternatively, draw the vectors head to tail in a vector diagram. A vector of magnitude $V$ at angle $\\theta$ above the positive horizontal resolves into $(V\\cos\\theta)\\mathbf{i}+(V\\sin\\theta)\\mathbf{j}$.",
+   "establish": "A vector has both magnitude and direction. In a plane, $\\mathbf{i}$ and $\\mathbf{j}$ are perpendicular unit vectors along the positive horizontal and vertical axes. Write $\\mathbf{v}=x\\mathbf{i}+y\\mathbf{j}$ with signs showing direction. Its magnitude is $\\sqrt{x^2+y^2}$. To give its direction, name the reference axis and sense of rotation, then use the component signs to select the quadrant. The resultant of several vectors is their componentwise sum; alternatively, draw the vectors head to tail in a vector diagram. A vector of magnitude $V$ at angle $\\theta$ above the positive horizontal resolves into $(V\\cos\\theta)\\mathbf{i}+(V\\sin\\theta)\\mathbf{j}$.\nPrerequisite bridge: recall signed arithmetic, Pythagoras and right-triangle trigonometry. Fix the axes before calculating; the modelling assumptions in M1-1.1 tell you what object and forces your vector represents.",
    "connect": "These same component rules apply to displacements, velocities, accelerations and forces. Once a resultant is known in components, its magnitude and direction describe the combined effect.",
    "note": "- Write signed components using $\\mathbf{i}$ and $\\mathbf{j}$.\n- Add like components before finding resultant magnitude.\n- Use $|x\\mathbf{i}+y\\mathbf{j}|=\\sqrt{x^2+y^2}$ and check the quadrant for direction.\n- Resolve from the horizontal with $V\\cos\\theta$ horizontally and $V\\sin\\theta$ vertically.",
    "self_explain": "Why might the magnitude of the resultant of two forces be smaller than the magnitude of either force?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A vector tells you how much and in which direction. Its two signed components are instructions along perpendicular axes. Combine those instructions first, then find the length and direction of the combined arrow.",
+   "terms": [
+    {
+     "term": "unit vectors",
+     "meaning": "Perpendicular reference vectors of magnitude one in the chosen positive directions.",
+     "notation": "$\\mathbf{i},\\mathbf{j}$",
+     "spoken": "i and j",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.3"
+    },
+    {
+     "term": "components",
+     "meaning": "Signed coefficients along the chosen axes; a negative coefficient points opposite its positive axis.",
+     "notation": "$x,y$ in $x\\mathbf{i}+y\\mathbf{j}$",
+     "spoken": "x and y components",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf pp.3–4"
+    },
+    {
+     "term": "resultant",
+     "meaning": "The vector sum, found by adding like signed components.",
+     "notation": "$\\mathbf{R}=\\mathbf{a}+\\mathbf{b}$",
+     "spoken": "R equals a plus b",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.4; Pearson WME01 January 2025 examiner report, Q1 pp.3–4 and Q5 p.6; https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wme01-01-pef-20250306.pdf"
+    },
+    {
+     "term": "magnitude",
+     "meaning": "Nonnegative length of a vector; zero only for the zero vector.",
+     "notation": "$|\\mathbf{R}|=\\sqrt{R_x^2+R_y^2}$",
+     "spoken": "magnitude of R",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.5"
+    },
+    {
+     "term": "direction",
+     "meaning": "Orientation stated relative to an axis and sense of rotation; undefined for the zero vector.",
+     "notation": "$\\theta$",
+     "spoken": "theta",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.5"
+    },
+    {
+     "term": "resolving",
+     "meaning": "Expressing one vector as perpendicular signed components.",
+     "notation": "$V\\cos\\theta, V\\sin\\theta$ for an angle from the horizontal",
+     "spoken": "V cosine theta and V sine theta",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.6; bundle M1-2.1"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Signed resultant",
+     "wordings": [
+      "Find the resultant force in unit-vector form."
+     ],
+     "example": "For forces $(9\\mathbf{i}-4\\mathbf{j})\\,\\mathrm{N}$ and $(-14\\mathbf{i}+10\\mathbf{j})\\,\\mathrm{N}$: first group like components, then calculate $(9-14)\\mathbf{i}+(-4+10)\\mathbf{j}=(-5\\mathbf{i}+6\\mathbf{j})\\,\\mathrm{N}$. Opposing components cancel partly; adding the two positive lengths would lose direction.",
+     "check": "Find the resultant of $(11\\mathbf{i}-7\\mathbf{j})\\,\\mathrm{N}$ and $(-4\\mathbf{i}-2\\mathbf{j})\\,\\mathrm{N}$.",
+     "answer": "$(7\\mathbf{i}-9\\mathbf{j})\\,\\mathrm{N}$.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf pp.4,6; Pearson WME01 January 2025 examiner report, Q1 pp.3–4 and Q5 p.6; https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wme01-01-pef-20250306.pdf",
+     "rubric": [
+      {
+       "point": "Add signed horizontal and vertical components separately; accept equivalent vector methods.",
+       "keywords": [
+        [
+         "component",
+         "vector",
+         "11-4",
+         "11 - 4",
+         "11+(-4)",
+         "11 + (-4)",
+         "11+(−4)",
+         "11 + (−4)",
+         "-7+(-2)",
+         "-7 + (-2)",
+         "−7+(−2)",
+         "−7 + (−2)"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain $(7\\mathbf{i}-9\\mathbf{j})\\,\\mathrm{N}$ or an equivalent vector.",
+       "keywords": [
+        [
+         "7"
+        ],
+        [
+         "-9",
+         "−9"
+        ],
+        [
+         "N",
+         "newton"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Magnitude and direction",
+     "wordings": [
+      "Find the magnitude and direction, anticlockwise from the positive horizontal."
+     ],
+     "example": "For $\\mathbf{R}=(-9\\mathbf{i}+12\\mathbf{j})\\,\\mathrm{N}$: (1) signs put it in quadrant II; (2) $|\\mathbf{R}|=\\sqrt{81+144}=15\\,\\mathrm{N}$; (3) the acute angle is $\\tan^{-1}(12/9)=53.1^\\circ$, giving direction $180^\\circ-53.1^\\circ=126.9^\\circ$ anticlockwise from positive $\\mathbf{i}$. A magnitude answer is a scalar, so remove the unit vectors.",
+     "check": "Find the exact magnitude and direction of $(-8\\mathbf{i}-15\\mathbf{j})\\,\\mathrm{N}$, measured anticlockwise from positive $\\mathbf{i}$. Give the angle to one decimal place.",
+     "answer": "$17\\,\\mathrm{N}$ and $241.9^\\circ$ anticlockwise from positive $\\mathbf{i}$.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf pp.5–7; Pearson WME01 January 2025 examiner report, Q1 pp.3–4 and Q5 p.6; https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wme01-01-pef-20250306.pdf",
+     "rubric": [
+      {
+       "point": "Use Pythagoras and obtain magnitude 17 N.",
+       "keywords": [
+        [
+         "17"
+        ],
+        [
+         "N",
+         "newton"
+        ]
+       ]
+      },
+      {
+       "point": "Use quadrant III and obtain 241.9 degrees anticlockwise from the stated axis; accept equivalent exact angle before rounding.",
+       "keywords": [
+        [
+         "241.9",
+         "180+arctan(15/8)",
+         "180 + arctan(15/8)",
+         "180+tan^-1(15/8)",
+         "180 + tan^-1(15/8)",
+         "180 + tan^{-1}(15/8)",
+         "180° + arctan(15/8)",
+         "180^\\circ+\\tan^{-1}(15/8)",
+         "180^\\circ + \\tan^{-1}(15/8)"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Resolve from a stated axis",
+     "wordings": [
+      "Resolve a force whose angle is measured from the vertical."
+     ],
+     "example": "A force of $18\\,\\mathrm{N}$ points up and left at $40^\\circ$ to the upward vertical. (1) The vertical component is adjacent to this angle, so its size is $18\\cos40^\\circ$. (2) The horizontal component is opposite, size $18\\sin40^\\circ$. (3) Apply signs: $\\mathbf{F}=(-18\\sin40^\\circ\\mathbf{i}+18\\cos40^\\circ\\mathbf{j})\\,\\mathrm{N}\\approx(-11.6\\mathbf{i}+13.8\\mathbf{j})\\,\\mathrm{N}$. Check: the squared components sum to $18^2$.",
+     "check": "A force of $26\\,\\mathrm{N}$ points down and right at $30^\\circ$ to the downward vertical. Find its exact horizontal and vertical components, taking right and up as positive.",
+     "answer": "$F_x=13\\,\\mathrm{N}$ and $F_y=-13\\sqrt3\\,\\mathrm{N}$, so $\\mathbf{F}=(13\\mathbf{i}-13\\sqrt3\\mathbf{j})\\,\\mathrm{N}$.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.6; bundle M1-2.1; perpendicular-triangle derivation",
+     "rubric": [
+      {
+       "point": "The horizontal component is positive and opposite the angle: 26 sin 30 = 13 N; equivalent methods accepted.",
+       "keywords": [
+        [
+         "13",
+         "26 sin 30",
+         "26sin30",
+         "26*sin(30)",
+         "26\\sin30",
+         "26\\sin 30"
+        ]
+       ]
+      },
+      {
+       "point": "The vertical component is negative and adjacent: -26 cos 30 = -13 sqrt(3) N; equivalent methods accepted.",
+       "keywords": [
+        [
+         "-13sqrt(3)",
+         "−13sqrt(3)",
+         "-13 sqrt(3)",
+         "−13 sqrt(3)",
+         "-13√3",
+         "−13√3",
+         "-13\\sqrt3",
+         "−13\\sqrt3",
+         "-13\\sqrt{3}",
+         "−13\\sqrt{3}",
+         "-26 cos 30",
+         "−26 cos 30",
+         "-26cos30",
+         "−26cos30",
+         "-26*cos(30)",
+         "-26\\cos30",
+         "-26\\cos 30"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Add magnitudes to obtain the resultant magnitude.",
+     "temptation": "Each force has a positive size, so adding sizes seems natural.",
+     "fix": "Add signed components first; opposite equal vectors have zero resultant.",
+     "id": "m2"
+    },
+    {
+     "idea": "Cosine always gives the horizontal component.",
+     "temptation": "The familiar formula was learned with an angle from the horizontal.",
+     "fix": "Locate the stated reference axis; cosine gives the adjacent component and sine the opposite one, then assign signs.",
+     "id": "m3"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new figure is requested by this plan, and no verified registered existing Library diagram was identified for reuse. Use the signed component stages above and a learner-drawn right triangle with the stated reference axis; no unreviewed graphic is claimed.",
+   "source_gaps": [
+    "The reviewed library text describes resolving but does not supply an explicit vertical-reference worked solution; that variant here is derived using the bundle and right-triangle trigonometry.",
+    "The Pearson report supports resultant and magnitude errors but is not a complete mark scheme or exhaustive inventory of all direction forms."
+   ]
   },
   "M1-2.2": {
    "motivate": "A particle can start away from the origin, or change direction without changing speed. Vector subtraction captures both effects when you calculate motion.",
@@ -867,11 +1070,253 @@
     "answer": "A",
     "explanation": "Subtract the first displacement from the second, then divide each component by 3 s."
    },
-   "establish": "Displacement, velocity, acceleration and force are vectors in a plane, so their horizontal and vertical components carry signs and combine componentwise. For constant velocity, $\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/\\Delta t$: change in displacement divided by elapsed time. Its magnitude is speed. For constant acceleration, $\\mathbf{a}=(\\mathbf{v}_2-\\mathbf{v}_1)/\\Delta t$: change in velocity divided by elapsed time. Subtract the entire initial vector, including negative components. Because velocity has direction, speed may stay constant while velocity changes. Forces also add componentwise to give a resultant force. Use m for displacement, $\\mathrm{m\\,s^{-1}}$ for velocity, $\\mathrm{m\\,s^{-2}}$ for acceleration and N for force.",
+   "establish": "Displacement, velocity, acceleration and force are vectors in a plane, so their horizontal and vertical components carry signs and combine componentwise. For constant velocity, $\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/\\Delta t$: change in displacement divided by elapsed time. Its magnitude is speed. For constant acceleration, $\\mathbf{a}=(\\mathbf{v}_2-\\mathbf{v}_1)/\\Delta t$: change in velocity divided by elapsed time. Subtract the entire initial vector, including negative components. Because velocity has direction, speed may stay constant while velocity changes. Forces also add componentwise to give a resultant force. Use m for displacement, $\\mathrm{m\\,s^{-1}}$ for velocity, $\\mathrm{m\\,s^{-2}}$ for acceleration and N for force.\nPrerequisite bridge: use M1-2.1 to subtract signed components and find a vector magnitude. A time reading is not always the elapsed time: subtract the two readings and retain consistent units.",
    "connect": "First resolve or add vectors as in the previous idea. Then divide a change vector by time when the question asks for constant velocity or constant acceleration.",
    "note": "- Constant velocity: $\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/\\Delta t$.\n- Constant acceleration: $\\mathbf{a}=(\\mathbf{v}_2-\\mathbf{v}_1)/\\Delta t$.\n- Subtract vectors component by component, keeping signs.\n- Speed is velocity magnitude; resultant force is the vector sum of forces.",
    "self_explain": "Why does dividing the final position vector by elapsed time fail when the particle starts away from the origin?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Velocity tells you how position changes each second, including direction. Acceleration tells you how velocity changes each second. Subtract the earlier whole vector from the later one and divide by the time between them.",
+   "terms": [
+    {
+     "term": "position vector",
+     "meaning": "Vector from the chosen origin to the particle.",
+     "notation": "$\\mathbf{r}(t)$",
+     "spoken": "r at time t",
+     "source": "Pearson WME01 January 2025 examiner report, Q1 pp.3–4 and Q5 p.6; https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wme01-01-pef-20250306.pdf Q5"
+    },
+    {
+     "term": "displacement",
+     "meaning": "Change in position, final minus initial; its magnitude is straight-line separation, not generally total distance travelled.",
+     "notation": "$\\Delta\\mathbf{r}=\\mathbf{r}_2-\\mathbf{r}_1$",
+     "spoken": "change in r",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.5; bundle M1-2.2"
+    },
+    {
+     "term": "constant velocity",
+     "meaning": "Unchanging vector; position changes by the same vector in equal time intervals.",
+     "notation": "$\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/(t_2-t_1)$",
+     "spoken": "v equals change in r divided by elapsed time",
+     "source": "bundle M1-2.2; Pearson WME01 January 2025 examiner report, Q1 pp.3–4 and Q5 p.6; https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wme01-01-pef-20250306.pdf"
+    },
+    {
+     "term": "speed",
+     "meaning": "Scalar magnitude of velocity, always nonnegative.",
+     "notation": "$|\\mathbf{v}|$",
+     "spoken": "magnitude of v",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.5"
+    },
+    {
+     "term": "constant acceleration",
+     "meaning": "Unchanging rate of change of the velocity vector.",
+     "notation": "$\\mathbf{a}=(\\mathbf{v}_2-\\mathbf{v}_1)/(t_2-t_1)$",
+     "spoken": "a equals change in v divided by elapsed time",
+     "source": "bundle M1-2.2"
+    },
+    {
+     "term": "force vector",
+     "meaning": "A force has both magnitude and direction; combine forces using signed components.",
+     "notation": "$\\mathbf{F}$ in $\\mathrm{N}$",
+     "spoken": "force F in newtons",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf pp.2,4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Constant velocity from timed positions",
+     "wordings": [
+      "Find velocity from positions at two stated times."
+     ],
+     "example": "At $t=2\\,\\mathrm{s}$ a particle is at $(-4\\mathbf{i}+7\\mathbf{j})\\,\\mathrm{m}$; at $t=8\\,\\mathrm{s}$ it is at $(14\\mathbf{i}-5\\mathbf{j})\\,\\mathrm{m}$. It has constant velocity. (1) $\\Delta t=8-2=6\\,\\mathrm{s}$. (2) $\\Delta\\mathbf{r}=[14-(-4)]\\mathbf{i}+(-5-7)\\mathbf{j}=(18\\mathbf{i}-12\\mathbf{j})\\,\\mathrm{m}$. (3) Divide both components: $\\mathbf{v}=(3\\mathbf{i}-2\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$. Do not divide by the final clock reading.",
+     "check": "At $t=3\\,\\mathrm{s}$ a particle has position $(5\\mathbf{i}-8\\mathbf{j})\\,\\mathrm{m}$ and at $t=7\\,\\mathrm{s}$ position $(-7\\mathbf{i}+12\\mathbf{j})\\,\\mathrm{m}$. Find its constant velocity.",
+     "answer": "$\\Delta t=4\\,\\mathrm{s}$, $\\Delta\\mathbf{r}=(-12\\mathbf{i}+20\\mathbf{j})\\,\\mathrm{m}$ and $\\mathbf{v}=(-3\\mathbf{i}+5\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$.",
+     "source": "Pearson WME01 January 2025 examiner report, Q1 pp.3–4 and Q5 p.6; https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wme01-01-pef-20250306.pdf Q5",
+     "rubric": [
+      {
+       "point": "Subtract timed positions and use elapsed time 7 - 3 = 4 s.",
+       "keywords": [
+        [
+         "4",
+         "7-3",
+         "7 - 3"
+        ]
+       ]
+      },
+      {
+       "point": "Give velocity (-3i + 5j) m/s; equivalent vector notation accepted.",
+       "keywords": [
+        [
+         "-3",
+         "−3"
+        ],
+        [
+         "5"
+        ],
+        [
+         "s",
+         "second"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Position and separation at another time",
+     "wordings": [
+      "Find a later position and its distance from a fixed target."
+     ],
+     "example": "At $t=4\\,\\mathrm{s}$, $\\mathbf{r}=(2\\mathbf{i}+\\mathbf{j})\\,\\mathrm{m}$ and constant $\\mathbf{v}=(-\\mathbf{i}+3\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$. (1) To reach $t=7\\,\\mathrm{s}$ use $3\\,\\mathrm{s}$, giving $\\mathbf{r}(7)=(2\\mathbf{i}+\\mathbf{j})+3(-\\mathbf{i}+3\\mathbf{j})=(-\\mathbf{i}+10\\mathbf{j})\\,\\mathrm{m}$. (2) A fixed target has position $(5\\mathbf{i}+2\\mathbf{j})\\,\\mathrm{m}$. Subtract: particle minus target is $(-6\\mathbf{i}+8\\mathbf{j})\\,\\mathrm{m}$. (3) Separation is $\\sqrt{36+64}=10\\,\\mathrm{m}$. Reversing the subtraction changes direction but not distance.",
+     "check": "At $t=5\\,\\mathrm{s}$ a particle is at $(-2\\mathbf{i}+4\\mathbf{j})\\,\\mathrm{m}$ with constant velocity $(4\\mathbf{i}-\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$. Find its position at $t=8\\,\\mathrm{s}$ and its distance then from the fixed point $(\\mathbf{i}-5\\mathbf{j})\\,\\mathrm{m}$.",
+     "answer": "$\\mathbf{r}(8)=(10\\mathbf{i}+\\mathbf{j})\\,\\mathrm{m}$. The relative vector is $(9\\mathbf{i}+6\\mathbf{j})\\,\\mathrm{m}$ (or its negative), so separation is $\\sqrt{117}=3\\sqrt{13}\\,\\mathrm{m}\\approx10.8\\,\\mathrm{m}$.",
+     "source": "Pearson WME01 January 2025 examiner report, Q1 pp.3–4 and Q5 p.6; https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wme01-01-pef-20250306.pdf Q5(b)",
+     "rubric": [
+      {
+       "point": "Award one point only for a final position mathematically equivalent to (10, 1) m, such as 10i + j or a column vector with components 10 and 1 in that order. Reject 10i - j and swapped components. Metres may be explicit or implicit. No intermediate working is required. Keyword matches are hints only; judge the signed components of the complete final position.",
+       "keywords": [
+        [
+         "10i+j",
+         "10i + j",
+         "(10,1)",
+         "(10, 1)"
+        ]
+       ]
+      },
+      {
+       "point": "Award one point only for a final nonnegative separation mathematically equivalent to 3 sqrt(13) m = sqrt(117) m, or a correctly rounded decimal to at least two significant figures (11 m at 2 s.f., 10.8 m at 3 s.f., 10.82 m at 4 s.f.). Metres may be explicit or implicit. Reject sqrt(13), 13 and 117 as distances. No relative vector or intermediate working is required. Keyword matches are hints only; judge the complete final distance, including any coefficient and square root.",
+       "keywords": [
+        [
+         "3 sqrt(13)",
+         "3sqrt(13)",
+         "3√13",
+         "sqrt(117)",
+         "√117",
+         "10.8",
+         "11"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Constant acceleration from velocities",
+     "wordings": [
+      "Find acceleration from two velocity vectors and their times."
+     ],
+     "example": "At $t=1\\,\\mathrm{s}$, velocity is $(-2\\mathbf{i}+9\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$; at $t=6\\,\\mathrm{s}$ it is $(13\\mathbf{i}-\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$, under constant acceleration. (1) $\\Delta t=5\\,\\mathrm{s}$. (2) $\\Delta\\mathbf{v}=[13-(-2)]\\mathbf{i}+(-1-9)\\mathbf{j}=(15\\mathbf{i}-10\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$. (3) $\\mathbf{a}=(3\\mathbf{i}-2\\mathbf{j})\\,\\mathrm{m\\,s^{-2}}$. Divide the change vector, not the change of two speeds.",
+     "check": "Under constant acceleration, velocity is $(7\\mathbf{i}-3\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$ at $t=2\\,\\mathrm{s}$ and $(-5\\mathbf{i}+15\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$ at $t=8\\,\\mathrm{s}$. Find the acceleration vector.",
+     "answer": "$\\Delta t=6\\,\\mathrm{s}$, $\\Delta\\mathbf{v}=(-12\\mathbf{i}+18\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$ and $\\mathbf{a}=(-2\\mathbf{i}+3\\mathbf{j})\\,\\mathrm{m\\,s^{-2}}$.",
+     "source": "bundle M1-2.2; SaveMyExams/TQ XMA01 mechanics-1-questions-only/TQ XMA01 c2.3.pdf p.10 (constant vector acceleration context)",
+     "rubric": [
+      {
+       "point": "Use change of velocity divided by elapsed time 6 s.",
+       "keywords": [
+        [
+         "6",
+         "8-2",
+         "8 - 2"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain (-2i + 3j) with acceleration units.",
+       "keywords": [
+        [
+         "-2",
+         "−2"
+        ],
+        [
+         "3"
+        ],
+        [
+         "s",
+         "second"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Speed versus velocity",
+     "wordings": [
+      "Find speed and explain whether two equal-speed velocities are equal."
+     ],
+     "example": "For $\\mathbf{v}=(5\\mathbf{i}-12\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$, speed is $\\sqrt{25+144}=13\\,\\mathrm{m\\,s^{-1}}$. The velocity $(-5\\mathbf{i}+12\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$ has the same speed but opposite direction, so the velocities differ.",
+     "check": "Two measured velocities are $(9\\mathbf{i}+12\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$ and $(12\\mathbf{i}+9\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$. Find each speed. Explain whether velocity changed and whether these two measurements prove constant speed throughout the interval.",
+     "answer": "Each speed is $15\\,\\mathrm{m\\,s^{-1}}$. Velocity changed because direction changed. The two endpoint measurements do not establish speed at intervening times.",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf p.5; bundle M1-2.2",
+     "rubric": [
+      {
+       "point": "Both magnitudes are 15 m/s.",
+       "keywords": [
+        [
+         "15"
+        ]
+       ]
+      },
+      {
+       "point": "Velocity changes because direction changes despite equal magnitudes.",
+       "keywords": [
+        [
+         "direction",
+         "components"
+        ],
+        [
+         "change",
+         "different"
+        ]
+       ]
+      },
+      {
+       "point": "Equal endpoint speeds do not prove constant speed between measurements.",
+       "keywords": [
+        [
+         "not",
+         "cannot",
+         "insufficient"
+        ],
+        [
+         "between",
+         "throughout",
+         "intervening",
+         "interval"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Subtracting a negative component keeps it negative.",
+     "temptation": "The minus sign inside the initial vector is overlooked.",
+     "fix": "Keep brackets: $y_2-(-y_1)=y_2+y_1$ when the earlier coefficient is $-y_1$.",
+     "id": "m4"
+    },
+    {
+     "idea": "Speed is a velocity vector or change in speed is enough for acceleration.",
+     "temptation": "Both descriptions concern how fast the object moves.",
+     "fix": "Speed is the scalar magnitude. Acceleration uses the entire change of velocity, including direction.",
+     "id": "m5"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The plan requests no new figure. No verified registered existing Library motion diagram was identified for binding; the timed-position and target-subtraction stages give a text foundation, with visual support left explicit as a limitation.",
+   "source_gaps": [
+    "The library question on c2.3 p.10 supplies a constant-vector-acceleration context but no solution; the two-velocity form and its derivation are grounded in the bundle statement, not claimed as a reviewed official mark scheme.",
+    "The reviewed official examiner report explicitly supports timed positions and target separation; it does not establish an exhaustive inventory or a mark scheme for every form here."
+   ]
   }
+ },
+ "guided_forms": {
+  "M1-2.1": [
+   "Signed resultant",
+   "Magnitude and direction",
+   "Resolve from a stated axis"
+  ],
+  "M1-2.2": [
+   "Constant velocity from timed positions",
+   "Position and separation at another time",
+   "Constant acceleration from velocities",
+   "Speed versus velocity"
+  ]
  }
 }

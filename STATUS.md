@@ -1,5 +1,69 @@
 # Build status
 
+## Unreleased
+
+Topical setup now offers session-local Self-mark or Automatic AI for written answers. Automatic marking saves
+working, uses the chosen examiner and strictness, validates rubric identity, and supplies the complete ordered
+source-image set to Codex. Unsupported or failed requests return to manual marking; stale or cancelled results
+cannot grade. Reviewed questions are shared across relevant modes; suitable bank-only Test/Long chapters are
+now selectable, while Learn retains published-lesson requirements and pending candidates remain excluded.
+The broader focused gate passed 372 cases. After the source-page review fix, the final gate passed 160 cases
+with two existing expected failures and five PyMuPDF warnings. Native layouts passed at 60×20, 80×24 and 100×30.
+Spec review's image omission received a failing regression, fix and clear re-review. Standards found no hard
+breaches; a shared eligibility-kind query remains an optional maintenance improvement. Tests used fake providers.
+
+Topical past papers now supports multi-topic selection across chapters, type filters and a requested total of
+1–200 questions. The setup screen shows unique eligible availability and shortages; the engine persists a bounded,
+topic-balanced set without repeated source identities. Archived saved attempts retain their separate recovery path.
+The final focused gate passed 362 cases with two existing expected failures and five existing PyMuPDF binding
+deprecation warnings. Both Spec findings received failing regressions and fixes; Standards reported no findings.
+Current reviewed-bank categories remain MCQ/structured; separately untagged content is not guessed or republished.
+
+Settings now offers Auto (default), Lenient, Balanced and Strict AI marking across short answers, long-answer checks
+and both re-mark flows. Auto uses Balanced for ordinary practice and Strict for tests/papers/Challenges. Full-answer
+evidence and semantic equivalence are explicit; deterministic grading and historical marks remain unchanged.
+The combined focused gate passed 301 cases. The subsequent Library-backed assessment fixture passed all 80 new
+cases. Provider tests use fakes for all 29 model routes; this does not establish live examiner accuracy.
+
+Shared output now separates clearly labelled worked steps and question wordings, and encodes explicit prose line
+breaks for both displays. All 29 selectable model routes are covered with fake-provider feedback; code, maths,
+speech and grading identities remain protected. Existing formatting criteria were extended without a new protocol.
+All 763 combined focused cases passed in 132.37s; both review axes are clear after edge-case regressions.
+
+Learn a topic now acknowledges accepted input before work and shows pending activity outside the transcript,
+including cloud feedback/marking in answer-only view. Repeated submissions are blocked while processing; native
+local phases remain visible, and draft/selection, disabled-state and cancellation ownership are preserved.
+All 231 focused cases passed; six visual scenarios were rechecked separately. Both review axes are clean.
+
+Mouse input now discards detached targets left in the previous layout during answer-panel replacement. The exact
+reported Textual crash is reproduced and fixed; all 62 focused mouse, editing, marking and layout tests passed.
+
+Settings now offers “Confirm AI marks in lesson reviews” (on by default). Turning it off uses the normal AI
+scoring path without the review checklist; unavailable/invalid AI results still offer manual marking. All 111 focused
+confirmation, settings, provider and layout cases passed using disposable vaults and fake providers.
+
+GPT-6.1 Terra restored to ChatGPT selectors and saved settings after v2.6.1. Guided lesson marking continues to
+require learner confirmation of AI suggestions; this is deliberate for all providers. All 73 focused offline
+provider, settings and guided-marking checks passed; no live inference or learner-state changes.
+
+## v2.7.0 (2026-11-09) — done
+
+Practice shows printed questions as their pictures with a one-line instruction ("Do (a)(i) and (c)" / "Do the whole
+question"), serves several parts of one paper question together, remembers the marking mode and other choices, and
+hides page headers/footers found by the new image triage (measure, group, one vision call per group, remembered).
+Source-verified answers count towards mastery, every question image is filed under its course, and resizing while the
+tutor loads no longer freezes it. Release notes: `docs/releases/v2.7.0.md`.
+
+## v2.6.2 (2026-11-06) — done
+
+Test prep, Topical past papers and Source-verified practice are merged into one Practice mode with an entire-course/module
+picker (source-verified questions earn no mastery credit and say so), the home menu is grouped into Learn & revise,
+Questions, Profile & progress and Tools, and "Can I solve this?" runs on every question from the profile's started topics,
+adapting the prompt, offering the needed formulas and auto-skipping the rest. 4,461 source-verified questions are tagged
+with topics where confident and registered per course under `Library/Courses/<course>/Questions/SourceVerified` (unmapped
+ones held), Edexcel maths images are cleaned of blank answer-line and cover pages, and boot is faster: the topical bank is
+no longer re-validated on every question, the chapter check runs behind Home, and startup work is deferred.
+
 ## v2.6.1 (2026-11-02) — release prepared
 
 Library/Work storage, validated AI replies, local MLX/reasoning choices, safer marking and recovery, preserved numeric

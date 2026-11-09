@@ -837,12 +837,39 @@ def test_cancel_ungraded_structured_retry_preserves_guard_and_draft(tmp_path, mo
             from textual.widgets import Button, TextArea
             app.screen.query_one('#long', TextArea).load_text('Partial working.')
             app.screen.query_one('#cancel-ungraded', Button).press()
-            await pilot.pause()
+            for _ in range(5):  # the handler runs after a refresh, so one pause can return too early
+                await pilot.pause()
+                if not tutor.session['presented']:
+                    break
             assert tutor.session['skipped_answer_guards'] and not tutor.session['presented']
             tutor.end()
             tutor.start('lesson', focus=['9702-2.1'])
             again = tutor.retry_skipped_ungraded()
             assert again['items'][0]['saved_work'] == 'Partial working.'
+            await app.ai.close()
+    asyncio.run(run())
+
+
+def test_structured_retry_give_up_closes_without_marking(tmp_path, monkeypatch):
+    app, vault = app_for(tmp_path, monkeypatch)
+    async def run():
+        async with app.run_test(size=(120, 40)) as pilot:
+            app.push_screen(SessionScreen({'mode': 'test', 'minutes': 10, 'focus': ['9702-2.1']}))
+            await pilot.pause()
+            tutor = app.tutor
+            tutor.session['presented'] = {}; tutor.session['queue'] = {}; tutor.session['mode'] = 'lesson'
+            item = {'id': 'structured-give-up', 'kcs': ['9702-2.1.1'], 'kind': 'structured', 'difficulty': 3,
+                    'marks': 1, 'stem': 'Explain.', 'scheme': [{'mark': 'B1', 'point': 'PRIVATE SCHEME'}]}
+            view = tutor._present(item, block='practice', phase='practice')
+            tutor.answer(f"{view['n']}?")
+            retry = tutor.retry_skipped_ungraded()
+            app.screen.act = retry
+            app.screen.ask_question(retry['items'][0], 'Unmarked.')
+            app.screen.long_written({'text': "I don't know"})
+            await pilot.pause()
+            assert not tutor.session['skipped_answer_guards'] and not tutor.session['presented']
+            assert 'review list' in str(app.screen.last_fb.get('say'))
+            assert 'PRIVATE SCHEME' not in (vault / 'Now.md').read_text()
             await app.ai.close()
     asyncio.run(run())
 
@@ -1348,11 +1375,8 @@ def test_skipped_question_can_be_retried_after_restart_without_reinstantiation(t
     number = activity['items'][0]['n']
     assert recovered.retry_skipped()['activity'] == 'error'
     recovered.session['mode'] = 'review'
-    again = recovered.answer(f'{number}?')
-    assert 'Correct' not in str(again)
-    assert recovered.session['skipped_answer_guards']
-    activity = recovered.retry_skipped()
-    recovered.answer(f"{activity['items'][0]['n']}A3")
+    again = recovered.answer(f'{number}?')['results'][0]
+    assert again['answer'] == 'A: Correct' and not again.get('answer_withheld')
     assert not recovered.session['skipped_answer_guards']
 
 
@@ -1423,6 +1447,38 @@ def test_skipped_feedback_offers_retry_and_resumes_lesson(tmp_path, monkeypatch)
             retry = screen.view['n']
             tutor.answer(f'{retry}A3')
             assert not tutor.session['skipped_answer_guards']
+            await app.ai.close()
+    asyncio.run(run())
+
+
+def test_idk_in_the_retry_panel_gives_up_and_shows_the_answer(tmp_path, monkeypatch):
+    app, vault = app_for(tmp_path, monkeypatch)
+    async def run():
+        async with app.run_test(size=(100, 30)) as pilot:
+            screen = SessionScreen({'mode': 'autopilot', 'minutes': 50})
+            await app.push_screen(screen)
+            await pilot.pause()
+            tutor = app.tutor
+            tutor.session['presented'] = {}
+            tutor.session['queue'] = {}
+            tutor.session.pop('awaiting', None)
+            tutor.session['mode'] = 'lesson'
+            item = {'id': 'screen-give-up', 'kcs': ['9702-2.1.1'], 'kind': 'mcq', 'difficulty': 2,
+                    'marks': 1, 'stem': 'Which?', 'options': {'A': 'Correct', 'B': 'Wrong'}, 'answer': 'A'}
+            view = tutor._present(item, block='practice', phase='practice')
+            result = tutor.answer(f"{view['n']}?")
+            screen.last_fb = result['results'][0]
+            screen.next_followup()
+            await pilot.pause()
+            await pilot.click('#retry-skipped')
+            await pilot.pause()
+            assert screen.act['activity'] == 'questions'
+            retry = screen.view['n']
+            screen.submit({'entry': f'{retry}?', 'your': "I don't know"})
+            await pilot.pause()
+            assert not tutor.session['skipped_answer_guards']
+            assert screen.last_fb.get('answer') == 'A: Correct'
+            assert screen.query('#next') and not screen.query('#retry-skipped')
             await app.ai.close()
     asyncio.run(run())
 
@@ -2268,7 +2324,7 @@ def test_saved_attempts_screen_shows_retained_draft_without_marking_data(tmp_pat
     deferred_notes.resolve(path, 'guard')
     async def run():
         async with app.run_test(size=(100, 30)) as pilot:
-            assert app.screen.query_one('#menu').get_option('saved-attempts')
+            assert 'saved-attempts' in dict(app.screen._menu_items)
             app.screen._start('saved-attempts')
             await pilot.pause()
             rendered = '\n'.join(str(w.render()) for w in app.screen.query(Static))
@@ -2285,7 +2341,7 @@ def test_invalid_retained_draft_history_does_not_break_home_menu(tmp_path, monke
     async def run():
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
-            assert app.screen.query_one('#menu').get_option('today')
+            assert 'today' in dict(app.screen._menu_items)
             await app.ai.close()
     asyncio.run(run())
 

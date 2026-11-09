@@ -1,0 +1,535 @@
+{
+ "sub": "FP1-3",
+ "voice": "af_heart",
+ "speed": 1.5,
+ "lines": [
+  {
+   "id": "card:FP1-3.1:motivate",
+   "text": "Some equations f of x equals zero cannot conveniently be solved exactly. Three numerical processes give usable root estimates, interval bisection, linear interpolation and Newton Raphson. Each uses different information about the graph.",
+   "key": "d15d24dce8a5ec7d2ab6d65b84a9e9c23a1fd5c8",
+   "file": "d15d24dce8a5ec7d2ab6d65b84a9e9c23a1fd5c8.wav"
+  },
+  {
+   "id": "card:FP1-3.1:establish",
+   "text": "For interval bisection, start with a continuous f and endpoints a is less than b of opposite sign. Set m equals open bracket a plus b close bracket over two and keep the half whose endpoint values have opposite signs. For linear interpolation, join open bracket a, f of a close bracket and open bracket b, f of b close bracket with a straight line. Its zero is x equals a minus f of a open bracket b minus a close bracket over open bracket f of b minus f of a close bracket. For Newton Raphson, start at x n and follow the tangent to the axis, x sub n plus one, equals x n minus f of x n over f prime of x n. Differentiate using P one or P two rules and avoid points where f prime of x n equals zero. Bisection controls a bracket, the other estimates must be checked by evaluating f or monitoring convergence. Prerequisite bridge from Differentiation, the power rule gives d by d x open bracket x to the n close bracket equals n x to the power of n minus one and constants differentiate to zero. For f of x equals x cubed minus seven, f prime of x equals three x squared, at x equals two the gradient is twelve. The derivative is a function, evaluate it at the current iterate before dividing. If it is zero, the Newton Raphson step is undefined.",
+   "key": "995e5c60213257d4ba22f4ad2e227738eefd526d",
+   "file": "995e5c60213257d4ba22f4ad2e227738eefd526d.wav"
+  },
+  {
+   "id": "card:FP1-3.1:connect",
+   "text": "The sign change test comes from continuity. Linear interpolation replaces the curve with a secant, Newton Raphson replaces it locally with a tangent. These geometric pictures explain why their numerical estimates differ.",
+   "key": "3431c5dc3635088e52a1c4e84e8292708a1a1f00",
+   "file": "3431c5dc3635088e52a1c4e84e8292708a1a1f00.wav"
+  },
+  {
+   "id": "card:FP1-3.1:note",
+   "text": "Root, f of r equals zero. Bisection, midpoint, then retain the sign changing half. Linear interpolation, use the secant zero. Newton Raphson, x sub n plus one, equals x n minus f of x n over f prime of x n. Check signs, derivatives and accuracy. Opposite endpoint signs require continuity, one over x on open square bracket minus one, one close square bracket has no root. A tangent root may have no sign change, an interval may contain several roots.",
+   "key": "a3bb9384c4ec24ee8114c51de807350e2529480d",
+   "file": "a3bb9384c4ec24ee8114c51de807350e2529480d.wav"
+  },
+  {
+   "id": "card:FP1-3.1:self_explain",
+   "text": "Why does bisection preserve a bracket while a Newton Raphson iterate can leave the starting interval? Explain using the sign test and the tangent picture.",
+   "key": "38c2041c5155bb573e0396c10a603b7fac4cdca3",
+   "file": "38c2041c5155bb573e0396c10a603b7fac4cdca3.wav"
+  },
+  {
+   "id": "card:FP1-3.1:discover",
+   "text": "Do opposite endpoint signs always guarantee a root in the interval? Yes, without any other condition. Yes, and the midpoint is always the root. No, continuity throughout the interval is also required. Yes, provided the endpoint values are finite. C For one over x on open square bracket minus one, one close square bracket, the signs differ but the function is undefined at zero and has no root.",
+   "key": "b9ff6588f9b4651e1754fbbf78b07c61821afe8e",
+   "file": "b9ff6588f9b4651e1754fbbf78b07c61821afe8e.wav"
+  },
+  {
+   "id": "item:FP1-3-i01:stem",
+   "text": "For f of x equals x squared minus two, the root lies in open square bracket one, two close square bracket. Calculate the first bisection midpoint.",
+   "key": "922043da2f932df9c7b33deed09373914f98b6cf",
+   "file": "922043da2f932df9c7b33deed09373914f98b6cf.wav"
+  },
+  {
+   "id": "item:FP1-3-i01:explanation",
+   "text": "The midpoint is open bracket one plus two close bracket over two equals one point five, f of one point five is greater than zero, so the retained interval is open square bracket one, one point five close square bracket.",
+   "key": "17a41c1f359c8047d04d82546bb4e5687d376c1b",
+   "file": "17a41c1f359c8047d04d82546bb4e5687d376c1b.wav"
+  },
+  {
+   "id": "item:FP1-3-i01:hint1",
+   "text": "Use the endpoints of the bracket.",
+   "key": "518c2834ddc1d5862c30fc92b8733f9626167df2",
+   "file": "518c2834ddc1d5862c30fc92b8733f9626167df2.wav"
+  },
+  {
+   "id": "item:FP1-3-i01:hint2",
+   "text": "Take their arithmetic mean.",
+   "key": "b391a987ce0a3895cd0dbd9cb1bb12bc47bb20af",
+   "file": "b391a987ce0a3895cd0dbd9cb1bb12bc47bb20af.wav"
+  },
+  {
+   "id": "item:FP1-3-i01:hint3",
+   "text": "Add the two endpoints before dividing.",
+   "key": "6633048fd8539a2c6242a89b5cd936313896b99f",
+   "file": "6633048fd8539a2c6242a89b5cd936313896b99f.wav"
+  },
+  {
+   "id": "item:FP1-3-i02:stem",
+   "text": "For f of x equals x squared minus two, the current bracket is open square bracket one, one point five close square bracket. Calculate the next bisection midpoint.",
+   "key": "aba34ff90049a135969c8f7ba84cb0f28237465d",
+   "file": "aba34ff90049a135969c8f7ba84cb0f28237465d.wav"
+  },
+  {
+   "id": "item:FP1-3-i02:explanation",
+   "text": "The midpoint is one point two five and f of one point two five is less than zero, so the next bracket is open square bracket one point two five, one point five close square bracket.",
+   "key": "883da16907b267640c912d17c2656c581b031d3b",
+   "file": "883da16907b267640c912d17c2656c581b031d3b.wav"
+  },
+  {
+   "id": "item:FP1-3-i02:hint1",
+   "text": "Locate the two current endpoints.",
+   "key": "36596dfd18090416132018e8670792ef244f9856",
+   "file": "36596dfd18090416132018e8670792ef244f9856.wav"
+  },
+  {
+   "id": "item:FP1-3-i02:hint2",
+   "text": "Bisect the current bracket, not the original one.",
+   "key": "64d0aaa749c93e220484f2bf20adef97b4f445c9",
+   "file": "64d0aaa749c93e220484f2bf20adef97b4f445c9.wav"
+  },
+  {
+   "id": "item:FP1-3-i02:hint3",
+   "text": "Form the mean of one and one point five.",
+   "key": "b4bbaee8b16d9febcad99a372d2ad7dd22527c0b",
+   "file": "b4bbaee8b16d9febcad99a372d2ad7dd22527c0b.wav"
+  },
+  {
+   "id": "item:FP1-3-i03:stem",
+   "text": "For f of x equals x squared minus two, use linear interpolation between x equals one and x equals two to calculate a root estimate.",
+   "key": "50e5e3579fd4f843261acc6e90758fdba05f9ed0",
+   "file": "50e5e3579fd4f843261acc6e90758fdba05f9ed0.wav"
+  },
+  {
+   "id": "item:FP1-3-i03:explanation",
+   "text": "The endpoint values are minus one and two. The secant meets the axis at one minus open bracket minus one close bracket open bracket two minus one close bracket over open bracket two minus open bracket minus one close bracket close bracket equals four over three.",
+   "key": "3029ce4782c78559c1ba0d2520dc57a7a58c5171",
+   "file": "3029ce4782c78559c1ba0d2520dc57a7a58c5171.wav"
+  },
+  {
+   "id": "item:FP1-3-i03:hint1",
+   "text": "Evaluate the function at each endpoint.",
+   "key": "cfa636bc79d43881d42d69112c25a75b948e9b62",
+   "file": "cfa636bc79d43881d42d69112c25a75b948e9b62.wav"
+  },
+  {
+   "id": "item:FP1-3-i03:hint2",
+   "text": "Use the straight line joining the two function values.",
+   "key": "432eaa80ffda719e578c3347598b040297cc0623",
+   "file": "432eaa80ffda719e578c3347598b040297cc0623.wav"
+  },
+  {
+   "id": "item:FP1-3-i03:hint3",
+   "text": "Substitute into x equals a minus f of a open bracket b minus a close bracket over open bracket f of b minus f of a close bracket.",
+   "key": "241a17ea3680f20596866b7f20b84446adbe9a48",
+   "file": "241a17ea3680f20596866b7f20b84446adbe9a48.wav"
+  },
+  {
+   "id": "item:FP1-3-i04:stem",
+   "text": "For f of x equals x squared minus two, use linear interpolation between x equals one point two five and x equals one point five zero to calculate a root estimate.",
+   "key": "73a75756612501eb76e7c4699295a4107f41682b",
+   "file": "73a75756612501eb76e7c4699295a4107f41682b.wav"
+  },
+  {
+   "id": "item:FP1-3-i04:explanation",
+   "text": "Here f of one point two five equals minus seven over sixteen and f of one point five equals one quarter, the secant estimate is thirty one over twenty two.",
+   "key": "b30a092cdfb0b4e770729dba2dd6d66913da83de",
+   "file": "b30a092cdfb0b4e770729dba2dd6d66913da83de.wav"
+  },
+  {
+   "id": "item:FP1-3-i04:hint1",
+   "text": "Find both signed function values.",
+   "key": "29c67e46f027ea358d34cd04b36090af966d1570",
+   "file": "29c67e46f027ea358d34cd04b36090af966d1570.wav"
+  },
+  {
+   "id": "item:FP1-3-i04:hint2",
+   "text": "Use the secant formula with a equals one point two five and b equals one point five.",
+   "key": "a891d64facb25c12b7a5db9db787b0122bb368af",
+   "file": "a891d64facb25c12b7a5db9db787b0122bb368af.wav"
+  },
+  {
+   "id": "item:FP1-3-i04:hint3",
+   "text": "Keep fractions until the final estimate.",
+   "key": "676c42e8da1498a96acdf112aef95db4ac5923a5",
+   "file": "676c42e8da1498a96acdf112aef95db4ac5923a5.wav"
+  },
+  {
+   "id": "item:FP1-3-i05:stem",
+   "text": "For f of x equals x squared minus two, calculate one Newton Raphson iterate from x zero equals one point five.",
+   "key": "bf85d5e0188230d1a0dcf6de9a9daae6aa25054a",
+   "file": "bf85d5e0188230d1a0dcf6de9a9daae6aa25054a.wav"
+  },
+  {
+   "id": "item:FP1-3-i05:explanation",
+   "text": "Since f prime open bracket x close bracket equals two x, x one equals x zero minus open bracket x zero squared minus two close bracket over open bracket two x zero close bracket equals seventeen over twelve.",
+   "key": "3cd154146588ed684a9a98cabaf7afbe4fa053bd",
+   "file": "3cd154146588ed684a9a98cabaf7afbe4fa053bd.wav"
+  },
+  {
+   "id": "item:FP1-3-i05:hint1",
+   "text": "Differentiate f.",
+   "key": "9e3353cc6cd66b36270ffdca3761ba829da05132",
+   "file": "9e3353cc6cd66b36270ffdca3761ba829da05132.wav"
+  },
+  {
+   "id": "item:FP1-3-i05:hint2",
+   "text": "Use x sub n plus one, equals x n minus f of x n over f prime open bracket x n close bracket.",
+   "key": "000d650338642ea42f71f3b0e2c74921783c0410",
+   "file": "000d650338642ea42f71f3b0e2c74921783c0410.wav"
+  },
+  {
+   "id": "item:FP1-3-i05:hint3",
+   "text": "Substitute x zero equals one point five into both f and f prime.",
+   "key": "e661a6c51128c6c4de1a21337dac39b4e6876688",
+   "file": "e661a6c51128c6c4de1a21337dac39b4e6876688.wav"
+  },
+  {
+   "id": "item:FP1-3-i06:stem",
+   "text": "For f of x equals x squared minus two, calculate the next Newton Raphson iterate after x one equals seventeen over twelve.",
+   "key": "45c8569d9ce12cda3ceb9f72b2dd9253ae704467",
+   "file": "45c8569d9ce12cda3ceb9f72b2dd9253ae704467.wav"
+  },
+  {
+   "id": "item:FP1-3-i06:explanation",
+   "text": "Applying x sub n plus one, equals open bracket x n squared plus two close bracket over open bracket two x n close bracket gives x two equals five hundred and seventy seven over four hundred and eight.",
+   "key": "a674ed111389ea9e40d0130a52eb707a23c420f9",
+   "file": "a674ed111389ea9e40d0130a52eb707a23c420f9.wav"
+  },
+  {
+   "id": "item:FP1-3-i06:hint1",
+   "text": "Use the current iterate as the starting value.",
+   "key": "253183cca4962f7cf4378bda8f3e9a58dc2b8df2",
+   "file": "253183cca4962f7cf4378bda8f3e9a58dc2b8df2.wav"
+  },
+  {
+   "id": "item:FP1-3-i06:hint2",
+   "text": "Apply the Newton Raphson recurrence again.",
+   "key": "df8da5ba0dd769f6e662b2a2eb52dd279bee5f45",
+   "file": "df8da5ba0dd769f6e662b2a2eb52dd279bee5f45.wav"
+  },
+  {
+   "id": "item:FP1-3-i06:hint3",
+   "text": "Substitute seventeen over twelve for x n.",
+   "key": "aaf91d708a109dfcd4a2da3dba0cf2a579d149b3",
+   "file": "aaf91d708a109dfcd4a2da3dba0cf2a579d149b3.wav"
+  },
+  {
+   "id": "item:FP1-3-i07:stem",
+   "text": "Explain why bisection of open square bracket one, two close square bracket for f of x equals x squared minus two retains open square bracket one, one point five close square bracket after the first step, and why linear interpolation may give a different estimate.",
+   "key": "b15e5f86956f54a73423d6805076a8a9687b2b6c",
+   "file": "b15e5f86956f54a73423d6805076a8a9687b2b6c.wav"
+  },
+  {
+   "id": "item:FP1-3-i07:explanation",
+   "text": "Bisection retains the half with opposite endpoint signs. Linear interpolation instead finds the zero of the chord, so its estimate need not be the midpoint.",
+   "key": "3ee96a4f439f1371367f6737e10247262b86378c",
+   "file": "3ee96a4f439f1371367f6737e10247262b86378c.wav"
+  },
+  {
+   "id": "item:FP1-3-i07:hint1",
+   "text": "Check the signs at the midpoint and endpoints.",
+   "key": "bf0cdeecfbf4e9c1a6bcce780ef8f80b182656b5",
+   "file": "bf0cdeecfbf4e9c1a6bcce780ef8f80b182656b5.wav"
+  },
+  {
+   "id": "item:FP1-3-i07:hint2",
+   "text": "Choose the half containing a sign change.",
+   "key": "7d876ef1e937b961c2e4a17c6a9ade4bf7cf405c",
+   "file": "7d876ef1e937b961c2e4a17c6a9ade4bf7cf405c.wav"
+  },
+  {
+   "id": "item:FP1-3-i07:hint3",
+   "text": "Compare a midpoint with a secant axis intersection.",
+   "key": "a1c650302ef5b9efcb3d1d9f3e2fd2ef76974736",
+   "file": "a1c650302ef5b9efcb3d1d9f3e2fd2ef76974736.wav"
+  },
+  {
+   "id": "item:FP1-3-r01:stem",
+   "text": "For f of x equals one over x, f of minus one equals minus one and f of one equals one. Explain which conclusion is correct.",
+   "key": "ce5a7522bed4c847fbe506b43abd8d8c604773c4",
+   "file": "ce5a7522bed4c847fbe506b43abd8d8c604773c4.wav"
+  },
+  {
+   "id": "item:FP1-3-r01:explanation",
+   "text": "The function is undefined at x equals zero, so it is not continuous on the interval and the sign change theorem does not apply. In fact, one over x is never zero, opposite endpoint signs alone do not prove a root.",
+   "key": "a17bda09c4ec0199ace94e7496085d3e8f450ac7",
+   "file": "a17bda09c4ec0199ace94e7496085d3e8f450ac7.wav"
+  },
+  {
+   "id": "item:FP1-3-r01:hint1",
+   "text": "Check the domain throughout the interval.",
+   "key": "182c0a4e92eec9938f5e26866ed8620500221410",
+   "file": "182c0a4e92eec9938f5e26866ed8620500221410.wav"
+  },
+  {
+   "id": "item:FP1-3-r01:hint2",
+   "text": "Recall both conditions of the sign change theorem.",
+   "key": "47710f01add76af912f18930a3cff7f370214055",
+   "file": "47710f01add76af912f18930a3cff7f370214055.wav"
+  },
+  {
+   "id": "item:FP1-3-r01:hint3",
+   "text": "Examine what happens when the denominator is zero.",
+   "key": "b251a2ed183348ba78f7fcaf8c6163626fb14f6d",
+   "file": "b251a2ed183348ba78f7fcaf8c6163626fb14f6d.wav"
+  },
+  {
+   "id": "item:FP1-3-r02:stem",
+   "text": "part a, Calculate f of one and f of two for f of x equals x cubed minus x minus one. part b, Show that f of x equals zero has a root in one is less than x is less than two, explaining why a sign change argument applies.",
+   "key": "ece13a7bb277e3e477426e3533bf8e449761cb0a",
+   "file": "ece13a7bb277e3e477426e3533bf8e449761cb0a.wav"
+  },
+  {
+   "id": "item:FP1-3-r02:explanation",
+   "text": "Substitution gives minus one and five. A polynomial is continuous everywhere, so these opposite signs prove at least one root between the endpoints.",
+   "key": "5579acac851dbd18e386e6f6b87ab0a91b266a01",
+   "file": "5579acac851dbd18e386e6f6b87ab0a91b266a01.wav"
+  },
+  {
+   "id": "item:FP1-3-r02:hint1",
+   "text": "Evaluate each endpoint separately.",
+   "key": "548d651e3f9024f0fedef7a9ba243f9ce3169073",
+   "file": "548d651e3f9024f0fedef7a9ba243f9ce3169073.wav"
+  },
+  {
+   "id": "item:FP1-3-r02:hint2",
+   "text": "State the continuity property of polynomials.",
+   "key": "3c049481b26e478449a948c85c551bb05b4dc444",
+   "file": "3c049481b26e478449a948c85c551bb05b4dc444.wav"
+  },
+  {
+   "id": "item:FP1-3-r02:hint3",
+   "text": "Combine continuity and the signs in a conclusion about a root.",
+   "key": "b4a2fcc05ef07e97f383d2bc68a7625e380ec4e0",
+   "file": "b4a2fcc05ef07e97f383d2bc68a7625e380ec4e0.wav"
+  },
+  {
+   "id": "item:FP1-3-r03:stem",
+   "text": "For f of x equals x cubed minus x minus one, start from open square bracket one, two close square bracket. Find the minimum number of bisections needed for a bracket of width at most one eighth, then perform them, showing midpoint signs and retained intervals. Give the final bracket and its midpoint estimate separately.",
+   "key": "2c18059d28ad840db6757f9fc76fbe8ca8761b28",
+   "file": "2c18059d28ad840db6757f9fc76fbe8ca8761b28.wav"
+  },
+  {
+   "id": "item:FP1-3-r03:explanation",
+   "text": "Three halvings reduce the width from one to one eighth. The midpoint signs are positive, negative, positive, leaving open square bracket one point two five, one point three seven five close square bracket, the midpoint of this final bracket is one point three one two five.",
+   "key": "cbc8ead268638cf9213422fab51852a6c226b315",
+   "file": "cbc8ead268638cf9213422fab51852a6c226b315.wav"
+  },
+  {
+   "id": "item:FP1-3-r03:hint1",
+   "text": "Relate the width after several steps to the original width.",
+   "key": "3ddfd31ed8ca8302d661f19ce24c57369489a694",
+   "file": "3ddfd31ed8ca8302d661f19ce24c57369489a694.wav"
+  },
+  {
+   "id": "item:FP1-3-r03:hint2",
+   "text": "Evaluate each midpoint and keep opposite signs at the endpoints.",
+   "key": "3e0795583ad4aa5bb4f7d562cd6e2d5d5756ede3",
+   "file": "3e0795583ad4aa5bb4f7d562cd6e2d5d5756ede3.wav"
+  },
+  {
+   "id": "item:FP1-3-r03:hint3",
+   "text": "Average the final two endpoints only after obtaining the required bracket.",
+   "key": "00376cafbf73c2cdedb4f982138a531e82752349",
+   "file": "00376cafbf73c2cdedb4f982138a531e82752349.wav"
+  },
+  {
+   "id": "item:FP1-3-r04:stem",
+   "text": "Show that the positive root of f of x equals x squared minus three is one point seven three to two decimal places, by evaluating f at the exact rounding boundaries and using continuity.",
+   "key": "7fb2ddd2c6e6bbf615ca4df6c6fbe0201db30aea",
+   "file": "7fb2ddd2c6e6bbf615ca4df6c6fbe0201db30aea.wav"
+  },
+  {
+   "id": "item:FP1-3-r04:explanation",
+   "text": "The exact boundary evaluations have opposite signs, and continuity places the positive root in open bracket one point seven two five, one point seven three five close bracket. Every value in this open interval rounds to one point seven three, which proves the stated accuracy.",
+   "key": "ffdb61913e5ed8c711c6974c93130cd1d22b29ea",
+   "file": "ffdb61913e5ed8c711c6974c93130cd1d22b29ea.wav"
+  },
+  {
+   "id": "item:FP1-3-r04:hint1",
+   "text": "Locate the half unit boundaries for two decimal places.",
+   "key": "6a83c067bc6a4e95e5b0db15bb857c52537261e5",
+   "file": "6a83c067bc6a4e95e5b0db15bb857c52537261e5.wav"
+  },
+  {
+   "id": "item:FP1-3-r04:hint2",
+   "text": "Evaluate the polynomial at both boundaries, retaining their signs.",
+   "key": "957fe754b481e65f87b9a79af295629e3e30227c",
+   "file": "957fe754b481e65f87b9a79af295629e3e30227c.wav"
+  },
+  {
+   "id": "item:FP1-3-r04:hint3",
+   "text": "Use continuity and explain how all values inside the bracket round.",
+   "key": "64b9c4140b2147b77d098e14a0499c05f72f10eb",
+   "file": "64b9c4140b2147b77d098e14a0499c05f72f10eb.wav"
+  },
+  {
+   "id": "note:1",
+   "text": "three Numerical solution of equations.",
+   "key": "8f49cf230356e62a8205eac3ab5a4ce43ef0c2d7",
+   "file": "8f49cf230356e62a8205eac3ab5a4ce43ef0c2d7.wav"
+  },
+  {
+   "id": "note:2",
+   "text": "In one breath.",
+   "key": "6a861afc90bd903f06825a0844eda3ffafdbf076",
+   "file": "6a861afc90bd903f06825a0844eda3ffafdbf076.wav"
+  },
+  {
+   "id": "note:3",
+   "text": "A numerical method approaches a root of f of x equals zero through successive estimates. Interval bisection uses a sign changing bracket, linear interpolation uses a secant, and Newton Raphson uses a tangent.",
+   "key": "aaddbab53d1c4210dd335afb08092b76041d897f",
+   "file": "aaddbab53d1c4210dd335afb08092b76041d897f.wav"
+  },
+  {
+   "id": "note:4",
+   "text": "Key ideas.",
+   "key": "d78063e547e95efbdf1d454277961149e92bb612",
+   "file": "d78063e547e95efbdf1d454277961149e92bb612.wav"
+  },
+  {
+   "id": "note:5",
+   "text": "Opposite endpoint signs prove a root only when the function is continuous throughout the interval. For f of x equals one over x on open square bracket minus one, one close square bracket, the signs differ but x equals zero is a discontinuity and there is no root. A tangent root, such as that of x squared at zero, may show no sign change. An interval can also contain several roots, the test proves existence, not uniqueness.",
+   "key": "4deab9285f1a2217ada12188ad37d19b7dc023a1",
+   "file": "4deab9285f1a2217ada12188ad37d19b7dc023a1.wav"
+  },
+  {
+   "id": "note:6",
+   "text": "A root is a value r for which f of r equals zero. Often an exact solution is unavailable or inconvenient, so calculate estimates and check their accuracy. For the methods here, f uses functions from P one and P two, the differentiation needed for Newton Raphson is also from P one and P two.",
+   "key": "f7d38548959b968158af094eb8bb34532f39cc3b",
+   "file": "f7d38548959b968158af094eb8bb34532f39cc3b.wav"
+  },
+  {
+   "id": "note:7",
+   "text": "Interval bisection starts with a is less than b where a continuous f has opposite signs at the endpoints, f of a f of b is less than zero. Calculate m equals open bracket a plus b close bracket over two. If f of m equals zero, stop. Otherwise retain open square bracket a, m close square bracket when f of a f of m is less than zero, retain open square bracket m, b close square bracket when f of m f of b is less than zero. Each step halves the bracket width. The midpoint is an estimate, while the whole bracket gives a useful error bound, its distance from the root is at most half the current width.",
+   "key": "6181ea68001d9929f0e3c05f2ab72b611e96e17a",
+   "file": "6181ea68001d9929f0e3c05f2ab72b611e96e17a.wav"
+  },
+  {
+   "id": "note:8",
+   "text": "Linear interpolation replaces the curve between open bracket a, f of a close bracket and open bracket b, f of b close bracket with a straight line. Its crossing of the x axis is. x equals a minus f of a open bracket b minus a close bracket, all over, f of b minus f of a. This is also called a secant estimate. It uses the sizes as well as the signs of the endpoint values, so it generally differs from the midpoint. If repeating with a bracket, evaluate f of x and replace the endpoint with the same sign as f of x.",
+   "key": "7ff2e5e704070b9aa4a758fcebefb4b4f30116d0",
+   "file": "7ff2e5e704070b9aa4a758fcebefb4b4f30116d0.wav"
+  },
+  {
+   "id": "note:9",
+   "text": "Notice that the secant joins two curve points, its axis crossing four over three is an estimate, not a point on the curve.",
+   "key": "cbe8ede4bca2ada78ec7058f9eb97044f8542541",
+   "file": "cbe8ede4bca2ada78ec7058f9eb97044f8542541.wav"
+  },
+  {
+   "id": "note:10",
+   "text": "Newton Raphson starts with a chosen x zero. The tangent to y equals f of x at x n crosses the x axis at the next estimate, x sub n plus one, equals x n minus f of x n, all over, f prime of x n. Differentiate correctly and make sure f prime of x n is not equal to zero. A poor starting value or a very small derivative can make the iterates unreliable. Check each iterate against the equation rather than assuming it converges.",
+   "key": "af0bc5bc854f79e26f1205b6077d934264c7d1ba",
+   "file": "af0bc5bc854f79e26f1205b6077d934264c7d1ba.wav"
+  },
+  {
+   "id": "note:11",
+   "text": "Notice that the tangent uses the slope at x equals one point five, its axis crossing seventeen over twelve supplies the next iterate.",
+   "key": "de887067dccbf4aeb68a235dfe6df6de7b12945c",
+   "file": "de887067dccbf4aeb68a235dfe6df6de7b12945c.wav"
+  },
+  {
+   "id": "note:12",
+   "text": "Method.",
+   "key": "2926c0b512d7811e2ca9e9ad43fb571bd33cab65",
+   "file": "2926c0b512d7811e2ca9e9ad43fb571bd33cab65.wav"
+  },
+  {
+   "id": "note:13",
+   "text": "Rearrange the equation as f of x equals zero and identify the required method and accuracy.",
+   "key": "a64106fb69d47cf745df2e2e95df3d11c2f41f77",
+   "file": "a64106fb69d47cf745df2e2e95df3d11c2f41f77.wav"
+  },
+  {
+   "id": "note:14",
+   "text": "For bisection, show endpoint signs, calculate the midpoint and its sign, then write the new bracket. Repeat until its width meets the required accuracy.",
+   "key": "887b1407032047e2d7593f132217e73cae522e76",
+   "file": "887b1407032047e2d7593f132217e73cae522e76.wav"
+  },
+  {
+   "id": "note:15",
+   "text": "For interpolation, calculate both signed endpoint values, substitute in the secant formula, then check the new function value if another step is needed.",
+   "key": "6a93289327f0b843fe3fea4e0c8535e5957ac2d0",
+   "file": "6a93289327f0b843fe3fea4e0c8535e5957ac2d0.wav"
+  },
+  {
+   "id": "note:16",
+   "text": "For Newton Raphson, find f prime of x, write the recurrence, substitute the current estimate, and calculate the next one. Repeat and verify stability to the requested decimal places.",
+   "key": "3f0ff7b4315a7dc78af1489d247ac40826d454ef",
+   "file": "3f0ff7b4315a7dc78af1489d247ac40826d454ef.wav"
+  },
+  {
+   "id": "note:17",
+   "text": "Worked example.",
+   "key": "1db6b8cb5e64341a132ad5fba6491683b5d26032",
+   "file": "1db6b8cb5e64341a132ad5fba6491683b5d26032.wav"
+  },
+  {
+   "id": "note:18",
+   "text": "Let f of x equals x squared minus two and start from open square bracket one, two close square bracket. Since f of one equals minus one and f of two equals two, a root is bracketed. Bisection gives m equals one point five and f of one point five equals zero point two five, so the new bracket is open square bracket one, one point five close square bracket. Linear interpolation from the original endpoints gives x equals one minus open bracket minus one close bracket open bracket two minus one close bracket over open bracket two minus open bracket minus one close bracket close bracket equals four over three. For Newton Raphson, f prime of x equals two x. Starting at x zero equals one point five gives x one equals one point five minus zero point two five over three equals seventeen over twelve is approximately one point four one six seven. These are estimates made by different geometric rules. Substituting each into f checks how close it is to zero.",
+   "key": "4a76842de75faf845c5d1ce9499e3ae1e8388d6d",
+   "file": "4a76842de75faf845c5d1ce9499e3ae1e8388d6d.wav"
+  },
+  {
+   "id": "note:19",
+   "text": "Traps.",
+   "key": "f23a8902ac31d345b4f05aeebbd1405a2b0d95e6",
+   "file": "f23a8902ac31d345b4f05aeebbd1405a2b0d95e6.wav"
+  },
+  {
+   "id": "note:20",
+   "text": "Trap, Keep the half with the smaller endpoint value in bisection. Why it's wrong, The root is identified by a sign change, not a magnitude comparison. Instead, State the signs at both ends of the retained bracket.",
+   "key": "d2126fd5c8854aea440ecde736c7094d47befc2f",
+   "file": "d2126fd5c8854aea440ecde736c7094d47befc2f.wav"
+  },
+  {
+   "id": "note:21",
+   "text": "Trap, Treat interpolation as another midpoint calculation. Why it's wrong, The secant crosses the axis according to its endpoint heights. Instead, Substitute the signed values in the secant formula.",
+   "key": "2779a56fccb2691ce0f22d3813b08f3af71c59fc",
+   "file": "2779a56fccb2691ce0f22d3813b08f3af71c59fc.wav"
+  },
+  {
+   "id": "note:22",
+   "text": "Trap, Reverse the Newton Raphson quotient. Why it's wrong, The tangent's horizontal correction is function value divided by gradient. Instead, Write f of x n over f prime of x n before substituting.",
+   "key": "cba15aadad485b32a5d96ff49c04809bd7d8e5b0",
+   "file": "cba15aadad485b32a5d96ff49c04809bd7d8e5b0.wav"
+  },
+  {
+   "id": "note:23",
+   "text": "Exam technique.",
+   "key": "005c86633a3656d616fa79936047f3212b2280b1",
+   "file": "005c86633a3656d616fa79936047f3212b2280b1.wav"
+  },
+  {
+   "id": "note:24",
+   "text": "For Calculate or Find, show the formula, substitution and estimate. For Show that, include the signs or algebra that justify the stated result. If asked to give an answer to a stated number of decimal places, retain extra figures in intermediate steps and confirm the final rounding using a sufficiently narrow bracket or stable iterates. State when an iterate is undefined because its derivative is zero.",
+   "key": "4498dcba983b8835ccf0e938e196cd98f22ec5d0",
+   "file": "4498dcba983b8835ccf0e938e196cd98f22ec5d0.wav"
+  },
+  {
+   "id": "note:25",
+   "text": "A bracket gives two bounds, an approximation gives one value, often the midpoint. After n bisections, the width is open bracket b minus a close bracket over two to the n, choose the smallest integer n meeting the target width. Stable Newton iterates suggest convergence but alone do not prove correct rounding, a bracket must lie within the same rounding boundaries.",
+   "key": "2f6e2c0ad68aa8237654001e10c0e5c53883e37e",
+   "file": "2f6e2c0ad68aa8237654001e10c0e5c53883e37e.wav"
+  },
+  {
+   "id": "note:26",
+   "text": "Worked example, certify two decimal places.",
+   "key": "e6ee59297a713861f6391e3fe08ab86a0f679941",
+   "file": "e6ee59297a713861f6391e3fe08ab86a0f679941.wav"
+  },
+  {
+   "id": "note:27",
+   "text": "For the positive root of f of x equals x squared minus three, test the boundaries around one point seven three, one point seven two five and one point seven three five. f of one point seven two five equals minus zero point zero two four three seven five is less than zero and f of one point seven three five equals zero point zero one zero two two five is greater than zero. The polynomial is continuous, so a root lies strictly inside open bracket one point seven two five, one point seven three five close bracket. Every number there rounds to one point seven three, proving two decimal place accuracy. There is only one positive root because x squared increases for x is greater than zero.",
+   "key": "011c2c1cd1e05fee21b8a8924290def77b5e68e2",
+   "file": "011c2c1cd1e05fee21b8a8924290def77b5e68e2.wav"
+  }
+ ]
+}

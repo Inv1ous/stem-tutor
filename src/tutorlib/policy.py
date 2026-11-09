@@ -261,6 +261,15 @@ def to_check(state: dict, packs, ticked: frozenset) -> list[str]:
 
 
 def missing_packs(packs, now: datetime) -> list[str]:
+    """Check planned skills with one fresh bank authentication for this report."""
+    bank = getattr(packs, "topicals", None)
+    if bank is None:
+        return _missing_packs(packs, now)
+    with bank.request():
+        return _missing_packs(packs, now)
+
+
+def _missing_packs(packs, now: datetime) -> list[str]:
     week = current_week(packs.plan, now)
     missing = set()
     for w, objs in packs.plan.get("weeks", {}).items():
@@ -366,8 +375,59 @@ def expand_focus(packs, focus: list[str] | None) -> list[str] | None:
     return out
 
 
+def practice_chapters(packs, focus: list[str] | None, course: str | None = None, scope: str | None = None) -> list[str]:
+    """Subtopic ids a practice session covers, in syllabus order.  ``scope``: "course" (every subtopic of ``course``),
+    "module" (``focus`` names topics/modules, or their subtopics) or "chapters" (``focus`` names subtopics; a KC id
+    stands for its subtopic).  ``course`` also fences the result to one syllabus."""
+    scope = scope or ("course" if course and not focus else "chapters")
+    if scope == "course":
+        wanted = {s for s, v in packs.subtopics.items() if v.get("spec") == course} if course else set(packs.subtopics)
+    else:
+        wanted = set()
+        for f in focus or []:
+            if f in packs.subtopics:
+                wanted.add(f)
+            elif f in packs.kcs:
+                wanted.add(packs.kcs[f]["subtopic"])
+            else:
+                prefix = f.rstrip(".") + "."
+                wanted |= {s for s, v in packs.subtopics.items()
+                           if v.get("topic") == f or s.startswith(prefix)}
+        if course:
+            wanted = {s for s in wanted if packs.subtopics[s].get("spec") == course}
+    return [s for s in packs.subtopics if s in wanted]
+
+
 def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "autopilot",
-                 focus: list[str] | None = None, ticked: frozenset = frozenset()) -> list[dict]:
+                 focus: list[str] | None = None, ticked: frozenset = frozenset(),
+                 practice: dict | None = None) -> list[dict]:
+    """Plan against one freshly authenticated bank, including nested skill lookups."""
+    bank = getattr(packs, "topicals", None)
+    if bank is None:  # lightweight policy-only callers have no topical bank
+        return _plan_session(state, packs, now, minutes, mode, focus, ticked, practice)
+    with bank.request() as outer:
+        result = _plan_session(state, packs, now, minutes, mode, focus, ticked, practice)
+        return result if not outer or bank.request_current() else []
+
+
+def _plan_session(state: dict, packs, now: datetime, minutes: int, mode: str,
+                  focus: list[str] | None, ticked: frozenset, practice: dict | None = None) -> list[dict]:
+    if mode == "practice":
+        from . import topicals
+        opts = practice or {}
+        chapters = practice_chapters(packs, focus, opts.get("course"), opts.get("scope"))
+        started_only = bool(opts.get("started_only"))
+        if started_only:
+            started = topicals.started_chapters(state, packs)
+            chapters = [c for c in chapters if c in started]
+        sources = [s for s in dict.fromkeys(opts.get("sources") or ("topical", "source_verified"))
+                   if s in ("topical", "source_verified")]
+        if not chapters or not sources:
+            return []
+        return [{"kind": "practice_set", "chapters": chapters, "course": opts.get("course"),
+                 "scope": opts.get("scope") or ("course" if opts.get("course") and not focus else "chapters"),
+                 "sources": sources, "started_only": started_only, "count": opts.get("count"),
+                 "question_queue": [], "question_index": 0}]
     focus = expand_focus(packs, focus)
     if mode == "topical":
         chapters = list(dict.fromkeys(packs.kc(k)["subtopic"] for k in (packs.kcs if focus is None else focus) if k in packs.kcs))

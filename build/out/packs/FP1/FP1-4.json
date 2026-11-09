@@ -36,6 +36,38 @@
    "refutation": "For finite nonzero tangent gradient $m$, the normal gradient is $-1/m$.",
    "contrast": "Differentiate for the tangent gradient, then take its negative reciprocal; handle vertical tangents separately.",
    "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "FP1-4.2",
+   "statement": "The coefficient in $at^2$ is squared too, and zero is allowed in every parameter formula.",
+   "refutation": "$at^2$ squares only $t$, while $c/t$ is undefined at $t=0$.",
+   "contrast": "Use the displayed brackets precisely; zero is allowed for the parabola but excluded for the hyperbola.",
+   "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3,10; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+  },
+  {
+   "id": "m6",
+   "kc": "FP1-4.1",
+   "statement": "The rectangular hyperbola crosses a coordinate axis.",
+   "refutation": "A point on an axis has $xy=0$, which cannot equal $c^2$ when $c\\ne0$.",
+   "contrast": "The axes are asymptotes, approached without meeting them.",
+   "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.8; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+  },
+  {
+   "id": "m7",
+   "kc": "FP1-4.3",
+   "statement": "Any slanted segment to a directrix measures the distance to it.",
+   "refutation": "Distance to a line means the shortest, perpendicular distance.",
+   "contrast": "For a vertical directrix, use a horizontal segment to the point at the same height.",
+   "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3–4; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+  },
+  {
+   "id": "m8",
+   "kc": "FP1-4.4",
+   "statement": "Cancel a zero parameter root because the usual gradient formula is undefined at the vertex.",
+   "refutation": "The vertex tangent is vertical and its normal horizontal; the normal may still satisfy the point condition.",
+   "contrast": "Factor the parameter equation and test the zero root using vertex geometry.",
+   "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.10–12; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
   }
  ],
  "worked": [
@@ -1096,7 +1128,146 @@
    "connect": "The parameter forms give points satisfying the Cartesian equations. The resulting shapes build on curve sketching and straight-line intersections.",
    "note": "- Parabola: $y^2=4ax$; $x=at^2$, $y=2at$.\n- Rectangular hyperbola: $xy=c^2$; $x=ct$, $y=c/t$, $t\\ne0$.\n- Hyperbola asymptotes: $x=0$ and $y=0$.",
    "self_explain": "Why does $xy=c^2$ have no point on either axis?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Bridge from curve sketching: first decide which coordinate is squared or whether the coordinates multiply to a positive constant. This tells you the shape, symmetry and which parts of the plane can contain the curve.",
+   "terms": [
+    {
+     "term": "vertex",
+     "meaning": "The turning point where the two symmetric parabola branches meet.",
+     "notation": "$(0,0)$",
+     "spoken": "origin",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.2–3; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    },
+    {
+     "term": "asymptote",
+     "meaning": "A line approached by a curve; these hyperbola branches never meet either coordinate axis.",
+     "notation": "$x=0$, $y=0$",
+     "spoken": "x equals zero and y equals zero",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.8; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Recognise and sketch a standard parabola",
+     "wordings": [
+      "State the key features of the parabola.",
+      "Sketch the curve and label its vertex and axis."
+     ],
+     "example": "Identify and sketch $y^2=20x$. Step 1: compare $4a=20$, giving $a=5$. Step 2: mark vertex $(0,0)$ and the horizontal symmetry axis $y=0$. Step 3: because $x=y^2/20\\ge0$, draw both upper and lower branches opening right.",
+     "check": "State $a$, the vertex, axis and opening direction for $y^2=28x$. Explain the symmetry.",
+     "answer": "$a=7$; vertex $(0,0)$; axis $y=0$; opens right. Replacing $y$ by $-y$ leaves the equation unchanged.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.2–3; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Compare $4a=28$ to obtain $a=7$.",
+       "keywords": [
+        [
+         "7"
+        ]
+       ]
+      },
+      {
+       "point": "Identify the origin and horizontal axis.",
+       "keywords": [
+        [
+         "origin",
+         "(0,0)"
+        ]
+       ]
+      },
+      {
+       "point": "State that the parabola opens right and explain its symmetry about the horizontal axis, for example because replacing $y$ by $-y$ leaves the equation unchanged.",
+       "keywords": [
+        [
+         "right"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Recognise and sketch a rectangular hyperbola",
+     "wordings": [
+      "Sketch the rectangular hyperbola.",
+      "State its asymptotes and which quadrants contain it."
+     ],
+     "example": "Sketch $xy=36$. Step 1: write $y=36/x$, with $x\\ne0$. Step 2: since the product is positive, locate branches in quadrants I and III. Step 3: label asymptotes $x=0$, $y=0$ and sample points $(6,6)$, $(-6,-6)$. Neither branch meets an axis.",
+     "check": "State the branches and asymptotes of $xy=49$, and give one point on each branch.",
+     "answer": "Quadrants I and III; asymptotes $x=0$ and $y=0$. For example $(7,7)$ and $(-7,-7)$; any two valid points on opposite branches are acceptable.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.8; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Identify quadrants I and III from a positive product.",
+       "keywords": [
+        [
+         "I and III",
+         "first and third"
+        ]
+       ]
+      },
+      {
+       "point": "State both coordinate axes as asymptotes.",
+       "keywords": [
+        [
+         "axes",
+         "x=0"
+        ]
+       ]
+      },
+      {
+       "point": "Give two points with product 49 and opposite branch signs.",
+       "keywords": [
+        [
+         "49",
+         "7"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "The parabola opens upward.",
+     "temptation": "The familiar graph of a squared x-coordinate opens upward.",
+     "fix": "Here y is squared; solve for x to see a sideways parabola.",
+     "id": "m1"
+    },
+    {
+     "idea": "The hyperbola crosses an axis.",
+     "temptation": "A sketch looks close to an axis.",
+     "fix": "A zero coordinate makes the product zero, which cannot equal a nonzero square.",
+     "id": "m6"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg"
+   ],
+   "source_gaps": [
+    "No official paper or mark-scheme examples for these forms were included in the bundle; form coverage is grounded in the reviewed library pages and official specification, pending independent review.",
+    "The notes use the usual positive constants; the preserved baseline also states negative-parameter and reflected-parabola cases. New recognition examples use positive constants."
+   ],
+   "diagram_descriptions": [
+    "Graph of $xy=9$: one branch in quadrant I and one in quadrant III, approaching the horizontal and vertical axes without crossing them. The point $(3,3)$ is marked. Tangent and normal lines are not drawn."
+   ],
+   "diagram_provenance": {
+    "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg": {
+     "path": "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg",
+     "sha256": "e828f006aaebf9844d51f978bdd401c4335ca89fceceec326160b37aa400ae74",
+     "aliases": [
+      "Assets/FP1/FP1-4-hyperbola.svg",
+      "build/out/assets/FP1/FP1-4-hyperbola.svg",
+      "build/out/Assets/FP1/FP1-4-hyperbola.svg"
+     ],
+     "course": "FP1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/FP1/FP1-4-hyperbola.svg",
+      "stem-tutor/build/out/assets/FP1/FP1-4-hyperbola.svg",
+      "stem-tutor/build/out/Assets/FP1/FP1-4-hyperbola.svg"
+     ]
+    }
+   }
   },
   "FP1-4.2": {
    "motivate": "A single parameter can locate a point on a whole curve. It is especially useful when coordinates contain squares or reciprocals.",
@@ -1104,7 +1275,152 @@
    "connect": "Substitute $t$ to find a specific point, or eliminate it to recover the Cartesian equation.",
    "note": "- General parabola point: $(at^2,2at)$.\n- General rectangular-hyperbola point: $(ct,c/t)$ for $t\\ne0$.\n- Eliminate $t$ to check the Cartesian equation.",
    "self_explain": "How does squaring $y=2at$ help eliminate $t$?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Bridge from substitution: a parameter is one input that determines both coordinates. Substitute into both formulas, then verify the Cartesian equation. Elimination removes the input while keeping the relationship between the coordinates.",
+   "terms": [
+    {
+     "term": "parameter",
+     "meaning": "An input shared by the two coordinate formulas.",
+     "notation": "$t$",
+     "spoken": "tee",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3,13; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    },
+    {
+     "term": "general point",
+     "meaning": "Coordinates describing an arbitrary point as the parameter varies.",
+     "notation": "$(at^2,2at)$",
+     "spoken": "a tee squared, two a tee",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3,10; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    },
+    {
+     "term": "eliminate",
+     "meaning": "Remove the parameter to relate the coordinates directly.",
+     "notation": "$y^2=4ax$",
+     "spoken": "y squared equals four a x",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Use and eliminate a parabola parameter",
+     "wordings": [
+      "Find the point corresponding to a parameter.",
+      "Show that the general point lies on the parabola."
+     ],
+     "example": "For $x=5t^2$, $y=10t$, find the point at $t=-2$ and eliminate $t$. Step 1: $x=5(-2)^2=20$, $y=-20$. Step 2: $t=y/10$. Step 3: $x=5(y/10)^2=y^2/20$, so $y^2=20x$. Check $(-20)^2=20(20)$.",
+     "check": "For $x=3t^2$, $y=6t$, find the point at $t=-3$ and eliminate $t$. Is $t=0$ allowed?",
+     "answer": "$(27,-18)$; $t=y/6$ gives $x=y^2/12$, hence $y^2=12x$. Yes: $t=0$ gives the vertex $(0,0)$.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3,10; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Substitute the signed parameter to give $(27,-18)$.",
+       "keywords": [
+        [
+         "27"
+        ]
+       ]
+      },
+      {
+       "point": "Eliminate the parameter to get the Cartesian relation.",
+       "keywords": [
+        [
+         "12"
+        ]
+       ]
+      },
+      {
+       "point": "Accept zero as the vertex parameter.",
+       "keywords": [
+        [
+         "vertex",
+         "allowed",
+         "yes"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Use and eliminate a hyperbola parameter",
+     "wordings": [
+      "Find a general or particular point on the hyperbola.",
+      "Eliminate the parameter and state its restriction."
+     ],
+     "example": "For $x=4t$, $y=4/t$, take $t=-2$. Step 1: $x=-8$, $y=-2$. Step 2: multiply the general coordinates: $xy=(4t)(4/t)=16$ for $t\\ne0$. Step 3: the negative parameter reaches quadrant III; zero is excluded because division by zero is undefined.",
+     "check": "For $x=6t$, $y=6/t$, find the point at $t=-3$, eliminate $t$, and state the restriction on $t$.",
+     "answer": "$(-18,-2)$; $xy=36$; $t\\ne0$.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.8,13; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Obtain both signed coordinates $(-18,-2)$.",
+       "keywords": [
+        [
+         "-18"
+        ]
+       ]
+      },
+      {
+       "point": "Eliminate the parameter by any valid method to obtain $xy=36$, with $t\\ne0$.",
+       "keywords": [
+        [
+         "36"
+        ]
+       ]
+      },
+      {
+       "point": "State $t\\ne0$; an explanation is optional.",
+       "keywords": [
+        [
+         "zero",
+         "0"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "$at^2=(at)^2$.",
+     "temptation": "Square the whole first coordinate expression.",
+     "fix": "Only the parameter is squared; the coefficient remains unchanged.",
+     "id": "m5"
+    },
+    {
+     "idea": "Zero is a valid hyperbola parameter.",
+     "temptation": "It works on the parabola.",
+     "fix": "The reciprocal coordinate is undefined at zero; the two curves have different parameter restrictions.",
+     "id": "m5"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg"
+   ],
+   "source_gaps": [
+    "No official paper or mark-scheme examples for these forms were included in the bundle; form coverage is grounded in the reviewed library pages and official specification, pending independent review.",
+    "The notes use the usual positive constants; the preserved baseline also states negative-parameter and reflected-parabola cases. New recognition examples use positive constants."
+   ],
+   "diagram_descriptions": [
+    "Graph of $xy=9$: one branch in quadrant I and one in quadrant III, approaching the horizontal and vertical axes without crossing them. The point $(3,3)$ is marked. Tangent and normal lines are not drawn."
+   ],
+   "diagram_provenance": {
+    "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg": {
+     "path": "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg",
+     "sha256": "e828f006aaebf9844d51f978bdd401c4335ca89fceceec326160b37aa400ae74",
+     "aliases": [
+      "Assets/FP1/FP1-4-hyperbola.svg",
+      "build/out/assets/FP1/FP1-4-hyperbola.svg",
+      "build/out/Assets/FP1/FP1-4-hyperbola.svg"
+     ],
+     "course": "FP1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/FP1/FP1-4-hyperbola.svg",
+      "stem-tutor/build/out/assets/FP1/FP1-4-hyperbola.svg",
+      "stem-tutor/build/out/Assets/FP1/FP1-4-hyperbola.svg"
+     ]
+    }
+   }
   },
   "FP1-4.3": {
    "motivate": "The parabola can be defined using distances, which explains its shape without relying on its equation alone.",
@@ -1112,7 +1428,123 @@
    "connect": "This distance property connects the Cartesian equation to locus geometry and the distance formula.",
    "note": "- A parabola is the locus equidistant from focus and directrix.\n- For $y^2=4ax$: focus $(a,0)$; directrix $x=-a$.\n- Equal squared distances give $y^2=4ax$.",
    "self_explain": "Why is the directrix $x=-a$ rather than $x=a$?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Bridge from the distance formula: a parabola collects points equally far from a fixed point and a fixed line. Distance to the line always means the shortest, perpendicular distance.",
+   "terms": [
+    {
+     "term": "locus",
+     "meaning": "The set of all points satisfying a geometric condition.",
+     "notation": "$P=(x,y)$",
+     "spoken": "point P has coordinates x, y",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.4; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    },
+    {
+     "term": "focus",
+     "meaning": "The fixed point used in the equal-distance definition.",
+     "notation": "$(a,0)$",
+     "spoken": "a, zero",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3–4; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    },
+    {
+     "term": "directrix",
+     "meaning": "The fixed line used in the equal perpendicular distance definition.",
+     "notation": "$x=-a$",
+     "spoken": "x equals negative a",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3–4; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Identify focus and directrix",
+     "wordings": [
+      "State the focus and directrix.",
+      "Interpret the coefficient in the standard parabola equation."
+     ],
+     "example": "Find the focus and directrix of $y^2=24x$. Step 1: compare $4a=24$, so $a=6$. Step 2: place the focus at $(6,0)$ and the directrix at $x=-6$. Step 3: the vertex is midway between them on the axis, at the origin.",
+     "check": "Find the focus and directrix of $y^2=32x$ and check the vertex has equal distances from both.",
+     "answer": "$a=8$; focus $(8,0)$; directrix $x=-8$. The vertex $(0,0)$ is distance 8 from each.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3–4; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Identify $a=8$ and the focus.",
+       "keywords": [
+        [
+         "8"
+        ]
+       ]
+      },
+      {
+       "point": "Give the vertical directrix on the opposite side of the origin.",
+       "keywords": [
+        [
+         "-8"
+        ]
+       ]
+      },
+      {
+       "point": "Use perpendicular distance to check equal distances of 8.",
+       "keywords": [
+        [
+         "distance",
+         "8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Apply equal perpendicular distances",
+     "wordings": [
+      "Show that the equal-distance locus is a parabola.",
+      "Verify a point using the focus-directrix property."
+     ],
+     "example": "Derive the locus with focus $(2,0)$ and directrix $x=-2$. Step 1: for $P=(x,y)$, squared distance to the focus is $(x-2)^2+y^2$. Step 2: the perpendicular foot is $(-2,y)$, so distance to the line is $|x+2|$. Step 3: equate squares: $(x-2)^2+y^2=(x+2)^2$, giving $y^2=8x$. Both distances are nonnegative, so equality of squares is equivalent to equality of distances.",
+     "check": "Derive the Cartesian equation of the locus equidistant from $(5,0)$ and $x=-5$. Verify the point $(5,10)$ using distances.",
+     "answer": "$(x-5)^2+y^2=(x+5)^2$, hence $y^2=20x$. At $(5,10)$ the distance to the focus is 10 and the perpendicular distance to $x=-5$ is 10.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.3–4; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Write the squared focus distance and perpendicular line distance.",
+       "keywords": [
+        [
+         "distance",
+         "squared"
+        ]
+       ]
+      },
+      {
+       "point": "Equate and simplify to the locus equation.",
+       "keywords": [
+        [
+         "20"
+        ]
+       ]
+      },
+      {
+       "point": "Check both distances at the specified point equal 10.",
+       "keywords": [
+        [
+         "10"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Use any slanted segment to the directrix.",
+     "temptation": "All endpoints on the line seem eligible.",
+     "fix": "Distance to a line is the shortest perpendicular distance; for a vertical directrix use a horizontal segment.",
+     "id": "m7"
+    }
+   ],
+   "diagrams": [],
+   "source_gaps": [
+    "No official paper or mark-scheme examples for these forms were included in the bundle; form coverage is grounded in the reviewed library pages and official specification, pending independent review.",
+    "The notes use the usual positive constants; the preserved baseline also states negative-parameter and reflected-parabola cases. New recognition examples use positive constants."
+   ],
+   "diagram_reason": "The available registered hyperbola plot does not illustrate focus and directrix; no relevant registered parabola figure was reviewed in this pass. The perpendicular foot is specified explicitly in the worked form."
   },
   "FP1-4.4": {
    "motivate": "At a chosen point on either curve, a derivative gives the tangent direction and hence the perpendicular normal.",
@@ -1120,7 +1552,278 @@
    "connect": "This applies the P1 tangent and normal rule after finding the derivative from a curve's defining equation.",
    "note": "- Parabola: $dy/dx=2a/y$ away from the vertex.\n- Hyperbola: $dy/dx=-c^2/x^2$.\n- Normal gradient is the negative reciprocal of a finite, nonzero tangent gradient.\n- At the parabola vertex: tangent $x=0$, normal $y=0$.",
    "self_explain": "Why does differentiating $xy=c^2$ produce $y+x\\,dy/dx=0$?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Bridge from straight lines and differentiation: a derivative supplies the tangent gradient at the contact point. Use that point in the line equation; the normal is perpendicular. Treat a vertical tangent geometrically instead of dividing by zero.",
+   "terms": [
+    {
+     "term": "tangent",
+     "meaning": "The line with the local direction of the curve at the contact point.",
+     "notation": "$m=dy/dx$",
+     "spoken": "m equals d y by d x",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.10–14; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    },
+    {
+     "term": "normal",
+     "meaning": "The line perpendicular to the tangent at the contact point.",
+     "notation": "$m_n=-1/m$",
+     "spoken": "normal gradient equals negative one over tangent gradient",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.10–14; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    },
+    {
+     "term": "point-gradient form",
+     "meaning": "The equation of a line through a known point with a known finite gradient.",
+     "notation": "$y-y_1=m(x-x_1)$",
+     "spoken": "y minus y one equals m times x minus x one",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.10–14; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Find a parabola tangent",
+     "wordings": [
+      "Find an equation of the tangent.",
+      "Explain the vertex exception."
+     ],
+     "example": "Find the tangent to $y^2=20x$ at $(20,-20)$. Step 1: check $400=20(20)$. Step 2: implicit differentiation gives $2y\\,dy/dx=20$. At the point, $m=10/(-20)=-1/2$. Step 3: $y+20=-\\frac12(x-20)$, so $y=-x/2-10$. Substitution confirms the line passes through the point.",
+     "check": "Find the tangent to $y^2=12x$ at $(12,-12)$.",
+     "answer": "$2y\\,dy/dx=12$ gives $m=6/(-12)=-1/2$. The tangent is $y+12=-\\frac12(x-12)$, or $y=-x/2-6$.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.10–12; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Obtain the signed tangent gradient $-1/2$ by any valid method.",
+       "keywords": [
+        [
+         "-1/2",
+         "-0.5"
+        ]
+       ]
+      },
+      {
+       "point": "Give the tangent through the given point in any equivalent form.",
+       "keywords": [
+        [
+         "-6",
+         "x-12"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Find parabola normals and solve for a parameter",
+     "wordings": [
+      "Find the normal at a general point.",
+      "Hence find all normals passing through a given point."
+     ],
+     "example": "Find normals to $y^2=8x$ passing through $(12,0)$. Step 1: $a=2$ and $P=(2t^2,4t)$. From $2y\\,dy/dx=8$, the tangent gradient for $t\\ne0$ is $1/t$, so the normal gradient is $-t$. Step 2: $y-4t=-t(x-2t^2)$, hence $y+tx=2t^3+4t$. Step 3: impose $(12,0)$: $12t=2t^3+4t$, giving $2t(t^2-4)=0$. Do not divide by $t$. Step 4: $t=0,2,-2$ gives $(0,0),(8,8),(8,-8)$. For $t=0$ derive the horizontal normal $y=0$ geometrically; it also passes through $(12,0)$. The other normals are $y=-2x+24$ and $y=2x-24$.",
+     "check": "Find all normals to $y^2=4x$ passing through $(15,-12)$, giving their contact points and line equations.",
+     "answer": "At $(t^2,2t)$, the normal is $y+tx=t^3+2t$. Substituting $(15,-12)$ gives $t^3-13t+12=0$, or $(t-1)(t-3)(t+4)=0$. Thus $t=1,3,-4$, giving contact points $(1,2),(9,6),(16,-8)$ and respective normals $y=-x+3$, $y=-3x+33$, $y=4x-72$.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.10–12; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Obtain a valid normal condition by any method.",
+       "keywords": [
+        [
+         "normal",
+         "gradient",
+         "-t"
+        ]
+       ]
+      },
+      {
+       "point": "Find all three contact points $(1,2)$, $(9,6)$ and $(16,-8)$.",
+       "keywords": [
+        [
+         "1",
+         "2"
+        ],
+        [
+         "9",
+         "6"
+        ],
+        [
+         "16",
+         "-8"
+        ]
+       ]
+      },
+      {
+       "point": "Give the three corresponding normal lines, accepting equivalent equations.",
+       "keywords": [
+        [
+         "3"
+        ],
+        [
+         "33"
+        ],
+        [
+         "72"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Find a hyperbola tangent",
+     "wordings": [
+      "Find the tangent to the rectangular hyperbola.",
+      "Use calculus to obtain its gradient."
+     ],
+     "example": "Find the tangent to $xy=16$ at $(-8,-2)$. Step 1: differentiate $xy=16$: $y+x\\,dy/dx=0$. Step 2: $m=-y/x=-1/4$. Step 3: $y+2=-\\frac14(x+8)$, hence $y=-x/4-4$. The line passes through $(-8,-2)$; its negative slope is consistent with either hyperbola branch.",
+     "check": "Find the tangent to $xy=36$ at $(-12,-3)$ using Cartesian differentiation.",
+     "answer": "$y+x\\,dy/dx=0$, so $m=-y/x=-1/4$. Thus $y+3=-\\frac14(x+12)$, or $y=-x/4-6$.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.13–14; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Use the product rule on the Cartesian equation.",
+       "keywords": [
+        [
+         "product",
+         "dy/dx"
+        ]
+       ]
+      },
+      {
+       "point": "Evaluate the negative tangent gradient.",
+       "keywords": [
+        [
+         "-1/4",
+         "-0.25"
+        ]
+       ]
+      },
+      {
+       "point": "Give the line through the specified point in any equivalent form.",
+       "keywords": [
+        [
+         "-6",
+         "x+12"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Find a hyperbola normal",
+     "wordings": [
+      "Find the normal at a general point of the hyperbola.",
+      "Evaluate the normal for a signed parameter."
+     ],
+     "example": "Find the normal to $xy=16$ at $P=(4t,4/t)$, and then at $t=-2$. Step 1: Cartesian differentiation gives $dy/dx=-16/x^2$. Step 2: substituting $x=4t$ gives tangent gradient $-1/t^2$, so normal gradient $t^2$, with $t\\ne0$. Step 3: $y-4/t=t^2(x-4t)$. At $t=-2$, $P=(-8,-2)$ and $m_n=4$, so $y+2=4(x+8)$, or $y=4x+30$.",
+     "check": "Find the normal to $xy=36$ at $(6t,6/t)$, then give its equation for $t=-3$. State the parameter restriction.",
+     "answer": "$dy/dx=-36/x^2=-1/t^2$ at the point, so the normal is $y-6/t=t^2(x-6t)$ for $t\\ne0$. At $t=-3$, the point is $(-18,-2)$ and the normal gradient is 9; $y+2=9(x+18)$, hence $y=9x+160$.",
+     "source": "Library/Courses/FP1/Sources/Library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.13–14; Pearson IAL specification, printed p.33, coordinate systems 4.1–4.4: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Methods paraphrased; numerical tasks written afresh.",
+     "rubric": [
+      {
+       "point": "Differentiate and evaluate the tangent gradient at the general point.",
+       "keywords": [
+        [
+         "-1/t",
+         "-36"
+        ]
+       ]
+      },
+      {
+       "point": "Take the negative reciprocal and use the general point.",
+       "keywords": [
+        [
+         "t^2",
+         "squared"
+        ]
+       ]
+      },
+      {
+       "point": "Give the exact numerical normal in an equivalent form.",
+       "keywords": [
+        [
+         "160",
+         "x+18"
+        ]
+       ]
+      },
+      {
+       "point": "Exclude the zero parameter.",
+       "keywords": [
+        [
+         "zero",
+         "0"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "The normal gradient is the reciprocal without a sign change.",
+     "temptation": "Perpendicular means invert.",
+     "fix": "For finite nonzero gradients the product is negative one, so invert and negate.",
+     "id": "m4"
+    },
+    {
+     "idea": "Cancel the parameter before solving a normal-through-point equation.",
+     "temptation": "Cancelling shortens the algebra.",
+     "fix": "Factor first; a zero root may describe the vertex normal and must be checked separately.",
+     "id": "m8"
+    },
+    {
+     "idea": "The vertex gradient is zero.",
+     "temptation": "The vertex is a turning point.",
+     "fix": "This sideways parabola has a vertical vertex tangent and horizontal normal.",
+     "id": "m8"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg"
+   ],
+   "source_gaps": [
+    "No official paper or mark-scheme examples for these forms were included in the bundle; form coverage is grounded in the reviewed library pages and official specification, pending independent review.",
+    "The notes use the usual positive constants; the preserved baseline also states negative-parameter and reflected-parabola cases. New recognition examples use positive constants."
+   ],
+   "diagram_descriptions": [
+    "Graph of $xy=9$: one branch in quadrant I and one in quadrant III, approaching the horizontal and vertical axes without crossing them. The point $(3,3)$ is marked. Tangent and normal lines are not drawn."
+   ],
+   "diagram_provenance": {
+    "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg": {
+     "path": "Library/Courses/FP1/Diagrams/FP1/FP1-4-hyperbola.svg",
+     "sha256": "e828f006aaebf9844d51f978bdd401c4335ca89fceceec326160b37aa400ae74",
+     "aliases": [
+      "Assets/FP1/FP1-4-hyperbola.svg",
+      "build/out/assets/FP1/FP1-4-hyperbola.svg",
+      "build/out/Assets/FP1/FP1-4-hyperbola.svg"
+     ],
+     "course": "FP1",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/FP1/FP1-4-hyperbola.svg",
+      "stem-tutor/build/out/assets/FP1/FP1-4-hyperbola.svg",
+      "stem-tutor/build/out/Assets/FP1/FP1-4-hyperbola.svg"
+     ]
+    }
+   },
+   "disclosed_item_ids": [
+    "FP1-4-r01"
+   ]
   }
+ },
+ "guided_forms": {
+  "FP1-4.1": [
+   "Recognise and sketch a standard parabola",
+   "Recognise and sketch a rectangular hyperbola"
+  ],
+  "FP1-4.2": [
+   "Use and eliminate a parabola parameter",
+   "Use and eliminate a hyperbola parameter"
+  ],
+  "FP1-4.3": [
+   "Identify focus and directrix",
+   "Apply equal perpendicular distances"
+  ],
+  "FP1-4.4": [
+   "Find a parabola tangent",
+   "Find parabola normals and solve for a parameter",
+   "Find a hyperbola tangent",
+   "Find a hyperbola normal"
+  ]
  }
 }

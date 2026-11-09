@@ -185,3 +185,23 @@ def test_weak_spots_reads_the_log_only_when_it_changed(tutor, monkeypatch):
     assert insights.weak_spots(tutor) == insights.weak_spots(tutor) and not reads
     answer(tutor, kc="9702-2.1.4", right=True, item="9702-2.1-i03", response="3.0")
     assert "right 1 of 4 times" in [r for w in insights.weak_spots(tutor) for r in w["reasons"]] and reads
+
+
+@pytest.mark.parametrize('operation', ['weak_spots', 'readiness'])
+def test_bulk_availability_uses_one_fresh_bank_request(tutor, monkeypatch, operation):
+    from contextlib import contextmanager
+    tutor.state['gaps'] = list(tutor.packs.kcs)
+    original = tutor.packs.topicals.request
+    authentications = []
+    @contextmanager
+    def tracked():
+        with original() as outer:
+            if outer:
+                authentications.append(True)
+            yield outer
+    monkeypatch.setattr(tutor.packs.topicals, 'request', tracked)
+    result = getattr(insights, operation)(tutor)
+    assert result
+    assert authentications == [True]
+    getattr(insights, operation)(tutor)
+    assert authentications == [True, True]

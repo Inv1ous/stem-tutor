@@ -310,7 +310,7 @@ def test_canonical_control_fallback_survives_cards_and_repeated_normalisation(so
 
 
 @pytest.mark.parametrize("source,canonical,shown", [
-    ("First.\r\nSecond.\r\n", "First.\nSecond.\n", "First.\nSecond.\n"),
+    ("First.\r\nSecond.\r\n", "First.  \nSecond.\n", "First.  \nSecond.\n"),
     ("```text\r\nx_1^2\r\n```", "```text\r\nx_1^2\r\n```", "```text\nx_1^2\n```"),
     ("`literal\r\ncode`", "`literal\r\ncode`", "`literal\ncode`"),
     ("$x\r\n+1$", "$x\r\n+1$", "𝑥 + 1"),

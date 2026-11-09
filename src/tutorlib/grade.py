@@ -633,9 +633,25 @@ def _grade_points(item, resp):
     return _result(got == total, got / total, self_marked=True)
 
 
+def grade_human_whole(item: dict, earned_marks: int) -> dict:
+    """Build a manual result only; authorization and persistence belong to Tutor."""
+    from .topicals import whole_rubric
+    entry = whole_rubric(item)
+    if entry is None:
+        raise ValueError('not a whole-rubric item')
+    maximum = entry['whole_rubric']['max_marks']
+    if type(earned_marks) is not int or not 0 <= earned_marks <= maximum:
+        raise ValueError('human award must be an integer within the official maximum')
+    return _result(earned_marks == maximum, earned_marks / maximum, self_marked=True)
+
+
 def grade_item(item: dict, resp: dict) -> dict:
     if resp["kind"] == "idk":
         return _result(False, 0, "RECALL", detail="don't know")
+    from .topicals import whole_rubric
+    if whole_rubric(item) is not None:
+        return _result(False, 0, needs_judgement=True,
+                       detail="Manual marking required; your work is saved and ungraded.")
     if resp["kind"] == "points":
         return _grade_points(item, resp)
     kind = item["kind"]

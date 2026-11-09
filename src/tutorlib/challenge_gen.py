@@ -419,12 +419,17 @@ class _Stop(Exception):
 
 def timeout_for(call: str, model: str, level: int) -> float:
     """Seconds allowed for one call: writing gets more than solving or auditing, and harder levels more than easy."""
+    model = {"abacus:claude-sonnet-5-5": "sonnet", "abacus:claude-opus-5-5": "opus"}.get(model, model)
     times = TIMEOUTS["generate" if call == "generate" else "check"].get(model, TIMEOUTS["generate"]["sonnet"])
     return times[0 if level <= 5 else 1 if level <= 7 else 2]
 
 
+PAIRS = {"sonnet": "opus", "opus": "sonnet", "abacus:claude-sonnet-5-5": "abacus:claude-opus-5-5",
+         "abacus:claude-opus-5-5": "abacus:claude-sonnet-5-5"}  # a checker from the same provider as the writer
+
+
 def _other(model: str) -> str:
-    return "sonnet" if model == "opus" else "opus"
+    return PAIRS.get(model, "opus")
 
 
 async def _call(ask, prompt: str, schema: dict, model: str, level: int):

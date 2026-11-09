@@ -25,7 +25,7 @@ async def paused_chat(app, pilot):
     await pilot.press("ctrl+b")
     await pilot.pause()
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [o.id for o in menu.options].index("chat")
+    menu.reveal("chat")
     await pilot.press("enter")
     await pilot.pause()
     assert isinstance(app.screen, ChatScreen)

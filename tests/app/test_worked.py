@@ -13,7 +13,7 @@ def test_the_last_step_of_a_worked_example_stays_until_you_continue(tmp_path, mo
     async def go():
         async with app.run_test(size=(100, 40)) as pilot:
             await pilot.pause()
-            await pilot.press("down", "enter", "enter")  # learn -> the only subtopic
+            await pilot.press("enter", "down", "enter", "enter")  # Learn & revise, learn -> the only subtopic
             await pilot.pause()
             for _ in range(60):  # walk to the worked example
                 scr = app.screen

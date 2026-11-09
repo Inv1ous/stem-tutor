@@ -8,6 +8,8 @@ from pathlib import Path
 
 from .local_models import DEFAULT_VISION_MODEL, LOCAL_MODELS, is_image_helper, thinking_levels, thinking_value
 from .codex_models import CODEX_MODELS
+from .abacus_models import ABACUS_MODELS
+from .marking_policy import LEVELS as MARKING_LEVELS
 
 REPO = Path(__file__).resolve().parents[2]
 DEFAULT_VAULT = REPO.parent / "STEM Tutor"
@@ -21,7 +23,7 @@ def vault_path() -> Path:
     return Path(os.environ.get("STEM_TUTOR_VAULT") or DEFAULT_VAULT)
 
 
-AI_MODELS = ("haiku", "sonnet", "opus", *LOCAL_MODELS, *CODEX_MODELS)
+AI_MODELS = ("haiku", "sonnet", "opus", *LOCAL_MODELS, *CODEX_MODELS, *ABACUS_MODELS)
 USAGE_DISPLAYS = ("weekly", "ram", "both")
 SPEED_RANGE = (0.7, 1.5)  # reading aloud: the same as tts.SPEED_RANGE (tts imports the engine; this file must not)
 AI_MODES = ("mark", "explain", "ask", "learn")
@@ -47,9 +49,17 @@ class Settings:
     usage_display: str = "weekly"   # the terminal's resource indicator: weekly Claude allowance, system RAM, or both
     local_web: bool = True          # retrieve sources for explicit web requests or questions needing fresh information
     local_vision_model: str = DEFAULT_VISION_MODEL  # literal Mac OCR for text-only models; geometry stays unknown
+    confirm_ai_marks: bool = True  # require learner confirmation of AI-suggested lesson-review marks
+    marking_strictness: str = "auto"  # AI examiner policy; deterministic numeric/MCQ rules remain unchanged
     own_words_feedback: bool = True  # AI comments on your "in your own words" answers
     open_obsidian: bool = True      # show Now.md in Obsidian when a session starts
     minutes: int = 40               # default session length
+    practice_auto_mark: bool = False  # Practice and topical sets: written answers marked by the AI (else self-marked), kept
+    practice_count: int = 10        # the number of questions chosen last time in a Practice or topical set
+    practice_difficulty: str = "mixed"  # mixed | easier | harder, as chosen last time
+    practice_sources: str = "topical,source_verified"  # the question sources ticked last time (comma separated)
+    practice_types: str = ""        # the question types ticked last time ("" = all of them)
+    practice_unstarted: bool = True  # include chapters not started yet, as chosen last time
     answer_only: bool = False       # sessions and challenges show only the answer box (ctrl+k); the question is in Obsidian
     theme: str = "classic"          # night, day or classic; `tutor look` sets night once Terminal is set up
     font_size: int = 0              # the Terminal tab's text size in points (⌥+ / ⌥− in the tutor); 0 = the profile's own
@@ -81,6 +91,8 @@ class Settings:
             good.pop("theme", None)
         if good.get("usage_display") not in USAGE_DISPLAYS:
             good.pop("usage_display", None)
+        if good.get("marking_strictness") not in MARKING_LEVELS:
+            good.pop("marking_strictness", None)
         if not is_image_helper(good.get("local_vision_model")):
             good.pop("local_vision_model", None)
         if "font_size" in good and good["font_size"] and not 6 <= good["font_size"] <= 96:

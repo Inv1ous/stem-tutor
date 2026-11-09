@@ -338,7 +338,7 @@ def test_publication_cannot_drop_a_reviewed_assessed_part(tmp_path, monkeypatch)
     path = reviewed_diagram(ex, tmp_path, monkeypatch)
     diagram = json.loads(path.read_text())['diagrams'][0]
     questions = [{**diagram, 'id': 'q1' + part, 'official_qid': '9702_s24_12_q1',
-                  'part': part, 'kind': 'mcq', 'prerequisites': [], 'answer': 'A',
+                  'part': part, 'kind': 'mcq', 'text': 'Synthetic MCQ fixture sentinel.', 'prerequisites': [], 'answer': 'A',
                   'mark_scheme_regions': diagram['regions']} for part in ('a', 'b')]
     path.write_text(json.dumps({'questions': questions, 'diagrams': [], 'source_coverage': complete_coverage(ex.load('diagram'))}))
     review_path = ex.job_dir('diagram') / 'review.json'
@@ -370,9 +370,9 @@ def test_publication_cannot_drop_a_reviewed_assessed_part(tmp_path, monkeypatch)
                                    'extraction_regions': row['regions'],
                                    'mark_scheme_regions': row['mark_scheme_regions'],
                                    'extraction_prerequisites': row['prerequisites']},
-                         'answer': row['answer'], 'kcs': row['kcs'],
+                         'answer': row['answer'], 'stem': row['text'], 'kcs': row['kcs'],
                          'image': state['registered_records'][context]['circuit.png'],
-                         'topical': {'chapters': row['syllabus']}})
+                         'topical': {'chapters': row['syllabus'], 'requires': row['syllabus'], 'support': {}}})
     (batch / 'bank.json').write_text(json.dumps({'items': complete}))
     assert ex.publish('diagram', batch) == {'published': True}
     complete[0]['source']['extraction_regions'] = []
@@ -397,7 +397,7 @@ def test_publication_preserves_reviewed_media_order_and_multiplicity(tmp_path, m
     diagram = json.loads(path.read_text())['diagrams'][0]
     Image.new('RGB', (200, 150), 'blue').save(path.parent / 'continuation.png')
     question = {**diagram, 'id': 'ordered-q1', 'official_qid': '9702_s24_12_q1',
-                'part': '', 'kind': 'mcq', 'prerequisites': [], 'answer': 'A',
+                'part': '', 'kind': 'mcq', 'text': 'Synthetic MCQ fixture sentinel.', 'prerequisites': [], 'answer': 'A',
                 'regions': [diagram['regions'][0], {**diagram['regions'][0], 'box': [0, .5, 1, 1]}],
                 'mark_scheme_regions': diagram['regions'], 'media': ['circuit.png', 'continuation.png']}
     path.write_text(json.dumps({'questions': [question], 'diagrams': [], 'source_coverage': complete_coverage(ex.load('diagram'))}))
@@ -417,8 +417,8 @@ def test_publication_preserves_reviewed_media_order_and_multiplicity(tmp_path, m
                        'extraction_regions': question['regions'],
                        'mark_scheme_regions': question['mark_scheme_regions'],
                        'extraction_prerequisites': []},
-            'answer': 'A', 'kcs': question['kcs'], 'images': [pages[index] for index in order],
-            'topical': {'chapters': question['syllabus']}}
+            'answer': 'A', 'stem': question['text'], 'kcs': question['kcs'], 'images': [pages[index] for index in order],
+            'topical': {'chapters': question['syllabus'], 'requires': question['syllabus'], 'support': {}}}
     if primary is not None:
         item['image'] = pages[primary]
     batch = tmp_path / 'batch'

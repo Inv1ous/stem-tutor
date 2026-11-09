@@ -8,6 +8,7 @@ from textual.widgets import Button, Input, Select
 
 from test_tui import app_for
 from tutor_app import config, local_models, screens
+from tutor_app.abacus_models import ABACUS_MODELS
 from tutor_app.codex_models import CODEX_MODELS
 
 
@@ -72,11 +73,11 @@ def test_open_settings_detect_ssd_insertion_and_removal_and_preserve_unsaved_clo
         screen = app.screen
         ask = screen.query_one("#ai_ask_model", Select)
         explain = screen.query_one("#ai_explain_model", Select)
-        assert [value for _, value in ask._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *CODEX_MODELS]
+        assert [value for _, value in ask._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *CODEX_MODELS, *ABACUS_MODELS]
         ask.value = "sonnet"
         present[:] = LOCAL_MODELS
         await wait_for(pilot, lambda: "ollama:qwen3.5:9b" in [value for _, value in ask._options])
-        assert [value for _, value in ask._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *LOCAL_MODELS, *CODEX_MODELS]
+        assert [value for _, value in ask._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *CODEX_MODELS, *ABACUS_MODELS, *LOCAL_MODELS]
         assert ask.value == "sonnet"
         explain.value = "ollama:qwen3.5:9b"
         ask.focus()
@@ -86,7 +87,7 @@ def test_open_settings_detect_ssd_insertion_and_removal_and_preserve_unsaved_clo
         ask.expanded = False
         present.clear()
         await wait_for(pilot, lambda: "ollama:qwen3.5:9b" not in [value for _, value in explain._options])
-        assert [value for _, value in explain._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *CODEX_MODELS]
+        assert [value for _, value in explain._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *CODEX_MODELS, *ABACUS_MODELS]
         assert explain.value is Select.NULL and ask.value == "sonnet"
         assert "reconnect" in explain.prompt.lower()
         screen.query_one("#usage_display", Select).value = "ram"

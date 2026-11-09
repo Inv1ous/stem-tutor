@@ -29,6 +29,7 @@ def test_protected_blurt_keeps_draft_and_has_no_feedback_side_effects(tmp_path, 
 
     async def go():
         async with app.run_test(size=(80, 24), notifications=True) as pilot:
+            await pilot.pause()  # the engine loads after the first paint (see test_tui.app_for)
             screen = BlurtScreen(SUBTOPIC)
             app.push_screen(screen)
             await pilot.pause()

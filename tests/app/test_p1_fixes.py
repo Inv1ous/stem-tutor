@@ -74,7 +74,7 @@ def test_starting_another_lesson_offers_to_resume_one_not_yet_answered(tmp_path,
     async def go():
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
-            await pilot.press("down", "enter")
+            await pilot.press("enter", "down", "enter")  # Learn & revise, then Learn a topic
             await pilot.pause()
             await pilot.press("enter")
             await pilot.pause()
@@ -89,7 +89,7 @@ def test_starting_another_lesson_offers_to_resume_one_not_yet_answered(tmp_path,
             await pilot.press("enter")  # Leave the plan; keep its resumable session.
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [o.id for o in menu.options].index("learn")
+            menu.reveal("learn")
             await pilot.press("enter")
             await pilot.pause()
             assert app.screen.__class__.__name__ == "ConfirmScreen"

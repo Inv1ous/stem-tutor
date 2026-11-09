@@ -2438,7 +2438,98 @@
    "connect": "Hydrogenation removes unsaturation by addition. Cracking changes chain length and is also a route from a heavy fraction to smaller molecules.",
    "note": "- Alkene + $\\ce{H2(g)}$ → alkane; Pt or Ni catalyst, heat.\n- Long-chain alkane → smaller hydrocarbons; heat with $\\ce{Al2O3}$.",
    "self_explain": "How could you distinguish alkene hydrogenation from alkane cracking by reagents and conditions?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Start by identifying the starting material. An alkene can gain hydrogen to become an alkane. A long alkane can instead break into smaller hydrocarbons.",
+   "terms": [
+    {
+     "term": "hydrogenation",
+     "meaning": "Addition of hydrogen across a carbon–carbon double bond.",
+     "notation": "$\\ce{H2}$",
+     "spoken": "hydrogen",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.2; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf"
+    },
+    {
+     "term": "cracking",
+     "meaning": "Breaking a large hydrocarbon into smaller hydrocarbons.",
+     "notation": "$\\ce{Al2O3}$",
+     "spoken": "aluminium oxide catalyst",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.3; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Choose an alkane preparation route",
+     "wordings": [
+      "State reagents and conditions.",
+      "Suggest a route from the given starting material."
+     ],
+     "example": "Prepare butane from but-1-ene: identify the C=C bond; add hydrogen with Pt or Ni and heat; C4H8 + H2 -> C4H10. The carbon skeleton stays intact.",
+     "check": "One molecule of C8H18 is cracked to give one molecule of C5H12 and one molecule of an acyclic alkene X. X is then completely hydrogenated to alkane Y. Deduce the molecular formulae of X and Y and write the balanced equation for each step.",
+     "answer": "X is C3H6 and Y is C3H8. C8H18 -> C5H12 + C3H6; C3H6 + H2 -> C3H8.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.2–3; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; Adjudicator transfer application; Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.2–3; bundle syllabus 14.1.",
+     "rubric": [
+      {
+       "point": "Require X = C3H6 from conservation of both carbon and hydrogen.",
+       "keywords": [
+        [
+         "C3H6"
+        ]
+       ]
+      },
+      {
+       "point": "Require Y = C3H8; hydrogenation adds H2 without changing the carbon count.",
+       "keywords": [
+        [
+         "C3H8"
+        ]
+       ]
+      },
+      {
+       "point": "Require the full balanced cracking equation C8H18 -> C5H12 + C3H6, with the correct sides; accept structural formulae and positive proportional multiples. Verify atoms directly; formula keywords alone do not establish a correct equation.",
+       "keywords": [
+        [
+         "C8H18"
+        ],
+        [
+         "C5H12"
+        ],
+        [
+         "C3H6"
+        ]
+       ]
+      },
+      {
+       "point": "Require the full balanced hydrogenation equation C3H6 + H2 -> C3H8; accept structural formulae and positive proportional multiples. Verify atoms and sides directly. No separate conditions mark.",
+       "keywords": [
+        [
+         "C3H6"
+        ],
+        [
+         "H2",
+         "hydrogen"
+        ],
+        [
+         "C3H8"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Hydrogenation of an alkene needs ultraviolet light.",
+     "temptation": "UV is remembered as a condition for another alkane reaction.",
+     "fix": "Use hydrogen, a Pt or Ni catalyst and heat for hydrogenation; UV initiates halogen substitution."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No verified registered existing diagram was located for these routes; contrasting equations identify the change in chain length without inventing an asset.",
+   "source_gaps": [
+    "The syllabus establishes the outcome and the library explains the method; these are original teaching applications, not transcribed official questions or mark schemes. The exact form inventory has not been exhaustively audited against official structured papers.",
+    "No suitable pre-existing registered graphic was verified in this pass; the visual exception is recorded in diagram_reason."
+   ]
   },
   "9701-14.1.2": {
    "motivate": "The oxygen supply and the presence of ultraviolet light determine two very different sets of alkane products.",
@@ -2446,7 +2537,174 @@
    "connect": "Combustion oxidises the carbon skeleton. Halogen substitution preserves it while replacing C–H with C–halogen.",
    "note": "- Complete combustion: $\\ce{CO2}$ and $\\ce{H2O}$.\n- Incomplete combustion: $\\ce{CO}$ and/or soot, plus water.\n- Ethane + $\\ce{Cl2}$ or $\\ce{Br2}$, UV: free-radical substitution.",
    "self_explain": "Why can the same alkane give either carbon dioxide or carbon monoxide on burning?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "With enough oxygen, burning converts every carbon to carbon dioxide. Limited oxygen can leave carbon monoxide or soot. In halogen substitution, a halogen replaces hydrogen rather than burning the carbon chain.",
+   "terms": [
+    {
+     "term": "complete combustion",
+     "meaning": "Burning in sufficient oxygen to form carbon dioxide and water.",
+     "notation": "$\\ce{CO2}$",
+     "spoken": "carbon dioxide",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.4"
+    },
+    {
+     "term": "incomplete combustion",
+     "meaning": "Burning with limited oxygen, forming carbon monoxide and/or carbon as well as water.",
+     "notation": "$\\ce{CO}$",
+     "spoken": "carbon monoxide",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.4–5"
+    },
+    {
+     "term": "substitution",
+     "meaning": "Replacement of an atom or group by another atom or group.",
+     "notation": "$\\ce{Cl2}$ or $\\ce{Br2}$",
+     "spoken": "chlorine or bromine",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Balance complete and incomplete combustion",
+     "wordings": [
+      "Write a balanced combustion equation.",
+      "Compare products when oxygen is limited."
+     ],
+     "example": "For propane: (1) Put three carbon atoms into $\\ce{3CO2}$ and eight hydrogens into $\\ce{4H2O}$. (2) Ten oxygen atoms require $\\ce{5O2}$: $\\ce{C3H8(g) + 5O2(g) -> 3CO2(g) + 4H2O(g)}$. (3) If all carbon instead forms CO, seven oxygen atoms are needed: $\\ce{2C3H8(g) + 7O2(g) -> 6CO(g) + 8H2O(g)}$. (4) Count each element on both sides; real incomplete combustion can produce mixtures.",
+     "check": "Write balanced equations for complete combustion of butane and for its incomplete combustion when all carbon forms CO. Also state another carbon-containing product possible in limited oxygen.",
+     "answer": "$\\ce{2C4H10(g) + 13O2(g) -> 8CO2(g) + 10H2O(g)}$; $\\ce{2C4H10(g) + 9O2(g) -> 8CO(g) + 10H2O(g)}$. Carbon (soot) is also possible.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.4–5; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf",
+     "rubric": [
+      {
+       "point": "Require the complete equation C4H10 + (13/2)O2 -> 4CO2 + 5H2O, or any positive proportional multiple: butane and oxygen as reactants; only CO2 and H2O as products; independently check conservation of C, H and O. Accept equivalent structural formulae, omitted states, and either water state. Product names, an oxygen coefficient, or the word balanced alone earn no equation mark.",
+       "keywords": [
+        [
+         "C4H10",
+         "CH3CH2CH2CH3",
+         "butane"
+        ],
+        [
+         "O2",
+         "oxygen"
+        ],
+        [
+         "CO2",
+         "carbon dioxide"
+        ],
+        [
+         "H2O",
+         "water"
+        ]
+       ]
+      },
+      {
+       "point": "Require the complete equation C4H10 + (9/2)O2 -> 4CO + 5H2O, or any positive proportional multiple: butane and oxygen as reactants; only CO and H2O as products; independently check conservation of C, H and O. Accept equivalent structural formulae, omitted states, and either water state. Product names, an oxygen coefficient, or the word balanced alone earn no equation mark.",
+       "keywords": [
+        [
+         "C4H10",
+         "CH3CH2CH2CH3",
+         "butane"
+        ],
+        [
+         "O2",
+         "oxygen"
+        ],
+        [
+         "CO",
+         "carbon monoxide"
+        ],
+        [
+         "H2O",
+         "water"
+        ]
+       ]
+      },
+      {
+       "point": "Require elemental carbon C, soot or solid carbon explicitly; carbon monoxide and carbon dioxide do not qualify. Keyword matches are prompts for semantic judgement, never proof of a valid answer.",
+       "keywords": [
+        [
+         "C",
+         "carbon",
+         "soot"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Describe alkane halogen substitution",
+     "wordings": [
+      "State the conditions and products of substitution.",
+      "Write the equation for monosubstitution."
+     ],
+     "example": "Identify substitution from CH4 + Cl2 -> CH3Cl + HCl: one hydrogen in methane is replaced by chlorine, the carbon skeleton stays intact, and the displaced hydrogen forms HCl. Check C, H and Cl atoms on both sides.",
+     "check": "Write the overall equation for the first bromination of ethane, state the condition, and explain why excess bromine can give a mixture.",
+     "answer": "$\\ce{C2H6(g) + Br2(g) -> C2H5Br(g) + HBr(g)}$, ultraviolet light. Remaining hydrogen atoms can also be replaced in further substitution.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.5–8; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf",
+     "rubric": [
+      {
+       "point": "Require the complete balanced equation C2H6 + Br2 -> C2H5Br + HBr, allowing CH3CH3 and CH3CH2Br structural formulae, omitted states, and positive proportional coefficients. Verify reactants, products and each element; product keywords alone are insufficient.",
+       "keywords": [
+        [
+         "C2H6",
+         "CH3CH3",
+         "ethane"
+        ],
+        [
+         "Br2",
+         "bromine"
+        ],
+        [
+         "C2H5Br",
+         "CH3CH2Br",
+         "bromoethane"
+        ],
+        [
+         "HBr",
+         "hydrogen bromide"
+        ]
+       ]
+      },
+      {
+       "point": "Ultraviolet light is required.",
+       "keywords": [
+        [
+         "UV",
+         "ultraviolet"
+        ]
+       ]
+      },
+      {
+       "point": "Further substitution of remaining hydrogen produces a mixture.",
+       "keywords": [
+        [
+         "further",
+         "multiple",
+         "more"
+        ],
+        [
+         "substitution",
+         "replaced",
+         "replace"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Limited oxygen makes only carbon dioxide.",
+     "temptation": "Carbon dioxide is the familiar combustion product.",
+     "fix": "Choose CO and/or soot for incomplete combustion and then balance oxygen.",
+     "id": "m2"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No verified registered existing diagram was located; element counts and explicit equations show the relevant differences directly.",
+   "source_gaps": [
+    "The syllabus establishes the outcome and the library explains the method; these are original teaching applications, not transcribed official questions or mark schemes. The exact form inventory has not been exhaustively audited against official structured papers.",
+    "No suitable pre-existing registered graphic was verified in this pass; the visual exception is recorded in diagram_reason."
+   ]
   },
   "9701-14.1.3": {
    "motivate": "A radical chain reaction continues because each propagation cycle makes a new radical. Tracking radicals identifies every stage.",
@@ -2454,7 +2712,114 @@
    "connect": "This mechanism explains why ultraviolet light is needed and why multiple substituted products can appear.",
    "note": "- Initiation: homolytic fission under UV makes radicals.\n- Propagation: one radical consumed, one regenerated.\n- Termination: radicals combine; none remains.",
    "self_explain": "A step begins with two radicals and ends with a molecule. Which stage is it, and why?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A radical has an unpaired electron. Initiation makes radicals; each propagation step uses one and forms another; termination joins two radicals and leaves none.",
+   "terms": [
+    {
+     "term": "radical",
+     "meaning": "A species with an unpaired electron.",
+     "notation": "$\\ce{Cl^{\\bullet}}$",
+     "spoken": "chlorine radical",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.6–8"
+    },
+    {
+     "term": "homolytic fission",
+     "meaning": "Bond breaking in which each atom takes one electron from the shared pair.",
+     "notation": "$\\ce{Cl2 -> 2Cl^{\\bullet}}$",
+     "spoken": "chlorine splits into two chlorine radicals",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.7"
+    },
+    {
+     "term": "propagation",
+     "meaning": "A chain step that consumes a radical and produces another radical.",
+     "notation": "$\\ce{C2H5^{\\bullet}}$",
+     "spoken": "ethyl radical",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.7"
+    },
+    {
+     "term": "termination",
+     "meaning": "Combination of radicals to form a product with no unpaired electron.",
+     "notation": "$\\ce{2C2H5^{\\bullet} -> C4H10}$",
+     "spoken": "two ethyl radicals form butane",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.8"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Trace initiation, propagation and termination",
+     "wordings": [
+      "Describe the free-radical mechanism.",
+      "Write and classify radical steps."
+     ],
+     "example": "Follow the chain carrier in methane chlorination: Cl• + CH4 -> HCl + CH3•; CH3• + Cl2 -> CH3Cl + Cl•. Add the equations, cancel Cl• and CH3• appearing on opposite sides, and obtain CH4 + Cl2 -> CH3Cl + HCl. The regenerated chlorine species allows the cycle to repeat.",
+     "check": "During bromination of propane, a Br radical removes a hydrogen from an end carbon to form CH3CH2CH2 radical. Write both propagation equations for this route, showing radical dots at the correct atoms. Then write the termination equation in which two of these organic radicals join, giving the structural formula of the product.",
+     "answer": "Br• + CH3CH2CH3 -> HBr + CH3CH2CH2•; CH3CH2CH2• + Br2 -> CH3CH2CH2Br + Br•; 2CH3CH2CH2• -> CH3CH2CH2CH2CH2CH3 (hexane).",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.6–9; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; bundle ER 9701 s23 P21 Q3 identifies difficulty with propagation/termination; original transfer check.; Adjudicator transfer application; Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.7–8; bundle syllabus 14.1.",
+     "rubric": [
+      {
+       "point": "Require Br radical + CH3CH2CH3 -> HBr + CH3CH2CH2 radical. The unpaired electron must be on a terminal carbon. Accept reversed structural orientation. Verify full equation, atoms and radical indications directly.",
+       "keywords": [
+        [
+         "Br",
+         "bromine"
+        ],
+        [
+         "HBr"
+        ],
+        [
+         "CH3CH2CH2",
+         "CH2CH2CH3"
+        ]
+       ]
+      },
+      {
+       "point": "Require CH3CH2CH2 radical + Br2 -> CH3CH2CH2Br + Br radical. Verify complete equation, atoms and terminal radical placement directly.",
+       "keywords": [
+        [
+         "Br2"
+        ],
+        [
+         "CH3CH2CH2Br",
+         "BrCH2CH2CH3"
+        ]
+       ]
+      },
+      {
+       "point": "Require two terminal propyl radicals joining at their radical-bearing carbons to form CH3CH2CH2CH2CH2CH3 with no radical remaining. Accept 2CH3CH2CH2 radical on the left and equivalent structural representations of hexane; C6H14 or the name hexane alone does not meet the request for a structural formula. Verify equation directly.",
+       "keywords": [
+        [
+         "CH3CH2CH2",
+         "CH2CH2CH3"
+        ],
+        [
+         "CH3CH2CH2CH2CH2CH3",
+         "CH3(CH2)4CH3"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "A step making a halogenoalkane must be propagation.",
+     "temptation": "Both propagation and termination can make it.",
+     "fix": "Classify by radicals: one to one is propagation, two to zero is termination.",
+     "id": "m3"
+    },
+    {
+     "idea": "UV makes chlorine ions.",
+     "temptation": "Breaking a bond is mistaken for heterolysis.",
+     "fix": "Homolysis divides the bonding electrons equally and makes neutral radicals.",
+     "id": "m7"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No verified registered existing mechanism graphic was located. An unverified drawing could misplace radical dots or electron arrows; the staged equations explicitly track radicals instead.",
+   "source_gaps": [
+    "The syllabus establishes the outcome and the library explains the method; these are original teaching applications, not transcribed official questions or mark schemes. The exact form inventory has not been exhaustively audited against official structured papers.",
+    "No suitable pre-existing registered graphic was verified in this pass; the visual exception is recorded in diagram_reason."
+   ]
   },
   "9701-14.1.4": {
    "motivate": "Fractional distillation can leave too much heavy hydrocarbon fraction and too little of the smaller molecules people need.",
@@ -2462,7 +2827,75 @@
    "connect": "The products of cracking include an alkene, which can itself be hydrogenated to an alkane under the conditions of the previous outcome.",
    "note": "- Heavy fraction: longer-chain, higher-$M_r$ hydrocarbons.\n- Cracking gives useful lower-$M_r$ alkanes and alkenes.\n- Check atom balance in a suggested equation.",
    "self_explain": "Why would a refinery crack a heavy fraction even if it already contains combustible hydrocarbons?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Cracking changes the molecules rather than merely separating them. It supplies smaller alkane fuels and reactive alkene feedstocks from less useful heavy fractions.",
+   "terms": [
+    {
+     "term": "relative molecular mass",
+     "meaning": "Mass of a molecule relative to one twelfth of the mass of a carbon-12 atom.",
+     "notation": "$M_r$",
+     "spoken": "relative molecular mass",
+     "source": "Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.11–12"
+    },
+    {
+     "term": "feedstock",
+     "meaning": "Starting material used to make other chemicals.",
+     "notation": "alkene feedstock",
+     "spoken": "alkene feedstock",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.12"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Complete a cracking equation and justify product usefulness",
+     "wordings": [
+      "Deduce the missing product.",
+      "Suggest how cracking makes more useful products."
+     ],
+     "example": "For C10H22 -> C8H18 + X, subtract the known product atoms: 10-8=2 carbon atoms and 22-18=4 hydrogen atoms. Thus X is C2H4 and C10H22 -> C8H18 + C2H4. Recount both elements to confirm balance; the missing product is an alkene.",
+     "check": "One molecule of C14H30 cracks into one molecule of C9H20 and one acyclic alkene molecule. Deduce the missing molecular formula and write the balanced cracking equation.",
+     "answer": "The missing product has 14 - 9 = 5 carbon atoms and 30 - 20 = 10 hydrogen atoms: C5H10. C14H30 -> C9H20 + C5H10.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.10–12; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf Supplement for the alternative nonane use: PubChem Nonane, section 10.1 Uses, https://pubchem.ncbi.nlm.nih.gov/compound/Nonane (EPA Chemical Data Reporting lists solvent).; Adjudicator transfer application; Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.10–12; bundle syllabus 14.1.",
+     "rubric": [
+      {
+       "point": "Require C5H10, obtained by conserving both carbon and hydrogen. No isomer name is required.",
+       "keywords": [
+        [
+         "C5H10"
+        ]
+       ]
+      },
+      {
+       "point": "Require the full balanced equation C14H30 -> C9H20 + C5H10, accepting positive proportional multiples and equivalent formulae. Verify both elements and sides directly; a list of species alone is insufficient. Do not award or require marks for conditions or uses.",
+       "keywords": [
+        [
+         "C14H30"
+        ],
+        [
+         "C9H20"
+        ],
+        [
+         "C5H10"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "Cracking only makes alkanes.",
+     "temptation": "The aim of obtaining more useful fuels draws attention only to the saturated products.",
+     "fix": "Smaller alkanes and alkenes can form; the alkene is useful as chemical feedstock. Balance carbon and hydrogen, since cracking makes new molecules rather than just separating a fraction."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No verified registered existing cracking graphic was located; subtraction and atom totals directly support the required equation form.",
+   "source_gaps": [
+    "The syllabus establishes the outcome and the library explains the method; these are original teaching applications, not transcribed official questions or mark schemes. The exact form inventory has not been exhaustively audited against official structured papers.",
+    "No suitable pre-existing registered graphic was verified in this pass; the visual exception is recorded in diagram_reason."
+   ]
   },
   "9701-14.1.5": {
    "motivate": "Many polar reagents react quickly with functional groups, yet an alkane usually resists them. Its C–H bond explains why.",
@@ -2470,7 +2903,107 @@
    "connect": "UV-initiated halogen substitution works by making highly reactive radicals first, despite this usual resistance to polar reagents.",
    "note": "- C–H bonds are strong: substantial energy is needed to break them.\n- C–H bonds are relatively non-polar: polar reagents have no strongly charged site to attack.",
    "self_explain": "What does bond strength explain, and what does lack of bond polarity explain?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Two different properties matter: strong C–H bonds are costly to break, while their small polarity gives polar reagents little charge separation to target. Generally unreactive does not mean unable to react.",
+   "terms": [
+    {
+     "term": "bond strength",
+     "meaning": "Energy needed to break a bond; stronger bonds need more energy.",
+     "notation": "$\\ce{C-H}$",
+     "spoken": "carbon–hydrogen bond",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.13; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf"
+    },
+    {
+     "term": "bond polarity",
+     "meaning": "Unequal sharing of bonding electrons caused by differing electronegativities.",
+     "notation": "C–H: small electronegativity difference",
+     "spoken": "carbon–hydrogen has little bond polarity",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.13–14; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain unreactivity using strength and polarity",
+     "wordings": [
+      "Explain why alkanes resist polar reagents.",
+      "Distinguish bond strength from bond polarity."
+     ],
+     "example": "Keep two kinds of evidence separate. A quoted bond energy describes the energy required to break a bond. An electronegativity comparison describes how the bonding electrons are shared. For H-Cl, chlorine is more electronegative, so mark H as delta-positive and Cl as delta-negative; that polarity statement alone gives no numerical bond energy.",
+     "check": "Use these invented data for a simplified comparison of two alkane samples P and Q: both have equally weakly polar C-H bonds; the energy required to break one mole of the specified C-H bonds is 410 kJ for P and 330 kJ for Q. (a) Which sample requires less energy for this bond breaking, and by how much per mole? (b) Considering bond polarity alone, would Q offer a more strongly charged site for a polar reagent to attack than P? Explain. (c) A learner says that the lower bond-breaking energy proves Q has larger partial charges. Evaluate this claim using the data.",
+     "answer": "(a) Q requires 80 kJ mol^-1 less energy (410 - 330). (b) No. Both have equally weakly polar C-H bonds, so both have similarly small charge separation and neither offers a more strongly charged site on this basis. (c) The claim is false: Q has weaker specified C-H bonds, but its bond polarity is stated to be the same as P. Bond-breaking energy measures strength; partial charges concern electron sharing and polarity. Lower bond strength does not establish greater polarity.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.13–14; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf Cracking alternative follows bundle syllabus 14.1.1 and Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.3; original balanced hexane example.; Adjudicator transfer application; Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.13–14; bundle syllabus 14.1. Original hypothetical-data transfer check; principles verified against Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.13–14 and bundle syllabus 14.1.5. Numerical data are invented for this exercise, not measured alkane values.",
+     "rubric": [
+      {
+       "point": "Require Q and an energy difference of 80 kJ mol^-1 less for breaking the specified bonds. Verify assignment, subtraction and units directly; a number alone is insufficient.",
+       "keywords": [
+        [
+         "Q"
+        ],
+        [
+         "80"
+        ],
+        [
+         "kJ"
+        ]
+       ]
+      },
+      {
+       "point": "Require no greater charge-based attraction or more strongly charged site for Q, because P and Q have equally weak C-H bond polarity and similarly small partial charges or charge separation. Accept weakly polar, slightly polar, relatively non-polar or equivalent wording. Do not require exactly zero polarity. Assess meaning directly; keywords alone do not establish the comparison.",
+       "keywords": [
+        [
+         "non-polar",
+         "nonpolar",
+         "little polarity",
+         "small electronegativity difference",
+         "weakly polar",
+         "slightly polar",
+         "weak polarity",
+         "equal polarity",
+         "equally polar"
+        ],
+        [
+         "charge separation",
+         "partial charges",
+         "partial charge",
+         "charged site",
+         "attraction"
+        ]
+       ]
+      },
+      {
+       "point": "Reject the claim: Q requires less energy to break the specified C-H bonds, but P and Q are stated to have equal bond polarity, so the lower bond-breaking energy does not prove larger partial charges. Credit this application of the given data without requiring a separate definition of bond strength, electron sharing or charge separation. Definitions alone are insufficient; assess meaning directly rather than keyword presence.",
+       "keywords": [
+        [
+         "strength",
+         "weaker",
+         "bond energy",
+         "bond-breaking energy"
+        ],
+        [
+         "polarity",
+         "electron sharing",
+         "charge separation",
+         "partial charge"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "An alkane either reacts readily with polar reagents or cannot react at all.",
+     "temptation": "Bond polarity is treated as an absolute on/off switch for every reaction.",
+     "fix": "Strong, relatively non-polar C–H bonds explain resistance to polar reagents; low polarity does not prevent combustion or UV-initiated radical substitution.",
+     "id": "m5"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No verified registered existing polarity graphic was located. The two causal explanations can be contrasted in words without implying that C–H bonds have exactly zero polarity.",
+   "source_gaps": [
+    "The syllabus establishes the outcome and the library explains the method; these are original teaching applications, not transcribed official questions or mark schemes. The exact form inventory has not been exhaustively audited against official structured papers.",
+    "No suitable pre-existing registered graphic was verified in this pass; the visual exception is recorded in diagram_reason."
+   ]
   },
   "9701-14.1.6": {
    "motivate": "An engine may burn fuel but still emit harmful gases and unburnt hydrocarbons. The converter has a separate task for each.",
@@ -2478,7 +3011,138 @@
    "connect": "Incomplete combustion explains one exhaust pollutant; the converter then changes it chemically before release.",
    "note": "- CO: poisonous; reduces oxygen transport.\n- Nitrogen oxides and unburnt hydrocarbons: photochemical smog.\n- Converter: oxidises CO and hydrocarbons; reduces nitrogen oxides to $\\ce{N2}$.",
    "self_explain": "For CO, nitrogen oxides and unburnt hydrocarbons, what are their converter products?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "For each pollutant, name its harm and then its converter product. Removing CO, nitrogen oxides and unburnt fuel still leaves carbon dioxide in the exhaust.",
+   "terms": [
+    {
+     "term": "carbon monoxide",
+     "meaning": "Toxic product of incomplete combustion that impairs blood oxygen transport.",
+     "notation": "$\\ce{CO}$",
+     "spoken": "carbon monoxide",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.15–17"
+    },
+    {
+     "term": "nitrogen oxides",
+     "meaning": "Nitrogen–oxygen compounds formed at high engine temperatures, contributing to acid rain and photochemical smog.",
+     "notation": "$\\ce{NO_x}$",
+     "spoken": "oxides of nitrogen",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.16–17"
+    },
+    {
+     "term": "catalytic converter",
+     "meaning": "Exhaust catalyst system that oxidises CO and hydrocarbons and reduces nitrogen oxides.",
+     "notation": "$\\ce{2CO + 2NO -> 2CO2 + N2}$",
+     "spoken": "two carbon monoxide plus two nitrogen monoxide form two carbon dioxide plus nitrogen",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf p.17"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Connect exhaust pollutant, harm and converter product",
+     "wordings": [
+      "Describe environmental consequences and catalytic removal.",
+      "Explain why a converter does not eliminate carbon dioxide."
+     ],
+     "example": "At high engine temperature nitrogen and oxygen can react: N2 + O2 -> 2NO. Count two N and two O atoms on each side. This illustrates that an exhaust species can form from the air entering an engine, even though the fuel contains no nitrogen.",
+     "check": "A model converter receives 6.0 mol CO and 4.0 mol NO. No oxygen or hydrocarbons are present. Assume the only reaction is conversion of CO and NO into CO2 and N2 and that it proceeds until one reactant is exhausted. Calculate the amounts of CO and NO remaining and of CO2 and N2 formed. Explain why this converter cannot remove all of the incoming CO under these assumptions.",
+     "answer": "CO and NO react in a 1:1 mole ratio: 2CO + 2NO -> 2CO2 + N2. NO is limiting: 4.0 mol NO consumes 4.0 mol CO. Remaining: 2.0 mol CO and 0 mol NO. Formed: 4.0 mol CO2 and 2.0 mol N2. All NO is used up, so the stipulated reaction cannot consume the excess CO.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.15–17; Cambridge International Chemistry 9701 syllabus 2025–2027, section 14.1: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; academic supplement for the three-way interpretation: https://www.open.edu/openlearn/mod/oucontent/view.php?id=87848&section=_unit9.2.4 Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.16-17; supplementary accepted harms: US EPA Basic Information about NO2, https://www.epa.gov/no2-pollution/basic-information-about-no2; CDC/NIOSH Pocket Guide Propane, https://www.cdc.gov/niosh/npg/npgd0524.html.; Adjudicator transfer application; Library/Courses/9701/Sources/Library/SaveMyExams/9701 as-chemistry-cie-25/9701 c14.1.pdf pp.16–17; bundle syllabus 14.1.",
+     "rubric": [
+      {
+       "point": "Require 2.0 mol CO and 0 mol NO remaining, derived from 1:1 CO:NO consumption with NO limiting. Verify quantitative assignment directly; numbers or species alone are insufficient.",
+       "keywords": [
+        [
+         "CO"
+        ],
+        [
+         "2",
+         "2.0"
+        ],
+        [
+         "NO"
+        ],
+        [
+         "0",
+         "zero"
+        ]
+       ]
+      },
+      {
+       "point": "Require 4.0 mol CO2 formed and 2.0 mol N2 formed, each explicitly assigned to the correct species. Verify ratios and amounts directly.",
+       "keywords": [
+        [
+         "CO2",
+         "carbon dioxide"
+        ],
+        [
+         "4",
+         "4.0"
+        ],
+        [
+         "N2",
+         "nitrogen"
+        ],
+        [
+         "2",
+         "2.0"
+        ]
+       ]
+      },
+      {
+       "point": "Credit NO being limiting, insufficient or exhausted in the stipulated 1:1 CO:NO reaction, so excess CO remains. Accept this explanation without mentioning oxygen or another oxidant. A general statement that converters reduce pollution earns no credit. Evaluate meaning directly.",
+       "keywords": [
+        [
+         "NO",
+         "nitrogen monoxide"
+        ],
+        [
+         "exhausted",
+         "used up",
+         "limiting",
+         "insufficient",
+         "not enough",
+         "runs out"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "A converter removes all carbon dioxide.",
+     "temptation": "Less harmful exhaust is confused with no environmental impact.",
+     "fix": "The catalyst makes carbon dioxide while oxidising CO and unburnt hydrocarbons.",
+     "id": "m6"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No verified registered existing exhaust diagram was located; a pollutant-to-product mapping and balanced equations show the chemistry without an unverified asset.",
+   "source_gaps": [
+    "The syllabus establishes the outcome and the library explains the method; these are original teaching applications, not transcribed official questions or mark schemes. The exact form inventory has not been exhaustively audited against official structured papers.",
+    "No suitable pre-existing registered graphic was verified in this pass; the visual exception is recorded in diagram_reason."
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-14.1.1": [
+   "Choose an alkane preparation route"
+  ],
+  "9701-14.1.2": [
+   "Balance complete and incomplete combustion",
+   "Describe alkane halogen substitution"
+  ],
+  "9701-14.1.3": [
+   "Trace initiation, propagation and termination"
+  ],
+  "9701-14.1.4": [
+   "Complete a cracking equation and justify product usefulness"
+  ],
+  "9701-14.1.5": [
+   "Explain unreactivity using strength and polarity"
+  ],
+  "9701-14.1.6": [
+   "Connect exhaust pollutant, harm and converter product"
+  ]
  }
 }

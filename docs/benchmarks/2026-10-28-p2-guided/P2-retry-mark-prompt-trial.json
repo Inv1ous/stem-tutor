@@ -1,0 +1,90 @@
+[
+  {
+    "case": "formula_verify",
+    "answer": "Using the formula, S4=(4⁴−1)/3=85. Every later term is positive, so partial sums strictly increase and no other positive integer term count gives 85.",
+    "response": {
+      "points": [
+        {
+          "point": "Uses the stated formula with working to verify the sum for n = 4, or rearranges to obtain 4^n = 256.",
+          "met": true,
+          "why": "\"Using the formula\" and explicit substitution $S_4=(4^4-1)/3=85$."
+        },
+        {
+          "point": "Establishes n = 4 and explains why it is the only positive integer solution.",
+          "met": false,
+          "why": "\"Every later term is positive...\" states monotonicity but fails to explicitly demonstrate that $n=4$ is the unique root of the equation derived from $S_n=85$."
+        }
+      ],
+      "feedback": "The first mark is awarded for showing the calculation; however, the second mark requires an explicit link stating that no other integer satisfies the equation."
+    },
+    "ok": true,
+    "elapsed": 7.77,
+    "matches_points": true
+  },
+  {
+    "case": "formula_incomplete",
+    "answer": "S4=(4⁴−1)/3=85.",
+    "response": {
+      "points": [
+        {
+          "point": "Uses the stated formula with working to verify the sum for n = 4, or rearranges to obtain 4^n = 256.",
+          "met": false,
+          "why": "No calculation steps or rearrangement shown; only a single statement of result was provided."
+        },
+        {
+          "point": "Establishes n = 4 and explains why it is the only positive integer solution.",
+          "met": false,
+          "why": "Uniqueness argument entirely absent; no verification that other integers fail to satisfy the equation was offered."
+        }
+      ],
+      "feedback": "Mark point 1 requires showing the working or substitution, which is missing. Mark point 2 requires demonstrating uniqueness for integers, which is also not evidenced here. This answer likely earns one mark for correct final values if stated explicitly with no working."
+    },
+    "ok": true,
+    "elapsed": 7.45,
+    "matches_points": true
+  },
+  {
+    "case": "equal_positive",
+    "answer": "Choose x=1 and y=1. Both are positive reals, but x−y=0, which is not positive.",
+    "response": {
+      "points": [
+        {
+          "point": "Gives a pair of positive real numbers allowed in the widened domain.",
+          "met": true,
+          "why": "\"Choose x=1 and y=1\" provides valid positive real numbers satisfying the domain constraints."
+        },
+        {
+          "point": "Shows the difference is not positive, making the widened claim false; a separate concluding sentence is not required.",
+          "met": true,
+          "why": "\"which is not positive\" explicitly demonstrates the falsity of the claim regarding $x-y$."
+        }
+      ],
+      "feedback": "The counterexample correctly identifies that $1-1=0$ disproves the assertion that $x-y>0$ for all positive real numbers."
+    },
+    "ok": true,
+    "elapsed": 6.32,
+    "matches_points": true
+  },
+  {
+    "case": "outside_domain",
+    "answer": "Choose x=−1 and y=2. Then x−y=−3, which is negative.",
+    "response": {
+      "points": [
+        {
+          "point": "Gives a pair of positive real numbers allowed in the widened domain.",
+          "met": false,
+          "why": "The student chose x=-1 and y=2, but -1 is not a positive real number, so it fails the domain requirement for a valid counterexample."
+        },
+        {
+          "point": "Shows the difference is not positive, making the widened claim false; a separate concluding sentence is not required.",
+          "met": true,
+          "why": "The student explicitly calculated x-y=-3 and stated it is negative, thereby demonstrating the difference is not positive."
+        }
+      ],
+      "feedback": "You must ensure both x and y are strictly greater than zero to disprove the claim correctly. Try choosing two different positive values to test your logic again."
+    },
+    "ok": true,
+    "elapsed": 6.94,
+    "matches_points": true
+  }
+]

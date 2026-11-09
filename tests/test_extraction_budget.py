@@ -21,6 +21,7 @@ def planned(tmp_path, monkeypatch, stop=None):
     (None, 25, False), (None, 31, True),
     (20, 20, False), (20, 21, True), (20, 25, True),
     (20, None, False), (20, float('nan'), False), (20, 101, False),
+    (1, 1, False), (1, 2, True), (40, 40, False), (40, 41, True),
 ])
 def test_job_stop_boundary_requires_real_allowance_without_changing_defaults(tmp_path, monkeypatch, stop, remaining, launches):
     config = (ROOT / 'foundry/config.json').read_bytes()
@@ -41,7 +42,7 @@ def test_job_stop_boundary_requires_real_allowance_without_changing_defaults(tmp
     assert ex.load('budget').get('codex_stop_remaining') == stop
 
 
-@pytest.mark.parametrize('invalid', [True, 19, 100, float('nan'), float('inf'), '20'])
+@pytest.mark.parametrize('invalid', [True, 0, .99, 100, float('nan'), float('inf'), '20'])
 def test_invalid_job_stop_boundary_cannot_be_persisted(tmp_path, monkeypatch, invalid):
     ex = extraction()
     monkeypatch.setenv('STEM_EXTRACT_ROOT', str(tmp_path / 'Work'))
@@ -70,7 +71,7 @@ def test_cli_persists_explicit_job_reserve(tmp_path, monkeypatch):
 def test_corrupted_job_boundary_cannot_launch(tmp_path, monkeypatch):
     ex = planned(tmp_path, monkeypatch, 20)
     with ex.state_lock('budget') as state:
-        state['codex_stop_remaining'] = 19
+        state['codex_stop_remaining'] = .99
     monkeypatch.setattr(ex.subprocess, 'Popen', lambda *a, **k: pytest.fail('Invalid reserve authorized a worker'))
     with pytest.raises(ValueError, match='stop'):
         ex.run('budget', weekly_remaining=90)

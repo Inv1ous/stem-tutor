@@ -93,6 +93,28 @@ def debris_problems(pack: dict) -> list[str]:
     return list(dict.fromkeys(out))[:6]
 
 
+# A sentence pointing the learner at a further picture ("a periodic-table reference is provided in the next image").
+_FURTHER_IMAGE = re.compile(r"\b(?:next|second|following|other)\s+(?:source\s+)?(?:image|picture)s?\b", re.I)
+
+
+def dangling_image_problems(item: dict) -> list[str]:
+    """Question text that sends the learner to a further image the item does not carry (2026-11-07: 34 legacy 9701
+    MCQs kept "an official periodic-table reference is provided in the next image" after that leaked data-sheet image
+    was removed). A reference the learner owns, such as the Data Booklet, is named instead."""
+    if not isinstance(item, dict):
+        return []
+    images = [name for name in dict.fromkeys([item.get('image')] + list(item.get('images') or [])) if name]
+    if len(images) >= 2:
+        return []
+    out = []
+    for field in ('stem', 'explanation'):
+        text = item.get(field)
+        if isinstance(text, str) and (m := _FURTHER_IMAGE.search(text)):
+            out.append(f"{item.get('id')}: {field} points at a further image the item does not show ({len(images)} image): "
+                       + text[max(0, m.start() - 60):m.end() + 20].replace("\n", " "))
+    return out
+
+
 # ---- stacked fractions and loose spaces that PDF extraction leaves in chemical and physical formulae ----
 _SUBS, _SUPS = "₀₁₂₃₄₅₆₇₈₉", "⁰¹²³⁴⁵⁶⁷⁸⁹"
 _FRACTION = re.compile(r"(?<![A-Za-z)\]₀-₉⁰¹²³⁴⁵⁶⁷⁸⁹])([₀-₉]+)\s?([⁰¹²³⁴⁵⁶⁷⁸⁹]+)(?![⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻])")

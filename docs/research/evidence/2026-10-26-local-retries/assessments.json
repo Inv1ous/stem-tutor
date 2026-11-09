@@ -1,0 +1,193 @@
+[
+  {
+    "model": "ollama:gemma4:e4b",
+    "think": true,
+    "case": "bonding",
+    "condition": "cold",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "FAIL coverage: omits ionic/covalent/metallic definitions and requested property detail.",
+    "seconds": 17.642818875028752,
+    "first_seconds": 14.860386833024677
+  },
+  {
+    "model": "ollama:gemma4:e4b",
+    "think": true,
+    "case": "topic_change",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "FAIL coverage: only three hydrocarbon formulae; all four requested oxygenated formulae omitted.",
+    "seconds": 25.358509833051357,
+    "first_seconds": 18.67406133300392
+  },
+  {
+    "model": "ollama:gemma4:e4b",
+    "think": true,
+    "case": "literal_code",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "FAIL literal/code: double quotes changed to single quotes; entire code flattened to one comment-bearing line; Python syntax invalid.",
+    "seconds": 11.508000916976016,
+    "first_seconds": 8.792813708016183,
+    "python_syntax_checks": [
+      {
+        "valid_python_syntax": false,
+        "error": "expected an indented block after function definition on line 1 (<unknown>, line 1)"
+      }
+    ],
+    "exact_literal_line_present": false
+  },
+  {
+    "model": "ollama:gemma4:e4b",
+    "think": true,
+    "case": "sourced_definition",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "Required coverage PASS: electrostatic/opposite-ion definition and fixed-solid/mobile-molten charge carriers.",
+    "seconds": 24.86265037499834,
+    "first_seconds": 16.81221420899965
+  },
+  {
+    "model": "ollama:gemma4:e4b",
+    "think": true,
+    "case": "speech",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "Visual sulfate composition/charge PASS; spoken-text FAIL: contains SO4^2- and -2 instead of plain spoken wording.",
+    "seconds": 18.527700999984518,
+    "first_seconds": 12.667746459017508
+  },
+  {
+    "model": "mlx:gpt-oss:20b",
+    "think": "low",
+    "case": "bonding",
+    "condition": "cold",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "PARTIAL: broad requested categories covered; exam-definition precision weak and blanket covalent-solid nonconductivity omits graphite exception.",
+    "seconds": 51.94326666701818,
+    "first_seconds": 25.067985332978424
+  },
+  {
+    "model": "mlx:gpt-oss:20b",
+    "think": "low",
+    "case": "calculus",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": false,
+    "content_review": "FAIL transport: unsafe control/surrogate rejected; incomplete visible calculation and no finite-sum result.",
+    "seconds": 29.407292500021867,
+    "first_seconds": 11.495760874997359
+  },
+  {
+    "model": "mlx:gpt-oss:20b",
+    "think": "low",
+    "case": "literal_code",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "Literal/code PASS: exact requested line in square-function code block; Python syntax valid. Surrounding explanation contains malformed math/source notation.",
+    "seconds": 25.252250166027807,
+    "first_seconds": 19.11180387501372,
+    "python_syntax_checks": [
+      {
+        "valid_python_syntax": true
+      }
+    ],
+    "exact_literal_line_present": true
+  },
+  {
+    "model": "mlx:gpt-oss:20b",
+    "think": "low",
+    "case": "sourced_definition",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "Required points covered, scientific qualification: molten ions described misleadingly as dissolving in a molten medium.",
+    "seconds": 23.015327834000345,
+    "first_seconds": 16.511618249991443
+  },
+  {
+    "model": "mlx:gpt-oss:20b",
+    "think": "low",
+    "case": "speech",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": false,
+    "content_review": "FAIL transport: unsafe control/surrogate rejected before any visual answer.",
+    "seconds": 11.881872250000015,
+    "first_seconds": null
+  },
+  {
+    "model": "ollama:qwen3.8:27b",
+    "think": false,
+    "case": "long_context",
+    "condition": "cold",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "Required conductivity coverage PASS; two native generation messages; current evidence byte-identical; no OOM.",
+    "seconds": 123.03764979197877,
+    "first_seconds": 92.41631191701163
+  },
+  {
+    "model": "ollama:qwen3.8:27b",
+    "think": false,
+    "case": "long_context",
+    "condition": "warm",
+    "repetition": 2,
+    "transport_valid": true,
+    "content_review": "Required conductivity coverage PASS; two native generation messages; current evidence byte-identical; no OOM.",
+    "seconds": 30.58670137502486,
+    "first_seconds": 14.813408542016987
+  },
+  {
+    "model": "ollama:qwen3.8:27b",
+    "think": false,
+    "case": "long_context",
+    "condition": "warm",
+    "repetition": 3,
+    "transport_valid": true,
+    "content_review": "Required conductivity coverage PASS; two native generation messages; current evidence byte-identical; no OOM.",
+    "seconds": 23.14990687498357,
+    "first_seconds": 11.242941791017074
+  },
+  {
+    "model": "ollama:gemma4:e4b",
+    "think": false,
+    "case": "bonding",
+    "condition": "cold",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "FAIL scientific accuracy: fabricated IMF ordering dH < H2O < F < covalent; incorrectly asserts metallic conductivity in the gas state.",
+    "seconds": 40.795444625022355,
+    "first_seconds": 10.566144792013802
+  },
+  {
+    "model": "ollama:gemma4:e4b",
+    "think": false,
+    "case": "topic_change",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": true,
+    "content_review": "FAIL scientific accuracy/coverage: wrong carboxylic-acid formula C_nH_{2n-1}COOH; aldehyde/ketone C_nH_{2n}O overlap omitted; ring-strain explanation wrong.",
+    "seconds": 28.16548383398913,
+    "first_seconds": 7.191316208976787
+  },
+  {
+    "model": "ollama:gemma4:e4b",
+    "think": false,
+    "case": "literal_code",
+    "condition": "warm",
+    "repetition": 1,
+    "transport_valid": false,
+    "content_review": "FAIL literal/code: see retained timeout/error and partial/native output.",
+    "seconds": 300.00613712501945,
+    "first_seconds": 1.8256821249960922,
+    "python_syntax_checks": [],
+    "exact_literal_line_present": false
+  }
+]

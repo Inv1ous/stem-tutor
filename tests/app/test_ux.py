@@ -266,9 +266,10 @@ def test_settings_label_the_model_show_an_editable_minutes_box_and_say_how_to_ap
         app.action_settings()
         await pilot.pause()
         scr = app.screen
-        for mode in ("mark", "explain", "ask"):  # a model for each kind of help, each labelled as one
+        for mode in ("mark", "explain", "ask"):  # a model for each kind of help, each labelled by its provider
             model = scr.query_one(f"#ai_{mode}_model", Select)
-            assert all(label.startswith("Model: ") for label, value in model._options if value is not Select.NULL)
+            assert all(label.split(" · ")[0] in ("Claude", "ChatGPT", "Abacus", "Local")
+                       for label, value in model._options if value is not Select.NULL)
         box, minutes = scr.query_one("#settings"), scr.query_one("#minutes")
         assert minutes.styles.background != box.styles.background  # a box to type in, not loose text
         scr.query_one("#save").focus()
@@ -404,8 +405,7 @@ def test_the_test_picker_starts_with_ctrl_s_from_the_list(tmp_path, monkeypatch)
     app, v = app_for(tmp_path, monkeypatch)
 
     async def steps(pilot):
-        _menu(app, "test")
-        await pilot.press("enter")
+        app.screen.activate("test")  # an old id: not in the menu any more, still starts the test picker
         await pilot.pause()
         assert "ctrl+s" in str(app.screen.query_one(".hint").render())
         await pilot.press("space", "ctrl+s")

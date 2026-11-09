@@ -61,7 +61,7 @@ async def wait_for(pilot, cond, tries=80):
 
 async def open_challenge(pilot, app):
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [o.id for o in menu.options].index("challenge")
+    menu.reveal("challenge")
     await pilot.press("enter")
     await pilot.pause()
     assert type(app.screen).__name__ == "ChallengeScreen"
@@ -160,8 +160,8 @@ def test_menu_opens_setup_words_and_list_change_it_and_the_preview_follows(tmp_p
         assert scr.cfg["hi"] == 10 and "Impossible" in rows(scr)["hi"]
         assert "Impossible" in str(scr.query_one("#detail").render())
         lst.highlighted = [lst.get_option_at_index(i).id for i in range(lst.option_count)].index("model")
-        await pilot.press("right")
-        assert scr.cfg["model"] == "sonnet"
+        await pilot.press("right")  # Opus, then the Abacus choices, then back round to Sonnet
+        assert scr.cfg["model"] == "abacus:claude-sonnet-5-5"
         # fits: nothing to the right of the window, the list fully on screen when it has focus
         assert all(w.region.right <= size[0] for w in scr.query("#setup > *") if w.display)
         assert lst.region.bottom <= size[1] - 1
@@ -170,7 +170,7 @@ def test_menu_opens_setup_words_and_list_change_it_and_the_preview_follows(tmp_p
         await pilot.pause()
         assert type(app.screen).__name__ == "HomeScreen"
         scr = await open_challenge(pilot, app)
-        assert scr.cfg["count"] == 7 and scr.cfg["model"] == "sonnet" and scr.cfg["hi"] == 10
+        assert scr.cfg["count"] == 7 and scr.cfg["model"] == "abacus:claude-sonnet-5-5" and scr.cfg["hi"] == 10
     run(app, size, steps)
 
 
@@ -180,7 +180,7 @@ def test_topics_are_picked_from_a_tick_list_with_the_scope_shown(tmp_path, monke
     async def steps(pilot):
         scr = await open_challenge(pilot, app)
         lst = scr.query_one("#settings")
-        lst.highlighted = 0
+        lst.highlighted = [lst.get_option_at_index(i).id for i in range(lst.option_count)].index("topics")
         await pilot.press("enter")
         await pilot.pause()
         assert type(app.screen).__name__ == "TopicScreen"
@@ -203,7 +203,7 @@ def test_start_needs_a_topic(tmp_path, monkeypatch):
         lst.highlighted = lst.option_count - 1
         await pilot.press("enter")
         await pilot.pause()
-        assert scr.phase == "setup" and lst.highlighted == 0
+        assert scr.phase == "setup" and lst.get_option_at_index(lst.highlighted).id == "topics"
     run(app, (80, 24), steps)
 
 

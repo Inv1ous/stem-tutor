@@ -24,7 +24,7 @@ def capture(app, name):
 
 async def choose(pilot, app, key):
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [option.id for option in menu.options].index(key)
+    menu.reveal(key)
     await pilot.press("enter")
     await pilot.pause()
 

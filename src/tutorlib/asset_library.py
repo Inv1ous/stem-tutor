@@ -19,9 +19,31 @@ import uuid
 import threading
 import unicodedata
 from contextlib import contextmanager
+from contextvars import ContextVar
+from functools import lru_cache
+from types import MappingProxyType
 from pathlib import Path, PurePosixPath
 
 _REGISTRATION_LOCK = threading.RLock()
+_SCOPE: ContextVar[set | None] = ContextVar('asset_verification_scope', default=None)
+
+
+@contextmanager
+def verification_scope():
+    """One verified snapshot: within it, `resolve` checks each distinct (file, digest) once.
+
+    A load (a bank, a chapter pack, the question index) can name the same file hundreds of times. The first
+    `resolve` reads and hashes the current bytes as always; repeats inside the scope would read and hash the very
+    same file again for the same answer. The scope ends with the load: nothing is trusted across loads, and
+    `read` (which hands bytes to its caller) is never skipped."""
+    if _SCOPE.get() is not None:
+        yield
+        return
+    token = _SCOPE.set(set())
+    try:
+        yield
+    finally:
+        _SCOPE.reset(token)
 
 
 def library_location(path: Path) -> tuple[Path, str] | None:
@@ -123,6 +145,33 @@ def _index(catalog):
     return assets, by_reference
 
 
+def _reference_map_of(assets: dict) -> dict[str, str]:
+    references = {}
+    for identifier, record in assets.items():
+        stable = 'asset:' + identifier
+        for reference in [stable, record['path'], *record.get('aliases', [])]:
+            references[reference] = stable
+    return references
+
+
+@lru_cache(maxsize=2)
+def _cached_reference_map(raw: bytes):
+    return MappingProxyType(_reference_map_of(json.loads(raw)['assets']))
+
+
+@lru_cache(maxsize=4)
+def _catalog_index(raw: bytes):
+    """Reuse immutable derived data only for exact, freshly read catalog bytes."""
+    catalog = json.loads(raw)
+    assets, references = _index(catalog)
+    # Records contain arbitrary nested provenance. Serialized records are
+    # immutable, while decoding one returns a fresh independent client copy.
+    records = {identifier: json.dumps(entry, ensure_ascii=False)
+               for identifier, entry in catalog['assets'].items()}
+    return (MappingProxyType(assets), MappingProxyType(references),
+            MappingProxyType(records), raw)
+
+
 def validate_catalog(catalog: dict) -> None:
     """Validate catalog format and unambiguous normalized path ownership."""
     _index(catalog)
@@ -131,19 +180,34 @@ def validate_catalog(catalog: dict) -> None:
 class AssetLibrary:
     """Resolve stable ``asset:<id>``, canonical paths, and declared aliases.
 
-    The catalog is loaded once. Create a new instance after publishing a new
-    catalog. Extra metadata is permitted without affecting resolution.
+    Catalog bytes are freshly read for each instance. Create a new instance
+    after publishing a new catalog. Full metadata is parsed lazily; immutable
+    indexes and serialized records can be shared for identical catalog bytes.
+    Extra metadata is permitted without affecting resolution.
     """
 
     def __init__(self, vault_root: Path, catalog_path: str = "Library/catalog.json"):
         self.root = Path(vault_root).resolve(strict=True)
         catalog_path = _relative(catalog_path, library=True)
         try:
-            catalog = json.loads(_read_regular(self.root, catalog_path))
+            raw = _read_regular(self.root, catalog_path)
+            assets, references, records, catalog_raw = _catalog_index(raw)
         except (UnicodeDecodeError, json.JSONDecodeError) as exc:
             raise ValueError("invalid asset catalog JSON") from exc
-        self._assets, self._references = _index(catalog)
-        self._catalog = catalog
+        self._assets, self._references = assets, references
+        self._record_json, self._catalog_raw = records, catalog_raw
+        self._catalog_data = None
+
+    @property
+    def _catalog(self):
+        """Preserve the historical private, mutable, instance-local catalog view."""
+        if self._catalog_data is None:
+            self._catalog_data = json.loads(self._catalog_raw)
+        return self._catalog_data
+
+    @_catalog.setter
+    def _catalog(self, value):
+        self._catalog_data = value
 
     def _entry(self, reference: str) -> tuple[str, str]:
         if not isinstance(reference, str) or _reference_key(reference) not in self._references:
@@ -162,18 +226,47 @@ class AssetLibrary:
 
     def resolve(self, reference: str) -> Path:
         """Validate the current bytes and return the canonical Library path."""
-        self.read(reference)
-        relative, _ = self._entry(reference)
+        relative, digest = self._entry(reference)
+        verified = _SCOPE.get()
+        key = (str(self.root), relative, digest)
+        if verified is None or key not in verified:
+            self.read(reference)
+            if verified is not None:
+                verified.add(key)
         return self.root / relative
 
     def record(self, reference: str) -> dict:
         """Return independent metadata without exposing the loaded catalog to edits."""
         self._entry(reference)
-        return copy.deepcopy(self._catalog['assets'][self._references[_reference_key(reference)]])
+        identifier = self._references[_reference_key(reference)]
+        if self._catalog_data is None:
+            return json.loads(self._record_json[identifier])
+        return copy.deepcopy(self._catalog_data['assets'][identifier])
 
     def records(self) -> dict[str, dict]:
         """Return independent catalog records for browsing by course or kind."""
         return copy.deepcopy(self._catalog['assets'])
+
+    def records_of_kind(self, kind: str) -> dict[str, dict]:
+        """`records()` limited to one `kind`, without copying the whole catalog (it holds tens of thousands)."""
+        if self._catalog_data is not None:
+            return {i: copy.deepcopy(r) for i, r in self._catalog_data['assets'].items()
+                    if isinstance(r, dict) and r.get('kind') == kind}
+        needle = json.dumps(kind, ensure_ascii=False)
+        found = {}
+        for identifier, text in self._record_json.items():
+            if needle in text:
+                record = json.loads(text)
+                if isinstance(record, dict) and record.get('kind') == kind:
+                    found[identifier] = record
+        return found
+
+    def reference_map(self) -> dict[str, str]:
+        """Every spelling a record is known by (stable id, path, declared aliases) -> its stable ``asset:`` id.
+        Derived from the catalog bytes alone, so it is shared between readers of identical bytes."""
+        if self._catalog_data is not None:
+            return _reference_map_of(self._catalog_data['assets'])
+        return dict(_cached_reference_map(self._catalog_raw))
 
 
 @contextmanager

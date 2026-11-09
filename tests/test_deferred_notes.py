@@ -220,10 +220,7 @@ def test_two_skipped_questions_keep_note_private_until_both_attempted(tmp_path):
     tutor.answer(f"{first['items'][0]['n']}A3")
     assert not note.exists() or 'Secret' not in note.read_text()
     second = tutor.retry_skipped()
-    tutor.answer(f"{second['items'][0]['n']}?")
-    assert not note.exists() or 'Secret' not in note.read_text()
-    second = tutor.retry_skipped()
-    tutor.answer(f"{second['items'][0]['n']}A3")
+    tutor.answer(f"{second['items'][0]['n']}?")  # a give-up resolves the last guard
     assert 'Secret 1 and Secret 2' in note.read_text()
 
 
@@ -724,7 +721,7 @@ def test_two_skipped_short_questions_can_be_retried_safely(tmp_path):
 
 
 @pytest.mark.parametrize('response', ['I have no idea', '???', 'no', "I can't answer", 'I do not know', 'not sure'])
-def test_ungraded_retry_rejects_obvious_non_attempts(tmp_path, response):
+def test_retry_gives_up_on_obvious_non_attempts(tmp_path, response):
     from fixtures import make_vault
     from tutorlib import session, store
     tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
@@ -736,8 +733,9 @@ def test_ungraded_retry_rejects_obvious_non_attempts(tmp_path, response):
         tutor.answer(f"{shown['n']}?")
     retry = tutor.retry_skipped()
     result = tutor.answer(f"{retry['items'][0]['n']} = {response}")['results'][0]
-    assert result.get('error') and not result.get('attempt_saved')
-    assert len(tutor.session['skipped_answer_guards']) == 2
+    assert not result.get('error') and not result.get('attempt_saved')
+    assert result['answer'] == 'nonattempt-one' and not result.get('answer_withheld')
+    assert len(tutor.session['skipped_answer_guards']) == 1
 
 
 def test_ungraded_retry_recovers_after_log_interruption(tmp_path, monkeypatch):
@@ -1420,3 +1418,187 @@ def test_draft_conflict_does_not_bind_a_recreated_guard(tmp_path):
     deferred_notes.resolve(path, 'q')
     deferred_notes.hold(path, 'q', old)
     assert deferred_notes.record_draft_conflict(path, 'op', 'q', old, local, snapshot['generation']) == 'conflict'
+
+
+def _skipped_mcq(tutor, ident='give-up', answer='A'):
+    item = {'id': ident, 'kcs': ['9702-2.1.1'], 'kind': 'mcq', 'difficulty': 2, 'marks': 1,
+            'stem': 'Which?', 'options': {'A': 'Secret', 'B': 'Other'}, 'answer': answer,
+            'explanation': 'A is the key.'}
+    shown = tutor._present(item, block='practice', phase='practice')
+    tutor.answer(f"{shown['n']}?")
+    return item
+
+
+def _skipped_short(tutor, ident):
+    item = {'id': ident, 'kcs': ['9702-2.1.1'], 'kind': 'short', 'difficulty': 2, 'marks': 1,
+            'stem': 'Explain.', 'rubric': [{'point': ident, 'keywords': [[ident]]}],
+            'explanation': f'{ident} is the key.'}
+    shown = tutor._present(item, block='practice', phase='practice')
+    tutor.answer(f"{shown['n']}?")
+    return item
+
+
+def test_idk_in_a_skipped_retry_gives_up_and_reveals_the_answer(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    _skipped_mcq(tutor)
+    n = tutor.retry_skipped()['items'][0]['n']
+    result = tutor.answer(f'{n}?')['results'][0]
+    assert not result.get('error')
+    assert not result.get('answer_withheld')
+    assert result['answer'] == 'A: Secret'
+    assert result['explanation'] == 'A is the key.'
+    assert not tutor.session['skipped_answer_guards']
+    assert not tutor.session['presented']
+
+
+def test_typed_idk_in_a_skipped_retry_gives_up_instead_of_asking_for_an_attempt(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    _skipped_short(tutor, 'give-up-one')
+    _skipped_short(tutor, 'give-up-two')
+    n = tutor.retry_skipped()['items'][0]['n']
+    result = tutor.answer(f'{n} = I have no idea')['results'][0]
+    assert not result.get('error')
+    assert not result.get('answer_withheld')
+    assert result['answer'] == 'give-up-one'
+    assert result['explanation'] == 'give-up-one is the key.'
+    assert len(tutor.session['skipped_answer_guards']) == 1
+
+
+def _event_bytes(vault):
+    folder = vault.tutor / 'events'
+    return {p.name: p.read_bytes() for p in sorted(folder.glob('*.jsonl'))}
+
+
+def test_first_idk_still_withholds_the_answer(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    item = {'id': 'first-skip', 'kcs': ['9702-2.1.1'], 'kind': 'mcq', 'difficulty': 2, 'marks': 1,
+            'stem': 'Which?', 'options': {'A': 'Secret', 'B': 'Other'}, 'answer': 'A',
+            'explanation': 'A is the key.'}
+    shown = tutor._present(item, block='practice', phase='practice')
+    result = tutor.answer(f"{shown['n']}?")['results'][0]
+    assert result['answer_withheld'] and result['answer'] == '' and not result.get('explanation')
+    assert tutor.session['skipped_answer_guards']
+
+
+def test_a_real_attempt_in_the_retry_still_marks_and_resolves(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    _skipped_mcq(tutor)
+    n = tutor.retry_skipped()['items'][0]['n']
+    result = tutor.answer(f'{n}A3')['results'][0]
+    assert result['correct'] and not result.get('answer_withheld')
+    assert not tutor.session['skipped_answer_guards']
+
+
+def test_give_up_resolves_the_guard_and_the_deferred_hold(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    _skipped_mcq(tutor, 'held-one')
+    _skipped_mcq(tutor, 'held-two')
+    path = tutor.vault.tutor / 'state' / 'deferred-notes.json'
+    tutor._node_done({'kc': '9702-2.1.1', 'card': {'note': 'Secret note'}, 'mistakes': []})
+    assert deferred_notes.outstanding(path)
+    tutor.answer(f"{tutor.retry_skipped()['items'][0]['n']}?")
+    assert len(tutor.session['skipped_answer_guards']) == 1 and deferred_notes.outstanding(path)
+    tutor.answer(f"{tutor.retry_skipped()['items'][0]['n']}?")
+    assert not tutor.session['skipped_answer_guards']
+    assert deferred_notes.outstanding(path) == {}
+
+
+def test_give_up_releases_feedback_held_for_another_question(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    _skipped_mcq(tutor, 'held-guard')
+    other = {'id': 'held-other', 'kcs': ['9702-2.1.1'], 'kind': 'mcq', 'difficulty': 2, 'marks': 1,
+             'stem': 'Which?', 'options': {'A': 'One', 'B': 'Two'}, 'answer': 'A'}
+    shown = tutor._present(other, block='practice', phase='practice')
+    assert tutor.answer(f"{shown['n']}B")['results'][0].get('feedback_withheld')
+    assert tutor.session['deferred_feedback']
+    tutor.answer(f"{tutor.retry_skipped()['items'][0]['n']}?")
+    assert not tutor.session['skipped_answer_guards']
+    released = tutor.next()
+    assert released['activity'] == 'explain' and released.get('part') == 'delayed_feedback'
+    assert not tutor.session['deferred_feedback']
+
+
+def test_give_up_leaves_the_other_guard_refusing_the_answer(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    _skipped_short(tutor, 'keep-one')
+    _skipped_short(tutor, 'keep-two')
+    tutor.answer(f"{tutor.retry_skipped()['items'][0]['n']}?")
+    assert len(tutor.session['skipped_answer_guards']) == 1
+    other = {'id': 'keep-other', 'kcs': ['9702-2.1.1'], 'kind': 'mcq', 'difficulty': 2, 'marks': 1,
+             'stem': 'Which?', 'options': {'A': 'One', 'B': 'Two'}, 'answer': 'A'}
+    shown = tutor._present(other, block='practice', phase='practice')
+    assert tutor.hint(shown['n']).get('refused')
+
+
+def test_ungraded_unavailable_retry_gives_up_on_typed_idk(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    item = {'id': 'ungraded-give-up', 'kcs': ['9702-2.1.1'], 'kind': 'short', 'difficulty': 2, 'marks': 1,
+            'stem': 'Explain.', 'rubric': [{'point': 'A point', 'keywords': [['point']]}]}
+    shown = tutor._present(item, block='practice', phase='practice')
+    tutor.answer(f"{shown['n']}?")
+    tutor.log({'type': 'topical_exclude', 'identity': item['id'], 'chapter': '9702-2.1', 'reason': 'test', 'missing': []})
+    answered = tutor.session['answered']
+    n = tutor.retry_skipped_ungraded()['items'][0]['n']
+    result = tutor.answer(f'{n} = I have no idea')['results'][0]
+    assert result.get('gave_up') and not result.get('error')
+    assert tutor.session['answered'] == answered
+    assert not tutor.session['skipped_answer_guards'] and not tutor.session['presented']
+    assert not tutor.session.get('deferred_judgments')
+
+
+def test_structured_ungraded_retry_gives_up_without_marking(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)))
+    tutor.start('lesson', focus=['9702-2.1'])
+    item = {'id': 'structured-give-up', 'kcs': ['9702-2.1.1'], 'kind': 'structured', 'difficulty': 2, 'marks': 2,
+            'stem': 'Show your working.',
+            'scheme': [{'mark': 'M1', 'point': 'method'}, {'mark': 'A1', 'point': 'answer'}]}
+    shown = tutor._present(item, block='practice', phase='practice')
+    tutor.answer(f"{shown['n']}?")
+    tutor.log({'type': 'topical_exclude', 'identity': item['id'], 'chapter': '9702-2.1', 'reason': 'test', 'missing': []})
+    n = tutor.retry_skipped_ungraded()['items'][0]['n']
+    answers = len([e for e in tutor.vault.events() if e['type'] == 'answer'])
+    result = tutor.save_ungraded_structured(n, "I don't know")
+    assert result.get('ok') and result.get('gave_up')
+    assert not tutor.session['skipped_answer_guards'] and not tutor.session['presented']
+    assert not tutor.session.get('deferred_judgments')
+    assert len([e for e in tutor.vault.events() if e['type'] == 'answer']) == answers
+
+
+def test_give_up_appends_events_without_rewriting_earlier_ones(tmp_path):
+    from fixtures import make_vault
+    from tutorlib import session, store
+    vault = store.Vault(make_vault(tmp_path))
+    tutor = session.Tutor(vault)
+    tutor.start('lesson', focus=['9702-2.1'])
+    _skipped_mcq(tutor)
+    before = _event_bytes(vault)
+    tutor.answer(f"{tutor.retry_skipped()['items'][0]['n']}?")
+    after = _event_bytes(vault)
+    assert all(after[name].startswith(data) for name, data in before.items())
+    assert sum(map(len, after.values())) > sum(map(len, before.values()))

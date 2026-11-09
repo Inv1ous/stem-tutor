@@ -44,7 +44,7 @@ def test_new_chat_question_finishes_the_cancelled_reply_visibly(tmp_path, monkey
                 await paused_chat(app, pilot, unassisted=False)
             else:
                 menu = app.screen.query_one("#menu")
-                menu.highlighted = [o.id for o in menu.options].index("chat")
+                menu.reveal("chat")
                 await pilot.press("enter")
                 await pilot.pause()
             screen = app.screen

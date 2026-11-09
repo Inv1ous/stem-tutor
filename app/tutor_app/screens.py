@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import asyncio
+import threading
+from contextlib import nullcontext
 import copy
 import hashlib
 from tutorlib.card_diagrams import diagram_descriptions
@@ -26,18 +28,28 @@ from textual.widgets import Button, Collapsible, Footer, Input, Markdown, Option
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
-from tutorlib import almanac, clock, insights, lesson, model, policy, report, teach_actions as ta, views
+from tutorlib import almanac, clock, insights, lesson, model, policy, report, teach_actions as ta, topical_selection, views
 from tutorlib.lesson import GOALS
+from tutorlib.session import whole_attempt_kind
+from tutorlib.topicals import whole_rubric
 
 from . import ai as ai_mod
-from . import cards, codex_models, config, learn_reply, learn_write, local_models, look, mac, presets, prompts, tts
-from . import __version__
+from . import abacus_models, cards, codex_models, config, learn_reply, learn_write, local_models, look, mac, marking_policy, presets, prompts, tts
+from . import __version__, solvable
 from .dialogs import AskScreen, ConfirmScreen, SummaryScreen
 from .look import C
 from .panels import (ChoicePanel, ChoosePanel, Composer, Confidence, ContinuePanel, LessonPanel, LongPanel, Panel,
-                     ReflectPanel, TextPanel, TickList, TickPanel, ValuePanel, WorkedPanel)
+                     ReflectPanel, TextPanel, TickList, TickPanel, ValuePanel, WholeRubricPanel, WorkedPanel)
 from .texmath import to_terminal
+from .display_inventory import get_inventory, peek_inventory
+from . import home_menu
 from .output_format import normalise_visual, terminal_visual
+
+
+def bank_session(session: dict | None) -> bool:
+    """A session served from the reviewed past-paper bank: a topical set, or Practice (which can add source-verified
+    items). Written answers in it are marked against the paper's own scheme, by hand unless automatic marking is on."""
+    return (session or {}).get("mode") in ("topical", "practice")
 
 
 def bar(done: int, total: int, width: int = 12) -> str:
@@ -58,14 +70,26 @@ def leave_asking_first(screen: Screen, boxes: str, typed: str = "answer", unsave
                                          [("leave", "Leave"), ("stay", "Keep writing")]), decided)
 
 
+def open_note(screen: Screen, note: str, background: bool = False) -> None:
+    """Show a note in Obsidian. The hand-off is a subprocess, so it runs in a worker thread, not on the key press."""
+    vault = screen.app.vault
+    screen.run_worker(lambda: mac.open_in_obsidian(vault, note, background=background), thread=True,
+                      group="obsidian", exit_on_error=False)
+
+
 def open_report_note(screen: Screen, note: str) -> None:
-    """Refresh an explicitly requested report before showing it in Obsidian."""
-    try:
-        {"Profile": report.profile_note, "Mistakes": report.mistakes_note}[note](screen.app.tutor)
-    except OSError as exc:
-        screen.app.notify(f"{note} could not be updated: {exc}", severity="warning", timeout=8)
-        return
-    mac.open_in_obsidian(screen.app.vault, note, background=False)
+    """Refresh an explicitly requested report before showing it in Obsidian (in a worker: it writes a file and
+    starts a program)."""
+    app = screen.app
+
+    def work() -> None:
+        try:
+            {"Profile": report.profile_note, "Mistakes": report.mistakes_note}[note](app.tutor)
+        except OSError as exc:
+            app.call_from_thread(app.notify, f"{note} could not be updated: {exc}", severity="warning", timeout=8)
+            return
+        mac.open_in_obsidian(app.vault, note, background=False)
+    screen.run_worker(work, thread=True, group="obsidian", exit_on_error=False)
 
 
 def spoken_feedback(fb: dict, your: str = "", explanation: str | None = None) -> list[str]:
@@ -197,6 +221,73 @@ class LocalActivity:
             self.widget.update(cards.card("hint", "Local AI stopped", "The local request was cancelled."))
 
 
+class LessonActivity:
+    """One terminal-only acknowledgement owned by the current lesson operation."""
+
+    def __init__(self, screen, task, model=None):
+        self.screen, self.task, self.model = screen, task, model
+        self.started = time.monotonic()
+        self.spinner = Spinner("dots", style=C["ai"])
+        self.timer = None
+
+    def __enter__(self):
+        self.panel = getattr(self.screen, 'showing', None)
+        previous = getattr(self.screen, '_lesson_activity', None)
+        self.buttons = (previous.buttons if previous and previous.panel is self.panel else
+                        {button.id: button.disabled for button in self.screen.query('#panel Button')})
+        self.screen._lesson_activity = self
+        if self.panel is not None:
+            self.panel.processing = self
+        for button in self.screen.query('#panel Button'):
+            button.disabled = True
+        self.widget = self.screen.query_one('#lesson-progress', Static)
+        self.widget.display = True
+        self.screen.refresh(layout=True)
+        self.draw()
+        self.timer = self.screen.set_interval(0.2, self.draw)
+        return self
+
+    def draw(self):
+        if getattr(self.screen, '_lesson_activity', None) is not self:
+            return
+        text = self.task
+        if local_models.is_local(self.model):
+            state = self.screen.app.ai.progress_for(self.model)
+            if state.get('started', self.started) >= self.started and state.get('phase') in LocalActivity.PHASES:
+                text += ' · ' + LocalActivity.PHASES[state['phase']]
+        text += f' · {int(time.monotonic() - self.started)}s elapsed'
+        self.spinner.update(text=Text(text, style=C['text']))
+        self.widget.update(self.spinner)
+
+    def set_task(self, task):
+        self.task = task
+        self.draw()
+
+    def after_refresh(self, callback):
+        """Paint the acknowledgement before running synchronous lesson work."""
+        self.__enter__()
+
+        def apply():
+            try:
+                callback()
+            finally:
+                self.__exit__(None, None, None)
+        if not self.screen.call_after_refresh(apply):
+            self.__exit__(None, None, None)
+
+    def __exit__(self, kind, error, traceback):
+        if self.timer is not None:
+            self.timer.stop()
+        if getattr(self.screen, '_lesson_activity', None) is not self:
+            return
+        self.screen._lesson_activity = None
+        self.widget.display = False
+        if self.panel is not None and getattr(self.panel, 'processing', None) is self:
+            self.panel.processing = None
+            for button in self.panel.query(Button):
+                button.disabled = self.buttons.get(button.id, False)
+
+
 class ReadAloud:
     """ctrl+e reads the thing on screen aloud, and again stops it. With automatic reading on, explanations, feedback
     and AI replies are read as they appear (never a question, never while you type). All a no-op, with a one-line
@@ -259,19 +350,30 @@ READ_KEY = Binding("ctrl+e", "read_aloud", "Read", priority=True)
 
 
 # ============================ Home ============================
-MODE_NAMES = {"autopilot": "today's plan", "weak": "weak-spots"}
+MODE_NAMES = {"autopilot": "today's plan", "weak": "weak-spots", "practice": "practice", "test": "test prep",
+              "topical": "topical past-paper"}
 SUBJECTS = {"math": "Maths", "chem": "Chem", "phys": "Phys", "exam": "Exam"}
+
+
+class HomeMenu(OptionList):
+    """The home list: shows one level (the folders, or one folder's entries)."""
+
+    def reveal(self, key: str) -> None:
+        """Open the folder holding `key` (if needed) and put the cursor on it."""
+        self.screen.reveal(key)
 
 
 class HomeScreen(Screen):
     BINDINGS = [Binding("question_mark", "app.help", "Help"), Binding("f2", "app.settings", "Settings"),
-                Binding("q", "app.quit", "Quit")]
+                Binding("q", "app.quit", "Quit"),
+                Binding("escape", "folder_back", show=False), Binding("backspace", "folder_back", show=False),
+                Binding("left", "folder_back", show=False)]
 
     def compose(self) -> ComposeResult:
         yield Static(look.banner(), id="banner")
         yield Static(id="glance")  # the side box in one line, for a window too narrow to show it
         with Horizontal(id="home"):
-            yield OptionList(id="menu")
+            yield HomeMenu(id="menu")
             with VerticalScroll(id="stats"):  # more chapters than fit in the window: the box scrolls
                 yield Static(id="stats-text")
         yield Footer()
@@ -297,23 +399,108 @@ class HomeScreen(Screen):
         except Exception:  # noqa: BLE001 - a courtesy, as above
             pass
 
-    def _fill_menu(self) -> None:
+    # ---------- the menu: folders on top, a folder's entries inside ----------
+    @property
+    def folder(self) -> str | None:
+        """The open folder's id, or None at the top. Kept on the app, so it survives a screen being rebuilt."""
+        return getattr(self.app, "home_folder", None)
+
+    @folder.setter
+    def folder(self, value: str | None) -> None:
+        self.app.home_folder = value
+
+    def _level_rows(self) -> list[tuple[str, str]]:
+        """(id, label) for what the menu shows now: the folders (and the resume / time lines) or one folder."""
+        leaves = dict(getattr(self, "_menu_items", None) or [])
+        tree = home_menu.arrange(leaves)
+        if self.folder and any(fid == self.folder for fid, _, _ in tree):
+            entries = next(es for fid, _, es in tree if fid == self.folder)
+            return [("back", "‹  Back")] + [(key, leaves[key]) for key in entries]
+        self.folder = None
+        rows = [(key, leaves[key]) for key in ("resume", "time") if key in leaves]
+        glyph = {fid: g for fid, _, g, _ in home_menu.FOLDERS}
+        due = getattr(self, "_due_count", 0)
+        for fid, title, entries in tree:
+            extra = f" · {due} due" if fid == "learn" and due else ""
+            rows.append(("dir:" + fid, f"{glyph[fid]}  {title}{extra}"))
+        return rows
+
+    def _fill_menu(self, keep: str | None = None) -> None:
         """Put the menu lines in, each wrapped to the menu's width with the words under the words, not under the icon."""
-        items = getattr(self, "_menu_items", None)
-        if not items:
+        if not getattr(self, "_menu_items", None):
             return
         # a short window has no room for the time line: the one-line summary and the side box say it there
-        items = [i for i in items if i[0] != "time" or self.app.size.height >= 32]
+        items = [i for i in self._level_rows() if i[0] != "time" or self.app.size.height >= 32]
         menu = self.query_one("#menu", OptionList)
         width = max(24, menu.size.width - 6) if menu.size.width else 46  # border, padding and the option's own gutter
+        level = self.folder
         was = menu.get_option_at_index(menu.highlighted).id if menu.highlighted is not None else None
+        if getattr(self, "_drawn_level", level) != level:  # a different level: back where you were in that one
+            was = getattr(self, "_cursor", {}).get(level)
+        was = keep or was
         menu.clear_options()
         for key, label in items:
             menu.add_option(Option(textwrap.fill(label, width, subsequent_indent="   ", break_long_words=False,
                                                  break_on_hyphens=False), id=key, disabled=key == "time"))  # a line to read
         ids = [key for key, _ in items]
-        first = next((i for i, (key, _) in enumerate(items) if key != "time"), 0)
+        first = next((i for i, (key, _) in enumerate(items) if key not in ("time", "back")), 0)
         menu.highlighted = ids.index(was) if was in ids else first  # back where you were, not at the top
+        self._drawn_level = level
+        menu.border_title = home_menu.folder_title(level) if level else ""
+        menu.border_subtitle = "Esc back · 1-9 or a letter jumps" if level else "⏎ open · 1-9 or a letter jumps"
+
+    def _remember_cursor(self) -> None:
+        menu = self.query_one("#menu", OptionList)
+        if menu.highlighted is not None and menu.option_count:
+            self.__dict__.setdefault("_cursor", {})[self.folder] = menu.get_option_at_index(menu.highlighted).id
+
+    def open_folder(self, folder: str | None, cursor: str | None = None) -> None:
+        self._remember_cursor()
+        self.folder = folder
+        if cursor:
+            self.__dict__.setdefault("_cursor", {})[folder] = cursor
+        self._fill_menu()
+
+    def action_folder_back(self) -> None:
+        if self.folder and self.app.screen is self:
+            came = "dir:" + self.folder
+            self.open_folder(None, came)
+
+    def reveal(self, key: str) -> None:
+        """Open the folder `key` lives in and put the cursor on it (an old alias lands on its replacement)."""
+        key = home_menu.ALIASES.get(key, key)
+        folder = None if key in ("resume", "time") else home_menu.folder_of(key)
+        self._remember_cursor()
+        self.folder = folder
+        self.__dict__.setdefault("_cursor", {})[folder] = key
+        self._fill_menu(keep=key)
+
+    def on_key(self, event) -> None:
+        """1-9 take the nth line of the list (0 goes back out of a folder), so the list needs no arrow keys."""
+        menu = self.query_one("#menu", OptionList)
+        if not menu.has_focus or not event.character:
+            return
+        if event.character.isalpha() and event.character not in "qQ":  # a letter: the next line that starts with it
+            rows = [(i, menu.get_option_at_index(i)) for i in range(menu.option_count)]
+            word = lambda o: str(o.prompt).lstrip("▸‹◆◎◉≡★↻✚✎»⚑↯✦▤▣×?◔ ").lower()  # noqa: E731 - the line less its icon
+            hits = [i for i, o in rows if not o.disabled and word(o).startswith(event.character.lower())]
+            if hits:
+                here = menu.highlighted if menu.highlighted is not None else -1
+                menu.highlighted = next((i for i in hits if i > here), hits[0])
+                event.stop()
+            return
+        if event.character not in "0123456789":
+            return
+        event.stop()
+        if event.character == "0":
+            self.action_folder_back()
+            return
+        rows = [menu.get_option_at_index(i) for i in range(menu.option_count)]
+        rows = [o for o in rows if not o.disabled and o.id != "back"]
+        n = int(event.character) - 1
+        if n < len(rows):
+            menu.highlighted = next(i for i in range(menu.option_count) if menu.get_option_at_index(i).id == rows[n].id)
+            menu.action_select()
 
     def _fit(self) -> None:
         """A narrow window drops the side box and gives the menu the width; a short one drops the banner."""
@@ -323,24 +510,33 @@ class HomeScreen(Screen):
 
     def on_screen_resume(self) -> None:
         self._fit()
-        if self._read_almanac():  # exported while the tutor was open: the plan in Obsidian follows
-            report.today_note(self.app.tutor, self.app.settings.minutes)
-        self.refresh_home()
+        self.refresh_home(recheck=False)  # from what is already known; anything slower follows in the background
+        self._background_start(first=False)
 
     def _read_almanac(self) -> list[str]:
-        """Progress files the Almanac's Export button left in Downloads go into the vault, where ticks are read."""
-        app = self.app
+        """Progress files the Almanac's Export button left in Downloads go into the vault, where ticks are read.
+        Scans a folder: call it from a worker, never from a key handler."""
         try:
-            moved = mac.import_almanac_exports(app.vault, config.DOWNLOADS)
+            return mac.import_almanac_exports(self.app.vault, config.DOWNLOADS)
         except OSError:
-            if not getattr(app, "downloads_blocked", False):  # said once, not at every return to the menu
-                app.downloads_blocked = True
-                app.notify(mac.DOWNLOADS_HELP, severity="warning", timeout=15)
+            self._on_ui(self._downloads_blocked)
             return []
-        if moved:
-            app.tutor.read_almanac()  # the exam dates entered there, too
-            app.notify("Read your ticks from the Almanac export in Downloads.", timeout=6)
-        return moved
+
+    def _downloads_blocked(self) -> None:
+        app = self.app
+        if not getattr(app, "downloads_blocked", False):  # said once, not at every return to the menu
+            app.downloads_blocked = True
+            app.notify(mac.DOWNLOADS_HELP, severity="warning", timeout=15)
+
+    def _on_ui(self, fn, *args) -> None:
+        """Run `fn` on the UI thread: straight away when already there, else queued from a worker thread."""
+        try:
+            if threading.get_ident() == self.app._thread_id:
+                fn(*args)
+            else:
+                self.app.call_from_thread(fn, *args)
+        except Exception:  # noqa: BLE001 - the app is closing, or the screen has gone: nothing is waiting for this
+            pass
 
     def _write_home(self) -> bool:
         app = self.app
@@ -353,20 +549,56 @@ class HomeScreen(Screen):
         return True
 
     def on_mount(self) -> None:
-        app = self.app
         self._fit()
-        self._read_almanac()
-        views.organise_lessons(app.vault)  # lesson logs from before the day folders: moved into them, once
-        self._write_home()
-        report.today_note(app.tutor, app.settings.minutes)  # Today.md: this week's plan and what's due
-        if (week := self._week_in_review()):
-            app.notify(f"Your week in review is ready: {week} in Obsidian.", timeout=10)
-        self.refresh_home()
+        # Old lesson logs move into day folders, once (about 25 ms). Done here, not in the background: moved under a
+        # lesson started the moment the menu appears, a log would be taken away from the session writing it.
+        views.organise_lessons(self.app.vault)
+        # The first frame needs only the menu: paint it from what is at hand (counts that need the question bank
+        # follow), then do the reports, the Downloads scan and the bank inventory off the UI thread.
+        self._refresh_home(peek_inventory(self.app), update_status=False)
+        self._background_start(first=True)
 
         def resources_changed() -> None:
             if self.is_current and self.app.settings.usage_display in ("ram", "both"):
                 self._draw_stats()
         self.set_interval(2, resources_changed)
+
+    @work(thread=True, exclusive=True, group="home-startup", exit_on_error=False)
+    def _background_start(self, first: bool) -> None:
+        """Everything the menu does not need for its first paint. Files are read and written here; what touches the
+        screen or the tutor's own state goes back to the UI thread."""
+        app = self.app
+        try:
+            moved = self._read_almanac()
+            if first:
+                self._write_home()
+            week = inventory = None
+            if first or moved:
+                # These reports, the week-in-review and the inventory describe one startup snapshot: nested skill
+                # lookups share its fresh proof instead of reloading the prepared bank for each of them.
+                with app.tutor.packs.topicals.request():
+                    report.today_note(app.tutor, app.settings.minutes)  # Today.md: this week's plan and what's due
+                    if first:
+                        week = self._week_in_review()
+                        inventory = get_inventory(app, force=True)
+            counts = self._read_shortcut_counts()
+        except Exception:  # noqa: BLE001 - a courtesy pass; the menu itself never depends on it
+            return
+        self._on_ui(self._background_done, moved, week, inventory, counts, first)
+
+    def _background_done(self, moved: list[str], week: str | None, inventory, counts, first: bool) -> None:
+        if not self.is_attached:
+            return
+        app = self.app
+        if moved:
+            app.tutor.read_almanac()  # the exam dates entered there, too
+            app.notify("Read your ticks from the Almanac export in Downloads.", timeout=6)
+        if week:
+            app.notify(f"Your week in review is ready: {week} in Obsidian.", timeout=10)
+        changed = counts != getattr(self, "_shortcut_counts", None)
+        self._shortcut_counts = counts
+        if first or moved or changed:
+            self.refresh_home(recheck=False, inventory=inventory)
 
     def _week_in_review(self) -> str | None:
         """Last week's report, written once: the first time the app opens in a week that follows a week of study."""
@@ -380,18 +612,68 @@ class HomeScreen(Screen):
             return None
         return report.week_note(t, monday)
 
-    def refresh_home(self) -> None:
+    def refresh_home(self, *, recheck: bool = True, inventory=None) -> None:
+        """Redraw the menu and the side box now, from `inventory` or the cached one. A missing or outdated inventory
+        is loaded in the background and the menu redrawn when it arrives (never on the UI thread)."""
         app = self.app
         t = app.tutor
         if (arrived := t.refresh_content()):  # chapters published while the app was open, e.g. by the foundry
             app.notify("New chapters ready: " + ", ".join(arrived), timeout=10)
+        known = inventory or peek_inventory(app)
+        if recheck and inventory is None:
+            known = None
+        view_key = ((known.resource_key if known else None), t.now().date(), t.ticks(),
+                    json.dumps((t.state, t.packs.plan), sort_keys=True))
+        changed = recheck or view_key != getattr(self, "_home_view_snapshot", None)
+        self._refresh_home(known, update_status=changed)
+        self._home_view_snapshot = view_key
+        if known is None:
+            self._load_inventory(force=recheck)
+
+    @work(thread=True, exclusive=True, group="home-inventory", exit_on_error=False)
+    def _load_inventory(self, force: bool) -> None:
         try:
-            report.almanac_push(t)  # the Almanac page picks it up: ticks, colours, the wall, the retrospective
-        except OSError:
-            pass  # the planner's folder can't be written: the tutor itself is unaffected
+            with self.app.tutor.packs.topicals.request():
+                inventory = get_inventory(self.app, force=force)
+        except Exception:  # noqa: BLE001 - the counts stay as they were
+            return
+        self._on_ui(self._inventory_loaded, inventory)
+
+    def _inventory_loaded(self, inventory) -> None:
+        if self.is_attached:
+            self._refresh_home(inventory, update_status=False)
+
+    @work(thread=True, exclusive=True, group="home-almanac", exit_on_error=False)
+    def _push_almanac(self) -> None:
+        try:
+            report.almanac_push(self.app.tutor)  # the Almanac page picks it up: ticks, colours, the wall, the retrospective
+        except Exception:  # noqa: BLE001 - the planner's folder can't be written: the tutor itself is unaffected
+            pass
+
+    def _refresh_home(self, inventory, *, update_status: bool = True) -> None:
+        """Draw the menu and side box. `inventory` (the question bank's display summary) is None until it has been
+        loaded: the lines that need it then show without their counts."""
+        app = self.app
+        t = app.tutor
+        if update_status:
+            self._push_almanac()  # the Almanac page picks it up: ticks, colours, the wall, the retrospective
         now = t.now()
+        focus = policy.focus_week(t.packs.plan, t.state, t.ticks(), now)
+        objectives = (t.packs.plan.get("weeks") or {}).get(str(focus), [])
+        # Display-only availability. Timers and layout redraws must not reload
+        # source PDFs or admission proofs. Every actual selection still uses
+        # the engine's fresh bank request; resource changes refresh the inventory.
+        if inventory is not None:
+            self._ready_kcs = frozenset(k for o in objectives[:6] for k in o.get("kcs", [])
+                                       if inventory.kinds.get(k))
+            self._weak_spot_count = insights.weak_spot_count(t, inventory.kinds)
+            self._has_topicals = bool(inventory.topical_chapters)
+        else:
+            self._ready_kcs = getattr(self, "_ready_kcs", frozenset())
+            self._weak_spot_count = getattr(self, "_weak_spot_count", None)
         due = model.due_kcs(t.state, now)
         due_count = len(due) + len(policy.review_terms(t.state, t.packs, now))
+        self._due_count = due_count
         self.query_one("#banner", Static).update(look.banner())  # in the colours of the look just chosen
         menu = self.query_one("#menu", OptionList)
         items = []
@@ -410,26 +692,25 @@ class HomeScreen(Screen):
         sessions_today = t.study_clock.sessions_on(now.date().isoformat())
         items.insert(0, ("time", f"◔  Studied today: {clock.fmt(studied)}"
                                  + (f" · {sessions_today} session{'s' if sessions_today != 1 else ''}" if sessions_today else "")))
+        weak = f" ({self._weak_spot_count})" if self._weak_spot_count is not None else ""
         items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
                   ("learn", "◆  Learn a topic (lesson)"),
                   ("review", f"↻  Review what's due ({due_count})"),
-                  ("weak", f"✚  Fix my weak spots ({len(insights.weak_spots(t))})"),
-                  ("test", "◎  Test prep: check and fix a chapter"),
+                  ("weak", f"✚  Fix my weak spots{weak}"),
                   ("long", "✎  Long questions (typed or iPad)"),
-                  *([("topical", "▤  Topical past papers")] if t.packs.topical_chapters() else []),
                   ("blurt", "»  Blurt: write everything you remember"),
+                  ("practice", "◎  Practice: past papers and sources"),
                   ("challenge", "⚑  Challenge: hard calculation questions"),
                   *shortcut_lines,
-                  ("chat", "✦  Ask the tutor anything"),
                   ("insights", "◉  What the tutor knows about you"),
                   *([('saved-attempts', '▤  Saved attempts and drafts')] if t.postponed_judgments() or has_retained_drafts else []),
                   ("progress", "▤  My progress"),
                   ("obsidian", "▣  Open my notes in Obsidian"),
+                  ("chat", "✦  Ask the tutor anything"),
                   ("settings", "≡  Settings"), ("help", "?  How it works"), ("quit", "×  Quit")]
         self._menu_items = items
         self._fill_menu()
         menu.focus()
-        self.query_one("#stats-text", Static).update(self.stats_text(now, due))
         self.call_after_refresh(self._scroll_cue)
         self.call_after_refresh(self._draw_stats)  # again once the box has its width: the titles wrap to it
         glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {due_count} due · ◔ {clock.fmt(studied)} today", style=C["soft"])
@@ -438,18 +719,24 @@ class HomeScreen(Screen):
         self.query_one("#glance", Static).update(glance)
 
     def _shortcut_lines(self) -> list[tuple[str, str]]:
-        """The two Shortcuts & Elegant Methods lines, with counts once the course has been published to the vault."""
+        """The two Shortcuts & Elegant Methods lines, with counts once they have been read (in the background)."""
         learn, recall = "↯  Shortcuts and elegant methods", "↯  Shortcut recall"
+        if (counts := getattr(self, "_shortcut_counts", None)):
+            learn += f" ({counts[0]} new)"
+            recall += f" ({counts[1]} due)"
+        return [("shortcuts", learn), ("shortcut_recall", recall)]
+
+    def _read_shortcut_counts(self) -> tuple[int, int] | None:
+        """(new lessons, due recalls) once the course has been published to the vault. Reads the course: a worker's job."""
         try:
             vault = self.app.tutor.vault
             if (vault.tutor / "shortcuts" / "course").exists():
                 from tutorlib import shortcuts
                 course = shortcuts.Course(vault)
-                learn += f" ({len(course.next_lessons())} new)"
-                recall += f" ({len(course.due())} due)"
+                return len(course.next_lessons()), len(course.due())
         except Exception:  # noqa: BLE001 - a damaged course file never keeps the menu from showing
             pass
-        return [("shortcuts", learn), ("shortcut_recall", recall)]
+        return None
 
     def streak(self, now: datetime) -> int:
         days = {date.fromisoformat(d) for d in self.app.tutor.state.get("study_days", [])}
@@ -465,6 +752,11 @@ class HomeScreen(Screen):
         return f"{sittings[0][1]}: {(sittings[0][0] - now.date()).days} days" if sittings else ""
 
     def stats_text(self, now: datetime, due: list) -> Text:
+        # Cosmetic redraws use the menu's display snapshot, never its admission
+        # path. This is also called by the RAM timer every two seconds.
+        return self._stats_text(now, due)
+
+    def _stats_text(self, now: datetime, due: list) -> Text:
         app = self.app
         t = app.tutor
         out = Text()
@@ -486,7 +778,7 @@ class HomeScreen(Screen):
                 out.append(f"You're ahead: the calendar is on week {week}.\n", style=C["ok"])
             for o, finished in list(zip(objectives, done))[:6]:
                 kcs = o.get("kcs", [])
-                ready = sum(1 for k in kcs if k in t.packs.kcs and t.packs.items_for(k))
+                ready = sum(k in getattr(self, "_ready_kcs", ()) for k in kcs)
                 title = o["title"] if o.get("type", "NEW") == "NEW" else f"{o.get('verb', '')} {o['title']}".strip()
                 title = title[:36] + ("…" if len(title) > 36 else "")
                 out.append(f"{'✓' if finished else ' '} {SUBJECTS.get(o['subject'], o['subject']):<6}{title}",
@@ -559,15 +851,25 @@ class HomeScreen(Screen):
     @on(OptionList.OptionSelected, "#menu")
     def pick(self, event: OptionList.OptionSelected) -> None:
         key = event.option.id
+        if key.startswith("dir:"):
+            self.open_folder(key[4:])
+            return
+        if key == "back":
+            self.open_folder(None, "dir:" + (self.folder or ""))
+            return
+        self.activate(key)
+
+    def activate(self, key: str) -> None:
+        """Start what a menu line (or an old id such as "test") stands for, asking first when a session is open."""
         app = self.app
         s = app.tutor.session
-        if key in ("today", "learn", "review", "weak", "test", "long", "blurt") and s:  # even before an answer (B-104)
+        if key in home_menu.STARTS_SESSION and s:  # even before an answer (B-104)
             def decided(choice: str | None) -> None:
                 if choice == "resume":
                     app.push_screen(SessionScreen(None))
                 elif choice == "new":
                     app.tutor.end(abandoned=True)
-                    self.refresh_home()
+                    self.refresh_home(recheck=False)
                     self._start(key)
             name = MODE_NAMES.get(s["mode"], s["mode"])
             app.push_screen(ConfirmScreen(f"You have an unfinished {name} session ({s['answered']} answered).",
@@ -575,6 +877,12 @@ class HomeScreen(Screen):
                                            ("cancel", "Cancel")]), decided)
             return
         self._start(key)
+
+    @work(thread=True, exclusive=True, group="home-obsidian", exit_on_error=False)
+    def _open_home_note(self) -> None:
+        """Writing Home.md and handing it to Obsidian is file and subprocess work: not on the key press."""
+        if self._write_home():
+            mac.open_in_obsidian(self.app.vault, "Home", background=False)
 
     def _start(self, key: str) -> None:
         app = self.app
@@ -607,12 +915,24 @@ class HomeScreen(Screen):
                            timeout=6)
                 return
             app.push_screen(SessionScreen({"mode": "review", "focus": None, "minutes": app.settings.minutes}))
-        elif key == "test":
+        elif key == "practice":
+            from .practice_screens import start_practice
+            start_practice(app)
+        elif key == "test":  # old id, no longer in the menu: still starts what it always did
             app.push_screen(PickerScreen("test"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "test", "focus": r, "minutes": app.settings.minutes})))
-        elif key == "topical":
-            app.push_screen(PickerScreen("topical"), lambda r: r and app.push_screen(
-                SessionScreen({"mode": "topical", "focus": r, "minutes": app.settings.minutes})))
+        elif key == "source-practice":  # old id, as above
+            from .source_practice_screen import SourcePracticeScreen
+            app.push_screen(SourcePracticeScreen())
+        elif key == "topical":  # old id, as above
+            def topics_chosen(focus):
+                if not focus:
+                    return
+                def configured(options):
+                    if options:
+                        app.push_screen(SessionScreen({'mode': 'topical', 'minutes': app.settings.minutes, **options}))
+                app.push_screen(TopicalSetupScreen(focus), configured)
+            app.push_screen(PickerScreen('topical'), topics_chosen)
         elif key == "long":
             app.push_screen(PickerScreen("long"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "long", "focus": r, "minutes": 30})))
@@ -637,8 +957,7 @@ class HomeScreen(Screen):
                 return
             app.push_screen(SavedAttemptsScreen())
         elif key == "obsidian":
-            if self._write_home():
-                mac.open_in_obsidian(app.vault, "Home", background=False)
+            self._open_home_note()
         elif key == "settings":
             app.action_settings()
         elif key == "help":
@@ -692,40 +1011,66 @@ class PickerScreen(ModalScreen):
                 Binding("backspace", "up", show=False), Binding("ctrl+a", "tick_shown", show=False, priority=True),
                 Binding("ctrl+d", "untick_all", show=False, priority=True), Binding("space", "tick", show=False)]
 
-    def __init__(self, mode: str) -> None:
+    def __init__(self, mode: str, selected: list[str] | None = None) -> None:
         super().__init__()
         self.mode = mode
-        self.ticked: set[str] = set()
+        self.ticked: set[str] = set(selected or [])
         self.needle = ""
         self.path: list[str] = []
         self.floor = 0  # folders opened for you when there was only one: Esc does not go back into them
 
+    @property
+    def multi(self) -> bool:
+        return self.mode in ('test', 'topical', 'practice')
+
+    @property
+    def by_course(self) -> bool:
+        """Practice opens on courses (9701, 9702, P1, M1 ...), each holding its topics: whole courses can be ticked."""
+        return self.mode == 'practice'
+
     def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
         if action in ("tick_shown", "untick_all"):
-            return self.mode == "test"
+            return self.mode == "test" or self.mode in ('topical', 'practice') and isinstance(self.focused, OptionList)
         return super().check_action(action, parameters)
 
     # ---------- data ----------
     def _prepare(self) -> None:
+        self._prepare_snapshot()
+
+    def _prepare_snapshot(self) -> None:
         t = self.app.tutor
-        bank_chapters = t.packs.topical_chapters() if self.mode == "topical" else set()
-        self.built = [s for s in t.packs.subtopics if (s in bank_chapters if self.mode == "topical" else t.packs.pack(s))]
+        inventory = get_inventory(self.app)
+        bank_chapters = inventory.topical_chapters if self.mode in ('topical', 'test', 'long', 'practice') else set()
+        self.built = [s for s in t.packs.subtopics if (s in bank_chapters if self.mode == "topical"
+                                                     else t.packs.pack(s) or s in bank_chapters)]
+        if self.mode == 'practice':  # a course with source-verified questions is practisable chapter by chapter, too
+            self.source_specs = {spec for spec in {v.get('spec') for v in t.packs.subtopics.values()}
+                                 if any(spec and str(spec) in str(c) for c in inventory.source_courses)}
+            self.built = [s for s in t.packs.subtopics
+                          if s in self.built or t.packs.subtopics[s].get('spec') in self.source_specs]
+        if self.mode == 'test':
+            regular = {'mcq', 'numeric', 'expression', 'short'}
+            self.built = [sub for sub in self.built if t.packs.pack(sub) or any(
+                inventory.kinds.get(kc, frozenset()) & regular
+                for kc, meta in t.packs.kcs.items() if meta['subtopic'] == sub)]
         if self.mode == "long":
             # A selectable subtopic must have at least one structured question in
             # the KCs the fixed 30-minute session will consider.
             eligible = set()
             for sub in self.built:
                 kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
-                long_kcs = [k for k in kcs if any(i.get("kind") == "structured" for i in t.packs.items_for(k))]
+                long_kcs = [k for k in kcs if 'structured' in inventory.kinds.get(k, ())]
                 if long_kcs[:2]:
                     eligible.add(sub)
             self.built = [s for s in self.built if s in eligible]
+        self.ticked.intersection_update(self.built)
         self.info: dict[str, dict] = {}
         for sub in self.built:
             kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
             topic = t.packs.subtopics[sub].get("topic", "")
             self.info[sub] = {"sec": sum(views.kc_status(t.state, k) == "secure" for k in kcs), "n": len(kcs),
-                              "topic": topic, "subject": t.packs.topics.get(topic, {}).get("subject", "math")}
+                              "topic": topic, "subject": t.packs.topics.get(topic, {}).get("subject", "math"),
+                              "spec": t.packs.subtopics[sub].get("spec") or t.packs.topics.get(topic, {}).get("spec", "")}
         order = {tid: i for i, tid in enumerate(t.packs.topics)}
         self.groups: dict[str, list[str]] = {}
         for sub in sorted(self.built, key=lambda x: (order.get(self.info[x]["topic"], 99), _natural(x))):
@@ -746,17 +1091,33 @@ class PickerScreen(ModalScreen):
         subs = [s for subs in self.groups.values() for s in subs]
         if not path:
             return subs
-        subs = [s for s in subs if self.info[s]["subject"] == path[0]]
+        subs = [s for s in subs if self.info[s]["spec" if self.by_course else "subject"] == path[0]]
         return [s for s in subs if self.info[s]["topic"] == path[1]] if len(path) > 1 else subs
 
     def _folders(self, path: list[str]) -> list[tuple[str, str]]:
         """The folders in a folder: (key, name). Subjects at the top, each subject's chapters under it (Chemistry and
         Physics topics, Maths modules), subtopics inside those: nothing deeper."""
+        if self.by_course:
+            if not path:
+                specs = list(dict.fromkeys(self.info[s]["spec"] for subs in self.groups.values() for s in subs))
+                return [(spec, self._course_name(spec)) for spec in specs]
+            topics = [tid for tid in self.groups if self.info[self.groups[tid][0]]["spec"] == path[0]]
+            return [(tid, self._chapter_name(tid)) for tid in topics] if len(path) == 1 and len(topics) > 1 else []
         if not path:
             return [(k, name) for k, name in SUBJECT_FOLDERS if self._under([k])]
         if len(path) == 1:
             return [(tid, self._chapter_name(tid)) for tid in self.groups if self.info[self.groups[tid][0]]["subject"] == path[0]]
         return []
+
+    def _course_name(self, spec: str) -> str:
+        """"Chemistry 9701", "Physics 9702", or a maths module's own title ("P1  Pure Mathematics 1")."""
+        subject = next((self.info[s]["subject"] for subs in self.groups.values() for s in subs
+                        if self.info[s]["spec"] == spec), "math")
+        if subject in dict(SUBJECT_FOLDERS) and subject != "math":
+            return dict(SUBJECT_FOLDERS)[subject]
+        title = next((self.app.tutor.packs.topics.get(self.info[s]["topic"], {}).get("title", "")
+                      for subs in self.groups.values() for s in subs if self.info[s]["spec"] == spec), "")
+        return f"{spec}  {title}".strip()
 
     def _chapter_name(self, tid: str) -> str:
         topic = self.app.tutor.packs.topics.get(tid, {})
@@ -771,7 +1132,7 @@ class PickerScreen(ModalScreen):
         return f"Maths · {tid} {topic.get('title', '')}".strip()
 
     def _mark(self, subs: list[str]) -> Text:
-        if self.mode != "test":
+        if not self.multi:
             return Text()
         n = sum(s in self.ticked for s in subs)
         return Text("[x] " if subs and n == len(subs) else "[-] " if n else "[ ] ",
@@ -798,13 +1159,26 @@ class PickerScreen(ModalScreen):
         line.append(f" {sec}/{n} ideas · {len(subs)} subtopic{'s' if len(subs) != 1 else ''}", style=C["muted"])
         return line
 
+    def _all_row(self) -> Text:
+        """The first line inside a course or topic in Practice: tick everything in it at once."""
+        subs = self._under(self.path)
+        word = "course" if len(self.path) == 1 else "topic"
+        line = self._mark(subs)
+        line.append(f"★ Entire {word}", style=f"bold {C['plan']}")
+        line.append(f"  all {len(subs)} subtopic{'s' if len(subs) != 1 else ''}", style=C["muted"])
+        return line
+
     def _matches(self, sub: str) -> bool:
         return all(w in self.hay[sub] for w in searchable(self.needle).split())
 
     def _crumb(self) -> str:
         names = dict(SUBJECT_FOLDERS)
-        parts = [{"lesson": "Learn", "long": "Long questions", "blurt": "Blurt", "test": "Test prep", "topical": "Topical past papers"}.get(self.mode, "Topics")]
-        if self.path:
+        parts = [{"lesson": "Learn", "long": "Long questions", "blurt": "Blurt", "test": "Test prep", "topical": "Topical past papers",
+                  "practice": "Practice"}.get(self.mode, "Topics")]
+        if self.by_course and self.path:
+            parts.append(self._course_name(self.path[0]))
+            parts += [self._chapter_name(tid) for tid in self.path[1:]]
+        elif self.path:
             parts.append(names.get(self.path[0], self.path[0]))
             parts += [self._chapter_name(tid) for tid in self.path[1:]]
         return " › ".join(parts)
@@ -813,9 +1187,16 @@ class PickerScreen(ModalScreen):
     def compose(self) -> ComposeResult:
         self._prepare()
         with Vertical(id="picker"):
-            if self.mode == "test":
-                yield Static("Tick the subtopics the test covers: space to tick (on a folder: all in it), ctrl+a ticks all "
-                             "shown, Tab to Start (or ctrl+s), Esc to go back.", classes="hint")
+            if self.multi:
+                if self.by_course:
+                    yield Static("Pick what to practise: a whole course or topic (space on a course, or on \"Entire course\" "
+                                 "inside it) or individual chapters. ctrl+a ticks shown, ctrl+d clears. "
+                                 "Tab to Continue (or ctrl+s). Esc to go back.", classes="hint")
+                else:
+                    yield Static(("Tick subtopics across chapters. " if self.mode == 'topical' else "Tick the subtopics the test covers: ")
+                                 + "Space ticks (a folder: all in it), ctrl+a ticks shown, ctrl+d clears. "
+                                 + ("Tab to Continue (or ctrl+s)." if self.mode == 'topical' else "Tab to Start (or ctrl+s).")
+                                 + " Esc to go back.", classes="hint")
             else:
                 ask = {"lesson": "Which subtopic do you want to learn?",
                        "long": "Which subtopic do you want to practise with long questions?",
@@ -826,8 +1207,9 @@ class PickerScreen(ModalScreen):
                         compact=True, select_on_focus=False)
             yield Static(id="found", classes="hint")
             yield _TopicOptions(id="subs")
-            if self.mode == "test":
-                yield Button("Start test prep", id="go", variant="primary")
+            if self.multi:
+                yield Button("Continue: question options" if self.mode in ('topical', 'practice') else "Start test prep",
+                             id="go", variant="primary")
 
     def on_mount(self) -> None:
         self.fill()
@@ -873,22 +1255,25 @@ class PickerScreen(ModalScreen):
                 rows = [Option(Text(f"Nothing matches “{self.needle}”. Esc clears the search.", style=C["dim"]), id="none",
                                disabled=True)]
         elif folders := self._folders(self.path):
+            if self.by_course and self.path:
+                rows.append(Option(self._all_row(), id="all:" + "/".join(self.path)))
             # one name column for the whole list, as wide as the longest name the window allows, so the bars line up
             # the row's other parts: tick box, ▸, a space, the 8-cell bar and "999/999 ideas · 99 subtopics"
-            room = max(14, (box.size.width or 80) - (4 if self.mode == "test" else 0) - 2 - 2 - 1 - 8 - 28)
+            room = max(14, (box.size.width or 80) - (4 if self.multi else 0) - 2 - 2 - 1 - 8 - 28)
             width = min(max(len(name) for _, name in folders), room)
-            rows = [Option(self._folder_row(self.path + [key], name, width), id="dir:" + "/".join(self.path + [key]))
-                    for key, name in folders]
+            rows += [Option(self._folder_row(self.path + [key], name, width), id="dir:" + "/".join(self.path + [key]))
+                     for key, name in folders]
             shown = len(self._under(self.path))
         else:
-            rows = [Option(self._row(sub), id=sub) for sub in self._under(self.path)]
+            rows = ([Option(self._all_row(), id="all:" + "/".join(self.path))] if self.by_course and self.path else [])
+            rows += [Option(self._row(sub), id=sub) for sub in self._under(self.path)]
             shown = len(rows)
         box.add_options(rows)
         ids = [o.id for o in rows]
         pick = was if was in ids else next((o.id for o in rows if not o.disabled), None)
         box.highlighted = ids.index(pick) if pick in ids else None
         where = f"{len(self.built)} subtopics · {shown} match" if self.needle else self._crumb()
-        ticks = f" · {len(self.ticked)} ticked" if self.mode == "test" else ""
+        ticks = f" · {len(self.ticked)} ticked" if self.multi else ""
         keys = " · type to search · ⏎ open · Esc up" if not self.needle and not self.path else ""
         self.query_one("#found", Static).update(
             (f"Search: {shown} of {len(self.built)} subtopics" if self.needle else where) + ticks + keys)
@@ -905,7 +1290,7 @@ class PickerScreen(ModalScreen):
         first = next((o for o in (box.get_option_at_index(i) for i in range(box.option_count)) if not o.disabled), None)
         if first is None:
             return
-        if self.mode == "test":
+        if self.multi and (self.mode in ('test', 'practice') or not str(first.id).startswith('dir:')):
             self.toggle(first.id)
             box.focus()
         elif str(first.id).startswith("dir:"):
@@ -929,6 +1314,8 @@ class PickerScreen(ModalScreen):
 
     def _ids_of(self, option_id: str) -> list[str]:
         """The subtopics an option stands for: itself, or everything inside a folder."""
+        if option_id.startswith("all:"):
+            return self._under(option_id[4:].split("/"))
         return self._under(option_id[4:].split("/")) if option_id.startswith("dir:") else [option_id]
 
     def toggle(self, option_id: str) -> None:
@@ -948,7 +1335,9 @@ class PickerScreen(ModalScreen):
         oid = str(event.option.id)
         if oid.startswith("dir:"):
             self.open(oid)
-        elif self.mode == "test":
+        elif oid.startswith("all:"):
+            self.toggle(oid)
+        elif self.multi:
             self.toggle(oid)
         else:
             self.dismiss([oid])
@@ -994,30 +1383,147 @@ class PickerScreen(ModalScreen):
             box.highlighted = heads[0] + 1
 
     def action_tick(self) -> None:
-        if self.mode != "test" or not isinstance(self.focused, OptionList):
+        if not self.multi or not isinstance(self.focused, OptionList):
             return
         box = self.query_one("#subs", OptionList)
         if box.highlighted is not None and not box.get_option_at_index(box.highlighted).disabled:
             self.toggle(str(box.get_option_at_index(box.highlighted).id))
 
     def action_tick_shown(self) -> None:
-        if self.mode == "test":
+        if self.multi:
             self.ticked |= {s for s in (self.built if self.needle else self._under(self.path)) if not self.needle or self._matches(s)}
             self.fill()
 
     def action_untick_all(self) -> None:
-        if self.mode == "test":
+        if self.multi:
             self.ticked.clear()
             self.fill()
 
     @on(Button.Pressed, "#go")
     def action_go(self) -> None:
-        if self.mode != "test":
+        if not self.multi:
             return
         if self.ticked:
             self.dismiss(sorted(self.ticked, key=_natural))
         else:
             self.app.notify("Tick at least one subtopic (space), then Start.", timeout=5)
+
+
+class TopicalSetupScreen(ModalScreen):
+    """Choose a bounded set from the same eligible reviewed inventory the engine serves."""
+    BINDINGS = [Binding('escape', 'dismiss(None)', 'Cancel'), Binding('ctrl+s', 'start_set', 'Start')]
+
+    def __init__(self, focus: list[str]) -> None:
+        super().__init__()
+        self.selected_topics = list(focus)
+        self._inventory = None
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id='topical-setup'):
+            yield Static('Topical past-paper set', classes='title')
+            with VerticalScroll(id='topical-fields'):
+                yield Static('', id='topical-summary')
+                yield Button('Change topics', id='topical-topics', compact=True)
+                with Horizontal(id='topical-count-row'):
+                    yield Static(f'Number of questions (1–{topical_selection.COUNT_LIMIT})')
+                    yield Input('10', id='topical-count', type='integer', compact=True, select_on_focus=False)
+                with Horizontal(id='topical-marking-row'):
+                    yield Static('Written-answer marking')
+                    yield Select([('Self-mark', 'manual'), ('Automatic AI', 'ai')], value='manual',
+                                 id='topical-marking', allow_blank=False, compact=True)
+                yield Static('AI grades typed working; unavailable AI or unsupported scans use self-marking.', classes='hint')
+                yield Static('Question types: Space toggles a type.', classes='hint')
+                yield SelectionList(*(Selection(label, value, True, id=value) for label, value in topical_selection.TYPE_CHOICES),
+                                    id='topical-types')
+            with Vertical(id='topical-footer'):
+                yield Static('', id='topical-availability', classes='hint')
+                with Horizontal(id='topical-actions'):
+                    yield Button('Start set', id='topical-start', variant='primary', compact=True)
+                    yield Button('Cancel', id='topical-cancel', compact=True)
+
+    def on_mount(self) -> None:
+        s = self.app.settings
+        self.query_one('#topical-marking', Select).value = 'ai' if s.practice_auto_mark else 'manual'
+        self.query_one('#topical-count', Input).value = str(min(max(1, s.practice_count), topical_selection.COUNT_LIMIT))
+        kinds = [x for x in s.practice_types.split(',') if x in dict((v, k) for k, v in topical_selection.TYPE_CHOICES)]
+        if kinds:
+            types = self.query_one('#topical-types', SelectionList)
+            for _, value in topical_selection.TYPE_CHOICES:
+                (types.select if value in kinds else types.deselect)(value)
+        self.refresh_inventory()
+        self.query_one('#topical-count', Input).focus()
+
+    def refresh_inventory(self) -> None:
+        self._inventory = self.app.tutor.topical_choices(self.selected_topics)
+        titles = self.app.tutor.packs.subtopics
+        summary = '; '.join(f'{sub} {titles.get(sub, {}).get("title", "")}' for sub in self.selected_topics)
+        self.query_one('#topical-summary', Static).update(f'{len(self.selected_topics)} selected topics: {summary}')
+        types = self.query_one('#topical-types', SelectionList)
+        for label, value in topical_selection.TYPE_CHOICES:
+            types.replace_option_prompt(value, f'{label} · {self._inventory["counts"][value]} available')
+        self.update_availability()
+
+    def _options(self) -> dict:
+        text = self.query_one('#topical-count', Input).value.strip()
+        if not text.isascii() or not text.isdecimal():
+            raise ValueError(f'Choose a whole number of questions from 1 to {topical_selection.COUNT_LIMIT}.')
+        count = int(text)
+        topical_selection.validate_count(count)
+        types = topical_selection.validate_types(self.query_one('#topical-types', SelectionList).selected)
+        return {'focus': list(self.selected_topics), 'topical_count': count, 'topical_types': types,
+                'topical_auto_mark': self.query_one('#topical-marking', Select).value == 'ai'}
+
+    def update_availability(self) -> None:
+        if self._inventory is None:
+            return
+        start = self.query_one('#topical-start', Button)
+        try:
+            options = self._options()
+            available = sum(self._inventory['counts'][kind] for kind in options['topical_types'])
+            if not available:
+                raise ValueError('No eligible reviewed questions match these topics and types. Change topics or types.')
+        except ValueError as exc:
+            start.disabled = True
+            start.label = 'Start set'
+            message = str(exc)
+        else:
+            planned = min(options['topical_count'], available)
+            start.disabled = False
+            start.label = f'Start {planned} question{"s" if planned != 1 else ""}'
+            message = (f'{available} unique match{"es" if available != 1 else ""}. '
+                       f'Set: {planned} of {options["topical_count"]} requested. Random topic mix; no repeats.')
+        self.query_one('#topical-availability', Static).update(message)
+
+    @on(Input.Changed, '#topical-count')
+    @on(SelectionList.SelectedChanged, '#topical-types')
+    def options_changed(self) -> None:
+        self.update_availability()
+
+    @on(Button.Pressed, '#topical-topics')
+    def change_topics(self) -> None:
+        def selected(focus):
+            if focus:
+                self.selected_topics = list(focus)
+                self.refresh_inventory()
+        self.app.push_screen(PickerScreen('topical', selected=self.selected_topics), selected)
+
+    @on(Button.Pressed, '#topical-cancel')
+    def cancel(self) -> None:
+        self.dismiss(None)
+
+    @on(Button.Pressed, '#topical-start')
+    def action_start_set(self) -> None:
+        self.refresh_inventory()  # recheck a bank change or scoped exclusion before dismissing
+        if not self.query_one('#topical-start', Button).disabled:
+            options = self._options()
+            st = self.app.settings
+            st.practice_auto_mark, st.practice_count = options['topical_auto_mark'], options['topical_count']
+            st.practice_types = ','.join(options['topical_types'])
+            try:
+                st.save(self.app.vault)
+            except OSError:
+                pass  # chosen for this set; only not remembered
+            self.dismiss(options)
 
 
 # ============================ Session ============================
@@ -1042,6 +1548,8 @@ class SessionScreen(ReadAloud, Screen):
     def __init__(self, start: dict | None) -> None:
         super().__init__()
         self.start_args, self.act, self.kc, self.view = start, {}, None, None
+        self.adapted: dict[str, str] = {}  # question number -> the parts "Can I solve this?" narrowed it to
+        self._solving = False
         self.started = time.monotonic()
         self.chatting = False
 
@@ -1050,6 +1558,7 @@ class SessionScreen(ReadAloud, Screen):
         yield Static(id="map")
         yield VerticalScroll(id="log", can_focus=False)  # Tab stays in the answer panel; alt+↑↓ and the wheel scroll it
         yield Button("Can I solve this? · ctrl+y", id="check-solvable", compact=True)
+        yield Static(id="lesson-progress")
         yield Container(id="panel")
         yield Footer()
 
@@ -1103,18 +1612,51 @@ class SessionScreen(ReadAloud, Screen):
         self.query_one("#log", VerticalScroll).scroll_end(animate=False)
 
     def panel(self, widget) -> None:
+        if isinstance(getattr(self, 'showing', None), WholeRubricPanel) and not isinstance(widget, WholeRubricPanel):
+            self.cancel_whole_marking()
         box = self.query_one("#panel", Container)
         box.remove_children()
         box.mount(widget)
         self.showing = widget
-        self.query_one("#check-solvable", Button).display = (
-            str((self.view or {}).get("n")) in (self.tutor.session or {}).get("presented", {}))
+        self.query_one("#check-solvable", Button).display = self._question_is_open(self.view, widget)
 
     def on_mount(self) -> None:
+        if self.start_args and self.start_args.get('mode') == 'lesson':
+            self.query_one('#check-solvable', Button).display = False
+            def start():
+                if self.is_attached:
+                    self._start_session()
+            LessonActivity(self, 'Preparing your lesson…').after_refresh(start)
+        else:
+            self._start_session()
+
+    PRACTICE_OPTIONS = ("course", "scope", "sources", "count", "difficulty", "include_unstarted", "types", "auto_mark")
+
+    def _start_options(self, t) -> dict:
+        """The extra start options this session was opened with, limited to what the engine's start() accepts (so a
+        UI that is ahead of the engine degrades to the options both know instead of raising)."""
+        import inspect
+        args = self.start_args
+        wanted = {key: args[key] for key in ('topical_count', 'topical_types', 'topical_auto_mark', *self.PRACTICE_OPTIONS)
+                  if key in args}
+        # the setup screen's names for two options differ from the engine's: map them, never drop them silently
+        if 'include_unstarted' in args:
+            wanted['started_only'] = not args['include_unstarted']
+        if 'auto_mark' in args and 'topical_auto_mark' not in args:
+            wanted['topical_auto_mark'] = bool(args['auto_mark'])
+        try:
+            params = inspect.signature(t.start).parameters
+        except (TypeError, ValueError):
+            return wanted
+        if any(p.kind is inspect.Parameter.VAR_KEYWORD for p in params.values()):
+            return wanted
+        return {key: value for key, value in wanted.items() if key in params}
+
+    def _start_session(self) -> None:
         t = self.tutor
         if self.start_args:
             res = t.start(self.start_args["mode"], self.start_args.get("minutes", 40), self.start_args.get("focus"),
-                          replace=True)
+                          replace=True, **self._start_options(t))
             if res.get("ok") is False:
                 self.say(cards.card("bad", "Can't start", f"{res['error']}\n\n{res.get('fix', '')}"))
                 self.panel(ContinuePanel(buttons=[("home", "Back to menu ⏎")]))
@@ -1125,8 +1667,15 @@ class SessionScreen(ReadAloud, Screen):
                           "Your notes grow in Obsidian as we go.",
                 "review": "Spaced review: the ideas that are due, mixed together. No hints on the first try.",
                 "test": "One question on every syllabus point, then we fix only what you miss.",
-                "topical": "Reviewed past-paper questions for this chapter. Source figures are in Obsidian; supporting facts count as assistance.",
+                "topical": "Reviewed past-paper questions for your selected topics. Source figures are in Obsidian; supporting facts count as assistance.",
+                "practice": "Practice on what you chose. Past-paper and source-verified questions both count towards "
+                            "mastery; source-verified ones are tagged. Source figures are in Obsidian.",
                 "long": "Exam-style long questions: write your answer, then mark it against the scheme."}.get(mode, "")))
+            if mode == 'topical' and 'topical_count' in self.start_args:
+                planned = len(res['blocks'][0]['question_queue'])
+                self.say(cards.card('tutor', 'Your topical set',
+                                    f'{planned} question{"s" if planned != 1 else ""}, randomly mixed across your selected topics. '
+                                    'Each source question appears once; long questions count as one.'))
         elif t.session:  # resuming: say so, show where things were, keep the real elapsed time
             from datetime import datetime as _dt
             started = _dt.fromisoformat(t.session["started"])
@@ -1134,7 +1683,7 @@ class SessionScreen(ReadAloud, Screen):
             self.say(cards.card("tutor", "Welcome back",
                                 f"Carrying on your {t.session['mode']} session: {t.session.get('answered', 0)} answered so far."))
         if self.app.settings.open_obsidian:
-            mac.open_in_obsidian(self.app.vault, "Now")
+            open_note(self, "Now", background=True)
         self.app.apply_answer_only(self)
         self.set_interval(1, self.update_bar)
         self.advance()
@@ -1155,7 +1704,7 @@ class SessionScreen(ReadAloud, Screen):
         active_s = t.study_clock.session(s.get("id"))  # what was really spent on this screen
         a = self.app.ai
         ai_state = "AI ●" if (self.app.settings.ai and a.available) else "AI ○"
-        mode = {"lesson": "Lesson", "review": "Review", "test": "Test prep", "long": "Long questions", "topical": "Topical past papers"}.get(
+        mode = {"lesson": "Lesson", "review": "Review", "test": "Test prep", "long": "Long questions", "topical": "Topical past papers", "practice": "Practice"}.get(
             s.get("mode", ""), s.get("mode", "").title())
         replies = f"{a.session.replies} {'reply' if a.session.replies == 1 else 'replies'}"
         resource = self.app.usage_status()
@@ -1316,8 +1865,9 @@ class SessionScreen(ReadAloud, Screen):
         if view.get("image") or view.get("kind") in ("short", "structured"):
             self.call_after_refresh(self._prepare_question, view)
         self.fold()
-        card = self.say(cards.question(view, ai_output=self.visual), mirror=None)
-        self.query_one("#check-solvable", Button).display = True
+        card = self.say(cards.question(self.shown_view(view), ai_output=self.visual), mirror=None)
+        self._question_card = card
+        self.query_one("#check-solvable", Button).display = True  # on every question, in every mode
         if view.get("support"):
             facts = "\n".join(f"{k.split('-', 1)[-1]}: {v}" for k, v in view["support"].items())
             self.say(cards.card("hint", "Supporting facts · assisted attempt", facts), mirror=None)
@@ -1334,6 +1884,8 @@ class SessionScreen(ReadAloud, Screen):
 
     def _prepare_question(self, view: dict) -> None:
         """Prepare written marking or an image once while the learner reads the current question."""
+        if view.get('manual_marking'):
+            return
         key = ((self.tutor.session or {}).get("id"), view.get("n"), view.get("image"))
         if not self.is_current or self.view is not view or key == getattr(self, "_prepared_question", None):
             return
@@ -1386,9 +1938,31 @@ class SessionScreen(ReadAloud, Screen):
     # ---------- panel results ----------
     @on(Panel.Done)
     def panel_done(self, event: Panel.Done) -> None:
+        if event.panel is not getattr(self, 'showing', None) or getattr(event.panel, 'processing', None):
+            return
+        if not self.visual or event.data.get('button') in ('read', 'ask', 'learn', 'leave', 'home'):
+            self._apply_panel_done(event)
+            return
+        labels = {'detail': 'Opening more detail…', 'diagram': 'Loading lesson diagrams…',
+                  'learn-stuck': 'Processing your question…', 'learn-example': 'Preparing another example…',
+                  'continue': 'Preparing the next lesson step…', 'next': 'Preparing the next lesson step…'}
+        task = ('Checking your answer…' if 'entry' in event.data else
+                'Processing your question…' if event.data.get('learn_question') else
+                labels.get(event.data.get('button'), 'Processing your input…'))
+        session, act = self.tutor.session, self.act
+
+        def apply():
+            if self.is_current and self.tutor.session is session and self.act is act:
+                self._apply_panel_done(event)
+        LessonActivity(self, task).after_refresh(apply)
+
+    def _apply_panel_done(self, event: Panel.Done) -> None:
         if event.panel is not getattr(self, "showing", None):  # queued on a panel already replaced (key repeat): once only
             return
         data, kind = event.data, self.act.get("activity")
+        if 'whole_award' in data or data.get('whole_cancel'):
+            self.whole_marks(data)
+            return
         if data.get('button') == 'faded-recover':
             binding = getattr(self, 'faded_recovery_binding', None)
             intent = (self.tutor.session or {}).get('faded_cancel_intent') or {}
@@ -1448,7 +2022,8 @@ class SessionScreen(ReadAloud, Screen):
             return
         if data.get('button') == 'skip-protected-retry':
             result = self.tutor.answer(f"{self.view['n']}?")
-            if result.get('ok') is False or any(row.get('error') for row in result.get('results', [])):
+            rows = result.get('results', [])
+            if result.get('ok') is False or any(row.get('error') for row in rows):
                 self.app.notify('Could not close the retry.', severity='error')
                 return
             if (self.tutor.session or {}).get('suspended_for_retry'):
@@ -1456,7 +2031,12 @@ class SessionScreen(ReadAloud, Screen):
                 if not restored.get('ok'):
                     self.app.notify(restored.get('error', 'Could not return to saved questions.'), severity='error')
                     return
-            self.advance()
+            fb = rows[0] if rows else {}
+            if fb.get('event'):
+                self.say(cards.feedback(fb, '?'))
+                self.finish_feedback(fb)
+            else:
+                self.advance()
             return
         if data.get('button') == 'restore-saved-judgment':
             candidate = self.act.get('restore_candidate')
@@ -1621,6 +2201,11 @@ class SessionScreen(ReadAloud, Screen):
             self.panel(ContinuePanel('The skipped question remains saved.',
                                      buttons=[('retry-skipped', 'Retry skipped question'), ('leave', 'Return to menu')]))
             return
+        if r.get('gave_up'):
+            self.say(cards.card('hint', f"Q{view.get('n')} — retry closed",
+                                r.get('say') or 'Not marked. The question stays on your review list.'))
+            self.finish_feedback(r)
+            return
         if r.get('judgment_postponed'):
             self.panel(ContinuePanel('Your earlier attempt remains saved for marking.',
                                      buttons=[('next', 'Return to saved attempt'), ('leave', 'Return to menu')]))
@@ -1691,6 +2276,8 @@ class SessionScreen(ReadAloud, Screen):
         """Whether the answer just marked can go to the AI examiner: one you gave (not "I don't know"), which the
         program marked wrong or docked a mark, and which has not been re-marked."""
         fb = getattr(self, "last_fb", None) or {}
+        if self.whole_marking_required(include_event=True):
+            return False
         return bool(not fb.get('feedback_withheld') and not fb.get('attempt_saved') and len((self.view or {}).get("images") or []) <= 1 and self.ai_ok("mark") and fb.get("event") and not fb.get("correct") and not fb.get("remarked") and not fb.get("written")
                     and fb.get("response") != "don't know"
                     and (self.view or {}).get("kind") in ("mcq", "numeric", "expression", "short"))
@@ -1747,60 +2334,84 @@ class SessionScreen(ReadAloud, Screen):
 
     @work(exclusive=True, group="judge")
     async def judge_short(self, view: dict, data: dict, pending: dict) -> None:
-        n = view["n"]
-        points = pending.get("rubric", [])
-        marking_ticket = self.tutor.begin_marking(n, data.get('your'))
-        if self.ai_ok("mark") and len(view.get("images") or []) <= 1:
-            try:
-                self.panel(ContinuePanel("Checking your wording against the mark points…", buttons=[]))
-                model, think = self.app.settings.ai_for("mark")
-                schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
-                with LocalActivity(self, model, task="Marking answer"):
-                    res, _ = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", "")),
-                                                        schema=schema, model=model, think=think,
-                                                        **spoken_too(self.app), **image_for_local(self.tutor, model))
-            except BaseException:
-                self.tutor.cancel_marking(marking_ticket)
-                raise
-            marking_state = self.tutor.marking_status(marking_ticket)
-            if marking_state == 'stale':
-                return
-            if marking_state != 'ok':
-                self.pending_short = None
-                if marking_state == 'retry_protected':
-                    self.submit(data)  # engine keeps the working and offers the protected retry
-                else:
-                    self.panel(ContinuePanel('Your working is saved. Return to the menu before marking.',
-                                             buttons=[('leave', 'Return to menu')]))
-                return
-            if ai_mod.matches_points(res, points):
-                question = (self.tutor.session or {}).get("presented", {}).get(str(n), {})
-                if question.get("phase") in ("form_check", "term_review", "faded") or question.get('inst', {}).get('written_faded'):
-                    self.show_guided_review_answer(n, data)
-                    self.panel(TickPanel("AI suggestions are unverified. Tick earned points after reviewing; alternative methods may earn credit. Alt+↑↓ scrolls; ctrl+s confirms.",
-                                         [(f"AI suggests {'met' if res['points'][i]['met'] else 'not met'} · {p}", str(i), False)
-                                          for i, p in enumerate(points)],
-                                         [("self", "Confirm marks ⏎")]))
+        activity_model, _ = self.app.settings.ai_for('mark')
+        with (LessonActivity(self, 'Checking your answer…', activity_model)
+              if self.visual and not local_models.is_local(activity_model) else nullcontext()):
+            n = view["n"]
+            points = pending.get("rubric", [])
+            marking_ticket = self.tutor.begin_marking(n, data.get('your'))
+            session = self.tutor.session or {}
+            use_ai = not bank_session(session) or bool(session.get('topical_auto_mark') or session.get('auto_mark'))
+            image_input = image_for_local(self.tutor, activity_model)
+            if use_ai and self.ai_ok('mark') and bank_session(session):
+                try:
+                    image_input = self.automatic_mark_images(view, activity_model)
+                except ValueError as exc:
+                    use_ai = False
+                    self.say(cards.card('hint', 'AI marking unavailable', str(exc)))
+            images_supported = bank_session(session) or len(view.get('images') or []) <= 1
+            if use_ai and self.ai_ok("mark") and images_supported:
+                try:
+                    self.panel(ContinuePanel("Checking your wording against the mark points…", buttons=[]))
+                    model, think = self.app.settings.ai_for("mark")
+                    schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
+                    with LocalActivity(self, model, task="Marking answer"):
+                        res, result = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", ""),
+                                                                        strictness=self.app.settings.marking_strictness,
+                                                                        mode=(self.tutor.session or {}).get('mode', '')),
+                                                            schema=schema, model=model, think=think,
+                                                            **spoken_too(self.app), **image_input)
+                except Exception:
+                    if not bank_session(session):
+                        self.tutor.cancel_marking(marking_ticket)
+                        raise
+                    res, result = None, ai_mod.Result(ok=False, message='AI marking failed. Your working is saved; mark it manually.')
+                except BaseException:
+                    self.tutor.cancel_marking(marking_ticket)
+                    raise
+                marking_state = self.tutor.marking_status(marking_ticket)
+                if marking_state == 'stale':
                     return
-                met = sum(1 for p in res["points"] if p.get("met"))
-                score = met / max(1, len(points))
-                verdict = (res.get("feedback", "") + "\n\n" + "\n".join(
-                    f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}" for p in res["points"])).strip()
-                out = self.tutor.answer(data["entry"], judge={n: score}, your={n: data.get("your", "")},
-                                        explanation={n: verdict})  # Now and the log carry the examiner's verdict too
-                fb = out["results"][0]
-                self.pending_short = None
-                self.say(cards.feedback(fb, data.get("your", ""), ai_output=True))
-                self.readable_now(spoken_feedback(fb, data.get("your", ""), res.get("speech") or None), auto=True)
-                self.finish_feedback(fb, written=True)
-                return
-        else:
-            # No asynchronous judge response is pending; consume the ticket so
-            # the tutor does not retain an unused process-local identity token.
-            self.tutor.marking_status(marking_ticket)
-        self.show_guided_review_answer(n, data)
-        self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ctrl+s, or ⏎ on Done.",
-                             [(p, str(i), False) for i, p in enumerate(points)], [("self", "Done ⏎")]))
+                if marking_state != 'ok':
+                    self.pending_short = None
+                    if marking_state == 'retry_protected':
+                        self.submit(data)  # engine keeps the working and offers the protected retry
+                    else:
+                        self.panel(ContinuePanel('Your working is saved. Return to the menu before marking.',
+                                                 buttons=[('leave', 'Return to menu')]))
+                    return
+                if ai_mod.matches_points(res, points) and (not bank_session(session) or result.ok):
+                    question = (self.tutor.session or {}).get("presented", {}).get(str(n), {})
+                    if question.get("phase") in ("form_check", "term_review", "faded") or question.get('inst', {}).get('written_faded'):
+                        self.show_guided_review_answer(n, data)
+                        if self.app.settings.confirm_ai_marks:
+                            self.panel(TickPanel("AI suggestions are unverified. Tick earned points after reviewing; alternative methods may earn credit. Alt+↑↓ scrolls; ctrl+s confirms.",
+                                                 [(f"AI suggests {'met' if res['points'][i]['met'] else 'not met'} · {p}", str(i), False)
+                                                  for i, p in enumerate(points)],
+                                                 [("self", "Confirm marks ⏎")]))
+                            return
+                    met = sum(1 for p in res["points"] if p.get("met"))
+                    score = met / max(1, len(points))
+                    verdict = (res.get("feedback", "") + "\n\n" + "\n".join(
+                        f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}" for p in res["points"])).strip()
+                    out = self.tutor.answer(data["entry"], judge={n: score}, your={n: data.get("your", "")},
+                                            explanation={n: verdict})  # Now and the log carry the examiner's verdict too
+                    fb = out["results"][0]
+                    self.pending_short = None
+                    self.say(cards.feedback(fb, data.get("your", ""), ai_output=True))
+                    self.readable_now(spoken_feedback(fb, data.get("your", ""), res.get("speech") or None), auto=True)
+                    self.finish_feedback(fb, written=True)
+                    return
+                if bank_session(session):
+                    self.say(cards.card('hint', 'AI marking unavailable',
+                                        result.message or 'The AI result did not match the mark points. Your working is saved; mark it manually.'))
+            else:
+                # No asynchronous judge response is pending; consume the ticket so
+                # the tutor does not retain an unused process-local identity token.
+                self.tutor.marking_status(marking_ticket)
+            self.show_guided_review_answer(n, data)
+            self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ctrl+s, or ⏎ on Done.",
+                                 [(p, str(i), False) for i, p in enumerate(points)], [("self", "Done ⏎")]))
 
     def long_marks(self, data: dict) -> None:
         if getattr(self, "pending_short", None):
@@ -1832,6 +2443,87 @@ class SessionScreen(ReadAloud, Screen):
         self.readable_now(spoken_feedback(fb), auto=True)
         self.finish_feedback(fb, written=True)
 
+    def whole_marking_required(self, *, include_event: bool = False) -> bool:
+        view = self.view or {}
+        question = (self.tutor.session or {}).get('presented', {}).get(str(view.get('n')))
+        if view.get('manual_marking') or question and whole_rubric(question['inst']) is not None:
+            return True
+        if include_event:
+            event_id = (getattr(self, 'last_fb', None) or {}).get('event')
+            event = next((e for e in self.tutor.vault.events() if e.get('id') == event_id), {})
+            return bool(event.get('human_award') or whole_rubric(event.get('question', {})) is not None)
+        return False
+
+    def cancel_whole_marking(self) -> None:
+        pending = getattr(self, 'whole_pending', None)
+        if pending:
+            self.tutor.cancel_marking(pending['ticket'])
+            self.whole_pending = None
+
+    def on_unmount(self) -> None:
+        self.cancel_whole_marking()
+        super().on_unmount()
+
+    def open_whole_marking(self, text: str, *, paper_attempt: bool = False) -> None:
+        self.cancel_whole_marking()
+        n = self.view['n']
+        saved = self.tutor.save_structured_draft(n, text)
+        if not saved.get('ok'):
+            self.app.notify(saved.get('error', 'Could not save working.'), severity='warning')
+            return
+        if whole_attempt_kind(text) == 'paper' and not paper_attempt:
+            session = self.tutor.session
+            question = session['presented'].get(str(n))
+            self.panel(LongPanel(n, initial=text))
+            def confirmed(choice):
+                current = (self.tutor.session or {}).get('presented', {}).get(str(n))
+                if (choice == 'attempted' and self.is_mounted and self.tutor.session is session
+                        and current is question and current.get('saved_work') == text
+                        and (self.view or {}).get('n') == n):
+                    self.open_whole_marking(text, paper_attempt=True)
+            self.app.push_screen(ConfirmScreen('Confirm: I attempted this question on paper.',
+                                               [('cancel', 'Keep editing'), ('attempted', 'I attempted this on paper')]), confirmed)
+            return
+        rubric = self.tutor.whole_rubric(n, text, paper_attempt=paper_attempt)
+        if rubric.get('error'):
+            self.panel(ContinuePanel(rubric['error'] + ' Your work is saved and ungraded.',
+                                     buttons=[('suspend-for-retry', 'Set aside and retry'), ('leave', 'Return to menu')]))
+            return
+        try:
+            body = views.whole_rubric_block(rubric, vault_root=self.tutor.vault.root)
+            self.say(cards.you(text, f'Your working for Q{n}'))
+            self.say(cards.card('tutor', f'Official rubric for Q{n}', body))
+            self.whole_pending = {'n': n, 'work': text, 'ticket': rubric['ticket']}
+            self.panel(WholeRubricPanel(rubric['point'], rubric['max_marks'], len(rubric['media'])))
+        except (OSError, ValueError):
+            self.tutor.cancel_marking(rubric['ticket'])
+            self.panel(LongPanel(n, initial=text))
+            self.app.notify('The official rubric could not be displayed. Your work is saved and ungraded.', severity='warning')
+
+    def whole_marks(self, data: dict) -> None:
+        pending = getattr(self, 'whole_pending', None)
+        if not pending:
+            return
+        n, text = pending['n'], pending['work']
+        if data.get('whole_cancel'):
+            self.cancel_whole_marking()
+            self.panel(LongPanel(n, initial=text))
+            return
+        if (self.view or {}).get('n') != n:
+            self.cancel_whole_marking()
+            return
+        out = self.tutor.answer(f'{n} = {text}', manual_awards={n: {
+            'earned_marks': data['whole_award'], 'ticket': pending['ticket']}}, your={n: text})
+        self.cancel_whole_marking()
+        fb = out['results'][0]
+        if fb.get('error') or not fb.get('event'):
+            self.panel(LongPanel(n, initial=text))
+            self.app.notify(fb.get('error', 'Your work remains ungraded.'), severity='warning')
+            return
+        self.say(cards.feedback(fb, text))
+        self.readable_now(spoken_feedback(fb, text), auto=True)
+        self.finish_feedback(fb, written=True)
+
     def long_written(self, data: dict) -> None:
         text = data.get("text", "")
         self.long_text = text
@@ -1857,9 +2549,17 @@ class SessionScreen(ReadAloud, Screen):
                 self.panel(LongPanel(self.view['n'], initial=text, ungraded=True))
                 self.app.notify(result.get('error', 'Could not save working.'), severity='error')
                 return
+            if result.get('gave_up'):
+                self.say(cards.card('hint', f"Q{self.view['n']} — retry closed",
+                                    result.get('say') or 'Not marked. The question stays on your review list.'))
+                self.finish_feedback(result, written=True)
+                return
             self.say(cards.you(text, f"Your working for Q{self.view['n']}"))
             self.say(cards.feedback(result, text))
             self.finish_feedback(result, written=True)
+            return
+        if self.whole_marking_required():
+            self.open_whole_marking(text)
             return
         self.say(cards.you(text, f"Your working for Q{self.view['n']}"))  # kept in the log, even if you leave before marking
         sch = self.tutor.scheme(self.view["n"])
@@ -1874,6 +2574,22 @@ class SessionScreen(ReadAloud, Screen):
                                      buttons=[('suspend-for-retry', 'Set aside and retry'), ('leave', 'Return to menu')]))
             return
         self.scheme = sch.get("scheme", [])
+        if self.automatic_topical_marking():
+            saved = self.tutor.save_structured_draft(self.view['n'], text)
+            if not saved.get('ok'):
+                self.panel(LongPanel(self.view['n'], initial=text))
+                self.app.notify(saved.get('error', 'Could not save working.'), severity='error')
+                return
+            if text.strip().casefold().rstrip('.') in ('done on paper', 'on paper', 'written on paper'):
+                self.mark_panel('AI needs your typed working. Mark your paper answer against these points.', (),
+                                [('mine', 'Submit my marks ⏎')])
+                return
+            if not self.ai_ok('mark'):
+                self.mark_panel('AI marking is unavailable. Your working is saved; tick your earned points.', (),
+                                [('mine', 'Submit my marks ⏎')])
+                return
+            self.ai_check_long({'ticked': []}, automatic=True)
+            return
         buttons = [("mine", "Submit my marks ⏎")] + ([("ai", "Ask the AI examiner to check")]
                   if self.ai_ok("mark") and len(self.view.get("images") or []) <= 1 else [])
         self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s. Honest self-marking is great practice.",
@@ -1883,67 +2599,145 @@ class SessionScreen(ReadAloud, Screen):
         self.panel(TickPanel(prompt, [(f"{p.get('mark', '')} {p.get('point', '')}", str(p["i"]), str(p["i"]) in ticked)
                                       for p in self.scheme], buttons))
 
-    @work(exclusive=True, group="judge")
-    async def ai_check_long(self, data: dict) -> None:
-        if len((self.view or {}).get("images") or []) > 1:
-            self.mark_panel("Read all source pages in Obsidian, then submit your own marks.", data.get("ticked", []),
-                            [("mine", "Submit my marks ⏎")])
-            return
-        self.panel(ContinuePanel("The AI examiner is marking your answer…", buttons=[]))
-        points = [f"{p.get('mark', '')} {p.get('point', '')}" for p in self.scheme]
-        model, think = self.app.settings.ai_for("mark")
-        schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
-        self.long_mark_pending = True
+    def automatic_topical_marking(self) -> bool:
+        session = self.tutor.session or {}
+        return bank_session(session) and (session.get('topical_auto_mark') is True or session.get('auto_mark') is True)
+
+    def automatic_mark_images(self, view: dict, model: str) -> dict:
+        """Resolve every declared page, or refuse automatic marking with partial input."""
+        from tutorlib.asset_library import AssetLibrary
+        declared = list(dict.fromkeys(([view['image']] if view.get('image') else []) + (view.get('images') or [])))
+        if not declared:
+            return {}
+        if not codex_models.is_codex(model) and not abacus_models.reads_images(model) and (
+                not local_models.is_local(model) or len(declared) > 1):
+            raise ValueError('This AI marking route cannot read every source page. Your working is saved; self-mark this answer.')
+        library = AssetLibrary(self.app.vault)
         try:
-            with LocalActivity(self, model, task="Marking answer"):
-                res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
-                                                    schema=schema, model=model, think=think,
-                                                    **spoken_too(self.app), **image_for_local(self.tutor, model))
-        finally:
-            self.long_mark_pending = False
-        if not ai_mod.matches_points(res, points):  # give the tick list back, with your ticks, so you can still mark it yourself
-            self.say(cards.card("hint", "AI check unavailable", r.message or "Mark it yourself."))
-            self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s to submit.", data["ticked"],
-                            [("mine", "Submit my marks ⏎")])
+            paths = [library.resolve(path) for path in declared]
+        except (OSError, ValueError, TypeError) as exc:
+            raise ValueError('A source image is unavailable. Your working is saved; self-mark this answer.') from exc
+        return {'images': paths} if codex_models.is_codex(model) or abacus_models.is_abacus(model) else {'image': paths[0]}
+
+    @work(exclusive=True, group="judge")
+    async def ai_check_long(self, data: dict, *, automatic: bool = False) -> None:
+        if self.whole_marking_required():
+            self.say(cards.card('hint', 'Manual marking required', 'Your work is saved and ungraded.'))
             return
-        verdict = "\n".join(f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}: {p.get('why', '')}"
-                            for p in res.get("points", []))
-        self.say(cards.ai(f"{res.get('feedback', '')}\n\n{verdict}", "AI examiner"))
-        self.readable_now(res.get("speech") or f"{res.get('feedback', '')}\n\n{verdict}", auto=True,
-                          limit=tts.AI_SPEECH_LIMIT)
-        met = {str(self.scheme[i]["i"]) for i, p in enumerate(res.get("points", [])) if p.get("met") and i < len(self.scheme)}
-        ticked = sorted(met)
-        self.mark_panel("Adjust if you disagree, then ctrl+s to submit.", ticked, [("mine", "Submit ⏎")])
+        activity_model, _ = self.app.settings.ai_for('mark')
+        with (LessonActivity(self, 'Marking your answer…', activity_model)
+              if self.visual and not local_models.is_local(activity_model) else nullcontext()):
+            view, scheme, working = copy.deepcopy(self.view or {}), copy.deepcopy(self.scheme), self.long_text
+            model, think = self.app.settings.ai_for("mark")
+            if automatic:
+                try:
+                    image_input = self.automatic_mark_images(view, model)
+                except ValueError as exc:
+                    self.mark_panel(str(exc), data.get('ticked', []), [('mine', 'Submit my marks ⏎')])
+                    return
+            elif len(view.get("images") or []) > 1:
+                self.mark_panel("Read all source pages in Obsidian, then submit your own marks.", data.get("ticked", []),
+                                [("mine", "Submit my marks ⏎")])
+                return
+            else:
+                image_input = image_for_local(self.tutor, model)
+            self.panel(ContinuePanel("The AI examiner is marking your answer…", buttons=[]))
+            points = [f"{p.get('mark', '')} {p.get('point', '')}" for p in scheme]
+            schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
+            self.long_mark_pending = True
+            ticket = None
+            try:
+                if automatic:
+                    ticket = self.tutor.begin_marking(view['n'], working)
+                with LocalActivity(self, model, task="Marking answer"):
+                    res, r = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, working,
+                                                                    strictness=self.app.settings.marking_strictness,
+                                                                    mode=(self.tutor.session or {}).get('mode', '')),
+                                                        schema=schema, model=model, think=think,
+                                                        **spoken_too(self.app), **image_input)
+            except Exception:
+                if not automatic:
+                    raise
+                res, r = None, ai_mod.Result(ok=False, message='AI marking failed. Your working is saved; mark it manually.')
+            except BaseException:
+                if ticket:
+                    self.tutor.cancel_marking(ticket)
+                raise
+            finally:
+                self.long_mark_pending = False
+            if ticket:
+                state = self.tutor.marking_status(ticket)
+                if state == 'stale' or not self.is_mounted:
+                    return
+                if state != 'ok':
+                    self.panel(ContinuePanel('Your working is saved. Return to the menu before marking protected questions.',
+                                             buttons=[('leave', 'Return to menu')]))
+                    return
+            if not ai_mod.matches_points(res, points) or automatic and (not r or not r.ok):
+                self.say(cards.card("hint", "AI check unavailable", (r.message if r else '') or "Mark it yourself."))
+                self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s to submit.", data["ticked"],
+                                [("mine", "Submit my marks ⏎")])
+                return
+            verdict = "\n".join(f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}: {p.get('why', '')}"
+                                for p in res.get("points", []))
+            met = {str(scheme[i]["i"]) for i, p in enumerate(res.get("points", [])) if p.get("met") and i < len(scheme)}
+            ticked = sorted(met)
+            if automatic:
+                n = view['n']
+                explanation = f"{res.get('feedback', '')}\n\n{verdict}".strip()
+                out = self.tutor.answer(f'{n} pts=' + ','.join(ticked), your={n: working}, explanation={n: explanation})
+                if not out.get('results') or out['results'][0].get('error'):
+                    self.mark_panel('Your working is saved. Marking could not finish; review your marks.', ticked,
+                                    [('mine', 'Submit my marks ⏎')])
+                    return
+                fb = out['results'][0]
+                self.say(cards.feedback(fb, working, ai_output=True))
+                self.readable_now(spoken_feedback(fb, working, res.get('speech') or None), auto=True)
+                self.finish_feedback(fb, written=True)
+                return
+            self.say(cards.ai(f"{res.get('feedback', '')}\n\n{verdict}", "AI examiner"))
+            self.readable_now(res.get("speech") or f"{res.get('feedback', '')}\n\n{verdict}", auto=True,
+                              limit=tts.AI_SPEECH_LIMIT)
+            self.mark_panel("Adjust if you disagree, then ctrl+s to submit.", ticked, [("mine", "Submit ⏎")])
 
     @work(exclusive=True, group="judge")
     async def remark(self) -> None:
         """A second marker for an answer the program marked wrong. It matches units, forms and wording narrowly, and
         an answer key can be wrong; if the AI examiner finds the answer right, it counts as right from then on."""
-        fb, view = self.last_fb, self.view or {}
-        self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
-        selected, selected_think = self.app.settings.ai_for("mark")
-        model = selected if local_models.is_local(selected) or codex_models.is_codex(selected) else prompts.REMARK_MODEL
-        think = (selected_think if local_models.thinking_levels(model) and self.app.settings.ai_mark_effort else
-                 local_models.supports_thinking(model)) if local_models.is_local(model) else True
-        with LocalActivity(self, model, task="Checking the marking"):
-            res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=think,
-                                                **spoken_too(self.app), **image_for_local(self.tutor, model))
-        if res:
-            fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again
-            self.readable_now(["Re-marked: correct." if res.get("correct") is True else "Re-marked: the mark stands.",
-                               res.get("speech") or res.get("why", "")], auto=True)
-        out = self.tutor.regrade(fb["event"], res.get("why", "")) if res and res.get("correct") is True else {}
-        if out.get("ok"):
-            self.last_fb = {**(out.get("feedback") or {**fb, "correct": True, "partial": False}), "remarked": True}
-            self.followups = ["break"] if self.last_fb.get("break_suggested") else []  # nothing was missed
-            self.say(cards.card("tutor", "Re-marked: correct ✓",  # the engine logged it in these words
-                                f"{res.get('why', '')}\n\nIt now counts as right in your record.", ai_output=True), mirror="now")
-        elif res:
-            self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", ""), ai_output=True))
-        else:
-            self.say(cards.card("hint", "AI check unavailable", r.message or "Try again later."))
-        self.update_bar()
-        self.next_followup()
+        if self.whole_marking_required(include_event=True):
+            self.say(cards.card('hint', 'Manual marking required', 'Human whole-rubric awards cannot be re-marked by AI.'))
+            return
+        activity_model, _ = self.app.settings.ai_for('mark')
+        with (LessonActivity(self, 'Checking the marking…', activity_model)
+              if self.visual and not local_models.is_local(activity_model) else nullcontext()):
+            fb, view = self.last_fb, self.view or {}
+            self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
+            selected, selected_think = self.app.settings.ai_for("mark")
+            model = (selected if local_models.is_local(selected) or codex_models.is_codex(selected)
+                     or abacus_models.is_abacus(selected) else prompts.REMARK_MODEL)
+            think = (selected_think if local_models.thinking_levels(model) and self.app.settings.ai_mark_effort else
+                     local_models.supports_thinking(model)) if local_models.is_local(model) else True
+            with LocalActivity(self, model, task="Checking the marking"):
+                res, r = await self.app.ai.one_shot(prompts.remark(view, fb, strictness=self.app.settings.marking_strictness,
+                                                                  mode=(self.tutor.session or {}).get('mode', '')),
+                                                    schema=prompts.REMARK, model=model, think=think,
+                                                    **spoken_too(self.app), **image_for_local(self.tutor, model))
+            if res:
+                fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again
+                self.readable_now(["Re-marked: correct." if res.get("correct") is True else "Re-marked: the mark stands.",
+                                   res.get("speech") or res.get("why", "")], auto=True)
+            out = self.tutor.regrade(fb["event"], res.get("why", "")) if res and res.get("correct") is True else {}
+            if out.get("ok"):
+                self.last_fb = {**(out.get("feedback") or {**fb, "correct": True, "partial": False}), "remarked": True}
+                self.followups = ["break"] if self.last_fb.get("break_suggested") else []  # nothing was missed
+                self.say(cards.card("tutor", "Re-marked: correct ✓",  # the engine logged it in these words
+                                    f"{res.get('why', '')}\n\nIt now counts as right in your record.", ai_output=True), mirror="now")
+            elif res:
+                self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", ""), ai_output=True))
+            else:
+                self.say(cards.card("hint", "AI check unavailable", r.message or "Try again later."))
+            self.update_bar()
+            self.next_followup()
 
     # ---------- AI ----------
     def ai_ok(self, mode: str = "explain") -> bool:
@@ -1967,58 +2761,61 @@ class SessionScreen(ReadAloud, Screen):
 
     @work(exclusive=True, group="ai")
     async def _stream(self, prompt: str, then_continue: bool, mode: str = "ask", web_query: str | None = None) -> None:
-        a = self.app.ai
-        w = self.say(cards.ai("…"), mirror=None)  # Now and the log get the whole reply once it ends
-        buf = ""
-        # guard every open question (normally just the one on screen; a session begun in the chat may hold more)
-        session, act = self.tutor.session, self.act
-        numbers = tuple((session or {}).get("presented", {}))
-        log = self.tutor._lesson_log()
-        keys = prompts.guard_keys(self.tutor)
-        skipped = bool(prompts.skipped_guards(self.tutor))
-        model, think = self.app.settings.ai_for(mode)  # chosen in Settings for this kind of help
-        with LocalActivity(self, model, w) as live:
-            async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think,
-                                         **({"web_query": web_query} if local_models.is_local(model) and web_query else {})):
-                buf += chunk
-                if not keys and not skipped and self.act is act and self.tutor.session is session and live.update(buf):
-                    self.query_one("#log", VerticalScroll).scroll_end(animate=False)
-        speech = a.last.speech if a.last.ok else ""
-        buf = (a.last.text or buf) if a.last.ok else buf  # whole and tidy: a code fence the spoken line opened is gone
-        withheld = skipped or any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
-        if withheld:
-            buf = ("I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
-                   if numbers else "I can't give away the answer to a skipped question before an attempt. Start or resume a lesson and press ctrl+u to retry it.")
-            speech = ""
-        buf = normalise_visual(buf)
-        # A reply to an earlier question stays in its transcript, never on the new question.
-        if self.tutor.session is not session or self.act is not act or tuple((self.tutor.session or {}).get("presented", {})) != numbers:
-            w.update(cards.ai(buf))
-            w.display = False
-            if a.last.ok and log:
-                title = "Tutor (AI)" + (" · Q" + ", Q".join(numbers) if numbers else " · earlier activity")
-                log.tutor(buf, title=title)
+        activity_model, _ = self.app.settings.ai_for(mode)
+        with (LessonActivity(self, 'Waiting for the tutor reply…', activity_model)
+              if self.visual and not local_models.is_local(activity_model) else nullcontext()):
+            a = self.app.ai
+            w = self.say(cards.ai("…"), mirror=None)  # Now and the log get the whole reply once it ends
+            buf = ""
+            # guard every open question (normally just the one on screen; a session begun in the chat may hold more)
+            session, act = self.tutor.session, self.act
+            numbers = tuple((session or {}).get("presented", {}))
+            log = self.tutor._lesson_log()
+            keys = prompts.guard_keys(self.tutor)
+            skipped = bool(prompts.skipped_guards(self.tutor))
+            model, think = self.app.settings.ai_for(mode)  # chosen in Settings for this kind of help
+            with LocalActivity(self, model, w) as live:
+                async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think,
+                                             **({"web_query": web_query} if local_models.is_local(model) and web_query else {})):
+                    buf += chunk
+                    if not keys and not skipped and self.act is act and self.tutor.session is session and live.update(buf):
+                        self.query_one("#log", VerticalScroll).scroll_end(animate=False)
+            speech = a.last.speech if a.last.ok else ""
+            buf = (a.last.text or buf) if a.last.ok else buf  # whole and tidy: a code fence the spoken line opened is gone
+            withheld = skipped or any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
+            if withheld:
+                buf = ("I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
+                       if numbers else "I can't give away the answer to a skipped question before an attempt. Start or resume a lesson and press ctrl+u to retry it.")
+                speech = ""
+            buf = normalise_visual(buf)
+            # A reply to an earlier question stays in its transcript, never on the new question.
+            if self.tutor.session is not session or self.act is not act or tuple((self.tutor.session or {}).get("presented", {})) != numbers:
+                w.update(cards.ai(buf))
+                w.display = False
+                if a.last.ok and log:
+                    title = "Tutor (AI)" + (" · Q" + ", Q".join(numbers) if numbers else " · earlier activity")
+                    log.tutor(buf, title=title)
+                self.update_bar()
+                return
+            if not a.last.ok:
+                w.update(cards.card("hint", "AI paused", a.last.message))
+                self.tutor.show("hint", a.last.message, "AI paused")
+            elif not buf.strip():
+                message = "The AI returned an empty reply. Try asking again."
+                w.update(cards.card("hint", "No AI reply", message))
+                self.tutor.show("hint", message, "No AI reply")
+            else:
+                w.update(cards.ai(buf))
+                self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
+                if buf and not withheld:
+                    self.tutor.ai_help()  # help that reached you counts as a hint on every open question
+                self.tutor.show("ai", buf, "Tutor (AI)")  # the card as drawn: Now and the log
             self.update_bar()
-            return
-        if not a.last.ok:
-            w.update(cards.card("hint", "AI paused", a.last.message))
-            self.tutor.show("hint", a.last.message, "AI paused")
-        elif not buf.strip():
-            message = "The AI returned an empty reply. Try asking again."
-            w.update(cards.card("hint", "No AI reply", message))
-            self.tutor.show("hint", message, "No AI reply")
-        else:
-            w.update(cards.ai(buf))
-            self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
-            if buf and not withheld:
-                self.tutor.ai_help()  # help that reached you counts as a hint on every open question
-            self.tutor.show("ai", buf, "Tutor (AI)")  # the card as drawn: Now and the log
-        self.update_bar()
-        if then_continue:
-            self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎"), ("ask", "Ask the tutor (ctrl+t)")],
-                                     read=self.can_read()))
-        # A synchronous stream can finish before this card mounts and acquires its final height.
-        w.call_after_refresh(self.query_one("#log", VerticalScroll).scroll_end, animate=False)
+            if then_continue:
+                self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎"), ("ask", "Ask the tutor (ctrl+t)")],
+                                         read=self.can_read()))
+            # A synchronous stream can finish before this card mounts and acquires its final height.
+            w.call_after_refresh(self.query_one("#log", VerticalScroll).scroll_end, animate=False)
 
     def prepare_cards(self, kcs: list[str]) -> None:
         """Ideas without a pre-built teaching card get one written by AI in the background (once, then cached)."""
@@ -2032,7 +2829,7 @@ class SessionScreen(ReadAloud, Screen):
         import json
         for kc in kcs:
             model, think = self.app.settings.ai_for("explain")
-            if not local_models.is_local(model) and not codex_models.is_codex(model):
+            if not local_models.is_local(model) and not codex_models.is_codex(model) and not abacus_models.is_abacus(model):
                 think = False  # Claude cards keep their original fast, non-thinking default.
             with LocalActivity(self, model, task="Writing teaching notes"):
                 data, _ = await self.app.ai.one_shot(prompts.teach_card(self.tutor, kc), schema=prompts.CARD,
@@ -2194,6 +2991,13 @@ class SessionScreen(ReadAloud, Screen):
 
     @work(exclusive=True, group="ai")
     async def learn_request(self, question: str) -> None:
+        """Acknowledge follow-ups before preparing material or waiting for a model."""
+        model, _ = self.app.settings.ai_for('learn')
+        with LessonActivity(self, 'Processing your question…', model) as activity:
+            await self.wait_for_refresh()
+            await self._learn_request(question, activity)
+
+    async def _learn_request(self, question: str, activity: LessonActivity) -> None:
         """Use prepared teaching and contextual follow-ups without advancing the lesson."""
         session, act, kc = self.tutor.session, self.act, self.kc
         if not session or not kc or session.get("presented") or session.get("queue"):
@@ -2370,13 +3174,13 @@ class SessionScreen(ReadAloud, Screen):
             prompt = (learn_reply.selection_prompt(question, source_cards, idea_context or context, previous,
                                                     recent_questions=recent_questions if idea_context else "")
                       + "\n\n" + ta.catalogue(source_cards.get(kc, {}), figures))
-            with LocalActivity(self, model_name, task="Finding teaching material"):
-                data, result = await self.app.ai.one_shot(prompt, schema=learn_reply.CARD_SELECTION_SCHEMA,
-                                                          model=model_name, think=think,
-                                                          system="You are a careful A-level tutor. Follow the requested structured "
-                                                                 "response format, teach in British English, and never "
-                                                                 "invent mathematical steps or reveal an open answer.",
-                                                          **image_for_local(self.tutor, model_name))
+            activity.set_task("Finding teaching material…")
+            data, result = await self.app.ai.one_shot(prompt, schema=learn_reply.CARD_SELECTION_SCHEMA,
+                                                      model=model_name, think=think,
+                                                      system="You are a careful A-level tutor. Follow the requested structured "
+                                                             "response format, teach in British English, and never "
+                                                             "invent mathematical steps or reveal an open answer.",
+                                                      **image_for_local(self.tutor, model_name))
             if not result.ok:
                 data = None
                 failure = result.message or "The tutor could not respond."
@@ -2391,14 +3195,14 @@ class SessionScreen(ReadAloud, Screen):
         if model_selection and isinstance(data, dict) and "actions" in data:  # the AI asked for teaching actions
             for req in [r for r in data["actions"] if isinstance(r, dict) and r.get("action") == "write"][:1]:
                 req["text"], req["checked"], req["unchecked"] = "", [], 0
-                with LocalActivity(self, model_name, task="Writing an explanation"):
-                    doc, wrote = await self.app.ai.one_shot(
-                        learn_write.prompt(question, str(req.get("topic") or question), idea_context or context,
-                            learner_context=f"Lesson goal: {lesson.GOALS.get(session.get('goal'), 'Not chosen yet')}\n"
-                                            + previous[-3500:]),
-                        schema=learn_write.SCHEMA, model=model_name, think=think,
-                        system="You are a careful A-level tutor. Follow the requested structured response format and "
-                               "teach in British English.", **image_for_local(self.tutor, model_name))
+                activity.set_task("Writing an explanation…")
+                doc, wrote = await self.app.ai.one_shot(
+                    learn_write.prompt(question, str(req.get("topic") or question), idea_context or context,
+                        learner_context=f"Lesson goal: {lesson.GOALS.get(session.get('goal'), 'Not chosen yet')}\n"
+                                        + previous[-3500:]),
+                    schema=learn_write.SCHEMA, model=model_name, think=think,
+                    system="You are a careful A-level tutor. Follow the requested structured response format and "
+                           "teach in British English.", **image_for_local(self.tutor, model_name))
                 # A question, retry guard or new activity may have arrived while
                 # the writer was running. Never apply a stale reply or figure.
                 if not current_request() or self.learning_answer_is_guarded(''):
@@ -2462,6 +3266,8 @@ class SessionScreen(ReadAloud, Screen):
         if self.query('#learning-question'):
             self.action_learn_tutor()
             return
+        if self.visual and getattr(self, '_lesson_activity', None):
+            return
         def got(q: str | None) -> None:
             if q:
                 self.say(cards.you(q))
@@ -2485,7 +3291,8 @@ class SessionScreen(ReadAloud, Screen):
                 retry = self.tutor.retry_skipped_ungraded(ungraded['guard'])
                 if retry.get('activity') == 'questions':
                     self.act = retry
-                    self.ask_question(retry['items'][0], 'Your attempt will be saved without marking. Prerequisite support is not shown.')
+                    self.ask_question(retry['items'][0], 'Your attempt will be saved without marking. Prerequisite support is not shown. '
+                                     "'I don't know' closes the retry and keeps the question on your review list.")
                     self.update_bar()
                 else:
                     self.app.notify(retry.get('error', 'Retry is unavailable.'), timeout=5)
@@ -2497,7 +3304,7 @@ class SessionScreen(ReadAloud, Screen):
                             retry = self.tutor.retry_skipped(**candidate, guard_id=activity.get('restore_guard'))
                             if retry.get('activity') == 'questions':
                                 self.act = retry
-                                self.ask_question(retry['items'][0], 'Try the skipped question again.')
+                                self.ask_question(retry['items'][0], "Try the skipped question again; 'I don't know' gives up and shows the answer.")
                                 self.update_bar()
                             else:
                                 self.app.notify(retry.get('error', 'Retry is unavailable.'), timeout=5)
@@ -2531,10 +3338,12 @@ class SessionScreen(ReadAloud, Screen):
             self.app.notify(activity.get("error", "Retry is unavailable."), timeout=5)
             return
         self.act = activity
-        self.ask_question(activity["items"][0], "Try the skipped question again.")
+        self.ask_question(activity["items"][0], "Try the skipped question again; 'I don't know' gives up and shows the answer.")
         self.update_bar()
 
     def action_explain(self) -> None:
+        if self.visual and getattr(self, '_lesson_activity', None):
+            return
         if self.query('#learning-question'):
             self.learn_request('Can you explain this idea another way, using what I have said so far?')
             return
@@ -2547,15 +3356,77 @@ class SessionScreen(ReadAloud, Screen):
         event.stop()
         self.action_check_solvable()
 
+    def _question_is_open(self, view: dict | None, panel=None) -> bool:
+        """An unanswered question on screen (a source-verified one included, until its feedback is showing)."""
+        if not view or view.get("n") is None:
+            return False
+        if str(view["n"]) in (self.tutor.session or {}).get("presented", {}):
+            return True
+        return cards.no_credit(view) and panel is not None and not isinstance(panel, ContinuePanel)
+
     def action_check_solvable(self) -> None:
-        if not self.view or str(self.view["n"]) not in (self.tutor.session or {}).get("presented", {}):
+        view = self.view
+        if not self._question_is_open(view, getattr(self, "showing", None)) or getattr(self, "_solving", False):
             return
-        result = self.tutor.check_solvable(self.view["n"])
-        self.say(cards.card("tutor", "Can I solve this?", result["message"]), mirror=None)
-        if result["status"] == "skipped":
+        self._solving = True
+        panel = getattr(self, "showing", None)
+        if panel is not None and getattr(panel, "processing", None) is None:
+            panel.processing = self  # an answer typed meanwhile waits: the check may change the open question
+            self._solving_panel = panel
+        button = self.query_one("#check-solvable", Button)
+        button.disabled = True
+        button.label = "Checking…"
+        self._run_solvable(view)
+
+    @work(thread=True, exclusive=True, group="solvable", exit_on_error=False)
+    def _run_solvable(self, view: dict) -> None:
+        """The engine may read the bank, the graph and Now.md to answer: not on the key press."""
+        try:
+            result, error = self.tutor.check_solvable(view["n"]), ""
+        except Exception as exc:  # noqa: BLE001 - say so in a card; the question stays open
+            result, error = None, str(exc) or type(exc).__name__
+        try:
+            self.app.call_from_thread(self._solvable_done, view, result, error)
+        except Exception:  # noqa: BLE001 - the app is closing
+            pass
+
+    def _solvable_done(self, view: dict, result, error: str) -> None:
+        self._solving = False
+        panel, self._solving_panel = getattr(self, "_solving_panel", None), None
+        if panel is not None and getattr(panel, "processing", None) is self:
+            panel.processing = None
+        if not self.is_attached:
+            return
+        button = self.query_one("#check-solvable", Button)
+        button.disabled = False
+        button.label = "Can I solve this? · ctrl+y"
+        if error:
+            self.say(cards.card("bad", "Can I solve this?", f"I could not check this one: {error}"), mirror=None)
+            return
+        info = solvable.normalise(result)
+        if self.view is not view and not info["skipped"]:
+            return  # the learner has moved on; the answer is for a question no longer on screen
+        role, title, body = solvable.card_parts(info)
+        self.say(cards.card(role, title, body), mirror=None)
+        if info["adapted_prompt"] and self.view is view:
+            self.adapted[str(view["n"])] = info["adapted_prompt"]
+            self.redraw_question(view)
+        if info["skipped"]:
             self.advance()
 
+    def redraw_question(self, view: dict) -> None:
+        """The question card again, now with the parts "Can I solve this?" narrowed it to."""
+        card = getattr(self, "_question_card", None)
+        if card is not None and card.is_attached:
+            card.update(cards.question(self.shown_view(view), ai_output=self.visual))
+
+    def shown_view(self, view: dict) -> dict:
+        adapted = self.adapted.get(str(view.get("n")))
+        return {**view, "adapted_prompt": adapted} if adapted else view
+
     def action_hint(self) -> None:
+        if self.visual and getattr(self, '_lesson_activity', None):
+            return
         if not self.view:
             return
         if str(self.view["n"]) not in (self.tutor.session or {}).get("presented", {}):  # answered: nothing to hint
@@ -2575,11 +3446,11 @@ class SessionScreen(ReadAloud, Screen):
             self.readable_now(h.get("hint", ""))  # ctrl+e reads it
 
     def action_obsidian(self) -> None:
-        mac.open_in_obsidian(self.app.vault, "Now", background=False)
+        open_note(self, "Now")
 
     def action_leave(self) -> None:
         pending = bool(getattr(self, "pending_short", None))
-        marking = isinstance(getattr(self, "showing", None), TickPanel) or getattr(self, "long_mark_pending", False)
+        marking = isinstance(getattr(self, "showing", None), (TickPanel, WholeRubricPanel)) or getattr(self, "long_mark_pending", False)
         typed = "answer and mark choices" if pending else "mark choices" if marking else "answer"
         leave_asking_first(self, "#panel TextArea", typed, unsaved=pending or marking)
 
@@ -2799,9 +3670,10 @@ class InsightsScreen(Screen):
         from tutorlib.store import write_json
         t = self.app.tutor
         model, think = self.app.settings.ai_for("explain")
-        if not local_models.is_local(model) and not codex_models.is_codex(model):
+        if not local_models.is_local(model) and not codex_models.is_codex(model) and not abacus_models.is_abacus(model):
             think = False
-            if not local_models.is_local(self.app.ai.model) and not codex_models.is_codex(self.app.ai.model):
+            if (not local_models.is_local(self.app.ai.model) and not codex_models.is_codex(self.app.ai.model)
+                    and not abacus_models.is_abacus(self.app.ai.model)):
                 model = None  # Claude summaries keep their original default model and non-thinking behaviour.
         with LocalActivity(self, model, task="Explaining your profile"):
             data, res = await self.app.ai.one_shot(prompts.profile_summary(report.insights_markdown(t)),
@@ -2832,7 +3704,7 @@ class InsightsScreen(Screen):
         if not weeks:
             self.app.notify("No week in review yet: the first appears when the tutor opens in a new week.", timeout=6)
             return
-        mac.open_in_obsidian(self.app.vault, f"Weekly/{weeks[-1].stem}", background=False)
+        open_note(self, f"Weekly/{weeks[-1].stem}")
 
 
 class SavedAttemptsScreen(Screen):
@@ -3015,11 +3887,19 @@ The full plain-English guide is **How It Works** in Obsidian (press **o** now).
             yield Markdown(text)
 
     def action_guide(self) -> None:
-        mac.open_in_obsidian(self.app.vault, "How It Works", background=False)
+        open_note(self, "How It Works")
 
 
-MODEL_CHOICES = [("Model: Haiku (fast, least usage)", "haiku"), ("Model: Sonnet (clearer, ~3x)", "sonnet"),
-                 ("Model: Opus (strongest, ~5x)", "opus")]
+MODEL_CHOICES = [("Claude · Haiku (fast, least usage)", "haiku"), ("Claude · Sonnet (clearer, ~3x)", "sonnet"),
+                 ("Claude · Opus (strongest, ~5x)", "opus")]
+TASK_LABELS = {"mark": "Marking answers", "explain": "Explaining", "ask": "Ask the tutor", "learn": "Learning tutor"}
+
+
+def model_choice_label(provider: str, label: str) -> str:
+    """One provider prefix per option, so the list reads as groups: Claude, ChatGPT, Abacus, then Local."""
+    for tag in (" (ChatGPT)", " (Abacus)", " (Abacus; ", " (local)", " (local; ", " (local "):
+        label = label.replace(tag, " (" if tag.endswith((" ", "; ")) else "")
+    return f"{provider} · {label}"
 
 
 class SettingsScreen(ModalScreen):
@@ -3041,13 +3921,19 @@ class SettingsScreen(ModalScreen):
         available = {value for _, value in choices}
         with VerticalScroll(id="settings"):  # a short window scrolls to Save instead of cutting it off
             yield Static("Settings (saved in your tutor folder)", classes="title")
+            yield Static("AI tutor", classes="section")
             for key, label in (("ai", "AI tutor (asking, explaining, judging written answers)"),
-                               ("own_words_feedback", "AI comments on your 'in your own words' answers"),
-                               ("open_obsidian", "Show Now in Obsidian when a session starts"),
-                               ("answer_only", "Answer-only view: hide the question here, show just the answer box (ctrl+k)")):
+                               ("confirm_ai_marks", "Confirm AI marks in lesson reviews (off: mark automatically)"),
+                               ("own_words_feedback", "AI comments on your 'in your own words' answers")):
                 with Horizontal(classes="row"):
                     yield Switch(value=getattr(s, key), id=key)
                     yield Static(label)
+            with Horizontal(classes="row ai-row"):
+                yield Static("AI marking strictness")
+                yield Select(marking_policy.CHOICES, value=s.marking_strictness,
+                             id="marking_strictness", allow_blank=False, compact=True)
+            yield Static(marking_policy.DESCRIPTIONS[s.marking_strictness], id="marking-strictness-help", classes="hint")
+            yield Static("AI models", classes="section")
             with Horizontal(classes="row ai-row"):
                 yield Static("AI preset")
                 yield Select(self._preset_choices(), value=self._requested_preset
@@ -3063,23 +3949,33 @@ class SettingsScreen(ModalScreen):
                              "is fastest and uses least of your limit; Sonnet about 3x, Opus about 5x; thinking first is "
                              "slower and can use several times as much again. Local models appear while your LocalAI SSD "
                              "is connected; they use this Mac's RAM and no Claude allowance. ChatGPT choices use your "
-                             "Codex sign-in and ChatGPT limits; think first selects high reasoning, otherwise low. "
+                             "Codex sign-in and ChatGPT limits; think first selects high reasoning, otherwise low. Abacus "
+                             "choices use your Abacus.AI RouteLLM API key (~/.config/routellm/key) and Abacus credits; "
+                             "RouteLLM picks a model for each request, and models marked text only cannot read diagrams. "
                              "GPT-OSS offers Low, Medium and High reasoning; Qwen 27B offers Off, Low, Medium and "
                              "Maximum (xhigh). DeepSeek R1 and Liquid LFM2.5 always think first. "
                              "Local thinking can take much longer before the first answer appears.", classes="hint")
-            for mode, label in (("mark", "Marking answers"), ("explain", "Explaining"), ("ask", "Ask the tutor"),
-                                ("learn", "Learning tutor")):
+            yield Static("Each kind of help: the switch makes it think first (slower, uses more); then its model.",
+                         classes="hint")
+            for mode, label in TASK_LABELS.items():
                 model, think = s.ai_for(mode)
                 with Horizontal(classes="row ai-row task-row"):
-                    yield Switch(value=getattr(s, f"ai_{mode}_think"), id=f"ai_{mode}_think")
+                    yield Switch(value=getattr(s, f"ai_{mode}_think"), id=f"ai_{mode}_think",
+                                 tooltip="Think first: slower, and uses several times as much")
                     yield Select([("Low", "low")], id=f"ai_{mode}_effort", allow_blank=False, compact=True, classes="strength")
                     yield Static(f"{label}: think first", id=f"ai_{mode}_label")
                     yield Select(choices, value=model if model in available else Select.NULL,
-                                 prompt="Model: keep saved model" if model in available else "Model: reconnect LocalAI SSD",
+                                 prompt="Keep saved model" if model in available else "Reconnect LocalAI SSD",
                                  id=f"ai_{mode}_model", allow_blank=True, compact=True)
             with Horizontal(classes="row"):
                 yield Switch(value=s.local_web, id="local_web")
                 yield Static("Local AI: web sources when needed (sends only your question to search)")
+            yield Static("Display", classes="section")
+            for key, label in (("open_obsidian", "Show Now in Obsidian when a session starts"),
+                               ("answer_only", "Answer-only view: hide the question here, show just the answer box (ctrl+k)")):
+                with Horizontal(classes="row"):
+                    yield Switch(value=getattr(s, key), id=key)
+                    yield Static(label)
             with Horizontal(classes="row ai-row"):
                 yield Static("Resource indicator")
                 yield Select([("Weekly usage", "weekly"), ("RAM usage", "ram"),
@@ -3091,6 +3987,7 @@ class SettingsScreen(ModalScreen):
             with Horizontal(classes="row"):
                 yield Static("Text size (points; ⌥+ ⌥− ⌥0 anywhere)")
                 yield Input(self._font_size_synced, id="font_size", type="integer", compact=True)
+            yield Static("Session and read aloud", classes="section")
             with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")
                 yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
@@ -3147,8 +4044,10 @@ class SettingsScreen(ModalScreen):
             self._font_size_touched = True
 
     def _model_choices(self) -> list[tuple[str, str]]:
-        return (MODEL_CHOICES + [(f"Model: {local_models.LOCAL_MODELS[name]}", name) for name in self._local_models]
-                + [(f"Model: {label}", name) for name, label in codex_models.CODEX_MODELS.items()])
+        return (MODEL_CHOICES
+                + [(model_choice_label("ChatGPT", label), name) for name, label in codex_models.CODEX_MODELS.items()]
+                + [(model_choice_label("Abacus", label), name) for name, label in abacus_models.ABACUS_MODELS.items()]
+                + [(model_choice_label("Local", local_models.LOCAL_MODELS[name]), name) for name in self._local_models])
 
     def _selected_model(self, mode: str) -> str:
         selected = self.query_one(f"#ai_{mode}_model", Select).value
@@ -3162,17 +4061,16 @@ class SettingsScreen(ModalScreen):
 
     def _update_thinking(self, mode: str, chosen: bool = False) -> None:
         model = self._selected_model(mode)
-        supported = not local_models.is_local(model) or local_models.supports_thinking(model)
+        supported = (not local_models.is_local(model) or local_models.supports_thinking(model)) and not abacus_models.is_abacus(model)
         required = local_models.always_thinks(model)
         thinking = self.query_one(f"#ai_{mode}_think", Switch)
         strength = self.query_one(f"#ai_{mode}_effort", Select)
         levels = local_models.thinking_levels(model)
         thinking.display, strength.display = not levels, bool(levels)
-        label = {"mark": "Marking answers", "explain": "Explaining", "ask": "Ask the tutor", "learn": "Learning tutor"}[mode]
+        label = TASK_LABELS[mode]
         if levels and self.app.size.width < 76:
             label = {"mark": "Marking", "explain": "Explaining", "ask": "Ask tutor", "learn": "Learning"}[mode]
-        else:
-            label = f"{label}:" if levels else f"{label}: think first"
+        label = f"{label}:" if levels else f"{label}: think first"
         self.query_one(f"#ai_{mode}_label", Static).update(label)
         if levels:
             if self._strength_models.get(mode) != model:
@@ -3189,7 +4087,8 @@ class SettingsScreen(ModalScreen):
         elif chosen and not supported:
             thinking.value = False  # opening Settings or saving another field never rewrites an old choice
         thinking.disabled = required or not supported and not thinking.value
-        thinking.tooltip = ("This model always thinks before answering." if required else None if supported else
+        thinking.tooltip = ("This model always thinks before answering." if required else
+                            "Think first: slower, and uses several times as much" if supported else
                             "This model has no thinking mode. You can turn off a saved On choice.")
 
     def _available_presets(self) -> list[str]:
@@ -3227,6 +4126,8 @@ class SettingsScreen(ModalScreen):
                 thinking = f"{name} reasoning"
             elif codex_models.is_codex(model):
                 thinking = f"{'high' if think else 'low'} reasoning"
+            elif abacus_models.is_abacus(model):
+                thinking = "the model's own reasoning"
             text += f"\n{label}: {presets.model_label(model)} · {thinking}"
         preview = self.query_one("#preset-preview", Static)
         preview.update(text)
@@ -3239,6 +4140,11 @@ class SettingsScreen(ModalScreen):
         selected.set_options(self._preset_choices())
         selected.value = self._requested_preset if available else Select.NULL
         self._update_preset_preview()
+
+    @on(Select.Changed, "#marking_strictness")
+    def marking_strictness_changed(self, event: Select.Changed) -> None:
+        if event.value in marking_policy.LEVELS:
+            self.query_one('#marking-strictness-help', Static).update(marking_policy.DESCRIPTIONS[event.value])
 
     @on(Select.Changed, "#ai_preset")
     def preset_selected(self, event: Select.Changed) -> None:
@@ -3320,7 +4226,7 @@ class SettingsScreen(ModalScreen):
             select = self.query_one(f"#ai_{mode}_model", Select)
             selected = self._selected_model(mode)
             self._selected_models[mode] = selected  # an unavailable choice stays local until explicitly replaced
-            select.prompt = "Model: keep saved model" if selected in valid else "Model: reconnect LocalAI SSD"
+            select.prompt = "Keep saved model" if selected in valid else "Reconnect LocalAI SSD"
             select.set_options(choices)
             select.value = selected if selected in valid else Select.NULL
             self._update_thinking(mode)
@@ -3364,13 +4270,14 @@ class SettingsScreen(ModalScreen):
         self._refresh_models()  # reflect a drive removed just before Save, keeping the chosen local model
         s = self.app.settings
         old_speech, old_ai = s.tts_enabled, s.ai
-        for key in ("ai", "own_words_feedback", "open_obsidian", "tts_enabled", "tts_auto", "local_web"):
+        for key in ("ai", "confirm_ai_marks", "own_words_feedback", "open_obsidian", "tts_enabled", "tts_auto", "local_web"):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
         answer_only = self.query_one("#answer_only", Switch).value
         if self._answer_only_touched:
             s.answer_only = answer_only  # an explicit modal edit takes precedence over a global shortcut
         s.tts_voice = str(self.query_one("#tts_voice", Select).value)
         s.usage_display = str(self.query_one("#usage_display", Select).value)
+        s.marking_strictness = str(self.query_one("#marking_strictness", Select).value)
         try:
             s.tts_speed = round(min(tts.SPEED_RANGE[1], max(tts.SPEED_RANGE[0],
                                                            float(self.query_one("#tts_speed", Input).value))), 2)

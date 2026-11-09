@@ -6,8 +6,22 @@ Certainty labels follow the engine's own thresholds for acting, so a label never
 from __future__ import annotations
 
 from datetime import date, datetime, time, timedelta
+from functools import wraps
 
 from . import grade, model, policy, profile
+
+
+def _bank_report(method):
+    """Share one fresh bank proof across all skills in a synchronous report."""
+    @wraps(method)
+    def report(tutor, *args, **kwargs):
+        bank = getattr(tutor.packs, 'topicals', None)
+        if bank is None:
+            return method(tutor, *args, **kwargs)
+        with bank.request() as outer:
+            result = method(tutor, *args, **kwargs)
+            return result if not outer or bank.request_current() else []
+    return report
 
 SUBJECTS = {"phys": "Physics", "chem": "Chemistry", "math": "Maths"}
 MISTAKES = {"SLIP": "careless slips", "MISREAD": "misreading the question", "RECALL": "not remembering",
@@ -252,6 +266,7 @@ def _exam_label(packs, spec: str, d: date, level: str | None = None) -> tuple[st
     return spec, True
 
 
+@_bank_report
 def readiness(tutor) -> list[dict]:
     """Per upcoming exam: how much of its syllabus is built, started and secure, and predicted recall on the day."""
     s, p, now = tutor.state, tutor.packs, tutor.now()
@@ -295,13 +310,23 @@ def _accuracy(tutor) -> dict[str, list[int]]:
     return acc
 
 
+@_bank_report
 def weak_spots(tutor) -> list[dict]:
     """Ideas with questions that are weak, with why: active misconception, then gap, then low accuracy."""
+    return _weak_spots(tutor, lambda kc: bool(tutor.packs.items_for(kc)))
+
+
+def weak_spot_count(tutor, available_kinds) -> int:
+    """Display-only count from an authenticated inventory; never selects questions."""
+    return len(_weak_spots(tutor, lambda kc: bool(available_kinds.get(kc))))
+
+
+def _weak_spots(tutor, has_questions) -> list[dict]:
     s, p = tutor.state, tutor.packs
     acc = _accuracy(tutor)
     reasons: dict[str, tuple[int, list[str]]] = {}  # rank: 0 misconception, 1 gap, 2 low accuracy
     for kc in dict.fromkeys(list(s["kcs"]) + list(s["gaps"])):
-        if kc not in p.kcs or not p.items_for(kc):
+        if kc not in p.kcs or not has_questions(kc):
             continue
         k = s["kcs"].get(kc, {})
         why = [f"misconception: “{_mis_text(p, kc, m)}”" for m in k.get("active_misconceptions", [])]

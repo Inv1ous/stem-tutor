@@ -27,8 +27,10 @@ def test_metadata_action_is_visible_and_works_during_no_hints(tmp_path, monkeypa
                                     'chapters': ['9702-2.1'], 'revision': '2025-2027'}
             await pilot.press('ctrl+y')
             await pilot.pause()
+            await app.workers.wait_for_complete()  # the check runs in a worker
+            await pilot.pause()
             assert not p['hinted'] and t.session['answered'] == 0
-            assert 'Required topics: 2.1.' in (root / 'Now.md').read_text()
+            assert 'Can I solve this?' in (root / 'Now.md').read_text()
             assert not any(e['type'] == 'answer' for e in t.vault.events())
             await app.ai.close()
     asyncio.run(go())
@@ -61,8 +63,10 @@ def test_ctrl_y_on_faded_retry_stays_answer_free(tmp_path, monkeypatch):
 
             await pilot.press('ctrl+y')
             await pilot.pause()
+            await app.workers.wait_for_complete()  # the check runs in a worker
+            await pilot.pause()
 
-            assert 'Required topics: 2.1.' in (root / 'Now.md').read_text()
+            assert 'Can I solve this?' in (root / 'Now.md').read_text()
             assert 'SECRET' not in (root / 'Now.md').read_text()
             assert t.session['answered'] == answered_before
             assert str(retry['n']) in t.session['presented']
@@ -100,10 +104,12 @@ def test_ctrl_y_after_advancing_does_not_check_previous_question(tmp_path, monke
             monkeypatch.setattr(t, 'check_solvable', capture_check)
             await pilot.press('ctrl+y')
             await pilot.pause()
+            await app.workers.wait_for_complete()  # the check runs in a worker
+            await pilot.pause()
 
             now = (root / 'Now.md').read_text()
             assert checked == [current]
-            assert 'Required topics: 2.1.' in now
+            assert 'Can I solve this?' in now
             assert 'This question is no longer open.' not in now
             assert t.session['answered'] == 1
             assert not any('SECRET' in line for line in now.splitlines())
@@ -155,7 +161,7 @@ def test_multipage_written_question_offers_self_marking_until_all_pages_can_reac
 def test_home_topical_picker_includes_unbuilt_bank_chapter_without_enabling_its_lesson(tmp_path, monkeypatch):
     import json
     from test_topicals import OTHER, item, publish
-    from tutor_app.screens import PickerScreen
+    from tutor_app.screens import PickerScreen, TopicalSetupScreen
     app, root = app_for(tmp_path, monkeypatch)
     graph_path = root / '.tutor/packs/v1/specs/9702/graph.json'
     graph = json.loads(graph_path.read_text())
@@ -171,7 +177,7 @@ def test_home_topical_picker_includes_unbuilt_bank_chapter_without_enabling_its_
         async with app.run_test(size=(100, 35)) as pilot:
             await pilot.pause()
             home = app.screen
-            assert 'topical' in [o.id for o in home.query_one('#menu').options]
+            assert 'practice' in dict(home._menu_items)  # one entry now; the old 'topical' id still works below
             home._start('topical')
             await pilot.pause()
             assert isinstance(app.screen, PickerScreen) and OTHER in app.screen.built
@@ -183,6 +189,9 @@ def test_home_topical_picker_includes_unbuilt_bank_chapter_without_enabling_its_
             home._start('topical')
             await pilot.pause()
             app.screen.dismiss([OTHER])
+            await pilot.pause()
+            assert isinstance(app.screen, TopicalSetupScreen)
+            app.screen.query_one('#topical-start', Button).press()
             await pilot.pause()
             assert isinstance(app.screen, SessionScreen) and app.screen.view['kind'] == 'mcq'
             await app.ai.close()

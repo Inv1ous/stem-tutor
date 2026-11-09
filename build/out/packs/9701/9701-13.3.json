@@ -1348,7 +1348,105 @@
     "answer": "B",
     "explanation": "Branching is a connection in the carbon skeleton; bends in a drawing do not create branches."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Trace which carbon atoms are connected before considering their shape in space. An open chain without a side chain is straight-chained even if drawn as a zigzag; a side carbon chain makes it branched; a closed path makes it cyclic.",
+   "terms": [
+    {
+     "term": "straight-chained",
+     "meaning": "An open carbon chain with no carbon side chains.",
+     "notation": "Unbranched open chain",
+     "spoken": "straight chained",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.32, section 13.3"
+    },
+    {
+     "term": "branched",
+     "meaning": "A carbon side chain is joined to a main carbon chain.",
+     "notation": "Carbon side chain",
+     "spoken": "branched",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.32, section 13.3"
+    },
+    {
+     "term": "cyclic",
+     "meaning": "Atoms are connected in a closed ring.",
+     "notation": "Closed ring",
+     "spoken": "cyclic",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.32, section 13.3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Classify carbon connectivity",
+     "wordings": [
+      "Describe the carbon skeleton as straight-chained, branched or cyclic.",
+      "Explain why a zigzag does not necessarily represent branching."
+     ],
+     "example": "Describe the skeleton of $\\ce{CH3CH(CH3)CH2CH3}$. Step 1: trace the four-carbon open main chain. Step 2: the second carbon is also joined to a methyl carbon outside that chain. Step 3: this side chain makes the skeleton branched, with five carbon atoms in total. There is no closed carbon path; changing the drawing angles would not change the connections.",
+     "check": "Compare skeleton A, a five-carbon open chain drawn as a zigzag with no side chains, with skeleton B, six carbon atoms joined only in one closed ring. Describe each skeleton and explain your choices.",
+     "answer": "A is straight-chained: the chain is open and unbranched despite its bends. B is cyclic: following the carbon connections returns to the starting carbon around a closed ring.",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.32, section 13.3",
+     "rubric": [
+      {
+       "point": "Classify A as straight-chained or unbranched.",
+       "keywords": [
+        [
+         "straight-chained",
+         "straight chained",
+         "unbranched"
+        ]
+       ]
+      },
+      {
+       "point": "Explain that A is an open chain with no carbon side chains; bends alone do not make branches.",
+       "keywords": [
+        [
+         "open",
+         "acyclic"
+        ],
+        [
+         "no side chain",
+         "no carbon side chain",
+         "no branches",
+         "no carbon side branches",
+         "unbranched",
+         "without side chains",
+         "without carbon side chains"
+        ]
+       ]
+      },
+      {
+       "point": "Classify B as cyclic and explain that its carbon connections form a closed ring or a path returning to its starting carbon.",
+       "keywords": [
+        [
+         "cyclic"
+        ],
+        [
+         "closed ring",
+         "closed loop",
+         "closed path",
+         "returns to the starting carbon",
+         "returns to its starting carbon",
+         "returns to its start",
+         "returns to the start",
+         "returns to the starting point"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Any bend in a structural drawing is a branch.",
+     "temptation": "A zigzag looks less straight than a horizontal line.",
+     "fix": "Trace connections: a branch is an extra carbon side chain, not a change in drawing direction.",
+     "id": "m1"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The worked structure and independent check specify every carbon connection in words and a condensed formula; no verified connectivity figure was needed or requested in the current plan.",
+   "source_gaps": [
+    "The syllabus specifies classification but does not prescribe this exact worked example or check; both are original applications, not quoted examination questions."
+   ]
   },
   "9701-13.3.2": {
    "motivate": "The angles around carbon control how an organic molecule occupies space. A single molecule can contain different carbon shapes, so classify each atom locally.",
@@ -1367,7 +1465,139 @@
     "answer": "B",
     "explanation": "Three sp² orbitals form the trigonal planar σ framework; the remaining p orbital can form a π bond."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "At an ordinary neutral carbon in these hydrocarbons, count the directions to bonded atoms, not the number of lines in multiple bonds. Four sigma directions give tetrahedral geometry, three give trigonal planar geometry, and two give linear geometry. Apply this separately to each carbon.",
+   "terms": [
+    {
+     "term": "hybridisation",
+     "meaning": "Mixing atomic orbitals on the same atom to make hybrid orbitals for the sigma framework.",
+     "notation": "$sp$, $sp^2$, $sp^3$",
+     "spoken": "s p; s p two; s p three",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.32, section 13.3; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.4–5"
+    },
+    {
+     "term": "local geometry",
+     "meaning": "The spatial arrangement of bonds around the particular atom being considered.",
+     "notation": "Tetrahedral; trigonal planar; linear",
+     "spoken": "local geometry",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.4–5"
+    },
+    {
+     "term": "bond angle",
+     "meaning": "The angle between two bonds meeting at a specified atom.",
+     "notation": "$109.5^\\circ$, $120^\\circ$, $180^\\circ$",
+     "spoken": "one hundred and nine point five degrees; one hundred and twenty degrees; one hundred and eighty degrees",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.4–5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain local carbon shape and bond angle",
+     "wordings": [
+      "Describe and explain the geometry at each labelled carbon.",
+      "State the hybridisation and approximate bond angle at a specified carbon."
+     ],
+     "example": "Classify each carbon in propene, $\\ce{CH3CH=CH2}$, numbering left to right. Step 1: C1 has three C–H sigma bonds and one C–C sigma bond: four directions. It is $sp^3$, tetrahedral, with angles about $109.5^\\circ$. Step 2: C2 has one C–H direction and two C–C directions: three directions. It is $sp^2$, trigonal planar, about $120^\\circ$. Step 3: C3 has two C–H directions and one C–C direction: also $sp^2$, trigonal planar, about $120^\\circ$. Step 4: the double bond counts as one sigma direction at each end, leaving one p orbital on each alkene carbon for the pi bond. These are local shapes; the methyl group prevents all atoms of propene from being coplanar. The sigma-bond electron pairs repel; their four, three or two directions spread out to minimise repulsion, giving tetrahedral, trigonal planar or linear arrangements respectively.",
+     "check": "For propyne, $\\ce{CH3C#CH}$, number the carbons from left to right. Describe and explain the hybridisation, local geometry and approximate bond angle at each carbon, using the number of sigma-bond directions.",
+     "answer": "C1 has four sigma directions: $sp^3$, tetrahedral, about $109.5^\\circ$. C2 has two sigma directions, one to each neighbouring carbon: $sp$, linear, $180^\\circ$. C3 has two sigma directions, one to carbon and one to hydrogen: $sp$, linear, $180^\\circ$. A triple bond has one sigma direction at each end; each sp carbon retains two unhybridised p orbitals.",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.32, section 13.3; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.4–5",
+     "rubric": [
+      {
+       "point": "C1 has four sigma-bond directions, sp3 hybridisation, tetrahedral geometry and an approximate bond angle of 109.5 degrees; accept 109 degrees.",
+       "keywords": [
+        [
+         "C1",
+         "carbon 1"
+        ],
+        [
+         "four sigma",
+         "4 sigma",
+         "four σ",
+         "4 σ"
+        ],
+        [
+         "sp3",
+         "sp³",
+         "sp^3",
+         "sp cubed",
+         "sp cubed hybridisation"
+        ],
+        [
+         "tetrahedral"
+        ],
+        [
+         "109.5",
+         "109°",
+         "109 degrees",
+         "109"
+        ]
+       ]
+      },
+      {
+       "point": "C2 has two sigma-bond directions, sp hybridisation, linear geometry and a bond angle of 180 degrees.",
+       "keywords": [
+        [
+         "C2",
+         "carbon 2"
+        ],
+        [
+         "two sigma",
+         "2 sigma",
+         "two σ",
+         "2 σ"
+        ],
+        [
+         "sp"
+        ],
+        [
+         "linear"
+        ],
+        [
+         "180"
+        ]
+       ]
+      },
+      {
+       "point": "C3 has two sigma-bond directions, sp hybridisation, linear geometry and a bond angle of 180 degrees.",
+       "keywords": [
+        [
+         "C3",
+         "carbon 3"
+        ],
+        [
+         "two sigma",
+         "2 sigma",
+         "two σ",
+         "2 σ"
+        ],
+        [
+         "sp"
+        ],
+        [
+         "linear"
+        ],
+        [
+         "180"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "A molecule must have one hybridisation and one shape throughout.",
+     "temptation": "The structure is named as one molecule, so its atoms seem to need a single label.",
+     "fix": "Count sigma directions separately at every specified carbon. Local trigonal planar geometry does not make an entire larger molecule planar.",
+     "id": "m2"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The source-reviewed method is an atom-by-atom count, with each carbon numbered explicitly; no additional verified geometry graphic is required for this form.",
+   "source_gaps": [
+    "The official syllabus specifies explanation of geometry and angles; the propene example and propyne transfer check are original applications rather than exact paper wordings.",
+    "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, PDF pp.4–6: hybridisation, geometry and multiple-bond components."
+   ]
   },
   "9701-13.3.3": {
    "motivate": "A bond line in a structural formula can hide more than one type of orbital overlap. Separating σ and π components lets you count bonds correctly.",
@@ -1386,7 +1616,131 @@
     "answer": "C",
     "explanation": "One bond component is σ and the other two are π bonds from two pairs of p orbitals."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Give each connected pair of atoms one sigma bond, including pairs joined by a double or triple bond. Then add one pi bond for a double bond or two for a triple bond. Sigma overlap is end-on along the internuclear axis; pi overlap is sideways between parallel p orbitals.",
+   "terms": [
+    {
+     "term": "sigma bond",
+     "meaning": "A covalent bond formed by end-on orbital overlap along the internuclear axis.",
+     "notation": "$\\sigma$",
+     "spoken": "sigma",
+     "source": "Library/Courses/9701/Sources/Library/Chemistry 9701 AS Topicals/9701 2020-2025 Paper 2.pdf, PDF p.311 (9701/21 May/June 2022 Q2(a) mark scheme)"
+    },
+    {
+     "term": "pi bond",
+     "meaning": "A covalent bond formed by sideways overlap of parallel unhybridised p orbitals.",
+     "notation": "$\\pi$",
+     "spoken": "pi",
+     "source": "Library/Courses/9701/Sources/Library/Chemistry 9701 AS Topicals/9701 2020-2025 Paper 2.pdf, PDF p.311 (9701/21 May/June 2022 Q2(a) mark scheme)"
+    },
+    {
+     "term": "unhybridised p orbitals",
+     "meaning": "p orbitals left outside the hybrid set: one on each sp squared carbon and two on each sp carbon.",
+     "notation": "$p$",
+     "spoken": "p orbitals",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, p.5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Count sigma and pi bonds and explain their overlap",
+     "wordings": [
+      "Determine the numbers of sigma and pi bonds in a molecule.",
+      "Describe the orbital overlap forming the sigma and pi components of a multiple bond."
+     ],
+     "example": "Count and explain the bonds in ethene, $\\ce{CH2=CH2}$. Step 1: four C–H connected pairs give four sigma bonds. Step 2: the connected C–C pair gives one further sigma bond, so there are five sigma bonds. Step 3: the extra component of C=C is one pi bond. Step 4: each carbon is $sp^2$; the C–C sigma bond uses end-on overlap of two hybrid orbitals and each C–H sigma bond uses a hybrid orbital and hydrogen $1s$. One unhybridised p orbital on each carbon overlaps sideways with its parallel partner, making one pi bond with electron density on both sides of the molecular plane. Two lobes do not mean two pi bonds.",
+     "check": "For ethyne, $\\ce{HC#CH}$, determine the total numbers of sigma and pi bonds. Describe the overlap forming its C–C sigma bond and explain how its two pi bonds are arranged.",
+     "answer": "There are three sigma bonds (two C–H and one C–C) and two pi bonds. Each carbon is $sp$ hybridised. Its C–C sigma bond forms by end-on overlap of sp orbitals. Each carbon retains two mutually perpendicular p orbitals; each overlaps sideways with a parallel p orbital on the other carbon. These form two perpendicular pi systems around the same internuclear axis.",
+     "source": "Library/Courses/9701/Sources/Library/Chemistry 9701 AS Topicals/9701 2020-2025 Paper 2.pdf, PDF p.311 (9701/21 May/June 2022 Q2(a) mark scheme); Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.5, 8–10",
+     "rubric": [
+      {
+       "point": "Count three sigma bonds: two C–H bonds and one C–C sigma component.",
+       "keywords": [
+        [
+         "three sigma",
+         "3 sigma",
+         "three σ",
+         "3 σ"
+        ]
+       ]
+      },
+      {
+       "point": "Count two pi bonds.",
+       "keywords": [
+        [
+         "two pi",
+         "2 pi",
+         "two π",
+         "2 π"
+        ]
+       ]
+      },
+      {
+       "point": "The C–C sigma bond forms by end-on overlap of one sp hybrid orbital from each carbon.",
+       "keywords": [
+        [
+         "end-on",
+         "end on",
+         "head-on",
+         "head on",
+         "direct overlap"
+        ],
+        [
+         "sp"
+        ],
+        [
+         "each carbon",
+         "both carbons",
+         "two sp",
+         "sp orbitals"
+        ]
+       ]
+      },
+      {
+       "point": "Two pairs of unhybridised p orbitals overlap sideways, each pair parallel, to form two mutually perpendicular pi systems. Accept sideways overlap in two mutually perpendicular planes as equivalent wording.",
+       "keywords": [
+        [
+         "sideways",
+         "sideway",
+         "lateral"
+        ],
+        [
+         "p orbital"
+        ],
+        [
+         "two pairs",
+         "two unhybridised p orbitals",
+         "two p orbitals"
+        ],
+        [
+         "perpendicular",
+         "right angles"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "A double bond contains two sigma bonds.",
+     "temptation": "There are two lines between the atoms.",
+     "fix": "Only one sigma bond joins a connected pair; the additional double-bond component is a pi bond formed by sideways overlap.",
+     "id": "m3"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-13-3-fig-pi-overlap.png"
+   ],
+   "diagram_descriptions": [
+    "Ethene at the top has one pair of parallel p orbitals overlapping sideways, with electron density above and below its sigma framework. Ethyne below has two perpendicular pi systems around the C–C axis. Each system has two lobes but represents one pi bond. Source: SaveMyExams, 9701 c13.3.pdf, p.9; registered provenance sidecar and image hash verified."
+   ],
+   "source_gaps": [
+    "SaveMyExams p.9 contains a contradictory sentence calling pi overlap end-on; its diagram caption and the official 2022 Q2(a) mark scheme correctly state sideways overlap. The contradictory sentence was not used.",
+    "The existing sigma-overlap crop has asymmetric lobes labelled as p orbitals, resembling hybrid orbitals; it was inspected but omitted to avoid teaching that depiction as an accurate atomic p orbital.",
+    "The ethyne check applies the official nitrogen triple-bond overlap mark points to carbon; it is an original teaching check, not a copied examination question.",
+    "Library/Courses/9701/Sources/Library/Chemistry 9701 AS Topicals/9701 2020-2025 Paper 2.pdf, PDF p.311 (9701/21 May/June 2022 Q2(a)); Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, PDF pp.5–10: sigma and pi overlap. The erroneous end-on pi description on p.9 is not used."
+   ]
   },
   "9701-13.3.4": {
    "motivate": "Organic structures are often printed flat, but their atoms may occupy three-dimensional positions. The word planar is a claim about actual atom positions.",
@@ -1405,7 +1759,144 @@
     "answer": "B",
     "explanation": "The sp² carbon centres and their attached hydrogen atoms share one plane; the p orbitals form a π bond above and below it."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Planar means that all the specified atomic centres lie in one plane. Check the actual three-dimensional arrangement. Ethene is planar, but a larger molecule can contain a planar alkene unit and also a tetrahedral group whose atoms extend outside that plane.",
+   "terms": [
+    {
+     "term": "planar",
+     "meaning": "All the atoms under discussion lie in one plane.",
+     "notation": "One plane of atomic centres",
+     "spoken": "planar",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.32, section 13.3; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.11–12"
+    },
+    {
+     "term": "trigonal planar centre",
+     "meaning": "An atom with three bond directions lying in one plane, at approximately 120 degrees.",
+     "notation": "$sp^2$",
+     "spoken": "trigonal planar centre",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.5, 12"
+    },
+    {
+     "term": "tetrahedral centre",
+     "meaning": "An atom with four bond directions arranged in three dimensions, approximately 109.5 degrees apart.",
+     "notation": "$sp^3$",
+     "spoken": "tetrahedral centre",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.4, 12"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Distinguish local planarity from whole-molecule planarity",
+     "wordings": [
+      "Explain whether all the atoms of a given molecule are planar.",
+      "Identify the planar alkene unit and distinguish it from the rest of the molecule."
+     ],
+     "example": "Explain the planarity of ethene, $\\ce{CH2=CH2}$. Step 1: each carbon has three sigma-bond directions, so each carbon and its three directly attached atoms form a trigonal planar unit. Step 2: the two unhybridised p orbitals must remain parallel for sideways pi overlap. This keeps the two units in a common plane. Step 3: the two carbon nuclei and four hydrogen nuclei therefore all lie in that plane. Step 4: the p-orbital electron density extends above and below it; planarity describes atomic positions, not confinement of every electron to that plane.",
+     "check": "Propene, $\\ce{CH2=CHCH3}$, is printed as a flat structural formula. Explain why its whole molecule is not planar, and specify which atoms form its planar alkene unit.",
+     "answer": "The two alkene carbons, the two hydrogens on the terminal alkene carbon, the hydrogen on the other alkene carbon, and the methyl carbon lie in the alkene plane: six atomic centres. The methyl carbon is tetrahedral with four sigma directions. Its three hydrogen atoms cannot all lie in that alkene plane, so the whole molecule is not planar. A flat formula shows connectivity and does not prove three-dimensional planarity.",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.32, section 13.3; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, pp.11–12",
+     "rubric": [
+      {
+       "point": "Identify the planar alkene unit as both C=C carbons, the three hydrogens directly attached to those carbons and the methyl carbon. Accept: the two alkene carbons and all atoms directly bonded or attached to them. A bare count of six does not identify the atoms.",
+       "keywords": [
+        [
+         "alkene carbons",
+         "C=C carbons",
+         "alkene carbon atoms",
+         "carbon-carbon double bond",
+         "double-bonded carbons",
+         "carbon atoms of the C=C bond"
+        ],
+        [
+         "all atoms directly bonded to them",
+         "all atoms directly attached to them",
+         "all atoms directly bonded to the alkene carbons",
+         "all atoms directly attached to the alkene carbons",
+         "all atoms directly bonded to either alkene carbon",
+         "all atoms directly attached to either alkene carbon",
+         "three hydrogens",
+         "3 hydrogens",
+         "three alkene hydrogens",
+         "3 alkene hydrogens",
+         "two hydrogens on the terminal alkene carbon, the hydrogen on the other alkene carbon",
+         "two H on C1 and one H on C2",
+         "two hydrogens on C1 and one hydrogen on C2",
+         "two H atoms on CH₂, the H atom on CH",
+         "two H atoms on CH2, the H atom on CH"
+        ],
+        [
+         "all atoms directly bonded to them",
+         "all atoms directly attached to them",
+         "all atoms directly bonded to the alkene carbons",
+         "all atoms directly attached to the alkene carbons",
+         "all atoms directly bonded to either alkene carbon",
+         "all atoms directly attached to either alkene carbon",
+         "methyl carbon",
+         "carbon of CH3",
+         "carbon of the CH3",
+         "C3",
+         "carbon 3",
+         "carbon atom of CH₃",
+         "carbon atom of CH3"
+        ]
+       ]
+      },
+      {
+       "point": "The methyl carbon is tetrahedral, so its three hydrogens cannot all lie in the alkene plane. At least two lie outside it; do not require all three to be outside the plane.",
+       "keywords": [
+        [
+         "tetrahedral"
+        ],
+        [
+         "hydrogen",
+         "C–H",
+         "C-H",
+         "H atoms"
+        ],
+        [
+         "cannot all lie",
+         "not all lie",
+         "out of",
+         "outside",
+         "extend outside"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "A cyclic molecule drawn flat on paper must be planar.",
+     "temptation": "The printed bonds and labels all appear on the page.",
+     "fix": "Use the local three-dimensional geometry at every relevant atom, then test whether all the specified nuclei can share one plane.",
+     "id": "m4"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-13-3-fig-ethene-coplanar.png"
+   ],
+   "diagram_descriptions": [
+    "Two highlighted trigonal planar units in ethene share one common plane: both carbon centres and all four hydrogen centres are coplanar. The two coloured triangles are not perpendicular planes. Source: SaveMyExams, 9701 c13.3.pdf, p.12; registered provenance sidecar and image hash verified."
+   ],
+   "source_gaps": [
+    "The syllabus names ethene as an example of planarity; the propene check is an original transfer application supported by the contrasting local centres described on SaveMyExams p.12.",
+    "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.3.pdf, PDF pp.11–12: planarity and propene geometry."
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-13.3.1": [
+   "Classify carbon connectivity"
+  ],
+  "9701-13.3.2": [
+   "Explain local carbon shape and bond angle"
+  ],
+  "9701-13.3.3": [
+   "Count sigma and pi bonds and explain their overlap"
+  ],
+  "9701-13.3.4": [
+   "Distinguish local planarity from whole-molecule planarity"
+  ]
  }
 }

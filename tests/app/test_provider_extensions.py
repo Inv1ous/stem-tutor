@@ -1,6 +1,8 @@
 """New providers and local shortcuts cannot change Claude or leak private lesson context."""
 import asyncio
 
+import pytest
+
 from tutor_app import ai, config, tutor_ai
 from tutor_app.codex_models import CODEX_MODELS
 from test_tui import app_for
@@ -11,7 +13,8 @@ MODEL = 'ollama:gemma4:26b-a4b-it-qat'
 GPT = next(iter(CODEX_MODELS))
 
 
-def test_chatgpt_choices_and_local_web_setting_survive_save_and_load(tmp_path, monkeypatch):
+@pytest.mark.parametrize("chatgpt_model", [GPT, "codex:gpt-6.1-terra"])
+def test_chatgpt_choices_and_local_web_setting_survive_save_and_load(tmp_path, monkeypatch, chatgpt_model):
     app, vault = app_for(tmp_path, monkeypatch)
     def forbidden(*args, **kwargs):
         raise AssertionError('Saving Settings must never send a ChatGPT request.')
@@ -23,20 +26,22 @@ def test_chatgpt_choices_and_local_web_setting_survive_save_and_load(tmp_path, m
             await pilot.pause()
             for mode in config.AI_MODES:
                 box = app.screen.query_one(f'#ai_{mode}_model', Select)
+                assert chatgpt_model in [value for _, value in box._options]
                 assert all(model in [value for _, value in box._options] for model in CODEX_MODELS)
-                box.value = GPT
+                box.value = chatgpt_model
             app.screen.query_one('#local_web', Switch).value = False
             app.screen.query_one('#save', Button).press()
             await pilot.pause()
             await app.workers.wait_for_complete()
             settings = config.Settings.load(vault)
-            assert all(settings.ai_for(mode)[0] == GPT for mode in config.AI_MODES)
+            assert all(settings.ai_for(mode)[0] == chatgpt_model for mode in config.AI_MODES)
             assert not settings.local_web and not app.ai.local_web
             await app.ai.close()
     asyncio.run(go())
 
 
-def test_codex_routing_never_creates_local_or_calls_claude(tmp_path, monkeypatch):
+@pytest.mark.parametrize("chatgpt_model", [GPT, "codex:gpt-6.1-terra"])
+def test_codex_routing_never_creates_local_or_calls_claude(tmp_path, monkeypatch, chatgpt_model):
     def forbidden(*args, **kwargs):
         raise AssertionError('Wrong provider used')
     class Codex:
@@ -45,17 +50,17 @@ def test_codex_routing_never_creates_local_or_calls_claude(tmp_path, monkeypatch
         message = ''
         last = ai.Result(text='GPT reply')
         async def stream(self, prompt, **kwargs):
-            assert kwargs['model'] == GPT and kwargs['think']
+            assert kwargs['model'] == chatgpt_model and kwargs['think']
             yield self.last.text
         async def one_shot(self, prompt, **kwargs):
-            assert kwargs['model'] == GPT
+            assert kwargs['model'] == chatgpt_model
             return {'x': 1}, ai.Result()
         async def reset(self):
             pass
         async def close(self):
             pass
     async def go():
-        client = tutor_ai.TutorAI(tmp_path, binary='/missing/claude', model=GPT)
+        client = tutor_ai.TutorAI(tmp_path, binary='/missing/claude', model=chatgpt_model)
         client._codex = Codex()
         monkeypatch.setattr(tutor_ai, 'LocalAI', forbidden)
         monkeypatch.setattr(ai.Claude, 'stream', forbidden)

@@ -34,7 +34,7 @@ def test_completed_mcq_hides_solvability_and_next_or_retry_restores_it(tmp_path,
         async with app.run_test(size=size) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [option.id for option in menu.options].index("learn")
+            menu.reveal("learn")
             await pilot.press("enter")
             await pilot.pause()
             await pilot.press("enter")
@@ -60,6 +60,8 @@ def test_completed_mcq_hides_solvability_and_next_or_retry_restores_it(tmp_path,
             assert not checker.display
             await pilot.press("ctrl+y")
             await pilot.pause()
+            await app.workers.wait_for_complete()  # the check runs in a worker
+            await pilot.pause()
             assert list(screen.query(".entry")) == entries and app.focused is focus
             assert screen.view == original and tutor.session == session
             assert (vault / "Now.md").read_bytes() == now
@@ -81,6 +83,8 @@ def test_completed_mcq_hides_solvability_and_next_or_retry_restores_it(tmp_path,
             before = protected(tutor)
             session = deepcopy(tutor.session)
             await pilot.press("ctrl+y")
+            await pilot.pause()
+            await app.workers.wait_for_complete()  # the check runs in a worker
             await pilot.pause()
             if answer == "right":
                 assert app.focused is focus
@@ -114,6 +118,8 @@ def test_structured_self_mark_keeps_solvability_until_marks_are_submitted(tmp_pa
             session = deepcopy(tutor.session)
             await pilot.press("ctrl+y")
             await pilot.pause()
+            await app.workers.wait_for_complete()  # the check runs in a worker
+            await pilot.pause()
             assert ticks.has_focus and list(ticks.selected) == selected
             assert checker.display
             assert {key: value for key, value in tutor.session.items() if key != "thread"} == {
@@ -126,6 +132,8 @@ def test_structured_self_mark_keeps_solvability_until_marks_are_submitted(tmp_pa
             assert str(screen.view["n"]) not in tutor.session["presented"] and not checker.display
             before, entries, focus = protected(tutor), list(screen.query(".entry")), app.focused
             await pilot.press("ctrl+y")
+            await pilot.pause()
+            await app.workers.wait_for_complete()  # the check runs in a worker
             await pilot.pause()
             assert list(screen.query(".entry")) == entries and app.focused is focus
             assert all(path.read_bytes() == data for path, data in before.items())

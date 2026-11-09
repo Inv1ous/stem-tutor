@@ -1,0 +1,67 @@
+[
+ {
+  "prompt_tail": "ine)\nTerms: Displacement; Initial and final velocity; Constant acceleration; suvat equations; Velocity–time graph; Acceleration due to gravity\nQuestion forms: 0: Choose and apply a suvat equation; 1: Vertical motion under gravity; 2: Read a velocity-time graph; 3: Show that / derive a suvat equation",
+  "reply": {
+   "sections": [
+    "M1-3.1|establish"
+   ],
+   "actions": [
+    {
+     "action": "example",
+     "form": 1,
+     "why": "This is the card's worked example of vertical motion under gravity, which matches a ball thrown upwards."
+    },
+    {
+     "action": "term",
+     "term": "Acceleration due to gravity",
+     "why": "It fixes the sign of $g$ once you choose upwards as positive."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "ine)\nTerms: Displacement; Initial and final velocity; Constant acceleration; suvat equations; Velocity–time graph; Acceleration due to gravity\nQuestion forms: 0: Choose and apply a suvat equation; 1: Vertical motion under gravity; 2: Read a velocity-time graph; 3: Show that / derive a suvat equation",
+  "reply": {
+   "sections": [
+    "M1-3.1|connect",
+    "M1-3.1|establish"
+   ],
+   "actions": [
+    {
+     "action": "diagram",
+     "source": "card",
+     "figure": "2",
+     "why": "The straight velocity–time graph from u to v shows the area as a trapezium, which is the figure the learner asked for."
+    },
+    {
+     "action": "explain",
+     "section": "connect",
+     "why": "It links the constant gradient to the area under the line, which gives s = ut + ½at²."
+    },
+    {
+     "action": "diagram",
+     "source": "notes",
+     "figure": "m1-3-notes-suvat-derivation",
+     "why": "It shows the displacement equations coming from the same straight velocity–time line."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "ine)\nTerms: Displacement; Initial and final velocity; Constant acceleration; suvat equations; Velocity–time graph; Acceleration due to gravity\nQuestion forms: 0: Choose and apply a suvat equation; 1: Vertical motion under gravity; 2: Read a velocity-time graph; 3: Show that / derive a suvat equation",
+  "reply": {
+   "actions": [
+    {
+     "action": "question"
+    }
+   ],
+   "sections": []
+  },
+  "ok": true,
+  "msg": ""
+ }
+]

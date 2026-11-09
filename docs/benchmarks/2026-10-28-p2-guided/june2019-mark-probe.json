@@ -1,0 +1,134 @@
+[
+  {
+    "id": 16,
+    "answer": "By the binomial theorem, (1+x)^5=1+5x+10x²+10x³+5x⁴+x⁵ and (1−x)^5=1−5x+10x²−10x³+5x⁴−x⁵. Their sum is 2+20x²+10x⁴. Ignoring terms of degree 4 and above gives approximately 2+20x².",
+    "ok": true,
+    "status": "ready",
+    "seconds": 4.2,
+    "result": {
+      "points": [
+        {
+          "point": "Expands both expressions consistently through cubic terms, with opposite odd-power signs.",
+          "met": false,
+          "why": "The expansion goes up to $x^5$ terms, not just cubic terms."
+        },
+        {
+          "point": "Adds the expansions correctly and gives the stated approximation; cancellation may be shown by the sum without an explicit statement.",
+          "met": false,
+          "why": "The sum provided is $2+20x^2+10x^4$, which does not match the stated approximation $2+20x^2$ prior to truncation."
+        }
+      ],
+      "feedback": "The expansions shown are correct to $x^5$. You failed to correctly simplify the sum or state the final required approximation after truncation."
+    }
+  },
+  {
+    "id": 16,
+    "answer": "The odd terms cancel, so the result is 2+20x².",
+    "ok": true,
+    "status": "ready",
+    "seconds": 2.9,
+    "result": {
+      "points": [
+        {
+          "point": "Expands both expressions consistently through cubic terms, with opposite odd-power signs.",
+          "met": false,
+          "why": "The odd terms cancel, so the result is 2+20x²."
+        },
+        {
+          "point": "Adds the expansions correctly and gives the stated approximation; cancellation may be shown by the sum without an explicit statement.",
+          "met": true,
+          "why": "The odd terms cancel, so the result is 2+20x²."
+        }
+      ],
+      "feedback": "The student did not show the necessary expansions to earn full marks for the required steps."
+    }
+  },
+  {
+    "id": 17,
+    "answer": "Use tanθ=sinθ/cosθ and sin²θ=1−cos²θ. Substitution gives cosθ+1=2(1−cos²θ)/cosθ. Since cosθ≠0, multiply through by cosθ: cos²θ+cosθ=2−2cos²θ. Rearranging gives 3cos²θ+cosθ−2=0.",
+    "ok": true,
+    "status": "ready",
+    "seconds": 3.1,
+    "result": {
+      "points": [
+        {
+          "point": "Uses the tangent identity and multiplies by the given nonzero cosine.",
+          "met": true,
+          "why": "Substitution gives cos$\\theta$+1=2(1-$\\cos$^2$\\theta$)/$\\cos$$\\theta$. Since cos$\\theta$$\\neq$0, multiply through by cos$\\theta$:"
+        },
+        {
+          "point": "Uses the Pythagorean identity and shows a correct rearrangement.",
+          "met": true,
+          "why": "Substitution gives cos$\\theta$+1=2(1-$\\cos$^2$\\theta$)/$\\cos$$\\theta$. Since cos$\\theta$$\\neq$0, multiply through by cos$\\theta$.: Rearranging gives 3cos^2$\\theta$+cos$\\theta$-2=0."
+        }
+      ],
+      "feedback": "The derivation is correct, successfully using both required identities to reach the final expression."
+    }
+  },
+  {
+    "id": 17,
+    "answer": "The equation is 3cos²θ+cosθ−2=0.",
+    "ok": true,
+    "status": "ready",
+    "seconds": 1.7,
+    "result": {
+      "points": [
+        {
+          "point": "Uses the tangent identity and multiplies by the given nonzero cosine.",
+          "met": false,
+          "why": "The student answer shows no working."
+        },
+        {
+          "point": "Uses the Pythagorean identity and shows a correct rearrangement.",
+          "met": false,
+          "why": "The student answer shows no working."
+        }
+      ],
+      "feedback": "The student has only stated the conclusion and has not provided any of the required mathematical working."
+    }
+  },
+  {
+    "id": 18,
+    "answer": "An antiderivative is x²−4x. At x=3 its value is 9−12=−3; at x=1 it is 1−4=−3. Hence the integral is (−3)−(−3)=0.",
+    "ok": true,
+    "status": "ready",
+    "seconds": 1.9,
+    "result": {
+      "points": [
+        {
+          "point": "Finds a correct antiderivative.",
+          "met": false,
+          "why": "An antiderivative is $x²$−4x."
+        },
+        {
+          "point": "Substitutes both limits, subtracts correctly and establishes the given value.",
+          "met": true,
+          "why": "Hence the integral is (−3)−(−3)=0."
+        }
+      ],
+      "feedback": "The antiderivative derived is incorrect for the integrand $2x-4$; review the power rule for integration."
+    }
+  },
+  {
+    "id": 18,
+    "answer": "The antiderivative is x²−4x.",
+    "ok": true,
+    "status": "ready",
+    "seconds": 1.8,
+    "result": {
+      "points": [
+        {
+          "point": "Finds a correct antiderivative.",
+          "met": true,
+          "why": "The antiderivative is $x²$−4x."
+        },
+        {
+          "point": "Substitutes both limits, subtracts correctly and establishes the given value.",
+          "met": false,
+          "why": "The student answer does not show the evaluation at the limits."
+        }
+      ],
+      "feedback": "You have correctly found the antiderivative; however, you must show the substitution and subtraction steps to satisfy the second mark point."
+    }
+  }
+]

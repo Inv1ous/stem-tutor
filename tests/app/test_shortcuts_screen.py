@@ -57,13 +57,12 @@ async def wait_for(pilot, cond, tries=80):
 
 
 def menu_labels(app):
-    m = app.screen.query_one("#menu")
-    return {m.get_option_at_index(i).id: str(m.get_option_at_index(i).prompt) for i in range(m.option_count)}
+    return dict(app.screen._menu_items)  # every line, whichever folder it is in
 
 
 async def open_from_menu(pilot, app, key, name):
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [o.id for o in menu.options].index(key)
+    menu.reveal(key)
     await pilot.press("enter")
     assert await wait_for(pilot, lambda: type(app.screen).__name__ == name)
     await pilot.pause(0.1)

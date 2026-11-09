@@ -44,6 +44,30 @@
    "refutation": "The group comes from the number of electrons **before** the big jump, which is the number of outer (valence) electrons. Large values alone do not fix the group, and neither does the number of values listed in the question. The next electron after the jump comes from an inner shell that is closer to the nucleus.",
    "contrast": "A jump between the 6th and 7th values means 6 outer electrons (Group 16), not Group 17. Data with no big jump between the 5th and 8th values (all from one inner shell) fits silicon (Group 14), not chlorine.",
    "source": "ER 9701 s23 P11 Q12"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-1.4.4",
+   "statement": "Every small rise in a successive series identifies a new subshell.",
+   "refutation": "Successive removals also increase attraction within one subshell; a small rise alone does not prove a subshell change.",
+   "contrast": "Successive removals also increase attraction within one subshell; a small rise alone does not prove a subshell change.",
+   "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.2–12; original teaching clarification"
+  },
+  {
+   "id": "m7",
+   "kc": "9701-1.4.5",
+   "statement": "Removing an electron releases energy because the electron leaves the atom.",
+   "refutation": "Energy must be supplied to overcome the electrostatic attraction between the positive nucleus and negative electron.",
+   "contrast": "Energy must be supplied to overcome the electrostatic attraction between the positive nucleus and negative electron.",
+   "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.2–12; original teaching clarification"
+  },
+  {
+   "id": "m8",
+   "kc": "9701-1.4.7",
+   "statement": "The first displayed entry of a partial series should be counted as the first ionisation.",
+   "refutation": "Use the original ionisation indices. A partial extract may start after several electrons have already been removed.",
+   "contrast": "Use the original ionisation indices. A partial extract may start after several electrons have already been removed.",
+   "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.2–12; original teaching clarification"
   }
  ],
  "worked": [
@@ -2856,15 +2880,389 @@
     "answer": "A",
     "explanation": "First ionisation energy removes one electron from one mole of gaseous atoms to give gaseous $1+$ ions, so it must start from $\\ce{Cl(g)}$, not from the molecule and not from a solid. B starts from $\\ce{Cl2}$ and removes two electrons, so it includes bond breaking; C gains an electron (electron affinity); D uses the wrong state."
    },
-   "source": "pack"
+   "plain_words": "First ionisation energy is the energy needed to remove one electron from each atom in one mole of gaseous atoms. The product is one mole of gaseous 1+ ions. Keep the four parts together: one electron, one mole, gaseous state and 1+ ions.",
+   "terms": [
+    {
+     "term": "First ionisation energy",
+     "meaning": "The energy to remove one electron from each atom in one mole of gaseous atoms, forming one mole of gaseous 1+ ions.",
+     "notation": "$IE_1$",
+     "spoken": "I E one",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.2"
+    },
+    {
+     "term": "State symbol (g)",
+     "meaning": "The atom and positive ion in an ionisation equation are gaseous; write (g) after both. An emitted electron is conventionally written without a state symbol.",
+     "notation": "(g)",
+     "spoken": "gas state symbol",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.3"
+    },
+    {
+     "term": "Endothermic",
+     "meaning": "A process that takes in energy from its surroundings, so its energy change is positive.",
+     "notation": "none",
+     "spoken": "endothermic",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Equation for first ionisation energy",
+     "wordings": [
+      "Write the equation, with state symbols, for the first ionisation energy of an element"
+     ],
+     "example": "**Question:** Write the equation, with state symbols, for the first ionisation energy of sodium.\n\n- Start from one mole of gaseous sodium atoms, $\\ce{Na(g)}$.\n- Remove one electron to give one mole of gaseous $1+$ ions.\n- Answer: $\\ce{Na(g) -> Na+(g) + e-}$.",
+     "check": "Write the equation, with state symbols, for the first ionisation energy of aluminium.",
+     "answer": "$\\ce{Al(g) -> Al+(g) + e-}$. One electron is removed from a gaseous atom, and the atom and the 1+ ion both carry (g).",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.2; ER 9701 s22 P23 Q1",
+     "rubric": [
+      {
+       "point": "Requires Al(g) as reactant on the left",
+       "keywords": [
+        [
+         "Al(g)",
+         "Al (g)"
+        ]
+       ]
+      },
+      {
+       "point": "Requires Al+(g) and exactly one electron as products on the right, with balanced atoms and charge; reversed or two-electron equations do not earn full credit",
+       "keywords": [
+        [
+         "Al+(g)",
+         "Al+ (g)",
+         "Al+(g)",
+         "Al⁺(g)",
+         "Al⁺ (g)"
+        ],
+        [
+         "e-",
+         "e-",
+         "electron",
+         "e⁻"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Write the equation, with state symbols, for the first ionisation energy of phosphorus.",
+      "answer": "$\\ce{P(g) -> P+(g) + e-}$. One electron is removed; both phosphorus species carry (g).",
+      "rubric": [
+       {
+        "point": "Requires P(g) as reactant on the left",
+        "keywords": [
+         [
+          "P(g)",
+          "P (g)"
+         ]
+        ]
+       },
+       {
+        "point": "Requires P+(g) and exactly one electron as products on the right, with balanced atoms and charge; reversed or two-electron equations do not earn full credit",
+        "keywords": [
+         [
+          "P+(g)",
+          "P+ (g)",
+          "P+(g)",
+          "P⁺(g)",
+          "P⁺ (g)"
+         ],
+         [
+          "e-",
+          "e-",
+          "electron",
+          "e⁻"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Define first ionisation energy",
+     "wordings": [
+      "Define first ionisation energy",
+      "Explain why a definition must specify each gaseous atom"
+     ],
+     "example": "**Question:** A draft definition says only “energy to remove an electron from atoms”. Build a complete definition.\n1. Specify one electron from each atom.\n2. Specify one mole of gaseous atoms.\n3. Specify one mole of gaseous singly positive ions. The energy required for that change is first ionisation energy.",
+     "check": "Define the first ionisation energy of potassium.",
+     "answer": "The energy required to remove one electron from each atom in one mole of gaseous potassium atoms to form one mole of gaseous singly positive potassium ions.",
+     "rubric": [
+      {
+       "point": "Energy required to remove one electron from each atom, equivalently one mole of electrons from one mole of atoms",
+       "keywords": [
+        [
+         "energy"
+        ],
+        [
+         "one electron",
+         "an electron",
+         "one mole of electrons",
+         "1 mole of electrons",
+         "a mole of electrons"
+        ],
+        [
+         "each",
+         "per atom",
+         "one mole of electrons",
+         "1 mole of electrons",
+         "a mole of electrons"
+        ]
+       ]
+      },
+      {
+       "point": "One mole of gaseous potassium atoms",
+       "keywords": [
+        [
+         "mole"
+        ],
+        [
+         "gaseous",
+         "gas"
+        ],
+        [
+         "atom"
+        ]
+       ]
+      },
+      {
+       "point": "Forms one mole of gaseous singly positive potassium ions",
+       "keywords": [
+        [
+         "gaseous",
+         "gas"
+        ],
+        [
+         "1+",
+         "singly positive",
+         "single positive",
+         "K⁺",
+         "K+"
+        ],
+        [
+         "mole"
+        ]
+       ]
+      }
+     ],
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.2–3; bundle ER 9701 s22 P23 Q1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "The first ionisation energy is the energy needed to remove an electron from one mole of gaseous atoms (or from an atom in any state).",
+     "temptation": "Writing 'one electron from one mole of atoms' and leaving out 'each atom' and (g) looks like a complete definition.",
+     "fix": "The definition needs one electron removed from each atom in one mole of gaseous atoms, forming one mole of gaseous 1+ ions."
+    },
+    {
+     "id": "m1",
+     "idea": "The first ionisation energy is a negative value, because the atom gives up an electron and releases energy.",
+     "temptation": "Losing an electron can look like a reaction that releases energy, but the nucleus holds the electron, so energy is taken in.",
+     "fix": "Ionisation is endothermic: energy must be supplied to overcome the nuclear attraction, so every ionisation energy is positive."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The definition and equation are symbolic; no pack figure shows them.",
+   "diagram_descriptions": [],
+   "source_gaps": [
+    "The notes write the electron as e- with no state symbol; this card follows that convention.",
+    "Values quoted for the same element differ slightly between the notes and the pack, so exact figures should be checked before use."
+   ],
+   "source": "pack",
+   "exam_language": [
+    {
+     "name": "Define",
+     "meaning": "Give the precise amount, species and gaseous states."
+    }
+   ],
+   "guided_discover": {
+    "stem": "Which statement must hold when one mole of gaseous atoms undergoes first ionisation?",
+    "options": {
+     "A": "Each atom loses one electron",
+     "B": "Only one atom loses one electron",
+     "C": "Each atom loses all its electrons",
+     "D": "Each atom gains an electron"
+    },
+    "answer": "A",
+    "explanation": "First ionisation removes one electron per atom, so one mole of atoms yields one mole of singly positive ions."
+   }
   },
   "9701-1.4.2": {
    "motivate": "An element with several electrons can be ionised again and again. Each step has its own energy and its own equation, and the only reliable way to write them is a fixed routine.",
    "establish": "The $n$th ionisation energy removes one electron from the ion that already carries a $(n-1)+$ charge: $\\ce{X^{(n-1)+}(g) -> X^{n+}(g) + e-}$. So for magnesium the second is $\\ce{Mg+(g) -> Mg^2+(g) + e-}$ and the third is $\\ce{Mg^2+(g) -> Mg^3+(g) + e-}$. Build each one in three steps: start from the species with charge $(n-1)+$; remove exactly **one** electron, so the charge rises by one and $e^-$ appears on the right; check that **every** species carries the state symbol (g), including the electron-losing ion. Two common errors are removing two electrons at once (for example writing $\\ce{Mg(g) -> Mg^2+(g) + 2e-}$ for $IE_2$) and dropping the (g).",
    "connect": "Once the equations are right, the numbers attached to them can be compared, and they turn out to rise in a very revealing pattern.",
-   "note": "- General form: $\\ce{X^{(n-1)+}(g) -> X^{n+}(g) + e-}$, one electron only.\n- $IE_2$ of Mg: $\\ce{Mg+(g) -> Mg^2+(g) + e-}$; $IE_3$: $\\ce{Mg^2+(g) -> Mg^3+(g) + e-}$.\n- Start from the $(n-1)+$ ion, not from the neutral atom.\n- Every species needs (g); $\\ce{Mg(g) -> Mg^2+(g) + 2e-}$ is not $IE_2$.",
+   "note": "- General form: $\\ce{X^{(n-1)+}(g) -> X^{n+}(g) + e-}$, one electron only.\n- $IE_2$ of Mg: $\\ce{Mg+(g) -> Mg^2+(g) + e-}$; $IE_3$: $\\ce{Mg^2+(g) -> Mg^3+(g) + e-}$.\n- Start from the $(n-1)+$ ion, not from the neutral atom.\n- Every species needs (g); $\\ce{Mg(g) -> Mg^2+(g) + 2e-}$ is not $IE_2$.\n- State-symbol clarification: write (g) on both atoms or ions; the emitted electron is conventionally written without a state symbol.",
    "self_explain": "Why is $\\ce{Mg(g) -> Mg^2+(g) + 2e-}$ the sum of $IE_1$ and $IE_2$ rather than $IE_2$ itself?",
-   "source": "pack"
+   "plain_words": "Use the ion left by the previous step. Each step removes one electron, increasing the positive charge by one. The atom or ion on each side is gaseous; the emitted electron has no state symbol.",
+   "terms": [
+    {
+     "term": "Successive ionisation energy",
+     "meaning": "The energy to remove each further electron, one at a time, from the ion left by the previous step.",
+     "notation": "$IE_n$",
+     "spoken": "I E n",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.3"
+    },
+    {
+     "term": "Ionisation equation",
+     "meaning": "A symbol equation that removes exactly one electron from a gaseous species.",
+     "notation": "$\\ce{X^{(n-1)+}(g) -> X^{n+}(g) + e-}$",
+     "spoken": "X with charge n minus one plus, gas, goes to X with charge n plus, gas, plus an electron",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.3"
+    },
+    {
+     "term": "Electron",
+     "meaning": "The negative particle removed in each ionisation step.",
+     "notation": "$e^-$",
+     "spoken": "e minus",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Equation for the nth ionisation energy",
+     "wordings": [
+      "Write the equation, with state symbols, for the second ionisation energy of an element",
+      "Write the equation, with state symbols, for the third ionisation energy of an element"
+     ],
+     "example": "**Question:** Write the equation, with state symbols, for the second ionisation energy of magnesium.\n\n- Start from the 1+ ion, $\\ce{Mg+(g)}$, not from the atom.\n- Remove one electron, so the ion becomes $2+$.\n- Answer: $\\ce{Mg+(g) -> Mg^2+(g) + e-}$.",
+     "check": "Write the equation, with state symbols, for the third ionisation energy of aluminium.",
+     "answer": "$\\ce{Al^2+(g) -> Al^3+(g) + e-}$. The charge rises from two plus to three plus; both ions are gaseous.",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.3; ER 9701 w20 P21 Q1",
+     "rubric": [
+      {
+       "point": "Requires Al²⁺(g), the lower-charge ion, on the left with its own (g) state symbol",
+       "keywords": [
+        [
+         "Al^2+",
+         "Al2+",
+         "Al^{2+}",
+         "Al2+",
+         "Al²⁺(g)",
+         "Al²⁺ (g)"
+        ],
+        [
+         "(g)"
+        ]
+       ]
+      },
+      {
+       "point": "Requires Al³⁺(g), the higher-charge ion, and exactly one electron on the right; (g) is required on each ion and atoms and charge must balance",
+       "keywords": [
+        [
+         "Al^3+",
+         "Al3+",
+         "Al^{3+}",
+         "Al3+",
+         "Al³⁺(g)",
+         "Al³⁺ (g)"
+        ],
+        [
+         "e-",
+         "e-",
+         "electron",
+         "e⁻"
+        ],
+        [
+         "(g)"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Write the equation, with state symbols, for the second ionisation energy of sodium.",
+      "answer": "$\\ce{Na+(g) -> Na^2+(g) + e-}$. Start from the gaseous singly positive ion and release one electron.",
+      "rubric": [
+       {
+        "point": "Requires Na⁺(g), the lower-charge ion, on the left with its own (g) state symbol",
+        "keywords": [
+         [
+          "Na^+",
+          "Na+",
+          "Na^{+}",
+          "Na+",
+          "Na⁺(g)",
+          "Na⁺ (g)"
+         ],
+         [
+          "(g)"
+         ]
+        ]
+       },
+       {
+        "point": "Requires Na²⁺(g), the higher-charge ion, and exactly one electron on the right; (g) is required on each ion and atoms and charge must balance",
+        "keywords": [
+         [
+          "Na^2+",
+          "Na2+",
+          "Na^{2+}",
+          "Na2+",
+          "Na²⁺(g)",
+          "Na²⁺ (g)"
+         ],
+         [
+          "e-",
+          "e-",
+          "electron",
+          "e⁻"
+         ],
+         [
+          "(g)"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "An ionisation equation can leave out the state symbols, remove more than one electron in a single step, or start from a molecule or a negative ion.",
+     "temptation": "Writing Mg(g) to Mg2+(g) plus 2e- looks like a complete second ionisation, since the charge is right.",
+     "fix": "Remove exactly one electron from the appropriate gaseous atom or positive ion; put (g) on both atomic species. The emitted electron has no state symbol. Removing two electrons from an atom describes two steps together."
+    },
+    {
+     "id": "m2",
+     "idea": "The second ionisation energy is smaller than the first, because the second electron is in the same shell as the first.",
+     "temptation": "Electrons in the same shell feel similar repulsion from each other, but the increasing positive charge of the ion makes each next removal harder.",
+     "fix": "Once an electron is removed the ion is positive, so the remaining electrons are held more strongly. Successive ionisation energies always increase."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The equations are symbolic; no pack figure shows them.",
+   "diagram_descriptions": [],
+   "source_gaps": [
+    "The library uses calcium as its printed equation example. The magnesium, aluminium and sodium equations here are original applications of the same charge-balance rule."
+   ],
+   "discover": {
+    "stem": "Which equation represents the second ionisation energy of magnesium?",
+    "options": {
+     "A": "$\\ce{Mg(g) -> Mg^2+(g) + 2e-}$",
+     "B": "$\\ce{Mg+(g) -> Mg^2+(g) + e-}$",
+     "C": "$\\ce{Mg+ -> Mg^2+ + e-}$",
+     "D": "$\\ce{Mg^2+(g) -> Mg^3+(g) + e-}$"
+    },
+    "answer": "B",
+    "explanation": "The second ionisation starts from the gaseous $1+$ ion and removes exactly one electron, with (g) on every species. A removes two electrons from the atom, so it is $IE_1+IE_2$; C has no state symbols; D starts from the $2+$ ion, so it is the third ionisation energy."
+   },
+   "source": "pack",
+   "exam_language": [
+    {
+     "name": "Construct",
+     "meaning": "Write a charge-balanced one-electron equation with gaseous atoms or ions."
+    }
+   ],
+   "guided_discover": {
+    "stem": "What charge must the gaseous reactant ion have in a fifth-ionisation equation?",
+    "options": {
+     "A": "One plus",
+     "B": "Three plus",
+     "C": "Four plus",
+     "D": "Five plus"
+    },
+    "answer": "C",
+    "explanation": "Four electrons have already been removed; the fifth step starts from a four-plus ion."
+   }
   },
   "9701-1.4.3": {
    "motivate": "Plot $IE_1$ against proton number and the Periodic Table draws itself: a sawtooth that climbs across each period and crashes at the start of the next. Reading that graph is a standard exam task.",
@@ -2883,15 +3281,613 @@
     "answer": "C",
     "explanation": "Sulfur is $3s^2 3p^4$, so one $3p$ orbital holds a pair of electrons that repel each other; one is removed more easily than from phosphorus's half-filled $3p^3$, so $IE_1$(S) is below $IE_1$(P). The Mg to Al dip has a different cause: Al's electron comes from the higher-energy $3p$ sub-shell. Na to Mg and Cl to Ar both rise."
    },
-   "source": "pack"
+   "plain_words": "First ionisation energy generally rises across a period and falls down a group. The trend is set by the balance of nuclear charge, distance and shielding. Name the electron removed and the factor that changes before you explain a trend.",
+   "terms": [
+    {
+     "term": "Period trend",
+     "meaning": "The pattern of a property across one row of the Periodic Table.",
+     "notation": "none",
+     "spoken": "period trend",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.5"
+    },
+    {
+     "term": "Group trend",
+     "meaning": "The pattern of a property down one column of the Periodic Table.",
+     "notation": "none",
+     "spoken": "group trend",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.5"
+    },
+    {
+     "term": "Nuclear charge",
+     "meaning": "The number of protons in the nucleus, which sets the positive charge pulling on the electrons.",
+     "notation": "$Z$",
+     "spoken": "Z, nuclear charge",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain the trend across a period",
+     "wordings": [
+      "Explain the trend in first ionisation energy across Period 3 from sodium to chlorine",
+      "Explain why the first ionisation energy of X is higher than that of Y in the same period"
+     ],
+     "example": "**Question:** Explain why first ionisation energy generally increases across Period 3 from sodium to chlorine.\n\n- Nuclear charge increases, so the pull on the outer electron is stronger.\n- The electrons enter the same shell, so shielding stays about the same.\n- The atomic radius decreases, so the attraction is stronger and more energy is needed.",
+     "check": "Explain why the first ionisation energy of silicon is higher than that of aluminium.",
+     "answer": "Silicon has 14 protons and aluminium has 13, so its nuclear charge is greater. Both outer electrons are in the 3p sub-shell of the third shell, so shielding is similar. Silicon's atomic radius is smaller, so the attraction on the outer electron is stronger and more energy is needed.",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.6; ER 9701 w23 P21 Q1",
+     "rubric": [
+      {
+       "point": "States that silicon has more protons or a greater nuclear charge",
+       "keywords": [
+        [
+         "proton",
+         "nuclear charge"
+        ],
+        [
+         "more",
+         "greater",
+         "higher",
+         "increase"
+        ]
+       ]
+      },
+      {
+       "point": "Says the outer electrons are in the same shell or sub-shell, so shielding is similar",
+       "keywords": [
+        [
+         "shield"
+        ],
+        [
+         "same shell",
+         "same sub-shell",
+         "same subshell",
+         "similar",
+         "constant",
+         "same"
+        ]
+       ]
+      },
+      {
+       "point": "Links greater nuclear charge with similar shielding to stronger attraction on the outer electron and therefore more energy needed for removal",
+       "keywords": [
+        [
+         "attraction",
+         "pull",
+         "held"
+        ],
+        [
+         "stronger",
+         "greater",
+         "more strongly"
+        ],
+        [
+         "energy",
+         "ionisation",
+         "ionization",
+         "IE"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Explain why the first ionisation energy of magnesium is higher than that of sodium.",
+      "answer": "Magnesium has 12 protons and sodium has 11, so its nuclear charge is greater. Both outer electrons are in the 3s sub-shell of the third shell, so shielding is the same. Magnesium's atomic radius is smaller, so the attraction on its outer electron is stronger.",
+      "rubric": [
+       {
+        "point": "States that magnesium has more protons or a greater nuclear charge",
+        "keywords": [
+         [
+          "proton",
+          "nuclear charge"
+         ],
+         [
+          "more",
+          "greater",
+          "higher",
+          "increase"
+         ]
+        ]
+       },
+       {
+        "point": "Says the outer electrons are in the same shell or sub-shell, so shielding is the same",
+        "keywords": [
+         [
+          "shield"
+         ],
+         [
+          "same shell",
+          "same sub-shell",
+          "same subshell",
+          "similar",
+          "constant",
+          "same"
+         ]
+        ]
+       },
+       {
+        "point": "Links greater nuclear charge with similar shielding to stronger attraction on the outer electron and therefore more energy needed for removal",
+        "keywords": [
+         [
+          "attraction",
+          "pull",
+          "held",
+          "attracted"
+         ],
+         [
+          "stronger",
+          "greater",
+          "more strongly"
+         ],
+         [
+          "energy",
+          "ionisation",
+          "ionization",
+          "IE"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Explain the trend down a group",
+     "wordings": [
+      "Explain why first ionisation energy decreases down Group 2 from magnesium to calcium",
+      "Explain why first ionisation energy decreases down a group"
+     ],
+     "example": "**Question:** Explain why first ionisation energy decreases down Group 2 from magnesium to calcium.\n\n- Calcium has one more shell, so its outer electron is further from the nucleus.\n- The extra inner shells increase shielding.\n- The greater nuclear charge is outweighed, so less energy is needed to remove the outer electron.",
+     "check": "Explain, using distance, shielding and nuclear charge, why first ionisation energy decreases down Group 1 from lithium to sodium.",
+     "answer": "Sodium has one more shell than lithium, so its outer electron is further from the nucleus and shielded by more inner electrons. Its nuclear charge is greater, but these two effects outweigh it, so less energy is needed to remove the outer electron.",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.6 and p.7",
+     "rubric": [
+      {
+       "point": "Says there is an extra shell, so the outer electron is further from the nucleus",
+       "keywords": [
+        [
+         "shell"
+        ],
+        [
+         "further",
+         "distance",
+         "radius",
+         "far"
+        ]
+       ]
+      },
+      {
+       "point": "Says shielding increases with the extra inner shells",
+       "keywords": [
+        [
+         "shield"
+        ]
+       ]
+      },
+      {
+       "point": "Says the greater nuclear charge is outweighed, so IE falls",
+       "keywords": [
+        [
+         "nuclear charge",
+         "protons"
+        ],
+        [
+         "outweigh",
+         "outweighs",
+         "overcome",
+         "more than",
+         "offset",
+         "despite",
+         "although",
+         "but"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Explain, using distance, shielding and nuclear charge, why first ionisation energy decreases down Group 17 from fluorine to chlorine.",
+      "answer": "Chlorine has one more shell than fluorine, so its outer electron is further from the nucleus. The extra inner shells increase shielding. The greater nuclear charge is outweighed, so less energy is needed to remove an outer electron.",
+      "rubric": [
+       {
+        "point": "Says there is an extra shell, so the outer electron is further from the nucleus",
+        "keywords": [
+         [
+          "shell"
+         ],
+         [
+          "further",
+          "distance",
+          "radius",
+          "far"
+         ]
+        ]
+       },
+       {
+        "point": "Says shielding increases with the extra inner shells",
+        "keywords": [
+         [
+          "shield"
+         ]
+        ]
+       },
+       {
+        "point": "Says the greater nuclear charge is outweighed, so IE falls",
+        "keywords": [
+         [
+          "nuclear charge",
+          "protons"
+         ],
+         [
+          "outweigh",
+          "outweighs",
+          "overcome",
+          "more than",
+          "offset",
+          "despite",
+          "although",
+          "but"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "Ionisation energy should increase down a group because the nuclear charge increases, or because shielding stays the same.",
+     "temptation": "The extra protons seem to pull harder, so the outer electron should be held more tightly.",
+     "fix": "Shielding and distance also increase down a group and outweigh the greater nuclear charge. The net attraction falls, so ionisation energy decreases."
+    },
+    {
+     "id": "m3",
+     "idea": "First ionisation energy rises steadily across every period, with no exceptions to the trend.",
+     "temptation": "A graph of IE1 against proton number looks like a rising line across each period, but the dips are real and are asked about in exams.",
+     "fix": "IE1 dips at Al (after Mg) and at S (after P). The first dip comes from the 3p sub-shell being higher in energy and shielded; the second from spin-pair repulsion."
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-1.4-period3-ie1.svg",
+    "Assets/9701/9701-1.4-h-to-ne-ie1.svg"
+   ],
+   "diagram_descriptions": [
+    "Line graph of first ionisation energy from sodium (11) to argon (18), with dips at aluminium and sulfur labelled with the sub-shell and spin-pair reasons.",
+    "First ionisation energy versus proton number 1 to 10, H to Ne. The sharp fall from He to Li starts a new shell; smaller dips occur at B and O. Sodium is outside this graph. He and Li are in different groups; the fall illustrates the distance and shielding reasoning also used down a group."
+   ],
+   "source_gaps": [
+    "The notes say shielding stays roughly constant across a period but give no numerical value for it.",
+    "The sources give qualitative group reasons only; no calculated values for the balance of effects are given.",
+    "The preserved graphs and Cambridge data table use different numerical data sets. Use any numerical values supplied in a question; these graphs support qualitative trends rather than precision lookup."
+   ],
+   "source": "pack",
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Give the factor, its effect on nucleus–electron attraction, and the resulting energy change."
+    }
+   ],
+   "guided_discover": {
+    "stem": "Why is the first ionisation energy of argon greater than that of potassium?",
+    "options": {
+     "A": "Argon has more protons",
+     "B": "Potassium loses a more distant, more shielded electron in a new shell",
+     "C": "Argon loses two electrons",
+     "D": "Potassium gains an electron"
+    },
+    "answer": "B",
+    "explanation": "Potassium starts a new period with an outer 4s electron; argon loses a 3p electron. Distance and shielding dominate."
+   }
   },
   "9701-1.4.4": {
    "motivate": "Magnesium's ionisation energies run 738, 1451, then 7733 kJ mol$^{-1}$. That jump of more than five times is not random: it is the atom's shell structure showing itself.",
    "establish": "Successive ionisation energies **always increase**: the nuclear charge is unchanged while electrons are removed, so each remaining electron is held by the same nucleus with less inter-electron repulsion, the ion is smaller, and the attraction on the next electron is greater. On top of that steady rise there are **big jumps**. A big jump happens when the next electron must come from a shell **closer to the nucleus** and **less shielded**, so far more energy is needed. Smaller jumps mark a change of sub-shell within a shell. Plotting $\\log_{10}(IE)$ against the number of electrons removed compresses the huge range and makes each shell appear as a group of points.",
    "connect": "Because each jump marks a shell, counting the values on either side of a jump tells you how many electrons each shell holds.",
-   "note": "- Successive values always increase: same nuclear charge, fewer electrons, less repulsion, smaller ion, stronger attraction.\n- A big jump means the next electron comes from an inner shell: closer to the nucleus and less shielded.\n- Smaller steps within a group of values mark a change of sub-shell.\n- A $\\log_{10}(IE)$ plot against electrons removed shows the shells as clear groups.",
+   "note": "- Successive values always increase: same nuclear charge, fewer electrons, less repulsion, smaller ion, stronger attraction.\n- A big jump means the next electron comes from an inner shell: closer to the nucleus and less shielded.\n- Smaller steps within a group of values mark a change of sub-shell.\n- A $\\log_{10}(IE)$ plot against electrons removed shows the shells as clear groups.\n- A small rise alone does not establish a subshell change; successive removals also rise within one subshell.",
    "self_explain": "Why does removing an electron from a $2+$ ion cost more than removing one from the neutral atom of the same element?",
-   "source": "pack"
+   "plain_words": "Every further electron is removed from an increasingly positive ion, so successive ionisation energies rise. A pronounced shell break means the next electron is closer to the nucleus and less shielded. Smaller rises also occur within a subshell; they do not all signal a subshell change.",
+   "terms": [
+    {
+     "term": "Big jump",
+     "meaning": "A large increase between two successive ionisation energies, showing that the next electron comes from a new, inner shell.",
+     "notation": "none",
+     "spoken": "big jump",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.8"
+    },
+    {
+     "term": "Mini jump",
+     "meaning": "An increase within a shell can reflect a subshell change or ordinary strengthening of attraction during successive removals. A small rise alone does not identify a new subshell.",
+     "notation": "none",
+     "spoken": "mini jump",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.8"
+    },
+    {
+     "term": "Log plot",
+     "meaning": "A graph of log10 of the ionisation energy against the number of electrons removed; each shell appears as a group of points.",
+     "notation": "$\\log_{10}(IE)$",
+     "spoken": "log ten of I E",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.8"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain a big jump in successive values",
+     "wordings": [
+      "Explain the large increase between the third and fourth ionisation energies of an element",
+      "Explain the big jump between two successive ionisation energies of an element"
+     ],
+     "example": "**Question:** Explain the large increase between the third and fourth ionisation energies of aluminium (2740 and 11 600 kJ mol$^{-1}$).\n\n- The first three electrons are removed from the third shell, the 3s and 3p sub-shells.\n- The fourth electron comes from the second shell, which is closer to the nucleus and less shielded.\n- That needs about four times more energy, so there is a big jump.\n- The unchanged positive nucleus attracts the less shielded, inner electron more strongly; that is why removal needs more energy.",
+     "check": "Explain the large increase between the first and second ionisation energies of sodium (496 and 4562 kJ mol$^{-1}$), and say how large the jump is.",
+     "answer": "The first electron is removed from the outer 3s sub-shell. The second comes from the second shell, which is closer to the nucleus and less shielded, so much more energy is needed. The value rises about nine times. The increase is 4066 kJ mol$^{-1}$ and the final/initial ratio is about 9.2. The second electron experiences stronger electrostatic attraction to the unchanged positive nucleus, so more energy is needed to remove it.",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.9 and p.11",
+     "rubric": [
+      {
+       "point": "Says the next electron comes from an inner, new shell",
+       "keywords": [
+        [
+         "inner",
+         "second shell",
+         "new shell",
+         "2nd shell",
+         "previous shell"
+        ]
+       ]
+      },
+      {
+       "point": "Links shorter distance and reduced shielding to stronger nucleus–electron attraction",
+       "keywords": [
+        [
+         "closer",
+         "nearer",
+         "distance"
+        ],
+        [
+         "less shield",
+         "reduced shield",
+         "fewer shield",
+         "less shielded",
+         "reduced shielding"
+        ],
+        [
+         "attraction",
+         "held",
+         "pull",
+         "attracted"
+        ]
+       ]
+      },
+      {
+       "point": "Quantifies the increase as 4066 kJ mol⁻¹ or a final/initial ratio of about 9.2 (equivalent sensible rounding accepted); quoting the two given values alone is insufficient",
+       "keywords": [
+        [
+         "4066",
+         "4 066",
+         "4,066",
+         "9.2",
+         "9.20",
+         "about nine",
+         "approximately nine",
+         "9 times"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "The second and third ionisation energies of beryllium are 1757 and 14849 kJ mol^-1. Explain the large increase and quantify it as an energy difference or a final/initial ratio.",
+      "answer": "Beryllium has configuration 1s² 2s². Its second electron is removed from 2s; the third is removed from the inner 1s shell. The third electron is closer to the unchanged nucleus and less shielded, so it experiences stronger nuclear attraction and requires more energy to remove. The increase is 13092 kJ mol^-1, or a final/initial ratio of about 8.45.",
+      "rubric": [
+       {
+        "point": "Third removal is from an inner shell, unlike the second removal; shell/subshell labels are optional.",
+        "keywords": [
+         [
+          "inner",
+          "1s",
+          "first shell"
+         ]
+        ]
+       },
+       {
+        "point": "Third electron is closer and less shielded, causing stronger nuclear attraction and more energy needed.",
+        "keywords": [
+         [
+          "closer",
+          "nearer"
+         ],
+         [
+          "less shield",
+          "reduced shield"
+         ],
+         [
+          "attraction",
+          "attracted",
+          "held",
+          "pull"
+         ],
+         [
+          "stronger",
+          "more strongly",
+          "greater"
+         ]
+        ]
+       },
+       {
+        "point": "Calculates difference 13092 kJ mol^-1 OR final/initial ratio approximately 8.45; accept sensible rounding with method.",
+        "keywords": [
+         [
+          "13092",
+          "13 092",
+          "13,092",
+          "8.45",
+          "8.5",
+          "8.4"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Explain the rise within a successive series",
+     "wordings": [
+      "Explain why successive ionisation energies increase even without a shell change"
+     ],
+     "example": "**Question:** Why is the second ionisation energy of helium higher than the first?\n1. Both removals involve the first shell.\n2. Removing the first electron leaves a positive ion with no electron–electron repulsion.\n3. The remaining electron is more strongly attracted by the same two-proton nucleus; more energy is needed.",
+     "check": "Explain why the second ionisation energy of lithium is larger than its first. Name the subshells involved.",
+     "answer": "First removal is from 2s; the second is from 1s in Li+. The nucleus still has three protons. The second electron is closer and less shielded, so nuclear attraction is stronger and much more energy is required.",
+     "rubric": [
+      {
+       "point": "First removal from 2s; second from 1s",
+       "keywords": [
+        [
+         "2s"
+        ],
+        [
+         "1s"
+        ]
+       ]
+      },
+      {
+       "point": "The second electron is closer to the nucleus and less shielded, so attraction is stronger and more energy is required",
+       "keywords": [
+        [
+         "closer",
+         "nearer"
+        ],
+        [
+         "less shielded",
+         "less shielding",
+         "reduced shielding"
+        ],
+        [
+         "attraction",
+         "held",
+         "pull"
+        ],
+        [
+         "stronger",
+         "greater",
+         "more strongly"
+        ]
+       ]
+      }
+     ],
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.7–9; Cambridge 9701 syllabus 2025–2027, p.81 (ionisation data): https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf"
+    },
+    {
+     "name": "Read shell groups on a logarithmic graph",
+     "wordings": [
+      "Identify shell breaks on a graph of logarithmic successive ionisation energy"
+     ],
+     "example": "**Question:** A schematic complete series for aluminium has pronounced breaks after removals 3 and 11. What shell populations does it imply?\n1. The first shell group contains three outer electrons.\n2. The next group contains eleven minus three, or eight electrons.\n3. Thirteen electrons in all leaves two in the innermost shell: populations from inner to outer are 2, 8, 3.",
+     "check": "A schematic complete successive-ionisation series for a neutral atom with six electrons has coordinates n = 1, 2, 3, 4, 5, 6 and log10(IE / (kJ mol^-1)) = 3.0, 3.2, 3.4, 3.6, 4.5, 4.6, respectively. Sketch the graph with labelled axes, identify any pronounced shell break and deduce the shell populations from inner to outer. Does the plotted energy ever fall?",
+     "answer": "Model sketch (schematic; points at the given coordinates):\n```text\nlog10(IE / (kJ mol^-1))\n4.6 |                    *\n4.5 |                *\n4.2 |\n3.9 |\n3.6 |            *\n3.4 |        *\n3.2 |    *\n3.0 |*\n    +---------------------\n     1   2   3   4   5   6\n         electron removed, n\n```\nThe single pronounced shell break is between n=4 and n=5. Four electrons occupy the outer shell and the remaining 6-4=2 occupy the inner shell: inner-to-outer populations 2,4. The plotted values rise at every step; none falls.",
+     "rubric": [
+      {
+       "point": "Draws a graph with horizontal axis electron removed n and vertical axis log10(IE / (kJ mol^-1)); plots all six supplied coordinate pairs in their correct relative positions. This point requires an actual sketch; prose, a list or a table alone does not earn it. Judge the visible graph, not keyword occurrence.",
+       "keywords": [
+        [
+         "graph",
+         "sketch",
+         "plot"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies the shell break between removals 4 and 5.",
+       "keywords": [
+        [
+         "4",
+         "fourth"
+        ],
+        [
+         "5",
+         "fifth"
+        ]
+       ]
+      },
+      {
+       "point": "Deduces shell populations inner to outer 2,4 from four removals before the break and two remaining.",
+       "keywords": [
+        [
+         "2,4",
+         "2, 4",
+         "2.4",
+         "two, four"
+        ]
+       ]
+      },
+      {
+       "point": "States every plotted value rises, so no fall.",
+       "keywords": [
+        [
+         "increase",
+         "rises",
+         "rising",
+         "never falls",
+         "does not fall",
+         "no fall"
+        ]
+       ]
+      }
+     ],
+     "source": "SaveMyExams 9701 c1.4.pdf pp.9–11 (shell interpretation); original schematic complete six-electron series and model sketch."
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "Successive ionisation energies of an element rise by similar amounts, because all its electrons are held in the same way.",
+     "temptation": "Each electron feels the same nucleus, so it seems the increases should be even.",
+     "fix": "The steady rise is punctuated by big jumps when the next electron comes from a new, inner shell that is closer to the nucleus and less shielded."
+    },
+    {
+     "id": "m6",
+     "idea": "The second ionisation energy is smaller than the first, because a positive ion holds its remaining electrons more loosely.",
+     "temptation": "A charged ion may seem less stable, so it looks easier to pull a second electron off it.",
+     "fix": "A positive ion holds its remaining electrons more strongly, because the nuclear charge now outweighs the reduced repulsion. Each later ionisation is therefore harder."
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-1.4-log-ie-mg.svg"
+   ],
+   "diagram_descriptions": [
+    "Logarithm to base ten of magnesium successive ionisation energies, for electron numbers 1 to 12. The series rises throughout, with pronounced shell breaks between 2 and 3 and between 10 and 11. The logarithmic steps are about 0.73 and 0.68; the later step is not the larger logarithmic step."
+   ],
+   "source_gaps": [
+    "The notes do not give a magnitude threshold that counts as a big jump; the lesson judges it by ratio.",
+    "The pack's magnesium ionisation energies (738, 1451, 7733, 10 543 kJ mol-1) agree with NIST data for the first value (7.646 eV = 737.7 kJ mol-1). The SaveMyExams notes give 736, 1450, 7740 and 10 500, which differ slightly (736 and 7740 are not the rounded NIST values). This discrepancy is recorded for correction review; the notes are not changed.",
+    "Source review of the library pp.7–9 finds that the existing form “Explain the rise within a successive series” uses Li first/second ionisation as its check, which crosses from 2s to 1s. That check does not independently test a rise without a shell change; preserve it pending a separate content review.",
+    "SaveMyExams 9701 c1.4.pdf, pp.9–10 supports the closer, less shielded inner-shell electron experiencing stronger nuclear attraction and requiring more energy to remove.",
+    "SaveMyExams 9701 c1.4.pdf pp.9–11 supports the shell-change principle; the beryllium values are new application data."
+   ],
+   "discover": {
+    "stem": "Why is each successive ionisation energy of an element larger than the one before it?",
+    "options": {
+     "A": "The nuclear charge increases each time an electron is removed.",
+     "B": "Every later electron is removed from a new inner shell.",
+     "C": "The same nuclear charge acts on fewer electrons, so there is less repulsion, the ion is smaller and the remaining electrons are held more strongly.",
+     "D": "The ion becomes more negative, so it holds its electrons more tightly."
+    },
+    "answer": "C",
+    "explanation": "Removing an electron leaves the proton number unchanged but reduces electron-electron repulsion, so the ion is smaller and attracts its remaining electrons more strongly. A is wrong because the number of protons does not change; B is true only at the big jumps, not for every step; D is wrong because each ion is more positive, not more negative."
+   },
+   "source": "pack",
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Give the factor, its effect on nucleus–electron attraction, and the resulting energy change."
+    }
+   ],
+   "guided_discover": {
+    "stem": "A neutral carbon atom has six electrons. How many successive one-electron ionisation steps are possible before no electrons remain?",
+    "options": {
+     "A": "Two",
+     "B": "Four",
+     "C": "Six",
+     "D": "Twelve"
+    },
+    "answer": "C",
+    "explanation": "Each step removes one electron; six initially present electrons allow six steps."
+   }
   },
   "9701-1.4.5": {
    "motivate": "Why does it cost energy at all to take an electron away? Everything in this topic follows from one force between two charges.",
@@ -2899,7 +3895,177 @@
    "connect": "Naming the attraction is only half the job; the next step is the three or four factors that make it stronger or weaker.",
    "note": "- Ionisation energy is the energy needed to overcome the attraction between the nucleus and the outer electron.\n- The attraction is electrostatic: positive nucleus, negative electron.\n- Ionisation is always endothermic, so $IE$ values are positive.\n- A larger $IE$ means the electron removed was held more strongly.",
    "self_explain": "In one sentence, why can an ionisation energy never be negative?",
-   "source": "pack"
+   "plain_words": "Ionisation energy is the energy needed to overcome the electrostatic attraction between the nucleus and the outer electron. Because energy must be supplied, ionisation is endothermic and every value is positive. A larger value means the electron is held more strongly.",
+   "terms": [
+    {
+     "term": "Electrostatic attraction",
+     "meaning": "The force between the positive nucleus and the negative electron that holds the electron in the atom.",
+     "notation": "none",
+     "spoken": "electrostatic attraction",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.2"
+    },
+    {
+     "term": "Outer electron",
+     "meaning": "The electron in the highest occupied shell, which is the one removed in the first ionisation.",
+     "notation": "none",
+     "spoken": "outer electron",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.4"
+    },
+    {
+     "term": "Nucleus",
+     "meaning": "The positively charged centre of the atom, made of protons and neutrons.",
+     "notation": "none",
+     "spoken": "nucleus",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.4"
+    },
+    {
+     "term": "Outer electron",
+     "meaning": "An electron in the occupied shell furthest from the nucleus; identify the electron actually removed when comparing ions.",
+     "notation": "none",
+     "spoken": "outer electron",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.2–4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Ionisation as overcoming attraction",
+     "wordings": [
+      "Explain why ionisation energy is always positive",
+      "State the force that must be overcome when an electron is removed from an atom"
+     ],
+     "example": "**Question:** Explain why ionisation energy is always positive.\n\n- Removing the outer electron means overcoming the electrostatic attraction between the positive nucleus and the negative electron.\n- Energy must be supplied to do this, so ionisation is endothermic.\n- Endothermic values are positive, so ionisation energy is positive.",
+     "check": "Hypothetical gaseous atoms X and Y have first ionisation energies of +600 and +900 kJ mol^-1, respectively. A learner claims that X holds its outer electron more strongly and releases 600 kJ mol^-1 when ionised. Evaluate both claims using these data.",
+     "answer": "Both claims are incorrect. Y holds its outer electron more strongly because removing it requires 900 kJ mol^-1 rather than 600 kJ mol^-1. X absorbs 600 kJ mol^-1 on first ionisation; energy is supplied to overcome the electrostatic attraction between its positive nucleus and negative outer electron, so ionisation is endothermic.",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.2 and p.4",
+     "rubric": [
+      {
+       "point": "Rejects the first claim: Y holds its outer electron more strongly because its removal requires 900 rather than 600 kJ mol^-1. Accept an equivalent correctly directed comparison.",
+       "keywords": [
+        [
+         "Y"
+        ],
+        [
+         "more strongly",
+         "stronger",
+         "greater attraction"
+        ],
+        [
+         "900",
+         "higher ionisation energy",
+         "higher ionization energy",
+         "greater ionisation energy",
+         "greater ionization energy",
+         "more energy required",
+         "requires more energy",
+         "more energy is required"
+        ]
+       ]
+      },
+      {
+       "point": "Rejects the release claim: X absorbs/requires an input of 600 kJ mol^-1. Explaining nuclear attraction and using the term endothermic are optional, not requirements.",
+       "keywords": [
+        [
+         "absorbs",
+         "absorb",
+         "takes in",
+         "supplied",
+         "requires",
+         "required",
+         "input"
+        ],
+        [
+         "600"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Hypothetical gaseous atoms P and Q have first ionisation energies +800 and +500 kJ mol^-1. A learner says that Q holds its outer electron more strongly and that first ionisation of one mole of P releases 800 kJ. Evaluate both claims using the data.",
+      "answer": "Both claims are incorrect. P holds its outer electron more strongly: removal requires 800 rather than 500 kJ mol^-1. Ionising one mole of gaseous P atoms absorbs 800 kJ; it does not release energy.",
+      "rubric": [
+       {
+        "point": "Identifies P as holding its electron more strongly, supported by its greater removal energy.",
+        "keywords": [
+         [
+          "P"
+         ],
+         [
+          "more strongly",
+          "stronger",
+          "greater attraction"
+         ],
+         [
+          "800",
+          "higher ionisation energy",
+          "higher ionization energy",
+          "greater ionisation energy",
+          "greater ionization energy",
+          "more energy required",
+          "requires more energy",
+          "more energy is required"
+         ]
+        ]
+       },
+       {
+        "point": "States first ionisation of one mole of P absorbs/requires 800 kJ. Attraction explanation and endothermic are optional.",
+        "keywords": [
+         [
+          "absorbs",
+          "absorb",
+          "takes in",
+          "supplied",
+          "requires",
+          "required",
+          "input"
+         ],
+         [
+          "800"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m7",
+     "idea": "Ionisation energy measures the energy needed to break the covalent bonds between atoms.",
+     "temptation": "Ionisation sounds like breaking something apart, as in bond breaking in a molecule.",
+     "fix": "Ionisation energy measures the electrostatic attraction between the nucleus and the outer electron of a single gaseous atom. No bonds are involved."
+    },
+    {
+     "id": "m7",
+     "idea": "An outer electron that is further from the nucleus is held more strongly, so it has a larger ionisation energy.",
+     "temptation": "A more distant electron seems more firmly held because it is further out.",
+     "fix": "Distance weakens the electrostatic attraction, so a more distant electron is easier to remove and has a smaller ionisation energy."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The attraction is a conceptual force; no pack figure isolates it.",
+   "diagram_descriptions": [],
+   "source_gaps": [
+    "The reviewed pages explain attraction qualitatively; no quantitative electrostatic-force calculation is required or supplied for these forms.",
+    "The hypothetical X and Y data are original and apply the nuclear-attraction and energy-required principle in SaveMyExams 9701 c1.4.pdf, p.4."
+   ],
+   "source": "pack",
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Give the factor, its effect on nucleus–electron attraction, and the resulting energy change."
+    }
+   ],
+   "guided_discover": {
+    "stem": "Two model atoms have identical electron distance and shielding. One nucleus has five protons and the other has six. Which outer electron is harder to remove?",
+    "options": {
+     "A": "The electron attracted by five protons",
+     "B": "The electron attracted by six protons",
+     "C": "They must require equal energy",
+     "D": "Both can be removed without energy"
+    },
+    "answer": "B",
+    "explanation": "With distance and shielding held fixed, six protons exert the stronger nuclear attraction, so removal requires more energy."
+   }
   },
   "9701-1.4.6": {
    "motivate": "Comparisons such as \"explain why the second ionisation energy of oxygen is greater than that of fluorine\" are decided by a short checklist of factors, applied to the electron actually being removed.",
@@ -2918,7 +4084,281 @@
     "answer": "B",
     "explanation": "Both electrons are removed from the $1s$ orbital of the first shell, so distance and shielding are essentially the same; helium's two protons attract the electron more strongly than hydrogen's one, so more energy is needed. Pairing (A) would make the electron easier, not harder, to remove, a full shell (C) is a description rather than a cause, and hydrogen has no inner shell to shield at all (D)."
    },
-   "source": "pack"
+   "plain_words": "Four factors control the attraction on the electron removed: nuclear charge, distance, shielding and spin-pair repulsion. Compare the electron removed in each species, not the atoms in general. Name the factor that differs, then say how it changes the attraction.",
+   "terms": [
+    {
+     "term": "Shielding",
+     "meaning": "Reduction of the nuclear attraction on an outer electron by electrons in inner shells and sub-shells.",
+     "notation": "none",
+     "spoken": "shielding",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.4"
+    },
+    {
+     "term": "Spin-pair repulsion",
+     "meaning": "Repulsion between two electrons sharing one orbital, which makes one of them easier to remove.",
+     "notation": "none",
+     "spoken": "spin-pair repulsion",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.5"
+    },
+    {
+     "term": "Atomic radius",
+     "meaning": "The size of the atom, from the nucleus to the outer shell; a larger radius means weaker attraction.",
+     "notation": "none",
+     "spoken": "atomic radius",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Compare ionisation energies of positive ions",
+     "wordings": [
+      "Explain why the second ionisation energies of two elements differ"
+     ],
+     "example": "**Question:** Why is the second ionisation energy of lithium much larger than that of beryllium?\n1. $\\ce{Li+}$ is $1s^2$; the next electron is a 1s electron. $\\ce{Be+}$ is $1s^2 2s^1$; the next electron is a 2s electron.\n2. Lithium’s electron is closer to the nucleus and less shielded.\n3. These effects outweigh beryllium’s greater nuclear charge, so lithium’s second ionisation energy is larger.",
+     "check": "Explain, using distance, shielding and nuclear charge, why the second ionisation energy of sodium is much larger than that of magnesium, and say which effect is stronger.",
+     "answer": "Sodium's second electron is removed from the 2p sub-shell of the second shell, which is closer to the nucleus and less shielded. Magnesium's second electron is an outer 3s electron, which is further from the nucleus and more shielded. Magnesium has more protons, but distance and shielding outweigh this, so sodium's value is much larger.",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.4–9; bundle CAIE 9701 s25 P13 Q10 (ionic comparison); Cambridge 9701 syllabus 2025–2027, section 1.4.6: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf",
+     "rubric": [
+      {
+       "point": "Correctly compares distance: the electron removed from Na+ is closer to the nucleus than the one removed from Mg+, or equivalently Mg+ electron is further away. Shell/subshell labels are optional. Reject reversed direction.",
+       "keywords": [
+        [
+         "closer",
+         "nearer",
+         "further",
+         "farther",
+         "more distant"
+        ]
+       ]
+      },
+      {
+       "point": "Correctly compares shielding: the Na+ electron is less shielded than the Mg+ electron, or the equivalent inverse comparison. Shell/subshell labels are optional. Reject reversed direction.",
+       "keywords": [
+        [
+         "less shield",
+         "reduced shield",
+         "more shield",
+         "greater shield"
+        ]
+       ]
+      },
+      {
+       "point": "Mg has greater nuclear charge/more protons, but the distance and shielding effects outweigh that opposing effect, giving stronger attraction and a larger second IE for Na. Nuclear-charge comparison and dominance must be correctly directed.",
+       "keywords": [
+        [
+         "nuclear charge",
+         "proton"
+        ],
+        [
+         "greater",
+         "higher",
+         "more"
+        ],
+        [
+         "outweigh",
+         "dominate",
+         "offset",
+         "despite",
+         "although",
+         "stronger"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Explain why the second ionisation energy of potassium is larger than that of calcium.",
+      "answer": "$\\ce{K+}$ loses a 3p electron, whereas $\\ce{Ca+}$ loses a 4s electron. The potassium electron is closer and less shielded, so the nucleus attracts it more strongly despite calcium having one more proton.",
+      "rubric": [
+       {
+        "point": "Electron removed from K+ is closer to its nucleus than the electron removed from Ca+; accept equivalently that Ca+ electron is further away. Specific shell/subshell labels are optional. Reject reversed comparison.",
+        "keywords": [
+         [
+          "closer",
+          "nearer",
+          "further",
+          "farther"
+         ]
+        ]
+       },
+       {
+        "point": "Electron removed from K+ is less shielded than the electron removed from Ca+; accept the correctly assigned inverse comparison. Specific shell labels and nuclear-charge comparison are optional.",
+        "keywords": [
+         [
+          "less shield",
+          "reduced shield",
+          "more shield",
+          "greater shield"
+         ]
+        ]
+       },
+       {
+        "point": "Links the correctly directed closer/less-shielded comparison to stronger nuclear attraction on the electron removed from K+ than on the electron removed from Ca+. This explains the stated second-ionisation-energy ordering; explicitly repeating that ordering or an energy keyword is unnecessary. Merely restating the given ordering is insufficient. Calcium nuclear charge and 3p/4s labels are optional supporting details.",
+        "keywords": [
+         [
+          "attraction",
+          "attracted",
+          "held",
+          "pull"
+         ],
+         [
+          "stronger",
+          "more strongly",
+          "greater"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Explain a subshell dip",
+     "wordings": [
+      "Explain why boron has a lower first ionisation energy than beryllium"
+     ],
+     "example": "**Question:** Explain the Mg to Al dip. 1. Mg loses a 3s electron; Al loses a 3p electron. 2. The 3p subshell is higher in energy and shielded by the 3s electrons. 3. This electron is easier to remove despite Al having greater nuclear charge.",
+     "check": "Explain why boron has a lower first ionisation energy than beryllium. Identify the electron removed from each.",
+     "answer": "Boron loses a 2p electron; beryllium loses a 2s electron. The 2p electron is higher in energy and shielded by 2s electrons, so it is easier to remove despite boron having more protons.",
+     "rubric": [
+      {
+       "point": "B 2p and Be 2s",
+       "keywords": [
+        [
+         "2p"
+        ],
+        [
+         "2s"
+        ]
+       ]
+      },
+      {
+       "point": "2p higher in energy and shielded by 2s",
+       "keywords": [
+        [
+         "higher",
+         "greater"
+        ],
+        [
+         "energy"
+        ],
+        [
+         "shield"
+        ]
+       ]
+      },
+      {
+       "point": "Subshell effect outweighs greater nuclear charge so B is lower",
+       "keywords": [
+        [
+         "lower",
+         "easier",
+         "less"
+        ],
+        [
+         "despite",
+         "outweigh",
+         "although",
+         "but"
+        ]
+       ]
+      }
+     ],
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.5–6; Cambridge 9701 syllabus 2025–2027, p.17, section 1.4: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf"
+    },
+    {
+     "name": "Explain a spin-pair dip",
+     "wordings": [
+      "Explain why oxygen has a lower first ionisation energy than nitrogen"
+     ],
+     "example": "**Question:** Explain the P to S dip. 1. P is $3p^3$, with three singly occupied p orbitals; S is $3p^4$, with a pair in one orbital. 2. Repulsion between the paired electrons in S makes one easier to remove. 3. This outweighs the increased nuclear charge; S has the lower value.",
+     "check": "Explain why oxygen has a lower first ionisation energy than nitrogen, using orbital occupancy.",
+     "answer": "N is $2p^3$, with three singly occupied p orbitals. O is $2p^4$, with one paired orbital. Repulsion between the paired electrons in O makes one easier to remove despite its greater nuclear charge, lowering its first ionisation energy.",
+     "rubric": [
+      {
+       "point": "N has singly occupied 2p orbitals; O has a pair",
+       "keywords": [
+        [
+         "2p"
+        ],
+        [
+         "pair"
+        ]
+       ]
+      },
+      {
+       "point": "Repulsion between paired electrons makes removal easier",
+       "keywords": [
+        [
+         "repulsion",
+         "repel"
+        ],
+        [
+         "easier",
+         "less",
+         "lower"
+        ]
+       ]
+      },
+      {
+       "point": "Pair repulsion outweighs greater O nuclear charge",
+       "keywords": [
+        [
+         "nuclear charge",
+         "proton"
+        ],
+        [
+         "outweigh",
+         "despite",
+         "although",
+         "but"
+        ]
+       ]
+      }
+     ],
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.5–6; bundle ER 9701 s22 P23 Q1 and w23 P21 Q1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "The dips in first ionisation energy across Period 3 (Mg to Al, P to S) happen because a full or half-full subshell is stable, or because shielding changes.",
+     "temptation": "A half-full or full subshell seems stable, so it looks like the cause of the dip.",
+     "fix": "Mg to Al: the 3p electron of Al is higher in energy and shielded by 3s. P to S: spin-pair repulsion in the paired 3p orbital of S makes one electron easier to remove."
+    },
+    {
+     "id": "m4",
+     "idea": "A higher nuclear charge always gives a higher ionisation energy, so shielding and radius can be ignored.",
+     "temptation": "Comparing elements by proton number alone looks decisive, but it ignores the other three factors.",
+     "fix": "Nuclear charge is only one factor. Compare the shell, shielding, distance and electron pairing of the electron removed in each case."
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-1.4-period3-ie1.svg"
+   ],
+   "diagram_descriptions": [
+    "Line graph of first ionisation energy from sodium to argon, with the dips at aluminium and sulfur used to test the four factors."
+   ],
+   "source_gaps": [
+    "The combined ionic-comparison and dip forms are original applications of the library method and the bundle paper forms; no exhaustive survey of all official papers was performed.",
+    "Separate correction review is needed for existing worked example we5: its shielding comparison counts only the 1s electrons for neon, although the library p.5 explicitly includes shielding by inner subshells. A 2p electron is also shielded by 2s electrons; no existing worked text has been changed."
+   ],
+   "source": "pack",
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Give the factor, its effect on nucleus–electron attraction, and the resulting energy change."
+    }
+   ],
+   "guided_discover": {
+    "stem": "If two species have the same electron arrangement but different proton numbers, which nucleus usually holds its electrons more strongly?",
+    "options": {
+     "A": "The one with fewer protons",
+     "B": "The one with more protons",
+     "C": "Both necessarily equally",
+     "D": "Neither attracts electrons"
+    },
+    "answer": "B",
+    "explanation": "For a comparable electron arrangement, greater nuclear charge increases nucleus–electron attraction."
+   }
   },
   "9701-1.4.7": {
    "motivate": "Given a list of successive ionisation energies and no element name, you can still say how the electrons are arranged. The jumps do the work for you.",
@@ -2926,7 +4366,275 @@
    "connect": "A configuration deduced this way immediately fixes the element's place in the Periodic Table.",
    "note": "- Scan the successive values for a sharp jump, judged by ratio and not by difference.\n- Electrons before the first big jump = electrons in the outer shell.\n- Further jumps divide the rest into inner shells, counted from the outside in.\n- Write the configuration in filling order and check the electrons add up.",
    "self_explain": "Why is the ratio between consecutive ionisation energies more useful than their difference when hunting for a shell break?",
-   "source": "pack"
+   "plain_words": "A shell break occurs when the next electron is removed from a lower principal shell, closer to the nucleus and less shielded. Use conspicuous jumps together with the original ionisation indices and the supplied period or configuration context to identify these transitions. Ratios can help compare jumps, but the largest ratio alone does not prove a shell change. If the first shell break lies between IE_n and IE_(n+1), n outer electrons have been removed; do not restart the count at the first displayed entry.",
+   "terms": [
+    {
+     "term": "Outer electron count",
+     "meaning": "The original ionisation index immediately before the first confirmed transition to a lower principal shell.",
+     "notation": "none",
+     "spoken": "outer electron count",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.11"
+    },
+    {
+     "term": "Shell break",
+     "meaning": "The transition to removal from a lower principal shell; this usually causes a conspicuous increase in successive ionisation energy. A large ratio alone is not a sufficient definition.",
+     "notation": "none",
+     "spoken": "shell break",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.11"
+    },
+    {
+     "term": "Electron configuration",
+     "meaning": "The arrangement of electrons in shells and sub-shells, filled in order.",
+     "notation": "$1s^2\\,2s^2\\,2p^6$",
+     "spoken": "one s two, two s two, two p six",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.12"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Deduce outer electrons from a big jump",
+     "wordings": [
+      "Deduce the number of outer electrons of an element from its successive ionisation energies",
+      "Deduce the outer electron configuration of an element from the data"
+     ],
+     "example": "**Question:** A Period 2 main-group atom has its first pronounced shell break between the fifth and sixth removals. Deduce its configuration. 1. Five electrons are removed from the outer shell. 2. In Period 2 these fill $2s^2 2p^3$. 3. Including the inner shell gives $1s^2 2s^2 2p^3$.",
+     "check": "A Period 4 s-block element has an unmistakable first shell break between its second and third ionisation energies. Deduce its outer configuration and full ground-state configuration.",
+     "answer": "Two outer electrons precede the shell break, so the outer configuration is $4s^2$. The Period 4 s-block element is calcium: $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2$.",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.7, p.8 and p.11",
+     "rubric": [
+      {
+       "point": "Two outer electrons",
+       "keywords": [
+        [
+         "two",
+         "2"
+        ],
+        [
+         "outer",
+         "valence"
+        ]
+       ]
+      },
+      {
+       "point": "Outer 4s squared",
+       "keywords": [
+        [
+         "4s"
+        ],
+        [
+         "2",
+         "two"
+        ]
+       ]
+      },
+      {
+       "point": "Complete calcium configuration with every subshell occupancy correct: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s²; [Ar]4s² alone does not satisfy full",
+       "keywords": [
+        [
+         "1s²",
+         "1s2",
+         "1s^2",
+         "1s^{2}"
+        ],
+        [
+         "2s²",
+         "2s2",
+         "2s^2",
+         "2s^{2}"
+        ],
+        [
+         "2p⁶",
+         "2p6",
+         "2p^6",
+         "2p^{6}"
+        ],
+        [
+         "3s²",
+         "3s2",
+         "3s^2",
+         "3s^{2}"
+        ],
+        [
+         "3p⁶",
+         "3p6",
+         "3p^6",
+         "3p^{6}"
+        ],
+        [
+         "4s²",
+         "4s2",
+         "4s^2",
+         "4s^{2}"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "The first four ionisation energies of sodium are 496, 4562, 6910 and 9546 kJ mol$^{-1}$. Deduce its outer electron configuration.",
+      "answer": "The largest jump is between the 1st and 2nd values, about nine times. One electron comes before that jump, so there is one outer electron, $3s^1$ (sodium, Group 1).",
+      "rubric": [
+       {
+        "point": "Identifies the big jump between the 1st and 2nd values",
+        "keywords": [
+         [
+          "1st",
+          "first",
+          "496"
+         ],
+         [
+          "2nd",
+          "second",
+          "4562",
+          "4 562"
+         ]
+        ]
+       },
+       {
+        "point": "Counts one outer electron before the jump",
+        "keywords": [
+         [
+          "one",
+          "1"
+         ],
+         [
+          "outer",
+          "valence"
+         ]
+        ]
+       },
+       {
+        "point": "Gives the outer configuration 3s1",
+        "keywords": [
+         [
+          "3s"
+         ],
+         [
+          "1",
+          "one"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Use indexed partial ionisation data",
+     "wordings": [
+      "Deduce a configuration from a later indexed section of a series"
+     ],
+     "example": "**Question:** For a Period 3 main-group atom, an indexed extract shows a confirmed first shell break between IE4 and IE5. 1. Four outer electrons were removed before the break, even if only later entries are displayed. 2. Period 3 gives $3s^2 3p^2$. 3. The full configuration is $1s^2 2s^2 2p^6 3s^2 3p^2$.",
+     "check": "A Period 2 main-group atom has a confirmed first shell break between IE6 and IE7; only IE5 to IE8 are displayed. Deduce its full configuration. Explain why counting the displayed entries before the break is wrong.",
+     "answer": "Six electrons have been removed before IE7, not two. The full configuration is $1s^2 2s^2 2p^4$. Ionisation indices count removals from the original neutral atom; the extract does not restart the count.",
+     "rubric": [
+      {
+       "point": "Uses original index: six outer electrons",
+       "keywords": [
+        [
+         "six",
+         "6"
+        ],
+        [
+         "outer",
+         "valence"
+        ]
+       ]
+      },
+      {
+       "point": "Full oxygen configuration 1s² 2s² 2p⁴, with all occupancies correct",
+       "keywords": [
+        [
+         "1s²",
+         "1s2",
+         "1s^2",
+         "1s^{2}"
+        ],
+        [
+         "2s²",
+         "2s2",
+         "2s^2",
+         "2s^{2}"
+        ],
+        [
+         "2p⁴",
+         "2p4",
+         "2p^4",
+         "2p^{4}"
+        ]
+       ]
+      },
+      {
+       "point": "Does not restart index at first displayed entry",
+       "keywords": [
+        [
+         "index",
+         "indices",
+         "original",
+         "not two",
+         "not 2",
+         "six",
+         "6"
+        ]
+       ]
+      }
+     ],
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.11–12 (indexed-data method); original schematic application"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m8",
+     "idea": "The biggest absolute difference between successive values marks the shell break.",
+     "temptation": "A larger number subtracted looks like a bigger jump, even when the ratio is ordinary.",
+     "fix": "Compare ratios: a shell break is a multiple of several times, for example 53 267 / 9445 is about 5.6, not the largest absolute difference."
+    },
+    {
+     "id": "m8",
+     "idea": "The electrons removed after the big jump are the outer-shell electrons.",
+     "temptation": "The later values in a list seem to describe the outer electrons, since they come last.",
+     "fix": "The values before the first big jump are the outer electrons; those after it come from inner shells closer to the nucleus."
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-1.4-log-ie-mg.svg"
+   ],
+   "diagram_descriptions": [
+    "Log10 of successive ionisation energies of magnesium against electrons removed, with the big steps that mark shell breaks."
+   ],
+   "source_gaps": [
+    "No universal numerical ratio defines a shell break; identify the physically significant break using the indexed sequence and context. A partial extract may omit the first shell break, so its largest visible rise alone is not sufficient.",
+    "Without a period, proton number, identity or a complete shell population, a valence-electron count does not uniquely fix the principal quantum number.",
+    "Library pp.9–12 identify a physical inner-shell transition, not a universal largest-ratio rule. The existing plain_words and ratio-focused wording need separate review: a large within-shell ratio can occur, so use indexed data, electronic structure and supplied context together.",
+    "SaveMyExams 9701 c1.4.pdf pp.9–12 supports physical shell interpretation and indexed partial-data reasoning; ratio sufficiency is an independent qualification."
+   ],
+   "discover": {
+    "stem": "The first five ionisation energies of an element in Period 4 are 590, 1145, 4912, 6491 and 8153 kJ mol$^{-1}$. What is its outer electron configuration?",
+    "options": {
+     "A": "$4s^1$",
+     "B": "$4s^2\\,4p^1$",
+     "C": "$3d^2$",
+     "D": "$4s^2$"
+    },
+    "answer": "D",
+    "explanation": "The biggest ratio is $4912/1145 \\approx 4.3$, between the 2nd and 3rd values, so two electrons come before the jump: the outer shell holds two electrons, $4s^2$. A counts only the first value; B counts the electron after the jump as an outer electron; C puts the outer electrons in $3d$, which is not the outer shell."
+   },
+   "source": "pack",
+   "exam_language": [
+    {
+     "name": "Deduce",
+     "meaning": "Use the supplied evidence, state the inference and its limits."
+    }
+   ],
+   "guided_discover": {
+    "stem": "An indexed table starts with IE5. How many electrons had already been removed before that step?",
+    "options": {
+     "A": "Zero",
+     "B": "One",
+     "C": "Four",
+     "D": "Five"
+    },
+    "answer": "C",
+    "explanation": "IE5 acts on an ion that has already lost four electrons; displayed rows do not restart the index."
+   }
   },
   "9701-1.4.8": {
    "motivate": "Exam questions hand you four or five successive ionisation energies and ask for the group. The count before the jump, not the size of the numbers, gives the answer.",
@@ -2934,7 +4642,283 @@
    "connect": "The same reading of a data table underlies questions on atomic radius and reactivity, where the group decides the chemistry.",
    "note": "- Outer electrons = values before the first big jump; that number gives the group.\n- Groups 13 to 18: group $=10+{}$ outer electrons (5 outer electrons is Group 15).\n- The number of shells shown by the jumps gives the period.\n- Quote the two values either side of the jump as evidence; never read the group from where the values are largest.",
    "self_explain": "An element shows a big jump between its 4th and 5th ionisation energies. How do you get from that to a group number?",
-   "source": "pack"
+   "plain_words": "The group follows from the number of outer electrons, which is the count before the first big jump. For Groups 13 to 18 the group is 10 plus the outer electrons. The period is the number of occupied shells, and the question often states it. Helium is the exception: its two outer electrons fill 1s, and it belongs to Group 18.",
+   "terms": [
+    {
+     "term": "Group number",
+     "meaning": "The Periodic Table column. For main-group elements, one or two outer electrons indicate Groups 1 or 2, except helium: helium has two outer electrons (1s²) and belongs to Group 18. For three to eight outer electrons, the group number is 10 plus the outer-electron count.",
+     "notation": "Groups 1, 2 and 13–18; He: Group 18",
+     "spoken": "ten plus n",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.11"
+    },
+    {
+     "term": "Period number",
+     "meaning": "The Periodic Table row, equal to the number of occupied electron shells.",
+     "notation": "none",
+     "spoken": "period number",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.12"
+    },
+    {
+     "term": "Outer shell",
+     "meaning": "The highest occupied shell; its electrons are the outer, or valence, electrons.",
+     "notation": "none",
+     "spoken": "outer shell",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, p.9"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Deduce the group from successive values",
+     "wordings": [
+      "Deduce the group of an element from its successive ionisation energies",
+      "Deduce the group and period of an element from the data"
+     ],
+     "example": "**Question:** A main-group element has a confirmed first shell break after its sixth removal. Deduce its group.\n1. Six electrons are in the outer shell.\n2. For six valence electrons, use group = 10 + 6 = 16.\n3. Group 16 is determined; the period is not supplied, so do not select a unique element.",
+     "check": "For a Period 3 main-group atom, an indexed extract has IE4 = 4400, IE5 = 16000 and IE6 = 20000 kJ mol$^{-1}$. The first shell break is confirmed between IE4 and IE5. Deduce its group and identity.",
+     "answer": "Four outer electrons were removed before the break, so Group 14. The supplied Period 3 fixes the identity as silicon. Count the ionisation indices, not the one displayed entry before the break. These are schematic teaching data.",
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.9–12; bundle ER 9701 s22 P23 Q1; original schematic data",
+     "rubric": [
+      {
+       "point": "Break after removal 4, hence four outer electrons",
+       "keywords": [
+        [
+         "4",
+         "four"
+        ],
+        [
+         "outer",
+         "valence"
+        ]
+       ]
+      },
+      {
+       "point": "Group 14",
+       "keywords": [
+        [
+         "14",
+         "fourteen"
+        ]
+       ]
+      },
+      {
+       "point": "Period 3 identifies silicon",
+       "keywords": [
+        [
+         "silicon",
+         "Si"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "The first six ionisation energies of a Period 3 main-group element are 1012, 1907, 2914, 4964, 6274 and 21269 kJ mol^-1. Deduce its group and justify your answer using the shell break.",
+      "answer": "The pronounced first shell break is between IE5 = 6274 and IE6 = 21269 kJ mol^-1. Five outer electrons are removed before this break, so the element is in Group 15 (phosphorus).",
+      "rubric": [
+       {
+        "point": "Identifies first shell break between fifth and sixth removals.",
+        "keywords": [
+         [
+          "5th",
+          "fifth",
+          "6274",
+          "IE5",
+          "IE 5"
+         ],
+         [
+          "6th",
+          "sixth",
+          "21269",
+          "21 269",
+          "IE6",
+          "IE 6"
+         ]
+        ]
+       },
+       {
+        "point": "Infers five outer/valence electrons before the break.",
+        "keywords": [
+         [
+          "five",
+          "5"
+         ],
+         [
+          "outer",
+          "valence"
+         ]
+        ]
+       },
+       {
+        "point": "Deduces Group 15.",
+        "keywords": [
+         [
+          "15",
+          "fifteen"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "State limits of incomplete ionisation evidence",
+     "wordings": [
+      "State what partial data can and cannot establish",
+      "Deduce the period when enough shell information is supplied"
+     ],
+     "example": "**Question:** A main-group atom has three outer electrons, established from its first shell break, but no period is supplied.\n1. Infer Group 13.\n2. A shell index is still missing, so do not infer aluminium uniquely.\n3. A supplied Period 3 would select aluminium; Period 2 would select boron.",
+     "check": "A main-group atom has a confirmed first shell break after its eighth removal, with no period given. State its group and whether a unique period or element can be deduced. Explain what extra information would determine the identity.",
+     "answer": "Eight electrons were removed before the first shell break, so the atom has eight outer electrons and belongs to Group 18. Neither its period nor its identity can be uniquely deduced: neon and argon, for example, both satisfy that valence count. A supplied period or proton number would fix the identity. A complete successive-ionisation series showing all shell populations would also establish the occupied-shell count and hence the period; one arbitrary extra energy is insufficient. Knowing the total number of electrons in the neutral atom would also determine its proton number and hence its identity.",
+     "rubric": [
+      {
+       "point": "Eight outer electrons imply Group 18",
+       "keywords": [
+        [
+         "18",
+         "eighteen"
+        ]
+       ]
+      },
+      {
+       "point": "Period and identity cannot be uniquely deduced",
+       "keywords": [
+        [
+         "cannot",
+         "not enough",
+         "insufficient",
+         "not uniquely"
+        ],
+        [
+         "period",
+         "element",
+         "identity"
+        ]
+       ]
+      },
+      {
+       "point": "Affirmatively identifies extra information that would determine identity: a supplied period, proton/atomic number, or enough further successive energies to locate all remaining shell breaks/populations and establish the occupied-shell count. A bare occurrence of period, a statement only that period cannot be deduced, or one arbitrary extra energy earns no credit. Accept synonymous affirmative wording; do not accept a negated or insufficient suggestion merely because it contains a keyword. Knowing the total electron count of the neutral atom also fixes its atomic/proton number and hence its unique identity. Credit only an affirmative proposal to obtain/use this total count, not a statement that the eight known outer electrons already give the total, nor a negated or insufficient suggestion.",
+       "keywords": [
+        [
+         "period is supplied",
+         "period were supplied",
+         "period is given",
+         "period were given",
+         "given the period",
+         "supplied period",
+         "knowing the period",
+         "know the period",
+         "period would identify",
+         "period would fix",
+         "period would determine",
+         "proton number",
+         "atomic number",
+         "number of occupied shells",
+         "occupied-shell count",
+         "complete series",
+         "all shell populations",
+         "all remaining shell breaks",
+         "positions of further shell breaks",
+         "total number of electrons",
+         "total electron count",
+         "electron count",
+         "number of electrons in the neutral atom",
+         "number of successive removals in a complete series"
+        ]
+       ]
+      }
+     ],
+     "source": "sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c1.4.pdf, pp.11–12 (period supplied); Cambridge 9701 syllabus 2025–2027, p.17, section 1.4: https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf; limitation inferred from multiple configurations with the same valence count"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "The group of an element is found from how large the ionisation energies are, from how many values are given, or from the electron number after the big jump.",
+     "temptation": "The largest values or the number of values listed seem to show the group.",
+     "fix": "The group comes from the number of electrons before the big jump, which is the number of outer electrons. Large values alone and the list length do not fix the group."
+    },
+    {
+     "id": "m5",
+     "idea": "The group number equals the number of ionisation energy values in the question.",
+     "temptation": "Counting the data points seems to give the answer directly, but the list length is set by the question, not the element.",
+     "fix": "The group comes from the outer electron count before the big jump: Groups 1 and 2 match the count directly, and for Groups 13 to 18 the group is 10 plus the outer electrons. Helium is the exception: its two outer electrons fill 1s, and it belongs to Group 18."
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-1.4-log-ie-mg.svg"
+   ],
+   "diagram_descriptions": [
+    "Log10 of successive ionisation energies of magnesium against electrons removed, showing the shell break used to find the group."
+   ],
+   "source_gaps": [
+    "The sources cover s- and p-block groups; the notes do not say how d-block or transition elements are handled by this method.",
+    "The existing establish wording about counting from the first displayed entry in partial data needs separate correction review. Library pp.11–12 retain the original ionisation indices: a confirmed first shell break after IE7 means seven valence electrons even when the displayed extract begins at IE5. The existing text is preserved.",
+    "SaveMyExams 9701 c1.4.pdf, pp.11–12 supports shell-break interpretation; main-group counting and non-uniqueness from eight outer electrons are inferred.",
+    "SaveMyExams 9701 c1.4.pdf pp.9–12 supports the shell-break method; the phosphorus series is a new application, not quoted source values.",
+    "SaveMyExams 9701 c1.4.pdf pp.11–12 supports shell and period interpretation; the total-electron-count alternative follows from electrical neutrality, since total electrons equal proton number."
+   ],
+   "discover": {
+    "stem": "The first five ionisation energies of an element are 801, 2427, 3660, 25 026 and 32 827 kJ mol$^{-1}$. In which group of the Periodic Table is the element?",
+    "options": {
+     "A": "Group 13",
+     "B": "Group 3",
+     "C": "Group 14",
+     "D": "Group 2"
+    },
+    "answer": "A",
+    "explanation": "The biggest ratio is $25026/3660 \\approx 6.8$, after the 3rd value, so there are three outer electrons ($s^2\\,p^1$): Group $10+3=13$. B uses the old numbering 'Group 3', which is now the first column of the d block; C counts the electron after the jump; D stops at the first step, $2427/801 \\approx 3.0$, which is only the change from $2p$ to $2s$, not a change of shell."
+   },
+   "source": "pack",
+   "exam_language": [
+    {
+     "name": "Deduce",
+     "meaning": "Use the supplied evidence, state the inference and its limits."
+    }
+   ],
+   "guided_discover": {
+    "stem": "Which extra fact would distinguish Group 2 magnesium from calcium after the valence count has been established?",
+    "options": {
+     "A": "The number of displayed values",
+     "B": "The period",
+     "C": "The unit of energy",
+     "D": "The order of the option letters"
+    },
+    "answer": "B",
+    "explanation": "The group fixes two outer electrons; the period identifies which occupied outer shell they use."
+   }
   }
+ },
+ "guided_forms": {
+  "9701-1.4.1": [
+   "Equation for first ionisation energy",
+   "Define first ionisation energy"
+  ],
+  "9701-1.4.2": [
+   "Equation for the nth ionisation energy"
+  ],
+  "9701-1.4.3": [
+   "Explain the trend across a period",
+   "Explain the trend down a group"
+  ],
+  "9701-1.4.4": [
+   "Explain a big jump in successive values",
+   "Explain the rise within a successive series",
+   "Read shell groups on a logarithmic graph"
+  ],
+  "9701-1.4.5": [
+   "Ionisation as overcoming attraction"
+  ],
+  "9701-1.4.6": [
+   "Compare ionisation energies of positive ions",
+   "Explain a subshell dip",
+   "Explain a spin-pair dip"
+  ],
+  "9701-1.4.7": [
+   "Deduce outer electrons from a big jump",
+   "Use indexed partial ionisation data"
+  ],
+  "9701-1.4.8": [
+   "Deduce the group from successive values",
+   "State limits of incomplete ionisation evidence"
+  ]
  }
 }

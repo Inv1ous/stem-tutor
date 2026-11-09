@@ -93,7 +93,7 @@ def test_extraction_launch_failures_are_persisted_and_bounded(tmp_path, monkeypa
         st['jobs'] = {'extract': {'provider': 'codex'}, 'review': {'provider': 'codex'}}
         st['sources'] = []
     monkeypatch.setattr(ex, '_verify_sources', lambda st: None)
-    monkeypatch.setattr(ex, 'worker_command', lambda *a: ['fake'])
+    monkeypatch.setattr(ex, 'worker_command', lambda *a, **k: ['fake'])
     monkeypatch.setattr(ex, '_prompt', lambda *a: 'test')
     monkeypatch.setattr(ex.subprocess, 'Popen', lambda *a, **k: (_ for _ in ()).throw(OSError('missing binary')))
     for _ in range(2):

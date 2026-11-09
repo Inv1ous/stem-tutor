@@ -35,6 +35,7 @@ def test_p2_learning_tutor_uses_real_lesson_card_and_conversation(tmp_path, monk
 
     async def run():
         async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()  # the engine loads after the first paint
             monkeypatch.setattr(app, 'ai_available', lambda mode: True)
             monkeypatch.setattr(app.ai, 'one_shot', select)
             app.push_screen(SessionScreen({'mode': 'lesson', 'minutes': 40, 'focus': ['P2-1']}))
@@ -177,6 +178,7 @@ def test_radius_line_through_real_p2_engine(tmp_path, monkeypatch):
 
     async def run():
         async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()  # the engine loads after the first paint
             app.push_screen(SessionScreen({'mode': 'lesson', 'minutes': 30, 'focus': ['P2-1']}))
             await pilot.pause()
             screen, tutor = app.screen, app.tutor
@@ -210,6 +212,7 @@ def test_quadratic_gradient_example_in_real_p2_lesson(tmp_path, monkeypatch):
     app = TutorApp(vault, claude_binary=FAKE, open_obsidian=False, seed=1)
     async def run():
         async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()  # the engine loads after the first paint
             app.push_screen(SessionScreen({'mode': 'lesson', 'minutes': 30, 'focus': ['P2-1']}))
             await pilot.pause()
             screen, tutor = app.screen, app.tutor

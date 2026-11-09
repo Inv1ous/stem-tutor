@@ -1,1 +1,1 @@
-../../../../STEM Tutor/Library/Shared/Notes/Revisions/2026-11-02-v2.6.1/How It Works.md
+../../../../STEM Tutor/Library/Shared/Notes/Revisions/2026-11-06-v2.6.2/How It Works.md

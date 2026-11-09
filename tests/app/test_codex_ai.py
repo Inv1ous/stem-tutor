@@ -21,13 +21,14 @@ def requests(tmp_path):
     return [json.loads(s) for s in (tmp_path / "requests.jsonl").read_text().splitlines()]
 
 
-def test_exec_uses_subscription_and_isolated_tools_with_provider_usage(tmp_path, monkeypatch):
+@pytest.mark.parametrize("model", [MODEL, "codex:gpt-6.1-terra"])
+def test_exec_uses_subscription_and_isolated_tools_with_provider_usage(tmp_path, monkeypatch, model):
     client = make(tmp_path, monkeypatch, speech=True)
     monkeypatch.setenv("OPENAI_API_KEY", "fake-key-that-must-not-reach-cli")
     monkeypatch.setenv("CODEX_API_KEY", "fake-key-that-must-not-reach-cli")
 
     async def go():
-        chunks = [s async for s in client.stream("Explain force", model=MODEL)]
+        chunks = [s async for s in client.stream("Explain force", model=model)]
         await client.close()
         return chunks
 
@@ -39,7 +40,7 @@ def test_exec_uses_subscription_and_isolated_tools_with_provider_usage(tmp_path,
     for flag in ("--json", "--ephemeral", "--ignore-user-config", "--ignore-rules", "--skip-git-repo-check"):
         assert flag in args
     assert args[args.index("--sandbox") + 1] == "read-only"
-    assert args[args.index("--model") + 1] == "gpt-6.1-sol"
+    assert args[args.index("--model") + 1] == model.removeprefix("codex:")
     assert 'forced_login_method="chatgpt"' in args and 'web_search="disabled"' in args
     for feature in ("shell_tool", "apps", "plugins", "hooks", "multi_agent", "view_image"):
         assert f"features.{feature}=false" in args
@@ -361,3 +362,25 @@ def test_removed_previous_diagram_stops_codex_follow_up(tmp_path, monkeypatch):
     assert not result.ok and "diagram" in result.message.lower()
     assert chunks == []
     assert len(requests(tmp_path)) == 1
+
+
+def test_one_shot_accepts_full_verification_receipt_with_required_nullable_fields(tmp_path, monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[2] / 'extraction'))
+    import lightweight_verification as checks
+    packet = checks.build_packet({'id': 'paper_q2', 'kind': 'mcq'})
+    schema = checks._schema(packet)
+    receipt = {'packet_digest': packet['digest'], 'item_id': packet['item_id'], 'kind': 'mcq',
+               'outcome': 'uncertain', 'answer': None, 'context_complete': False,
+               'question_number': '2', 'scheme_question_number': None, 'parts': [],
+               'reasons': ['Diagram unclear'], 'proposals': []}
+    client = make(tmp_path, monkeypatch)
+    monkeypatch.setenv('FAKE_CODEX_REPLY', json.dumps(receipt))
+    async def go():
+        try:
+            return await client.one_shot('Check source', schema=schema, model=MODEL)
+        finally:
+            await client.close()
+    data, status = asyncio.run(go())
+    assert status.ok
+    assert data == receipt
+    assert requests(tmp_path)[0]['schema']['properties']['answer']['type'] == ['string', 'null']

@@ -1,6 +1,7 @@
 """Explicit starting points for the three AI tasks; saved per-task choices remain authoritative."""
 from dataclasses import dataclass
 
+from .abacus_models import ABACUS_MODELS
 from .codex_models import CODEX_MODELS
 from .local_models import LOCAL_MODELS, is_local, thinking_key
 
@@ -76,4 +77,4 @@ def matching(choices: dict[str, tuple[str, bool | str]]) -> str:
 
 def model_label(model: str) -> str:
     cloud = {"haiku": "Haiku", "sonnet": "Sonnet", "opus": "Opus"}
-    return LOCAL_MODELS.get(model, CODEX_MODELS.get(model, cloud.get(model, model)))
+    return {**LOCAL_MODELS, **CODEX_MODELS, **ABACUS_MODELS}.get(model, cloud.get(model, model))

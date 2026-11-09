@@ -1239,7 +1239,259 @@
     "answer": "A",
     "explanation": "These ions have the same electron configuration, but nuclear charge rises."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "First recall that protons attract electrons, inner electrons shield outer electrons, and an extra occupied shell increases size. Across sodium to chlorine the atoms use the same outer shell while nuclear charge increases. For ions, compare electron configurations before comparing sizes. Melting and conductivity each have their own pattern; one trend cannot describe all properties.",
+   "terms": [
+    {
+     "term": "periodicity",
+     "meaning": "Repeating patterns in properties as atomic number increases.",
+     "notation": "Period 3",
+     "spoken": "periodicity",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf p.2"
+    },
+    {
+     "term": "nuclear charge",
+     "meaning": "Positive charge due to the protons in a nucleus.",
+     "notation": "$Z$",
+     "spoken": "Z, proton number",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf p.4"
+    },
+    {
+     "term": "isoelectronic",
+     "meaning": "Having the same number and arrangement of electrons.",
+     "notation": "$\\ce{Na+}$ and $\\ce{Mg^{2+}}$",
+     "spoken": "sodium plus and magnesium two plus",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf p.4; electron counts checked from proton numbers"
+    },
+    {
+     "term": "inner-shell shielding",
+     "meaning": "Reduction of nuclear attraction on outer electrons by inner electrons.",
+     "notation": "inner shells",
+     "spoken": "inner shell shielding",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf p.4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Atomic radius trend",
+     "wordings": [
+      "Describe the atomic-radius trend.",
+      "Explain an atomic-size comparison."
+     ],
+     "example": "Compare Mg and Al atoms. Step 1: both have three occupied shells. Step 2: Al has more protons with similar inner-shell shielding. Step 3: stronger attraction makes Al smaller.",
+     "check": "Compare the atomic radii of Si and Cl and explain the difference.",
+     "answer": "Cl is smaller than Si: nuclear charge increases, added electrons enter the same third shell, and inner-shell shielding remains approximately constant, so attraction increases.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf pp.3-4; ER 9701 w23 P22 Q1",
+     "rubric": [
+      {
+       "point": "Cl has smaller atomic radius than Si.",
+       "keywords": [
+        [
+         "smaller",
+         "decreases"
+        ]
+       ]
+      },
+      {
+       "point": "Cl has greater nuclear charge.",
+       "keywords": [
+        [
+         "nuclear charge",
+         "protons"
+        ]
+       ]
+      },
+      {
+       "point": "Same outer shell and approximately unchanged inner shielding lead to stronger attraction.",
+       "keywords": [
+        [
+         "same shell",
+         "third shell"
+        ],
+        [
+         "shielding"
+        ],
+        [
+         "attraction",
+         "pull"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Ionic radius series and shell jump",
+     "wordings": [
+      "Describe the common ionic-radius pattern.",
+      "Explain the two isoelectronic series and the gap."
+     ],
+     "example": "Compare sodium and aluminium cations. Step 1: each has ten electrons in two occupied shells. Step 2: aluminium has thirteen protons versus eleven. Step 3: the greater attraction makes the aluminium ion smaller. Then compare aluminium cations with phosphide: the anion has an occupied third shell, so it is much larger.",
+     "check": "An ion X has 18 electrons and 17 protons; ion Y has 18 electrons and 16 protons. Predict which ion is smaller and explain your reasoning.",
+     "answer": "X is smaller: both ions have the same electron arrangement, but X has greater nuclear charge, so it attracts the electrons more strongly.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf pp.4-5; CAIE 9701 Nov 2021 P11 Q35; bundle ionic convention omits silicon",
+     "rubric": [
+      {
+       "point": "X is smaller.",
+       "keywords": [
+        [
+         "X"
+        ],
+        [
+         "smaller"
+        ]
+       ]
+      },
+      {
+       "point": "The ions have the same electron arrangement and X has greater nuclear charge, causing stronger attraction.",
+       "keywords": [
+        [
+         "same electron",
+         "isoelectronic",
+         "18 electrons"
+        ],
+        [
+         "protons",
+         "nuclear charge"
+        ],
+        [
+         "attraction",
+         "pull"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Library/Courses/9701/Diagrams/9701/9701-9.1-ionic-radii.svg"
+    },
+    {
+     "name": "Melting-point pattern",
+     "wordings": [
+      "Describe the melting-point graph.",
+      "Identify the peak and reversals."
+     ],
+     "example": "Trace the graph from Na to Si: Na is low, Mg is higher, Al slightly higher again, and Si is the peak. Read the element labels before comparing heights; the axis is qualitative.",
+     "check": "A sample is known to be one of phosphorus, sulfur or chlorine. Its melting point is higher than those of the other two. Identify it and deduce whether its melting point is above or below sodium’s.",
+     "answer": "Sulfur; its melting point is above sodium’s.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf pp.5-6; CAIE 9701 Jun 2025 P11 Q22",
+     "rubric": [
+      {
+       "point": "The sample is sulfur.",
+       "keywords": [
+        [
+         "sulfur",
+         "sulphur"
+        ]
+       ]
+      },
+      {
+       "point": "Its melting point is above sodium’s.",
+       "keywords": [
+        [
+         "above",
+         "higher",
+         "greater"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg"
+    },
+    {
+     "name": "Conductivity pattern",
+     "wordings": [
+      "Describe the conductivity variation.",
+      "Compare metals, silicon and molecular elements."
+     ],
+     "example": "Compare Na, Si and Cl. Step 1: Na is a good metallic conductor. Step 2: Si conducts poorly compared with Na and is a semiconductor. Step 3: elemental Cl does not conduct under ordinary conditions.",
+     "check": "An unknown Period 3 element is a good electrical conductor and has a higher conductivity than magnesium. Identify it and explain how the conductivity pattern supports your choice.",
+     "answer": "Aluminium: conductivity increases from sodium through magnesium to aluminium, so aluminium is the only good conductor in the period with a higher conductivity than magnesium.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf pp.6-7; CAIE 9701 Jun 2025 P11 Q22; https://periodic-table.rsc.org/element/14/silicon",
+     "rubric": [
+      {
+       "point": "The element is aluminium.",
+       "keywords": [
+        [
+         "aluminium",
+         "aluminum"
+        ]
+       ]
+      },
+      {
+       "point": "Conductivity increases from magnesium to aluminium.",
+       "keywords": [
+        [
+         "conductivity"
+        ],
+        [
+         "increase",
+         "higher",
+         "greater"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Adding electrons makes atoms larger across Period 3.",
+     "temptation": "More electrons sounds like a larger cloud.",
+     "fix": "Added electrons enter the same shell while nuclear charge increases; attraction strengthens."
+    },
+    {
+     "id": "m2",
+     "idea": "All common ionic radii decrease smoothly across the period.",
+     "temptation": "The atomic trend seems reusable for ions.",
+     "fix": "Separate ten-electron cations and eighteen-electron anions; compare occupied shells at the jump."
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg",
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-ionic-radii.svg"
+   ],
+   "diagram_descriptions": {
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg": "Qualitative melting-point graph, with no numerical ticks: Na to Mg rises, Mg to Al rises slightly, then Si is the maximum. There is a sharp drop to P, a small rise to S, then falls to Cl and Ar, the minimum. The horizontal axis follows Period 3 order; heights are schematic, not a temperature scale.",
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-ionic-radii.svg": "Qualitative ionic-radius graph with two separate decreasing lines: the smaller cations sodium plus, magnesium two plus and aluminium three plus; then the larger anions phosphide three minus, sulfide two minus and chloride minus. Silicon is omitted. The labelled cation-to-anion gap separates the lines; it is not a continuous decrease. Axes have no numerical radius scale."
+   },
+   "source_gaps": [
+    "The library includes a silicon four-plus ion in its ionic table; this chapter follows its existing common-ion comparison with silicon omitted.",
+    "The library gives conflicting silicon melting-point numbers on pages 5 and 8; these forms use only the qualitative pattern supported by the bundle.",
+    "The supplied bundle gives selected paper and examiner-report excerpts, not an exhaustive audit of every official structured-paper form."
+   ],
+   "diagram_provenance": {
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg": {
+     "path": "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg",
+     "sha256": "b87271cd1c6f07998271623c1fae8c9f8128ccfa63c4cdd565bcd9cd79c8b7fc",
+     "aliases": [
+      "Assets/9701/9701-9.1-melting-trend.svg",
+      "build/out/assets/9701/9701-9.1-melting-trend.svg",
+      "build/out/Assets/9701/9701-9.1-melting-trend.svg"
+     ],
+     "course": "9701",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/9701/9701-9.1-melting-trend.svg",
+      "stem-tutor/build/out/assets/9701/9701-9.1-melting-trend.svg",
+      "stem-tutor/build/out/Assets/9701/9701-9.1-melting-trend.svg"
+     ]
+    },
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-ionic-radii.svg": {
+     "path": "Library/Courses/9701/Diagrams/9701/9701-9.1-ionic-radii.svg",
+     "sha256": "eadea15409edd4d61d1bc403ccd184cb0f4182af23bb490d969f054e8f91d6b1",
+     "aliases": [
+      "Assets/9701/9701-9.1-ionic-radii.svg",
+      "build/out/assets/9701/9701-9.1-ionic-radii.svg",
+      "build/out/Assets/9701/9701-9.1-ionic-radii.svg"
+     ],
+     "course": "9701",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/9701/9701-9.1-ionic-radii.svg",
+      "stem-tutor/build/out/assets/9701/9701-9.1-ionic-radii.svg",
+      "stem-tutor/build/out/Assets/9701/9701-9.1-ionic-radii.svg"
+     ]
+    }
+   }
   },
   "9701-9.1.2": {
    "motivate": "Silicon melts far above sulfur but conducts far worse than aluminium. Structure and bonding explain both comparisons.",
@@ -1258,7 +1510,281 @@
     "answer": "A",
     "explanation": "Silicon is giant covalent; sulfur is simple molecular, so different attractions are overcome on melting."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Recall the bonding categories before explaining a property: a metal has positive ions and mobile delocalised electrons; a giant covalent solid is an extended network; a simple molecular substance contains separate molecules. For melting, name the attraction overcome and the energy needed. For current, name a charged particle that can move. These are different explanations.",
+   "terms": [
+    {
+     "term": "metallic bonding",
+     "meaning": "Electrostatic attraction between positive metal ions and delocalised electrons.",
+     "notation": "metal lattice",
+     "spoken": "metallic bonding",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf p.9"
+    },
+    {
+     "term": "delocalised electrons",
+     "meaning": "Electrons able to move through the metal structure and carry charge.",
+     "notation": "$e^{-}$",
+     "spoken": "electrons",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf pp.9-10; ER 9701 s22 P22 Q1"
+    },
+    {
+     "term": "giant covalent lattice",
+     "meaning": "An extended network of atoms joined by strong covalent bonds.",
+     "notation": "Si network",
+     "spoken": "giant covalent lattice",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf p.10; ER 9701 w23 P22 Q1"
+    },
+    {
+     "term": "intermolecular attractions",
+     "meaning": "Attractions between separate molecules, distinct from covalent bonds within them.",
+     "notation": "$\\ce{P4}$, $\\ce{S8}$, $\\ce{Cl2}$",
+     "spoken": "P four, S eight, chlorine two",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf p.10"
+    },
+    {
+     "term": "semiconductor",
+     "meaning": "A material such as silicon whose conductivity is much lower than that of a metal and can be controlled.",
+     "notation": "Si",
+     "spoken": "semiconductor",
+     "source": "https://periodic-table.rsc.org/element/14/silicon"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Metallic melting and mobile electrons",
+     "wordings": [
+      "Explain the rise in melting point from Na to Al.",
+      "Explain why a metal conducts electricity."
+     ],
+     "example": "Compare Na and Mg. Step 1: identify metallic lattices. Step 2: Mg supplies two delocalised electrons per atom and has smaller, more highly charged ions than Na. Step 3: stronger electrostatic attraction means more energy is needed to melt Mg. Both conduct because their delocalised electrons move through the lattice.",
+     "check": "Explain why Al has a higher melting point than Na and why solid Al conducts electricity.",
+     "answer": "Al has smaller, more highly charged positive ions and more delocalised electrons per atom than Na. Stronger electrostatic attraction between ions and electrons requires more energy to overcome on melting. Delocalised electrons move through solid Al and carry charge; the ions do not need to flow.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf pp.9-10; CAIE 9701 Nov 2022 P12 Q18; ER 9701 s22 P22 Q1",
+     "rubric": [
+      {
+       "point": "Al has greater ionic charge, more delocalised electrons per atom, or higher charge density than Na; a smaller ionic radius is also a valid supporting factor.",
+       "keywords": [
+        [
+         "charge",
+         "electron",
+         "smaller",
+         "radius"
+        ]
+       ]
+      },
+      {
+       "point": "Stronger attraction between positive ions and delocalised electrons requires more energy to overcome.",
+       "keywords": [
+        [
+         "attraction",
+         "metallic bonding"
+        ],
+        [
+         "stronger"
+        ],
+        [
+         "energy"
+        ]
+       ]
+      },
+      {
+       "point": "Mobile delocalised electrons carry charge through the solid.",
+       "keywords": [
+        [
+         "delocalised",
+         "free electrons"
+        ],
+        [
+         "move",
+         "mobile"
+        ],
+        [
+         "charge",
+         "current"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Giant covalent and molecular melting",
+     "wordings": [
+      "Explain a melting-point comparison using structure.",
+      "Distinguish bonds within molecules from attractions between molecules."
+     ],
+     "example": "Compare Si and sulfur. Step 1: Si is giant covalent; sulfur contains separate sulfur-eight molecules. Step 2: melting Si breaks strong covalent bonds in the network; melting sulfur overcomes weaker instantaneous dipole-induced dipole attractions between molecules. Step 3: much more energy is needed for Si. The covalent bonds inside sulfur molecules remain intact.",
+     "check": "Explain why Si melts above phosphorus, and why sulfur melts above phosphorus although both are molecular. State which attractions are overcome when argon melts.",
+     "answer": "Si has a giant covalent network with strong covalent bonds to break; phosphorus has separate phosphorus-four molecules with much weaker intermolecular attractions, requiring less energy to overcome. Sulfur-eight molecules are larger and have more electrons than phosphorus-four molecules, so their instantaneous dipole-induced dipole attractions are stronger and require more energy to overcome. Covalent bonds within the molecules remain intact. Argon melts by overcoming weak instantaneous dipole-induced dipole attractions between atoms.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf p.10; ER 9701 w23 P22 Q1",
+     "rubric": [
+      {
+       "point": "Si giant covalent; phosphorus simple molecular.",
+       "keywords": [
+        [
+         "giant covalent",
+         "covalent network"
+        ],
+        [
+         "molecular",
+         "molecules"
+        ]
+       ]
+      },
+      {
+       "point": "Strong covalent bonds in Si versus weaker intermolecular attractions in phosphorus require more energy to overcome.",
+       "keywords": [
+        [
+         "covalent bonds"
+        ],
+        [
+         "intermolecular",
+         "between molecules"
+        ],
+        [
+         "energy"
+        ]
+       ]
+      },
+      {
+       "point": "Larger sulfur-eight molecules have more electrons, stronger dispersion attractions and need more energy to separate.",
+       "keywords": [
+        [
+         "larger",
+         "bigger"
+        ],
+        [
+         "electrons"
+        ],
+        [
+         "stronger"
+        ],
+        [
+         "energy"
+        ]
+       ]
+      },
+      {
+       "point": "Argon has weak dispersion attractions between atoms.",
+       "keywords": [
+        [
+         "atoms"
+        ],
+        [
+         "instantaneous dipole",
+         "dispersion",
+         "London"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg"
+    },
+    {
+     "name": "Conductivity from structure including silicon",
+     "wordings": [
+      "Explain conductivity differences.",
+      "Evaluate the claim that four valence electrons make Si a metallic conductor."
+     ],
+     "example": "Compare Mg and Si. Step 1: Mg is metallic and has mobile delocalised electrons. Step 2: Si is giant covalent, with valence electrons involved in bonding rather than an abundant metal-like sea. Step 3: Si is a semiconductor, so poor conductivity relative to Mg does not mean perfect insulation.",
+     "check": "A student claims that solid sulfur should conduct because its atoms have outer electrons. Evaluate the claim, identifying the charge carriers needed for conduction and whether sulfur provides them.",
+     "answer": "The claim is wrong. Conduction requires mobile charged particles; solid sulfur consists of neutral molecules and has no mobile charged particles, so it does not conduct under ordinary conditions. Having outer electrons does not by itself make them mobile.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.1.pdf pp.9-10; ER 9701 s22 P22 Q1; CAIE 9701 Jun 2025 P11 Q22; https://periodic-table.rsc.org/element/14/silicon",
+     "rubric": [
+      {
+       "point": "Conduction requires mobile charged particles.",
+       "keywords": [
+        [
+         "mobile",
+         "move",
+         "free"
+        ],
+        [
+         "charge",
+         "electron",
+         "ion"
+        ]
+       ]
+      },
+      {
+       "point": "Sulfur lacks mobile charged particles and does not conduct under ordinary conditions.",
+       "keywords": [
+        [
+         "sulfur",
+         "sulphur"
+        ],
+        [
+         "no mobile",
+         "lack mobile",
+         "no free",
+         "not mobile"
+        ],
+        [
+         "does not conduct",
+         "cannot conduct",
+         "non-conductor",
+         "insulator"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "Silicon melts by overcoming intermolecular forces.",
+     "temptation": "All covalent substances might seem molecular.",
+     "fix": "Silicon is an extended covalent network: name strong covalent bonds, not forces between molecules."
+    },
+    {
+     "id": "m4",
+     "idea": "Silicon conducts like a metal because it has four outer electrons.",
+     "temptation": "More outer electrons seems to mean more freely moving electrons.",
+     "fix": "Availability and mobility matter: silicon is a semiconductor, whereas a metal has abundant mobile delocalised electrons."
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg"
+   ],
+   "diagram_descriptions": {
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg": "Qualitative melting-point graph, with no numerical ticks: Na to Mg rises, Mg to Al rises slightly, then Si is the maximum. There is a sharp drop to P, a small rise to S, then falls to Cl and Ar, the minimum. The horizontal axis follows Period 3 order; heights are schematic, not a temperature scale."
+   },
+   "source_gaps": [
+    "The RSC page corroborates semiconductor use but provides no chapter-specific numerical conductivity or marking rubric; these checks stay qualitative.",
+    "The library uses giant molecular for silicon; these additions use the bundle wording giant covalent to avoid implying separate silicon molecules.",
+    "No band theory, doping mechanism or quantitative conductivity model is established by the reviewed chapter sources."
+   ],
+   "diagram_provenance": {
+    "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg": {
+     "path": "Library/Courses/9701/Diagrams/9701/9701-9.1-melting-trend.svg",
+     "sha256": "b87271cd1c6f07998271623c1fae8c9f8128ccfa63c4cdd565bcd9cd79c8b7fc",
+     "aliases": [
+      "Assets/9701/9701-9.1-melting-trend.svg",
+      "build/out/assets/9701/9701-9.1-melting-trend.svg",
+      "build/out/Assets/9701/9701-9.1-melting-trend.svg"
+     ],
+     "course": "9701",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/9701/9701-9.1-melting-trend.svg",
+      "stem-tutor/build/out/assets/9701/9701-9.1-melting-trend.svg",
+      "stem-tutor/build/out/Assets/9701/9701-9.1-melting-trend.svg"
+     ]
+    }
+   }
   }
+ },
+ "guided_forms": {
+  "9701-9.1.1": [
+   "Atomic radius trend",
+   "Ionic radius series and shell jump",
+   "Melting-point pattern",
+   "Conductivity pattern"
+  ],
+  "9701-9.1.2": [
+   "Metallic melting and mobile electrons",
+   "Giant covalent and molecular melting",
+   "Conductivity from structure including silicon"
+  ]
  }
 }

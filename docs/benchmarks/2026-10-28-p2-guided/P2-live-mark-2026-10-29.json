@@ -1,0 +1,90 @@
+{
+  "square": {
+    "answer": "3x² − 6x + 4 = 3(x − 1)² + 1 > 0 for every real x. The derivative never vanishes, so there are no turning points.",
+    "response": {
+      "points": [
+        {
+          "point": "Establishes a valid global method: the derivative has no real zero, or the curve is strictly monotonic on the real line.",
+          "met": true,
+          "why": "Student showed $3(x-1)^2+1 > 0$ for all real $x$, proving the derivative is never zero."
+        },
+        {
+          "point": "Justifies the method and concludes that the curve has no turning points.",
+          "met": true,
+          "why": "Student explicitly stated 'The derivative never vanishes, so there are no turning points' based on the previous argument."
+        }
+      ],
+      "feedback": "Excellent work; the quadratic completion and logical deduction align perfectly with Cambridge marking expectations."
+    },
+    "ok": true,
+    "message": "",
+    "elapsed": 8.27,
+    "matches_points": true
+  },
+  "discriminant": {
+    "answer": "The derivative quadratic has discriminant 36 − 48 = −12 < 0, so it has no real roots. The derivative never vanishes; hence there are no turning points.",
+    "response": {
+      "points": [
+        {
+          "point": "Establishes a valid global method: the derivative has no real zero, or the curve is strictly monotonic on the real line.",
+          "met": true,
+          "why": "The student calculated discriminant $36 - 48 = -12 < 0$ and stated there are no real roots."
+        },
+        {
+          "point": "Justifies the method and concludes that the curve has no turning points.",
+          "met": true,
+          "why": "The student linked the absence of real roots to the conclusion that 'there are no turning points'."
+        }
+      ],
+      "feedback": "A complete proof is achieved by showing the discriminant is negative and explicitly concluding no turning points exist."
+    },
+    "ok": true,
+    "message": "",
+    "elapsed": 8.28,
+    "matches_points": true
+  },
+  "monotonic": {
+    "answer": "y = (x − 1)³ + x + 1, which is strictly increasing on the real line as both terms are strictly increasing. Thus it has no turning points.",
+    "response": {
+      "points": [
+        {
+          "point": "Establishes a valid global method: the derivative has no real zero, or the curve is strictly monotonic on the real line.",
+          "met": true,
+          "why": "The student explicitly claims the function 'is strictly increasing on the real line' as the basis for the proof."
+        },
+        {
+          "point": "Justifies the method and concludes that the curve has no turning points.",
+          "met": true,
+          "why": "The student provides the logical link stating this monotonicity 'Thus it has no turning points.'"
+        }
+      ],
+      "feedback": "Well executed. The reasoning correctly identifies strict monotonicity as a valid global proof for the absence of stationary points."
+    },
+    "ok": true,
+    "message": "",
+    "elapsed": 6.27,
+    "matches_points": true
+  },
+  "incorrect": {
+    "answer": "The derivative is a quadratic and has no turning points because its discriminant is 12.",
+    "response": {
+      "points": [
+        {
+          "point": "Establishes a valid global method: the derivative has no real zero, or the curve is strictly monotonic on the real line.",
+          "met": false,
+          "why": "The student mentions 'discriminant' but fails to calculate the value (should be $(-6)^2 - 4(3)(4) = -36 < 0$) nor explicitly state that the quadratic has no real roots or implies strict monotonicity."
+        },
+        {
+          "point": "Justifies the method and concludes that the curve has no turning points.",
+          "met": false,
+          "why": "The response contains a factual error ('12' instead of 'negative') which invalidates the justification, and lacks the required concluding sentence linking the derivative's nature to the absence of turning points."
+        }
+      ],
+      "feedback": "Your identification of the discriminant is correct in principle but you miscalculated it as 12. With a negative discriminant for this quadratic, you should have written that no real roots exist, which proves the function is strictly monotonic and therefore has no turning points."
+    },
+    "ok": true,
+    "message": "",
+    "elapsed": 9.24,
+    "matches_points": true
+  }
+}

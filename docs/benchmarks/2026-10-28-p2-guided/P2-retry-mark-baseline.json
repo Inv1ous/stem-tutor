@@ -1,0 +1,90 @@
+[
+  {
+    "case": "formula_verify",
+    "answer": "Using the formula, S4=(4⁴−1)/3=85. Every later term is positive, so partial sums strictly increase and no other positive integer term count gives 85.",
+    "response": {
+      "points": [
+        {
+          "point": "Uses the stated formula with working to verify the sum for n = 4, or rearranges to obtain 4^n = 256.",
+          "met": true,
+          "why": "\"Using the formula\" and calculation showing S4=85 confirm this."
+        },
+        {
+          "point": "Establishes n = 4 and explains why it is the only positive integer solution.",
+          "met": true,
+          "why": "\"no other positive integer term count gives 85\" explicitly demonstrates uniqueness."
+        }
+      ],
+      "feedback": "Fully correct; both steps are clearly stated with appropriate justification for the final conclusion."
+    },
+    "ok": true,
+    "elapsed": 7.71,
+    "matches_points": true
+  },
+  {
+    "case": "formula_incomplete",
+    "answer": "S4=(4⁴−1)/3=85.",
+    "response": {
+      "points": [
+        {
+          "point": "Uses the stated formula with working to verify the sum for n = 4, or rearranges to obtain 4^n = 256.",
+          "met": true,
+          "why": "S4=(4⁴−1)/3=85 shows substitution of n=4 into the given sum formula."
+        },
+        {
+          "point": "Establishes n = 4 and explains why it is the only positive integer solution.",
+          "met": false,
+          "why": "Student did not calculate the value of S4 for other values of n to demonstrate uniqueness."
+        }
+      ],
+      "feedback": "You have substituted $n=4$ correctly but must explicitly check other integers (e.g. $n=5$ or $n=3$) to prove $n=4$ is the unique positive integer solution."
+    },
+    "ok": true,
+    "elapsed": 7.6,
+    "matches_points": true
+  },
+  {
+    "case": "equal_positive",
+    "answer": "Choose x=1 and y=1. Both are positive reals, but x−y=0, which is not positive.",
+    "response": {
+      "points": [
+        {
+          "point": "Gives a pair of positive real numbers allowed in the widened domain.",
+          "met": true,
+          "why": "\"Choose x=1 and y=1\" specifies two positive reals."
+        },
+        {
+          "point": "Shows the difference is not positive, making the widened claim false; a separate concluding sentence is not required.",
+          "met": true,
+          "why": "\"x−y=0, which is not positive\" demonstrates the difference lacks positivity and refutes the claim."
+        }
+      ],
+      "feedback": "Excellent counter-example; both domain validity and falsification of the inequality are clearly presented."
+    },
+    "ok": true,
+    "elapsed": 5.88,
+    "matches_points": true
+  },
+  {
+    "case": "outside_domain",
+    "answer": "Choose x=−1 and y=2. Then x−y=−3, which is negative.",
+    "response": {
+      "points": [
+        {
+          "point": "Gives a pair of positive real numbers allowed in the widened domain.",
+          "met": false,
+          "why": "The student selected x=-1 which is negative, violating the requirement for both numbers to be positive."
+        },
+        {
+          "point": "Shows the difference is not positive, making the widened claim false; a separate concluding sentence is not required.",
+          "met": true,
+          "why": "The calculation x-y=-3 demonstrates the difference is not positive (it is negative), disproving the claim."
+        }
+      ],
+      "feedback": "You failed to provide two positive numbers as required; choose x=2 and y=1 instead."
+    },
+    "ok": true,
+    "elapsed": 6.17,
+    "matches_points": true
+  }
+]

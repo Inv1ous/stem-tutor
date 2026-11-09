@@ -15,7 +15,7 @@ from tutor_app.panels import Composer, Confidence, ValuePanel
 
 async def open_numeric(pilot, app):
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [option.id for option in menu.options].index("learn")
+    menu.reveal("learn")
     await pilot.press("enter")
     await pilot.pause()
     await pilot.press("enter")

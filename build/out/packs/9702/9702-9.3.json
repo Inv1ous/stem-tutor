@@ -60,6 +60,14 @@
    "refutation": "Its resistance decreases as temperature increases.",
    "contrast": "Hotter means less resistance.",
    "source": "research"
+  },
+  {
+   "id": "m8",
+   "kc": "9702-9.3.2",
+   "statement": "Dividing a voltage in volts by a current in milliamperes directly gives resistance in ohms.",
+   "refutation": "Convert current to amperes before obtaining resistance in ohms.",
+   "contrast": "One milliampere is one thousandth of an ampere.",
+   "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; SI prefix conversion"
   }
  ],
  "worked": [
@@ -6050,7 +6058,109 @@
    "connect": "This definition lets you find resistance from simultaneous voltage and current readings.",
    "note": "- $R=V/I$\n- p.d. across, current through\n- unit: $\\Omega$",
    "self_explain": "Why must the current and p.d. refer to the same component?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Resistance compares the p.d. across a component with the current through that same component. The ratio defines resistance at that operating point; it does not promise a constant value as conditions change.\nCommon mistake: Resistance and resistivity are the same quantity. Resistance concerns this component and has unit ohm; resistivity concerns the material at its temperature and has unit ohm metre.",
+   "terms": [
+    {
+     "term": "resistance",
+     "meaning": "Potential difference across divided by current through the same component.",
+     "notation": "$R=V/I$",
+     "spoken": "R equals V divided by I",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; syllabus 9.3.1"
+    },
+    {
+     "term": "ohm",
+     "meaning": "One volt per ampere.",
+     "notation": "$1\\,\\Omega=1\\,\\mathrm{V\\,A^{-1}}$",
+     "spoken": "one ohm equals one volt per ampere",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; syllabus 9.3.1"
+    },
+    {
+     "term": "potential difference",
+     "meaning": "Energy transferred per unit charge between two points; measure across the component.",
+     "notation": "$V=W/Q$",
+     "spoken": "V equals W divided by Q",
+     "source": "Syllabus 9.2.2; SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; syllabus 9.3.1"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Define resistance and the ohm",
+     "wordings": [
+      "Define resistance; state its SI unit."
+     ],
+     "example": "To investigate a component, connect an ammeter in series with it and a voltmeter across it. Record both readings for the same operating condition.",
+     "check": "At one operating point a component has 0.30 V across it and carries 0.30 A. At another it has 0.60 V across it and carries 0.20 A. Calculate its resistance at each point and state at which point its resistance is one ohm. Does using the definition of resistance require the two results to be equal?",
+     "answer": "First point: R = 0.30/0.30 = 1.0 Ω. Second point: R = 0.60/0.20 = 3.0 Ω. Only the first point has resistance one ohm. The definition R = V/I applies at each point and does not require constant resistance.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; syllabus 9.3.1",
+     "rubric": [
+      {
+       "point": "Calculates first-point resistance 1.0 Ω (accept 1 Ω, one ohm and equivalent notation), using the paired readings; match value, unit and operating point.",
+       "keywords": [
+        [
+         "1.0 Ω",
+         "1 Ω",
+         "one ohm",
+         "1.0 ohm",
+         "1 ohm",
+         "1.0\\,\\Omega",
+         "1\\,\\Omega"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates second-point resistance 3.0 Ω (accept 3 Ω, three ohms and equivalent notation) and identifies only the first point as one ohm; match value, unit and operating point.",
+       "keywords": [
+        [
+         "3.0 Ω",
+         "3 Ω",
+         "three ohms",
+         "3.0 ohm",
+         "3 ohm",
+         "3.0\\,\\Omega",
+         "3\\,\\Omega"
+        ],
+        [
+         "first",
+         "0.30"
+        ]
+       ]
+      },
+      {
+       "point": "States that the definition does not imply equal or constant resistance at the two operating points; accept equivalent prose or equations.",
+       "keywords": [
+        [
+         "not equal",
+         "not constant",
+         "does not require",
+         "different",
+         "unequal",
+         "varies"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Resistance is the same as potential difference.",
+     "temptation": "Both quantities are described using voltage in a circuit.",
+     "fix": "Resistance is the ratio of potential difference to current, not the potential difference alone. Use $R=V/I$."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "This definition and unit relationship are clearer in words; the graph interpretation is developed in card 3.",
+   "source_gaps": [
+    "Reviewed evidence is limited to the cited syllabus statements, bundle paper/report excerpts and notes pages; this is not an exhaustive official-paper audit."
+   ],
+   "exam_language": [
+    {
+     "name": "Calculate",
+     "meaning": "State the relationship, substitute quantities in compatible units, and give the result with units."
+    }
+   ]
   },
   "9702-9.3.2": {
    "motivate": "Circuit measurements often give two of voltage, current and resistance.",
@@ -6058,7 +6168,131 @@
    "connect": "This equation also works at one operating point of a non-ohmic component.",
    "note": "- $V=IR$\n- $I=V/R$\n- $R=V/I$",
    "self_explain": "How would you find current if voltage and resistance are given?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "First identify what is across the component and what flows through it. Convert prefixes before using the equation. If current is missing but charge and time are known, find the charge flow rate first.\nCommon mistake: Use milliamperes directly with volts to obtain ohms. Convert milliamperes to amperes first, or track the resulting kilo-ohm unit explicitly.",
+   "terms": [
+    {
+     "term": "current",
+     "meaning": "Rate of charge flow through a cross-section.",
+     "notation": "$I=Q/t$",
+     "spoken": "I equals Q divided by t",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; syllabus 9.3.2"
+    },
+    {
+     "term": "milliampere",
+     "meaning": "One thousandth of an ampere.",
+     "notation": "$1\\,\\mathrm{mA}=10^{-3}\\,\\mathrm A$",
+     "spoken": "one milliampere equals one thousandth of an ampere",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; syllabus 9.3.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Rearrange V = IR with SI conversions",
+     "wordings": [
+      "Calculate current, p.d. or resistance."
+     ],
+     "example": "A $2.4\\,\\mathrm{k\\Omega}$ component has $6.0\\,\\mathrm V$ across it. Convert $R=2400\\,\\Omega$; $I=V/R=6.0/2400=0.0025\\,\\mathrm A=2.5\\,\\mathrm{mA}$.",
+     "check": "A component carries $12\\,\\mathrm{mA}$ with $3.6\\,\\mathrm V$ across it. Calculate its resistance.",
+     "answer": "$I=0.012\\,\\mathrm A$; $R=3.6/0.012=300\\,\\Omega$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; syllabus 9.3.2",
+     "rubric": [
+      {
+       "point": "Uses R = V/I with I = 0.012 A, 12 x 10^-3 A or 12/1000 A; alternatively divides volts by milliamperes and explicitly obtains kilo-ohms.",
+       "keywords": [
+        [
+         "0.012",
+         "12/1000",
+         "12 × 10⁻³",
+         "12×10^-3",
+         "12 x 10^-3",
+         "12e-3",
+         "12\\times10^{-3}",
+         "3.6/12",
+         "3.6 / 12"
+        ],
+        [
+         "/",
+         "divide",
+         "ratio"
+        ]
+       ]
+      },
+      {
+       "point": "Gives the matched result 300 Ω or 0.30 kΩ (equivalent notation accepted); do not credit 0.30 Ω or 300 kΩ.",
+       "keywords": [
+        [
+         "300 Ω",
+         "300 ohm",
+         "300 Omega",
+         "300\\,\\Omega",
+         "0.30 kΩ",
+         "0.3 kΩ",
+         "0.30 kiloohm",
+         "0.3 kiloohm",
+         "0.30\\,\\mathrm{k\\Omega}",
+         "0.3\\,\\mathrm{k\\Omega}"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Bridge charge and time to resistance",
+     "wordings": [
+      "Calculate resistance from charge, time and p.d."
+     ],
+     "example": "A constant $0.80\\,\\mathrm C$ passes in $4.0\\,\\mathrm s$ with $2.0\\,\\mathrm V$ across the component. Step 1: $I=Q/t=0.20\\,\\mathrm A$. Step 2: $R=V/I=10\\,\\Omega$. Keep unrounded current until the final result.",
+     "check": "A constant $1.8\\,\\mathrm C$ passes through a component in $6.0\\,\\mathrm s$ with $4.5\\,\\mathrm V$ across it. Calculate its resistance.",
+     "answer": "$I=1.8/6.0=0.30\\,\\mathrm A$; $R=4.5/0.30=15\\,\\Omega$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.2–4; syllabus 9.3.2",
+     "rubric": [
+      {
+       "point": "Uses charge divided by time to obtain 0.30 A.",
+       "keywords": [
+        [
+         "Q/t",
+         "1.8/6",
+         "0.30",
+         "0.3"
+        ]
+       ]
+      },
+      {
+       "point": "Uses the same component p.d. and current to obtain 15 ohms.",
+       "keywords": [
+        [
+         "15"
+        ],
+        [
+         "ohm",
+         "Omega",
+         "Ω"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m8",
+     "idea": "Dividing a voltage in volts by a current in milliamperes directly gives resistance in ohms.",
+     "temptation": "The displayed meter numbers look ready to divide.",
+     "fix": "Convert current to amperes before obtaining resistance in ohms. One milliampere is one thousandth of an ampere."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The staged substitutions provide the prerequisite bridge without needing a separate drawing.",
+   "source_gaps": [
+    "Reviewed evidence is limited to the cited syllabus statements, bundle paper/report excerpts and notes pages; this is not an exhaustive official-paper audit."
+   ],
+   "exam_language": [
+    {
+     "name": "Calculate",
+     "meaning": "State the relationship, substitute quantities in compatible units, and give the result with units."
+    }
+   ]
   },
   "9702-9.3.3": {
    "motivate": "Graph shapes reveal whether a component has fixed resistance.",
@@ -6066,7 +6300,287 @@
    "connect": "Read $V$ and $I$ at the same point to find $R=V/I$; the curved graph’s gradient is different.",
    "note": "- metal: straight through origin\n- lamp: flattening curve\n- diode: one-way rise",
    "self_explain": "What feature distinguishes the diode from the lamp graph?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Read the axes before interpreting the shape. On a graph with current vertical and p.d. horizontal, a metal at constant temperature gives a straight line through the origin, a lamp flattens as it heats, and a diode strongly favours one polarity.\nCommon mistake: Every reciprocal I–V gradient is the component resistance. Use paired coordinates for point resistance; a curved tangent is a local change ratio.\nCommon mistake: The diode must have zero p.d. in reverse bias. A reverse p.d. can be nonzero while reverse current is negligible in the range shown.",
+   "terms": [
+    {
+     "term": "characteristic",
+     "meaning": "Graph of current through a component against the p.d. across it.",
+     "notation": "$I\\text{ against }V$",
+     "spoken": "current against potential difference",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.5–10; syllabus 9.3.3; ER 9702 s19 P11 Q34; ER 9702 s22 P11 Q33"
+    },
+    {
+     "term": "operating point",
+     "meaning": "A paired current and p.d. reading for one state of a component.",
+     "notation": "$(V,I)$",
+     "spoken": "paired V and I values",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.5–10; syllabus 9.3.3; ER 9702 s19 P11 Q34; ER 9702 s22 P11 Q33"
+    },
+    {
+     "term": "forward bias",
+     "meaning": "The polarity in which a diode conducts appreciably once the forward p.d. is sufficient.",
+     "notation": "$V>0$ on the stated forward-positive axis",
+     "spoken": "positive forward voltage",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.5–10; syllabus 9.3.3; ER 9702 s19 P11 Q34; ER 9702 s22 P11 Q33"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Sketch characteristics and interpret polarity",
+     "wordings": [
+      "Sketch or identify metal, lamp and diode characteristics."
+     ],
+     "example": "When preparing a characteristic plot, label both axes with quantities and units and mark the origin. A negative p.d. represents reversed polarity.",
+     "check": "An unlabelled component has illustrative paired readings (V in volts, I in amperes): (-0.80,-0.060), (-0.40,-0.040), (0,0), (0.40,0.040), (0.80,0.060). Sketch a smooth qualitative graph with V on the vertical axis and I on the horizontal axis, labelling quantities, units and the origin. Calculate its resistance at +0.40 V and +0.80 V. Calculate the gradient of the straight segment joining these two positive readings on your V-against-I plot. Is that segment gradient equal to either calculated point resistance? Explain using the quantities divided in each calculation.",
+     "answer": "Plot I/A horizontally and V/V vertically, label the origin, and draw a smooth qualitative curve through all five readings. Exact symmetry between readings and continuously increasing steepness are not required by these discrete data. The point resistances are 0.40/0.040 = 10 ohms and 0.80/0.060 = 13.3 ohms (about 13 ohms). The joining-segment gradient is (0.80 - 0.40)/(0.060 - 0.040) = 0.40/0.020 = 20 V/A = 20 ohms. It equals neither point resistance: the segment uses differences between two readings, whereas point resistance uses V/I at one operating point. The segment gradient is an average change ratio, not a tangent gradient.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.5–10; syllabus 9.3.3; ER 9702 s19 P11 Q34; ER 9702 s22 P11 Q33; illustrative readings newly constructed, not measured source data",
+     "rubric": [
+      {
+       "point": "Sketches V/V vertically and I/A horizontally, labels quantities, units and the origin, plots all five readings, and draws a smooth qualitative curve consistent with them. Judge the drawing directly; accept equivalent axis labels. Do not require exact symmetry or continuously increasing steepness between readings. Keywords are hints only and their absence must not withhold credit from a correct drawing.",
+       "keywords": [
+        [
+         "origin",
+         "(0,0)",
+         "(0, 0)"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates matched point resistances: 10 ohms at +0.40 V and approximately 13.3 ohms at +0.80 V; accept 13 ohms or 13.33 ohms and equivalent notation.",
+       "keywords": [
+        [
+         "10"
+        ],
+        [
+         "13.3",
+         "13.33",
+         "13"
+        ],
+        [
+         "ohm",
+         "Ω",
+         "Omega"
+        ]
+       ]
+      },
+      {
+       "point": "Uses the changes between the two positive readings to obtain the joining-segment gradient 20 V/A or 20 ohms. Judge the calculation semantically: accept any algebraically equivalent difference quotient, including (0.80 - 0.40)/(0.060 - 0.040), 0.40/0.020, or 400 mV/20 mA, with the correct result and units. Do not require the four original coordinate literals to appear. Require a quotient of the changes or equivalent explained working; a bare value alone is insufficient. Keywords are hints only, never a correctness gate.",
+       "keywords": [
+        [
+         "20",
+         "twenty"
+        ]
+       ]
+      },
+      {
+       "point": "States the segment gradient equals neither calculated point resistance and distinguishes the change ratio ΔV/ΔI between two points from V/I at one point. Do not credit calling the joining segment a tangent.",
+       "keywords": [
+        [
+         "neither",
+         "not equal",
+         "different"
+        ],
+        [
+         "difference",
+         "change",
+         "ΔV/ΔI"
+        ],
+        [
+         "V/I",
+         "one point",
+         "operating point"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Find point resistance rather than tangent resistance",
+     "wordings": [
+      "Determine resistance at a point on a curved characteristic."
+     ],
+     "example": "At a diode operating point, the p.d. is 0.60 V and the current is 20 mA = 0.020 A. The resistance is R = 0.60/0.020 = 30 ohms. Converting milliamperes to amperes makes the result come out in ohms.",
+     "check": "At one lamp operating point, the p.d. is 3.0 V and the current is 0.50 A. Calculate its resistance.",
+     "answer": "R = V/I = 3.0/0.50 = 6.0 Ω.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.5–10; syllabus 9.3.3; ER 9702 s19 P11 Q34; ER 9702 s22 P11 Q33; https://www.physics.purdue.edu/~clarkt/Courses/Physics271L/Exp3/Exp3.html",
+     "rubric": [
+      {
+       "point": "Divides paired voltage by current and obtains 6.0 ohms.",
+       "keywords": [
+        [
+         "6"
+        ],
+        [
+         "ohm",
+         "Omega",
+         "Ω"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Interpret slope with either axis arrangement",
+     "wordings": [
+      "Relate a straight-line gradient to resistance after reading axes."
+     ],
+     "example": "Before calculating a graph gradient, read the axis labels and units. Choose two well-separated points on the line and record each as a horizontal coordinate paired with its vertical coordinate. Include units when writing the coordinate differences.",
+     "check": "A straight characteristic through the origin has $V$ vertical and $I$ horizontal. It passes through $I=0.40\\,\\mathrm A$, $V=3.2\\,\\mathrm V$. Determine the gradient and resistance; state the relation if the axes are swapped.",
+     "answer": "Gradient $=3.2/0.40=8.0\\,\\mathrm{V\\,A^{-1}}$, so $R=8.0\\,\\Omega$. With $I$ vertical the gradient is $1/R=0.125\\,\\mathrm{A\\,V^{-1}}$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.5–10; syllabus 9.3.3; ER 9702 s19 P11 Q34; ER 9702 s22 P11 Q33",
+     "rubric": [
+      {
+       "point": "Identifies the original V-against-I gradient as 8.0 V/A, from ΔV/ΔI = 3.2/0.40. Accept 8 V/A, V A⁻¹, ohms and equivalent units or notation. Require the value to be identified as gradient or slope; a bare 8 Ω or a resistance-only statement is insufficient. Accept a clear combined statement such as gradient = resistance = 8 Ω for both rubric points. Judge meaning directly; keywords are hints only and never a correctness gate.",
+       "keywords": [
+        [
+         "8.0 V/A",
+         "8 V/A",
+         "8.0 V A^-1",
+         "8 V A^-1",
+         "8.0 volts per ampere",
+         "8 volts per ampere",
+         "8.0\\,\\mathrm{V\\,A^{-1}}",
+         "8\\,\\mathrm{V\\,A^{-1}}",
+         "8.0 V A⁻¹",
+         "8 V A⁻¹",
+         "8.0 Ω",
+         "8 Ω",
+         "8.0 ohm",
+         "8 ohm",
+         "8.0 Omega",
+         "8 Omega",
+         "8.0\\,\\Omega",
+         "8\\,\\Omega"
+        ],
+        [
+         "gradient",
+         "slope",
+         "ΔV/ΔI",
+         "dV/dI"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies the resistance as R = 8.0 Ω. Accept 8 Ω, 8 V/A and equivalent units or notation. Require the value to be identified as resistance or R; a bare 8 Ω or a gradient-only statement is insufficient. Accept a clear combined statement such as gradient = resistance = 8 Ω for both rubric points. Judge meaning directly; keywords are hints only and never a correctness gate.",
+       "keywords": [
+        [
+         "8.0 Ω",
+         "8 Ω",
+         "8.0 ohm",
+         "8 ohm",
+         "8.0 Omega",
+         "8 Omega",
+         "8.0\\,\\Omega",
+         "8\\,\\Omega",
+         "8.0 V/A",
+         "8 V/A",
+         "8.0 V A⁻¹",
+         "8 V A⁻¹",
+         "8.0 V A^-1",
+         "8 V A^-1",
+         "8.0 volts per ampere",
+         "8 volts per ampere",
+         "8.0\\,\\mathrm{V\\,A^{-1}}",
+         "8\\,\\mathrm{V\\,A^{-1}}",
+         "8.0\\,\\mathrm{V/A}",
+         "8\\,\\mathrm{V/A}"
+        ],
+        [
+         "resistance",
+         "R"
+        ]
+       ]
+      },
+      {
+       "point": "States that the swapped-axis straight-line gradient is 1/R or reciprocal resistance; accept equivalent A/V, A V⁻¹, inverse-ohm and siemens notation.",
+       "keywords": [
+        [
+         "1/R",
+         "reciprocal resistance",
+         "reciprocal of resistance",
+         "0.125 A/V",
+         "0.125 A V^-1",
+         "0.125 amperes per volt",
+         "0.125\\,\\mathrm{A\\,V^{-1}}",
+         "0.125 A V⁻¹",
+         "0.125 Ω⁻¹",
+         "0.125 Ω^-1",
+         "0.125 ohm^-1",
+         "0.125 inverse ohms",
+         "0.125 S",
+         "0.125 siemens",
+         "0.125\\,\\Omega^{-1}",
+         "0.125\\,\\mathrm{S}"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "The gradient of an $I$–$V$ graph is resistance.",
+     "temptation": "The straight-line shortcut is remembered without checking axes or curvature.",
+     "fix": "At a point resistance is $V/I$; the gradient of an $I$–$V$ graph is not generally resistance. Use the ratio at the chosen point."
+    }
+   ],
+   "diagrams": [
+    "Assets/9702/9702-9.3-metal-iv.svg",
+    "Assets/9702/9702-9.3-lamp-iv.svg",
+    "Assets/9702/9702-9.3-diode-iv.svg"
+   ],
+   "diagram_reason": "The existing metal, lamp and diode SVGs were visually inspected, but their requested aliases are absent from the authoritative Library catalog. No unverified graphic is bound; registration is required before display.\nRegistration rechecked on 2026-10-31: the authoritative Library now resolves and hash-verifies these graphs. The bindings and accessible descriptions above supersede the earlier availability limitation.",
+   "source_gaps": [
+    "Reviewed evidence is limited to the cited syllabus statements, bundle paper/report excerpts and notes pages; this is not an exhaustive official-paper audit.",
+    "Existing characteristic SVGs are visually legible but lack a resolvable registered Library asset record; the renderer cannot write the read-only Library in this pass.",
+    "The earlier asset-availability gap is resolved: authoritative Library registrations, hashes and provenance were verified on 2026-10-31; no new registration or source artwork was needed.",
+    "Source checked: SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.8-10 describes conventional component characteristics; this check instead supplies illustrative readings for an unlabelled component, which do not uniquely determine interpolation, exact symmetry or continuous steepening."
+   ],
+   "exam_language": [
+    {
+     "name": "Calculate",
+     "meaning": "State the relationship, substitute quantities in compatible units, and give the result with units."
+    }
+   ],
+   "diagram_descriptions": [
+    "Illustrative metallic-conductor graph at constant temperature: current in amperes is vertical and potential difference in volts is horizontal. A straight line passes through the origin from negative to positive coordinates, reaching 1.2 amperes at 6 volts. Reversing polarity reverses current.",
+    "Illustrative filament-lamp graph: current in amperes is vertical and potential difference in volts is horizontal. The curve passes through the origin and flattens as the magnitude of potential difference increases in either polarity. The labelled point P is 4.0 volts and 0.60 amperes. Heating raises filament resistance; use paired coordinates to find point resistance rather than a tangent gradient.",
+    "Illustrative semiconductor-diode graph: current in amperes is vertical and potential difference in volts is horizontal. Negative potential difference denotes reverse bias, with negligible reverse current over the displayed range. Positive potential difference denotes forward bias; current rises sharply at larger forward voltages. The graph is asymmetric and its numerical values are illustrative, not universal."
+   ],
+   "diagram_provenance": {
+    "Library/Courses/9702/Diagrams/9702/9702-9.3-metal-iv.svg": {
+     "sha256": "f7ab05b8d248548e48da13569cc51bad6b520e52901d1a49b8ef058ce2b4f934",
+     "origins": [
+      "STEM Tutor/Assets/9702/9702-9.3-metal-iv.svg",
+      "stem-tutor/build/out/assets/9702/9702-9.3-metal-iv.svg",
+      "stem-tutor/build/out/Assets/9702/9702-9.3-metal-iv.svg"
+     ],
+     "registered_alias": "Assets/9702/9702-9.3-metal-iv.svg",
+     "review": "Hash verified against authoritative Library catalog and visually inspected on 2026-10-31."
+    },
+    "Library/Courses/9702/Diagrams/9702/9702-9.3-lamp-iv.svg": {
+     "sha256": "27489e1e2c131ca04cdc4822a4b3b386f94e41ea674ad40eed98a00e5d3bf9f1",
+     "origins": [
+      "STEM Tutor/Assets/9702/9702-9.3-lamp-iv.svg",
+      "stem-tutor/build/out/assets/9702/9702-9.3-lamp-iv.svg",
+      "stem-tutor/build/out/Assets/9702/9702-9.3-lamp-iv.svg"
+     ],
+     "registered_alias": "Assets/9702/9702-9.3-lamp-iv.svg",
+     "review": "Hash verified against authoritative Library catalog and visually inspected on 2026-10-31."
+    },
+    "Library/Courses/9702/Diagrams/9702/9702-9.3-diode-iv.svg": {
+     "sha256": "fae89c7ed1575235655ea929b4cf11617715a33212f581820dd50deb07a77bfc",
+     "origins": [
+      "STEM Tutor/Assets/9702/9702-9.3-diode-iv.svg",
+      "stem-tutor/build/out/assets/9702/9702-9.3-diode-iv.svg",
+      "stem-tutor/build/out/Assets/9702/9702-9.3-diode-iv.svg"
+     ],
+     "registered_alias": "Assets/9702/9702-9.3-diode-iv.svg",
+     "review": "Hash verified against authoritative Library catalog and visually inspected on 2026-10-31."
+    }
+   }
   },
   "9702-9.3.4": {
    "motivate": "A filament lamp changes as it warms during use.",
@@ -6074,7 +6588,115 @@
    "connect": "This is why a lamp does not follow Ohm’s law while its temperature changes.",
    "note": "- more current heats filament\n- hotter filament: higher resistance\n- lamp graph curves",
    "self_explain": "Why does the lamp curve become less steep?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Increasing the lamp p.d. raises its current and heats its filament. The hotter metal has greater resistance, so the current rises less than proportionally to p.d.; increasing resistance does not imply that the current must fall while p.d. is also increasing.\nCommon mistake: A lamp has zero resistance at the origin. Zero divided by zero does not define resistance; the cold filament has finite nonzero resistance, inferred from small nonzero readings.",
+   "terms": [
+    {
+     "term": "filament",
+     "meaning": "Thin metal wire that heats and emits light in a lamp.",
+     "notation": "$R=V/I$ at each operating point",
+     "spoken": "resistance at each operating point",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.9–10; ER 9702 w23 P13 Q32; ER 9702 w22 P12 Q33; syllabus 9.3.4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain lamp heating and changing resistance",
+     "wordings": [
+      "Explain the curved filament characteristic."
+     ],
+     "example": "A lamp changes from $(2.0\\,\\mathrm V,0.40\\,\\mathrm A)$ to $(5.0\\,\\mathrm V,0.70\\,\\mathrm A)$. The point resistance rises from $5.0\\,\\Omega$ to about $7.1\\,\\Omega$. Higher current heats the filament, raising its temperature and resistance; current still rises because the applied p.d. also rises.",
+     "check": "A lamp changes from $(1.5\\,\\mathrm V,0.30\\,\\mathrm A)$ to $(4.8\\,\\mathrm V,0.60\\,\\mathrm A)$. Calculate both resistances and explain the change and the flattening of an $I$-vertical graph.",
+     "answer": "Resistances are $5.0\\,\\Omega$ and $8.0\\,\\Omega$. Greater current heats the filament; its temperature and resistance rise, so current increases less than proportionally to p.d. and the graph flattens.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.9–10; ER 9702 w23 P13 Q32; ER 9702 w22 P12 Q33; syllabus 9.3.4",
+     "rubric": [
+      {
+       "point": "Obtains 5.0 and 8.0 ohms using the paired readings.",
+       "keywords": [
+        [
+         "5"
+        ],
+        [
+         "8"
+        ],
+        [
+         "ohm",
+         "Omega",
+         "Ω"
+        ]
+       ]
+      },
+      {
+       "point": "Links increased current to heating, higher temperature and higher resistance.",
+       "keywords": [
+        [
+         "heat",
+         "temperature"
+        ],
+        [
+         "increase",
+         "higher",
+         "rise"
+        ],
+        [
+         "resistance"
+        ]
+       ]
+      },
+      {
+       "point": "Links higher resistance to a less-than-proportional current increase.",
+       "keywords": [
+        [
+         "less",
+         "flatten",
+         "non-proportional"
+        ],
+        [
+         "current"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "A hotter filament has lower resistance.",
+     "temptation": "The NTC sensor trend is transferred to the metal filament.",
+     "fix": "Heating a metal filament increases its resistance. As current and temperature rise, resistance rises."
+    }
+   ],
+   "diagrams": [
+    "Assets/9702/9702-9.3-lamp-iv.svg"
+   ],
+   "diagram_reason": "The existing lamp SVG was visually inspected but is unregistered in the authoritative catalog; card 3 records the shared registration gap.\nRegistration rechecked on 2026-10-31: the authoritative Library now resolves and hash-verifies these graphs. The bindings and accessible descriptions above supersede the earlier availability limitation.",
+   "source_gaps": [
+    "Reviewed evidence is limited to the cited syllabus statements, bundle paper/report excerpts and notes pages; this is not an exhaustive official-paper audit.",
+    "Existing characteristic SVGs are visually legible but lack a resolvable registered Library asset record; the renderer cannot write the read-only Library in this pass.",
+    "The earlier asset-availability gap is resolved: authoritative Library registrations, hashes and provenance were verified on 2026-10-31; no new registration or source artwork was needed."
+   ],
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Connect the change to its physical cause; naming a trend alone does not explain it."
+    }
+   ],
+   "diagram_descriptions": [
+    "Illustrative filament-lamp graph: current in amperes is vertical and potential difference in volts is horizontal. The curve passes through the origin and flattens as the magnitude of potential difference increases in either polarity. The labelled point P is 4.0 volts and 0.60 amperes. Heating raises filament resistance; use paired coordinates to find point resistance rather than a tangent gradient."
+   ],
+   "diagram_provenance": {
+    "Library/Courses/9702/Diagrams/9702/9702-9.3-lamp-iv.svg": {
+     "sha256": "27489e1e2c131ca04cdc4822a4b3b386f94e41ea674ad40eed98a00e5d3bf9f1",
+     "origins": [
+      "STEM Tutor/Assets/9702/9702-9.3-lamp-iv.svg",
+      "stem-tutor/build/out/assets/9702/9702-9.3-lamp-iv.svg",
+      "stem-tutor/build/out/Assets/9702/9702-9.3-lamp-iv.svg"
+     ],
+     "registered_alias": "Assets/9702/9702-9.3-lamp-iv.svg",
+     "review": "Hash verified against authoritative Library catalog and visually inspected on 2026-10-31."
+    }
+   }
   },
   "9702-9.3.5": {
    "motivate": "An equation alone does not tell you whether resistance stays constant.",
@@ -6082,7 +6704,114 @@
    "connect": "A filament lamp fails the constant-temperature condition as its current rises.",
    "note": "- current proportional to p.d.\n- temperature constant\n- resistance constant",
    "self_explain": "What condition must accompany a statement of Ohm’s law?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "The definition gives resistance at any operating point. Ohm’s law makes an additional claim: current and p.d. are directly proportional for a conductor at constant temperature. Saying only the equation omits that condition.\nCommon mistake: Writing V = IR is a complete statement of Ohm’s law. State direct proportionality and the constant-temperature condition; the equation alone can also describe a non-ohmic operating point.",
+   "terms": [
+    {
+     "term": "direct proportionality",
+     "meaning": "The ratio stays constant; doubling one quantity doubles the other.",
+     "notation": "$I\\propto V$ at constant temperature",
+     "spoken": "I is directly proportional to V at constant temperature",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.5–6; ER 9702 w23 P23 Q7; syllabus 9.3.5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "State Ohm’s law with its condition",
+     "wordings": [
+      "State Ohm’s law; distinguish it from the resistance definition."
+     ],
+     "example": "A conductor at fixed temperature carries $0.15\\,\\mathrm A$ at $3.0\\,\\mathrm V$ and $0.30\\,\\mathrm A$ at $6.0\\,\\mathrm V$. Both ratios give $20\\,\\Omega$, consistent with proportionality. This is evidence over these readings, not proof for every possible p.d.",
+     "check": "State Ohm’s law. Explain why calculating $V/I$ once for a diode does not show that the diode obeys the law.",
+     "answer": "Current through a conductor is directly proportional to the p.d. across it provided its temperature is constant. One ratio defines resistance at one operating point; it does not establish constant resistance across changing p.d.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.5–6; ER 9702 w23 P23 Q7; syllabus 9.3.5",
+     "rubric": [
+      {
+       "point": "States direct proportionality between current and potential difference.",
+       "keywords": [
+        [
+         "current",
+         "I"
+        ],
+        [
+         "potential difference",
+         "voltage",
+         "V"
+        ],
+        [
+         "proportional"
+        ]
+       ]
+      },
+      {
+       "point": "Includes constant temperature.",
+       "keywords": [
+        [
+         "temperature"
+        ],
+        [
+         "constant",
+         "unchanged",
+         "fixed"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguishes one ratio from proportionality across readings.",
+       "keywords": [
+        [
+         "one",
+         "single",
+         "point"
+        ],
+        [
+         "constant",
+         "proportional",
+         "changing"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "$V=IR$ alone states Ohm’s law without a condition.",
+     "temptation": "The familiar equation is mistaken for the complete conditional law.",
+     "fix": "Ohm’s law requires constant temperature. State proportionality and constant temperature."
+    }
+   ],
+   "diagrams": [
+    "Assets/9702/9702-9.3-metal-iv.svg"
+   ],
+   "diagram_reason": "The existing straight-line metal SVG was visually inspected but lacks authoritative registration; the verbal law and separate check remain usable.\nRegistration rechecked on 2026-10-31: the authoritative Library now resolves and hash-verifies these graphs. The bindings and accessible descriptions above supersede the earlier availability limitation.",
+   "source_gaps": [
+    "Reviewed evidence is limited to the cited syllabus statements, bundle paper/report excerpts and notes pages; this is not an exhaustive official-paper audit.",
+    "Existing characteristic SVGs are visually legible but lack a resolvable registered Library asset record; the renderer cannot write the read-only Library in this pass.",
+    "The earlier asset-availability gap is resolved: authoritative Library registrations, hashes and provenance were verified on 2026-10-31; no new registration or source artwork was needed."
+   ],
+   "exam_language": [
+    {
+     "name": "Calculate",
+     "meaning": "State the relationship, substitute quantities in compatible units, and give the result with units."
+    }
+   ],
+   "diagram_descriptions": [
+    "Illustrative metallic-conductor graph at constant temperature: current in amperes is vertical and potential difference in volts is horizontal. A straight line passes through the origin from negative to positive coordinates, reaching 1.2 amperes at 6 volts. Reversing polarity reverses current. Its constant gradient is reciprocal resistance, not resistance."
+   ],
+   "diagram_provenance": {
+    "Library/Courses/9702/Diagrams/9702/9702-9.3-metal-iv.svg": {
+     "sha256": "f7ab05b8d248548e48da13569cc51bad6b520e52901d1a49b8ef058ce2b4f934",
+     "origins": [
+      "STEM Tutor/Assets/9702/9702-9.3-metal-iv.svg",
+      "stem-tutor/build/out/assets/9702/9702-9.3-metal-iv.svg",
+      "stem-tutor/build/out/Assets/9702/9702-9.3-metal-iv.svg"
+     ],
+     "registered_alias": "Assets/9702/9702-9.3-metal-iv.svg",
+     "review": "Hash verified against authoritative Library catalog and visually inspected on 2026-10-31."
+    }
+   }
   },
   "9702-9.3.6": {
    "motivate": "Wires of the same material can have very different resistances.",
@@ -6090,7 +6819,862 @@
    "connect": "Combine with $V=IR$ to predict current at fixed p.d.; remember that doubling diameter quadruples area.",
    "note": "- $R=\\rho L/A$\n- $A=\\pi d^2/4$\n- unit of $\\rho$: $\\Omega\\,\\mathrm{m}$",
    "self_explain": "Why is diameter squared in wire-resistance comparisons?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Resistance depends on both material and shape. Resistivity describes the material at its temperature. For a uniform wire use its length and cross-sectional area, and decide which quantities stay fixed before comparing two wires.\nCommon mistake: Stretching changes length but leaves area unchanged. At fixed volume area falls inversely with length, so both changes raise resistance.\nCommon mistake: Doubling diameter doubles area. Area depends on the square of diameter; doubling diameter gives four times the area.",
+   "terms": [
+    {
+     "term": "resistivity",
+     "meaning": "Material property at a specified temperature; equal to resistance times area divided by length.",
+     "notation": "$\\rho=RA/L$; unit $\\Omega\\,\\mathrm m$",
+     "spoken": "rho equals R A divided by L; ohm metre",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.11–14; ER 9702 w23 P12 Q32; bundle 9702 w23 P11 Q33; syllabus 9.3.6"
+    },
+    {
+     "term": "cross-sectional area",
+     "meaning": "Area of a slice perpendicular to the wire length; for a circular wire use half the diameter as radius.",
+     "notation": "$A=\\pi d^2/4$",
+     "spoken": "A equals pi d squared divided by four",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.11–14; ER 9702 w23 P12 Q32; bundle 9702 w23 P11 Q33; syllabus 9.3.6"
+    },
+    {
+     "term": "constant volume",
+     "meaning": "For a uniform wire stretched without volume loss, area times length is unchanged.",
+     "notation": "$AL=\\text{constant}$",
+     "spoken": "area times length is constant",
+     "source": "Derived from geometry and syllabus 9.3.6"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Use and rearrange the resistivity equation",
+     "wordings": [
+      "Calculate resistance or resistivity of a uniform wire."
+     ],
+     "example": "A uniform wire has $\\rho=2.0\\times10^{-8}\\,\\Omega\\,\\mathrm m$, $L=1.5\\,\\mathrm m$, $A=3.0\\times10^{-7}\\,\\mathrm{m^2}$. State $R=\\rho L/A$; substitute to obtain $R=0.10\\,\\Omega$.",
+     "check": "A uniform sample has $R=0.24\\,\\Omega$, $A=5.0\\times10^{-7}\\,\\mathrm{m^2}$ and $L=2.0\\,\\mathrm m$. Calculate its resistivity and give its unit.",
+     "answer": "$\\rho=RA/L=0.24(5.0\\times10^{-7})/2.0=6.0\\times10^{-8}\\,\\Omega\\,\\mathrm m$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.11–14; ER 9702 w23 P12 Q32; bundle 9702 w23 P11 Q33; syllabus 9.3.6",
+     "rubric": [
+      {
+       "point": "Rearranges to ρ = RA/L or substitutes 0.24 times 5.0 x 10^-7 divided by 2.0.",
+       "keywords": [
+        [
+         "RA/L",
+         "R A / L",
+         "R*A/L",
+         "resistance times area divided by length",
+         "0.24(5.0",
+         "0.24 × 5.0",
+         "0.24*5.0",
+         "0.24 \\times 5.0"
+        ],
+        [
+         "/",
+         "divided by",
+         "\\frac"
+        ]
+       ]
+      },
+      {
+       "point": "Gives resistivity 6.0 x 10^-8 Ω m, accepting equivalent complete notation.",
+       "keywords": [
+        [
+         "6.0 × 10⁻⁸",
+         "6 × 10⁻⁸",
+         "6.0 x 10^-8",
+         "6 x 10^-8",
+         "6.0×10^-8",
+         "6×10^-8",
+         "6.0e-8",
+         "6e-8",
+         "0.000000060",
+         "0.00000006",
+         "6.0\\times10^{-8}",
+         "6\\times10^{-8}"
+        ],
+        [
+         "Ω m",
+         "Ω·m",
+         "Ωm",
+         "ohm metre",
+         "ohm meter",
+         "ohm m",
+         "Omega m",
+         "\\Omega\\,\\mathrm m",
+         "\\Omega\\,\\mathrm{m}"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Convert diameter to area before calculating resistance",
+     "wordings": [
+      "Calculate a circular wire resistance using its diameter."
+     ],
+     "example": "For $d=0.40\\,\\mathrm{mm}=4.0\\times10^{-4}\\,\\mathrm m$, $A=\\pi d^2/4=1.26\\times10^{-7}\\,\\mathrm{m^2}$. With $L=2.0\\,\\mathrm m$ and $\\rho=1.6\\times10^{-8}\\,\\Omega\\,\\mathrm m$, $R=\\rho L/A=0.25\\,\\Omega$ to two significant figures. Retain extra area digits in calculation.",
+     "check": "A uniform wire has diameter $0.60\\,\\mathrm{mm}$, length $1.2\\,\\mathrm m$ and resistivity $2.4\\times10^{-8}\\,\\Omega\\,\\mathrm m$. Calculate its area in square metres and its resistance.",
+     "answer": "$A=\\pi(6.0\\times10^{-4})^2/4=2.83\\times10^{-7}\\,\\mathrm{m^2}$; $R=(2.4\\times10^{-8})(1.2)/A=0.10\\,\\Omega$ to two significant figures. Alternatively, $A=\\pi(0.30\\times10^{-3}\\,\\mathrm m)^2=2.8274\\times10^{-7}\\,\\mathrm{m^2}$; $R=0.10186\\,\\Omega=0.10\\,\\Omega$ to two significant figures.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.11–14; ER 9702 w23 P12 Q32; bundle 9702 w23 P11 Q33; syllabus 9.3.6",
+     "rubric": [
+      {
+       "point": "Uses A = pi d^2/4 or A = pi r^2 with consistent units; accept conversion of diameter or radius to metres before squaring, or calculation in mm^2 followed by conversion using 1 mm^2 = 10^-6 m^2. Judge the area method, without requiring an explicit diameter or radius in metres. Accept a correct numerical circle-area calculation using an approximation to pi, for example A = 3.14*(3.0e-4)^2, without requiring the symbol pi or its written name; check the squared radius or diameter-divided-by-four method and consistent units.",
+       "keywords": [
+        [
+         "pi",
+         "\\pi",
+         "π",
+         "3.14",
+         "3.14159"
+        ]
+       ]
+      },
+      {
+       "point": "Gives A = 2.827433388… × 10⁻⁷ m², accepting appropriately rounded 2.8, 2.83, 2.827 or 2.8274 × 10⁻⁷ m² and equivalent notation, with the value and area unit matched.",
+       "keywords": [
+        [
+         "2.8 × 10⁻⁷",
+         "2.83 × 10⁻⁷",
+         "2.8 x 10^-7",
+         "2.83 x 10^-7",
+         "2.8e-7",
+         "2.83e-7",
+         "0.00000028",
+         "0.000000283",
+         "2.8\\times10^{-7}",
+         "2.83\\times10^{-7}",
+         "2.827 × 10⁻⁷",
+         "2.8274 × 10⁻⁷",
+         "2.827 x 10^-7",
+         "2.8274 x 10^-7",
+         "2.827e-7",
+         "2.8274e-7",
+         "0.0000002827",
+         "0.00000028274",
+         "2.827\\times10^{-7}",
+         "2.8274\\times10^{-7}"
+        ],
+        [
+         "m²",
+         "m^2",
+         "m^{2}",
+         "square metre",
+         "square meter",
+         "\\mathrm{m^2}"
+        ]
+       ]
+      },
+      {
+       "point": "Gives R = 0.1018591636… Ω, accepting appropriately rounded 0.10, 0.102, 0.1019 or 0.10186 Ω and equivalent notation; match value and unit together.",
+       "keywords": [
+        [
+         "0.10 Ω",
+         "0.10Ω",
+         "0.10\\,Ω",
+         "0.10\\;Ω",
+         "0.10\\ Ω",
+         "0.10 ohm",
+         "0.10ohm",
+         "0.10\\,ohm",
+         "0.10\\;ohm",
+         "0.10\\ ohm",
+         "0.10 ohms",
+         "0.10ohms",
+         "0.10\\,ohms",
+         "0.10\\;ohms",
+         "0.10\\ ohms",
+         "0.10 Omega",
+         "0.10Omega",
+         "0.10\\,Omega",
+         "0.10\\;Omega",
+         "0.10\\ Omega",
+         "0.10 \\Omega",
+         "0.10\\Omega",
+         "0.10\\,\\Omega",
+         "0.10\\;\\Omega",
+         "0.10\\ \\Omega",
+         "0.1 Ω",
+         "0.1Ω",
+         "0.1\\,Ω",
+         "0.1\\;Ω",
+         "0.1\\ Ω",
+         "0.1 ohm",
+         "0.1ohm",
+         "0.1\\,ohm",
+         "0.1\\;ohm",
+         "0.1\\ ohm",
+         "0.1 ohms",
+         "0.1ohms",
+         "0.1\\,ohms",
+         "0.1\\;ohms",
+         "0.1\\ ohms",
+         "0.1 Omega",
+         "0.1Omega",
+         "0.1\\,Omega",
+         "0.1\\;Omega",
+         "0.1\\ Omega",
+         "0.1 \\Omega",
+         "0.1\\Omega",
+         "0.1\\,\\Omega",
+         "0.1\\;\\Omega",
+         "0.1\\ \\Omega",
+         "0.102 Ω",
+         "0.102Ω",
+         "0.102\\,Ω",
+         "0.102\\;Ω",
+         "0.102\\ Ω",
+         "0.102 ohm",
+         "0.102ohm",
+         "0.102\\,ohm",
+         "0.102\\;ohm",
+         "0.102\\ ohm",
+         "0.102 ohms",
+         "0.102ohms",
+         "0.102\\,ohms",
+         "0.102\\;ohms",
+         "0.102\\ ohms",
+         "0.102 Omega",
+         "0.102Omega",
+         "0.102\\,Omega",
+         "0.102\\;Omega",
+         "0.102\\ Omega",
+         "0.102 \\Omega",
+         "0.102\\Omega",
+         "0.102\\,\\Omega",
+         "0.102\\;\\Omega",
+         "0.102\\ \\Omega",
+         "0.1019 Ω",
+         "0.1019Ω",
+         "0.1019\\,Ω",
+         "0.1019\\;Ω",
+         "0.1019\\ Ω",
+         "0.1019 ohm",
+         "0.1019ohm",
+         "0.1019\\,ohm",
+         "0.1019\\;ohm",
+         "0.1019\\ ohm",
+         "0.1019 ohms",
+         "0.1019ohms",
+         "0.1019\\,ohms",
+         "0.1019\\;ohms",
+         "0.1019\\ ohms",
+         "0.1019 Omega",
+         "0.1019Omega",
+         "0.1019\\,Omega",
+         "0.1019\\;Omega",
+         "0.1019\\ Omega",
+         "0.1019 \\Omega",
+         "0.1019\\Omega",
+         "0.1019\\,\\Omega",
+         "0.1019\\;\\Omega",
+         "0.1019\\ \\Omega",
+         "0.10186 Ω",
+         "0.10186Ω",
+         "0.10186\\,Ω",
+         "0.10186\\;Ω",
+         "0.10186\\ Ω",
+         "0.10186 ohm",
+         "0.10186ohm",
+         "0.10186\\,ohm",
+         "0.10186\\;ohm",
+         "0.10186\\ ohm",
+         "0.10186 ohms",
+         "0.10186ohms",
+         "0.10186\\,ohms",
+         "0.10186\\;ohms",
+         "0.10186\\ ohms",
+         "0.10186 Omega",
+         "0.10186Omega",
+         "0.10186\\,Omega",
+         "0.10186\\;Omega",
+         "0.10186\\ Omega",
+         "0.10186 \\Omega",
+         "0.10186\\Omega",
+         "0.10186\\,\\Omega",
+         "0.10186\\;\\Omega",
+         "0.10186\\ \\Omega",
+         "1.0 × 10⁻¹ Ω",
+         "1.0 × 10⁻¹Ω",
+         "1.0 × 10⁻¹\\,Ω",
+         "1.0 × 10⁻¹\\;Ω",
+         "1.0 × 10⁻¹\\ Ω",
+         "1.0 × 10⁻¹ ohm",
+         "1.0 × 10⁻¹ohm",
+         "1.0 × 10⁻¹\\,ohm",
+         "1.0 × 10⁻¹\\;ohm",
+         "1.0 × 10⁻¹\\ ohm",
+         "1.0 × 10⁻¹ ohms",
+         "1.0 × 10⁻¹ohms",
+         "1.0 × 10⁻¹\\,ohms",
+         "1.0 × 10⁻¹\\;ohms",
+         "1.0 × 10⁻¹\\ ohms",
+         "1.0 × 10⁻¹ Omega",
+         "1.0 × 10⁻¹Omega",
+         "1.0 × 10⁻¹\\,Omega",
+         "1.0 × 10⁻¹\\;Omega",
+         "1.0 × 10⁻¹\\ Omega",
+         "1.0 × 10⁻¹ \\Omega",
+         "1.0 × 10⁻¹\\Omega",
+         "1.0 × 10⁻¹\\,\\Omega",
+         "1.0 × 10⁻¹\\;\\Omega",
+         "1.0 × 10⁻¹\\ \\Omega",
+         "1 × 10⁻¹ Ω",
+         "1 × 10⁻¹Ω",
+         "1 × 10⁻¹\\,Ω",
+         "1 × 10⁻¹\\;Ω",
+         "1 × 10⁻¹\\ Ω",
+         "1 × 10⁻¹ ohm",
+         "1 × 10⁻¹ohm",
+         "1 × 10⁻¹\\,ohm",
+         "1 × 10⁻¹\\;ohm",
+         "1 × 10⁻¹\\ ohm",
+         "1 × 10⁻¹ ohms",
+         "1 × 10⁻¹ohms",
+         "1 × 10⁻¹\\,ohms",
+         "1 × 10⁻¹\\;ohms",
+         "1 × 10⁻¹\\ ohms",
+         "1 × 10⁻¹ Omega",
+         "1 × 10⁻¹Omega",
+         "1 × 10⁻¹\\,Omega",
+         "1 × 10⁻¹\\;Omega",
+         "1 × 10⁻¹\\ Omega",
+         "1 × 10⁻¹ \\Omega",
+         "1 × 10⁻¹\\Omega",
+         "1 × 10⁻¹\\,\\Omega",
+         "1 × 10⁻¹\\;\\Omega",
+         "1 × 10⁻¹\\ \\Omega",
+         "1.02 × 10⁻¹ Ω",
+         "1.02 × 10⁻¹Ω",
+         "1.02 × 10⁻¹\\,Ω",
+         "1.02 × 10⁻¹\\;Ω",
+         "1.02 × 10⁻¹\\ Ω",
+         "1.02 × 10⁻¹ ohm",
+         "1.02 × 10⁻¹ohm",
+         "1.02 × 10⁻¹\\,ohm",
+         "1.02 × 10⁻¹\\;ohm",
+         "1.02 × 10⁻¹\\ ohm",
+         "1.02 × 10⁻¹ ohms",
+         "1.02 × 10⁻¹ohms",
+         "1.02 × 10⁻¹\\,ohms",
+         "1.02 × 10⁻¹\\;ohms",
+         "1.02 × 10⁻¹\\ ohms",
+         "1.02 × 10⁻¹ Omega",
+         "1.02 × 10⁻¹Omega",
+         "1.02 × 10⁻¹\\,Omega",
+         "1.02 × 10⁻¹\\;Omega",
+         "1.02 × 10⁻¹\\ Omega",
+         "1.02 × 10⁻¹ \\Omega",
+         "1.02 × 10⁻¹\\Omega",
+         "1.02 × 10⁻¹\\,\\Omega",
+         "1.02 × 10⁻¹\\;\\Omega",
+         "1.02 × 10⁻¹\\ \\Omega",
+         "1.019 × 10⁻¹ Ω",
+         "1.019 × 10⁻¹Ω",
+         "1.019 × 10⁻¹\\,Ω",
+         "1.019 × 10⁻¹\\;Ω",
+         "1.019 × 10⁻¹\\ Ω",
+         "1.019 × 10⁻¹ ohm",
+         "1.019 × 10⁻¹ohm",
+         "1.019 × 10⁻¹\\,ohm",
+         "1.019 × 10⁻¹\\;ohm",
+         "1.019 × 10⁻¹\\ ohm",
+         "1.019 × 10⁻¹ ohms",
+         "1.019 × 10⁻¹ohms",
+         "1.019 × 10⁻¹\\,ohms",
+         "1.019 × 10⁻¹\\;ohms",
+         "1.019 × 10⁻¹\\ ohms",
+         "1.019 × 10⁻¹ Omega",
+         "1.019 × 10⁻¹Omega",
+         "1.019 × 10⁻¹\\,Omega",
+         "1.019 × 10⁻¹\\;Omega",
+         "1.019 × 10⁻¹\\ Omega",
+         "1.019 × 10⁻¹ \\Omega",
+         "1.019 × 10⁻¹\\Omega",
+         "1.019 × 10⁻¹\\,\\Omega",
+         "1.019 × 10⁻¹\\;\\Omega",
+         "1.019 × 10⁻¹\\ \\Omega",
+         "1.0186 × 10⁻¹ Ω",
+         "1.0186 × 10⁻¹Ω",
+         "1.0186 × 10⁻¹\\,Ω",
+         "1.0186 × 10⁻¹\\;Ω",
+         "1.0186 × 10⁻¹\\ Ω",
+         "1.0186 × 10⁻¹ ohm",
+         "1.0186 × 10⁻¹ohm",
+         "1.0186 × 10⁻¹\\,ohm",
+         "1.0186 × 10⁻¹\\;ohm",
+         "1.0186 × 10⁻¹\\ ohm",
+         "1.0186 × 10⁻¹ ohms",
+         "1.0186 × 10⁻¹ohms",
+         "1.0186 × 10⁻¹\\,ohms",
+         "1.0186 × 10⁻¹\\;ohms",
+         "1.0186 × 10⁻¹\\ ohms",
+         "1.0186 × 10⁻¹ Omega",
+         "1.0186 × 10⁻¹Omega",
+         "1.0186 × 10⁻¹\\,Omega",
+         "1.0186 × 10⁻¹\\;Omega",
+         "1.0186 × 10⁻¹\\ Omega",
+         "1.0186 × 10⁻¹ \\Omega",
+         "1.0186 × 10⁻¹\\Omega",
+         "1.0186 × 10⁻¹\\,\\Omega",
+         "1.0186 × 10⁻¹\\;\\Omega",
+         "1.0186 × 10⁻¹\\ \\Omega",
+         "1.0 x 10^-1 Ω",
+         "1.0 x 10^-1Ω",
+         "1.0 x 10^-1\\,Ω",
+         "1.0 x 10^-1\\;Ω",
+         "1.0 x 10^-1\\ Ω",
+         "1.0 x 10^-1 ohm",
+         "1.0 x 10^-1ohm",
+         "1.0 x 10^-1\\,ohm",
+         "1.0 x 10^-1\\;ohm",
+         "1.0 x 10^-1\\ ohm",
+         "1.0 x 10^-1 ohms",
+         "1.0 x 10^-1ohms",
+         "1.0 x 10^-1\\,ohms",
+         "1.0 x 10^-1\\;ohms",
+         "1.0 x 10^-1\\ ohms",
+         "1.0 x 10^-1 Omega",
+         "1.0 x 10^-1Omega",
+         "1.0 x 10^-1\\,Omega",
+         "1.0 x 10^-1\\;Omega",
+         "1.0 x 10^-1\\ Omega",
+         "1.0 x 10^-1 \\Omega",
+         "1.0 x 10^-1\\Omega",
+         "1.0 x 10^-1\\,\\Omega",
+         "1.0 x 10^-1\\;\\Omega",
+         "1.0 x 10^-1\\ \\Omega",
+         "1 x 10^-1 Ω",
+         "1 x 10^-1Ω",
+         "1 x 10^-1\\,Ω",
+         "1 x 10^-1\\;Ω",
+         "1 x 10^-1\\ Ω",
+         "1 x 10^-1 ohm",
+         "1 x 10^-1ohm",
+         "1 x 10^-1\\,ohm",
+         "1 x 10^-1\\;ohm",
+         "1 x 10^-1\\ ohm",
+         "1 x 10^-1 ohms",
+         "1 x 10^-1ohms",
+         "1 x 10^-1\\,ohms",
+         "1 x 10^-1\\;ohms",
+         "1 x 10^-1\\ ohms",
+         "1 x 10^-1 Omega",
+         "1 x 10^-1Omega",
+         "1 x 10^-1\\,Omega",
+         "1 x 10^-1\\;Omega",
+         "1 x 10^-1\\ Omega",
+         "1 x 10^-1 \\Omega",
+         "1 x 10^-1\\Omega",
+         "1 x 10^-1\\,\\Omega",
+         "1 x 10^-1\\;\\Omega",
+         "1 x 10^-1\\ \\Omega",
+         "1.02 x 10^-1 Ω",
+         "1.02 x 10^-1Ω",
+         "1.02 x 10^-1\\,Ω",
+         "1.02 x 10^-1\\;Ω",
+         "1.02 x 10^-1\\ Ω",
+         "1.02 x 10^-1 ohm",
+         "1.02 x 10^-1ohm",
+         "1.02 x 10^-1\\,ohm",
+         "1.02 x 10^-1\\;ohm",
+         "1.02 x 10^-1\\ ohm",
+         "1.02 x 10^-1 ohms",
+         "1.02 x 10^-1ohms",
+         "1.02 x 10^-1\\,ohms",
+         "1.02 x 10^-1\\;ohms",
+         "1.02 x 10^-1\\ ohms",
+         "1.02 x 10^-1 Omega",
+         "1.02 x 10^-1Omega",
+         "1.02 x 10^-1\\,Omega",
+         "1.02 x 10^-1\\;Omega",
+         "1.02 x 10^-1\\ Omega",
+         "1.02 x 10^-1 \\Omega",
+         "1.02 x 10^-1\\Omega",
+         "1.02 x 10^-1\\,\\Omega",
+         "1.02 x 10^-1\\;\\Omega",
+         "1.02 x 10^-1\\ \\Omega",
+         "1.019 x 10^-1 Ω",
+         "1.019 x 10^-1Ω",
+         "1.019 x 10^-1\\,Ω",
+         "1.019 x 10^-1\\;Ω",
+         "1.019 x 10^-1\\ Ω",
+         "1.019 x 10^-1 ohm",
+         "1.019 x 10^-1ohm",
+         "1.019 x 10^-1\\,ohm",
+         "1.019 x 10^-1\\;ohm",
+         "1.019 x 10^-1\\ ohm",
+         "1.019 x 10^-1 ohms",
+         "1.019 x 10^-1ohms",
+         "1.019 x 10^-1\\,ohms",
+         "1.019 x 10^-1\\;ohms",
+         "1.019 x 10^-1\\ ohms",
+         "1.019 x 10^-1 Omega",
+         "1.019 x 10^-1Omega",
+         "1.019 x 10^-1\\,Omega",
+         "1.019 x 10^-1\\;Omega",
+         "1.019 x 10^-1\\ Omega",
+         "1.019 x 10^-1 \\Omega",
+         "1.019 x 10^-1\\Omega",
+         "1.019 x 10^-1\\,\\Omega",
+         "1.019 x 10^-1\\;\\Omega",
+         "1.019 x 10^-1\\ \\Omega",
+         "1.0186 x 10^-1 Ω",
+         "1.0186 x 10^-1Ω",
+         "1.0186 x 10^-1\\,Ω",
+         "1.0186 x 10^-1\\;Ω",
+         "1.0186 x 10^-1\\ Ω",
+         "1.0186 x 10^-1 ohm",
+         "1.0186 x 10^-1ohm",
+         "1.0186 x 10^-1\\,ohm",
+         "1.0186 x 10^-1\\;ohm",
+         "1.0186 x 10^-1\\ ohm",
+         "1.0186 x 10^-1 ohms",
+         "1.0186 x 10^-1ohms",
+         "1.0186 x 10^-1\\,ohms",
+         "1.0186 x 10^-1\\;ohms",
+         "1.0186 x 10^-1\\ ohms",
+         "1.0186 x 10^-1 Omega",
+         "1.0186 x 10^-1Omega",
+         "1.0186 x 10^-1\\,Omega",
+         "1.0186 x 10^-1\\;Omega",
+         "1.0186 x 10^-1\\ Omega",
+         "1.0186 x 10^-1 \\Omega",
+         "1.0186 x 10^-1\\Omega",
+         "1.0186 x 10^-1\\,\\Omega",
+         "1.0186 x 10^-1\\;\\Omega",
+         "1.0186 x 10^-1\\ \\Omega",
+         "1.0e-1 Ω",
+         "1.0e-1Ω",
+         "1.0e-1\\,Ω",
+         "1.0e-1\\;Ω",
+         "1.0e-1\\ Ω",
+         "1.0e-1 ohm",
+         "1.0e-1ohm",
+         "1.0e-1\\,ohm",
+         "1.0e-1\\;ohm",
+         "1.0e-1\\ ohm",
+         "1.0e-1 ohms",
+         "1.0e-1ohms",
+         "1.0e-1\\,ohms",
+         "1.0e-1\\;ohms",
+         "1.0e-1\\ ohms",
+         "1.0e-1 Omega",
+         "1.0e-1Omega",
+         "1.0e-1\\,Omega",
+         "1.0e-1\\;Omega",
+         "1.0e-1\\ Omega",
+         "1.0e-1 \\Omega",
+         "1.0e-1\\Omega",
+         "1.0e-1\\,\\Omega",
+         "1.0e-1\\;\\Omega",
+         "1.0e-1\\ \\Omega",
+         "1e-1 Ω",
+         "1e-1Ω",
+         "1e-1\\,Ω",
+         "1e-1\\;Ω",
+         "1e-1\\ Ω",
+         "1e-1 ohm",
+         "1e-1ohm",
+         "1e-1\\,ohm",
+         "1e-1\\;ohm",
+         "1e-1\\ ohm",
+         "1e-1 ohms",
+         "1e-1ohms",
+         "1e-1\\,ohms",
+         "1e-1\\;ohms",
+         "1e-1\\ ohms",
+         "1e-1 Omega",
+         "1e-1Omega",
+         "1e-1\\,Omega",
+         "1e-1\\;Omega",
+         "1e-1\\ Omega",
+         "1e-1 \\Omega",
+         "1e-1\\Omega",
+         "1e-1\\,\\Omega",
+         "1e-1\\;\\Omega",
+         "1e-1\\ \\Omega",
+         "1.02e-1 Ω",
+         "1.02e-1Ω",
+         "1.02e-1\\,Ω",
+         "1.02e-1\\;Ω",
+         "1.02e-1\\ Ω",
+         "1.02e-1 ohm",
+         "1.02e-1ohm",
+         "1.02e-1\\,ohm",
+         "1.02e-1\\;ohm",
+         "1.02e-1\\ ohm",
+         "1.02e-1 ohms",
+         "1.02e-1ohms",
+         "1.02e-1\\,ohms",
+         "1.02e-1\\;ohms",
+         "1.02e-1\\ ohms",
+         "1.02e-1 Omega",
+         "1.02e-1Omega",
+         "1.02e-1\\,Omega",
+         "1.02e-1\\;Omega",
+         "1.02e-1\\ Omega",
+         "1.02e-1 \\Omega",
+         "1.02e-1\\Omega",
+         "1.02e-1\\,\\Omega",
+         "1.02e-1\\;\\Omega",
+         "1.02e-1\\ \\Omega",
+         "1.019e-1 Ω",
+         "1.019e-1Ω",
+         "1.019e-1\\,Ω",
+         "1.019e-1\\;Ω",
+         "1.019e-1\\ Ω",
+         "1.019e-1 ohm",
+         "1.019e-1ohm",
+         "1.019e-1\\,ohm",
+         "1.019e-1\\;ohm",
+         "1.019e-1\\ ohm",
+         "1.019e-1 ohms",
+         "1.019e-1ohms",
+         "1.019e-1\\,ohms",
+         "1.019e-1\\;ohms",
+         "1.019e-1\\ ohms",
+         "1.019e-1 Omega",
+         "1.019e-1Omega",
+         "1.019e-1\\,Omega",
+         "1.019e-1\\;Omega",
+         "1.019e-1\\ Omega",
+         "1.019e-1 \\Omega",
+         "1.019e-1\\Omega",
+         "1.019e-1\\,\\Omega",
+         "1.019e-1\\;\\Omega",
+         "1.019e-1\\ \\Omega",
+         "1.0186e-1 Ω",
+         "1.0186e-1Ω",
+         "1.0186e-1\\,Ω",
+         "1.0186e-1\\;Ω",
+         "1.0186e-1\\ Ω",
+         "1.0186e-1 ohm",
+         "1.0186e-1ohm",
+         "1.0186e-1\\,ohm",
+         "1.0186e-1\\;ohm",
+         "1.0186e-1\\ ohm",
+         "1.0186e-1 ohms",
+         "1.0186e-1ohms",
+         "1.0186e-1\\,ohms",
+         "1.0186e-1\\;ohms",
+         "1.0186e-1\\ ohms",
+         "1.0186e-1 Omega",
+         "1.0186e-1Omega",
+         "1.0186e-1\\,Omega",
+         "1.0186e-1\\;Omega",
+         "1.0186e-1\\ Omega",
+         "1.0186e-1 \\Omega",
+         "1.0186e-1\\Omega",
+         "1.0186e-1\\,\\Omega",
+         "1.0186e-1\\;\\Omega",
+         "1.0186e-1\\ \\Omega",
+         "1.0\\times10^{-1} Ω",
+         "1.0\\times10^{-1}Ω",
+         "1.0\\times10^{-1}\\,Ω",
+         "1.0\\times10^{-1}\\;Ω",
+         "1.0\\times10^{-1}\\ Ω",
+         "1.0\\times10^{-1} ohm",
+         "1.0\\times10^{-1}ohm",
+         "1.0\\times10^{-1}\\,ohm",
+         "1.0\\times10^{-1}\\;ohm",
+         "1.0\\times10^{-1}\\ ohm",
+         "1.0\\times10^{-1} ohms",
+         "1.0\\times10^{-1}ohms",
+         "1.0\\times10^{-1}\\,ohms",
+         "1.0\\times10^{-1}\\;ohms",
+         "1.0\\times10^{-1}\\ ohms",
+         "1.0\\times10^{-1} Omega",
+         "1.0\\times10^{-1}Omega",
+         "1.0\\times10^{-1}\\,Omega",
+         "1.0\\times10^{-1}\\;Omega",
+         "1.0\\times10^{-1}\\ Omega",
+         "1.0\\times10^{-1} \\Omega",
+         "1.0\\times10^{-1}\\Omega",
+         "1.0\\times10^{-1}\\,\\Omega",
+         "1.0\\times10^{-1}\\;\\Omega",
+         "1.0\\times10^{-1}\\ \\Omega",
+         "1\\times10^{-1} Ω",
+         "1\\times10^{-1}Ω",
+         "1\\times10^{-1}\\,Ω",
+         "1\\times10^{-1}\\;Ω",
+         "1\\times10^{-1}\\ Ω",
+         "1\\times10^{-1} ohm",
+         "1\\times10^{-1}ohm",
+         "1\\times10^{-1}\\,ohm",
+         "1\\times10^{-1}\\;ohm",
+         "1\\times10^{-1}\\ ohm",
+         "1\\times10^{-1} ohms",
+         "1\\times10^{-1}ohms",
+         "1\\times10^{-1}\\,ohms",
+         "1\\times10^{-1}\\;ohms",
+         "1\\times10^{-1}\\ ohms",
+         "1\\times10^{-1} Omega",
+         "1\\times10^{-1}Omega",
+         "1\\times10^{-1}\\,Omega",
+         "1\\times10^{-1}\\;Omega",
+         "1\\times10^{-1}\\ Omega",
+         "1\\times10^{-1} \\Omega",
+         "1\\times10^{-1}\\Omega",
+         "1\\times10^{-1}\\,\\Omega",
+         "1\\times10^{-1}\\;\\Omega",
+         "1\\times10^{-1}\\ \\Omega",
+         "1.02\\times10^{-1} Ω",
+         "1.02\\times10^{-1}Ω",
+         "1.02\\times10^{-1}\\,Ω",
+         "1.02\\times10^{-1}\\;Ω",
+         "1.02\\times10^{-1}\\ Ω",
+         "1.02\\times10^{-1} ohm",
+         "1.02\\times10^{-1}ohm",
+         "1.02\\times10^{-1}\\,ohm",
+         "1.02\\times10^{-1}\\;ohm",
+         "1.02\\times10^{-1}\\ ohm",
+         "1.02\\times10^{-1} ohms",
+         "1.02\\times10^{-1}ohms",
+         "1.02\\times10^{-1}\\,ohms",
+         "1.02\\times10^{-1}\\;ohms",
+         "1.02\\times10^{-1}\\ ohms",
+         "1.02\\times10^{-1} Omega",
+         "1.02\\times10^{-1}Omega",
+         "1.02\\times10^{-1}\\,Omega",
+         "1.02\\times10^{-1}\\;Omega",
+         "1.02\\times10^{-1}\\ Omega",
+         "1.02\\times10^{-1} \\Omega",
+         "1.02\\times10^{-1}\\Omega",
+         "1.02\\times10^{-1}\\,\\Omega",
+         "1.02\\times10^{-1}\\;\\Omega",
+         "1.02\\times10^{-1}\\ \\Omega",
+         "1.019\\times10^{-1} Ω",
+         "1.019\\times10^{-1}Ω",
+         "1.019\\times10^{-1}\\,Ω",
+         "1.019\\times10^{-1}\\;Ω",
+         "1.019\\times10^{-1}\\ Ω",
+         "1.019\\times10^{-1} ohm",
+         "1.019\\times10^{-1}ohm",
+         "1.019\\times10^{-1}\\,ohm",
+         "1.019\\times10^{-1}\\;ohm",
+         "1.019\\times10^{-1}\\ ohm",
+         "1.019\\times10^{-1} ohms",
+         "1.019\\times10^{-1}ohms",
+         "1.019\\times10^{-1}\\,ohms",
+         "1.019\\times10^{-1}\\;ohms",
+         "1.019\\times10^{-1}\\ ohms",
+         "1.019\\times10^{-1} Omega",
+         "1.019\\times10^{-1}Omega",
+         "1.019\\times10^{-1}\\,Omega",
+         "1.019\\times10^{-1}\\;Omega",
+         "1.019\\times10^{-1}\\ Omega",
+         "1.019\\times10^{-1} \\Omega",
+         "1.019\\times10^{-1}\\Omega",
+         "1.019\\times10^{-1}\\,\\Omega",
+         "1.019\\times10^{-1}\\;\\Omega",
+         "1.019\\times10^{-1}\\ \\Omega",
+         "1.0186\\times10^{-1} Ω",
+         "1.0186\\times10^{-1}Ω",
+         "1.0186\\times10^{-1}\\,Ω",
+         "1.0186\\times10^{-1}\\;Ω",
+         "1.0186\\times10^{-1}\\ Ω",
+         "1.0186\\times10^{-1} ohm",
+         "1.0186\\times10^{-1}ohm",
+         "1.0186\\times10^{-1}\\,ohm",
+         "1.0186\\times10^{-1}\\;ohm",
+         "1.0186\\times10^{-1}\\ ohm",
+         "1.0186\\times10^{-1} ohms",
+         "1.0186\\times10^{-1}ohms",
+         "1.0186\\times10^{-1}\\,ohms",
+         "1.0186\\times10^{-1}\\;ohms",
+         "1.0186\\times10^{-1}\\ ohms",
+         "1.0186\\times10^{-1} Omega",
+         "1.0186\\times10^{-1}Omega",
+         "1.0186\\times10^{-1}\\,Omega",
+         "1.0186\\times10^{-1}\\;Omega",
+         "1.0186\\times10^{-1}\\ Omega",
+         "1.0186\\times10^{-1} \\Omega",
+         "1.0186\\times10^{-1}\\Omega",
+         "1.0186\\times10^{-1}\\,\\Omega",
+         "1.0186\\times10^{-1}\\;\\Omega",
+         "1.0186\\times10^{-1}\\ \\Omega"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Stretch a wire at constant volume and resistivity",
+     "wordings": [
+      "Determine the resistance factor for a stretched wire."
+     ],
+     "example": "Assume uniform shape, unchanged volume and unchanged resistivity. Step 1: $A_2L_2=A_1L_1$. Step 2: doubling length makes $A_2=A_1/2$. Step 3: $R_2/R_1=(L_2/L_1)(A_1/A_2)=2\\times2=4$. An initial $3.0\\,\\Omega$ becomes $12\\,\\Omega$.",
+     "check": "A uniform wire of resistance $8.0\\,\\Omega$ is stretched to $1.5$ times its original length at unchanged volume and resistivity. Determine the area factor, resistance factor and final resistance.",
+     "answer": "$A_2/A_1=1/1.5=2/3$; $R_2/R_1=1.5^2=2.25$; $R_2=18\\,\\Omega$. This assumes volume and resistivity do not change.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.11–14; ER 9702 w23 P12 Q32; bundle 9702 w23 P11 Q33; syllabus 9.3.6; derived from AL constant and R = rho L/A (the cited notes do not directly present this stretching form)",
+     "rubric": [
+      {
+       "point": "Uses constant volume to obtain A2/A1 = 2/3, accepting appropriately rounded 0.67, 0.667 or 0.6667.",
+       "keywords": [
+        [
+         "2/3",
+         "two thirds",
+         "0.667",
+         "1/1.5",
+         "0.67",
+         "0.6667",
+         "0.66667",
+         "0.666...",
+         "0.666…",
+         "two-thirds"
+        ],
+        [
+         "area",
+         "A"
+        ]
+       ]
+      },
+      {
+       "point": "Combines length and inverse-area factors to obtain resistance factor 2.25.",
+       "keywords": [
+        [
+         "2.25",
+         "$1.5^2$",
+         "1.5 times 1.5"
+        ]
+       ]
+      },
+      {
+       "point": "Gives final resistance 18 ohms.",
+       "keywords": [
+        [
+         "18"
+        ],
+        [
+         "ohm",
+         "Omega",
+         "Ω"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "Doubling the diameter doubles the cross-sectional area.",
+     "temptation": "A linear size is confused with the area of a slice.",
+     "fix": "Area depends on the square of diameter. Use $A=πd^2/4$."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "Equations and staged ratios describe this geometry without a new diagram; the plan requests linking the existing characteristic graphs only.",
+   "source_gaps": [
+    "Reviewed evidence is limited to the cited syllabus statements, bundle paper/report excerpts and notes pages; this is not an exhaustive official-paper audit.",
+    "The constant-volume form is derived algebraically; the reviewed notes pp.13–14 cover diameter and area but do not themselves demonstrate wire stretching."
+   ],
+   "exam_language": [
+    {
+     "name": "Calculate",
+     "meaning": "State the relationship, substitute quantities in compatible units, and give the result with units."
+    }
+   ]
   },
   "9702-9.3.7": {
    "motivate": "A light sensor changes an electrical resistance.",
@@ -6098,7 +7682,137 @@
    "connect": "This trend supports sensing changes in illumination in a circuit.",
    "note": "- more light: lower LDR resistance\n- less light: higher LDR resistance",
    "self_explain": "What happens to an LDR resistance when a lamp shines more brightly on it?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "An LDR has lower resistance in brighter light. That component trend is separate from a voltage reading: to predict a voltage share you must know which component the voltmeter spans and how the circuit is connected.\nCommon mistake: Lower LDR resistance always means larger p.d. across it. In the specified series circuit current also changes: use the resistance fraction of the fixed supply.",
+   "terms": [
+    {
+     "term": "LDR",
+     "meaning": "Light-dependent resistor, whose resistance decreases as incident light intensity increases.",
+     "notation": "$R_{\\mathrm{LDR}}$",
+     "spoken": "L D R resistance",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.15–18; ER 9702 s23 P12 Q33; ER 9702 s23 P21 Q7; ER 9702 w23 P12 Q33; syllabus 9.3.7"
+    },
+    {
+     "term": "series voltage share",
+     "meaning": "With a fixed ideal supply and two resistances in series, each has the same current and takes p.d. in proportion to its resistance.",
+     "notation": "$V_{\\mathrm{LDR}}=V_sR_{\\mathrm{LDR}}/(R_{\\mathrm{LDR}}+R_f)$",
+     "spoken": "L D R voltage is supply voltage times its fraction of total resistance",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.15–18; ER 9702 s23 P12 Q33; ER 9702 s23 P21 Q7; ER 9702 w23 P12 Q33; syllabus 9.3.7"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Predict LDR trends and contrast cooling",
+     "wordings": [
+      "State changes of resistance under changed light and temperature."
+     ],
+     "example": "Increasing illumination lowers LDR resistance, while cooling a separate NTC thermistor raises its resistance. Name the component before applying its stimulus; light and temperature are different inputs.",
+     "check": "An LDR is shaded while a separate NTC thermistor is warmed. State the resistance change of each.",
+     "answer": "The shaded LDR resistance increases; the warmed NTC thermistor resistance decreases.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.15–18; ER 9702 s23 P12 Q33; ER 9702 s23 P21 Q7; ER 9702 w23 P12 Q33; syllabus 9.3.7",
+     "rubric": [
+      {
+       "point": "States that shading increases LDR resistance.",
+       "keywords": [
+        [
+         "LDR",
+         "light"
+        ],
+        [
+         "increase",
+         "higher",
+         "rise"
+        ]
+       ]
+      },
+      {
+       "point": "States that warming decreases NTC thermistor resistance.",
+       "keywords": [
+        [
+         "thermistor",
+         "NTC"
+        ],
+        [
+         "decrease",
+         "lower",
+         "fall"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Explain an LDR voltage share in series",
+     "wordings": [
+      "Predict current and p.d. changes for an LDR in series with a fixed resistor."
+     ],
+     "example": "Use a fixed ideal supply, an LDR and a fixed resistor in a single series loop, with negligible voltmeter loading and no other resistance changes. Brighter light lowers LDR resistance and total resistance, so common current rises. The fixed resistor p.d. rises; the LDR takes a smaller fraction of the supply p.d., so its p.d. falls.",
+     "check": "Under the same ideal two-component series assumptions, the LDR is moved into dimmer light. Explain how the common current and the p.d. across each component change.",
+     "answer": "LDR resistance and total resistance increase, so the common current decreases. The fixed resistor p.d. decreases. The LDR takes a larger fraction of the fixed supply, so its p.d. increases.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.15–18; ER 9702 s23 P12 Q33; ER 9702 s23 P21 Q7; ER 9702 w23 P12 Q33; syllabus 9.3.7",
+     "rubric": [
+      {
+       "point": "Links dimmer light to increased LDR and total resistance, hence decreased common current.",
+       "keywords": [
+        [
+         "increase",
+         "higher"
+        ],
+        [
+         "resistance"
+        ],
+        [
+         "current"
+        ],
+        [
+         "decrease",
+         "lower"
+        ]
+       ]
+      },
+      {
+       "point": "Predicts smaller fixed-resistor p.d. and larger LDR p.d. using voltage shares.",
+       "keywords": [
+        [
+         "fixed"
+        ],
+        [
+         "decrease",
+         "smaller",
+         "lower"
+        ],
+        [
+         "LDR"
+        ],
+        [
+         "increase",
+         "larger",
+         "higher"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "An LDR has higher resistance in brighter light.",
+     "temptation": "The stimulus and resistance trend are reversed.",
+     "fix": "Its resistance decreases as light intensity increases. More light means less resistance."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "A circuit drawing would help the series bridge, but the plan limits visual work to the existing graphs; connections and ideal assumptions are stated explicitly in each form.",
+   "source_gaps": [
+    "Reviewed evidence is limited to the cited syllabus statements, bundle paper/report excerpts and notes pages; this is not an exhaustive official-paper audit."
+   ],
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Connect the change to its physical cause; naming a trend alone does not explain it."
+    }
+   ]
   },
   "9702-9.3.8": {
    "motivate": "A temperature sensor turns warming into a resistance change.",
@@ -6106,7 +7820,172 @@
    "connect": "Use the thermistor trend before analysing a potential divider or series circuit.",
    "note": "- hotter thermistor: lower resistance\n- cooler thermistor: higher resistance\n- negative temperature coefficient",
    "self_explain": "How does cooling affect the assumed thermistor?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "For the assumed NTC thermistor, warming lowers resistance and cooling raises it. This is the opposite of a metal filament’s temperature trend. In a series sensor circuit the same current flows through the sensor and the fixed resistor.\nCommon mistake: The thermistor carries a different current from the series fixed resistor. In one unbranched loop charge flow rate is common; the p.d. shares differ.\nCommon mistake: Every component gets more resistive when hotter. Apply the specified NTC thermistor trend separately from the filament trend.",
+   "terms": [
+    {
+     "term": "negative temperature coefficient",
+     "meaning": "Resistance decreases when temperature increases.",
+     "notation": "$R_{\\mathrm{NTC}}$",
+     "spoken": "N T C thermistor resistance",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.17–18; ER 9702 s23 P12 Q33; ER 9702 s23 P21 Q7; syllabus 9.3.8"
+    },
+    {
+     "term": "common series current",
+     "meaning": "One current passes through both components in an unbranched loop.",
+     "notation": "$I=V_s/(R_f+R_{\\mathrm{NTC}})$",
+     "spoken": "current equals supply voltage divided by total series resistance",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.17–18; ER 9702 s23 P12 Q33; ER 9702 s23 P21 Q7; syllabus 9.3.8"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Predict NTC trends and contrast a metal filament",
+     "wordings": [
+      "Compare the effect of temperature on a thermistor and a metal."
+     ],
+     "example": "Warm an NTC thermistor and a metal filament separately: thermistor resistance decreases, while filament resistance increases. The label NTC is an assumption about the thermistor, not a rule for every material.",
+     "check": "An NTC thermistor cools. State its resistance change and compare it with a metal filament cooling over its ordinary operating range.",
+     "answer": "NTC thermistor resistance increases; metal filament resistance decreases.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.17–18; ER 9702 s23 P12 Q33; ER 9702 s23 P21 Q7; syllabus 9.3.8; SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.9–10",
+     "rubric": [
+      {
+       "point": "States that cooling raises NTC thermistor resistance.",
+       "keywords": [
+        [
+         "thermistor",
+         "NTC"
+        ],
+        [
+         "increase",
+         "higher",
+         "rise"
+        ]
+       ]
+      },
+      {
+       "point": "States that cooling lowers metal filament resistance.",
+       "keywords": [
+        [
+         "metal",
+         "filament"
+        ],
+        [
+         "decrease",
+         "lower",
+         "fall"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Explain an NTC voltage share in series",
+     "wordings": [
+      "Predict series current and voltage changes when the thermistor warms."
+     ],
+     "example": "An NTC thermistor and a fixed resistor form a single series loop with a fixed ideal supply and negligible voltmeter loading. Cooling raises thermistor and total resistance, lowering the common current. The fixed resistor p.d. falls; the thermistor takes a larger fraction of the supply, so its p.d. rises.",
+     "check": "With an NTC thermistor and a fixed resistor in series across a fixed ideal supply, the thermistor warms. Assume negligible meter loading and no other resistance changes. Explain changes in current and in the p.d. across each component.",
+     "answer": "Thermistor resistance and total resistance fall, so the same current through both components increases. Fixed resistor p.d. rises. The thermistor takes a smaller share of the supply p.d., so its p.d. falls.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.3.pdf pp.17–18; ER 9702 s23 P12 Q33; ER 9702 s23 P21 Q7; syllabus 9.3.8",
+     "rubric": [
+      {
+       "point": "Links warming to lower thermistor and total resistance, hence higher common current.",
+       "keywords": [
+        [
+         "decrease",
+         "lower",
+         "fall"
+        ],
+        [
+         "resistance"
+        ],
+        [
+         "current"
+        ],
+        [
+         "increase",
+         "higher",
+         "rise"
+        ]
+       ]
+      },
+      {
+       "point": "States fixed-resistor p.d. rises and thermistor p.d. falls with a share explanation.",
+       "keywords": [
+        [
+         "fixed"
+        ],
+        [
+         "increase",
+         "higher",
+         "rise"
+        ],
+        [
+         "thermistor"
+        ],
+        [
+         "decrease",
+         "lower",
+         "fall"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m7",
+     "idea": "A negative temperature coefficient thermistor has higher resistance when hot.",
+     "temptation": "The metal temperature trend is applied to the NTC sensor.",
+     "fix": "Its resistance decreases as temperature increases. Hotter means less resistance."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The series topology and assumptions are explicit in words; no new sensor diagram is requested by this plan.",
+   "source_gaps": [
+    "Reviewed evidence is limited to the cited syllabus statements, bundle paper/report excerpts and notes pages; this is not an exhaustive official-paper audit."
+   ],
+   "exam_language": [
+    {
+     "name": "Explain",
+     "meaning": "Connect the change to its physical cause; naming a trend alone does not explain it."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "9702-9.3.1": [
+   "Define resistance and the ohm"
+  ],
+  "9702-9.3.2": [
+   "Rearrange V = IR with SI conversions",
+   "Bridge charge and time to resistance"
+  ],
+  "9702-9.3.3": [
+   "Sketch characteristics and interpret polarity",
+   "Find point resistance rather than tangent resistance",
+   "Interpret slope with either axis arrangement"
+  ],
+  "9702-9.3.4": [
+   "Explain lamp heating and changing resistance"
+  ],
+  "9702-9.3.5": [
+   "State Ohm’s law with its condition"
+  ],
+  "9702-9.3.6": [
+   "Use and rearrange the resistivity equation",
+   "Convert diameter to area before calculating resistance",
+   "Stretch a wire at constant volume and resistivity"
+  ],
+  "9702-9.3.7": [
+   "Predict LDR trends and contrast cooling",
+   "Explain an LDR voltage share in series"
+  ],
+  "9702-9.3.8": [
+   "Predict NTC trends and contrast a metal filament",
+   "Explain an NTC voltage share in series"
+  ]
  }
 }

@@ -39,11 +39,21 @@ def test_cloud_stream_schema_speech_and_usage_match_original_client(tmp_path, mo
     async def go():
         original = await scenario(ai.Claude, "original")
         routed = await scenario(tutor_ai.TutorAI, "routed")
-        assert routed == original
+        assert without_footer(routed) == without_footer(original)
         assert [json.loads(line) for line in routed[2].splitlines()] == [["image", "text"], "text"]
         assert routed[0][4] == {"replies": 3, "input_tokens": 36, "cached_tokens": 900, "output_tokens": 60}
-        assert all(not reply["performance"] for reply in routed[0][1])
+        # Only the router adds the model footer for cloud replies; the direct client reports nothing.
+        assert all(not reply["performance"] for reply in original[0][1])
+        assert all(reply["performance"].get("cloud") for reply in routed[0][1])
     asyncio.run(go())
+
+
+def without_footer(outcome):
+    """The outcome with the router's cloud model footer removed, for comparing with the direct client."""
+    def plain(item):
+        return {key: value for key, value in item.items() if key != "performance"}
+    (chunks, replies, data, result, session, today), *rest = outcome
+    return ((chunks, [plain(reply) for reply in replies], data, plain(result), session, today), *rest)
 
 
 @pytest.mark.parametrize("state", ["login", "limit"])
@@ -93,12 +103,18 @@ def test_cloud_only_lifecycle_never_creates_local_client_or_calls_local_hooks(tm
     async def go():
         client = tutor_ai.TutorAI(tmp_path, binary=FAKE)
         client.on_request = forbidden
-        client.on_result = forbidden
+        footers = []
+
+        def cloud_footer_only(result):
+            assert result.performance.get("cloud"), "only the cloud model footer may be reported"
+            footers.append(result)
+        client.on_result = cloud_footer_only
         assert client.available
         await client.warm()
         assert (await client.reply("hello")).ok
         data, result = await client.one_shot("mark")
-        assert data and result.ok and not result.performance
+        assert data and result.ok and not result.performance  # only streamed replies carry the model footer
+        assert footers
         await client.reset(warm=False)
         await client.release_local()
         await client.close()

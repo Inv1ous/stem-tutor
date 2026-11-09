@@ -59,7 +59,7 @@ def test_every_card_of_a_whole_lesson_is_in_now_and_the_lesson_log_word_for_word
     async def go():
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
-            await pilot.press("down", "enter")  # Learn a topic
+            await pilot.press("enter", "down", "enter")  # Learn & revise, then Learn a topic
             await pilot.pause()
             await pilot.press("enter")  # the only subtopic
             await pilot.pause()

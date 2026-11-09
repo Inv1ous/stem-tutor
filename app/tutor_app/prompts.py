@@ -10,6 +10,7 @@ from tutorlib.session import _display_answer
 from tutorlib.views import CONFIDENCE_LABELS
 
 from .study_sources import references
+from .marking_policy import instruction as marking_instruction
 
 
 def _clip(text: str, n: int) -> str:
@@ -19,6 +20,10 @@ def _clip(text: str, n: int) -> str:
 
 def _options(options: dict | None) -> str:
     return " " + "; ".join(f"{k}) {v}" for k, v in options.items()) if options else ""
+
+
+MATH_RULE = ("Write mathematics as plain LaTeX ($...$ or $$...$$), never as HTML entities (&#x222B;, &int;), "
+             "never spell digits as entities; keep fractions as \\frac{1}{2}.")
 
 
 def _on_screen(act: dict) -> str | None:
@@ -265,7 +270,8 @@ def learn(tutor, kc: str, question: str) -> str:
             "invite an attempt first; if the idea is new or a gap remains, explain its foundations. "
             "Explain in short readable steps; offer more detail. "
             "Never disclose a solution to an open question. Ask the student to try before giving away an answer. "
-            "Do not claim calculations or proof have been verified unless verification is supplied.\n"
+            "Do not claim calculations or proof have been verified unless verification is supplied. "
+            f"{MATH_RULE}\n"
             f"STUDENT ASKS: {question}")
 
 
@@ -302,18 +308,14 @@ def local_judge_schema(points: list[str]) -> dict:
     return schema
 
 
-def judge(stem: str, points: list[str], answer: str) -> str:
+def judge(stem: str, points: list[str], answer: str, *, strictness: str = 'auto', mode: str = '') -> str:
     listed = "\n".join(f"{i}. {p}" for i, p in enumerate(points, 1))
-    return (f"Mark this A-Level answer strictly against the mark points, the way a Cambridge/Edexcel examiner would.\n"
+    return (f"Mark this A-Level answer against the supplied mark points.\n{marking_instruction(strictness, mode)}\n\n"
             f"QUESTION: {stem}\nMARK POINTS:\n{listed}\nSTUDENT ANSWER: {answer}\n\n"
             "Return JSON: {\"points\": [{\"point\": <text>, \"met\": true|false, \"why\": <short>}], "
             "\"feedback\": <one or two sentences>}. Return exactly one row per mark point, in the given order, "
             "copying its text exactly (without the list number). Judge each point independently using only the "
-            "student's actual answer or explicit working. A point is met only if its idea is clearly present and "
-            "not contradicted. Related vocabulary, a related concept, or what the student ought to know is not "
-            "evidence of the required claim. Do not infer an unstated mechanism or award a missing point because "
-            "another point was discussed. In why, identify the shortest relevant student quotation or say it was "
-            "not stated; never use the correct answer you supplied as evidence that the student said it.")
+            "student's actual answer or explicit working, under the marking policy above.")
 
 
 PROFILE = {"type": "object", "properties": {"summary": {"type": "string"}}, "required": ["summary"]}
@@ -346,8 +348,8 @@ def teach_card(tutor, kc: str) -> str:
             f"SUBTOPIC SUMMARY: {_clip(pack.get('outline', ''), 900)}\nFACTS:\n{facts or '-'}\nTRAPS:\n{traps or '-'}\n\n"
             "Return JSON with: motivate (1-2 sentences: why we need this idea now), establish (<=120 words: the idea "
             "itself, built up so it feels discoverable; LaTeX in $...$), connect (1 sentence: how it hangs off what they "
-            "know), note (3-5 terse revision bullets, '- ' each, exam wording), self_explain (one question asking them "
-            "to explain the idea in their own words).")
+            f"know), note (3-5 terse revision bullets, '- ' each, exam wording), self_explain (one question asking them "
+            f"to explain the idea in their own words). {MATH_RULE}")
 
 
 def key_of(tutor, n: int) -> tuple[str, str, dict | None]:
@@ -398,7 +400,7 @@ def challenge_explain(item: dict, solution: str, key: str, response: str) -> str
     return (f"A student just answered this challenge question.\nQUESTION: {item.get('stem', '')}"
             f"{_options(item.get('options'))}\nANSWER: {key}\nWORKED SOLUTION: {solution}\nSTUDENT ANSWER: {response}\n\n"
             "Explain clearly how to solve it: the key idea that unlocks it, then the steps in short. If the student was "
-            "wrong, say where their answer most likely went wrong. At most 150 words; maths in $...$.")
+            "wrong, say where their answer most likely went wrong. At most 150 words; maths in $...$. " + MATH_RULE)
 
 
 REMARK = {"type": "object", "properties": {"correct": {"type": "boolean"}, "why": {"type": "string"}},
@@ -406,7 +408,7 @@ REMARK = {"type": "object", "properties": {"correct": {"type": "boolean"}, "why"
 REMARK_MODEL = "sonnet"  # a re-mark is rare, asked for, and has to be right: the stronger model whatever the setting
 
 
-def remark(view: dict, fb: dict) -> str:
+def remark(view: dict, fb: dict, *, strictness: str = 'auto', mode: str = '') -> str:
     """A second marker for an answer the program marked wrong: it matches units, forms and wording narrowly, and an
     answer key can itself be wrong."""
     choice = view.get("kind") == "mcq"
@@ -420,9 +422,9 @@ def remark(view: dict, fb: dict) -> str:
             "the same value in another correct unit (1.5 kW for 1500 W), an equivalent algebraic form, the same idea in "
             "other words, or a correct rounding to a sensible number of figures. They are wrong if the value or meaning "
             "differs, a required unit is missing or wrong, or the figures break what the question asked.")
-    return ("A marking program marked this A-Level answer wrong. It matches answers narrowly, so check it the way a "
-            "Cambridge/Edexcel examiner would.\n"
+    return ("A marking program marked this A-Level answer wrong. Check its decision against the question and "
+            f"supplied assessment evidence.\n{marking_instruction(strictness, mode)}\n\n"
             f"QUESTION: {view.get('stem', '')}{_options(view.get('options'))}\nMARK SCHEME ANSWER: {fb.get('answer')}\n"
             f"STUDENT ANSWER: {given}\n" + (f"THE PROGRAM'S REASON: {fb['detail']}\n" if fb.get("detail") else "") +
-            f"\n{rule} Do not be generous.\n"
+            f"\n{rule}\n"
             'Return JSON: {"correct": true|false, "why": <one or two sentences, speaking to the student>}.')

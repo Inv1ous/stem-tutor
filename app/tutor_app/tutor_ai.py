@@ -8,7 +8,8 @@ from contextlib import aclosing, asynccontextmanager, nullcontext
 from pathlib import Path
 from typing import AsyncIterator, Callable
 
-from . import codex_models, local_models
+from . import abacus_models, codex_models, local_models
+from .abacus_ai import AbacusAI
 from .ai import Claude, Result, VISUAL_BRIEF
 from .codex_ai import CodexAI
 from .local_ai import LocalAI, LocalError
@@ -27,6 +28,7 @@ class TutorAI(Claude):
         super().__init__(*args, **kwargs)
         self._local: LocalAI | None = None
         self._codex: CodexAI | None = None
+        self._abacus: AbacusAI | None = None
         self._replies: LocalReplies | None = None
         self._web: LocalWeb | None = None
         self._vision: LocalVision | None = None
@@ -52,6 +54,35 @@ class TutorAI(Claude):
         self._codex.speech = self.speech
         return self._codex
 
+    @property
+    def abacus(self) -> AbacusAI:
+        if self._abacus is None:
+            self._abacus = AbacusAI(system=self.system, speech=self.speech, document=self.document)
+        self._abacus.speech = self.speech
+        return self._abacus
+
+    def _cloud_performance(self, result: Result, chosen: str, started: float) -> None:
+        """Cloud replies carry the model and time for the footer under the answer; local ones bring their own."""
+        if not result.ok or local_models.is_local(chosen):
+            return
+        total = time.monotonic() - started
+        tokens = result.performance.get("output_tokens") or (result.usage.get("output_tokens")
+                                                            if isinstance(result.usage, dict) else None)
+        result.performance = {**result.performance, "cloud": True, "model": chosen, "total_seconds": total,
+                              **({"output_tokens": tokens, "tokens_per_second": tokens / total}
+                                 if isinstance(tokens, int) and tokens > 0 and total > 0 else {})}
+        self.on_result(result)
+
+    @staticmethod
+    def _worth_retrying(result: Result, time_left: float) -> bool:
+        """A cloud reply that came back unreadable or incomplete is asked for once more while time allows."""
+        return (not result.ok and result.status == "error" and time_left > 30
+                and any(word in (result.message or "").lower() for word in ("incomplete", "unreadable")))
+
+    def api_client(self, model: str | None) -> CodexAI | AbacusAI | None:
+        """The ChatGPT or Abacus client for a model chosen from either, else None (Claude or local)."""
+        return self.codex if codex_models.is_codex(model) else self.abacus if abacus_models.is_abacus(model) else None
+
     def progress_for(self, model: str) -> dict:
         if self._observing.get(model):
             return {"phase": "reading_image"}
@@ -64,6 +95,8 @@ class TutorAI(Claude):
             return model in local_models.available_models()
         if codex_models.is_codex(model):
             return self.codex.available
+        if abacus_models.is_abacus(model):
+            return self.abacus.available
         return super().available
 
     @property
@@ -75,12 +108,14 @@ class TutorAI(Claude):
             return "Connect the external SSD with this local model, or choose another model in Settings."
         if codex_models.is_codex(model):
             return self.codex.message or "ChatGPT is unavailable. Run codex login, then try again."
+        if abacus_models.is_abacus(model):
+            return self.abacus.message or "Abacus is unavailable. Check your API key, then try again."
         return self.message or "AI help is unavailable."
 
     async def warm(self, model: str | None = None) -> None:
         chosen = model or self.model
-        if codex_models.is_codex(chosen):
-            return  # Subscription requests start only when the learner asks for an answer.
+        if self.api_client(chosen) is not None:
+            return  # Subscription and API requests start only when the learner asks for an answer.
         if not self.wanted() or getattr(self, "_closed", False):
             return
         if local_models.is_local(chosen):
@@ -100,14 +135,18 @@ class TutorAI(Claude):
             await self._local.reset()
         if self._codex is not None:
             await self._codex.reset()
+        if self._abacus is not None:
+            await self._abacus.reset()
         # A new idea forgets history but keeps the loaded local model. Screens preload the task they will use.
-        await super().reset(warm=warm and not local_models.is_local(self.model) and not codex_models.is_codex(self.model))
+        await super().reset(warm=warm and not local_models.is_local(self.model) and self.api_client(self.model) is None)
 
     async def close(self) -> None:
         await super().close()
         await self.release_local()
         if self._codex is not None:
             await self._codex.close()
+        if self._abacus is not None:
+            await self._abacus.close()
         if self._ocr is not None:
             await self._ocr.close()
 
@@ -198,10 +237,10 @@ class TutorAI(Claude):
     async def stream(self, prompt: str, image: Path | None = None, model: str | None = None,
                      think: bool | str | None = None, web_query: str | None = None) -> AsyncIterator[str]:
         chosen = model or self.model
-        if codex_models.is_codex(chosen):
+        asked = time.monotonic()
+        if (client := self.api_client(chosen)) is not None:
             if self._local is not None:
                 self.on_request(chosen)
-            client = self.codex
             try:
                 async with aclosing(client.stream(prompt, image=image, model=chosen,
                                                    think=self.think if think is None else think)) as reply:
@@ -209,6 +248,7 @@ class TutorAI(Claude):
                         yield chunk
             finally:
                 self.last = client.last
+            self._cloud_performance(self.last, chosen, asked)
             return
         if not local_models.is_local(chosen):
             if self._local is not None:
@@ -216,6 +256,7 @@ class TutorAI(Claude):
             async with aclosing(super().stream(prompt, image=image, model=model, think=think)) as reply:
                 async for chunk in reply:
                     yield chunk
+            self._cloud_performance(self.last, chosen, asked)
             return
         started = time.monotonic()
         self.on_request(chosen)
@@ -285,23 +326,42 @@ class TutorAI(Claude):
 
     async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None,
                        timeout: float = 120, system: str | None = None,
-                       speech: bool = False, think: bool | str = False, image: Path | None = None) -> tuple[dict | None, Result]:
+                       speech: bool = False, think: bool | str = False, image: Path | None = None,
+                       images: list[Path] | None = None) -> tuple[dict | None, Result]:
         chosen = model or self.model
         if system and visual_fields(schema) and VISUAL_BRIEF not in system:
             system = f"{system}\n\n{VISUAL_BRIEF}"
-        if image is not None and not local_models.is_local(chosen):
-            return None, Result(ok=False, status="error", message="Diagram input for this marking request requires a local model.")
-        if codex_models.is_codex(chosen):
+        if images is not None:
+            if image is not None or not isinstance(images, (list, tuple)):
+                return None, Result(ok=False, status='error', message='Supply one complete image list for marking.')
+            if self.api_client(chosen) is None:
+                if len(images) > 1:
+                    return None, Result(ok=False, status='error', message='This marker cannot read all source pages; mark manually.')
+                image = images[0] if images else None
+        if image is not None and not local_models.is_local(chosen) and self.api_client(chosen) is None:
+            return None, Result(ok=False, status="error", message="This marking route cannot read source images; choose ChatGPT, Abacus or a supported local model, or mark manually.")
+        if (client := self.api_client(chosen)) is not None:
             if self._local is not None:
                 self.on_request(chosen)
-            data, result = await self.codex.one_shot(prompt, schema=schema, model=chosen, timeout=timeout,
-                                                    system=system, speech=speech, think=think)
+            extra = {'images': images or [image]} if images or image is not None else {}
+            started = time.monotonic()
+            data, result = await client.one_shot(prompt, schema=schema, model=chosen, timeout=timeout,
+                                                    system=system, speech=speech, think=think, **extra)
+            if self._worth_retrying(result, timeout - (time.monotonic() - started)):
+                data, result = await client.one_shot(prompt, schema=schema, model=chosen,
+                                                     timeout=timeout - (time.monotonic() - started), system=system,
+                                                     speech=speech, think=think, **extra)
             return normalise_fields(data, schema) if result.ok else data, result
         if not local_models.is_local(chosen):
             if self._local is not None:
                 self.on_request(chosen)
+            started = time.monotonic()
             data, result = await super().one_shot(prompt, schema=schema, model=model, timeout=timeout,
                                                 system=system, speech=speech, think=think)
+            if self._worth_retrying(result, timeout - (time.monotonic() - started)):
+                data, result = await super().one_shot(prompt, schema=schema, model=model,
+                                                    timeout=timeout - (time.monotonic() - started), system=system,
+                                                    speech=speech, think=think)
             return normalise_fields(data, schema) if result.ok else data, result
         self.on_request(chosen)
         if not self.available_for(chosen):

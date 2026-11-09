@@ -1,0 +1,29 @@
+{"phase": "start", "model": "ollama:gemma4:e4b", "case": "bonding", "condition": "cold", "repetition": 1}
+{"phase": "result", "model": "ollama:gemma4:e4b", "case": "bonding", "condition": "cold", "repetition": 1, "ok": true, "seconds": 17.64, "message": "", "message_counts": null, "literal_exact": null}
+{"phase": "start", "model": "ollama:gemma4:e4b", "case": "topic_change", "condition": "warm", "repetition": 1}
+{"phase": "result", "model": "ollama:gemma4:e4b", "case": "topic_change", "condition": "warm", "repetition": 1, "ok": true, "seconds": 25.36, "message": "", "message_counts": null, "literal_exact": null}
+{"phase": "start", "model": "ollama:gemma4:e4b", "case": "literal_code", "condition": "warm", "repetition": 1}
+{"phase": "result", "model": "ollama:gemma4:e4b", "case": "literal_code", "condition": "warm", "repetition": 1, "ok": true, "seconds": 11.51, "message": "", "message_counts": null, "literal_exact": false}
+{"phase": "start", "model": "ollama:gemma4:e4b", "case": "sourced_definition", "condition": "warm", "repetition": 1}
+{"phase": "result", "model": "ollama:gemma4:e4b", "case": "sourced_definition", "condition": "warm", "repetition": 1, "ok": true, "seconds": 24.86, "message": "", "message_counts": null, "literal_exact": null}
+{"phase": "start", "model": "ollama:gemma4:e4b", "case": "speech", "condition": "warm", "repetition": 1}
+{"phase": "result", "model": "ollama:gemma4:e4b", "case": "speech", "condition": "warm", "repetition": 1, "ok": true, "seconds": 18.53, "message": "", "message_counts": null, "literal_exact": null}
+{"phase": "released", "model": "ollama:gemma4:e4b", "unload_done": true, "unload_reason": "unload", "closed": true}
+{"phase": "start", "model": "mlx:gpt-oss:20b", "case": "bonding", "condition": "cold", "repetition": 1}
+{"phase": "result", "model": "mlx:gpt-oss:20b", "case": "bonding", "condition": "cold", "repetition": 1, "ok": true, "seconds": 51.94, "message": "", "message_counts": null, "literal_exact": null}
+{"phase": "start", "model": "mlx:gpt-oss:20b", "case": "calculus", "condition": "warm", "repetition": 1}
+{"phase": "result", "model": "mlx:gpt-oss:20b", "case": "calculus", "condition": "warm", "repetition": 1, "ok": false, "seconds": 29.41, "message": "The local AI returned an incomplete structured answer; try again. (Unsafe control or Unicode surrogate in document text)", "message_counts": null, "literal_exact": null}
+{"phase": "start", "model": "mlx:gpt-oss:20b", "case": "literal_code", "condition": "warm", "repetition": 1}
+{"phase": "result", "model": "mlx:gpt-oss:20b", "case": "literal_code", "condition": "warm", "repetition": 1, "ok": true, "seconds": 25.25, "message": "", "message_counts": null, "literal_exact": true}
+{"phase": "start", "model": "mlx:gpt-oss:20b", "case": "sourced_definition", "condition": "warm", "repetition": 1}
+{"phase": "result", "model": "mlx:gpt-oss:20b", "case": "sourced_definition", "condition": "warm", "repetition": 1, "ok": true, "seconds": 23.02, "message": "", "message_counts": null, "literal_exact": null}
+{"phase": "start", "model": "mlx:gpt-oss:20b", "case": "speech", "condition": "warm", "repetition": 1}
+{"phase": "result", "model": "mlx:gpt-oss:20b", "case": "speech", "condition": "warm", "repetition": 1, "ok": false, "seconds": 11.88, "message": "The local AI returned an incomplete structured answer; try again. (Unsafe control or Unicode surrogate in document text)", "message_counts": null, "literal_exact": null}
+{"phase": "released", "model": "mlx:gpt-oss:20b", "closed": true}
+{"phase": "start", "model": "ollama:qwen3.8:27b", "case": "long_context", "condition": "cold", "repetition": 1}
+{"phase": "result", "model": "ollama:qwen3.8:27b", "case": "long_context", "condition": "cold", "repetition": 1, "ok": true, "seconds": 123.04, "message": "", "message_counts": [2], "literal_exact": null}
+{"phase": "start", "model": "ollama:qwen3.8:27b", "case": "long_context", "condition": "warm", "repetition": 2}
+{"phase": "result", "model": "ollama:qwen3.8:27b", "case": "long_context", "condition": "warm", "repetition": 2, "ok": true, "seconds": 30.59, "message": "", "message_counts": [2], "literal_exact": null}
+{"phase": "start", "model": "ollama:qwen3.8:27b", "case": "long_context", "condition": "warm", "repetition": 3}
+{"phase": "result", "model": "ollama:qwen3.8:27b", "case": "long_context", "condition": "warm", "repetition": 3, "ok": true, "seconds": 23.15, "message": "", "message_counts": [2], "literal_exact": null}
+{"phase": "released", "model": "ollama:qwen3.8:27b", "unload_done": true, "unload_reason": "unload", "closed": true}

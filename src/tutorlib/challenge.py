@@ -39,7 +39,7 @@ RAMPS: dict[str, str] = {
 DEFAULT_CONFIG: dict = {"topics": [], "count": 10, "kinds": "mix", "typed_share": 0.5, "lo": 4, "hi": 8,
                         "ramp": "steady", "model": "sonnet", "maths_forms": True}
 KINDS = ("mcq", "typed", "mix")
-MODELS = ("sonnet", "opus")
+MODELS = ("sonnet", "opus", "abacus:claude-sonnet-5-5", "abacus:claude-opus-5-5")  # Abacus: the learner's API key
 MAX_COUNT = 30
 
 

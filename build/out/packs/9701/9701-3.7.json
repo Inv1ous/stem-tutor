@@ -1067,6 +1067,84 @@
     "Use the group numbers of B and F to make an electron inventory, then allocate one electron from each partner to each single bond."
    ],
    "shuffle": true
+  },
+  {
+   "id": "9701-3.7-r04",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch a complete outer-shell dot-and-cross diagram of an isolated $\\ce{PCl5}$ molecule, using dots from P and crosses from Cl. Include all lone pairs. State the total number of valence electrons and explain the electron count around P.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Five P–Cl single bonds, each one dot–cross shared pair."
+    },
+    {
+     "mark": "B1",
+     "point": "Three cross–cross lone pairs on every Cl; none on P and no extra electrons."
+    },
+    {
+     "mark": "B1",
+     "point": "Forty valence electrons overall: ten bonding and thirty in chlorine lone pairs."
+    },
+    {
+     "mark": "B1",
+     "point": "Ten electrons surround P, so P has an expanded octet; the molecule has no overall charge."
+    }
+   ],
+   "explanation": "The valence total is $5+5(7)=40$. Five shared pairs and fifteen chlorine lone pairs use all forty electrons; phosphorus is surrounded by ten bonding electrons and has no lone pair.",
+   "hints": [
+    "Count the available outer-shell electrons before drawing any bonds.",
+    "Use one electron from each atom in an ordinary shared pair, then complete the terminal-atom shells.",
+    "Apply the same total-electron check even when the central atom is an octet-rule exception."
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-r05",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch a complete outer-shell dot-and-cross diagram of neutral $\\ce{NO}$, using dots from N and crosses from O and an N=O double bond. Show all non-bonding electrons. State the total valence-electron count and explain why both atoms cannot have complete octets.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Two N–O shared dot–cross pairs represent the double bond."
+    },
+    {
+     "mark": "B1",
+     "point": "One dot–dot lone pair and one unpaired dot on N; two cross–cross lone pairs on O."
+    },
+    {
+     "mark": "B1",
+     "point": "Eleven electrons overall: four bonding, six in lone pairs and one unpaired; five dots and six crosses."
+    },
+    {
+     "mark": "B1",
+     "point": "Seven electrons surround N and eight surround O. The neutral odd-electron molecule cannot give both atoms octets without changing its electron inventory."
+    }
+   ],
+   "explanation": "NO supplies $5+6=11$ valence electrons. A double bond, one N lone pair, two O lone pairs and one unpaired N electron account for all eleven; adding an electron to complete the nitrogen octet would change the neutral species.",
+   "hints": [
+    "An odd total cannot be divided entirely into pairs.",
+    "Track each atom’s original contribution as you distribute the non-bonding electrons.",
+    "Subtract the electrons already used by the stated double bond from each atom’s original outer-shell count."
+   ],
+   "shuffle": true
   }
  ],
  "flashcards": [
@@ -1087,9 +1165,9 @@
  "teach": {
   "9701-3.7.1": {
    "motivate": "A formula does not reveal where bonding electrons came from. Dot-and-cross diagrams let you account for every outer-shell electron and distinguish ionic, covalent and coordinate bonding.",
-   "establish": "Use different symbols for electrons originally supplied by different atoms. For ionic bonding, show electron transfer, then draw separate ions in brackets with charges; for example, $\\ce{MgO}$ contains $\\ce{Mg^{2+}}$ and $\\ce{O^{2-}}$, with eight outer electrons on O. For covalent bonding, place one shared pair between atoms for each single bond, two for a double bond, and three for a triple bond; show remaining lone pairs. A coordinate bond is a shared pair whose two electrons came from one donor atom: the N lone pair of $\\ce{NH3}$ is donated to $\\ce{H+}$ when $\\ce{NH4+}$ forms. Check the total valence-electron count, adjusting for ion charge. The octet rule has exceptions: B in $\\ce{BF3}$ has six surrounding electrons, P in $\\ce{PCl5}$ has ten, and an odd-electron species such as $\\ce{NO}$ has an unpaired electron. Apply the same counting and origin rules to compounds from ionic bonding and molecular-shape topics, including $\\ce{Al2Cl6}$ and $\\ce{CO}$.",
+   "establish": "Use different symbols for electrons originally supplied by different atoms. For ionic bonding, show electron transfer, then draw separate ions in brackets with charges; for example, $\\ce{MgO}$ contains $\\ce{Mg^{2+}}$ and $\\ce{O^{2-}}$, with eight outer electrons on O. For covalent bonding, place one shared pair between atoms for each single bond, two for a double bond, and three for a triple bond; show remaining lone pairs. A coordinate bond is a shared pair whose two electrons came from one donor atom: the N lone pair of $\\ce{NH3}$ is donated to $\\ce{H+}$ when $\\ce{NH4+}$ forms. Check the total valence-electron count, adjusting for ion charge. The octet rule has exceptions: B in $\\ce{BF3}$ has six surrounding electrons, P in $\\ce{PCl5}$ has ten, and an odd-electron species such as $\\ce{NO}$ has an unpaired electron. Apply the same counting and origin rules to compounds from ionic bonding and molecular-shape topics, including $\\ce{Al2Cl6}$ and $\\ce{CO}$.\nFoundation bridge: recall the neutral-atom valence counts from the periodic table and the meaning of ion charge. Read any stated bonding type or donor direction before choosing a structure; total electrons and local octets are different checks.",
    "connect": "Ionic bonding transfers electrons before electrostatic attraction; covalent bonding shares pairs. A coordinate pair is still a covalent pair after it forms. The same electron-pair count helps predict molecular shapes.",
-   "note": "- Ionic: separate bracketed ions with charges and transferred electrons.\n- Covalent: shared pairs between atoms and any lone pairs.\n- Coordinate: both electrons in the pair come from one donor.\n- Check electron totals; allow incomplete octets, expanded octets and odd electrons.",
+   "note": "- Ionic: separate bracketed ions with charges and transferred electrons.\n- Covalent: shared pairs between atoms and any lone pairs.\n- Coordinate: both electrons in the pair come from one donor.\n- Check electron totals; allow incomplete octets, expanded octets and odd electrons.\n- Count every electron once in the whole diagram; a shared pair counts around both bonded atoms when checking their shells.",
    "self_explain": "How would your drawings of $\\ce{MgO}$ and $\\ce{NH4+}$ differ in brackets, charges and the origin of electron pairs?",
    "discover": {
     "stem": "In forming $\\ce{NH4+}$ from $\\ce{NH3}$ and $\\ce{H+}$, where do the electrons in the new N–H pair originate?",
@@ -1102,7 +1180,551 @@
     "answer": "A",
     "explanation": "The nitrogen lone pair is donated to H⁺, which has no electron to contribute."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Start with the outer-shell electrons each atom supplies. Track their origins with two symbols: transfer them to form separate ions, or place pairs between atoms to show bonds. Count every electron once in the total, including lone pairs and any unpaired electron.",
+   "terms": [
+    {
+     "term": "valence electrons",
+     "meaning": "Electrons in the outer shell, used to construct these bonding diagrams.",
+     "notation": "$e^-$",
+     "spoken": "valence electrons",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, pp.2–3"
+    },
+    {
+     "term": "shared pair",
+     "meaning": "Two electrons between bonded atoms; both atoms count the pair towards their surrounding shell.",
+     "notation": "$\\cdot\\times$ for an ordinary shared pair",
+     "spoken": "shared electron pair",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, pp.3–5"
+    },
+    {
+     "term": "lone pair",
+     "meaning": "Two outer-shell electrons on one atom that are not shared in a bond.",
+     "notation": "$\\cdot\\cdot$ beside the atom",
+     "spoken": "lone electron pair",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, pp.3–6"
+    },
+    {
+     "term": "coordinate bond",
+     "meaning": "A covalent bond in which one atom supplies both electrons of the shared pair.",
+     "notation": "$\\ce{donor -> acceptor}$",
+     "spoken": "coordinate or dative covalent bond",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, p.6"
+    },
+    {
+     "term": "ion charge",
+     "meaning": "Net charge after electron loss or gain; put it outside the bracket enclosing the ion.",
+     "notation": "$[\\ce{O}]^{2-}$",
+     "spoken": "oxide ion with charge two minus",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, pp.2–3"
+    },
+    {
+     "term": "expanded octet",
+     "meaning": "More than eight electrons surrounding an atom in a bonding diagram.",
+     "notation": "$10$ electrons around P in $\\ce{PCl5}$",
+     "spoken": "expanded octet",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, pp.7–8"
+    },
+    {
+     "term": "unpaired electron",
+     "meaning": "A single electron that is not part of a bonding pair or lone pair.",
+     "notation": "$\\cdot$ on its own",
+     "spoken": "unpaired electron",
+     "source": "https://openstax.org/books/chemistry-2e/pages/7-3-lewis-symbols-and-structures#odd-electron-molecules"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Ionic electron transfer",
+     "wordings": [
+      "Sketch a dot-and-cross diagram for an ionic compound.",
+      "Show the transferred electrons, ion ratio, brackets and charges."
+     ],
+     "example": "Worked example — ionic $\\ce{MgO}$; use dots for O and crosses for Mg, omitting inner shells.\n1. Count two outer electrons from Mg and six from O: eight to place. The 1:1 ratio allows Mg to transfer both electrons to O.\n2. Draw separate $[\\ce{Mg}]^{2+}$ and $[\\ce{O}]^{2-}$ ions. Their charges sum to zero; the brackets enclose individual ions.\n3. Put six dots and two crosses around O as four pairs. In this outer-shell transfer convention show no electrons on Mg and no shared pair between ions.\n4. Check all eight original outer electrons are accounted for and the charges match the transfer.",
+     "check": "Sketch one formula unit of ionic $\\ce{Mg2Si}$ using dots for original Si electrons and crosses for original Mg electrons. Draw every ion with its bracket and charge; omit inner shells and show no electrons on the Mg ions. Explain the electron transfer.",
+     "answer": "Two separate $[\\ce{Mg}]^{2+}$ ions and one $[\\ce{Si}]^{4-}$ ion. Si has four pairs containing four dots and four crosses in total. Each Mg supplies two crosses; there are no shared pairs between ions. Total charge $2(+2)-4=0$; eight original outer electrons are shown.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, pp.2–3; ER 9701 s19 P21 Q2 (bundle); original check and bookkeeping.",
+     "rubric": [
+      {
+       "point": "Two Mg ions and one Si ion, each separately bracketed, with charges 2+ on Mg and 4− on Si.",
+       "keywords": [
+        [
+         "two",
+         "2"
+        ],
+        [
+         "Mg",
+         "magnesium"
+        ],
+        [
+         "Si",
+         "silicon"
+        ],
+        [
+         "2+",
+         "+2"
+        ],
+        [
+         "4-",
+         "−4",
+         "4−",
+         "-4"
+        ],
+        [
+         "brackets",
+         "bracketed"
+        ]
+       ]
+      },
+      {
+       "point": "Si has eight outer electrons as four pairs: four original Si dots and four transferred Mg crosses.",
+       "keywords": [
+        [
+         "eight",
+         "8"
+        ],
+        [
+         "four dots",
+         "4 dots"
+        ],
+        [
+         "four crosses",
+         "4 crosses"
+        ]
+       ]
+      },
+      {
+       "point": "Each Mg transfers two electrons; none are drawn on Mg and no shared pair joins the ions.",
+       "keywords": [
+        [
+         "two",
+         "2"
+        ],
+        [
+         "transfer",
+         "loses",
+         "donates"
+        ],
+        [
+         "no shared",
+         "separate",
+         "no covalent"
+        ],
+        [
+         "none on Mg",
+         "no electrons on Mg",
+         "empty Mg"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Coordinate-pair origin and donor direction",
+     "wordings": [
+      "Draw a dot-and-cross diagram showing the stated donor-to-acceptor direction.",
+      "Distinguish a coordinate shared pair from an ordinary shared pair."
+     ],
+     "example": "Worked example — $\\ce{CO}$, explicitly using the conventional oxygen-to-carbon donation requested by the question; dots for C, crosses for O.\n1. Count $4+6=10$ valence electrons. Two ordinary C–O shared pairs use two dots and two crosses.\n2. Add an O-supplied cross–cross shared pair: three shared pairs now lie between C and O.\n3. The two remaining C dots form one lone pair on C; the two remaining O crosses form one lone pair on O.\n4. Check four dots, six crosses and an octet around each atom. Label the donated pair $\\ce{O -> C}$. CO is neutral overall; this diagram is an electron-origin convention.",
+     "check": "Water forms $\\ce{H3O+}$ by donating an oxygen lone pair to $\\ce{H+}$. Sketch its complete dot-and-cross diagram with dots from O and crosses from the two original H atoms. Label the donated pair and its donor-to-acceptor direction; include brackets and charge.",
+     "answer": "Three O–H shared pairs: two dot–cross pairs and one dot–dot pair donated from O to the incoming H; label $\\ce{O -> H}$. One dot–dot lone pair remains on O. Enclose the whole ion in brackets with charge $+$. Six dots and two crosses give eight electrons; $\\ce{H+}$ contributes none.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, p.6 (coordinate-pair rule); ER 9701 s22 P23 Q3 (CO direction, bundle); original hydronium check applying that rule.",
+     "rubric": [
+      {
+       "point": "Three O–H shared pairs: two ordinary dot–cross pairs and one oxygen-supplied dot–dot pair.",
+       "keywords": [
+        [
+         "three",
+         "3"
+        ],
+        [
+         "two",
+         "2"
+        ],
+        [
+         "dot–cross",
+         "dot-cross",
+         "one from each"
+        ],
+        [
+         "dot–dot",
+         "dot-dot",
+         "both from oxygen",
+         "both from O"
+        ]
+       ]
+      },
+      {
+       "point": "One oxygen lone pair remains; no additional electrons, giving eight electrons in total.",
+       "keywords": [
+        [
+         "one lone pair",
+         "1 lone pair"
+        ],
+        [
+         "oxygen",
+         "O"
+        ],
+        [
+         "eight",
+         "8"
+        ]
+       ]
+      },
+      {
+       "point": "The donated pair goes from oxygen to the incoming hydrogen ion.",
+       "keywords": [
+        [
+         "oxygen to hydrogen",
+         "O to H",
+         "O -> H",
+         "O→H"
+        ]
+       ]
+      },
+      {
+       "point": "One bracket surrounds the whole hydronium ion, carrying one positive charge.",
+       "keywords": [
+        [
+         "bracket",
+         "brackets"
+        ],
+        [
+         "+",
+         "positive"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Ordinary multiple bonds",
+     "wordings": [
+      "Draw all shared pairs and lone pairs in a multiple-bonded molecule.",
+      "Check the total valence electrons and the electron count around each atom."
+     ],
+     "example": "Worked example — $\\ce{CO2}$, dots from C and crosses from either O.\n1. Count $4+2(6)=16$ electrons and arrange O–C–O.\n2. Put two dot–cross shared pairs in each C–O bond: two double bonds use eight electrons.\n3. Each O retains two cross–cross lone pairs; C has no lone pair.\n4. Count four dots and twelve crosses. All sixteen electrons are shown and each atom has an octet.",
+     "check": "Sketch a complete dot-and-cross diagram of $\\ce{N2}$. Use dots from the left N and crosses from the right N. Include lone pairs and state the total valence-electron count.",
+     "answer": "Three dot–cross shared pairs form a triple bond. One dot–dot lone pair remains on the left N and one cross–cross lone pair on the right N. Ten valence electrons are shown, five from each atom, with eight surrounding each atom; no overall charge.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, pp.3–5; Cambridge 9701 syllabus 3.4.1 (multiple bonds) and 3.7.1; original example/check.",
+     "rubric": [
+      {
+       "point": "A triple bond represented by three shared dot–cross pairs.",
+       "keywords": [
+        [
+         "three",
+         "3"
+        ],
+        [
+         "shared",
+         "bonding"
+        ],
+        [
+         "dot–cross",
+         "dot-cross",
+         "one from each"
+        ]
+       ]
+      },
+      {
+       "point": "One lone pair on each N, using dots on the left and crosses on the right, with no extra electrons.",
+       "keywords": [
+        [
+         "one",
+         "1"
+        ],
+        [
+         "lone pair"
+        ],
+        [
+         "each",
+         "both"
+        ],
+        [
+         "dots",
+         "dot"
+        ],
+        [
+         "crosses",
+         "cross"
+        ]
+       ]
+      },
+      {
+       "point": "Ten electrons overall, five originally from each N; eight surrounding each atom.",
+       "keywords": [
+        [
+         "ten",
+         "10"
+        ],
+        [
+         "five",
+         "5"
+        ],
+        [
+         "eight",
+         "8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Expanded-octet electron accounting",
+     "wordings": [
+      "Draw a complete outer-shell diagram for an expanded-octet molecule.",
+      "Explain why an octet must not be forced on the central atom."
+     ],
+     "example": "Worked example — an isolated $\\ce{PCl5}$ molecule, dots from P and crosses from Cl.\n1. Count $5+5(7)=40$ valence electrons.\n2. Draw five P–Cl single bonds, each one dot–cross pair: ten bonding electrons.\n3. Place three cross–cross lone pairs on each Cl: thirty more electrons. P has no lone pair.\n4. All forty electrons are used. Each Cl has an octet, but the five shared pairs put ten electrons around P: an expanded octet. Do not add a central lone pair.",
+     "check": "Sketch the complete dot-and-cross diagram of $\\ce{SF6}$ using dots from S and crosses from F. Show all lone pairs. State the total valence-electron count and the number surrounding S.",
+     "answer": "Six S–F single bonds, each one dot–cross shared pair; three cross–cross lone pairs on each F and none on S. There are $6+6(7)=48$ valence electrons overall: twelve bonding and thirty-six non-bonding. Twelve electrons surround S, an expanded octet; each F has eight.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf, pp.7–8; https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.22, 3.7.1; https://openstax.org/books/chemistry-2e/pages/7-3-lewis-symbols-and-structures (PCl5/SF6 Lewis structures).",
+     "rubric": [
+      {
+       "point": "Six S–F shared pairs, each containing one S dot and one F cross.",
+       "keywords": [
+        [
+         "six",
+         "6"
+        ],
+        [
+         "shared",
+         "bonding"
+        ],
+        [
+         "dot",
+         "S electron"
+        ],
+        [
+         "cross",
+         "F electron"
+        ]
+       ]
+      },
+      {
+       "point": "Three lone pairs on every F and no lone pair on S, with no extra electrons.",
+       "keywords": [
+        [
+         "three",
+         "3"
+        ],
+        [
+         "lone pairs"
+        ],
+        [
+         "each F",
+         "every F",
+         "each fluorine"
+        ],
+        [
+         "none on S",
+         "no lone pair on S",
+         "no sulfur lone pair"
+        ]
+       ]
+      },
+      {
+       "point": "Forty-eight valence electrons in the whole molecule, of which twelve are bonding and thirty-six non-bonding.",
+       "keywords": [
+        [
+         "48",
+         "forty-eight"
+        ],
+        [
+         "12",
+         "twelve"
+        ],
+        [
+         "36",
+         "thirty-six"
+        ]
+       ]
+      },
+      {
+       "point": "Twelve electrons surround sulfur, so it has an expanded octet.",
+       "keywords": [
+        [
+         "12",
+         "twelve"
+        ],
+        [
+         "expanded",
+         "more than eight",
+         "more than 8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Odd-electron species",
+     "wordings": [
+      "Construct a diagram without inventing an electron to complete an octet.",
+      "Show lone pairs and an unpaired electron while conserving the total."
+     ],
+     "example": "Worked example — neutral $\\ce{NO}$; dots from N, crosses from O.\n1. Count $5+6=11$ valence electrons. An odd total cannot be entirely paired.\n2. Draw two ordinary dot–cross shared pairs, representing an N=O double bond.\n3. Add one dot–dot lone pair and a single unpaired dot on N; put two cross–cross lone pairs on O.\n4. Check five dots and six crosses. Four bonding electrons, six lone-pair electrons and one unpaired electron make eleven. O has eight surrounding electrons and N has seven; do not add an electron or a third bond.",
+     "check": "The neutral radical $\\ce{NF2}$ has N bonded to two F atoms by single bonds. Sketch a dot-and-cross diagram with dots from N and crosses from F; show all remaining electrons. State the total valence electrons and the number surrounding N.",
+     "answer": "Two N–F dot–cross shared pairs; each F has three cross–cross lone pairs. N retains one dot–dot lone pair and one unpaired dot. Total $5+2(7)=19$ electrons: four bonding, fourteen in lone pairs and one unpaired. Seven electrons surround N; each F has eight. No ionic charge is added.",
+     "source": "https://www.cambridgeinternational.org/Images/664563-2025-2027-syllabus.pdf, p.22, 3.7.1; https://openstax.org/books/chemistry-2e/pages/7-3-lewis-symbols-and-structures (NO and the odd-electron method); original NF2 check with connectivity supplied.",
+     "rubric": [
+      {
+       "point": "Two N–F single bonds, each one dot–cross shared pair.",
+       "keywords": [
+        [
+         "two",
+         "2"
+        ],
+        [
+         "single",
+         "shared"
+        ],
+        [
+         "dot–cross",
+         "dot-cross",
+         "one from each"
+        ]
+       ]
+      },
+      {
+       "point": "Three cross–cross lone pairs on each F; one dot–dot lone pair and one unpaired dot on N.",
+       "keywords": [
+        [
+         "three",
+         "3"
+        ],
+        [
+         "each F",
+         "every F",
+         "each fluorine"
+        ],
+        [
+         "one lone pair",
+         "1 lone pair"
+        ],
+        [
+         "unpaired",
+         "single electron"
+        ],
+        [
+         "N",
+         "nitrogen"
+        ]
+       ]
+      },
+      {
+       "point": "Nineteen electrons in total: four bonding, fourteen in lone pairs and one unpaired.",
+       "keywords": [
+        [
+         "19",
+         "nineteen"
+        ],
+        [
+         "4",
+         "four"
+        ],
+        [
+         "14",
+         "fourteen"
+        ],
+        [
+         "1",
+         "one"
+        ]
+       ]
+      },
+      {
+       "point": "Seven electrons surround N, while each F has an octet; the radical is neutral.",
+       "keywords": [
+        [
+         "seven",
+         "7"
+        ],
+        [
+         "eight",
+         "8",
+         "octet"
+        ],
+        [
+         "neutral",
+         "no charge"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "guided_discover": {
+    "stem": "A dot electron and a cross electron are shown in the same diagram. Identify what the different symbols tell you.",
+    "options": {
+     "A": "The electrons have opposite electric charges.",
+     "B": "The electrons originally came from different atoms.",
+     "C": "Only the dot electron can form a bond.",
+     "D": "The cross electron has a greater mass."
+    },
+    "answer": "B",
+    "explanation": "The symbols label original contributions. Both represent electrons with the same charge and mass; either can be in a bonding pair."
+   },
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Ionic formula units can be joined with ordinary shared pairs.",
+     "temptation": "Treat the formula as a small covalent molecule.",
+     "fix": "Follow the stated ionic model: transfer electrons, then draw separately bracketed ions in the required ratio with charges."
+    },
+    {
+     "id": "m2",
+     "idea": "The coordinate pair in the requested CO convention goes from C to O.",
+     "temptation": "Choose an arrow from the written order of the atoms instead of the specified electron donor.",
+     "fix": "Read the stated donor direction first. For this CO construction use two O symbols in the donated pair and label oxygen to carbon."
+    },
+    {
+     "id": "m3",
+     "idea": "Every atom must finish with exactly eight surrounding electrons.",
+     "temptation": "Add an electron, remove a bond or hide an unpaired electron to force an octet.",
+     "fix": "Conserve the electron inventory first; allow the expanded shell or unpaired electron required by the stated species."
+    },
+    {
+     "id": "m4",
+     "idea": "A coordinate shared pair must contain one electron from each atom.",
+     "temptation": "Copy the symbols used for an ordinary covalent bond.",
+     "fix": "Use two donor symbols for the coordinate pair, while still counting it as a shared bonding pair."
+    }
+   ],
+   "diagrams": [],
+   "diagram_descriptions": [],
+   "diagram_reason": "The pack has no existing linked dot-and-cross asset. The supported renderer types cannot draw electron-origin molecular structures, and this plan requests no PDF crop. Staged electron inventories are provided in words; a reviewed molecular drawing remains a visual limitation.",
+   "source_gaps": [
+    "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.7.pdf pp.6–8 explains coordinate bonding and octet exceptions but its extracted text does not provide an odd-electron construction; OpenStax Chemistry 2e section 7.3 supplies the NO method.",
+    "The reviewed Cambridge bundle excerpts establish CO donor direction and ionic Mg2Si conventions; they are not a complete survey of all official question wordings or marking schemes.",
+    "Hydronium, N2 and NF2 checks are original applications of the reviewed bonding rules; no official species-specific mark scheme was reviewed for these checks.",
+    "The five written-check answers and rubrics have electron inventories checked in Python, but have no separately recorded blind solver and reviewer decisions yet.",
+    "No existing linked molecular diagram was available for review; text electron inventories do not replace a visual dot-and-cross demonstration.",
+    "Review update, 2026-10-30: the earlier missing-review status is historical. A fresh-context blind solver supplied solutions to all five written checks; a separate refiner review accepted every answer and rubric, with current fingerprint-bound records in 9701-3.7.written-review.json. This records independent agents of the same model family, not cross-family or official marking-scheme approval; the source and visual limitations above remain."
+   ],
+   "disclosed_item_ids": [
+    "9701-3.7-i01",
+    "9701-3.7-i02",
+    "9701-3.7-i04",
+    "9701-3.7-i05",
+    "9701-3.7-i07",
+    "9701-3.7-i08",
+    "9701-3.7-i09",
+    "9701-3.7-i10",
+    "9701-3.7-i11",
+    "9701-3.7-r01",
+    "9701-3.7-r02",
+    "9701-3.7-r04",
+    "9701-3.7-r05"
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-3.7.1": [
+   "Ionic electron transfer",
+   "Coordinate-pair origin and donor direction",
+   "Ordinary multiple bonds",
+   "Expanded-octet electron accounting",
+   "Odd-electron species"
+  ]
  }
 }

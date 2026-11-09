@@ -57,7 +57,7 @@ def test_leaving_during_long_ai_check_keeps_the_mark_choices_warning(tmp_path, m
                     assert app.screen.__class__.__name__ == "HomeScreen"
                     await asyncio.wait_for(cancelled.wait(), timeout=2)
                     menu = app.screen.query_one("#menu")
-                    menu.highlighted = [o.id for o in menu.options].index("resume")
+                    menu.reveal("resume")
                     await pilot.press("enter")
                     await pilot.pause()
                     resumed = app.screen

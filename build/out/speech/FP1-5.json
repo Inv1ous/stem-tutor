@@ -1,0 +1,1339 @@
+{
+ "sub": "FP1-5",
+ "voice": "af_heart",
+ "speed": 1.5,
+ "lines": [
+  {
+   "id": "card:FP1-5.1:motivate",
+   "text": "When two tables of numbers describe the same positions, combining them entry by entry is natural. Matrix addition and subtraction formalise this, but the table sizes must agree.",
+   "key": "7a82d0e87c2b684ce71ef38c94deb155952dc2fb",
+   "file": "7a82d0e87c2b684ce71ef38c94deb155952dc2fb.wav"
+  },
+  {
+   "id": "card:FP1-5.1:establish",
+   "text": "A matrix has an order, number of rows by number of columns. Two matrices are conformable for addition or subtraction only when both orders match. For equal order matrices ay and B, the entry in row i, column j of ay plus B is a i j plus b i j, in ay minus B it is a i j minus b i j. The result has the same order. Keep the order of subtraction, generally ay minus B is not equal to B minus ay.",
+   "key": "6ef58f60fea0f7f2e18d11cb307faa3ee1bd09d5",
+   "file": "6ef58f60fea0f7f2e18d11cb307faa3ee1bd09d5.wav"
+  },
+  {
+   "id": "card:FP1-5.1:connect",
+   "text": "You can combine this entrywise rule with scalar multiplication to evaluate expressions such as two ay minus three B. Products of matrices follow a different rule.",
+   "key": "106e3ac30c02e93be85e5820e10d8bc7fcdfcd77",
+   "file": "106e3ac30c02e93be85e5820e10d8bc7fcdfcd77.wav"
+  },
+  {
+   "id": "card:FP1-5.1:note",
+   "text": "Add and subtract only matrices of the same order. Combine entries in corresponding positions. In ay minus B, subtract each entry of B from the matching entry of ay.",
+   "key": "3c57424bfc44c080a8e3401b2818ad69c778f1c2",
+   "file": "3c57424bfc44c080a8e3401b2818ad69c778f1c2.wav"
+  },
+  {
+   "id": "card:FP1-5.1:self_explain",
+   "text": "Why is a two times three matrix not conformable for addition with a three times two matrix, even though both have six entries?",
+   "key": "a822adb834aca8f5e8cc2f3325d1131d40dbbc4b",
+   "file": "a822adb834aca8f5e8cc2f3325d1131d40dbbc4b.wav"
+  },
+  {
+   "id": "card:FP1-5.1:discover",
+   "text": "Which pair can be added? two times three and three times two two times three and two times three two times three and two times two two times three and three times three B Both row and column counts must match.",
+   "key": "c6ea40f96817abc5766d5f8ff8f9c5f42a815f02",
+   "file": "c6ea40f96817abc5766d5f8ff8f9c5f42a815f02.wav"
+  },
+  {
+   "id": "card:FP1-5.2:motivate",
+   "text": "Multiplying every measurement in a table by the same conversion factor should change every position, not just one. A scalar works the same way on a matrix.",
+   "key": "52e74c186c983213fc70a7ebf3b3f4964378992d",
+   "file": "52e74c186c983213fc70a7ebf3b3f4964378992d.wav"
+  },
+  {
+   "id": "card:FP1-5.2:establish",
+   "text": "A scalar is an ordinary number. Scalar multiplication of a matrix means multiplying every entry by that number. If ay equals the two by two matrix with first row a, b, and second row c, d, then k ay equals the two by two matrix with first row k a, k b, and second row k c, k d. The order of the matrix stays the same. For matrices of the same order, k open bracket ay plus B close bracket equals k ay plus k B, so a scalar distributes to both matrices. To calculate p ay minus q B, scale each matrix and then subtract matching entries.",
+   "key": "faf0dd2d84b6b09794d463529555aa6943b707f1",
+   "file": "faf0dd2d84b6b09794d463529555aa6943b707f1.wav"
+  },
+  {
+   "id": "card:FP1-5.2:connect",
+   "text": "Scalar multiplication uses each entry independently, matrix multiplication uses rows and columns. Keeping those two procedures separate prevents a common error.",
+   "key": "99652e56575ba2e3866830f5a7765b5c87c59180",
+   "file": "99652e56575ba2e3866830f5a7765b5c87c59180.wav"
+  },
+  {
+   "id": "card:FP1-5.2:note",
+   "text": "Multiply every matrix entry by the scalar. A negative scalar changes signs where appropriate. Distribute a scalar to both terms in a matrix sum.",
+   "key": "49485f62f276790840e6829500a3d4992e123f63",
+   "file": "49485f62f276790840e6829500a3d4992e123f63.wav"
+  },
+  {
+   "id": "card:FP1-5.2:self_explain",
+   "text": "For two ay minus three B, why must the three multiply every entry of B before subtraction?",
+   "key": "ea90652c1cd085ec0174a5446106c748f1f8c208",
+   "file": "ea90652c1cd085ec0174a5446106c748f1f8c208.wav"
+  },
+  {
+   "id": "card:FP1-5.2:discover",
+   "text": "Which equals three open bracket ay plus B close bracket? three ay plus B ay plus three B three ay plus three B ay plus B plus three C The scalar multiplies every entry in each matrix.",
+   "key": "4f5b26f4c1f2b81647047a1efb28a7824e527d48",
+   "file": "4f5b26f4c1f2b81647047a1efb28a7824e527d48.wav"
+  },
+  {
+   "id": "card:FP1-5.3:motivate",
+   "text": "A matrix product combines one row of information with one column at a time. The matching middle dimension tells you whether the pairing can be completed.",
+   "key": "3546fdb478ebd484a4096521673a3b438ab396f0",
+   "file": "3546fdb478ebd484a4096521673a3b438ab396f0.wav"
+  },
+  {
+   "id": "card:FP1-5.3:establish",
+   "text": "For ay B, the number of columns of A must equal the number of rows of B, the matrices are then conformable for multiplication. If ay is m times n and B is n times p, then ay B is m times p. Entry open bracket i, j close bracket is the dot product of row i of ay and column j of B, multiply paired entries and add. This is not entrywise multiplication. In general ay B is not equal to B ay, a reverse product may even be undefined. Compatible products are associative, so open bracket ay B close bracket C equals A open bracket B C close bracket.",
+   "key": "e2705ae3d7d83b0310f82fa6011d8df0c1bb6f2e",
+   "file": "e2705ae3d7d83b0310f82fa6011d8df0c1bb6f2e.wav"
+  },
+  {
+   "id": "card:FP1-5.3:connect",
+   "text": "Matrix multiplication defines the identity relation ay ay to the minus one equals I. The order of factors also becomes crucial when inverting a product.",
+   "key": "5909175f51fad7f0828a4b19cddd73fb8d84ba4b",
+   "file": "5909175f51fad7f0828a4b19cddd73fb8d84ba4b.wav"
+  },
+  {
+   "id": "card:FP1-5.3:note",
+   "text": "Check matching inner dimensions before multiplying. The outer dimensions give the product order. Each product entry is a row column dot product. Preserve factor order, generally ay B is not equal to B ay.",
+   "key": "bf85899ff118bccca449cb225dcf7879b98f5091",
+   "file": "bf85899ff118bccca449cb225dcf7879b98f5091.wav"
+  },
+  {
+   "id": "card:FP1-5.3:self_explain",
+   "text": "Why does a two times three matrix times a three times four matrix have order two times four?",
+   "key": "886f197600162198739c9df8652d0e8bbdb4cb10",
+   "file": "886f197600162198739c9df8652d0e8bbdb4cb10.wav"
+  },
+  {
+   "id": "card:FP1-5.3:discover",
+   "text": "What is the order of open bracket two times three close bracket open bracket three times four close bracket? two times four three times three four times two Undefined ay The inner dimensions match, and the outer dimensions remain.",
+   "key": "776b9d60a59f0e530e1892cd4397b6f86b442d58",
+   "file": "776b9d60a59f0e530e1892cd4397b6f86b442d58.wav"
+  },
+  {
+   "id": "card:FP1-5.4:motivate",
+   "text": "A determinant is a quick test for whether a square matrix can be undone by an inverse. For a two times two matrix, it takes one subtraction.",
+   "key": "068394f575d59643f1d50dd7c8c8ecbf9f5b3e47",
+   "file": "068394f575d59643f1d50dd7c8c8ecbf9f5b3e47.wav"
+  },
+  {
+   "id": "card:FP1-5.4:establish",
+   "text": "For ay equals the two by two matrix with first row a, b, and second row c, d, evaluate the two times two determinant as the determinant of ay equals a d minus b c, the main diagonal product minus the other diagonal product. A matrix is singular exactly when its determinant is zero, then it has no inverse. It is non singular when its determinant is nonzero, then an inverse exists. A zero entry by itself does not make a matrix singular. For example, the two by two matrix with first row zero, one, and second row one, zero has determinant minus one and is non singular.",
+   "key": "e2c19c3fdc079b87b7032a9ec0fcd1499d0db2ea",
+   "file": "e2c19c3fdc079b87b7032a9ec0fcd1499d0db2ea.wav"
+  },
+  {
+   "id": "card:FP1-5.4:connect",
+   "text": "Compute the determinant before using the two times two inverse formula, since the determinant appears in its denominator.",
+   "key": "32433067052039b06c0c1322e0ca75fef82373c8",
+   "file": "32433067052039b06c0c1322e0ca75fef82373c8.wav"
+  },
+  {
+   "id": "card:FP1-5.4:note",
+   "text": "For the two by two matrix with first row a, b, and second row c, d, the determinant of ay equals a d minus b c. Zero determinant means singular and no inverse. Nonzero determinant means non singular and invertible.",
+   "key": "f87733d2916ced0ef5ad7722e791ddfc18ec8937",
+   "file": "f87733d2916ced0ef5ad7722e791ddfc18ec8937.wav"
+  },
+  {
+   "id": "card:FP1-5.4:self_explain",
+   "text": "Why can a matrix with one zero entry still be non singular?",
+   "key": "7d09882f482b44c7fbf84763e14e9b954829013e",
+   "file": "7d09882f482b44c7fbf84763e14e9b954829013e.wav"
+  },
+  {
+   "id": "card:FP1-5.4:discover",
+   "text": "When is a two times two matrix singular? Its determinant is zero. Its determinant is one. One entry is zero. The diagonal entries match. ay Singularity depends on the determinant being zero, not on any single entry.",
+   "key": "610dcd347defd597b9657631db01a2870c63d417",
+   "file": "610dcd347defd597b9657631db01a2870c63d417.wav"
+  },
+  {
+   "id": "card:FP1-5.5:motivate",
+   "text": "An inverse undoes a matrix operation. Its formula uses the determinant, and undoing two successive operations requires reversing their order.",
+   "key": "36454bd22673c438a8a81311495c2a7fa2ac1207",
+   "file": "36454bd22673c438a8a81311495c2a7fa2ac1207.wav"
+  },
+  {
+   "id": "card:FP1-5.5:establish",
+   "text": "For a non singular two times two matrix ay equals the two by two matrix with first row a, b, and second row c, d, ay to the minus one equals one over, a d minus b c, the two by two matrix with first row d, minus b, and second row minus c, a. First check a d minus b c is not equal to zero, otherwise the inverse does not exist. Swap the diagonal entries, negate the off diagonal entries and divide the whole matrix by the determinant. Verify an inverse using ay ay to the minus one equals ay to the minus one ay equals I. If ay and B are invertible, open bracket ay B close bracket to the minus one equals B to the minus one ay to the minus one. The order reverses because open bracket ay B close bracket open bracket B to the minus one ay to the minus one close bracket equals A open bracket B B to the minus one close bracket ay to the minus one equals I.",
+   "key": "3baf9bcc8a386e67d3ce9660441abc63fe6398d4",
+   "file": "3baf9bcc8a386e67d3ce9660441abc63fe6398d4.wav"
+  },
+  {
+   "id": "card:FP1-5.5:connect",
+   "text": "The determinant test comes first, and the matrix product rule lets you check the result. The identity matrix plays the role of one in multiplication.",
+   "key": "e2d56523aa6e641e6153544ca7532424094d791c",
+   "file": "e2d56523aa6e641e6153544ca7532424094d791c.wav"
+  },
+  {
+   "id": "card:FP1-5.5:note",
+   "text": "Invert only when the determinant of ay is not equal to zero. Swap diagonal entries, negate off diagonal entries, then divide by the determinant of ay. ay ay to the minus one equals I checks the inverse. open bracket ay B close bracket to the minus one equals B to the minus one ay to the minus one reverses order.",
+   "key": "02d55c8d2440a3542eddd67abc0b7d837019f0fc",
+   "file": "02d55c8d2440a3542eddd67abc0b7d837019f0fc.wav"
+  },
+  {
+   "id": "card:FP1-5.5:self_explain",
+   "text": "Why does the inverse of ay B place B to the minus one before ay to the minus one?",
+   "key": "1dd50ea0766880673c67c3a2cda1c7e38a1e5ce9",
+   "file": "1dd50ea0766880673c67c3a2cda1c7e38a1e5ce9.wav"
+  },
+  {
+   "id": "card:FP1-5.5:discover",
+   "text": "Which expression equals open bracket ay B close bracket to the minus one for invertible matrices? ay to the minus one B to the minus one B to the minus one ay to the minus one open bracket ay plus B close bracket to the minus one ay B to the minus one B Reversing the order makes adjacent factors cancel when you check the product against I.",
+   "key": "fcb22b258e9aca8709c06ae177f4aea5371cc0ec",
+   "file": "fcb22b258e9aca8709c06ae177f4aea5371cc0ec.wav"
+  },
+  {
+   "id": "item:FP1-5-i01:stem",
+   "text": "Calculate the open bracket one, two close bracket entry of ay plus B, where ay equals the two by two matrix with first row two, minus three, and second row five, four and B equals the two by two matrix with first row seven, one, and second row minus two, six.",
+   "key": "26cfa9f549f641203bb18931763bb3da53448a03",
+   "file": "26cfa9f549f641203bb18931763bb3da53448a03.wav"
+  },
+  {
+   "id": "item:FP1-5-i01:explanation",
+   "text": "Add corresponding entries, minus three plus one equals minus two.",
+   "key": "2686183162e4cae554d8621060392c5dedb13726",
+   "file": "2686183162e4cae554d8621060392c5dedb13726.wav"
+  },
+  {
+   "id": "item:FP1-5-i01:hint1",
+   "text": "Locate the first row and second column in each matrix.",
+   "key": "ad329d4425303565106ecb1d2e6d8e5051b2934a",
+   "file": "ad329d4425303565106ecb1d2e6d8e5051b2934a.wav"
+  },
+  {
+   "id": "item:FP1-5-i01:hint2",
+   "text": "Add entries in the same position.",
+   "key": "cd849de2e18bc66f0585464b17e9dad07a4dd375",
+   "file": "cd849de2e18bc66f0585464b17e9dad07a4dd375.wav"
+  },
+  {
+   "id": "item:FP1-5-i01:hint3",
+   "text": "Use the entries minus three and one.",
+   "key": "008b33486c917f0391cff9e571b8c3744e979403",
+   "file": "008b33486c917f0391cff9e571b8c3744e979403.wav"
+  },
+  {
+   "id": "item:FP1-5-i02:stem",
+   "text": "Calculate the open bracket two, one close bracket entry of ay minus B, where ay equals the two by two matrix with first row two, minus three, and second row five, four and B equals the two by two matrix with first row seven, one, and second row minus two, six.",
+   "key": "6f2bfb3295ce3926ac24e48384d517162005f643",
+   "file": "6f2bfb3295ce3926ac24e48384d517162005f643.wav"
+  },
+  {
+   "id": "item:FP1-5-i02:explanation",
+   "text": "Subtract the corresponding entries, five minus open bracket minus two close bracket equals seven.",
+   "key": "0e8d49f91e4e40d28d71547eeaa8ac1968c7cce6",
+   "file": "0e8d49f91e4e40d28d71547eeaa8ac1968c7cce6.wav"
+  },
+  {
+   "id": "item:FP1-5-i02:hint1",
+   "text": "Use row two, column one.",
+   "key": "1fab08960dfab66f68044471e3e9f68551a0cf1f",
+   "file": "1fab08960dfab66f68044471e3e9f68551a0cf1f.wav"
+  },
+  {
+   "id": "item:FP1-5-i02:hint2",
+   "text": "Subtract the entry of B from the entry of ay.",
+   "key": "7cbccd19e1562d88748076ebfc133f82bc9196cb",
+   "file": "7cbccd19e1562d88748076ebfc133f82bc9196cb.wav"
+  },
+  {
+   "id": "item:FP1-5-i02:hint3",
+   "text": "Pay attention to the negative entry in B.",
+   "key": "ab0234fb89296d2bd38c7b581fdc14e744752f49",
+   "file": "ab0234fb89296d2bd38c7b581fdc14e744752f49.wav"
+  },
+  {
+   "id": "item:FP1-5-i03:stem",
+   "text": "Calculate the open bracket two, three close bracket entry of C plus D, where C equals the two by three matrix with first row one, four, zero, and second row minus two, three, five and D equals the two by three matrix with first row three, minus one, six, and second row seven, zero, minus four.",
+   "key": "071dc9c8db318d922986d89b358f60ac1bd5d8bf",
+   "file": "071dc9c8db318d922986d89b358f60ac1bd5d8bf.wav"
+  },
+  {
+   "id": "item:FP1-5-i03:explanation",
+   "text": "Both matrices are two times three, the required entry is five plus open bracket minus four close bracket equals one.",
+   "key": "b503d34205a92e19c258ecce3f3ffab1133548bf",
+   "file": "b503d34205a92e19c258ecce3f3ffab1133548bf.wav"
+  },
+  {
+   "id": "item:FP1-5-i03:hint1",
+   "text": "Check that the dimensions agree.",
+   "key": "9c320cc4d42fb35bdd848a144c0bea3a88bfe96f",
+   "file": "9c320cc4d42fb35bdd848a144c0bea3a88bfe96f.wav"
+  },
+  {
+   "id": "item:FP1-5-i03:hint2",
+   "text": "Find row two, column three in both matrices.",
+   "key": "ddee419bc187ed39a04bdb499fae690a316a802d",
+   "file": "ddee419bc187ed39a04bdb499fae690a316a802d.wav"
+  },
+  {
+   "id": "item:FP1-5-i03:hint3",
+   "text": "Add five and minus four.",
+   "key": "de1924661bb288e965a1b463fd284feea1226423",
+   "file": "de1924661bb288e965a1b463fd284feea1226423.wav"
+  },
+  {
+   "id": "item:FP1-5-i04:stem",
+   "text": "Calculate the open bracket one, two close bracket entry of C minus D, where C equals the two by three matrix with first row one, four, zero, and second row minus two, three, five and D equals the two by three matrix with first row three, minus one, six, and second row seven, zero, minus four.",
+   "key": "811e96a725845652f8d7b597a82d90623f3d857c",
+   "file": "811e96a725845652f8d7b597a82d90623f3d857c.wav"
+  },
+  {
+   "id": "item:FP1-5-i04:explanation",
+   "text": "Subtract entrywise, four minus open bracket minus one close bracket equals five.",
+   "key": "404292dc0f7233052caa92ac29e6a891ecc3e0e5",
+   "file": "404292dc0f7233052caa92ac29e6a891ecc3e0e5.wav"
+  },
+  {
+   "id": "item:FP1-5-i04:hint1",
+   "text": "Find the matching positions.",
+   "key": "dd7011341a4042159d2837da794184e51e15f3a3",
+   "file": "dd7011341a4042159d2837da794184e51e15f3a3.wav"
+  },
+  {
+   "id": "item:FP1-5-i04:hint2",
+   "text": "Keep the order C minus D.",
+   "key": "66b645b0424cabcedd2bbca71d6b558af21723a9",
+   "file": "66b645b0424cabcedd2bbca71d6b558af21723a9.wav"
+  },
+  {
+   "id": "item:FP1-5-i04:hint3",
+   "text": "Subtract a negative number in row one, column two.",
+   "key": "c37dda47c8a676d216c37e8990d48bc35ab6f928",
+   "file": "c37dda47c8a676d216c37e8990d48bc35ab6f928.wav"
+  },
+  {
+   "id": "item:FP1-5-i05:stem",
+   "text": "State which pair of matrix orders can be added.",
+   "key": "4c1d0314a8a11c9009e88aba0ba9dfe09ecced24",
+   "file": "4c1d0314a8a11c9009e88aba0ba9dfe09ecced24.wav"
+  },
+  {
+   "id": "item:FP1-5-i05:explanation",
+   "text": "Addition requires exactly the same number of rows and columns in both matrices.",
+   "key": "30bf2f29e51df0dc20481a4d3e90f40435f2f98c",
+   "file": "30bf2f29e51df0dc20481a4d3e90f40435f2f98c.wav"
+  },
+  {
+   "id": "item:FP1-5-i05:hint1",
+   "text": "Think about matching entries.",
+   "key": "ccbba22d0f431b7fb2c2f4f355035501ab2d954a",
+   "file": "ccbba22d0f431b7fb2c2f4f355035501ab2d954a.wav"
+  },
+  {
+   "id": "item:FP1-5-i05:hint2",
+   "text": "Compare both dimensions, not just one.",
+   "key": "42565cf086d7fe210d61e51c61604b732daf59fd",
+   "file": "42565cf086d7fe210d61e51c61604b732daf59fd.wav"
+  },
+  {
+   "id": "item:FP1-5-i05:hint3",
+   "text": "Check rows and columns separately.",
+   "key": "228ca8b7f62cd1ef5e51a391ba0db4b6e4cec8a2",
+   "file": "228ca8b7f62cd1ef5e51a391ba0db4b6e4cec8a2.wav"
+  },
+  {
+   "id": "item:FP1-5-i06:stem",
+   "text": "Calculate the open bracket two, two close bracket entry of E minus F plus E, where E equals the two by two matrix with first row six, minus four, and second row one, eight and F equals the two by two matrix with first row minus three, seven, and second row five, minus two.",
+   "key": "34f9a98c5744c9e64a0b005328238159890a4d30",
+   "file": "34f9a98c5744c9e64a0b005328238159890a4d30.wav"
+  },
+  {
+   "id": "item:FP1-5-i06:explanation",
+   "text": "Work entrywise, eight minus open bracket minus two close bracket plus eight equals eighteen.",
+   "key": "2d31abff5a4a57fb60703b37115f2965ad0b0d24",
+   "file": "2d31abff5a4a57fb60703b37115f2965ad0b0d24.wav"
+  },
+  {
+   "id": "item:FP1-5-i06:hint1",
+   "text": "Use the same entry from each occurrence of E.",
+   "key": "bff0b3388dd251cc1f6388e6b43d13362a501312",
+   "file": "bff0b3388dd251cc1f6388e6b43d13362a501312.wav"
+  },
+  {
+   "id": "item:FP1-5-i06:hint2",
+   "text": "Write the scalar calculation for row two, column two.",
+   "key": "2a271d1e62539e662de0453d2abd782b2e5bf242",
+   "file": "2a271d1e62539e662de0453d2abd782b2e5bf242.wav"
+  },
+  {
+   "id": "item:FP1-5-i06:hint3",
+   "text": "Account for subtracting the negative entry of F.",
+   "key": "c9794a89d2d1c721c8f56ab48b8aa58cb5531f1c",
+   "file": "c9794a89d2d1c721c8f56ab48b8aa58cb5531f1c.wav"
+  },
+  {
+   "id": "item:FP1-5-i07:stem",
+   "text": "Calculate the open bracket one, two close bracket entry of three ay, where ay equals the two by two matrix with first row two, minus five, and second row zero, three.",
+   "key": "9033924466526b22279adfcfabfa92658ea09ba6",
+   "file": "9033924466526b22279adfcfabfa92658ea09ba6.wav"
+  },
+  {
+   "id": "item:FP1-5-i07:explanation",
+   "text": "Multiply each entry of ay by three, three open bracket minus five close bracket equals minus fifteen.",
+   "key": "6b37492f5925537c54fbc645bc42e3f08322d232",
+   "file": "6b37492f5925537c54fbc645bc42e3f08322d232.wav"
+  },
+  {
+   "id": "item:FP1-5-i07:hint1",
+   "text": "Find the required entry of ay.",
+   "key": "553d941ff056e37dc69b8aba04aa2f9946446e24",
+   "file": "553d941ff056e37dc69b8aba04aa2f9946446e24.wav"
+  },
+  {
+   "id": "item:FP1-5-i07:hint2",
+   "text": "Multiply that entry by the scalar.",
+   "key": "94f90172ac5f61a69123294424e4469e606a1dcb",
+   "file": "94f90172ac5f61a69123294424e4469e606a1dcb.wav"
+  },
+  {
+   "id": "item:FP1-5-i07:hint3",
+   "text": "Retain its sign.",
+   "key": "55c9fc29f2e23a2e6978e7c4d96e0ef83fb1b3d5",
+   "file": "55c9fc29f2e23a2e6978e7c4d96e0ef83fb1b3d5.wav"
+  },
+  {
+   "id": "item:FP1-5-i08:stem",
+   "text": "Calculate the open bracket two, two close bracket entry of minus two ay, where ay equals the two by two matrix with first row two, minus five, and second row zero, three.",
+   "key": "40799fcb50acf8ac547b19e8d474e9c320a8cba8",
+   "file": "40799fcb50acf8ac547b19e8d474e9c320a8cba8.wav"
+  },
+  {
+   "id": "item:FP1-5-i08:explanation",
+   "text": "The entry is minus two open bracket three close bracket equals minus six.",
+   "key": "e6159da80c1f92fd93651357ded51f05fbf5f156",
+   "file": "e6159da80c1f92fd93651357ded51f05fbf5f156.wav"
+  },
+  {
+   "id": "item:FP1-5-i08:hint1",
+   "text": "Locate row two, column two.",
+   "key": "b49980146b630aaff47383ad761fbc6d761fe755",
+   "file": "b49980146b630aaff47383ad761fbc6d761fe755.wav"
+  },
+  {
+   "id": "item:FP1-5-i08:hint2",
+   "text": "Apply the scalar to this entry.",
+   "key": "57472a9930522870aa74e9e949ba51a34e88760a",
+   "file": "57472a9930522870aa74e9e949ba51a34e88760a.wav"
+  },
+  {
+   "id": "item:FP1-5-i08:hint3",
+   "text": "A negative scalar reverses the sign.",
+   "key": "dfeb2808949ea2b455670fcf2623f4566dce98c2",
+   "file": "dfeb2808949ea2b455670fcf2623f4566dce98c2.wav"
+  },
+  {
+   "id": "item:FP1-5-i09:stem",
+   "text": "Calculate the open bracket two, one close bracket entry of two ay minus three B, where ay equals the two by two matrix with first row two, minus five, and second row zero, three and B equals the two by two matrix with first row four, one, and second row minus three, two.",
+   "key": "8f868aa5a0f4ba0b045ebe4fb4ff6a24eb333c90",
+   "file": "8f868aa5a0f4ba0b045ebe4fb4ff6a24eb333c90.wav"
+  },
+  {
+   "id": "item:FP1-5-i09:explanation",
+   "text": "The entry is two open bracket zero close bracket minus three open bracket minus three close bracket equals nine.",
+   "key": "dfa4746d3fa54dd5d0760fd81ea39c1824f4e2c1",
+   "file": "dfa4746d3fa54dd5d0760fd81ea39c1824f4e2c1.wav"
+  },
+  {
+   "id": "item:FP1-5-i09:hint1",
+   "text": "Select the matching entries.",
+   "key": "6905827fd780ab5cdc162732443c3a85112c27e1",
+   "file": "6905827fd780ab5cdc162732443c3a85112c27e1.wav"
+  },
+  {
+   "id": "item:FP1-5-i09:hint2",
+   "text": "Multiply each selected entry by its coefficient.",
+   "key": "060e6f3430c7f640f39be4711e3623840d9ef222",
+   "file": "060e6f3430c7f640f39be4711e3623840d9ef222.wav"
+  },
+  {
+   "id": "item:FP1-5-i09:hint3",
+   "text": "Subtract the second product.",
+   "key": "283966a1b39bb57ed09e74602a98fd9f59ef855e",
+   "file": "283966a1b39bb57ed09e74602a98fd9f59ef855e.wav"
+  },
+  {
+   "id": "item:FP1-5-i10:stem",
+   "text": "Calculate the open bracket one, one close bracket entry of minus ay plus two B, where ay equals the two by two matrix with first row two, minus five, and second row zero, three and B equals the two by two matrix with first row four, one, and second row minus three, two.",
+   "key": "6cb91ba15bd0e0550d7faf4d4ba18ccd684ed868",
+   "file": "6cb91ba15bd0e0550d7faf4d4ba18ccd684ed868.wav"
+  },
+  {
+   "id": "item:FP1-5-i10:explanation",
+   "text": "The entry is minus two plus two open bracket four close bracket equals six.",
+   "key": "84680ec6067d18f0e7ec28ff8879881e0a1cb6cf",
+   "file": "84680ec6067d18f0e7ec28ff8879881e0a1cb6cf.wav"
+  },
+  {
+   "id": "item:FP1-5-i10:hint1",
+   "text": "Find the top left entries.",
+   "key": "86862ed38a0e76dc55f1b3439c67941c6da47bce",
+   "file": "86862ed38a0e76dc55f1b3439c67941c6da47bce.wav"
+  },
+  {
+   "id": "item:FP1-5-i10:hint2",
+   "text": "Apply both scalar multipliers.",
+   "key": "1b707afaea57d660fbd32cc7e08301a0b02c03f7",
+   "file": "1b707afaea57d660fbd32cc7e08301a0b02c03f7.wav"
+  },
+  {
+   "id": "item:FP1-5-i10:hint3",
+   "text": "Add the resulting entries.",
+   "key": "fe6fa8b2399fbf109865ebbee659a5f1faec692a",
+   "file": "fe6fa8b2399fbf109865ebbee659a5f1faec692a.wav"
+  },
+  {
+   "id": "item:FP1-5-i11:stem",
+   "text": "State which expression equals three open bracket ay plus B close bracket for matrices ay and B of the same order.",
+   "key": "9f37591a5e2cf8dceba98588e42867769f465a7c",
+   "file": "9f37591a5e2cf8dceba98588e42867769f465a7c.wav"
+  },
+  {
+   "id": "item:FP1-5-i11:explanation",
+   "text": "Scalar multiplication distributes across matrix addition, each entry in both matrices is multiplied by three.",
+   "key": "41723b905a34a21e621a8bfb9bfa318e00a3f455",
+   "file": "41723b905a34a21e621a8bfb9bfa318e00a3f455.wav"
+  },
+  {
+   "id": "item:FP1-5-i11:hint1",
+   "text": "Expand the brackets entry by entry.",
+   "key": "4bc1f361e8310763eb7715c43fbb143da3f85d6e",
+   "file": "4bc1f361e8310763eb7715c43fbb143da3f85d6e.wav"
+  },
+  {
+   "id": "item:FP1-5-i11:hint2",
+   "text": "The scalar multiplies both matrix terms.",
+   "key": "c3cf434e118b1a008cd973a9e11842bcb98b4d42",
+   "file": "c3cf434e118b1a008cd973a9e11842bcb98b4d42.wav"
+  },
+  {
+   "id": "item:FP1-5-i11:hint3",
+   "text": "Compare the coefficients of ay and B.",
+   "key": "98723c7c79e30a7c8857dce9f22d6bacaa3b7e58",
+   "file": "98723c7c79e30a7c8857dce9f22d6bacaa3b7e58.wav"
+  },
+  {
+   "id": "item:FP1-5-i12:stem",
+   "text": "Calculate the open bracket two, three close bracket entry of four C minus two D, where C equals the two by three matrix with first row one, two, zero, and second row minus one, four, three and D equals the two by three matrix with first row two, minus three, five, and second row four, one, minus two.",
+   "key": "28e71473e7162ea65c9ae4e24731a8e128d239a5",
+   "file": "28e71473e7162ea65c9ae4e24731a8e128d239a5.wav"
+  },
+  {
+   "id": "item:FP1-5-i12:explanation",
+   "text": "The entry is four open bracket three close bracket minus two open bracket minus two close bracket equals sixteen.",
+   "key": "71e8f96029acd1185b7026bbd8ef5da0d10b144a",
+   "file": "71e8f96029acd1185b7026bbd8ef5da0d10b144a.wav"
+  },
+  {
+   "id": "item:FP1-5-i12:hint1",
+   "text": "Check matching positions in both two times three matrices.",
+   "key": "ef34abdc8a101b3a77ec23b4d2c8cb503c999883",
+   "file": "ef34abdc8a101b3a77ec23b4d2c8cb503c999883.wav"
+  },
+  {
+   "id": "item:FP1-5-i12:hint2",
+   "text": "Scale both entries separately.",
+   "key": "d9a8200095a7bf440c34a57f767dce611bfdf573",
+   "file": "d9a8200095a7bf440c34a57f767dce611bfdf573.wav"
+  },
+  {
+   "id": "item:FP1-5-i12:hint3",
+   "text": "Then subtract the second scaled entry.",
+   "key": "67074f45203fee4467c31318fb272b9584cbb761",
+   "file": "67074f45203fee4467c31318fb272b9584cbb761.wav"
+  },
+  {
+   "id": "item:FP1-5-i13:stem",
+   "text": "Calculate the open bracket one, one close bracket entry of ay B, where ay equals the two by two matrix with first row two, one, and second row minus one, three and B equals the two by two matrix with first row four, minus two, and second row five, one.",
+   "key": "45f7c4c3664e565ba6f0edb6d04e392b8d30f020",
+   "file": "45f7c4c3664e565ba6f0edb6d04e392b8d30f020.wav"
+  },
+  {
+   "id": "item:FP1-5-i13:explanation",
+   "text": "First row by first column gives two open bracket four close bracket plus one open bracket five close bracket equals thirteen.",
+   "key": "398ac232323c8691f1f68139a7b6c8445acf4213",
+   "file": "398ac232323c8691f1f68139a7b6c8445acf4213.wav"
+  },
+  {
+   "id": "item:FP1-5-i13:hint1",
+   "text": "Select row one of ay.",
+   "key": "f67c72da62ad05402321e45a62fd153bf6ee6bbe",
+   "file": "f67c72da62ad05402321e45a62fd153bf6ee6bbe.wav"
+  },
+  {
+   "id": "item:FP1-5-i13:hint2",
+   "text": "Select column one of B.",
+   "key": "9cb55dff8c9c2521eab855b38141212102a53056",
+   "file": "9cb55dff8c9c2521eab855b38141212102a53056.wav"
+  },
+  {
+   "id": "item:FP1-5-i13:hint3",
+   "text": "Multiply corresponding components and add.",
+   "key": "f04fd367828465fab67e758742442aa28d08ec58",
+   "file": "f04fd367828465fab67e758742442aa28d08ec58.wav"
+  },
+  {
+   "id": "item:FP1-5-i14:stem",
+   "text": "Calculate the open bracket one, two close bracket entry of ay B, where ay equals the two by two matrix with first row two, one, and second row minus one, three and B equals the two by two matrix with first row four, minus two, and second row five, one.",
+   "key": "9e022acf456a51b6fc82ae270e65bdc3d2272d8d",
+   "file": "9e022acf456a51b6fc82ae270e65bdc3d2272d8d.wav"
+  },
+  {
+   "id": "item:FP1-5-i14:explanation",
+   "text": "First row by second column gives two open bracket minus two close bracket plus one open bracket one close bracket equals minus three.",
+   "key": "d1f8d8f0de46482c14e57a5bfeab27034263cd5e",
+   "file": "d1f8d8f0de46482c14e57a5bfeab27034263cd5e.wav"
+  },
+  {
+   "id": "item:FP1-5-i14:hint1",
+   "text": "Use row one of the left matrix.",
+   "key": "f8d1b74ecc4e8938101a92f868cf880442256780",
+   "file": "f8d1b74ecc4e8938101a92f868cf880442256780.wav"
+  },
+  {
+   "id": "item:FP1-5-i14:hint2",
+   "text": "Use column two of the right matrix.",
+   "key": "e5a6c9c83449e81ebea6a1b1f50c31f598bd6931",
+   "file": "e5a6c9c83449e81ebea6a1b1f50c31f598bd6931.wav"
+  },
+  {
+   "id": "item:FP1-5-i14:hint3",
+   "text": "Add the two products.",
+   "key": "db74e43a2f86503dafedf15f1c114bf3eadfbd5c",
+   "file": "db74e43a2f86503dafedf15f1c114bf3eadfbd5c.wav"
+  },
+  {
+   "id": "item:FP1-5-i15:stem",
+   "text": "Calculate the open bracket two, one close bracket entry of B ay, where ay equals the two by two matrix with first row two, one, and second row minus one, three and B equals the two by two matrix with first row four, minus two, and second row five, one.",
+   "key": "4d31a7852a234995ff2cd120bfa84a9e1d17385c",
+   "file": "4d31a7852a234995ff2cd120bfa84a9e1d17385c.wav"
+  },
+  {
+   "id": "item:FP1-5-i15:explanation",
+   "text": "Second row of B by first column of ay gives five open bracket two close bracket plus one open bracket minus one close bracket equals nine.",
+   "key": "525651934176d84266e471d2534cf85898d6203a",
+   "file": "525651934176d84266e471d2534cf85898d6203a.wav"
+  },
+  {
+   "id": "item:FP1-5-i15:hint1",
+   "text": "Read the order B A carefully.",
+   "key": "9da5f6f5dd5403b3259602d78c19c1bb002e8253",
+   "file": "9da5f6f5dd5403b3259602d78c19c1bb002e8253.wav"
+  },
+  {
+   "id": "item:FP1-5-i15:hint2",
+   "text": "Use row two of B and column one of ay.",
+   "key": "af69841e7e989a3b488dc870d838547fdb022648",
+   "file": "af69841e7e989a3b488dc870d838547fdb022648.wav"
+  },
+  {
+   "id": "item:FP1-5-i15:hint3",
+   "text": "Multiply and sum the paired entries.",
+   "key": "cb387abc9147b44ab5b879672850419b62f8353d",
+   "file": "cb387abc9147b44ab5b879672850419b62f8353d.wav"
+  },
+  {
+   "id": "item:FP1-5-i16:stem",
+   "text": "Calculate the open bracket two, two close bracket entry of C D, where C equals the two by three matrix with first row one, two, three, and second row four, zero, minus one and D equals the three by two matrix with first row two, one, second row minus three, four, and third row five, minus two.",
+   "key": "298b8415d3e8b223abc109bc8ba02d1816d81e19",
+   "file": "298b8415d3e8b223abc109bc8ba02d1816d81e19.wav"
+  },
+  {
+   "id": "item:FP1-5-i16:explanation",
+   "text": "Row two by column two gives four open bracket one close bracket plus zero open bracket four close bracket plus open bracket minus one close bracket open bracket minus two close bracket equals six.",
+   "key": "805629fa0b6e442d6e1dcfb0662bc32df8c1f4ef",
+   "file": "805629fa0b6e442d6e1dcfb0662bc32df8c1f4ef.wav"
+  },
+  {
+   "id": "item:FP1-5-i16:hint1",
+   "text": "Check inner dimensions, three and three.",
+   "key": "7f1bcfa378504d2bb3be2ce0b40b112f1d703ce3",
+   "file": "7f1bcfa378504d2bb3be2ce0b40b112f1d703ce3.wav"
+  },
+  {
+   "id": "item:FP1-5-i16:hint2",
+   "text": "Take row two of C and column two of D.",
+   "key": "9acecb9499c4b24b40bf06cfeba4a05ac691a451",
+   "file": "9acecb9499c4b24b40bf06cfeba4a05ac691a451.wav"
+  },
+  {
+   "id": "item:FP1-5-i16:hint3",
+   "text": "Sum three pairwise products.",
+   "key": "c72de8a4a2a121e8927efdcf4f68da488a788cb3",
+   "file": "c72de8a4a2a121e8927efdcf4f68da488a788cb3.wav"
+  },
+  {
+   "id": "item:FP1-5-i17:stem",
+   "text": "State the order of the product of a two times three matrix and a three times four matrix, in that order.",
+   "key": "7f56dc4b1438223d50dd042beef8459758781b1c",
+   "file": "7f56dc4b1438223d50dd042beef8459758781b1c.wav"
+  },
+  {
+   "id": "item:FP1-5-i17:explanation",
+   "text": "The inner dimensions match, so the product exists and has the outer dimensions two times four.",
+   "key": "c0914255631607398a6fe6a7e86a15020a718019",
+   "file": "c0914255631607398a6fe6a7e86a15020a718019.wav"
+  },
+  {
+   "id": "item:FP1-5-i17:hint1",
+   "text": "Compare the inner dimensions.",
+   "key": "6ef5016841ca909d5e3875721779b705b8f1e31f",
+   "file": "6ef5016841ca909d5e3875721779b705b8f1e31f.wav"
+  },
+  {
+   "id": "item:FP1-5-i17:hint2",
+   "text": "If they match, use the outer dimensions.",
+   "key": "1f87fa35a1e9e1b62adff3eaa682cf4f56ba1e8d",
+   "file": "1f87fa35a1e9e1b62adff3eaa682cf4f56ba1e8d.wav"
+  },
+  {
+   "id": "item:FP1-5-i17:hint3",
+   "text": "Keep the order of the factors.",
+   "key": "efea3a004c4c2ff0180f7e81c940793141a81fa9",
+   "file": "efea3a004c4c2ff0180f7e81c940793141a81fa9.wav"
+  },
+  {
+   "id": "item:FP1-5-i18:stem",
+   "text": "Calculate the open bracket one, two close bracket entry of A open bracket B A close bracket, where ay equals the two by two matrix with first row two, one, and second row minus one, three and B equals the two by two matrix with first row four, minus two, and second row five, one.",
+   "key": "86575d8b6d659098cafd765ef47eba12e28447fb",
+   "file": "86575d8b6d659098cafd765ef47eba12e28447fb.wav"
+  },
+  {
+   "id": "item:FP1-5-i18:explanation",
+   "text": "Associativity gives A open bracket B A close bracket equals open bracket ay B close bracket ay, multiplying the appropriate row and column gives four.",
+   "key": "701c03c972344cb4018c528ff5c8b4adf380375f",
+   "file": "701c03c972344cb4018c528ff5c8b4adf380375f.wav"
+  },
+  {
+   "id": "item:FP1-5-i18:hint1",
+   "text": "Multiply the inner pair first or use associativity.",
+   "key": "e28021bda207a20a395608df8175d65240454d2b",
+   "file": "e28021bda207a20a395608df8175d65240454d2b.wav"
+  },
+  {
+   "id": "item:FP1-5-i18:hint2",
+   "text": "Find the row and column for the requested final entry.",
+   "key": "48fbc45a5ad172ba5cf4fcf06e6ca9cbe8788cf3",
+   "file": "48fbc45a5ad172ba5cf4fcf06e6ca9cbe8788cf3.wav"
+  },
+  {
+   "id": "item:FP1-5-i18:hint3",
+   "text": "Keep the factor order while regrouping.",
+   "key": "259996fc116489957865f4bf7a7fadc071c36238",
+   "file": "259996fc116489957865f4bf7a7fadc071c36238.wav"
+  },
+  {
+   "id": "item:FP1-5-i19:stem",
+   "text": "Calculate the determinant of ay equals the two by two matrix with first row three, two, and second row one, five.",
+   "key": "df2ad91990c93456e577111c36f5c5f51f22a04a",
+   "file": "df2ad91990c93456e577111c36f5c5f51f22a04a.wav"
+  },
+  {
+   "id": "item:FP1-5-i19:explanation",
+   "text": "For a two times two matrix, the determinant of ay equals a d minus b c equals three times five minus two times one equals thirteen.",
+   "key": "a357f3e9fdebe8c2e0719884d93ad0b9544251ab",
+   "file": "a357f3e9fdebe8c2e0719884d93ad0b9544251ab.wav"
+  },
+  {
+   "id": "item:FP1-5-i19:hint1",
+   "text": "Label the entries a, b, c, d in reading order.",
+   "key": "639e7ea92048ff96cbccdd7b87774155e8105209",
+   "file": "639e7ea92048ff96cbccdd7b87774155e8105209.wav"
+  },
+  {
+   "id": "item:FP1-5-i19:hint2",
+   "text": "Use a d minus b c.",
+   "key": "7eaf44b268b8054655f49165f4fd6769879a9dd5",
+   "file": "7eaf44b268b8054655f49165f4fd6769879a9dd5.wav"
+  },
+  {
+   "id": "item:FP1-5-i19:hint3",
+   "text": "Subtract the off diagonal product.",
+   "key": "46ec78f8f8da0fb4828107b83f97b1c5faa5f6e5",
+   "file": "46ec78f8f8da0fb4828107b83f97b1c5faa5f6e5.wav"
+  },
+  {
+   "id": "item:FP1-5-i20:stem",
+   "text": "Calculate the determinant of ay equals the two by two matrix with first row two, minus three, and second row four, one.",
+   "key": "80c13c14e66c68266e9a54fd7a63cbd8101f37cc",
+   "file": "80c13c14e66c68266e9a54fd7a63cbd8101f37cc.wav"
+  },
+  {
+   "id": "item:FP1-5-i20:explanation",
+   "text": "For a two times two matrix, the determinant of ay equals a d minus b c equals two times one minus open bracket minus three close bracket four equals fourteen.",
+   "key": "f89f2b151f74ef690cd30b472fdb1d9830c7e5fe",
+   "file": "f89f2b151f74ef690cd30b472fdb1d9830c7e5fe.wav"
+  },
+  {
+   "id": "item:FP1-5-i20:hint1",
+   "text": "Label the entries a, b, c, d in reading order.",
+   "key": "639e7ea92048ff96cbccdd7b87774155e8105209",
+   "file": "639e7ea92048ff96cbccdd7b87774155e8105209.wav"
+  },
+  {
+   "id": "item:FP1-5-i20:hint2",
+   "text": "Use a d minus b c.",
+   "key": "7eaf44b268b8054655f49165f4fd6769879a9dd5",
+   "file": "7eaf44b268b8054655f49165f4fd6769879a9dd5.wav"
+  },
+  {
+   "id": "item:FP1-5-i20:hint3",
+   "text": "Subtract the off diagonal product.",
+   "key": "46ec78f8f8da0fb4828107b83f97b1c5faa5f6e5",
+   "file": "46ec78f8f8da0fb4828107b83f97b1c5faa5f6e5.wav"
+  },
+  {
+   "id": "item:FP1-5-i21:stem",
+   "text": "Calculate the determinant of ay equals the two by two matrix with first row minus one, four, and second row two, three.",
+   "key": "fd00647074e6c58c8b2e7fb0c8804727fa517acb",
+   "file": "fd00647074e6c58c8b2e7fb0c8804727fa517acb.wav"
+  },
+  {
+   "id": "item:FP1-5-i21:explanation",
+   "text": "For a two times two matrix, the determinant of ay equals a d minus b c equals open bracket minus one close bracket three minus four times two equals minus eleven.",
+   "key": "bacf4c0c8a05a1971fcbcfa1a06561434d930a2a",
+   "file": "bacf4c0c8a05a1971fcbcfa1a06561434d930a2a.wav"
+  },
+  {
+   "id": "item:FP1-5-i21:hint1",
+   "text": "Label the entries a, b, c, d in reading order.",
+   "key": "639e7ea92048ff96cbccdd7b87774155e8105209",
+   "file": "639e7ea92048ff96cbccdd7b87774155e8105209.wav"
+  },
+  {
+   "id": "item:FP1-5-i21:hint2",
+   "text": "Use a d minus b c.",
+   "key": "7eaf44b268b8054655f49165f4fd6769879a9dd5",
+   "file": "7eaf44b268b8054655f49165f4fd6769879a9dd5.wav"
+  },
+  {
+   "id": "item:FP1-5-i21:hint3",
+   "text": "Subtract the off diagonal product.",
+   "key": "46ec78f8f8da0fb4828107b83f97b1c5faa5f6e5",
+   "file": "46ec78f8f8da0fb4828107b83f97b1c5faa5f6e5.wav"
+  },
+  {
+   "id": "item:FP1-5-i22:stem",
+   "text": "Calculate the determinant of ay equals the two by two matrix with first row zero, seven, and second row minus two, five.",
+   "key": "9ddd528968fb56452e21d085e758f24f5c1fb368",
+   "file": "9ddd528968fb56452e21d085e758f24f5c1fb368.wav"
+  },
+  {
+   "id": "item:FP1-5-i22:explanation",
+   "text": "For a two times two matrix, the determinant of ay equals a d minus b c equals zero times five minus seven open bracket minus two close bracket equals fourteen.",
+   "key": "419b4e6715395b1127b9ff6b6bdfb09be0bf02ef",
+   "file": "419b4e6715395b1127b9ff6b6bdfb09be0bf02ef.wav"
+  },
+  {
+   "id": "item:FP1-5-i22:hint1",
+   "text": "Label the entries a, b, c, d in reading order.",
+   "key": "639e7ea92048ff96cbccdd7b87774155e8105209",
+   "file": "639e7ea92048ff96cbccdd7b87774155e8105209.wav"
+  },
+  {
+   "id": "item:FP1-5-i22:hint2",
+   "text": "Use a d minus b c.",
+   "key": "7eaf44b268b8054655f49165f4fd6769879a9dd5",
+   "file": "7eaf44b268b8054655f49165f4fd6769879a9dd5.wav"
+  },
+  {
+   "id": "item:FP1-5-i22:hint3",
+   "text": "Subtract the off diagonal product.",
+   "key": "46ec78f8f8da0fb4828107b83f97b1c5faa5f6e5",
+   "file": "46ec78f8f8da0fb4828107b83f97b1c5faa5f6e5.wav"
+  },
+  {
+   "id": "item:FP1-5-i23:stem",
+   "text": "State when a two times two matrix is singular.",
+   "key": "fb26f21b68f36fd77c54b5530a0013be8fe238f9",
+   "file": "fb26f21b68f36fd77c54b5530a0013be8fe238f9.wav"
+  },
+  {
+   "id": "item:FP1-5-i23:explanation",
+   "text": "A two times two matrix is singular exactly when its determinant is zero, then it has no inverse.",
+   "key": "4e1988027fda0bdf7cff8ed0052dc80badc8cf50",
+   "file": "4e1988027fda0bdf7cff8ed0052dc80badc8cf50.wav"
+  },
+  {
+   "id": "item:FP1-5-i23:hint1",
+   "text": "Recall the test for an inverse.",
+   "key": "36146fbb0a2612ab4b16b723969518ee11028f78",
+   "file": "36146fbb0a2612ab4b16b723969518ee11028f78.wav"
+  },
+  {
+   "id": "item:FP1-5-i23:hint2",
+   "text": "The determinant controls invertibility.",
+   "key": "9550e3d5cacdf875d4ad9b80b52a8657a642cc15",
+   "file": "9550e3d5cacdf875d4ad9b80b52a8657a642cc15.wav"
+  },
+  {
+   "id": "item:FP1-5-i23:hint3",
+   "text": "Identify the determinant value that makes division impossible.",
+   "key": "69de5344364a930a7dbb48bdacf9b6aef47eaa8f",
+   "file": "69de5344364a930a7dbb48bdacf9b6aef47eaa8f.wav"
+  },
+  {
+   "id": "item:FP1-5-i24:stem",
+   "text": "Calculate the determinant of ay and hence decide whether ay equals the two by two matrix with first row two, three, and second row four, six is singular. Enter the determinant.",
+   "key": "ee4acbcee210daedbca3e9ee12e366de9f7d1139",
+   "file": "ee4acbcee210daedbca3e9ee12e366de9f7d1139.wav"
+  },
+  {
+   "id": "item:FP1-5-i24:explanation",
+   "text": "two open bracket six close bracket minus three open bracket four close bracket equals zero, so ay is singular and has no inverse.",
+   "key": "832039812e0fa7fc809d5de23e2568f899076d1b",
+   "file": "832039812e0fa7fc809d5de23e2568f899076d1b.wav"
+  },
+  {
+   "id": "item:FP1-5-i24:hint1",
+   "text": "Compute the two diagonal products.",
+   "key": "543cfb8acc4cb68cd3986d70b27202fff300eba2",
+   "file": "543cfb8acc4cb68cd3986d70b27202fff300eba2.wav"
+  },
+  {
+   "id": "item:FP1-5-i24:hint2",
+   "text": "Subtract the second from the first.",
+   "key": "052996fdcd65029552c103abd6f854354a02abdf",
+   "file": "052996fdcd65029552c103abd6f854354a02abdf.wav"
+  },
+  {
+   "id": "item:FP1-5-i24:hint3",
+   "text": "A zero determinant means singular.",
+   "key": "cb6598d3172437bd3137858ba4dc38e4a7ca34af",
+   "file": "cb6598d3172437bd3137858ba4dc38e4a7ca34af.wav"
+  },
+  {
+   "id": "item:FP1-5-i25:stem",
+   "text": "Calculate the open bracket one, one close bracket entry of ay to the minus one for ay equals the two by two matrix with first row two, one, and second row three, two.",
+   "key": "1310cf1c9b8a4f6226c3005d8bcb184ce77ef2c9",
+   "file": "1310cf1c9b8a4f6226c3005d8bcb184ce77ef2c9.wav"
+  },
+  {
+   "id": "item:FP1-5-i25:explanation",
+   "text": "the determinant of ay equals one and ay to the minus one equals one over, the determinant of ay, the two by two matrix with first row two, minus one, and second row minus three, two, so the required entry is two.",
+   "key": "9f1da040be2f51011d1d891abde1c8a99071838f",
+   "file": "9f1da040be2f51011d1d891abde1c8a99071838f.wav"
+  },
+  {
+   "id": "item:FP1-5-i25:hint1",
+   "text": "Find the determinant first.",
+   "key": "fdfbf9c052a3dc0ddc309e9eadd7d2edb5e25dd8",
+   "file": "fdfbf9c052a3dc0ddc309e9eadd7d2edb5e25dd8.wav"
+  },
+  {
+   "id": "item:FP1-5-i25:hint2",
+   "text": "Swap diagonal entries and negate off diagonal entries.",
+   "key": "937fddfa6b62de660e8158ec5111df2df006972b",
+   "file": "937fddfa6b62de660e8158ec5111df2df006972b.wav"
+  },
+  {
+   "id": "item:FP1-5-i25:hint3",
+   "text": "Divide the relevant adjugate entry by the determinant.",
+   "key": "6eab2ad97aaf8961152b0b5e48fc874dfe1af108",
+   "file": "6eab2ad97aaf8961152b0b5e48fc874dfe1af108.wav"
+  },
+  {
+   "id": "item:FP1-5-i26:stem",
+   "text": "Calculate the open bracket one, two close bracket entry of ay to the minus one for ay equals the two by two matrix with first row four, one, and second row two, one.",
+   "key": "cca0f66082fe8dce8276297825173fad05ec94f0",
+   "file": "cca0f66082fe8dce8276297825173fad05ec94f0.wav"
+  },
+  {
+   "id": "item:FP1-5-i26:explanation",
+   "text": "the determinant of ay equals two and ay to the minus one equals one over, the determinant of ay, the two by two matrix with first row one, minus one, and second row minus two, four, so the required entry is minus one half.",
+   "key": "1c4f3781fdc9e4e6d13180dd3c7b21a2e6925a21",
+   "file": "1c4f3781fdc9e4e6d13180dd3c7b21a2e6925a21.wav"
+  },
+  {
+   "id": "item:FP1-5-i26:hint1",
+   "text": "Find the determinant first.",
+   "key": "fdfbf9c052a3dc0ddc309e9eadd7d2edb5e25dd8",
+   "file": "fdfbf9c052a3dc0ddc309e9eadd7d2edb5e25dd8.wav"
+  },
+  {
+   "id": "item:FP1-5-i26:hint2",
+   "text": "Swap diagonal entries and negate off diagonal entries.",
+   "key": "937fddfa6b62de660e8158ec5111df2df006972b",
+   "file": "937fddfa6b62de660e8158ec5111df2df006972b.wav"
+  },
+  {
+   "id": "item:FP1-5-i26:hint3",
+   "text": "Divide the relevant adjugate entry by the determinant.",
+   "key": "6eab2ad97aaf8961152b0b5e48fc874dfe1af108",
+   "file": "6eab2ad97aaf8961152b0b5e48fc874dfe1af108.wav"
+  },
+  {
+   "id": "item:FP1-5-i27:stem",
+   "text": "Calculate the open bracket two, one close bracket entry of ay to the minus one for ay equals the two by two matrix with first row one, two, and second row three, five.",
+   "key": "0d1d446b94237c510b843011112bc974bc814de9",
+   "file": "0d1d446b94237c510b843011112bc974bc814de9.wav"
+  },
+  {
+   "id": "item:FP1-5-i27:explanation",
+   "text": "the determinant of ay equals minus one and ay to the minus one equals one over, the determinant of ay, the two by two matrix with first row five, minus two, and second row minus three, one, so the required entry is three.",
+   "key": "ec00b7f75c1f75219b616cf29edea187358d7e22",
+   "file": "ec00b7f75c1f75219b616cf29edea187358d7e22.wav"
+  },
+  {
+   "id": "item:FP1-5-i27:hint1",
+   "text": "Find the determinant first.",
+   "key": "fdfbf9c052a3dc0ddc309e9eadd7d2edb5e25dd8",
+   "file": "fdfbf9c052a3dc0ddc309e9eadd7d2edb5e25dd8.wav"
+  },
+  {
+   "id": "item:FP1-5-i27:hint2",
+   "text": "Swap diagonal entries and negate off diagonal entries.",
+   "key": "937fddfa6b62de660e8158ec5111df2df006972b",
+   "file": "937fddfa6b62de660e8158ec5111df2df006972b.wav"
+  },
+  {
+   "id": "item:FP1-5-i27:hint3",
+   "text": "Divide the relevant adjugate entry by the determinant.",
+   "key": "6eab2ad97aaf8961152b0b5e48fc874dfe1af108",
+   "file": "6eab2ad97aaf8961152b0b5e48fc874dfe1af108.wav"
+  },
+  {
+   "id": "item:FP1-5-i28:stem",
+   "text": "Calculate the open bracket one, two close bracket entry of open bracket ay B close bracket to the minus one, where ay equals the two by two matrix with first row two, one, and second row one, one and B equals the two by two matrix with first row one, two, and second row zero, one.",
+   "key": "d2d2e5c15193494f44c939f2ca275584fbeda0b9",
+   "file": "d2d2e5c15193494f44c939f2ca275584fbeda0b9.wav"
+  },
+  {
+   "id": "item:FP1-5-i28:explanation",
+   "text": "Use open bracket ay B close bracket to the minus one equals B to the minus one ay to the minus one, the required entry is minus five.",
+   "key": "68d0e8530264ab2c11aa7196f0057363de7c0f88",
+   "file": "68d0e8530264ab2c11aa7196f0057363de7c0f88.wav"
+  },
+  {
+   "id": "item:FP1-5-i28:hint1",
+   "text": "Both factors are invertible.",
+   "key": "60b8c0cb8aabc3103ca0b4d348a9a3ce4502d4bb",
+   "file": "60b8c0cb8aabc3103ca0b4d348a9a3ce4502d4bb.wav"
+  },
+  {
+   "id": "item:FP1-5-i28:hint2",
+   "text": "Reverse the factor order when inverting a product.",
+   "key": "2c8bf15717d1dc9fe8da763937fc509f4d70e387",
+   "file": "2c8bf15717d1dc9fe8da763937fc509f4d70e387.wav"
+  },
+  {
+   "id": "item:FP1-5-i28:hint3",
+   "text": "Multiply B to the minus one by ay to the minus one.",
+   "key": "974452448902893a08be2a24814d53443d2b5706",
+   "file": "974452448902893a08be2a24814d53443d2b5706.wav"
+  },
+  {
+   "id": "item:FP1-5-i29:stem",
+   "text": "State the inverse of ay B when both square matrices are non singular.",
+   "key": "f8c8b19ce9ba7d4bb5f2ae865c08d88228aac470",
+   "file": "f8c8b19ce9ba7d4bb5f2ae865c08d88228aac470.wav"
+  },
+  {
+   "id": "item:FP1-5-i29:explanation",
+   "text": "open bracket ay B close bracket to the minus one equals B to the minus one ay to the minus one because open bracket ay B close bracket open bracket B to the minus one ay to the minus one close bracket equals I.",
+   "key": "8d75dafacf9f33f74a085fbd430924521363f9ce",
+   "file": "8d75dafacf9f33f74a085fbd430924521363f9ce.wav"
+  },
+  {
+   "id": "item:FP1-5-i29:hint1",
+   "text": "Think of undoing two operations.",
+   "key": "e4ffde53d03f8d9c6faa34197220a61bdd01d331",
+   "file": "e4ffde53d03f8d9c6faa34197220a61bdd01d331.wav"
+  },
+  {
+   "id": "item:FP1-5-i29:hint2",
+   "text": "Undo the rightmost factor first.",
+   "key": "b76ddbf053a90c1ff6cf94c8e6ed4a27e93ed866",
+   "file": "b76ddbf053a90c1ff6cf94c8e6ed4a27e93ed866.wav"
+  },
+  {
+   "id": "item:FP1-5-i29:hint3",
+   "text": "Check which product cancels adjacent inverse pairs.",
+   "key": "25373ded5b37d1fd4751481956dab873d16a563b",
+   "file": "25373ded5b37d1fd4751481956dab873d16a563b.wav"
+  },
+  {
+   "id": "item:FP1-5-i30:stem",
+   "text": "Calculate the open bracket two, two close bracket entry of C to the minus one C, where C equals the two by two matrix with first row three, one, and second row two, one.",
+   "key": "94d9c94617a7bf5cbd0aa68ff561d17aa328c011",
+   "file": "94d9c94617a7bf5cbd0aa68ff561d17aa328c011.wav"
+  },
+  {
+   "id": "item:FP1-5-i30:explanation",
+   "text": "A non singular matrix times its inverse is the identity matrix, whose open bracket two, two close bracket entry is one.",
+   "key": "855ac5942d978957184ba4282d72f455175dfb9d",
+   "file": "855ac5942d978957184ba4282d72f455175dfb9d.wav"
+  },
+  {
+   "id": "item:FP1-5-i30:hint1",
+   "text": "Check that C is invertible.",
+   "key": "e2a36a0b73e44f7a319625c6fa82d949ac0cb0e9",
+   "file": "e2a36a0b73e44f7a319625c6fa82d949ac0cb0e9.wav"
+  },
+  {
+   "id": "item:FP1-5-i30:hint2",
+   "text": "Use the defining property of an inverse.",
+   "key": "7983fd4fa814b267e857d98fe2200dd69a626e05",
+   "file": "7983fd4fa814b267e857d98fe2200dd69a626e05.wav"
+  },
+  {
+   "id": "item:FP1-5-i30:hint3",
+   "text": "Read the requested entry of the identity matrix.",
+   "key": "cd75e3009773bcbde9abb12b19483f30460e7e38",
+   "file": "cd75e3009773bcbde9abb12b19483f30460e7e38.wav"
+  },
+  {
+   "id": "item:FP1-5-r01:stem",
+   "text": "For ay equals the two by two matrix with first row three, two, and second row one, four, part a, find the determinant of ay, showing your working, part b, find the complete matrix ay to the minus one, giving every entry as an exact fraction.",
+   "key": "033907edbc6e4a7efc0b9673eb3d810030532c76",
+   "file": "033907edbc6e4a7efc0b9673eb3d810030532c76.wav"
+  },
+  {
+   "id": "item:FP1-5-r01:explanation",
+   "text": "The determinant is three open bracket four close bracket minus two open bracket one close bracket equals ten is not equal to zero, so the inverse exists. Swap the diagonal entries, negate the off diagonal entries and divide every entry by ten to obtain the two by two matrix with first row two fifths, minus one fifth, and second row minus one tenth, three tenths.",
+   "key": "e927b47ad00c80ccfdead12ca7c2010b97252513",
+   "file": "e927b47ad00c80ccfdead12ca7c2010b97252513.wav"
+  },
+  {
+   "id": "item:FP1-5-r01:hint1",
+   "text": "First check whether the matrix is non singular.",
+   "key": "70befd4f3adf364ae38f1d761d6a544d3db7dc15",
+   "file": "70befd4f3adf364ae38f1d761d6a544d3db7dc15.wav"
+  },
+  {
+   "id": "item:FP1-5-r01:hint2",
+   "text": "Use a d minus b c, then swap the diagonal entries and negate the off diagonal entries.",
+   "key": "fcda886dd6b38b9d60eaf3ab3dfe74b425029634",
+   "file": "fcda886dd6b38b9d60eaf3ab3dfe74b425029634.wav"
+  },
+  {
+   "id": "item:FP1-5-r01:hint3",
+   "text": "Begin with three times four minus two times one, divide every entry of the rearranged matrix by your determinant.",
+   "key": "d7efa7f993cfafa49fcdf41aff157c1f78f35f31",
+   "file": "d7efa7f993cfafa49fcdf41aff157c1f78f35f31.wav"
+  },
+  {
+   "id": "item:FP1-5-r02:stem",
+   "text": "Let ay equals the two by two matrix with first row two, minus one, and second row three, two and B equals one seventh the two by two matrix with first row two, one, and second row minus three, two. Verify that B equals ay to the minus one by calculating B ay. Show all four row column calculations and identify the resulting matrix.",
+   "key": "640dad21452e1aa4759a236711b50cfc193208f9",
+   "file": "640dad21452e1aa4759a236711b50cfc193208f9.wav"
+  },
+  {
+   "id": "item:FP1-5-r02:explanation",
+   "text": "Row column multiplication gives B ay equals one seventh the two by two matrix with first row seven, zero, and second row zero, seven, equals I. Since both matrices are square, this verifies that B is the inverse of ay.",
+   "key": "fd317327370f95bfe7029148e07e0216750c9921",
+   "file": "fd317327370f95bfe7029148e07e0216750c9921.wav"
+  },
+  {
+   "id": "item:FP1-5-r02:hint1",
+   "text": "An inverse is checked by multiplication, not by multiplying corresponding entries.",
+   "key": "5fb6ca5b86fd6a0a5d853cb25dc49ad4c1e75aa2",
+   "file": "5fb6ca5b86fd6a0a5d853cb25dc49ad4c1e75aa2.wav"
+  },
+  {
+   "id": "item:FP1-5-r02:hint2",
+   "text": "For B ay, use rows of B against columns of ay, keeping the factor one seventh.",
+   "key": "fcafc675a4b2ee9f9d220d609076dbc11284c289",
+   "file": "fcafc675a4b2ee9f9d220d609076dbc11284c289.wav"
+  },
+  {
+   "id": "item:FP1-5-r02:hint3",
+   "text": "The top left numerator is two times two plus one times three, set up the other three entries in the same way.",
+   "key": "8092cbc9c2962afc578be9e5857af67f7fa85955",
+   "file": "8092cbc9c2962afc578be9e5857af67f7fa85955.wav"
+  },
+  {
+   "id": "item:FP1-5-r03:stem",
+   "text": "The matrix ay equals the two by two matrix with first row k plus one, three, and second row two, four satisfies the determinant of ay equals ten. part a, Find k, showing the determinant equation and its solution. part b, State whether ay is singular or non singular, justifying your answer.",
+   "key": "0fe9aebce856dd7e9923e23fd650d6329e9ed2a3",
+   "file": "0fe9aebce856dd7e9923e23fd650d6329e9ed2a3.wav"
+  },
+  {
+   "id": "item:FP1-5-r03:explanation",
+   "text": "The determinant condition gives four open bracket k plus one close bracket minus six equals ten, so four k equals twelve and k equals three. The determinant is nonzero, so ay is non singular.",
+   "key": "5b1d6862c4549e096d53bab985e04c07958a3299",
+   "file": "5b1d6862c4549e096d53bab985e04c07958a3299.wav"
+  },
+  {
+   "id": "item:FP1-5-r03:hint1",
+   "text": "Express the determinant in terms of the parameter before solving.",
+   "key": "705b9083e03e19dd1a6a7486500cfc0f6490908c",
+   "file": "705b9083e03e19dd1a6a7486500cfc0f6490908c.wav"
+  },
+  {
+   "id": "item:FP1-5-r03:hint2",
+   "text": "Set a d minus b c equal to the specified determinant, then solve the linear equation.",
+   "key": "4c1ad36dbb38e1ded35c07a858f813ea13db1cc3",
+   "file": "4c1ad36dbb38e1ded35c07a858f813ea13db1cc3.wav"
+  },
+  {
+   "id": "item:FP1-5-r03:hint3",
+   "text": "The main diagonal product is four open bracket k plus one close bracket, subtract the off diagonal product and compare the given determinant with zero.",
+   "key": "d2f1e52648ead83af3b2a6f64c4044749cf9e67c",
+   "file": "d2f1e52648ead83af3b2a6f64c4044749cf9e67c.wav"
+  },
+  {
+   "id": "note:1",
+   "text": "five Matrix algebra integration.",
+   "key": "05a4ac92f9a2f30ad98ab209f2384580fecc2b1b",
+   "file": "05a4ac92f9a2f30ad98ab209f2384580fecc2b1b.wav"
+  },
+  {
+   "id": "note:2",
+   "text": "In one breath.",
+   "key": "6a861afc90bd903f06825a0844eda3ffafdbf076",
+   "file": "6a861afc90bd903f06825a0844eda3ffafdbf076.wav"
+  },
+  {
+   "id": "note:3",
+   "text": "Matrix addition, subtraction and scalar multiplication work entry by entry. Products use rows against columns, while the determinant tells you whether a two times two matrix can be inverted.",
+   "key": "c9a5976740fcd9a62672ba9a5dce50b3f4e30d6f",
+   "file": "c9a5976740fcd9a62672ba9a5dce50b3f4e30d6f.wav"
+  },
+  {
+   "id": "note:4",
+   "text": "Key ideas.",
+   "key": "d78063e547e95efbdf1d454277961149e92bb612",
+   "file": "d78063e547e95efbdf1d454277961149e92bb612.wav"
+  },
+  {
+   "id": "note:5",
+   "text": "A matrix is a rectangular array with an order, rows by columns. Matrices are conformable for addition or subtraction only if they have the same order. Add or subtract entries in corresponding positions. For example, the top right entry of ay minus B is a twelve minus b twelve, never b twelve minus a twelve unless the question asks for B minus ay.",
+   "key": "9f54e67f8fc83ed2aa7d7fd32c385b7da695b728",
+   "file": "9f54e67f8fc83ed2aa7d7fd32c385b7da695b728.wav"
+  },
+  {
+   "id": "note:6",
+   "text": "Scalar multiplication applies to every entry, if ay equals the two by two matrix with first row a, b, and second row c, d, then k ay equals the two by two matrix with first row k a, k b, and second row k c, k d. It distributes over matrix addition, k open bracket ay plus B close bracket equals k ay plus k B. This lets you simplify linear combinations such as two ay minus three B by scaling both matrices first, then subtracting corresponding entries.",
+   "key": "567bed2faf0800dc96d278de395ec6e636ef00cf",
+   "file": "567bed2faf0800dc96d278de395ec6e636ef00cf.wav"
+  },
+  {
+   "id": "note:7",
+   "text": "For a matrix product ay B, the number of columns of A must equal the number of rows of B. Thus a two times three matrix times a three times four matrix gives a two times four matrix. To obtain entry open bracket i, j close bracket, multiply row i of ay by column j of B and add the products. Matrix multiplication is generally not commutative, ay B and B A may differ, and one may not even exist. You may regroup compatible products because multiplication is associative, open bracket ay B close bracket C equals A open bracket B C close bracket.",
+   "key": "d5ea29ba2ea4c326170de1f5480fcdf692f1bf72",
+   "file": "d5ea29ba2ea4c326170de1f5480fcdf692f1bf72.wav"
+  },
+  {
+   "id": "note:8",
+   "text": "For ay equals the two by two matrix with first row a, b, and second row c, d, its determinant is the determinant of ay equals a d minus b c. A matrix is singular if its determinant is zero, and non singular if its determinant is nonzero. Only a non singular matrix has an inverse. When a d minus b c is not equal to zero.",
+   "key": "36131341e7abe45aabcf5338197f44a728bbad9b",
+   "file": "36131341e7abe45aabcf5338197f44a728bbad9b.wav"
+  },
+  {
+   "id": "note:9",
+   "text": "ay to the minus one equals one over, a d minus b c, the two by two matrix with first row d, minus b, and second row minus c, a, ay ay to the minus one equals ay to the minus one ay equals I.",
+   "key": "2eb979a0b07993bdf9b6e38183b6f6f4383ca706",
+   "file": "2eb979a0b07993bdf9b6e38183b6f6f4383ca706.wav"
+  },
+  {
+   "id": "note:10",
+   "text": "The identity matrix is I equals the two by two matrix with first row one, zero, and second row zero, one. Multiplication by an identity matrix leaves a conformable matrix unchanged, I M equals M when M has two rows, and M I equals M when M has two columns. For a two times two matrix, both products equal M.",
+   "key": "7d581521fddca862f3d46e2f2296800464445653",
+   "file": "7d581521fddca862f3d46e2f2296800464445653.wav"
+  },
+  {
+   "id": "note:11",
+   "text": "For the non singular matrix ay in the inverse formula, row one of A times column one of ay to the minus one gives a d over, a d minus b c, plus b minus c over, a d minus b c, equals a d minus b c, all over, a d minus b c, equals one, the top left entry of I. A full inverse check must also show that the other diagonal entry is one and both off diagonal entries are zero.",
+   "key": "a217fff7eb99b44af9aac885f9e743e57aa3572e",
+   "file": "a217fff7eb99b44af9aac885f9e743e57aa3572e.wav"
+  },
+  {
+   "id": "note:12",
+   "text": "Source for the identity and inverse check, learner's library, SaveMyExams or YFM01 further pure one or YFM01 c5.1. pdf, pp.3 and twelve. Parameter determinant practice follows the method on pp.11 twelve, all added questions use original values. Method and accuracy marks are informed by Pearson W F M zero one October twenty twenty one mark scheme, Q1, a, p.8.",
+   "key": "d884d256471e88142cf996a2e533a039089844ba",
+   "file": "d884d256471e88142cf996a2e533a039089844ba.wav"
+  },
+  {
+   "id": "note:13",
+   "text": "For two invertible matrices, open bracket ay B close bracket to the minus one equals B to the minus one ay to the minus one. The order reverses because ay B open bracket B to the minus one ay to the minus one close bracket equals A open bracket B B to the minus one close bracket ay to the minus one equals I.",
+   "key": "1a74c2d367976a941b48e8bb1560eafb51370930",
+   "file": "1a74c2d367976a941b48e8bb1560eafb51370930.wav"
+  },
+  {
+   "id": "note:14",
+   "text": "Method.",
+   "key": "2926c0b512d7811e2ca9e9ad43fb571bd33cab65",
+   "file": "2926c0b512d7811e2ca9e9ad43fb571bd33cab65.wav"
+  },
+  {
+   "id": "note:15",
+   "text": "Before adding or subtracting, check that the orders match. Before multiplying, check the inner dimensions, write down the outer dimensions of the result.",
+   "key": "715009643d36d62b09401793c76be2a7aa7b3864",
+   "file": "715009643d36d62b09401793c76be2a7aa7b3864.wav"
+  },
+  {
+   "id": "note:16",
+   "text": "For addition, subtraction or scalar multiplication, work at matching positions. For a product, take each required row column dot product and preserve the factor order.",
+   "key": "b7acc2e9825241df9642e0b0a9174b9f1deb6e40",
+   "file": "b7acc2e9825241df9642e0b0a9174b9f1deb6e40.wav"
+  },
+  {
+   "id": "note:17",
+   "text": "For a two times two inverse, calculate a d minus b c first. If it is zero, state that no inverse exists. Otherwise swap a, d, negate b, c, and divide the whole matrix by the determinant.",
+   "key": "5ffce6b5f063a91a955d625de435a70973b336b5",
+   "file": "5ffce6b5f063a91a955d625de435a70973b336b5.wav"
+  },
+  {
+   "id": "note:18",
+   "text": "If the expression is open bracket ay B close bracket to the minus one, invert the factors and reverse their order. Multiply back to the identity if asked to verify.",
+   "key": "9d8d0b9ef21a4e947d4534411b2200a1742d83fc",
+   "file": "9d8d0b9ef21a4e947d4534411b2200a1742d83fc.wav"
+  },
+  {
+   "id": "note:19",
+   "text": "Worked example.",
+   "key": "1db6b8cb5e64341a132ad5fba6491683b5d26032",
+   "file": "1db6b8cb5e64341a132ad5fba6491683b5d26032.wav"
+  },
+  {
+   "id": "note:20",
+   "text": "Let ay equals the two by two matrix with first row two, one, and second row one, one and B equals the two by two matrix with first row one, two, and second row zero, one. Find open bracket ay B close bracket to the minus one. Both determinants are one, so each inverse exists. ay to the minus one equals the two by two matrix with first row one, minus one, and second row minus one, two and B to the minus one equals the two by two matrix with first row one, minus two, and second row zero, one. Reverse the order, open bracket ay B close bracket to the minus one equals B to the minus one ay to the minus one equals the two by two matrix with first row three, minus five, and second row minus one, two. Check, ay B equals the two by two matrix with first row two, five, and second row one, three, and multiplying it by the proposed inverse gives I.",
+   "key": "d7e1b5745887e2415eaa329e3449a493458bbc78",
+   "file": "d7e1b5745887e2415eaa329e3449a493458bbc78.wav"
+  },
+  {
+   "id": "note:21",
+   "text": "Traps.",
+   "key": "f23a8902ac31d345b4f05aeebbd1405a2b0d95e6",
+   "file": "f23a8902ac31d345b4f05aeebbd1405a2b0d95e6.wav"
+  },
+  {
+   "id": "note:22",
+   "text": "Trap, Adding matrices with different orders. Why it's wrong, Corresponding positions cannot all be paired. Instead, Check both row and column counts first.",
+   "key": "826c46c4cc71c3843df03ea417a021450698665a",
+   "file": "826c46c4cc71c3843df03ea417a021450698665a.wav"
+  },
+  {
+   "id": "note:23",
+   "text": "Trap, Multiplying matrices entrywise, or assuming ay B equals B ay. Why it's wrong, Products are built from row column dot products and factor order matters. Instead, Check inner dimensions and keep the written order.",
+   "key": "c135119bd2ca40f279484c87c3dba9908077142d",
+   "file": "c135119bd2ca40f279484c87c3dba9908077142d.wav"
+  },
+  {
+   "id": "note:24",
+   "text": "Trap, Using a d plus b c or inverting a singular matrix. Why it's wrong, The determinant is a d minus b c, and zero would cause division by zero. Instead, Calculate the determinant before applying the inverse formula.",
+   "key": "cac3097de36730ef0734be64e447560d7678a82e",
+   "file": "cac3097de36730ef0734be64e447560d7678a82e.wav"
+  },
+  {
+   "id": "note:25",
+   "text": "Trap, Writing open bracket ay B close bracket to the minus one equals ay to the minus one B to the minus one. Why it's wrong, The adjacent factors will not generally cancel. Instead, Reverse the order to B to the minus one ay to the minus one.",
+   "key": "e9e49e828b458e8eb20bd5deb79f1f6da293cfd3",
+   "file": "e9e49e828b458e8eb20bd5deb79f1f6da293cfd3.wav"
+  },
+  {
+   "id": "note:26",
+   "text": "Exam technique.",
+   "key": "005c86633a3656d616fa79936047f3212b2280b1",
+   "file": "005c86633a3656d616fa79936047f3212b2280b1.wav"
+  },
+  {
+   "id": "note:27",
+   "text": "For Calculate or Find, show the row column products or the determinant substitution before the answer. For Show that or Verify, multiply the claimed inverse by the original matrix and display the identity. For Hence, use the result just obtained, especially a determinant or an inverse, rather than restarting the calculation. State clearly when a matrix is singular and why no inverse exists.",
+   "key": "88f029e93fb872b50f6fad06df6584dc8eef42a1",
+   "file": "88f029e93fb872b50f6fad06df6584dc8eef42a1.wav"
+  }
+ ]
+}

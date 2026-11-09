@@ -219,3 +219,37 @@ def test_worker_contract_and_claude_permission_are_read_only_and_job_scoped(grap
     allowed = worker[worker.index("--allowedTools") + 1:worker.index("--add-dir")]
     assert f"Bash({relative} *)" in allowed and f"Bash({absolute} *)" in allowed
     assert not any(rule.startswith("Bash(bin/extract graph *)") for rule in allowed)
+
+
+def test_bounded_graph_preserves_declared_kc_subtopic_and_topic_levels(graph_job, tmp_path):
+    ex, path, _, graph = graph_job
+    graph['topics'] = [{'id': '9702-22', 'title': 'Explicit parent', 'level': 'AS'}]
+    graph['subtopics'][0].update(topic='9702-22', level='A')
+    graph['kcs'][0]['level'] = 'AS'
+    path.write_text(json.dumps(graph))
+    before = snapshot(tmp_path)
+    row, = ex.graph('lookup', kc_id='9702-1.1.2')['results']
+    assert row['level'] == 'AS'
+    assert row['subtopic']['level'] == 'A'
+    assert row['topic'] == {'id': '9702-22', 'title': 'Explicit parent', 'level': 'AS'}
+    assert snapshot(tmp_path) == before
+
+
+def test_real_as_isotope_level_is_exposed_without_numbering_or_parent_inference(graph_job, tmp_path):
+    from library_assets import read_bytes
+    ex, _, _, _ = graph_job
+    raw = read_bytes('build/out/specs/9701/graph.json')
+    vault = tmp_path / 'registered-vault'; vault.mkdir()
+    relative = 'Library/Courses/9701/Notes/CourseGraph/9701/graph.json'
+    write_asset(vault, relative, raw)
+    path = tmp_path / 'specs/9701/graph.json'; path.parent.mkdir()
+    path.symlink_to(vault / relative)
+    ex.create('isotopes', '9701', provider='codex')
+    before = snapshot(tmp_path)
+    result = ex.graph('isotopes', kc_id='9701-22.2.2')
+    row, = result['results']
+    assert result['graph_sha256'] == '7c6cf3831cf307c6d9382a86074d274a11f58ce316408665fc587e2525d55867'
+    assert row['level'] == 'AS'
+    assert row['topic'] == {'id': '9701-22', 'title': 'Analytical techniques', 'level': 'AS'}
+    assert row['subtopic']['id'] == '9701-22.2' and 'level' not in row['subtopic']
+    assert snapshot(tmp_path) == before

@@ -256,3 +256,27 @@ Append only, quoted heredoc, next free `Q-nnn`. Claude triages these after the b
 - **Friction:** Three consecutive ungraded refusals for the same comma decimal create three identical six-second warnings. Native `ui/repeated-numeric-refusals/ask-returned.svg.png` shows them covering the question and much of the editor, with the last warning clipped below the window. Draft, selection and exactly-once grading are already correct (B251); this is duplicate visual obstruction.
 - **Idea:** While an exact same format-only warning is already visible, keep one copy. Preserve distinct errors, other app notifications, original warning duration and numeric draft/selection/focus/events. Use a small screen-local mechanism or supported notification API; no global clearing or notification framework.
 - **Size:** S · Narrow format-refusal branch, with native repeated-warning and distinct-error/expiry/preservation controls; no backend protocol or grading changes.
+
+### Q-042 · Settings and guided lesson marking · Make AI mark confirmation optional
+- **Seen:** Learner reported that the unverified AI suggestions checklist interrupts every guided review and requested a Settings option to disable it. The forced checklist first appears in the v2.6.1 commit; no matching earlier QoL entry was found.
+- **Friction:** Learners who want the selected AI examiner to assign marks must manually retick and confirm every rubric point.
+- **Idea:** Add “Confirm AI marks in lesson reviews” to Settings, enabled by default. Turning it off applies valid AI results through the existing scoring path; unavailable or invalid results retain manual marking. Persist the choice and respect Settings cancellation.
+- **Size:** S
+
+### Q-043 · Settings and AI examiner prompts · Adjustable marking strictness with Auto
+- **Seen:** Learner's two-paragraph ice explanation explicitly compares hydrogen bonds with weaker London dispersion forces, yet AI feedback says that comparison is absent. The shared marking prompt hard-codes strict marking and has no saved strictness control. The full answer already reaches the prompt; the original model response is not replayable from the transcript alone.
+- **Friction:** A correct explanation can receive an over-literal rejection, with no way to choose a practice or exam marking policy.
+- **Idea:** Offer Auto, Lenient, Balanced and Strict in Settings. Apply one semantic-evidence policy to short/long AI marking and both re-mark paths across providers. Auto uses Balanced for practice and Strict for tests/papers; preserve deterministic grading, rubric identity, manual fallback, historical marks and confirmation settings.
+- **Size:** S
+
+### Q-044 · Topical past-paper setup · Build random sets across topics with type and count controls
+- **Seen:** Topical past papers currently selects one subtopic and derives a weighted question budget from session minutes. Test prep already supports topic multi-select. The registered reviewed topical bank currently labels entries as MCQ or structured, without definition or pure-calculation tags.
+- **Friction:** The learner cannot mix topics from different chapters, restrict question types or request an exact number of randomly selected questions.
+- **Idea:** Reuse the topic picker for multi-select, then offer count/type setup with unique eligible availability and a bounded random mix across selected topics. Preserve source identities, reviewed eligibility, exclusions, support, grading and saved attempts; label mixed structured material honestly.
+- **Size:** M
+
+### Q-045 · Topical setup and structured marking · Make automatic AI marking a session-local choice
+- **Seen:** Structured submissions always open self-marking, and an AI check returns editable ticks instead of applying marks. Topical setup has no marking choice. Fifteen current structured source questions have one image and eight have two; structured Codex requests currently accept no images.
+- **Friction:** Learners cannot choose automatic marking in this mode, and incomplete source inputs limit reliable marking. Test/Long pickers also hide bank-only chapters despite the shared reviewed-bank overlay.
+- **Idea:** Add a Topical-only Self-mark/Automatic AI selector, persist it with the session, save working and apply only owned valid rubric results. Supply every Codex question image via the existing image transport; show explicit manual fallback for unsupported inputs. Verify reviewed-bank reuse and expose supported bank-only Test/Long chapters without admitting pending candidates.
+- **Size:** M

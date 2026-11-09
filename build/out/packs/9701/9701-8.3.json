@@ -44,6 +44,14 @@
    "refutation": "Homogeneous catalyst and reactants are in the same phase; a solid catalyst with fluid reactants is heterogeneous.",
    "contrast": "Concentrated sulfuric acid in a liquid esterification mixture is homogeneous.",
    "source": "ER 9701 w21 P21 Q4"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-8.3.1",
+   "statement": "Adsorption means reactants must be absorbed into the bulk of the catalyst.",
+   "refutation": "Adsorption attaches species at surface sites; absorption into the bulk is a different process in this comparison.",
+   "contrast": "Products desorb from the surface, freeing sites for reuse.",
+   "source": "SaveMyExams, Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c26.2.pdf, pp.2–3 (verified text; erroneous process name and esterification equation excluded); RSC Education, Catalysts for a green industry, https://edu.rsc.org/feature/catalysts-for-a-green-industry/2020110.article (retrieved full search text after direct fetch failed); University of Calgary, Heterogeneous Catalysts, https://chem-textbook.ucalgary.ca/version2/chapter-7-main/catalysis/heterogeneous-catalysts/ (opened text). Generated example/check; not a copied official question."
   }
  ],
  "worked": [
@@ -936,7 +944,614 @@
     "answer": "B",
     "explanation": "The catalyst offers a lower-energy mechanism. The distribution and endpoint energies remain the same."
    },
-   "source": "pack"
+   "plain_words": "A catalyst makes a faster route available without being used up overall. Recall from 8.2 that activation energy is an energy threshold, not the average energy of the particles. Recall from 5.1 that the vertical gap between reactant and product levels gives the enthalpy change. Changing the route leaves those endpoints fixed.",
+   "terms": [
+    {
+     "term": "Catalyst",
+     "meaning": "A substance that increases reaction rate through an alternative mechanism of lower activation energy and is chemically unchanged at the end.",
+     "notation": "No universal symbol.",
+     "spoken": "catalyst",
+     "source": "9701-8.3.1 syllabus statement and chapter bundle"
+    },
+    {
+     "term": "Catalysis",
+     "meaning": "The increase in reaction rate caused by a catalyst.",
+     "notation": "No universal symbol.",
+     "spoken": "catalysis",
+     "source": "9701-8.3.1 syllabus statement and chapter bundle"
+    },
+    {
+     "term": "Activation energy",
+     "meaning": "The minimum energy needed for a reaction to occur; on a pathway profile measure from the starting level to the relevant peak.",
+     "notation": "$E_a$",
+     "spoken": "activation energy, E a",
+     "source": "CAIE 9701 s21 P12 Q7 and examiner comment in build/work/bundles/9701-8.3.md; generated teaching numbers and sketches, not a reproduction of the paper."
+    },
+    {
+     "term": "Enthalpy change",
+     "meaning": "Product enthalpy minus reactant enthalpy for the direction stated; a catalyst does not change it.",
+     "notation": "$\\Delta H$",
+     "spoken": "delta H, enthalpy change",
+     "source": "9701-5.1.2 prerequisite and 9701-8.3.1 chapter bundle"
+    },
+    {
+     "term": "Homogeneous catalysis",
+     "meaning": "Catalyst and reactants are in the same phase.",
+     "notation": "State the phases, for example liquid with liquid.",
+     "spoken": "homogeneous catalysis",
+     "source": "SaveMyExams, sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c26.2.pdf, p.2; terminology checked against the chapter bundle."
+    },
+    {
+     "term": "Heterogeneous catalysis",
+     "meaning": "Catalyst and reactants are in different phases.",
+     "notation": "State the phases, for example solid with gas.",
+     "spoken": "heterogeneous catalysis",
+     "source": "SaveMyExams, sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c26.2.pdf, p.2; terminology checked against the chapter bundle."
+    },
+    {
+     "term": "Intermediate",
+     "meaning": "A species formed in one step and consumed in a later step of the mechanism; distinguish this from a catalyst supplied initially and regenerated.",
+     "notation": "No universal symbol; trace the complete sequence.",
+     "spoken": "intermediate",
+     "source": "CAIE 9701 w21 P12 Q11 and examiner report in build/work/bundles/9701-8.3.md; generated symbolic sequences used to practise complete-step accounting."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Interpret or sketch a shared-endpoint reaction profile",
+     "wordings": [
+      "Sketch catalysed and uncatalysed pathways.",
+      "Calculate the activation energy for the stated direction."
+     ],
+     "example": "For a single-peak schematic, reactants are at $30$, products at $10$, uncatalysed peak at $90$ and catalysed peak at $65$, all in $\\mathrm{kJ\\,mol^{-1}}$. Find the reverse catalysed barrier. Step 1: reverse starts at the product level, $10$. Step 2: select the catalysed peak, $65$. Step 3: subtract the starting level: $E_a=65-10=55\\ \\mathrm{kJ\\,mol^{-1}}$. The forward barrier is $65-30=35\\ \\mathrm{kJ\\,mol^{-1}}$. Both curves share their endpoints, so $\\Delta H=10-30=-20\\ \\mathrm{kJ\\,mol^{-1}}$ forwards. For a multi-step profile, read from the requested side to its first peak when the first step is asked for; do not automatically select the tallest peak.",
+     "check": "A different single-peak profile has reactants at $20$, products at $50$, uncatalysed peak at $120$ and catalysed peak at $85$, in $\\mathrm{kJ\\,mol^{-1}}$. Sketch both paths with labelled axes, calculate the reverse catalysed activation energy and state the forward enthalpy change. Explain which level you start from.",
+     "answer": "Reverse starts at the products, $50$, and reaches the catalysed peak, $85$: $E_a=85-50=35\\ \\mathrm{kJ\\,mol^{-1}}$. Forward $\\Delta H=50-20=+30\\ \\mathrm{kJ\\,mol^{-1}}$. Sketch energy against reaction progress, with both paths sharing levels $20$ and $50$ and peaks at $120$ and $85$; label catalysed and uncatalysed paths.",
+     "source": "CAIE 9701 s21 P12 Q7 and examiner comment in build/work/bundles/9701-8.3.md; generated teaching numbers and sketches, not a reproduction of the paper.",
+     "diagram": "Assets/9701/9701-8.3-pathway.svg",
+     "rubric": [
+      {
+       "point": "Reverse starts from the product level of 50.",
+       "keywords": [
+        [
+         "product",
+         "50"
+        ]
+       ]
+      },
+      {
+       "point": "Subtract this starting level from the catalysed peak; reverse barrier is 35 kJ per mole.",
+       "keywords": [
+        [
+         "35"
+        ],
+        [
+         "kJ",
+         "kilojoule"
+        ]
+       ]
+      },
+      {
+       "point": "Forward enthalpy change is positive 30 kJ per mole.",
+       "keywords": [
+        [
+         "30"
+        ],
+        [
+         "+",
+         "positive",
+         "endothermic"
+        ]
+       ]
+      },
+      {
+       "point": "Sketch has a vertical energy or enthalpy axis labelled in kJ mol^-1 and a horizontal axis labelled reaction progress, reaction pathway, reaction coordinate, or course of reaction; accept these equivalent horizontal-axis labels.",
+       "keywords": [
+        [
+         "energy",
+         "enthalpy"
+        ],
+        [
+         "progress",
+         "pathway",
+         "reaction coordinate",
+         "course of reaction"
+        ],
+        [
+         "kJ",
+         "kilojoule"
+        ]
+       ]
+      },
+      {
+       "point": "The two drawn paths each start at the labelled reactant level 20 kJ mol^-1 and end at the labelled product level 50 kJ mol^-1. Credit these shared endpoints when visibly correct in the sketch; do not require the written words both, same, or shared.",
+       "keywords": [
+        [
+         "20"
+        ],
+        [
+         "50"
+        ]
+       ]
+      },
+      {
+       "point": "The single uncatalysed peak is at 120 kJ mol^-1 and the single catalysed peak at 85 kJ mol^-1; each path must be identified correctly.",
+       "keywords": [
+        [
+         "uncatalysed",
+         "uncatalyzed",
+         "without catalyst"
+        ],
+        [
+         "120"
+        ],
+        [
+         "catalysed",
+         "catalyzed",
+         "with catalyst"
+        ],
+        [
+         "85"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Explain catalysis with a fixed-temperature Boltzmann distribution",
+     "wordings": [
+      "Explain the effect of a catalyst at constant temperature.",
+      "Describe how the distribution and activation-energy threshold change."
+     ],
+     "example": "A gas at fixed temperature reacts faster after a suitable catalyst is added. Step 1: the alternative mechanism lowers $E_a$. Step 2: keep the whole energy-distribution curve and its peak unchanged, since temperature has not changed. Step 3: put the new threshold to the left of the old one. Step 4: the larger area under the same curve beyond that lower threshold represents more particles able to react, so successful collisions occur more frequently and the rate increases. The currently registered linked asset shows the full fixed-temperature curve with a lower catalysed threshold and a higher uncatalysed threshold; the shaded area to the right of the lower threshold is larger. An older retained single-threshold file is a different asset and is not used here.",
+     "check": "A gas is held at 310 K. The fractional areas under its Boltzmann distribution are: E < 40 kJ mol^-1: 0.82; 40 <= E < 70 kJ mol^-1: 0.15; E >= 70 kJ mol^-1: 0.03. The uncatalysed activation energy is 70 kJ mol^-1 and a catalyst lowers it to 40 kJ mol^-1. Calculate the percentage of particles with sufficient energy before and after adding the catalyst and the increase in percentage points. Does the mean kinetic energy change? Explain using these data.",
+     "answer": "Before adding the catalyst, 0.03 = 3% have sufficient energy. Afterwards, 0.15 + 0.03 = 0.18 = 18% have sufficient energy, an increase of 15 percentage points. The extra particles are those between 40 and 70 kJ mol^-1. Their energies do not increase: the alternative mechanism has a lower threshold. At the same temperature the distribution and mean kinetic energy are unchanged. These area data alone do not establish an exact reaction-rate multiplier.",
+     "source": "CAIE 9701 w19 P13 Q1 and s24 P11 Q15, official keys and examiner comment in build/work/bundles/9701-8.3.md.",
+     "diagram": "Assets/9701/9701-8.3-boltzmann.svg",
+     "rubric": [
+      {
+       "point": "Uncatalysed fraction is 0.03, or 3%.",
+       "keywords": [
+        [
+         "0.03",
+         "3%",
+         "3 %",
+         "3 percent"
+        ]
+       ]
+      },
+      {
+       "point": "Catalysed fraction includes both upper intervals: 0.15 + 0.03 = 0.18, or 18%.",
+       "keywords": [
+        [
+         "0.18",
+         "18%",
+         "18 %",
+         "18 percent"
+        ]
+       ]
+      },
+      {
+       "point": "Increase is 15 percentage points; these are the particles between the thresholds.",
+       "keywords": [
+        [
+         "15"
+        ],
+        [
+         "percentage points"
+        ]
+       ]
+      },
+      {
+       "point": "Mean kinetic energy is unchanged because temperature and the energy distribution are unchanged; the lower threshold makes existing particles eligible.",
+       "keywords": [
+        [
+         "unchanged",
+         "same",
+         "does not change"
+        ],
+        [
+         "temperature"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Classify catalysis by comparing stated phases",
+     "wordings": [
+      "Identify homogeneous or heterogeneous catalysis and explain your choice."
+     ],
+     "example": "Compare two cases. Step 1: in ammonia synthesis the iron catalyst is solid and nitrogen and hydrogen are gases. Step 2: different phases mean heterogeneous catalysis. Step 3: in a single liquid esterification mixture containing dissolved acid, the catalyst and reactants share the liquid phase, so catalysis is homogeneous. Compare phases rather than simply counting substances.",
+     "check": "Classify each case and justify by comparing phases: (a) nitrogen dioxide gas catalyses the reaction of sulfur dioxide gas with oxygen gas in one gas mixture; (b) solid manganese(IV) oxide catalyses the decomposition of hydrogen peroxide dissolved in water. Compare the catalyst with the reactants, rather than the products.",
+     "answer": "(a) Homogeneous: nitrogen dioxide and both reactants occupy the same gas phase. (b) Heterogeneous: the catalyst is solid while the hydrogen peroxide reactant is in an aqueous liquid phase, so the phases differ.",
+     "source": "SaveMyExams, sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c26.2.pdf, p.2; terminology checked against the chapter bundle.; CAIE 9701 w21 P21 Q4 examiner report for liquid esterification.",
+     "rubric": [
+      {
+       "point": "Case (a) is homogeneous because catalyst and reactants are all in the same gas phase.",
+       "keywords": [
+        [
+         "homogeneous"
+        ],
+        [
+         "gas",
+         "gaseous"
+        ],
+        [
+         "same",
+         "one"
+        ]
+       ]
+      },
+      {
+       "point": "Case (b) is heterogeneous because solid manganese(IV) oxide and aqueous hydrogen peroxide occupy different phases.",
+       "keywords": [
+        [
+         "heterogeneous"
+        ],
+        [
+         "solid"
+        ],
+        [
+         "aqueous",
+         "liquid",
+         "solution"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Trace catalyst regeneration across complete steps",
+     "wordings": [
+      "Identify the catalyst and intermediate from a mechanism.",
+      "Explain why taking part in a step does not mean being used up overall."
+     ],
+     "example": "In a schematic mechanism, catalyst $C$ is supplied initially: $C+A\\rightarrow I$ then $I+B\\rightarrow C+P$. Step 1: $C$ is consumed in step 1 but restored in step 2. Step 2: $I$ is formed in step 1 and consumed in step 2, so it is an intermediate. Step 3: cancel $C$ and $I$ to get net $A+B\\rightarrow P$. Consumption in one step alone cannot rule out a catalyst. In a repeating cycle, inspect all steps and the stated initial species; the atmosphere example in the examiner report regenerates both nitrogen oxide species.",
+     "check": "A schematic catalytic mechanism starts with $K$ supplied: $K+X\\rightarrow J$; $J+Y\\rightarrow L$; $L\\rightarrow K+Z$. Identify the catalyst and the intermediates, state the net reaction and explain your classifications.",
+     "answer": "$K$ is the catalyst: consumed first and regenerated last, with no net consumption. $J$ and $L$ are intermediates, each formed then consumed. Cancelling $K$, $J$ and $L$ gives $X+Y\\rightarrow Z$. They do not all become catalysts merely because they cancel; their roles and the supplied starting species matter.",
+     "source": "CAIE 9701 w21 P12 Q11 and examiner report in build/work/bundles/9701-8.3.md; generated symbolic sequences used to practise complete-step accounting.",
+     "rubric": [
+      {
+       "point": "K is the catalyst: it is consumed in the first step and regenerated in the last step, with no net consumption. Identifying K and explaining consumption followed by regeneration suffices; do not require repetition that K was supplied initially, since the question gives this.",
+       "keywords": [
+        [
+         "K"
+        ],
+        [
+         "catalyst"
+        ],
+        [
+         "consumed",
+         "used",
+         "reacts"
+        ],
+        [
+         "regenerated",
+         "restored",
+         "reformed",
+         "formed again"
+        ]
+       ]
+      },
+      {
+       "point": "J is an intermediate: formed in step 1 then consumed in step 2. Accept a joint explanation that J and L are each formed then consumed.",
+       "keywords": [
+        [
+         "J"
+        ],
+        [
+         "intermediate"
+        ],
+        [
+         "formed",
+         "produced",
+         "made"
+        ],
+        [
+         "consumed",
+         "used",
+         "reacts"
+        ]
+       ]
+      },
+      {
+       "point": "L is an intermediate: formed in step 2 then consumed in step 3. Accept a joint explanation that J and L are each formed then consumed.",
+       "keywords": [
+        [
+         "L"
+        ],
+        [
+         "intermediate"
+        ],
+        [
+         "formed",
+         "produced",
+         "made"
+        ],
+        [
+         "consumed",
+         "used",
+         "reacts"
+        ]
+       ]
+      },
+      {
+       "point": "After cancellation of K, J and L, the net reaction is X + Y → Z. Award this point only after checking the equation or words semantically: X and Y must be reactants and Z the product. Accept Y + X → Z, Z ← X + Y, and equivalent unambiguous words. Reject Z → X + Y even if every keyword matches; the keyword groups are hints only and cannot establish reaction direction.",
+       "keywords": [
+        [
+         "X"
+        ],
+        [
+         "Y"
+        ],
+        [
+         "Z"
+        ],
+        [
+         "→",
+         "->",
+         "rightarrow",
+         "gives",
+         "forms",
+         "produce",
+         "yield"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Distinguish faster equilibration from changed equilibrium yield",
+     "wordings": [
+      "Explain the effect of a catalyst on the time to equilibrium and equilibrium composition."
+     ],
+     "example": "To read concentration-time data for a closed reversible system, first record the starting composition and the controlled temperature and volume. Compare concentrations at the same elapsed time separately from the final constant concentrations. To identify the initial net reaction direction, check which species was supplied initially and which species must be formed as its concentration falls.",
+     "check": "Two closed vessels X and Y undergo the same reversible reaction A <=> B at the same fixed temperature and volume. Both start with only B, at [B] = 0.80 mol dm^-3. Only one contains an effective catalyst; all other conditions are identical. At 2 min, [B] is 0.50 in X and 0.68 in Y. X reaches a constant [B] of 0.40 at 4 min; Y reaches the same constant value at 10 min. All concentrations are in mol dm^-3. Identify the catalysed vessel from the data. A learner claims that the catalyst lowers the equilibrium yield of B because X contains less B at 2 min. Evaluate this claim and explain why B decreases faster initially in the catalysed vessel.",
+     "answer": "X is catalysed: it reaches the same equilibrium value, 0.40 mol dm^-3, at 4 min rather than 10 min. The claim confuses an early-time amount with equilibrium composition: at 2 min neither vessel is at equilibrium. Both ultimately have the same [B], so the equilibrium yield is unchanged. Starting with only B gives a net reverse reaction B -> A initially. The catalyst accelerates this reverse reaction as well as the forward reaction, so B initially disappears faster. At the same temperature the catalyst does not change the equilibrium constant or equilibrium position.",
+     "source": "RSC Education, Equilibria, https://edu.rsc.org/resources/equilibria/843.article (search-index passage); University of Calgary, Effect of a Catalyst, https://chem-textbook.ucalgary.ca/version2/chapter-13-main/le-chatelier/shifting-equilibria-le-chateliers-principle-effect-of-a-catalyst/ (opened full text).",
+     "rubric": [
+      {
+       "point": "Identify X because it reaches equilibrium sooner. Accept a qualitative comparison of the equilibration times; quoting 4 min and 10 min is optional.",
+       "keywords": [
+        [
+         "X"
+        ],
+        [
+         "sooner",
+         "earlier",
+         "faster",
+         "shorter",
+         "4"
+        ]
+       ]
+      },
+      {
+       "point": "Reject the yield claim: the difference at 2 min is a transient difference before equilibrium, while both vessels ultimately reach the same equilibrium concentration of B. Quoting 0.40 mol dm^-3 is optional; accept an equivalent qualitative comparison of the final equilibrium concentrations.",
+       "keywords": [
+        [
+         "equilibrium",
+         "final"
+        ],
+        [
+         "same",
+         "identical",
+         "equal",
+         "unchanged"
+        ]
+       ]
+      },
+      {
+       "point": "Initially the net reaction is B to A (the reverse direction), and the catalyst increases the rate of this reaction, so B disappears faster. Accept B → A, B -> A, B to A, B converts to A, B forms A, or equivalent unambiguous wording, provided the increased rate is attributed to the catalyst. Stating that the forward reaction also accelerates is optional. Keyword matches alone do not establish this causal connection.",
+       "keywords": [
+        [
+         "reverse",
+         "B -> A",
+         "B → A",
+         "B to A",
+         "B converts to A",
+         "B forms A"
+        ],
+        [
+         "faster",
+         "accelerat",
+         "speed",
+         "increases the rate",
+         "increased rate"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Explain a solid catalyst surface cycle",
+     "wordings": [
+      "Explain how a solid catalyst provides an alternative route at its surface.",
+      "Describe adsorption, surface reaction and product desorption in the stated model."
+     ],
+     "example": "Consider hydrogenation of an alkene on solid nickel as a simplified surface model. Step 1: reactants reach active sites, the places on the surface where catalysis can occur. Step 2: adsorption holds reactant species on that surface; bonding to it can weaken reactant bonds. Step 3: surface interactions allow rearrangement by an alternative mechanism with a lower activation-energy barrier. Step 4: the product leaves by desorption, making sites available for another cycle. Adsorption is attachment at a surface; absorption means uptake into the bulk in this comparison. This sequence is a useful model, not a claim that every heterogeneous catalyst has identical elementary steps or requires both reactants to adsorb.",
+     "check": "A stipulated surface model describes gaseous Z decomposing on a solid catalyst: Z attaches at active sites, forms products by reaction at the surface, and the products leave. Explain how this model accounts for a faster reaction and repeated catalyst use. Distinguish adsorption from absorption into the solid and name the process by which the products leave. Would product remaining attached permanently leave that occupied site available for another cycle?",
+     "answer": "Z is adsorbed at active sites on the surface, rather than absorbed into the bulk. Surface interactions provide an alternative mechanism with a lower activation energy, increasing the reaction rate. Products leave by desorption, freeing the occupied sites for further reactant adsorption; the catalyst is regenerated rather than consumed overall. A site permanently occupied by product is unavailable for the next cycle in this model.",
+     "source": "SaveMyExams, Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c26.2.pdf, pp.2–3 (verified text; erroneous process name and esterification equation excluded); RSC Education, Catalysts for a green industry, https://edu.rsc.org/feature/catalysts-for-a-green-industry/2020110.article (retrieved full search text after direct fetch failed); University of Calgary, Heterogeneous Catalysts, https://chem-textbook.ucalgary.ca/version2/chapter-7-main/catalysis/heterogeneous-catalysts/ (opened text). Generated example/check; not a copied official question.",
+     "rubric": [
+      {
+       "point": "Z attaches by adsorption to active sites on the catalyst surface. Distinguish this from absorption into the bulk; accept an equivalent explicit surface/interior comparison.",
+       "keywords": [
+        [
+         "adsorption",
+         "adsorbed"
+        ],
+        [
+         "surface",
+         "active site"
+        ],
+        [
+         "bulk",
+         "interior",
+         "inside"
+        ]
+       ]
+      },
+      {
+       "point": "Surface reaction follows an alternative mechanism with lower activation energy, which explains the faster rate. Do not credit only an unsupported assertion that the catalyst heats particles.",
+       "keywords": [
+        [
+         "alternative",
+         "different"
+        ],
+        [
+         "mechanism",
+         "pathway",
+         "route"
+        ],
+        [
+         "lower",
+         "reduces"
+        ],
+        [
+         "activation",
+         "barrier"
+        ]
+       ]
+      },
+      {
+       "point": "Products leave by desorption, releasing sites for another cycle. Accept equivalent wording for freeing the sites.",
+       "keywords": [
+        [
+         "desorption",
+         "desorb"
+        ],
+        [
+         "site",
+         "surface"
+        ],
+        [
+         "free",
+         "available",
+         "release",
+         "reuse"
+        ]
+       ]
+      },
+      {
+       "point": "Catalyst is regenerated or not used up overall, allowing repeated use. Also credit an explanation that product desorption frees active sites so the catalyst can be reused or used again; a separate regeneration phrase is not required. Award reuse wording only when semantically linked to desorption freeing sites, not a bare assertion of reuse.",
+       "keywords": [
+        [
+         "regenerated",
+         "restored",
+         "not consumed",
+         "not used up",
+         "unchanged overall",
+         "reused",
+         "reusable",
+         "reuse",
+         "used again",
+         "use again",
+         "another cycle",
+         "repeated use"
+        ]
+       ]
+      },
+      {
+       "point": "A permanently product-occupied site is unavailable for another cycle in the stated model. Require this occupancy explanation, not just a yes/no answer.",
+       "keywords": [
+        [
+         "product",
+         "occupied",
+         "blocked"
+        ],
+        [
+         "unavailable",
+         "cannot",
+         "not available",
+         "prevents"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "A catalyst heats the particles or shifts the energy-distribution peak.",
+     "temptation": "A faster reaction looks like a hotter reaction.",
+     "fix": "Hold temperature fixed: change the threshold, not the distribution."
+    },
+    {
+     "id": "m4",
+     "idea": "Always measure from the left-hand level or use the tallest peak.",
+     "temptation": "Energy profiles are usually introduced in the forward direction.",
+     "fix": "Read the named direction and step first; start on that side and find its relevant peak."
+    },
+    {
+     "id": "m5",
+     "idea": "The catalyst name alone determines whether catalysis is homogeneous.",
+     "temptation": "Memorising examples can hide the role of phases.",
+     "fix": "State the catalyst and reactant phases and compare them."
+    },
+    {
+     "id": "m3",
+     "idea": "A species consumed in an early step cannot be a catalyst.",
+     "temptation": "Stopping at one step makes regeneration invisible.",
+     "fix": "Trace the complete sequence and initial species; distinguish supplied-and-regenerated catalyst from formed-and-consumed intermediate."
+    },
+    {
+     "id": "m2",
+     "idea": "A catalyst increases the final equilibrium yield.",
+     "temptation": "At an early time the catalysed mixture can contain more product.",
+     "fix": "Compare the concentrations at the same elapsed time with the final constant concentrations, and use the stated starting composition to identify the initial net reaction direction."
+    },
+    {
+     "idea": "Adsorption means reactants must be absorbed into the bulk of the catalyst.",
+     "temptation": "The two words sound similar, and attachment can be mistaken for penetration.",
+     "fix": "In this surface model, adsorption attaches species at active sites; absorption takes material into the bulk. Product desorption releases the surface sites for reuse.",
+     "id": "m6"
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-8.3-pathway.svg",
+    "Assets/9701/9701-8.3-boltzmann.svg"
+   ],
+   "diagram_descriptions": [
+    "Energy against progress of reaction. A solid blue uncatalysed curve has a higher peak than the dashed orange curve labelled with catalyst. Both start at the same reactant level and finish at the same lower product level. An activation-energy arrow runs from the reactant level to the higher peak; an enthalpy-change arrow spans the endpoint gap. The drawing is a single-peak exothermic schematic, not the multi-step ammonia profile.",
+    "Molecular energy on the horizontal axis and number of molecules on the vertical axis. One blue fixed-temperature curve rises to a peak then falls to a long tail. A dashed orange catalysed threshold is left of a dashed black uncatalysed threshold, both to the right of the peak. Light blue shading extends under the curve from the lower catalysed threshold to the right. The part between the thresholds accounts for the extra particles with sufficient energy; no change to the distribution curve is needed. This registered display asset shows two thresholds, unlike the older retained single-threshold file."
+   ],
+   "source_gaps": [
+    "The plan describes the older single-threshold Boltzmann SVG (79c9eeee8953c5d5), whose rising-only curve was inspected; the existing alias instead resolves to the registered full-curve two-threshold SVG (ef7ca37fd41a54ff), which was separately inspected and is the one described and used in this lesson.",
+    "The existing pathway SVG is a single-peak schematic; the first-peak direction rule for multi-step profiles comes from CAIE 9701 s21 P12 Q7 and its examiner comment, not from that asset.",
+    "The opened SaveMyExams c26.2 p.2 contains a process-name typo and an inconsistent esterification equation; only its phase comparison is used, cross-checked against the bundle.",
+    "The opened SaveMyExams c8.1 p.14 text says the catalyst does not take part; that wording is not used because the bundle explicitly supports participation followed by regeneration.",
+    "Equilibrium reasoning was supplemented with RSC search-index text and the opened University of Calgary page because the matched library passages opened did not develop it.",
+    "Generated symbolic catalytic sequences illustrate accounting, not a claimed experimentally established chemical mechanism.",
+    "Display aliases were hash-verified through AssetLibrary: pathway resolves to Library/Courses/9701/Diagrams/9701-8.3-pathway-47786906fe7359f9.svg and Boltzmann to Library/Courses/9701/Diagrams/9701-8.3-guided-boltzmann-ef7ca37fd41a54ff.svg; no asset or provenance was changed.",
+    "Surface-cycle detail is supplementary explanation from the opened SaveMyExams c26.2 pp.2–3 and RSC article; the tagged official gold-foil question (9701 s22 P12 Q15) establishes surface catalysis but does not by itself establish this complete adsorption/reaction/desorption question form.",
+    "The added surface form uses an explicitly simplified model and does not assert one universal elementary mechanism; existing energy and distribution diagrams do not depict atomistic active sites, and this plan requests no new surface figure.",
+    "The orientation discovery probe was checked against c8.1 PDF p.13 and all six retained form examples/checks: no later task asks for its orientation conclusion, and the probe supplies none of their numerical, phase-classification, cycle-accounting or equilibrium answers.",
+    "The five planned form-specific retries could not be retained: the no-loss gate requires each existing forms-list entry to remain exactly unchanged, including its field set; original forms were restored rather than bypassing that preservation boundary."
+   ],
+   "source": "pack",
+   "guided_discover": {
+    "stem": "Prerequisite probe: two molecules collide with sufficient energy but do not react. Which additional requirement from collision theory might the collision fail to meet?",
+    "options": {
+     "A": "The molecules must have equal masses.",
+     "B": "The molecules must meet in a suitable orientation.",
+     "C": "The molecules must have equal speeds.",
+     "D": "The reaction must have zero enthalpy change."
+    },
+    "answer": "B",
+    "explanation": "Sufficient energy alone is not enough: the reacting parts must meet in a suitable orientation. Equal masses, equal speeds and zero enthalpy change are not collision-theory requirements. This probe checks a prerequisite rather than giving a worked activation-energy or distribution answer.",
+    "source": "SaveMyExams, Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c8.1.pdf, PDF p.13, collision-theory table; generated wording."
+   }
   }
+ },
+ "guided_forms": {
+  "9701-8.3.1": [
+   "Interpret or sketch a shared-endpoint reaction profile",
+   "Explain catalysis with a fixed-temperature Boltzmann distribution",
+   "Classify catalysis by comparing stated phases",
+   "Trace catalyst regeneration across complete steps",
+   "Distinguish faster equilibration from changed equilibrium yield",
+   "Explain a solid catalyst surface cycle"
+  ]
  }
 }

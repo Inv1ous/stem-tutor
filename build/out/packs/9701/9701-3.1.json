@@ -36,6 +36,14 @@
    "refutation": "Similar attraction allows sharing, so a small difference predicts covalent bonding.",
    "contrast": "A large difference favours electron transfer and ionic bonding.",
    "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-3.1.2",
+   "statement": "More protons always mean higher electronegativity.",
+   "refutation": "Nuclear charge, atomic radius and shielding act together; increased radius and shielding can outweigh a higher nuclear charge.",
+   "contrast": "Down a group, nuclear charge rises but electronegativity generally falls.",
+   "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.4–7"
   }
  ],
  "worked": [
@@ -1323,7 +1331,7 @@
  ],
  "diagrams": [
   {
-   "file": "Assets/9701/9701-3.1-period-3-trend.svg",
+   "file": "Library/Courses/9701/Diagrams/9701/9701-3.1-period-3-trend.svg",
    "type": "graph_sketch",
    "params": {
     "lines": [
@@ -1432,35 +1440,898 @@
  "teach": {
   "9701-3.1.1": {
    "motivate": "Why do some atoms pull bonding electrons more strongly than others? A single named property lets us compare that pull.",
-   "establish": "**Electronegativity** is the power of an atom to attract electrons to itself. A higher Pauling electronegativity value indicates stronger attraction. The definition is about attraction of electrons; first ionisation energy instead concerns removing an electron from a gaseous atom.",
+   "establish": "**Electronegativity** is the power of an atom to attract electrons to itself. A higher Pauling electronegativity value indicates stronger attraction. The definition is about attraction of electrons; first ionisation energy instead concerns removing an electron from a gaseous atom.\nPrerequisite bridge: the positive nucleus attracts negatively charged electrons. In a bond, electronegativity compares this attraction; first ionisation energy concerns removing an electron from a gaseous atom.",
    "connect": "This definition supplies the quantity used to explain Periodic Table trends and to compare two atoms when predicting bonding.",
-   "note": "- Electronegativity: power of an atom to attract electrons to itself.\n- Higher Pauling value means stronger attraction for electrons.",
+   "note": "- Electronegativity: power of an atom to attract electrons to itself.\n- Higher Pauling value means stronger attraction for electrons.\n- Attraction for bonding electrons is distinct from the energy needed to remove an electron from a gaseous atom.",
    "self_explain": "Why would ‘power to lose an electron’ fail as a definition of electronegativity?",
+   "plain_words": "Electronegativity is how strongly an atom pulls bonding electrons towards itself. It describes attraction. A high value means a strong pull on shared electrons. It does not describe how easily an atom loses an electron.",
+   "terms": [
+    {
+     "term": "Electronegativity",
+     "meaning": "The power of an atom to attract electrons to itself.",
+     "notation": "no unit; Pauling values are a relative scale",
+     "spoken": "electronegativity",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 ; https://periodic-table.rsc.org/element/12/magnesium ; https://periodic-table.rsc.org/element/13/aluminium"
+    },
+    {
+     "term": "Pauling electronegativity value",
+     "meaning": "A relative number; a higher value means stronger attraction for electrons.",
+     "notation": "a number with no unit",
+     "spoken": "Pauling value",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 ; https://periodic-table.rsc.org/element/12/magnesium ; https://periodic-table.rsc.org/element/13/aluminium"
+    },
+    {
+     "term": "First ionisation energy",
+     "meaning": "The energy needed to remove an electron from a gaseous atom. It is a different property from electronegativity.",
+     "notation": "$IE_1$",
+     "spoken": "first ionisation energy",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 ; https://periodic-table.rsc.org/element/12/magnesium ; https://periodic-table.rsc.org/element/13/aluminium"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Define electronegativity",
+     "wordings": [
+      "Define electronegativity.",
+      "Write a one-sentence definition of electronegativity."
+     ],
+     "example": "Worked example: a draft says 'the ease with which an atom loses an electron'. First identify the process: that is electron removal. Replace it with attraction: electronegativity is the power of an atom to attract electrons to itself.",
+     "check": "Define electronegativity without referring to electron removal.",
+     "answer": "The power of an atom to attract electrons to itself.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 (read). Original teaching example and independent check; no complete official mark scheme read.",
+     "rubric": [
+      {
+       "point": "An atom has the power or ability to attract electrons to itself. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "atom"
+        ],
+        [
+         "attract electrons",
+         "attraction for electrons",
+         "attract a pair of electrons",
+         "attract the bonding pair"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Explain why 'ability to lose an electron' is not a definition of electronegativity.",
+      "answer": "Electronegativity is about attraction for electrons. Losing an electron is removal, which is described by ionisation energy.",
+      "rubric": [
+       {
+        "point": "Electronegativity concerns attraction towards the atom, not loss of electrons. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+        "keywords": [
+         [
+          "attraction",
+          "attract",
+          "pull"
+         ]
+        ]
+       },
+       {
+        "point": "Ionisation energy concerns electron removal. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+        "keywords": [
+         [
+          "ionisation energy",
+          "ionization energy"
+         ],
+         [
+          "remove",
+          "removal",
+          "loss",
+          "losing"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Contrast with first ionisation energy",
+     "wordings": [
+      "Contrast electronegativity with first ionisation energy.",
+      "Compare what electronegativity measures with what first ionisation energy measures."
+     ],
+     "example": "Worked example: a high Pauling value describes a strong attraction for bonding electrons. The energy needed to remove an electron is a different quantity: first ionisation energy, defined for gaseous atoms.",
+     "check": "An atom has a Pauling value and a first ionisation energy. Explain what each describes and identify which concerns electron removal from a gaseous atom.",
+     "answer": "Electronegativity is the attraction of an atom for bonding electrons. First ionisation energy is the energy needed to remove an electron from a gaseous atom.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 (read). Original teaching example and independent check; no complete official mark scheme read.",
+     "rubric": [
+      {
+       "point": "Electronegativity describes attraction for bonding electrons. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "electronegativity"
+        ],
+        [
+         "attraction",
+         "attract"
+        ],
+        [
+         "bonding electrons",
+         "electrons in a bond",
+         "shared electrons"
+        ]
+       ]
+      },
+      {
+       "point": "First ionisation energy describes the energy required for electron removal from a gaseous atom. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "ionisation energy",
+         "ionization energy"
+        ],
+        [
+         "energy"
+        ],
+        [
+         "remove",
+         "removal"
+        ],
+        [
+         "gaseous atom"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Electronegativity is an atom's tendency to lose an electron.",
+     "temptation": "Ionisation energy also involves an electron leaving an atom, so the two properties get merged.",
+     "fix": "Electronegativity is attraction for electrons in a bond. Removing an electron is ionisation energy."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The definition and attraction/removal contrast are expressed directly in words. The existing Period 3 diagram is bound to 9701-3.1.3.",
+   "source_gaps": [
+    "Source audit 2026-10-30: Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 read; examples and checks reviewed against the syllabus wording. No complete official mark scheme for these written checks was read.",
+    "Separate fingerprint-bound solver/reviewer records for the written checks remain missing. The refiner content audit is not an independent written review or teaching approval.",
+    "Review update 2026-10-30: the earlier missing-record statement describes the prior audit; all 14 current written checks now have fingerprint-bound solutions from the separate blind solver /root/written_solver and accepted source-and-rubric reviews by /root in 9701-3.1.written-review.json. These same-family records do not claim official mark-scheme approval.",
+    "This pass reread Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf p.2 for the bonding-electron definition and positive-nucleus prerequisite bridge."
+   ],
    "source": "pack"
   },
   "9701-3.1.2": {
    "motivate": "Two atoms can pull electrons with different strengths. What features of the atoms explain the difference?",
-   "establish": "Three factors influence the electronegativities of elements. Greater **nuclear charge** strengthens attraction for electrons. Greater **atomic radius** puts electrons farther from the nucleus and weakens attraction. Greater **shielding by inner shells and sub-shells** reduces the nuclear attraction felt by electrons farther out. Judge their combined effects rather than treating proton number alone as decisive.",
+   "establish": "Three factors influence the electronegativities of elements. Greater **nuclear charge** strengthens attraction for electrons. Greater **atomic radius** puts electrons farther from the nucleus and weakens attraction. Greater **shielding by inner shells and sub-shells** reduces the nuclear attraction felt by electrons farther out. Judge their combined effects rather than treating proton number alone as decisive.\nPrerequisite bridge: identify occupied shells and proton number before comparing atoms. Inner electrons screen nuclear attraction; an additional occupied principal shell increases distance and usually inner-shell shielding.",
    "connect": "These three factors explain why the trend across a period differs from the trend down a group.",
-   "note": "- Higher nuclear charge strengthens attraction.\n- Larger atomic radius weakens attraction.\n- More shielding by inner shells and sub-shells weakens attraction.",
+   "note": "- Higher nuclear charge strengthens attraction.\n- Larger atomic radius weakens attraction.\n- More shielding by inner shells and sub-shells weakens attraction.\n- Compare nuclear charge, radius and inner-shell shielding together; a larger proton number alone does not decide electronegativity.",
    "self_explain": "If nuclear charge rises but radius and shielding also rise, why can electronegativity still fall?",
+   "plain_words": "Three things set how strongly an atom attracts electrons: nuclear charge, atomic radius and shielding by inner shells. More nuclear charge pulls harder. A larger radius and more shielding weaken the pull. Judge the three together.",
+   "terms": [
+    {
+     "term": "Nuclear charge",
+     "meaning": "The positive charge of the nucleus, set by the number of protons.",
+     "notation": "none needed",
+     "spoken": "nuclear charge",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.3–5"
+    },
+    {
+     "term": "Atomic radius",
+     "meaning": "The size of the atom. A larger radius places electrons farther from the nucleus.",
+     "notation": "none needed",
+     "spoken": "atomic radius",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.3–5"
+    },
+    {
+     "term": "Shielding",
+     "meaning": "Reduction of the nuclear attraction felt by outer electrons by electrons in inner shells and sub-shells.",
+     "notation": "none needed",
+     "spoken": "shielding",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.3–5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Name the three factors",
+     "wordings": [
+      "Name the three factors that determine how strongly an atom attracts electrons.",
+      "Name the factors that influence electronegativity."
+     ],
+     "example": "Worked example: compare two atoms by checking three features in order: proton number gives nuclear charge; occupied shells help compare atomic radius; inner electrons provide shielding. A larger radius alone weakens attraction only if the other factors are held fixed.",
+     "check": "Name the three factors that influence electronegativity.",
+     "answer": "Nuclear charge, atomic radius, and shielding by inner shells and sub-shells.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.3–5 (read). Original teaching example and independent check; no complete official mark scheme read.",
+     "rubric": [
+      {
+       "point": "Nuclear charge",
+       "keywords": [
+        [
+         "nuclear charge"
+        ]
+       ]
+      },
+      {
+       "point": "Atomic radius",
+       "keywords": [
+        [
+         "atomic radius",
+         "radius"
+        ]
+       ]
+      },
+      {
+       "point": "Shielding by inner shells",
+       "keywords": [
+        [
+         "shielding",
+         "shielded"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Explain the effect of a larger radius",
+     "wordings": [
+      "Explain why a larger atomic radius lowers electronegativity.",
+      "Explain how a larger atomic radius affects attraction for electrons."
+     ],
+     "example": "Worked example: compare two model atoms with equal nuclear charge and equal inner-shell shielding. Atom A has the smaller radius. Step 1: hold the other factors fixed. Step 2: bonding electrons are closer to the nucleus in A. Step 3: stronger attraction gives A higher electronegativity.",
+     "check": "Two model atoms have equal nuclear charge and equal inner-shell shielding. B has the larger radius. Explain which atom has weaker attraction for bonding electrons and why.",
+     "answer": "B has the weaker attraction: its bonding electrons are farther from the nucleus. Its electronegativity is therefore lower.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.3–5 (read). Original teaching example and independent check; no complete official mark scheme read.",
+     "rubric": [
+      {
+       "point": "B has bonding electrons farther from its nucleus. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "B"
+        ],
+        [
+         "farther",
+         "further"
+        ]
+       ]
+      },
+      {
+       "point": "The greater distance weakens the nuclear attraction for bonding electrons. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "weaker attraction",
+         "attraction is weaker",
+         "attraction weakens",
+         "less attraction"
+        ],
+        [
+         "electrons",
+         "nucleus",
+         "nuclear"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Explain why more shielding lowers electronegativity.",
+      "answer": "Electrons in inner shells partly screen the nuclear attraction. Bonding electrons therefore experience less attraction to the nucleus, so electronegativity is lower if other factors are unchanged.",
+      "rubric": [
+       {
+        "point": "Inner electrons partly screen nuclear attraction without changing the number of protons. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+        "keywords": [
+         [
+          "inner electrons",
+          "inner shells",
+          "inner shell"
+         ],
+         [
+          "screen",
+          "shield"
+         ]
+        ]
+       },
+       {
+        "point": "Bonding electrons feel less nuclear attraction. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+        "keywords": [
+         [
+          "less attraction",
+          "weaker attraction",
+          "reduced attraction",
+          "attraction is weaker"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Compare atoms using all three factors",
+     "wordings": [
+      "Explain a comparison of electronegativities using nuclear charge, atomic radius and inner-shell shielding."
+     ],
+     "example": "Worked example: lithium and sodium. Step 1: sodium has more protons, which alone strengthens attraction. Step 2: sodium has another occupied shell, a larger radius and greater inner-shell shielding. Step 3: distance and shielding outweigh greater nuclear charge, so sodium attracts bonding electrons less strongly.",
+     "check": "Potassium has more protons than sodium. Explain why potassium is nevertheless less electronegative, using nuclear charge, atomic radius and inner-shell shielding.",
+     "answer": "Potassium has greater nuclear charge, but another occupied principal shell gives it a larger radius and greater inner-shell shielding. Increased distance and shielding outweigh the nuclear-charge increase, so potassium attracts bonding electrons less strongly.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.3–5 (read). Original teaching example and independent check; no complete official mark scheme read.",
+     "rubric": [
+      {
+       "point": "Potassium has greater nuclear charge. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "greater nuclear charge",
+         "higher nuclear charge",
+         "more protons"
+        ]
+       ]
+      },
+      {
+       "point": "An additional occupied shell gives potassium a larger radius. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "shell"
+        ],
+        [
+         "larger radius",
+         "greater radius"
+        ]
+       ]
+      },
+      {
+       "point": "More inner electrons give potassium greater shielding. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "greater shielding",
+         "more shielding",
+         "increased shielding"
+        ]
+       ]
+      },
+      {
+       "point": "Distance and shielding outweigh increased nuclear charge, weakening attraction. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "outweigh",
+         "offset",
+         "despite"
+        ],
+        [
+         "less strongly",
+         "weaker attraction",
+         "attraction is weaker"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "More protons always means higher electronegativity.",
+     "temptation": "A single familiar factor seems enough to decide a comparison.",
+     "fix": "Compare nuclear charge, radius and shielding together; a new occupied shell can outweigh increased nuclear charge."
+    }
+   ],
+   "diagrams": [],
+   "source_gaps": [
+    "Source audit 2026-10-30: Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.3–5 read; examples and checks reviewed against the syllabus wording. No complete official mark scheme for these written checks was read.",
+    "Separate fingerprint-bound solver/reviewer records for the written checks remain missing. The refiner content audit is not an independent written review or teaching approval.",
+    "Review update 2026-10-30: the earlier missing-record statement describes the prior audit; all 14 current written checks now have fingerprint-bound solutions from the separate blind solver /root/written_solver and accepted source-and-rubric reviews by /root in 9701-3.1.written-review.json. These same-family records do not claim official mark-scheme approval.",
+    "This pass reread Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf pp.3–5 for the three factors and their combined effects."
+   ],
+   "diagram_reason": "The three-factor comparison is staged in words; the existing Period 3 diagram on 9701-3.1.3 shows the across-period case. No new figure is requested.",
    "source": "pack"
   },
   "9701-3.1.3": {
    "motivate": "The Periodic Table lets you predict which of two elements is likely to pull electrons more strongly.",
    "establish": "Electronegativity generally **increases across a period**. Nuclear charge increases, atomic radius decreases, and inner-shell shielding changes little because added electrons enter the same principal shell. The stronger attraction raises electronegativity. Electronegativity generally **decreases down a group**. New occupied shells increase atomic radius and shielding by inner shells; these effects outweigh the increase in nuclear charge, weakening attraction for electrons.",
    "connect": "Use these trends to compare atoms, then use the supplied Pauling values when the question asks you to predict bonding.",
-   "note": "- Across a period: electronegativity increases; higher nuclear charge, smaller radius, little shielding change.\n- Down a group: electronegativity decreases; larger radius and more inner-shell shielding outweigh higher nuclear charge.",
+   "note": "- Across a period: electronegativity increases; higher nuclear charge, smaller radius, little shielding change.\n- Down a group: electronegativity decreases; larger radius and more inner-shell shielding outweigh higher nuclear charge.\n- The Mg-to-Al dip in first ionisation energy does not imply a dip in electronegativity.",
    "self_explain": "Why does increasing nuclear charge down a group not make electronegativity increase?",
+   "plain_words": "Across a period, electronegativity rises: nuclear charge goes up, the atom gets smaller, and shielding barely changes. Down a group, it falls: each step adds an occupied shell, so the radius grows and inner shells shield more, outweighing the extra protons.",
+   "terms": [
+    {
+     "term": "Period",
+     "meaning": "A horizontal row of the Periodic Table.",
+     "notation": "none needed",
+     "spoken": "period",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.6–7"
+    },
+    {
+     "term": "Group",
+     "meaning": "A vertical column of the Periodic Table. Moving down one group adds an occupied principal shell.",
+     "notation": "none needed",
+     "spoken": "group",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.6–7"
+    },
+    {
+     "term": "Principal shell",
+     "meaning": "A main energy level of electrons in an atom.",
+     "notation": "n is the usual symbol; not given in the sources read",
+     "spoken": "principal shell",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.6–7"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain the increase across a period",
+     "wordings": [
+      "Explain why electronegativity increases from lithium to fluorine.",
+      "Explain the increase in electronegativity across Period 2."
+     ],
+     "example": "Example: from carbon to oxygen, nuclear charge rises by two protons, the atom gets smaller, and shielding stays similar, so attraction strengthens.",
+     "check": "Explain why electronegativity increases from lithium to fluorine across Period 2.",
+     "answer": "Nuclear charge increases across Period 2, while electrons enter the same principal shell so inner-shell shielding changes little. Atomic radius decreases and the nucleus attracts bonding electrons more strongly; electronegativity increases.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.6–7 (read). Original teaching example and independent check; no complete official mark scheme read.",
+     "rubric": [
+      {
+       "point": "Nuclear charge increases. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "nuclear charge increases",
+         "increasing nuclear charge",
+         "more protons"
+        ]
+       ]
+      },
+      {
+       "point": "Atomic radius decreases. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "radius decreases",
+         "smaller radius",
+         "decreasing radius"
+        ]
+       ]
+      },
+      {
+       "point": "Same principal shell, so inner-shell shielding changes little. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "same principal shell",
+         "same shell"
+        ],
+        [
+         "shielding changes little",
+         "shielding is similar",
+         "shielding remains",
+         "shielding stays",
+         "same shielding"
+        ]
+       ]
+      },
+      {
+       "point": "Stronger attraction for bonding electrons raises electronegativity. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "stronger attraction",
+         "attracts bonding electrons more strongly"
+        ],
+        [
+         "electronegativity"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Which is more electronegative, fluorine or oxygen? Justify using the trend.\nInclude nuclear charge and atomic radius in your justification.",
+      "answer": "Fluorine. It lies further right in Period 2, with a higher nuclear charge and a smaller radius.",
+      "rubric": [
+       {
+        "point": "Names fluorine",
+        "keywords": [
+         [
+          "fluorine"
+         ]
+        ]
+       },
+       {
+        "point": "Higher nuclear charge",
+        "keywords": [
+         [
+          "nuclear charge",
+          "more protons"
+         ]
+        ]
+       },
+       {
+        "point": "Smaller radius",
+        "keywords": [
+         [
+          "radius",
+          "size"
+         ],
+         [
+          "smaller",
+          "decreases",
+          "falls",
+          "shrinks"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Explain the decrease down a group",
+     "wordings": [
+      "Explain why electronegativity decreases from magnesium to calcium.",
+      "Explain the decrease in electronegativity down Group 2 from magnesium to calcium."
+     ],
+     "example": "Example: from sodium to potassium, potassium has an extra occupied shell, so its radius is larger and shielding is greater. These effects outweigh the higher nuclear charge.",
+     "check": "Explain why electronegativity decreases from magnesium to calcium.",
+     "answer": "Calcium has an additional occupied shell, a larger radius and greater inner-shell shielding. Although its nuclear charge is greater, increased distance and shielding outweigh this increase. Attraction for bonding electrons is weaker, so calcium is less electronegative.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.6–7 (read). Original teaching example and independent check; no complete official mark scheme read.",
+     "rubric": [
+      {
+       "point": "Calcium has another occupied shell. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "additional occupied shell",
+         "extra shell",
+         "another occupied shell",
+         "additional shell"
+        ]
+       ]
+      },
+      {
+       "point": "Calcium has a larger radius. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "larger radius",
+         "greater radius"
+        ]
+       ]
+      },
+      {
+       "point": "Calcium has greater inner-shell shielding. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "greater inner-shell shielding",
+         "more shielding",
+         "greater shielding"
+        ]
+       ]
+      },
+      {
+       "point": "Distance and shielding outweigh nuclear charge, weakening attraction. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "outweigh",
+         "despite",
+         "offset"
+        ],
+        [
+         "weaker",
+         "less strongly"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Contrast electronegativity and first-ionisation-energy trends",
+     "wordings": [
+      "Compare the changes in electronegativity and first ionisation energy from magnesium to aluminium."
+     ],
+     "example": "Worked example: the RSC gives Mg and Al Pauling values of 1.31 and 1.61 and first ionisation energies of about 738 and 578 kilojoules per mole. Step 1: electronegativity rises but ionisation energy falls. Step 2: distinguish attraction in bonding from electron removal. Step 3: Al loses a higher-energy, more shielded $3p$ electron rather than a $3s$ electron; this explains the ionisation-energy dip and does not imply an electronegativity dip.",
+     "check": "A learner predicts that aluminium is less electronegative than magnesium because its first ionisation energy is lower. Explain the error and state the directions of change of both properties from Mg to Al.\nThen consider phosphorus to sulfur across Period 3. State how electronegativity and first ionisation energy each change, and explain the electron-removal effect responsible for any ionisation-energy dip.",
+     "answer": "Electronegativity increases from Mg to Al, whereas first ionisation energy decreases. Electronegativity concerns attraction for bonding electrons. The ionisation-energy dip concerns removal of a higher-energy, more shielded $3p$ electron in Al rather than a $3s$ electron in Mg; it does not imply a dip in electronegativity.\nFrom phosphorus to sulfur, electronegativity increases but first ionisation energy decreases. Phosphorus has three unpaired electrons in its $3p$ sub-shell; sulfur has a pair in one $3p$ orbital. Repulsion between the paired electrons makes an electron easier to remove from sulfur. This removal effect does not imply weaker attraction for bonding electrons.",
+     "source": "https://periodic-table.rsc.org/element/12/magnesium ; https://periodic-table.rsc.org/element/13/aluminium (atomic data reread 2026-10-30); bundle 9701_w19_12_q12 and 9701_s25_11_q20 (official comparison forms and keys; full mark schemes not read).\nTransfer extension: the bundle ER 9701 w23 P21/P23 Q1 identifies paired 3p electrons and spin-pair repulsion for the sulfur first-ionisation-energy dip; the bundle 3.1 trend statement supplies the electronegativity direction.",
+     "rubric": [
+      {
+       "point": "Electronegativity increases from Mg to Al. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "electronegativity increases",
+         "electronegativity rises",
+         "higher electronegativity"
+        ]
+       ]
+      },
+      {
+       "point": "First ionisation energy decreases. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "ionisation energy decreases",
+         "ionisation energy falls",
+         "lower first ionisation energy",
+         "ionization energy decreases"
+        ]
+       ]
+      },
+      {
+       "point": "Electronegativity concerns attraction for bonding electrons. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "attraction",
+         "attract"
+        ],
+        [
+         "bonding electrons",
+         "shared electrons"
+        ]
+       ]
+      },
+      {
+       "point": "Al loses a higher-energy or more shielded 3p electron rather than a 3s electron. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "3p"
+        ],
+        [
+         "higher-energy",
+         "higher energy",
+         "more shielded"
+        ],
+        [
+         "3s"
+        ]
+       ]
+      },
+      {
+       "point": "From phosphorus to sulfur, electronegativity increases while first ionisation energy decreases. Accept equivalent correct statements identifying both directions; keyword matches do not establish correctness.",
+       "keywords": [
+        [
+         "electronegativity increases",
+         "electronegativity rises"
+        ],
+        [
+         "ionisation energy decreases",
+         "ionisation energy falls",
+         "ionization energy decreases"
+        ]
+       ]
+      },
+      {
+       "point": "Sulfur has paired electrons in a 3p orbital, whereas phosphorus has singly occupied 3p orbitals. Accept equivalent orbital descriptions.",
+       "keywords": [
+        [
+         "sulfur",
+         "sulphur"
+        ],
+        [
+         "pair",
+         "paired"
+        ],
+        [
+         "3p"
+        ]
+       ]
+      },
+      {
+       "point": "Repulsion within the electron pair makes an electron easier to remove from sulfur, explaining the ionisation-energy dip without an electronegativity dip. Accept equivalent causal reasoning.",
+       "keywords": [
+        [
+         "repulsion",
+         "repel"
+        ],
+        [
+         "easier to remove",
+         "less energy",
+         "lower energy",
+         "more easily removed"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "Electronegativity copies every ionisation-energy dip or rises down a group merely because nuclear charge rises.",
+     "temptation": "A single familiar factor seems enough to decide a comparison.",
+     "fix": "Distinguish bonding-electron attraction from electron removal. Across a period electronegativity rises; down a group greater distance and shielding outweigh greater nuclear charge."
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-3.1-period-3-trend.svg"
+   ],
+   "diagram_descriptions": [
+    "Qualitative Pauling electronegativity trend across Period 3, Na to Cl: values increase, including Mg to Al. Increasing nuclear charge with similar shielding and decreasing atomic radius strengthens attraction to bonding electrons. The plotted heights and slopes are schematic."
+   ],
+   "source_gaps": [
+    "Source audit 2026-10-30: Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.6–7 read; examples and checks reviewed against the syllabus wording. No complete official mark scheme for these written checks was read.",
+    "Separate fingerprint-bound solver/reviewer records for the written checks remain missing. The refiner content audit is not an independent written review or teaching approval.",
+    "RSC Mg/Al element data were reread for the electronegativity/ionisation-energy contrast. The periodic-trends download https://edu.rsc.org/download?ac=531652 returned HTTP 405 and was not read; the two accessible element pages were used instead.",
+    "Review update 2026-10-30: the earlier missing-record statement describes the prior audit; all 14 current written checks now have fingerprint-bound solutions from the separate blind solver /root/written_solver and accepted source-and-rubric reviews by /root in 9701-3.1.written-review.json. These same-family records do not claim official mark-scheme approval.",
+    "This pass reread c3.1.pdf pp.6–7 and the accessible RSC magnesium and aluminium element pages (https://periodic-table.rsc.org/element/12/magnesium and https://periodic-table.rsc.org/element/13/aluminium). The requested RSC periodic-trends download still returned HTTP 405; it was not used. The registered Period 3 SVG was hash/provenance checked and its CairoSVG rendering opened and inspected; Quick Look could not initialize in the sandbox.",
+    "Final teaching review 2026-10-30: clarified the fluorine/oxygen retry to request nuclear charge and radius explicitly; added a phosphorus/sulfur transfer part to the Mg/Al check. The separate blind solver solved the extension before seeing its new key, and /root reviewed the solution against the bundle and rubric."
+   ],
+   "discover": {
+    "stem": "Going down Group 17 from fluorine to iodine, nuclear charge increases but electronegativity falls. Which statement best explains this?",
+    "options": {
+     "A": "Nuclear charge falls down the group, so attraction for electrons is weaker.",
+     "B": "The rise in nuclear charge is outweighed by the larger atomic radius and greater inner-shell shielding.",
+     "C": "Electrons in the same group are not attracted to the nucleus, so the trend has no cause.",
+     "D": "Shielding stays the same because new electrons enter the same shell, so only nuclear charge matters."
+    },
+    "answer": "B",
+    "explanation": "Each step down the group adds an occupied principal shell. The larger radius and greater inner-shell shielding outweigh the higher nuclear charge, so attraction for bonding electrons weakens."
+   },
    "source": "pack"
   },
   "9701-3.1.4": {
    "motivate": "Given two Pauling values, you can make an evidence-based prediction about whether a bond is ionic or covalent.",
-   "establish": "Calculate the **electronegativity difference** as $|\\chi_A-\\chi_B|$ from the given Pauling values. A **small difference** means both atoms attract electrons similarly, favouring sharing and a **covalent bond**. A **large difference** means strongly unequal attraction, favouring electron transfer and an **ionic bond** between oppositely charged ions. Compare differences when several bonds are offered; do not rely on an unstated exact threshold. The presence of covalent character in some ionic compounds is outside this assessment outcome.",
+   "establish": "Calculate the **electronegativity difference** as $|\\chi_A-\\chi_B|$ from the given Pauling values. A **small difference** means both atoms attract electrons similarly, favouring sharing and a **covalent bond**. A **large difference** means strongly unequal attraction, favouring electron transfer and an **ionic bond** between oppositely charged ions. Compare differences when several bonds are offered; do not rely on an unstated exact threshold. The presence of covalent character in some ionic compounds is outside this assessment outcome.\nAn ionic bond is the electrostatic attraction between oppositely charged ions. Electron transfer forms ions; it is not itself the force holding them together. Compare both atoms and use supplied values without inventing a universal dividing value.",
    "connect": "This method applies the electronegativity trends, but use actual values supplied in a question for the final comparison.",
-   "note": "- Calculate $\\Delta\\chi=|\\chi_A-\\chi_B|$ from given Pauling values.\n- Small difference predicts covalent bonding through sharing.\n- Large difference predicts ionic bonding through electron transfer.",
+   "note": "- Calculate $\\Delta\\chi=|\\chi_A-\\chi_B|$ from given Pauling values.\n- Small difference predicts covalent bonding through sharing.\n- Large difference predicts ionic bonding through electron transfer.\n- Use the magnitude of the difference between both supplied values; electron transfer forms ions and electrostatic attraction bonds them.",
    "self_explain": "Why must you compare the two values rather than judge bond type from only one atom's value?",
+   "plain_words": "Subtract the smaller Pauling value from the larger one to get the difference. A small difference means the atoms attract electrons about equally, so they share them in a covalent bond. A large difference means unequal attraction, so electrons are transferred and an ionic bond forms.",
+   "terms": [
+    {
+     "term": "Electronegativity difference",
+     "meaning": "The size of the difference between two Pauling values. It cannot be negative.",
+     "notation": "Δχ = |χA − χB|",
+     "spoken": "delta chi equals the modulus of chi A minus chi B",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2"
+    },
+    {
+     "term": "Covalent bond",
+     "meaning": "A bond formed by sharing electron pairs when the atoms attract electrons similarly.",
+     "notation": "none needed",
+     "spoken": "covalent bond",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2"
+    },
+    {
+     "term": "Ionic bond",
+     "meaning": "A bond formed by electron transfer, giving oppositely charged ions attracted to each other.",
+     "notation": "none needed",
+     "spoken": "ionic bond",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Calculate the difference and predict the bond",
+     "wordings": [
+      "Given two Pauling values, calculate the electronegativity difference and predict the bond type.",
+      "Predict whether the bond is ionic or covalent from two given Pauling values."
+     ],
+     "example": "Worked example: supplied values Na = 0.9 and Cl = 3.2. Step 1: $\\Delta\\chi=|0.9-3.2|=2.3$. Step 2: the large difference supports an ionic prediction for sodium chloride. Step 3: ionic bonding is attraction between oppositely charged ions; electron transfer forms those ions.",
+     "check": "Use the supplied Pauling values C = 2.5 and H = 2.2. Calculate the absolute difference and predict C–H bonding; explain the electron behaviour.",
+     "answer": "The difference is $|2.5-2.2|=0.3$. The small difference predicts covalent bonding: the atoms share a pair of electrons.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 (read). Original teaching example and independent check; no complete official mark scheme read. Paper 1 topical compilation p.269 and bundle 9701_s22_13_q5 (prediction/comparison form).",
+     "rubric": [
+      {
+       "point": "The absolute difference is 0.3. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "0.3"
+        ]
+       ]
+      },
+      {
+       "point": "Covalent bonding predicted because electrons are shared. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "covalent"
+        ],
+        [
+         "share",
+         "sharing",
+         "shared"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Use Mg = 1.3 and O = 3.4. Calculate the absolute difference, predict bonding in magnesium oxide and identify the attraction responsible for an ionic bond.",
+      "answer": "The difference is $|1.3-3.4|=2.1$, supporting ionic bonding in magnesium oxide. An ionic bond is the electrostatic attraction between oppositely charged ions.",
+      "rubric": [
+       {
+        "point": "The absolute difference is 2.1. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+        "keywords": [
+         [
+          "2.1"
+         ]
+        ]
+       },
+       {
+        "point": "Ionic bonding predicted. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+        "keywords": [
+         [
+          "ionic bonding",
+          "ionic bond"
+         ]
+        ]
+       },
+       {
+        "point": "Electrostatic attraction between oppositely charged ions. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+        "keywords": [
+         [
+          "electrostatic attraction"
+         ],
+         [
+          "oppositely charged ions",
+          "positive and negative ions",
+          "cations and anions"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Compare bond-type predictions",
+     "wordings": [
+      "Calculate two electronegativity differences and predict which compound is more likely to have ionic bonding."
+     ],
+     "example": "Worked example: supplied values Na = 0.9, H = 2.2 and Cl = 3.2. NaCl has $\\Delta\\chi=|3.2-0.9|=2.3$; HCl has $\\Delta\\chi=|3.2-2.2|=1.0$. The larger difference supports ionic bonding in sodium chloride; hydrogen chloride is covalent. Both contain chlorine, so its value alone cannot decide.",
+     "check": "Use Mg = 1.3, C = 2.5 and O = 3.4. Calculate the differences for Mg–O and C–O, then predict which compound, magnesium oxide or carbon monoxide, is more likely to have ionic bonding.",
+     "answer": "Mg–O has $\\Delta\\chi=|3.4-1.3|=2.1$; C–O has $\\Delta\\chi=|3.4-2.5|=0.9$. Magnesium oxide is more likely to have ionic bonding because its difference is larger. Carbon monoxide has covalent bonding.",
+     "source": "Cambridge 9701 syllabus 2025–2027, section 3.1, official statements reproduced in build/work/bundles/9701-3.1.md; Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 (read). Original teaching example and independent check; no complete official mark scheme read. Paper 1 topical compilation p.269 and bundle 9701_s22_13_q5 (prediction/comparison form).",
+     "rubric": [
+      {
+       "point": "Mg–O difference is 2.1. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "2.1"
+        ]
+       ]
+      },
+      {
+       "point": "C–O difference is 0.9. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "0.9"
+        ]
+       ]
+      },
+      {
+       "point": "Magnesium oxide is predicted ionic because its difference is larger. Accept equivalent correct reasoning. Keyword hits alone do not credit a negated, reversed or contradictory claim.",
+       "keywords": [
+        [
+         "magnesium oxide",
+         "MgO",
+         "Mg–O"
+        ],
+        [
+         "ionic"
+        ],
+        [
+         "larger difference",
+         "difference is larger",
+         "greater difference"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "One strongly electronegative atom alone decides the bond type.",
+     "temptation": "A single familiar factor seems enough to decide a comparison.",
+     "fix": "Calculate the absolute difference between both supplied values. Small differences favour sharing; larger differences support an ionic prediction. Ionic bonding is attraction between opposite ions."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The absolute-difference method is staged arithmetic. No new visual is requested and a figure would add no information to these calculations.",
+   "source_gaps": [
+    "Source audit 2026-10-30: Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c3.1.pdf, pp.2 read; examples and checks reviewed against the syllabus wording. No complete official mark scheme for these written checks was read.",
+    "Separate fingerprint-bound solver/reviewer records for the written checks remain missing. The refiner content audit is not an independent written review or teaching approval.",
+    "The syllabus gives no universal numerical cutoff, so none is imposed. Covalent character in ionic compounds is outside this outcome.",
+    "Paper 1 topical compilation p.269 was read. Suggested Paper 2 p.40 concerns oxide melting, so it is not evidence for the numerical-difference form.",
+    "Review update 2026-10-30: the earlier missing-record statement describes the prior audit; all 14 current written checks now have fingerprint-bound solutions from the separate blind solver /root/written_solver and accepted source-and-rubric reviews by /root in 9701-3.1.written-review.json. These same-family records do not claim official mark-scheme approval.",
+    "This pass reread Library/Courses/9701/Sources/Library/Chemistry 9701 AS Topicals/9701 2020-2025 Paper 1.pdf p.269: it supports the Period 3 extremes and resulting bond-type comparison, not the numerical-difference rubric. Supplied-value calculations were verified with Python Decimal: 2.3, 1.0, 0.3, 2.1 and 0.9."
+   ],
    "source": "pack"
   }
+ },
+ "guided_forms": {
+  "9701-3.1.1": [
+   "Define electronegativity",
+   "Contrast with first ionisation energy"
+  ],
+  "9701-3.1.2": [
+   "Name the three factors",
+   "Explain the effect of a larger radius",
+   "Compare atoms using all three factors"
+  ],
+  "9701-3.1.3": [
+   "Explain the increase across a period",
+   "Explain the decrease down a group",
+   "Contrast electronegativity and first-ionisation-energy trends"
+  ],
+  "9701-3.1.4": [
+   "Calculate the difference and predict the bond",
+   "Compare bond-type predictions"
+  ]
  }
 }

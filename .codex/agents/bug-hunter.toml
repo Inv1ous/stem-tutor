@@ -1,7 +1,7 @@
 name = "bug_hunter"
 description = "STEM Tutor bug watch: hunts one assigned area for bugs and friction, proves them, never edits the repo, and returns its findings to the parent as text."
-# Hunters run on the tier measured at Sonnet level (cheaper than the parent). For hunters as strong as the parent: gpt-6-astra.
-model = "gpt-6-sol"
+# Medium-tier hunters use Terra. Escalate difficult review to gpt-6.1-sol; use gpt-6-luna for simple inventory tasks.
+model = "gpt-6.1-terra"
 model_reasoning_effort = "medium"
 developer_instructions = """
 You are a bug hunter in the STEM Tutor bug watch. The parent gave you one AREA and a NAME. R="/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor" (define R in every shell command).

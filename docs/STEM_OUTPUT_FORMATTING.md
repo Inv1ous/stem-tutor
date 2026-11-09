@@ -3,6 +3,24 @@
 Status: implemented after user approval on 25 October 2026. Verification is recorded in the implementation plan.
 The inventory describes the renderer before this implementation.
 
+## Readability enforcement — 2 November update
+
+The shared formatter separates a strong run of consecutive `Step n:` instructions into individual paragraphs
+before the existing word-count grouping. Each label needs an instruction boundary; quoted labels, ordinary
+cross-references, existing list/quote structure, code, URLs and maths are not interpreted as new steps. The rule
+adds spacing without changing words, step numbers or scientific content.
+
+Explicit prose newlines use canonical Markdown hard breaks so CommonMark/Obsidian and the terminal retain the
+same intended line boundaries. Existing backslash hard breaks remain valid, protected code/math remains exact,
+and repeated normalization is idempotent. A form example assembles its alternative question wordings as separate
+bullets and labels the worked example, using the existing structured array rather than guessing sentence boundaries.
+
+The semantic block schema, bounded incremental decoder, field whitelist and explicit invalid-source fallback remain
+authoritative for Claude, ChatGPT and local models. Provider instructions request separate step blocks. Formatting
+is deterministic at display boundaries; it does not establish factual correctness or guarantee that every model
+will return a complete valid document. No AI repair calls, machine-field rewrites, Library edits or historical
+learner-record rewrites are required.
+
 ## Shared content blocks — 26 October update
 
 The user approved the subsequent [structured tutor design](superpowers/specs/2026-10-26-structured-tutor-output-design.md).

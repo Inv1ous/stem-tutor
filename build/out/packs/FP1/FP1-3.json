@@ -44,6 +44,30 @@
    "refutation": "A midpoint is only an estimate unless its function value is zero; it may even be outside the function domain.",
    "contrast": "Evaluate the function and check its domain before claiming a root.",
    "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "FP1-3.1",
+   "statement": "Matching iterates prove the stated decimal places.",
+   "refutation": "For a proof, evaluate exact half-unit rounding boundaries and use continuity; a narrow bracket must be contained in one rounding interval.",
+   "contrast": "The calculator display stops changing.",
+   "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp.2-4"
+  },
+  {
+   "id": "m7",
+   "kc": "FP1-3.1",
+   "statement": "Mix signed heights and positive triangle lengths.",
+   "refutation": "Use signed function values throughout the secant formula, or positive lengths throughout a consistent similar-triangle argument.",
+   "contrast": "A memorised interpolation ratio obscures which quantities are lengths.",
+   "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp.12-15; Pearson WFM01/01 October 2021 examiner report, Question 2, p.4 (printed session October 2021; URL published 20220113): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wfm01-01-pef-20220113.pdf"
+  },
+  {
+   "id": "m8",
+   "kc": "FP1-3.1",
+   "statement": "Newton-Raphson only needs the last calculator answer.",
+   "refutation": "Show derivative, recurrence, substitution and intermediate iterates; keep extra figures internally and check for a zero derivative.",
+   "contrast": "Intermediate steps feel repetitive.",
+   "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp.12-15; Pearson WFM01/01 October 2021 examiner report, Question 2, p.4 (printed session October 2021; URL published 20220113): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wfm01-01-pef-20220113.pdf"
   }
  ],
  "worked": [
@@ -648,7 +672,7 @@
  "teach": {
   "FP1-3.1": {
    "motivate": "Some equations $f(x)=0$ cannot conveniently be solved exactly. Three numerical processes give usable root estimates: interval bisection, linear interpolation and Newton-Raphson. Each uses different information about the graph.",
-   "establish": "For interval bisection, start with a continuous $f$ and endpoints $a<b$ of opposite sign. Set $m=(a+b)/2$ and keep the half whose endpoint values have opposite signs. For linear interpolation, join $(a,f(a))$ and $(b,f(b))$ with a straight line. Its zero is $x=a-f(a)(b-a)/(f(b)-f(a))$. For Newton-Raphson, start at $x_n$ and follow the tangent to the axis: $x_{n+1}=x_n-f(x_n)/f'(x_n)$. Differentiate using P1 or P2 rules and avoid points where $f'(x_n)=0$. Bisection controls a bracket; the other estimates must be checked by evaluating $f$ or monitoring convergence.",
+   "establish": "For interval bisection, start with a continuous $f$ and endpoints $a<b$ of opposite sign. Set $m=(a+b)/2$ and keep the half whose endpoint values have opposite signs. For linear interpolation, join $(a,f(a))$ and $(b,f(b))$ with a straight line. Its zero is $x=a-f(a)(b-a)/(f(b)-f(a))$. For Newton-Raphson, start at $x_n$ and follow the tangent to the axis: $x_{n+1}=x_n-f(x_n)/f'(x_n)$. Differentiate using P1 or P2 rules and avoid points where $f'(x_n)=0$. Bisection controls a bracket; the other estimates must be checked by evaluating $f$ or monitoring convergence.\nPrerequisite bridge from [[4 Differentiation]]: the power rule gives $\\frac{d}{dx}(x^n)=nx^{n-1}$ and constants differentiate to zero. For $f(x)=x^3-7$, $f'(x)=3x^2$; at $x=2$ the gradient is $12$. The derivative is a function; evaluate it at the current iterate before dividing. If it is zero, the Newton-Raphson step is undefined.",
    "connect": "The sign-change test comes from continuity. Linear interpolation replaces the curve with a secant; Newton-Raphson replaces it locally with a tangent. These geometric pictures explain why their numerical estimates differ.",
    "note": "- Root: $f(r)=0$.\n- Bisection: midpoint, then retain the sign-changing half.\n- Linear interpolation: use the secant zero.\n- Newton-Raphson: $x_{n+1}=x_n-f(x_n)/f'(x_n)$.\n- Check signs, derivatives and accuracy.\n- Opposite endpoint signs require continuity: $1/x$ on $[-1,1]$ has no root. A tangent root may have no sign change; an interval may contain several roots.",
    "self_explain": "Why does bisection preserve a bracket while a Newton-Raphson iterate can leave the starting interval? Explain using the sign test and the tangent picture.",
@@ -663,7 +687,548 @@
     "answer": "C",
     "explanation": "For $1/x$ on $[-1,1]$, the signs differ but the function is undefined at zero and has no root."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A root is an input that makes the function zero. First locate where a root can lie. Bisection repeatedly halves that interval; interpolation uses a line through two curve points; Newton-Raphson uses the slope at one curve point. An estimate is a useful guess with working; a proof of accuracy needs bounds and reasons.",
+   "terms": [
+    {
+     "term": "root",
+     "meaning": "An input making the function equal to zero.",
+     "notation": "$f(r)=0$",
+     "spoken": "r is a root; f of r equals zero",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp. 2"
+    },
+    {
+     "term": "bracket",
+     "meaning": "Two ordered endpoints known to enclose at least one root.",
+     "notation": "$[a,b]$, $a<b$",
+     "spoken": "closed interval from a to b",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp. 2, 7"
+    },
+    {
+     "term": "continuity",
+     "meaning": "No break in the function throughout the interval; required by the opposite-sign root test.",
+     "notation": "$f$ continuous on $[a,b]$",
+     "spoken": "f is continuous on the closed interval a to b",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp. 2-5"
+    },
+    {
+     "term": "secant",
+     "meaning": "The straight line through two points on the curve.",
+     "notation": "$(a,f(a))$, $(b,f(b))$",
+     "spoken": "a, f of a; b, f of b",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp. 9-11"
+    },
+    {
+     "term": "tangent",
+     "meaning": "The line through a curve point with the same local gradient as the curve.",
+     "notation": "$y-f(x_n)=f'(x_n)(x-x_n)$",
+     "spoken": "y minus f of x n equals f prime of x n times x minus x n",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp. 13"
+    },
+    {
+     "term": "derivative",
+     "meaning": "The function giving the gradient of the curve at each input.",
+     "notation": "$f'(x)$",
+     "spoken": "f prime of x",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp. 12-15"
+    },
+    {
+     "term": "iterate",
+     "meaning": "An estimate produced by one application of a repeated rule.",
+     "notation": "$x_n$, $x_{n+1}$",
+     "spoken": "x sub n; x sub n plus one",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp. 12-13"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Sign-change and continuity justification",
+     "wordings": [
+      "Show that a root lies in the interval.",
+      "Explain why opposite signs do not establish uniqueness."
+     ],
+     "example": "For $f(x)=x^3+x-5$, show a root lies between $1$ and $2$. Substitute: $f(1)=-3$, $f(2)=5$. A polynomial is continuous on $[1,2]$; these opposite signs therefore prove at least one root in $(1,2)$. The sign test alone says nothing about uniqueness. Here $f'(x)=3x^2+1>0$ proves strict increase and hence at most one root.",
+     "check": "For $g(x)=x^3+2x-6$, show that a root lies between $1$ and $2$. Explain whether the sign-change test alone proves there is exactly one root.",
+     "answer": "$g(1)=-3$, $g(2)=6$. The polynomial is continuous on $[1,2]$, so opposite signs imply at least one root in $(1,2)$. The test alone does not prove uniqueness. Independently, $g'(x)=3x^2+2>0$ proves uniqueness.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp.2-5; Pearson WFM01/01 October 2021 examiner report, Question 2, p.4 (printed session October 2021; URL published 20220113): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wfm01-01-pef-20220113.pdf",
+     "rubric": [
+      {
+       "point": "$g(1)=-3$ and $g(2)=6$ or equivalent exact substitutions.",
+       "keywords": [
+        [
+         "-3"
+        ],
+        [
+         "6"
+        ]
+       ]
+      },
+      {
+       "point": "State polynomial continuity on the whole interval.",
+       "keywords": [
+        [
+         "continuous",
+         "continuity"
+        ]
+       ]
+      },
+      {
+       "point": "Use the negative and positive endpoint values already evaluated, together with continuity, to conclude at least one root strictly between 1 and 2; explicit sign inequalities, changes sign, sign change and opposite signs are equivalent evidence.",
+       "keywords": [
+        [
+         "root"
+        ],
+        [
+         "between",
+         "(1,2)",
+         "(1, 2)",
+         "1<x<2",
+         "1 < x < 2"
+        ]
+       ]
+      },
+      {
+       "point": "Existence is not uniqueness; a separate strictly increasing argument may establish uniqueness.",
+       "keywords": [
+        [
+         "not",
+         "alone",
+         "increasing",
+         "positive derivative"
+        ],
+        [
+         "unique",
+         "uniqueness",
+         "one root"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Rounding-boundary certification",
+     "wordings": [
+      "Show that the root has the stated decimal-place accuracy."
+     ],
+     "example": "Certify the positive root of $x^2-7=0$ as $2.65$ to two decimal places. Half a unit in the second decimal place is $0.005$, so use exact boundaries $2.645$ and $2.655$. For $f(x)=x^2-7$, $f(2.645)=-0.003975$ and $f(2.655)=0.049025$. Continuity and opposite signs put a root strictly inside this rounding interval. Every value there rounds to $2.65$; $x^2$ is strictly increasing for positive $x$, so this is the positive root. Stable iterates alone would only suggest this accuracy.",
+     "check": "Show that the positive root of $g(x)=x^2-11$ rounds to $3.32$ to two decimal places. Evaluate exact rounding boundaries and justify the conclusion.",
+     "answer": "The boundaries are $3.315$ and $3.325$; $g(3.315)=-0.010775$ and $g(3.325)=0.055625$. This polynomial is continuous, so opposite signs establish a root strictly between them. All values there round to $3.32$. Since $x^2$ increases for positive $x$, the positive root is unique.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp.2-4",
+     "rubric": [
+      {
+       "point": "Choose the exact half-unit rounding boundaries $3.315$ and $3.325$.",
+       "keywords": [
+        [
+         "3.315"
+        ],
+        [
+         "3.325"
+        ]
+       ]
+      },
+      {
+       "point": "Evaluate $g$ with negative lower and positive upper values, accepting equivalent exact fractions.",
+       "keywords": [
+        [
+         "-0.010775",
+         "-431/40000"
+        ],
+        [
+         "0.055625",
+         "89/1600"
+        ]
+       ]
+      },
+      {
+       "point": "Continuity and the negative lower-bound and positive upper-bound values evaluated in the preceding point imply a root strictly inside the boundary interval; explicit signed values or inequalities suffice without a separate sign-change phrase.",
+       "keywords": [
+        [
+         "continuous",
+         "continuity"
+        ],
+        [
+         "root"
+        ]
+       ]
+      },
+      {
+       "point": "Every interior value rounds to 3.32 to two decimal places; identify the positive root using strict increase or an equivalent uniqueness argument.",
+       "keywords": [
+        [
+         "3.32"
+        ],
+        [
+         "round"
+        ],
+        [
+         "increasing",
+         "unique",
+         "positive root"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Interval bisection and bracket control",
+     "wordings": [
+      "Find a bracket of the required width.",
+      "Give the final bracket and its midpoint estimate separately."
+     ],
+     "example": "For $f(x)=x^3+x-7$, start on $[1,2]$ and perform one bisection. The polynomial is continuous, $f(1)=-5$ and $f(2)=3$. The midpoint is $m=1.5$, and $f(m)=-17/8$, so retain $[1.5,2]$. Its width is $0.5=1/2$. If a midpoint ever makes $f(m)=0$, stop: it is an exact root.",
+     "check": "For $g(x)=x^3+x-9$, start on $[1,2]$. Find the minimum number of bisections for width at most $0.25$, perform them with signs, and state the final bracket, midpoint estimate and maximum midpoint error.",
+     "answer": "Width after $n$ bisections is $1/2^n$, so the minimum is $n=2$. Initially $g(1)=-7$, $g(2)=1$, and $g$ is continuous. At $1.5$, $g=-33/8<0$: retain $[1.5,2]$. At $1.75$, $g=-121/64<0$: retain $[1.75,2]$. Final width $0.25$; midpoint $1.875$; maximum midpoint error $0.125$.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp.7-8",
+     "rubric": [
+      {
+       "point": "Use repeated halving to obtain a minimum of two bisections.",
+       "keywords": [
+        [
+         "2 bisections",
+         "two bisections",
+         "n=2",
+         "n = 2",
+         "1/2^2",
+         "1 / 2^2"
+        ]
+       ]
+      },
+      {
+       "point": "Establish the initial endpoint signs tied to their arguments: g(1) is negative and g(2) is positive; exact values are optional. Reject contradictory signs for either argument. Continuity need not be stated for this calculation.",
+       "keywords": [
+        [
+         "g(1)<0",
+         "g(1) < 0",
+         "g(1)=-7",
+         "g(1) = -7",
+         "g(1) is negative",
+         "negative at 1"
+        ],
+        [
+         "g(2)>0",
+         "g(2) > 0",
+         "g(2)=1",
+         "g(2) = 1",
+         "g(2) is positive",
+         "positive at 2"
+        ]
+       ]
+      },
+      {
+       "point": "Show that g(1.5) = g(3/2) is negative and retain [1.5, 2]. The sign must be tied to this midpoint; reject a contradictory sign for it.",
+       "keywords": [
+        [
+         "g(1.5)<0",
+         "g(1.5) < 0",
+         "g(1.5)=-4.125",
+         "g(1.5) = -4.125",
+         "g(1.5)=-33/8",
+         "g(1.5) = -33 / 8",
+         "g(3/2)<0",
+         "g(3 / 2) < 0",
+         "g(3/2)=-33/8",
+         "g(3 / 2) = -33 / 8",
+         "negative at 1.5",
+         "negative at 3/2"
+        ],
+        [
+         "[1.5,2]",
+         "[1.5, 2]",
+         "[3/2,2]",
+         "[3 / 2, 2]"
+        ]
+       ]
+      },
+      {
+       "point": "Show that g(1.75) = g(7/4) is negative and retain [1.75, 2]. The sign must be tied to this midpoint; reject a contradictory sign for it.",
+       "keywords": [
+        [
+         "g(1.75)<0",
+         "g(1.75) < 0",
+         "g(1.75)=-1.890625",
+         "g(1.75) = -1.890625",
+         "g(1.75)=-121/64",
+         "g(1.75) = -121 / 64",
+         "g(7/4)<0",
+         "g(7 / 4) < 0",
+         "g(7/4)=-121/64",
+         "g(7 / 4) = -121 / 64",
+         "negative at 1.75",
+         "negative at 7/4"
+        ],
+        [
+         "[1.75,2]",
+         "[1.75, 2]",
+         "[7/4,2]",
+         "[7 / 4, 2]"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguish final bracket [1.75,2] (or [7/4,2]), midpoint 1.875 (or 15/8) and maximum error 0.125.",
+       "keywords": [
+        [
+         "[1.75,2]",
+         "[1.75, 2]",
+         "[7/4,2]",
+         "[7 / 4, 2]"
+        ],
+        [
+         "midpoint 1.875",
+         "midpoint is 1.875",
+         "midpoint = 1.875",
+         "midpoint 15/8",
+         "midpoint = 15 / 8"
+        ],
+        [
+         "error 0.125",
+         "error is 0.125",
+         "error = 0.125",
+         "error 1/8",
+         "error = 1 / 8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Linear interpolation using a secant",
+     "wordings": [
+      "Use linear interpolation once to estimate a root."
+     ],
+     "example": "For $f(x)=x^2-6$ on $[2,3]$, calculate $f(2)=-2$ and $f(3)=3$. The secant has gradient $(3-(-2))/(3-2)=5$, hence equation $y+2=5(x-2)$. Put $y=0$: $x=12/5=2.4$. Equivalently $x=2-(-2)(3-2)/(3-(-2))$. Keep signed values in this formula. Similar-triangle lengths instead use positive magnitudes consistently. This is a line intercept; $f(2.4)=-0.24$, so it is not the exact root. If repeating with a bracket, retain $[2.4,3]$.",
+     "check": "Use linear interpolation once for $g(x)=x^2-10$ between $3$ and $4$. Show signed endpoint values and working, give the estimate to four decimal places, and state the bracket to retain if repeating.",
+     "answer": "$g(3)=-1$, $g(4)=6$. The secant zero is $3-(-1)(4-3)/(6-(-1))=22/7$, or $3.1429$ to four decimal places. Using the unrounded estimate, $g(22/7)=-6/49<0$, so retain $[22/7,4]$. Equivalent gradient, line-equation or consistent similar-triangle methods are valid.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp.9-11; Pearson WFM01/01 October 2021 examiner report, Question 2, p.4 (printed session October 2021; URL published 20220113): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wfm01-01-pef-20220113.pdf",
+     "rubric": [
+      {
+       "point": "Find both signed endpoint values -1 and 6.",
+       "keywords": [
+        [
+         "-1"
+        ],
+        [
+         "6"
+        ]
+       ]
+      },
+      {
+       "point": "Use a correct signed secant formula, equal gradients, straight-line equation or consistent positive triangle lengths.",
+       "keywords": [
+        [
+         "secant",
+         "gradient",
+         "line",
+         "triangle",
+         "3-(-1)",
+         "3 +",
+         "3+",
+         "7"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain 22/7 and hence 3.1429 to four decimal places.",
+       "keywords": [
+        [
+         "22/7",
+         "3.142857",
+         "3.1429"
+        ]
+       ]
+      },
+      {
+       "point": "Evaluate the new function value as negative and retain [22/7,4], allowing a sufficiently precise decimal endpoint.",
+       "keywords": [
+        [
+         "negative",
+         "-6/49",
+         "-0.122"
+        ],
+        [
+         "22/7",
+         "3.1429",
+         "3.142857"
+        ],
+        [
+         "4"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Assets/FP1/FP1-3-secant.svg"
+    },
+    {
+     "name": "Newton-Raphson iteration with working",
+     "wordings": [
+      "Use Newton-Raphson to calculate successive approximations.",
+      "Explain why a proposed starting value fails."
+     ],
+     "example": "For $f(x)=x^3-7$, start at $x_0=2$. Differentiate first: $f'(x)=3x^2$. Write $x_{n+1}=x_n-(x_n^3-7)/(3x_n^2)$. Substitute: $x_1=2-1/12=23/12=1.9166666667$. Reuse that unrounded value: $x_2=(23/12)-(71/1728)/(529/48)=18215/9522=1.9129384583$. Show derivative, recurrence, substitution and intermediate iterate. At $x_0=0$ the derivative is zero and the nonzero-height horizontal tangent cannot meet the axis. Newton-Raphson need not converge for an arbitrary start; close iterates are evidence, not a proof of correct rounding.",
+     "check": "For $g(x)=x^3-12$, use $x_0=2.5$ to calculate $x_1$ and $x_2$ by Newton-Raphson, showing derivative, recurrence and substitutions. Give both to six decimal places, retaining extra figures internally. Explain why $x_0=0$ cannot be used.",
+     "answer": "$g'(x)=3x^2$; $x_{n+1}=x_n-(x_n^3-12)/(3x_n^2)$. Thus $x_1=2.5-(29/8)/(75/4)=173/75=2.306667$ to six decimal places. With unrounded $x_1$, $x_2=(173/75)-(115217/421875)/(29929/1875)=15417934/6734025=2.289557$ to six decimal places. At zero $g'(0)=0$ but $g(0)=-12$, so the division is undefined; the tangent is horizontal below the axis.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf, pp.12-15; Pearson WFM01/01 October 2021 examiner report, Question 2, p.4 (printed session October 2021; URL published 20220113): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/wfm01-01-pef-20220113.pdf",
+     "rubric": [
+      {
+       "point": "Differentiate correctly: derivative 3x squared.",
+       "keywords": [
+        [
+         "3x",
+         "3*x",
+         "3 x"
+        ],
+        [
+         "2",
+         "squared"
+        ]
+       ]
+      },
+      {
+       "point": "Show the Newton-Raphson recurrence with function value divided by derivative.",
+       "keywords": [
+        [
+         "12"
+        ],
+        [
+         "3"
+        ],
+        [
+         "-",
+         "minus"
+        ]
+       ]
+      },
+      {
+       "point": "Show the first substitution and obtain 2.306667, accepting the exact value before final rounding.",
+       "keywords": [
+        [
+         "2.5",
+         "5/2"
+        ],
+        [
+         "173/75",
+         "2.306667",
+         "2.306666"
+        ]
+       ]
+      },
+      {
+       "point": "Reuse the unrounded first iterate, show the second substitution and obtain 2.289557.",
+       "keywords": [
+        [
+         "173/75",
+         "2.306666",
+         "unrounded"
+        ],
+        [
+         "2.289557",
+         "15417934/6734025"
+        ]
+       ]
+      },
+      {
+       "point": "At zero the derivative vanishes; division by zero or a horizontal non-intersecting tangent makes the step undefined.",
+       "keywords": [
+        [
+         "zero",
+         "0"
+        ],
+        [
+         "derivative",
+         "gradient",
+         "horizontal"
+        ],
+        [
+         "undefined",
+         "divide",
+         "division",
+         "cannot",
+         "fails"
+        ]
+       ]
+      }
+     ],
+     "diagram": "Assets/FP1/FP1-3-tangent.svg"
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Opposite signs prove exactly one root.",
+     "temptation": "The sign test seems to locate a single crossing.",
+     "fix": "State continuity and opposite signs, conclude at least one root, and give a separate monotonicity argument if uniqueness is needed.",
+     "id": "m4"
+    },
+    {
+     "idea": "Matching iterates prove the stated decimal places.",
+     "temptation": "The calculator display stops changing.",
+     "fix": "For a proof, evaluate exact half-unit rounding boundaries and use continuity; a narrow bracket must be contained in one rounding interval.",
+     "id": "m6"
+    },
+    {
+     "idea": "Choose the half with the smallest function magnitude.",
+     "temptation": "A smaller height seems nearer the root.",
+     "fix": "Evaluate the midpoint and retain opposite signs; distinguish the bracket from its midpoint estimate.",
+     "id": "m1"
+    },
+    {
+     "idea": "Mix signed heights and positive triangle lengths.",
+     "temptation": "A memorised interpolation ratio obscures which quantities are lengths.",
+     "fix": "Use signed function values throughout the secant formula, or positive lengths throughout a consistent similar-triangle argument.",
+     "id": "m7"
+    },
+    {
+     "idea": "Newton-Raphson only needs the last calculator answer.",
+     "temptation": "Intermediate steps feel repetitive.",
+     "fix": "Show derivative, recurrence, substitution and intermediate iterates; keep extra figures internally and check for a zero derivative.",
+     "id": "m8"
+    }
+   ],
+   "source_gaps": [
+    "The bundle contains no tagged official question or mark-scheme excerpts; form coverage is supported by the syllabus, reviewed library notes and the Pearson examiner report, not an exhaustive paper audit.",
+    "The plan calls the linked examiner report January 2022; the PDF itself identifies October 2021, WFM01/01, so its printed session is used here.",
+    "These are original teaching examples and flexible teaching rubrics, not copied official mark schemes; source review and schema validation do not establish teaching approval."
+   ],
+   "diagrams": [
+    "Assets/FP1/FP1-3-secant.svg",
+    "Assets/FP1/FP1-3-tangent.svg"
+   ],
+   "diagram_descriptions": [
+    "Blue curve $y=x^2-2$ on $[1,2]$; orange secant joins $(1,-1)$ and $(2,2)$. Its equation is $y=3x-4$ and its axis intercept is $(4/3,0)$, left of the positive curve root. The line intercept supplies the interpolation estimate, not an exact curve zero.",
+    "Blue curve $y=x^2-2$; orange tangent touches it at $(1.5,0.25)$ with gradient $3$. Its equation is $y=3x-17/4$ and its axis intercept is $(17/12,0)$, giving the next Newton-Raphson iterate from $1.5$."
+   ],
+   "diagram_provenance": [
+    {
+     "file": "Assets/FP1/FP1-3-secant.svg",
+     "source": "Existing registered Library diagram; catalog hash and preserved origin verified; rendered to PNG and visually inspected in this pass.",
+     "caption": "Secant construction for linear interpolation.",
+     "canonical": "Library/Courses/FP1/Diagrams/FP1/FP1-3-secant.svg"
+    },
+    {
+     "file": "Assets/FP1/FP1-3-tangent.svg",
+     "source": "Existing registered Library diagram; catalog hash and preserved origin verified; rendered to PNG and visually inspected in this pass.",
+     "caption": "Tangent construction for Newton-Raphson.",
+     "canonical": "Library/Courses/FP1/Diagrams/FP1/FP1-3-tangent.svg"
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Show that",
+     "meaning": "Give the substitutions and reasons that establish the stated result; for a sign test include continuity, opposite signs and a root conclusion."
+    },
+    {
+     "name": "Find",
+     "meaning": "Give formula, substitution and intermediate working, then the requested bracket or estimate with its stated accuracy."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "FP1-3.1": [
+   "Sign-change and continuity justification",
+   "Rounding-boundary certification",
+   "Interval bisection and bracket control",
+   "Linear interpolation using a secant",
+   "Newton-Raphson iteration with working"
+  ]
  }
 }

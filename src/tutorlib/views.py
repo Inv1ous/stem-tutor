@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import re
+import threading
 from datetime import datetime
 from pathlib import Path
 
@@ -20,6 +21,21 @@ from .library_refs import LibraryRefs
 STATUS = {"secure": "✅", "learning": "🟡", "gap": "🔴", "new": "⚪"}
 CONFIDENCE_LABELS = {1: "Guess", 2: "Unsure", 3: "Fairly sure", 4: "Certain"}
 _MAP_CLASS = {"secure": "done", "learning": "learning", "gap": "gap", "new": "todo"}
+
+
+def whole_rubric_block(rubric: dict, *, vault_root: Path) -> str:
+    """Render only a successful Tutor.whole_rubric result, resolving every image first."""
+    if not rubric.get('ticket') or 'error' in rubric:
+        raise ValueError('whole rubric has not been authorized')
+    refs = LibraryRefs(vault_root)
+    media = rubric['media']
+    if media and refs.library is None:
+        raise ValueError('whole rubric requires registered immutable media')
+    paths = [refs.reference(reference) for reference in media]
+    return '\n\n'.join([f"Manual marking only · official maximum {rubric['max_marks']}.",
+                        rubric['point'],
+                        *[f'![[{path}]]' for path in paths],
+                        'Your work is saved and ungraded until you record an explicit human award.'])
 
 
 def callout(kind: str, title: str, body: str = "") -> str:
@@ -71,20 +87,107 @@ def _safe(name: str) -> str:
 
 
 # ---------------- where notes live ----------------
+# Personal notes are edited by the engine (main thread) and by the mastery-colour refresher (worker thread).
+NOTE_LOCK = threading.RLock()
+
+
+def _subjects_tail(note: object) -> str | None:
+    """`Subjects/<course>/<chapter>/<file>` -> `<course>/<chapter>/<file>`, also for a published Library copy
+    (`Library/Courses/9701/Notes/Published/v271/Subjects/9701 Chemistry/...`)."""
+    if not isinstance(note, str) or not note:
+        return None
+    try:
+        asset_path_key(note)
+    except ValueError:
+        return None  # malformed legacy references use the graph-derived personal path
+    parts = note.split("/")
+    if parts[0] == "Subjects":
+        tail = parts[1:]
+    elif parts[0] == "Library" and "Subjects" in parts[1:]:
+        tail = parts[parts.index("Subjects", 1) + 1:]
+    else:
+        return None
+    return "/".join(tail) if len(tail) >= 2 and all(tail) else None
+
+
 def notes_rel(packs, subtopic: str) -> str:
-    """My Notes mirrors the Subjects/ reference tree: My Notes/9702 Physics/02 Kinematics/2.1 Equations of motion.md"""
+    """My Notes mirrors the Subjects/ reference tree: My Notes/9702 Physics/02 Kinematics/2.1 Equations of motion.md
+
+    A pack whose note was published into the Library still mirrors its `Subjects/` part. Without any reference
+    the path is built in the same shape (`<spec> <course>/<NN> <chapter>/<n.m> <title>.md`), never `<spec>/...`."""
     pack = packs.pack(subtopic) or {}
-    note = pack.get("note") or ""
-    if isinstance(note, str) and note.startswith("Subjects/"):
-        try:
-            asset_path_key(note)
-        except ValueError:
-            pass  # malformed legacy references use the graph-derived personal path
-        else:
-            return "My Notes/" + note.split("/", 1)[1]
+    if (tail := _subjects_tail(pack.get("note"))):
+        return "My Notes/" + tail
     st = packs.subtopics[subtopic]
-    topic = packs.topics.get(st.get("topic", ""), {})
-    return f"My Notes/{_safe(st['spec'])}/{_safe(topic.get('title', st.get('topic', '')))}/{_safe(subtopic + ' ' + st['title'])}.md"
+    spec = str(st.get("spec", ""))
+    topic_id = st.get("topic", "")
+    topic = packs.topics.get(topic_id, {})
+    chapter = topic.get("title", topic_id)
+    if (m := re.fullmatch(rf"{re.escape(spec)}-(\d+)", str(topic_id))):
+        chapter = f"{int(m[1]):02d} {chapter}"
+    number = subtopic[len(spec) + 1:] if subtopic.startswith(spec + "-") else subtopic
+    return f"My Notes/{_safe(_course_folder(packs, spec))}/{_safe(chapter)}/{_safe(number + ' ' + st['title'])}.md"
+
+
+def _course_folder(packs, spec: str) -> str:
+    """The course folder other notes of `spec` already use (`9701 Chemistry`), or the reference tree's name for it."""
+    root = getattr(packs, "vault_root", None)
+    names: set[str] = set()
+    for sub, st in getattr(packs, "subtopics", {}).items():
+        if st.get("spec") != spec or sub not in getattr(packs, "_packs", {}):
+            continue  # only packs already loaded: naming a folder must not load every chapter
+        if (tail := _subjects_tail((packs._packs.get(sub) or {}).get("note"))):
+            names.add(tail.split("/", 1)[0])
+    if len(names) == 1:
+        return names.pop()
+    if root is not None:
+        for shelf in ("My Notes", "Subjects"):
+            try:
+                found = sorted(p.name for p in (Path(root) / shelf).iterdir()
+                               if p.is_dir() and p.name.startswith(spec + " "))
+            except OSError:
+                continue
+            if found:
+                return found[0]
+    return spec
+
+
+_NOTE_INDEX: dict[str, tuple[tuple, dict[str, str]]] = {}
+_FRONT_SUBTOPIC = re.compile(r"\A---\r?\n(?:.*\r?\n)*?subtopic:\s*([^\r\n]+?)\s*\r?\n", re.M)
+
+
+def _existing_notes(root: Path) -> dict[str, str]:
+    """{subtopic: rel} for every personal note that names its subtopic in front matter (cached until a file changes)."""
+    shelf = Path(root) / "My Notes"
+    try:
+        files = sorted(p for p in shelf.rglob("*.md") if p.is_file() and not p.is_symlink())
+        signature = tuple((p.as_posix(), p.stat().st_mtime_ns) for p in files)
+    except OSError:
+        return {}
+    key = str(Path(root))
+    cached = _NOTE_INDEX.get(key)
+    if cached and cached[0] == signature:
+        return cached[1]
+    index: dict[str, str] = {}
+    for p in files:
+        try:
+            with p.open("rb") as f:
+                head = f.read(400).decode("utf-8", "ignore")
+        except OSError:
+            continue
+        if (m := _FRONT_SUBTOPIC.match(head)):
+            index.setdefault(m[1], p.relative_to(root).as_posix())
+    _NOTE_INDEX[key] = (signature, index)
+    return index
+
+
+def note_location(root: Path, packs, subtopic: str) -> str:
+    """The one file a subtopic's notes live in: the mirrored path, or an existing note for that subtopic found
+    elsewhere in My Notes (so a new session adds to it rather than starting a second file)."""
+    rel = notes_rel(packs, subtopic)
+    if (Path(root) / rel).exists():
+        return rel
+    return _existing_notes(Path(root)).get(subtopic, rel)
 
 
 def _folder_relative(path: Path, folder: Path) -> Path | None:
@@ -107,7 +210,7 @@ def _notes_path(root: Path, packs, subtopic: str) -> tuple[str, Path]:
     Directory aliases may stay within My Notes. File adapters and catalogued
     resources are read-only, even when their names look like personal notes.
     """
-    rel = notes_rel(packs, subtopic)
+    rel = note_location(root, packs, subtopic)
     try:
         asset_path_key(rel)
         root = root.resolve()
@@ -185,10 +288,43 @@ def _merge_words(earlier: str, new: str | None) -> str:
     return earlier + "\n\n" + "\n\n".join(added) if added else earlier
 
 
+def _session_body(packs, session: dict, earlier: str | None, kc: str | None) -> str:
+    """`## Session <date>` for one study session: when, its lesson log, and the ideas it worked on (merged on re-run)."""
+    try:
+        when = datetime.fromisoformat(str(session.get("started")))
+        heading = f"{when:%Y-%m-%d %H:%M}"
+    except ValueError:
+        heading = str(session.get("started") or session["id"])
+    ideas: list[str] = []
+    if earlier and (m := re.search(r"^- Ideas: (.+)$", earlier, re.M)):
+        ideas = [t.strip() for t in m[1].split(" · ") if t.strip()]
+    if kc and kc in packs.kcs and (title := packs.kcs[kc]["title"]) not in ideas:
+        ideas.append(title)
+    lines = [f"## Session {heading}", ""]
+    if session.get("log"):
+        lines.append(f"- Lesson: [[{str(session['log']).removesuffix('.md')}\\|lesson log]]")
+    if session.get("mode"):
+        lines.append(f"- Mode: {session['mode']}")
+    if ideas:
+        lines.append("- Ideas: " + " · ".join(ideas))
+    return "\n".join(lines)
+
+
 def notes_update(root: Path, packs, state: dict, subtopic: str, current: str | None = None,
-                 node: dict | None = None, deferred_id: str | None = None) -> str:
-    """Refresh the map; when `node` is given ({kc, note, own_words, mistakes}), add or update that idea's section."""
+                 node: dict | None = None, deferred_id: str | None = None, session: dict | None = None) -> str:
+    """Refresh the map; when `node` is given ({kc, note, own_words, mistakes}), add or update that idea's section.
+
+    The subtopic keeps ONE note: a later session adds to the file that exists. `session` ({id, started, log, mode})
+    adds or updates that session's dated section at the end (newest last); re-running the same session never
+    duplicates it, and nothing written outside the managed markers is touched."""
+    with NOTE_LOCK:
+        return _notes_update(root, packs, state, subtopic, current, node, deferred_id, session)
+
+
+def _notes_update(root, packs, state, subtopic, current, node, deferred_id, session) -> str:
     rel, path = _notes_path(root, packs, subtopic)
+    if session is not None and not re.fullmatch(r"[0-9A-Za-z_-]{1,64}", str(session.get("id", ""))):
+        raise ValueError("invalid session identity")
     st = packs.subtopics[subtopic]
     kcs = [k for k, v in packs.kcs.items() if v["subtopic"] == subtopic]
     done = sum(kc_status(state, k) == "secure" for k in kcs)
@@ -227,6 +363,11 @@ def notes_update(root: Path, packs, state: dict, subtopic: str, current: str | N
             order = [k for k in kcs if _block(f"node {k}").search(text)] + [kc]
             prev = next((k for k in reversed(order[:-1]) if kcs.index(k) < kcs.index(kc)), None) if kc in kcs else None
             text = upsert(text, f"node {kc}", "\n".join(body), after=f"node {prev}" if prev else "map")
+        if session is not None:
+            key = f"session {session['id']}"
+            old = _block(key).search(text)
+            text = upsert(text, key, _session_body(packs, session, old.group(0) if old else None,
+                                                   (node or {}).get("kc") or current))
         updated = LibraryRefs(root).markdown(text + ('\n' + marker + '\n' if marker else ''))
         needs_write = updated != before
         return updated
@@ -252,8 +393,9 @@ def refresh_status(root: Path, packs, state: dict, subtopic: str) -> str | None:
                 text = text[:m.start()] + block + text[m.end():]
         return text
 
-    edit_text(path, remark)
-    return notes_update(root, packs, state, subtopic)
+    with NOTE_LOCK:
+        edit_text(path, remark)
+        return notes_update(root, packs, state, subtopic)
 
 
 # ---------------- lesson log (live mirror of the session) ----------------
@@ -567,39 +709,6 @@ def unreadable(text: str) -> str:
     return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "□", text or "")
 
 
-SEE_PICTURE = "(see the picture)"
-
-
-def _label_line(line: str) -> bool:
-    """A line copied out of a diagram or table, not a sentence: a word or three, no closing punctuation, no equation."""
-    line = line.strip()
-    words = [w for w in line.split() if re.search(r"\w", w)]  # "hydrogen gas / cm³" is three words
-    return bool(line) and len(line) <= 24 and len(words) <= 3 and not re.search(r"[.?!:;,]$|[→⇌=]", line)
-
-
-def figure_text(stem: str) -> tuple[str, list[str]]:
-    """A past-paper stem with what the PDF copied out of its diagram or table (labels, axis names, table cells: three
-    short lines or more in a row) set aside: (the sentences, with "(see the picture)" where the figure was; the lines
-    set aside). Only for a question shown with a scan of the whole of it, where the picture has all of this, readable."""
-    kept, aside, run = [], [], []
-
-    def close() -> None:
-        if len(run) >= 3:
-            kept.append(SEE_PICTURE)
-            aside.extend(run)
-        else:
-            kept.extend(run)
-        run.clear()
-    for line in (stem or "").split("\n"):
-        if _label_line(line):
-            run.append(line)
-        else:
-            close()
-            kept.append(line)
-    close()
-    return "\n".join(kept), aside
-
-
 def question_block(view: dict, *, vault_root: Path | None = None) -> str:
     if vault_root is not None:
         view = LibraryRefs(vault_root).content(view)
@@ -611,13 +720,14 @@ def question_block(view: dict, *, vault_root: Path | None = None) -> str:
         body = support + ["The question is in the picture.", "", *[f"![[{p}]]" for p in images], "",
                 "> [!warning]- The text read from the paper may be wrong"] + [f"> {line}" if line else ">" for line in text]
         return callout("question", f"Q{view['n']} · {_tags(view)}", "\n".join(body))
+    if view.get("image_only"):  # the pictures are the question; at most one line says which parts to do
+        body = [line for line in (view.get("stem", ""), *support) if line] + ["", *[f"![[{p}]]" for p in images]]
+        return callout("question", f"Q{view['n']} · {_tags(view)}", "\n".join(body))
     body = [view.get("stem", "")] + (["", *support] if support else [])
     if images:
         body += ["", *[f"![[{p}]]" for p in images]]
     if view.get("options"):
         body += [""] + [f"**{k}.** {v}" for k, v in view["options"].items()]
-    if view.get("figure_text"):  # what the PDF copied out of the figure, kept but out of the way (Q-009)
-        body += ["", "> [!note]- Text read from the picture"] + [f"> {line}" for line in view["figure_text"]]
     return callout("question", f"Q{view['n']} · {_tags(view)}", "\n".join(body))
 
 
@@ -745,8 +855,8 @@ def write_home(root: Path, packs, state: dict, now: datetime, recent: list[str] 
                 secure = sum(kc_status(state, k) == "secure" for k in kcs)
                 started = sum(kc_status(state, k) != "new" for k in kcs)
                 bar = "█" * round(8 * secure / max(1, len(kcs))) + "░" * (8 - round(8 * secure / max(1, len(kcs))))
-                link = notes_rel(packs, sub).removesuffix(".md")
-                notes = f"[[{link}\\|My notes]]" if (root / notes_rel(packs, sub)).exists() else "–"
+                where = note_location(root, packs, sub)
+                notes = f"[[{where.removesuffix('.md')}\\|My notes]]" if (root / where).exists() else "–"
                 label = f"{sub} {packs.subtopics[sub]['title']}"
                 ref = (packs.pack(sub) or {}).get("note") or ""
                 if ref and (root / ref).is_file():  # the subtopic's explanation, open from Home before any notes exist (Q-006)

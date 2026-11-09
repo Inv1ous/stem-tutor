@@ -44,6 +44,14 @@
    "refutation": "The internal drop $Ir$ grows, so terminal p.d. $V=E-Ir$ falls.",
    "contrast": "At zero current the lost volts are zero.",
    "source": "ER 9702 w19 P12 Q35"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-10.1.1",
+   "statement": "All circuit symbols drawn as circles represent lamps.",
+   "refutation": "The internal mark distinguishes a lamp cross from meter letters, motor M, generator G, galvanometer pointer or oscilloscope trace.",
+   "contrast": "Identify the interior mark as well as the outer shape.",
+   "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62."
   }
  ],
  "worked": [
@@ -1953,7 +1961,7 @@
     "ref": "CAIE 9702 · Nov 2022 · P12 · Q35",
     "qid": "9702_w22_12_q35"
    },
-   "stem": "The diagram shows a cell of electromotive force (e.m.f.) 3.0 V and internal resistance 4.7 Ω\nconnected across a lamp. The lamp has a resistance of 9.3 Ω.\n4.7 \u0002\n9.3 \u0002\n3.0 V\nWhat is the power dissipated by the internal resistance of the cell?",
+   "stem": "The diagram shows a cell of electromotive force (e.m.f.) 3.0 V and internal resistance 4.7 Ω\nconnected across a lamp. The lamp has a resistance of 9.3 Ω.\n4.7 Ω\n9.3 Ω\n3.0 V\nWhat is the power dissipated by the internal resistance of the cell?",
    "options": {
     "A": "0.22 W",
     "B": "0.43 W",
@@ -1979,7 +1987,7 @@
     "ref": "CAIE 9702 · Nov 2022 · P13 · Q34",
     "qid": "9702_w22_13_q34"
    },
-   "stem": "A voltmeter reads 9.000 V when it is connected across the terminals of a battery.\nV\n9.000 V\nWhen a resistor of resistance 11.0 Ω is connected in parallel with the battery, the voltmeter\nreading changes to 8.800 V.\n8.800 V\n11.0 \u0002\nV\nWhat is the internal resistance of the battery?",
+   "stem": "A voltmeter reads 9.000 V when it is connected across the terminals of a battery.\nV\n9.000 V\nWhen a resistor of resistance 11.0 Ω is connected in parallel with the battery, the voltmeter\nreading changes to 8.800 V.\n8.800 V\n11.0 Ω\nV\nWhat is the internal resistance of the battery?",
    "options": {
     "A": "0.244 Ω",
     "B": "0.250 Ω",
@@ -2234,12 +2242,12 @@
     "ref": "CAIE 9702 · Nov 2024 · P13 · Q37",
     "qid": "9702_w24_13_q37"
    },
-   "stem": "A circuit contains a battery of electromotive force E and internal resistance r connected to two\nresistors each of resistance 2.5 Ω.\nThe resistors are connected in parallel as shown.\nr\nE\n0.80 A\n2.5 \u0004\n2.5 \u0004\nThe current in one of the resistors is 0.80 A.\nWhich expression, where E is in volts and r is in ohms, gives the internal resistance r ?",
+   "stem": "A circuit contains a battery of electromotive force E and internal resistance r connected to two\nresistors each of resistance 2.5 Ω.\nThe resistors are connected in parallel as shown.\nr\nE\n0.80 A\n2.5 Ω\n2.5 Ω\nThe current in one of the resistors is 0.80 A.\nWhich expression, where E is in volts and r is in ohms, gives the internal resistance r ?",
    "options": {
-    "A": "1.6 4.0 – E",
-    "B": "0.80 4.0 – E",
-    "C": "1.6 2.0 – E",
-    "D": "0.80 2.0 – E"
+    "A": "(E − 4.0) / 1.6",
+    "B": "(E − 4.0) / 0.80",
+    "C": "(E − 2.0) / 1.6",
+    "D": "(E − 2.0) / 0.80"
    },
    "answer": "C",
    "image": "Assets/mcq/9702_w24_13_q37.png",
@@ -2380,7 +2388,294 @@
    "connect": "Once each symbol is recognisable, follow the wires and junctions to interpret the circuit.",
    "note": "- Use the section 6 symbols consistently.\n- A cell is one long and one short line.\n- A and V inside circles denote meters.",
    "self_explain": "How would you distinguish a cell from a battery and a fixed from a variable resistor?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Start by recognising the component before following any wire. A circuit symbol is a standard connection mark, not a picture of the apparatus. Use the complete section 6 chart, including the less familiar sound devices and oscilloscope.",
+   "terms": [
+    {
+     "term": "cell",
+     "meaning": "One long and one short parallel line; the long line marks the positive terminal.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "cell",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "battery of cells",
+     "meaning": "Repeated long–short pairs, or two pairs with a dashed continuation between them.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "battery of cells",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "power supply",
+     "meaning": "Two terminals shown as small open circles on separate leads.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "power supply",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "a.c. power supply",
+     "meaning": "The power-supply terminal marks with a wave between them.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "a.c. power supply",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "junction of conductors",
+     "meaning": "Wires joined at a filled dot.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "junction of conductors",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "lamp",
+     "meaning": "A cross inside a circle.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "lamp",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "fixed resistor",
+     "meaning": "A rectangle in the conducting path.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "fixed resistor",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "variable resistor",
+     "meaning": "A resistor rectangle crossed by a diagonal arrow.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "variable resistor",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "thermistor",
+     "meaning": "A resistor rectangle crossed by an oblique line with a short bent end; distinguish it from an arrow.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "thermistor",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "light-dependent resistor",
+     "meaning": "A resistor rectangle with two incoming light arrows.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "light-dependent resistor",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "heater",
+     "meaning": "An elongated rectangle subdivided by vertical lines.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "heater",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "switch",
+     "meaning": "Two contacts and a movable conducting arm; an open arm leaves a gap.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "switch",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "earth",
+     "meaning": "A lead ending in three parallel horizontal bars of decreasing length.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "earth",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "electric bell",
+     "meaning": "A dome-shaped outline with two downward leads.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "electric bell",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "buzzer",
+     "meaning": "A bowl-shaped outline with two downward leads; compare its orientation with the bell.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "buzzer",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "microphone",
+     "meaning": "A small circle next to a vertical bar, with two horizontal leads on the other side.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "microphone",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "loudspeaker",
+     "meaning": "A rectangular part joined to an outward-flaring cone outline.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "loudspeaker",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "motor",
+     "meaning": "A circle containing M.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "motor",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "generator",
+     "meaning": "A circle containing G.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "generator",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "ammeter",
+     "meaning": "A circle containing A.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "ammeter",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "voltmeter",
+     "meaning": "A circle containing V.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "voltmeter",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "galvanometer",
+     "meaning": "A circle containing an upward pointer arrow.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "galvanometer",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "potentiometer",
+     "meaning": "A resistor rectangle with a separate lead ending in an arrow touching its side; three terminals.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "potentiometer",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "oscilloscope",
+     "meaning": "A circle containing a small trace shaped like a stepped or zigzag line.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "oscilloscope",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "diode",
+     "meaning": "The Cambridge triangular diode mark pointing towards a transverse bar.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "diode",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "capacitor",
+     "meaning": "Two equal parallel plates separated by a gap; unlike a cell, neither plate is longer.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "capacitor",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "light-emitting diode",
+     "meaning": "The diode mark with two outgoing light arrows.",
+     "notation": "Section 6 circuit symbol",
+     "spoken": "light-emitting diode",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Identify and use the section 6 symbols",
+     "wordings": [
+      "Identify the component represented by a symbol.",
+      "Draw the standard symbol for a named component."
+     ],
+     "example": "Identify a resistor rectangle with two arrows pointing towards it, then draw a variable resistor. Step 1: incoming arrows denote incident light, so the first symbol is a light-dependent resistor. Step 2: draw a rectangle in the wire and add a diagonal arrow through it for the variable resistor. Step 3: compare each identifying feature with section 6; an oblique line without an arrow is not the variable-resistor mark.",
+     "check": "Identify (a) two equal separated plates, (b) a circle containing a small trace, and (c) a diode mark with arrows pointing away. Draw (d) a cell and (e) a potentiometer, stating the features that distinguish each from a capacitor or variable resistor respectively.",
+     "answer": "(a) Capacitor; (b) oscilloscope; (c) light-emitting diode. (d) One long and one short parallel line, long line positive. (e) Resistor rectangle with a third lead ending in an arrow that touches the resistor; the wiper is a separate connection.",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf",
+     "rubric": [
+      {
+       "point": "Recognises equal plates as a capacitor.",
+       "keywords": [
+        [
+         "capacitor"
+        ]
+       ]
+      },
+      {
+       "point": "Recognises the trace symbol as an oscilloscope.",
+       "keywords": [
+        [
+         "oscilloscope"
+        ]
+       ]
+      },
+      {
+       "point": "Recognises outgoing light arrows as an LED.",
+       "keywords": [
+        [
+         "light-emitting diode",
+         "LED"
+        ]
+       ]
+      },
+      {
+       "point": "Draws unequal parallel cell plates, distinguishing them from equal capacitor plates.",
+       "keywords": [
+        [
+         "long and short",
+         "unequal"
+        ]
+       ]
+      },
+      {
+       "point": "Draws a potentiometer with two resistor ends and a third wiper terminal.",
+       "keywords": [
+        [
+         "third",
+         "three",
+         "wiper"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "Every circle is a lamp.",
+     "temptation": "The outer shape is similar.",
+     "fix": "Read the internal mark: cross, A, V, M, G, pointer or trace."
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9702/Diagrams/9702/9702-10.1-series-circuit.svg"
+   ],
+   "source_gaps": [
+    "The symbol chart is reviewed directly on syllabus pp.61–62; written descriptions support speech but do not replace comparison with the official drawings.",
+    "A registered symbols-loop graphic was omitted after visual inspection because its cell label accompanies repeated cell pairs; this requires separate source-bound review."
+   ],
+   "diagram_descriptions": [
+    "Existing Library circuit: one cell, an open switch, lamp and ammeter in a series loop. The switch gap prevents current; compare the cell plates and the marks inside the lamp and meter circles. This is a subset of the syllabus symbols, not a complete chart."
+   ],
+   "diagram_provenance": [
+    {
+     "path": "Library/Courses/9702/Diagrams/9702/9702-10.1-series-circuit.svg",
+     "sha256": "ef761c2f6d2a2437f58434e92a49a38d00e6c9a13999c7eb48420dbfa175c311",
+     "aliases": [
+      "Assets/9702/9702-10.1-series-circuit.svg",
+      "build/out/assets/9702/9702-10.1-series-circuit.svg",
+      "build/out/Assets/9702/9702-10.1-series-circuit.svg"
+     ],
+     "course": "9702",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/9702/9702-10.1-series-circuit.svg",
+      "stem-tutor/build/out/assets/9702/9702-10.1-series-circuit.svg",
+      "stem-tutor/build/out/Assets/9702/9702-10.1-series-circuit.svg"
+     ]
+    }
+   ]
   },
   "9702-10.1.2": {
    "motivate": "A circuit picture tells you which parts share a current or a potential difference.",
@@ -2388,7 +2683,154 @@
    "connect": "Correctly locating a voltmeter across the source lets you identify terminal p.d.",
    "note": "- Trace wires through marked junctions.\n- Ammeter: series.\n- Voltmeter: across two points.\n- Open switch: broken path.",
    "self_explain": "Where would you place meters to measure current through and p.d. across a lamp?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Build on symbol recognition: track connections between named junctions before thinking about current. An open switch interrupts its own branch; another closed branch may still carry current. Meter position follows what is measured.",
+   "terms": [
+    {
+     "term": "junction",
+     "meaning": "A conducting connection shared by wires.",
+     "notation": "Filled dot",
+     "spoken": "junction",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "series",
+     "meaning": "Components on one unbranched path carry the same current.",
+     "notation": "Same path",
+     "spoken": "series",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf; syllabus 10.1.2"
+    },
+    {
+     "term": "parallel",
+     "meaning": "Branches connected to the same two junctions have the same p.d.",
+     "notation": "Same two nodes",
+     "spoken": "parallel",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf; syllabus 10.1.2"
+    },
+    {
+     "term": "ammeter placement",
+     "meaning": "Put the meter in the path of the current being measured.",
+     "notation": "A in series",
+     "spoken": "ammeter in series",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    },
+    {
+     "term": "voltmeter placement",
+     "meaning": "Connect the meter across the two points whose p.d. is required.",
+     "notation": "V in parallel",
+     "spoken": "voltmeter across two points",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Trace paths through switches and junctions",
+     "wordings": [
+      "Determine whether a lamp lights.",
+      "Trace a complete conducting path."
+     ],
+     "example": "A source feeds junction P. Between P and return junction Q are two branches: switch S with lamp L, and a fixed resistor. S is open. Step 1: trace the lamp branch: the gap blocks it, so L is off. Step 2: trace P through the resistor to Q and back through the source: this loop is complete, so the resistor branch can carry current. Step 3: do not treat a nearby unjoined crossing as a junction.",
+     "check": "A source is connected to two parallel branches between junctions X and Y. Branch 1 contains closed switch S and lamp L; branch 2 contains open switch T and lamp M. State which lamp lights. If S is then opened while T stays open, can either branch carry a steady current? Assume working lamps and ideal wires.",
+     "answer": "Initially L lights and M does not: only the X–S–L–Y branch completes a loop through the source. With both switches open, neither branch has a complete conducting path and neither lamp lights.",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf; bundle ER 9702 s19 P13 Q34",
+     "rubric": [
+      {
+       "point": "Initially identifies L as on and M as off.",
+       "keywords": [
+        [
+         "L lights",
+         "L on"
+        ]
+       ]
+      },
+      {
+       "point": "Explains that an open switch breaks only its branch and both open branches prevent current.",
+       "keywords": [
+        [
+         "complete",
+         "broken",
+         "open"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Place ammeter and voltmeter",
+     "wordings": [
+      "Draw meter connections to measure branch current and component p.d.",
+      "Explain the meter positions."
+     ],
+     "example": "Measure current in a lamp on its own branch and p.d. across that lamp. Step 1: break that branch and insert A in series so the lamp current crosses A. Step 2: connect V to the two lamp terminals, forming a parallel measuring branch. Step 3: the voltmeter compares those points; it does not replace the lamp.",
+     "check": "A resistor R and a lamp are in separate parallel branches. Describe or draw where to put A to measure only the current in R, and V to measure the p.d. across R. Explain why A should not be in the common supply lead.",
+     "answer": "Insert A in series within the R branch. Connect V across the two ends of R. The common lead carries the sum of both branch currents, so an ammeter there does not measure only the R current.",
+     "source": "Cambridge International 9702 syllabus 2025–2027, section 6, pp.61–62; Library/Courses/9702/Sources/Specifications/9702-2025-2027.pdf; syllabus 10.1.2",
+     "rubric": [
+      {
+       "point": "Places A in series specifically in the resistor branch.",
+       "keywords": [
+        [
+         "series"
+        ]
+       ]
+      },
+      {
+       "point": "Places V across both ends of R.",
+       "keywords": [
+        [
+         "across",
+         "parallel"
+        ]
+       ]
+      },
+      {
+       "point": "Explains that the common lead measures total current.",
+       "keywords": [
+        [
+         "sum",
+         "total",
+         "both"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "Any wire crossing connects two branches.",
+     "temptation": "The wires appear to touch in the picture.",
+     "fix": "Only joined conductors form a junction; follow dots and the actual paths."
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9702/Diagrams/9702/9702-10.1-series-circuit.svg"
+   ],
+   "source_gaps": [
+    "The linked series diagram does not show the two-branch switch problem or a voltmeter in parallel; those connections are specified explicitly in the examples and checks."
+   ],
+   "diagram_descriptions": [
+    "Existing Library series circuit with a single cell, open switch, lamp and ammeter. Trace the one loop and notice the broken path at the open switch. The drawing does not illustrate parallel voltmeter placement."
+   ],
+   "diagram_provenance": [
+    {
+     "path": "Library/Courses/9702/Diagrams/9702/9702-10.1-series-circuit.svg",
+     "sha256": "ef761c2f6d2a2437f58434e92a49a38d00e6c9a13999c7eb48420dbfa175c311",
+     "aliases": [
+      "Assets/9702/9702-10.1-series-circuit.svg",
+      "build/out/assets/9702/9702-10.1-series-circuit.svg",
+      "build/out/Assets/9702/9702-10.1-series-circuit.svg"
+     ],
+     "course": "9702",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/9702/9702-10.1-series-circuit.svg",
+      "stem-tutor/build/out/assets/9702/9702-10.1-series-circuit.svg",
+      "stem-tutor/build/out/Assets/9702/9702-10.1-series-circuit.svg"
+     ]
+    }
+   ]
   },
   "9702-10.1.3": {
    "motivate": "A voltage rating tells how much energy a source supplies to each coulomb.",
@@ -2396,7 +2838,131 @@
    "connect": "Compare that total supply per charge with the energy transferred per charge across one component.",
    "note": "- $E=W/Q$: energy per unit charge.\n- The charge goes around a complete circuit.\n- Unit: $\\mathrm{J\\,C^{-1}}$ or V.",
    "self_explain": "What does a 9.0 V label tell you about energy supplied to each coulomb?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Recall potential difference from 9.2: divide energy by charge. For a source, count all the energy it supplies per coulomb around the complete circuit, including energy later dissipated internally. E.m.f. is measured in volts and is not a force.",
+   "terms": [
+    {
+     "term": "electromotive force",
+     "meaning": "Energy transferred per unit charge in driving charge around a complete circuit.",
+     "notation": "$E=W/Q$",
+     "spoken": "e m f equals energy divided by charge",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6; syllabus 10.1.3"
+    },
+    {
+     "term": "energy supplied",
+     "meaning": "Total energy supplied by the source to charge Q.",
+     "notation": "$W=EQ$",
+     "spoken": "W equals E times Q",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6"
+    },
+    {
+     "term": "charge",
+     "meaning": "Quantity of electric charge passing through the source, measured in coulombs.",
+     "notation": "$Q$ in $\\mathrm{C}$",
+     "spoken": "charge Q in coulombs",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6"
+    },
+    {
+     "term": "volt",
+     "meaning": "One joule per coulomb.",
+     "notation": "$1\\,\\mathrm{V}=1\\,\\mathrm{J\\,C^{-1}}$",
+     "spoken": "one volt is one joule per coulomb",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Define and interpret e.m.f.",
+     "wordings": [
+      "Define electromotive force.",
+      "Explain the meaning of a source voltage rating."
+     ],
+     "example": "Explain a 4.5 V source rating. Step 1: use the ratio E = W/Q. Step 2: the source supplies 4.5 J per coulomb around the complete circuit. Step 3: this includes internal as well as external energy transfers, so it is not a guarantee of 4.5 J per coulomb to one external component.",
+     "check": "Define e.m.f. and explain a 7.2 V battery label in terms of energy and charge. Must the external circuit receive 7.2 J per coulomb when current flows?",
+     "answer": "E.m.f. is energy transferred per unit charge in driving charge around a complete circuit. The source supplies 7.2 J per coulomb in total; an external circuit may receive less because some is dissipated within the source.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6; bundle ER 9702 s21 P13 Q34",
+     "rubric": [
+      {
+       "point": "Defines the ratio of energy supplied to charge for the complete circuit.",
+       "keywords": [
+        [
+         "per unit charge",
+         "per coulomb",
+         "divided by charge"
+        ]
+       ]
+      },
+      {
+       "point": "Interprets the rating as 7.2 J per coulomb in total.",
+       "keywords": [
+        [
+         "7.2"
+        ]
+       ]
+      },
+      {
+       "point": "Allows internal dissipation rather than promising all energy externally.",
+       "keywords": [
+        [
+         "internal",
+         "within"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Calculate energy supplied by a source",
+     "wordings": [
+      "Calculate the energy supplied.",
+      "Determine e.m.f. from energy and charge."
+     ],
+     "example": "A 4.0 V source supplies charge 2.5 C. Step 1: E = W/Q, so W = EQ. Step 2: W = 4.0 × 2.5 = 10 J. Step 3: volts times coulombs gives joules; the value is total supplied energy.",
+     "check": "A 7.5 V source supplies 3.2 C around a complete circuit. Calculate the total energy supplied and state whether the answer refers only to the external resistance.",
+     "answer": "$W=EQ=(7.5)(3.2)=24\\,\\mathrm{J}$. This is total supplied energy, including internal dissipation, not necessarily external energy alone.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6; Library/Courses/9702/Sources/Library/SaveMyExams/TQ 9702 as-physics-cie-25-questions-only/TQ 9702 c10.1.pdf p.5 (question form only; original examples and checks below)",
+     "rubric": [
+      {
+       "point": "Uses energy equal to e.m.f. times charge.",
+       "keywords": [
+        [
+         "EQ",
+         "multiply",
+         "times"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains 24 J.",
+       "keywords": [
+        [
+         "24"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies the total energy including internal transfers.",
+       "keywords": [
+        [
+         "total",
+         "internal"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "A battery rating promises that energy per coulomb to the external load alone.",
+     "temptation": "The load is connected to that battery.",
+     "fix": "E.m.f. counts total supplied energy per charge, including what is dissipated internally."
+    }
+   ],
+   "diagrams": [],
+   "source_gaps": [],
+   "diagram_reason": "The existing internal-resistance circuit on card 9702-10.1.5 supplies the later visual model; this definition card uses the energy-per-charge calculation directly. No separately registered energy-transfer graphic was found."
   },
   "9702-10.1.4": {
    "motivate": "Equal numbers in volts can describe different stages of the energy journey.",
@@ -2404,7 +2970,92 @@
    "connect": "Internal resistance explains why terminal p.d. can be below source e.m.f.",
    "note": "- E.m.f.: supplied energy per charge.\n- P.d.: transferred energy per charge.\n- Both use volts.",
    "self_explain": "Why can e.m.f. and resistor p.d. have the same value yet describe different transfers?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Use the same charge to compare the energy supplied by the source with the energy transferred by a component. The ratio has the same unit in both cases; the physical energy transfers differ.",
+   "terms": [
+    {
+     "term": "potential difference",
+     "meaning": "Energy transferred from electrical energy to other forms per unit charge across a component.",
+     "notation": "$V=W_{component}/Q$",
+     "spoken": "potential difference is component energy transfer divided by charge",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6; bundle ER 9702 w22 P22 Q6"
+    },
+    {
+     "term": "terminal p.d.",
+     "meaning": "Energy per charge available between the source terminals to the external circuit.",
+     "notation": "$V$",
+     "spoken": "terminal potential difference",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp.8–9"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Compare e.m.f. and component p.d. using energy",
+     "wordings": [
+      "Distinguish e.m.f. and p.d. in energy terms.",
+      "Explain an energy difference between source and load."
+     ],
+     "example": "A chemical cell supplies 5 J per coulomb while a resistor receives 4 J per coulomb. Step 1: source e.m.f. is 5 V, chemical energy supplied as electrical energy per charge. Step 2: resistor p.d. is 4 V, electrical energy transferred mainly to thermal energy per charge. Step 3: the remaining 1 J per coulomb is dissipated internally. Equal units do not make the transfers identical.",
+     "check": "A chemical cell has e.m.f. 6.0 V and terminal p.d. 5.4 V while 2.0 C passes through a single external resistor. Calculate energy supplied, energy transferred in the resistor and energy dissipated internally. Explain the different energy transfers.",
+     "answer": "Source energy = 6.0 × 2.0 = 12 J; external resistor energy = 5.4 × 2.0 = 10.8 J (about 11 J to 2 s.f.); internal dissipation = (6.0 − 5.4) × 2.0 = 1.2 J. The cell supplies energy from its chemical store; the resistor transfers electrical energy mainly to thermal energy. E.m.f. and p.d. are both energy per charge, describing supply and transfer respectively.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6; Library/Courses/9702/Sources/Library/SaveMyExams/TQ 9702 as-physics-cie-25-questions-only/TQ 9702 c10.1.pdf p.5 (question form only; original examples and checks below); bundle ER 9702 s19 P21 Q6",
+     "rubric": [
+      {
+       "point": "Calculates total energy supplied as 12 J.",
+       "keywords": [
+        [
+         "12"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates external transfer as 10.8 J, accepting 11 J at 2 s.f.",
+       "keywords": [
+        [
+         "10.8",
+         "11"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates internal energy as 1.2 J.",
+       "keywords": [
+        [
+         "1.2"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguishes chemical energy supplied from electrical energy transferred to thermal energy per charge.",
+       "keywords": [
+        [
+         "chemical"
+        ]
+       ]
+      },
+      {
+       "point": "Explains internal dissipation accounts for the difference.",
+       "keywords": [
+        [
+         "internal",
+         "within"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "E.m.f. and p.d. are amounts of energy.",
+     "temptation": "Both describe energy transfer.",
+     "fix": "Each is an energy-to-charge ratio; describe supplied versus transferred energy per unit charge."
+    }
+   ],
+   "diagrams": [],
+   "source_gaps": [],
+   "diagram_reason": "No inspected registered energy-flow diagram was found for this comparison; the original worked energy account explicitly separates source, external and internal transfers."
   },
   "9702-10.1.5": {
    "motivate": "A source can read less across its terminals while delivering current.",
@@ -2412,7 +3063,274 @@
    "connect": "This relationship prepares you to apply circuit laws to complete loops and networks.",
    "note": "- Lost volts across internal resistance: $Ir$.\n- Terminal p.d.: $V=E-Ir$.\n- At $I=0$, $V=E$.",
    "self_explain": "Why does adding a parallel load often lower the voltmeter reading across a real cell?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Bridge from V = IR and conservation of energy. Treat a discharging source as ideal e.m.f. in series with internal resistance. Add external and internal resistances before finding total current, then subtract the internal p.d. to find terminal p.d.",
+   "terms": [
+    {
+     "term": "internal resistance",
+     "meaning": "Resistance inside the source, modelled in series with its e.m.f.",
+     "notation": "$r$ in $\\Omega$",
+     "spoken": "internal resistance r in ohms",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp.8–9"
+    },
+    {
+     "term": "external resistance",
+     "meaning": "Equivalent resistance of the load outside the source.",
+     "notation": "$R$ in $\\Omega$",
+     "spoken": "external resistance capital R",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp.8–9"
+    },
+    {
+     "term": "source current",
+     "meaning": "Total current through the source and its internal resistance.",
+     "notation": "$I$ in $\\mathrm{A}$",
+     "spoken": "current I in amperes",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp.8–9"
+    },
+    {
+     "term": "lost volts",
+     "meaning": "Internal energy dissipated per unit charge; internal p.d.",
+     "notation": "$Ir=E-V$",
+     "spoken": "I times r, the lost volts",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp.8–9"
+    },
+    {
+     "term": "graph gradient",
+     "meaning": "Change in terminal p.d. divided by change in current; equals negative internal resistance.",
+     "notation": "$\\Delta V/\\Delta I=-r$",
+     "spoken": "gradient equals minus r",
+     "source": "https://www.birmingham.ac.uk/study/undergraduate/schools-and-colleges/resources/a-level-stem/electromotive-force (How do we interpret our data?); bundle CAIE 9702 Nov 2023 P13 Q34 and Jun 2025 P11 Q37"
+    },
+    {
+     "term": "zero-current intercept",
+     "meaning": "Terminal p.d. extrapolated to zero source current equals e.m.f.",
+     "notation": "$V=E$ at $I=0$",
+     "spoken": "intercept is e m f",
+     "source": "https://www.birmingham.ac.uk/study/undergraduate/schools-and-colleges/resources/a-level-stem/electromotive-force (How do we interpret our data?); bundle CAIE 9702 Nov 2023 P13 Q34 and Jun 2025 P11 Q37"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Calculate current, lost volts and terminal p.d.",
+     "wordings": [
+      "Calculate terminal p.d. for a discharging source.",
+      "Determine internal resistance from load readings."
+     ],
+     "example": "For E = 8.0 V, r = 1.0 ohm and R = 7.0 ohms: Step 1: total resistance R + r = 8.0 ohms. Step 2: I = E/(R + r) = 1.0 A. Step 3: lost volts Ir = 1.0 V, so V = E − Ir = 7.0 V. Check V = IR = 7.0 V and V < E.",
+     "check": "A discharging source has e.m.f. 10.0 V and internal resistance 0.50 ohm, connected to an external resistance of 4.50 ohms. Calculate source current, lost volts and terminal p.d. Verify the terminal p.d. another way.",
+     "answer": "$I=E/(R+r)=10.0/5.00=2.00\\,\\mathrm{A}$; $Ir=1.00\\,\\mathrm{V}$; $V=E-Ir=9.00\\,\\mathrm{V}$. Check $IR=(2.00)(4.50)=9.00\\,\\mathrm{V}$.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp.8–9; bundle CAIE 9702 Nov 2023 P11 Q36",
+     "rubric": [
+      {
+       "point": "Uses total resistance R + r and obtains 2.00 A.",
+       "keywords": [
+        [
+         "2.00",
+         "2.0",
+         "2 A"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates lost volts as 1.00 V.",
+       "keywords": [
+        [
+         "1.00",
+         "1.0",
+         "1 V"
+        ]
+       ]
+      },
+      {
+       "point": "Subtracts lost volts to obtain terminal p.d. 9.00 V.",
+       "keywords": [
+        [
+         "9.00",
+         "9.0",
+         "9 V"
+        ]
+       ]
+      },
+      {
+       "point": "Verifies terminal p.d. using external IR.",
+       "keywords": [
+        [
+         "IR",
+         "4.50"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Predict the effect of adding a parallel load",
+     "wordings": [
+      "Predict the meter changes when a parallel branch is added.",
+      "Explain the load-change chain using internal resistance."
+     ],
+     "example": "Keep E = 6.0 V and r = 1.0 ohm fixed. Initially R = 5.0 ohms: I = 1.0 A, Ir = 1.0 V, V = 5.0 V. Add a second 5.0 ohm resistor in parallel. Step 1: external resistance becomes 2.5 ohms. Step 2: total current is 6.0/3.5 = 1.71 A. Step 3: lost volts rise to 1.71 V, so terminal p.d. falls to 4.29 V. The ammeter in the common lead rises; this is total current, not either branch current.",
+     "check": "A source of fixed e.m.f. 12.0 V and internal resistance 1.0 ohm first feeds one 5.0 ohm resistor. A second identical resistor is added in parallel. Predict changes in external resistance, total current, lost volts and terminal p.d.; calculate the before and after current and terminal p.d. Assume ideal meters.",
+     "answer": "External resistance falls from 5.0 to 2.5 ohms. Total current rises from 12/6 = 2.0 A to 12/3.5 = 3.43 A (3.4 A at 2 s.f.). Lost volts rise from 2.0 to 3.43 V. Terminal p.d. falls from 10.0 to 8.57 V (8.6 V at 2 s.f.). The increased internal energy dissipation per charge accounts for the fall at fixed E and r.",
+     "source": "Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf pp.8–9; bundle ER 9702 s23 P13 Q34 and w19 P12 Q35",
+     "rubric": [
+      {
+       "point": "External equivalent resistance decreases to 2.5 ohms.",
+       "keywords": [
+        [
+         "2.5"
+        ]
+       ]
+      },
+      {
+       "point": "Total source current rises from 2.0 A to about 3.43 A.",
+       "keywords": [
+        [
+         "3.43",
+         "3.4"
+        ]
+       ]
+      },
+      {
+       "point": "Increased total current increases internal p.d. Ir at fixed r.",
+       "keywords": [
+        [
+         "Ir",
+         "lost volts",
+         "internal"
+        ]
+       ]
+      },
+      {
+       "point": "Terminal p.d. falls from 10.0 to about 8.57 V at fixed E.",
+       "keywords": [
+        [
+         "8.57",
+         "8.6"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Infer e.m.f. and internal resistance from a V–I graph",
+     "wordings": [
+      "Determine e.m.f. and internal resistance from a graph.",
+      "Explain the intercept and negative gradient."
+     ],
+     "example": "A terminal-p.d. versus current line passes through (200 mA, 5.6 V) and (600 mA, 4.8 V). Step 1: convert currents to 0.200 A and 0.600 A. Step 2: gradient = (4.8 − 5.6)/(0.600 − 0.200) = −2.0 V per A, so r = 2.0 ohms. Step 3: extrapolate to I = 0, or use E = V + Ir = 5.6 + (0.200)(2.0) = 6.0 V. The highest measured voltage is not necessarily the intercept. The model assumes fixed E and r.",
+     "check": "For a discharging source at fixed E and r, a straight terminal-p.d. against current graph passes through (100 mA, 3.8 V) and (500 mA, 3.0 V). Determine r and E, explaining the gradient and extrapolated intercept. Why does a high-resistance voltmeter alone approximate rather than exactly establish zero-current e.m.f.?",
+     "answer": "Convert to 0.100 A and 0.500 A. Gradient = (3.0 − 3.8)/(0.500 − 0.100) = −2.0 V per A, hence r = 2.0 ohms. E = V + Ir = 3.8 + (0.100)(2.0) = 4.0 V, the extrapolated vertical intercept at I = 0. A finite-resistance voltmeter still draws a small current, causing a small Ir drop; equality V = E is exact only at zero source current in this model.",
+     "source": "https://www.birmingham.ac.uk/study/undergraduate/schools-and-colleges/resources/a-level-stem/electromotive-force (How do we interpret our data?); bundle CAIE 9702 Nov 2023 P13 Q34 and Jun 2025 P11 Q37; Library/Courses/9702/Sources/Library/SaveMyExams/9702 a-level-physics-cie-25/9702 c10.1.pdf p.6; bundle ER 9702 s21 P23 Q5",
+     "rubric": [
+      {
+       "point": "Converts mA to A before computing resistance.",
+       "keywords": [
+        [
+         "0.100",
+         "0.1",
+         "0.500",
+         "0.5"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies gradient −r and obtains positive r = 2.0 ohms.",
+       "keywords": [
+        [
+         "2.0",
+         "2 ohm"
+        ]
+       ]
+      },
+      {
+       "point": "Obtains E = 4.0 V as the zero-current intercept, extrapolating beyond measured data.",
+       "keywords": [
+        [
+         "4.0",
+         "4 V"
+        ]
+       ]
+      },
+      {
+       "point": "Explains finite meter current gives nonzero internal drop; ideal equality requires zero current.",
+       "keywords": [
+        [
+         "small current",
+         "draws",
+         "finite"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "Terminal p.d. remains equal to e.m.f. as source current rises.",
+     "temptation": "The source rating is fixed.",
+     "fix": "At fixed E and r, increased current raises lost volts Ir, so V = E − Ir decreases."
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9702/Diagrams/9702-10.1-internal-resistance-f9a480bb5f860949.svg",
+    "Library/Courses/9702/Diagrams/9702/9702-10.1-terminal-pd.svg"
+   ],
+   "source_gaps": [
+    "The registered graph is schematic rather than a scaled experimental plot; numerical checks give coordinate pairs explicitly.",
+    "The library notes pp.6–9 support the source model; graph interpretation is additionally checked against the University of Birmingham teaching resource and bundled papers, not a complete audit of all exam forms."
+   ],
+   "diagram_descriptions": [
+    "Existing Library model circuit: source e.m.f. E, internal resistance r, external resistance R and an ammeter all in one series loop. Current through r equals total source current. The source drawing has repeated cell pairs; E denotes source e.m.f.",
+    "Existing Library graph of terminal p.d. V vertically against current I horizontally. The straight line slopes down from vertical intercept E; at a marked current, terminal p.d. V plus the vertical gap Ir equals E. Gradient is −r. Axes are schematic without numerical scales."
+   ],
+   "diagram_provenance": [
+    {
+     "path": "Library/Courses/9702/Diagrams/9702-10.1-internal-resistance-f9a480bb5f860949.svg",
+     "sha256": "f9a480bb5f8609490f4c64c3ffe9f499db2ae3bf57920f24bb840b01fd48c7b5",
+     "aliases": [],
+     "kind": "Diagrams",
+     "generated": true,
+     "renderer": "circuit"
+    },
+    {
+     "path": "Library/Courses/9702/Diagrams/9702/9702-10.1-terminal-pd.svg",
+     "sha256": "eba2e833605850044abf467b5522dd461778e31e4893737726d219ad09d3c63d",
+     "aliases": [
+      "Assets/9702/9702-10.1-terminal-pd.svg",
+      "build/out/assets/9702/9702-10.1-terminal-pd.svg",
+      "build/out/Assets/9702/9702-10.1-terminal-pd.svg"
+     ],
+     "course": "9702",
+     "kind": "Diagrams",
+     "origins": [
+      "STEM Tutor/Assets/9702/9702-10.1-terminal-pd.svg",
+      "stem-tutor/build/out/assets/9702/9702-10.1-terminal-pd.svg",
+      "stem-tutor/build/out/Assets/9702/9702-10.1-terminal-pd.svg"
+     ]
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "9702-10.1.1": [
+   "Identify and use the section 6 symbols"
+  ],
+  "9702-10.1.2": [
+   "Trace paths through switches and junctions",
+   "Place ammeter and voltmeter"
+  ],
+  "9702-10.1.3": [
+   "Define and interpret e.m.f.",
+   "Calculate energy supplied by a source"
+  ],
+  "9702-10.1.4": [
+   "Compare e.m.f. and component p.d. using energy"
+  ],
+  "9702-10.1.5": [
+   "Calculate current, lost volts and terminal p.d.",
+   "Predict the effect of adding a parallel load",
+   "Infer e.m.f. and internal resistance from a V–I graph"
+  ]
  }
 }

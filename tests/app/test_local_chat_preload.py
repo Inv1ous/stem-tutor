@@ -47,7 +47,7 @@ def backend(monkeypatch):
 
 async def open_chat(pilot, app):
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [option.id for option in menu.options].index("chat")
+    menu.reveal("chat")
     await pilot.press("enter")
     await pilot.pause()
     assert isinstance(app.screen, ChatScreen)

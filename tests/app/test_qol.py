@@ -22,7 +22,7 @@ def run(app, size, steps):
 
 def _menu(app, key):
     menu = app.screen.query_one("#menu")
-    menu.highlighted = [o.id for o in menu.options].index(key)
+    menu.reveal(key)
 
 
 async def _session(app, pilot, mode="test"):
@@ -227,8 +227,7 @@ def test_small_wording_fixes(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 
     async def steps(pilot):
-        _menu(app, "test")
-        await pilot.press("enter")
+        app.screen.activate("test")  # an old id: not in the menu any more, still starts the test picker
         await pilot.pause()
         hint = str(app.screen.query(".hint").first().render())
         assert "Tab to Start" in hint and "⏎ on Start" not in hint

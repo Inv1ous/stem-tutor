@@ -1,0 +1,147 @@
+[
+ {
+  "prompt_tail": "\nNotes figures (figure = id): 9702-8-3-notes-double-slit-geometry (Shows what a, x and D mean in lambda = ax/D)\nTerms: Interference fringes; Coherence; Path difference; Order of a maximum; Monochromatic\nQuestion forms: 0: State the conditions for observable fringes; 1: Amplitude at maxima and minima",
+  "reply": {
+   "sections": [
+    "9702-8.3.2|plain_words",
+    "9702-8.3.3|plain_words",
+    "9702-8.3.3|establish",
+    "9702-8.3.4|plain_words"
+   ],
+   "actions": [
+    {
+     "action": "explain",
+     "section": "plain_words",
+     "why": "Gives a word picture first: two slits lit by one source overlap, and the path difference decides bright or dark."
+    },
+    {
+     "action": "diagram",
+     "source": "card",
+     "why": "Shows the pattern itself: evenly spaced bright peaks with dark minima between them."
+    },
+    {
+     "action": "diagram",
+     "source": "notes",
+     "figure": "9702-8-3-notes-double-slit-geometry",
+     "why": "Shows the double-slit layout, with the slit separation, the fringe spacing and the screen distance marked."
+    },
+    {
+     "action": "term",
+     "term": "Path difference",
+     "why": "This is the idea that links the two slits to each bright or dark position."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "\nNotes figures (figure = id): 9702-8-3-notes-double-slit-geometry (Shows what a, x and D mean in lambda = ax/D)\nTerms: Interference fringes; Coherence; Path difference; Order of a maximum; Monochromatic\nQuestion forms: 0: State the conditions for observable fringes; 1: Amplitude at maxima and minima",
+  "reply": {
+   "sections": [
+    "9702-8.3.4|establish",
+    "9702-8.3.4|plain_words"
+   ],
+   "actions": [
+    {
+     "action": "diagram",
+     "source": "notes",
+     "figure": "9702-8-3-notes-double-slit-geometry",
+     "why": "Shows what a, x and D mean before they are substituted into the equation."
+    },
+    {
+     "action": "write",
+     "topic": "Worked example: finding fringe spacing x from x = lambda D / a for a double slit, with unit conversions to metres",
+     "why": "The card for 8.3.3 has no worked double-slit calculation, so a short new example is needed.",
+     "text": "The fringe spacing $x$ is the distance between adjacent bright fringes (or adjacent dark ones) and is found from $x = \\frac{\\lambda D}{a}$. Convert every quantity to metres first, then substitute.\n\n**Worked example**\n\nMonochromatic light of wavelength $600\\,\\mathrm{nm}$ passes through two slits with separation $a = 0.40\\,\\mathrm{mm}$. The screen is $D = 2.0\\,\\mathrm{m}$ from the slits. Find the fringe spacing $x$.\n\n1. Convert the wavelength to metres, using $1\\,\\mathrm{nm} = 10^{-9}\\,\\mathrm{m}$.\n\n$$\n\\lambda = 600\\times10^{-9}\\,\\mathrm{m} = 6.0\\times10^{-7}\\,\\mathrm{m}\n$$\n\n2. Convert the slit separation to metres, using $1\\,\\mathrm{mm} = 10^{-3}\\,\\mathrm{m}$. The distance $D$ is already in metres.\n\n$$\na = 0.40\\times10^{-3}\\,\\mathrm{m} = 4.0\\times10^{-4}\\,\\mathrm{m}\n$$\n\n3. Substitute into $x = \\frac{\\lambda D}{a}$ and evaluate.\n\n$$\nx = \\frac{6.0\\times10^{-7}\\times 2.0}{4.0\\times10^{-4}} = 3.0\\times10^{-3}\\,\\mathrm{m}\n$$\n\n4. Give the result in a sensible unit: $x = 3.0\\,\\mathrm{mm}$. This means that neighbouring bright fringes are $3.0\\,\\mathrm{mm}$ apart on the screen, which is easy to see and measure.\n\nYour turn: light of wavelength $500\\,\\mathrm{nm}$ passes through slits $0.25\\,\\mathrm{mm}$ apart, with the screen $1.5\\,\\mathrm{m}$ away. Convert to metres, then find $x$. Send me your working and I will check it. I can also explain why $x$ grows with $D$ and shrinks with $a$ if you would like that.",
+     "checked": [],
+     "unchecked": 3
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "steps; offer more detail. Never disclose a solution to an open question. Ask the student to try before giving away an answer. Do not claim calculations or proof have been verified unless verification is supplied.\nSTUDENT ASKS: Show me a worked example of finding the fringe spacing for a double slit.",
+  "reply": {
+   "blocks": [
+    {
+     "kind": "paragraph",
+     "text": "The fringe spacing $x$ is the distance between adjacent bright fringes (or adjacent dark ones) and is found from $x = \\frac{\\lambda D}{a}$. Convert every quantity to metres first, then substitute."
+    },
+    {
+     "kind": "heading",
+     "text": "Worked example"
+    },
+    {
+     "kind": "paragraph",
+     "text": "Monochromatic light of wavelength $600\\,\\mathrm{nm}$ passes through two slits with separation $a = 0.40\\,\\mathrm{mm}$. The screen is $D = 2.0\\,\\mathrm{m}$ from the slits. Find the fringe spacing $x$."
+    },
+    {
+     "kind": "step",
+     "text": "Convert the wavelength to metres, using $1\\,\\mathrm{nm} = 10^{-9}\\,\\mathrm{m}$."
+    },
+    {
+     "kind": "equation",
+     "text": "\\lambda = 600\\times10^{-9}\\,\\mathrm{m} = 6.0\\times10^{-7}\\,\\mathrm{m}"
+    },
+    {
+     "kind": "step",
+     "text": "Convert the slit separation to metres, using $1\\,\\mathrm{mm} = 10^{-3}\\,\\mathrm{m}$. The distance $D$ is already in metres."
+    },
+    {
+     "kind": "equation",
+     "text": "a = 0.40\\times10^{-3}\\,\\mathrm{m} = 4.0\\times10^{-4}\\,\\mathrm{m}"
+    },
+    {
+     "kind": "step",
+     "text": "Substitute into $x = \\frac{\\lambda D}{a}$ and evaluate."
+    },
+    {
+     "kind": "equation",
+     "text": "x = \\frac{6.0\\times10^{-7}\\times 2.0}{4.0\\times10^{-4}} = 3.0\\times10^{-3}\\,\\mathrm{m}"
+    },
+    {
+     "kind": "step",
+     "text": "Give the result in a sensible unit: $x = 3.0\\,\\mathrm{mm}$. This means that neighbouring bright fringes are $3.0\\,\\mathrm{mm}$ apart on the screen, which is easy to see and measure."
+    },
+    {
+     "kind": "paragraph",
+     "text": "Your turn: light of wavelength $500\\,\\mathrm{nm}$ passes through slits $0.25\\,\\mathrm{mm}$ apart, with the screen $1.5\\,\\mathrm{m}$ away. Convert to metres, then find $x$. Send me your working and I will check it. I can also explain why $x$ grows with $D$ and shrinks with $a$ if you would like that."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "\nNotes figures (figure = id): 9702-8-3-notes-double-slit-geometry (Shows what a, x and D mean in lambda = ax/D)\nTerms: Interference fringes; Coherence; Path difference; Order of a maximum; Monochromatic\nQuestion forms: 0: State the conditions for observable fringes; 1: Amplitude at maxima and minima",
+  "reply": {
+   "sections": [],
+   "actions": [
+    {
+     "action": "question",
+     "why": "The learner is confident with no gap and has just seen a worked example, so a past-paper question on the conditions for fringes lets them attempt it themselves."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "w is not evidence of the required claim. Do not infer an unstated mechanism or award a missing point because another point was discussed. In why, identify the shortest relevant student quotation or say it was not stated; never use the correct answer you supplied as evidence that the student said it.",
+  "reply": {
+   "points": [
+    {
+     "point": "The two waves must have the same frequency and a constant phase difference.",
+     "met": true,
+     "why": "Student wrote \"they have the same frequency and a constant phase difference\"."
+    }
+   ],
+   "feedback": "Correct: you state both the same frequency and a constant phase difference, which is what the mark point requires. Mentioning that the waves must overlap is true but not needed for this phase condition."
+  },
+  "ok": true,
+  "msg": ""
+ }
+]

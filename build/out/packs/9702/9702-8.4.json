@@ -44,6 +44,22 @@
    "refutation": "d is the reciprocal of the number of lines per metre.",
    "contrast": "spacing versus line density",
    "source": "ER 9702 w20 P12 Q30"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-8.4.2",
+   "statement": "The ratio of one-sided screen displacement to screen distance is the sine of the diffraction angle.",
+   "refutation": "These are opposite and adjacent sides: their ratio is tangent. Take inverse tangent first, then use sine in the grating equation.",
+   "contrast": "screen triangle tangent versus grating equation sine",
+   "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.6–7; ER 9702 s23 P12 Q29"
+  },
+  {
+   "id": "m7",
+   "kc": "9702-8.4.2",
+   "statement": "The full distance between symmetric order maxima is the displacement from zero order to one maximum.",
+   "refutation": "For an aligned symmetric pattern, zero order lies halfway between matching maxima. Halve their full separation before calculating the one-sided angle.",
+   "contrast": "pair separation versus centre-to-spot displacement",
+   "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.6–7"
   }
  ],
  "worked": [
@@ -201,7 +217,7 @@
     "type": "past",
     "ref": "CAIE 9702 · Nov 2021 · P12 · Q30"
    },
-   "stem": "Light of wavelength 5.5 × 10⁻⁷\nm is incident normally on a diffraction grating.\n80\u0002\nlight\nsecond-order maximum\nsecond-order maximum\ngrating\nThe angle between the second-order diffraction maxima is 80°, as shown.\nWhat is the number of lines per metre of the diffraction grating?",
+   "stem": "Light of wavelength 5.5 × 10⁻⁷\nm is incident normally on a diffraction grating.\n80°\nlight\nsecond-order maximum\nsecond-order maximum\ngrating\nThe angle between the second-order diffraction maxima is 80°, as shown.\nWhat is the number of lines per metre of the diffraction grating?",
    "options": {
     "A": "5.8 × 10⁵ lines per metre",
     "B": "9.0 × 10⁵ lines per metre",
@@ -226,7 +242,7 @@
     "type": "past",
     "ref": "CAIE 9702 · Jun 2022 · P11 · Q30"
    },
-   "stem": "Light of wavelength 5.4 × 10⁻⁷\nm is incident normally on a diffraction grating.\nThe separation between adjacent lines in the grating is 2.0 × 10⁻⁶\nm. The light that emerges from\nthe grating falls on a semicircular screen, as shown in the view from above.\ndiffraction grating\nscreen\nVIEW FROM ABOVE\nlight,\nwavelength 5.4 \u0004 10⁻⁷ m\nThe grating is at the centre of the semicircle, and the lines of the grating are vertical.\nHow many bright dots are formed on the screen?",
+   "stem": "Light of wavelength 5.4 × 10⁻⁷\nm is incident normally on a diffraction grating.\nThe separation between adjacent lines in the grating is 2.0 × 10⁻⁶\nm. The light that emerges from\nthe grating falls on a semicircular screen, as shown in the view from above.\ndiffraction grating\nscreen\nVIEW FROM ABOVE\nlight,\nwavelength 5.4 × 10⁻⁷ m\nThe grating is at the centre of the semicircle, and the lines of the grating are vertical.\nHow many bright dots are formed on the screen?",
    "options": {
     "A": "3",
     "B": "4",
@@ -309,7 +325,7 @@
     "type": "past",
     "ref": "CAIE 9702 · Jun 2023 · P11 · Q29"
    },
-   "stem": "A beam of light from a laser is incident normally on a diffraction grating.\n110\u0001\ndiffraction grating\nlight beam\nThe diagram shows only the second-order maxima that are produced.\nThe grating has a line spacing of 1.0 × 10⁻⁶\nm. The angle between the two second-order maxima\nis 110°.\nWhat is the wavelength of the light?",
+   "stem": "A beam of light from a laser is incident normally on a diffraction grating.\n110°\ndiffraction grating\nlight beam\nThe diagram shows only the second-order maxima that are produced.\nThe grating has a line spacing of 1.0 × 10⁻⁶\nm. The angle between the two second-order maxima\nis 110°.\nWhat is the wavelength of the light?",
    "options": {
     "A": "4.1 × 10⁻⁷ m",
     "B": "4.7 × 10⁻⁷ m",
@@ -438,7 +454,7 @@
     "type": "past",
     "ref": "CAIE 9702 · Nov 2023 · P13 · Q29"
    },
-   "stem": "A diffraction grating is used to measure the wavelength of light.\nThe spacing of the slits in the grating is 1.15 × 10⁻⁶\nm. The angle between the first-order\ndiffraction maxima is 60.0°, as shown.\n60.0\u0002\nlight\ngrating\nWhat is the wavelength of the light?",
+   "stem": "A diffraction grating is used to measure the wavelength of light.\nThe spacing of the slits in the grating is 1.15 × 10⁻⁶\nm. The angle between the first-order\ndiffraction maxima is 60.0°, as shown.\n60.0°\nlight\ngrating\nWhat is the wavelength of the light?",
    "options": {
     "A": "288 nm",
     "B": "498 nm",
@@ -1386,12 +1402,12 @@
     "ref": "CAIE 9702 · Jun 2024 · P12 · Q26",
     "qid": "9702_s24_12_q26"
    },
-   "stem": "A diffraction grating with N lines per metre is used to diffract light of various wavelengths λ.\nThe graph shows the relation between the diffraction angle θ and λ for different wavelengths in\nthe n th order interference pattern.\nsin \u0002\n \n0\n0\nWhat is the gradient of the graph?",
+   "stem": "A diffraction grating with N lines per metre is used to diffract light of various wavelengths λ.\nThe graph shows the relation between the diffraction angle θ and λ for different wavelengths in\nthe n th order interference pattern.\nsin θ\nλ\n0\n0\nWhat is the gradient of the graph?",
    "options": {
     "A": "Nn",
-    "B": "n N",
-    "C": "N n",
-    "D": "Nn 1"
+    "B": "N / n",
+    "C": "n / N",
+    "D": "1 / (Nn)"
    },
    "answer": "A",
    "image": "Assets/mcq/9702_s24_12_q26.png",
@@ -1464,7 +1480,7 @@
     "ref": "CAIE 9702 · Nov 2024 · P12 · Q30",
     "qid": "9702_w24_12_q30"
    },
-   "stem": "The diagram shows visible light incident normally on a diffraction grating.\ndiffraction grating\nincident\nlight\nnot to scale\ncentre line\nscreen\ncentre of fourth\norder intensity\nmaximum\n53\u0001\nA pattern of intensity maxima forms on the screen. A line connecting the centre of the fourth order\nintensity maximum with the centre of the diffraction grating forms an angle of 53° with the centre\nline. The grating has a line spacing of 2.7 × 10⁻⁶\nm.\nWhat is the wavelength of the incident light?",
+   "stem": "The diagram shows visible light incident normally on a diffraction grating.\ndiffraction grating\nincident\nlight\nnot to scale\ncentre line\nscreen\ncentre of fourth\norder intensity\nmaximum\n53°\nA pattern of intensity maxima forms on the screen. A line connecting the centre of the fourth order\nintensity maximum with the centre of the diffraction grating forms an angle of 53° with the centre\nline. The grating has a line spacing of 2.7 × 10⁻⁶\nm.\nWhat is the wavelength of the incident light?",
    "options": {
     "A": "4.1 × 10⁻⁷ m",
     "B": "5.4 × 10⁻⁷ m",
@@ -1516,12 +1532,12 @@
     "ref": "CAIE 9702 · Jun 2025 · P12 · Q29",
     "qid": "9702_s25_12_q29"
    },
-   "stem": "A student uses a diffraction grating to determine the wavelength of visible light from a source.\nThe diffraction grating has 300 lines per mm. The student measures the angle θ of each order n\nof the intensity maxima. A graph of n against sin θ is plotted. The line of best fit for the plotted\npoints is shown and has gradient G.\n0\n0\nn\nsin\u0001\nWhich expression represents the wavelength, in m, of the visible light in terms of G?",
+   "stem": "A student uses a diffraction grating to determine the wavelength of visible light from a source.\nThe diffraction grating has 300 lines per mm. The student measures the angle θ of each order n\nof the intensity maxima. A graph of n against sin θ is plotted. The line of best fit for the plotted\npoints is shown and has gradient G.\n0\n0\nn\nsin θ\nWhich expression represents the wavelength, in m, of the visible light in terms of G?",
    "options": {
     "A": "3 × 10⁵ G",
     "B": "3.3 × 10⁻⁶ G",
-    "C": "G 6 – 10 3.3 ×",
-    "D": "G 300"
+    "C": "(3.3 × 10⁻⁶) / G",
+    "D": "300 / G"
    },
    "answer": "C",
    "image": "Assets/mcq/9702_s25_12_q29.png",
@@ -1610,9 +1626,376 @@
    "motivate": "A grating sends one colour into bright spots at particular angles. Their positions let you predict the wavelength and the possible diffraction orders.",
    "establish": "For normally incident light, adjacent grating slits have spacing $d$. At angle $\\theta$ from the straight-through, zero-order direction, their path difference is $d\\sin\\theta$. A bright maximum occurs when this equals a whole number $n$ of wavelengths: $d\\sin\\theta=n\\lambda$. Here $n=0,1,2,\\ldots$ labels diffraction order on either side. Convert line density $N$ in lines per metre to spacing with $d=1/N$. Since $\\sin\\theta\\le1$, only orders with $n\\lambda\\le d$ occur; count both sides and the central maximum when finding the total number of spots.",
    "connect": "This extends double-slit interference: path differences select constructive interference, while the many lines of a grating make the maxima sharp.",
-   "note": "- $d\\sin\\theta=n\\lambda$ for normally incident light.\n- $d$ is spacing between adjacent lines; $\\theta$ is measured from the central direction.\n- Orders are integers and satisfy $n\\lambda\\le d$.\n- Two-sided spot count is $2n_{\\max}+1$ when all orders are visible.",
+   "note": "- $d\\sin\\theta=n\\lambda$ for normally incident light.\n- $d$ is spacing between adjacent lines; $\\theta$ is measured from the central direction.\n- Orders are integers and satisfy $n\\lambda\\le d$.\n- Two-sided spot count is $2n_{\\max}+1$ when all orders are visible.\n- Teaching clarification for the existing second-order worked example: $\\lambda=(2.00\\times10^{-6})\\sin40^\\circ/2=6.43\\times10^{-7}\\,\\mathrm{m}$; divide the numerator by 2.",
    "self_explain": "Why is the angle between matching first-order spots twice the $\\theta$ used in the equation?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Begin with interference: waves arriving in phase reinforce. A path difference of a whole number of wavelengths gives constructive interference. For adjacent grating slits that difference is $d\\sin\\theta$, so a bright order satisfies $d\\sin\\theta=n\\lambda$. The order is an integer; the angle is measured from straight through. First identify the spacing, wavelength and order, then decide whether the question asks for one angle, an angle between orders, or a count.",
+   "terms": [
+    {
+     "term": "diffraction grating",
+     "meaning": "Many equally spaced parallel slits that produce sharp interference maxima.",
+     "notation": "$d$",
+     "spoken": "diffraction grating; d is adjacent slit spacing",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.2–3"
+    },
+    {
+     "term": "line density",
+     "meaning": "Number of grating lines per unit length; convert to lines per metre before taking its reciprocal.",
+     "notation": "$N$; $d=1/N$",
+     "spoken": "N is line density; d equals one divided by N",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3–4"
+    },
+    {
+     "term": "diffraction angle",
+     "meaning": "Angle from the zero-order direction to one identified maximum.",
+     "notation": "$\\theta$",
+     "spoken": "theta, angle from the centre",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3–4"
+    },
+    {
+     "term": "order",
+     "meaning": "Integer labelling the path difference in wavelengths; zero is the straight-through maximum.",
+     "notation": "$n$",
+     "spoken": "n, diffraction order",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3–5"
+    },
+    {
+     "term": "wavelength",
+     "meaning": "Distance between adjacent points in phase, such as successive crests, at one instant.",
+     "notation": "$\\lambda$",
+     "spoken": "lambda, wavelength",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3,6"
+    },
+    {
+     "term": "constructive interference",
+     "meaning": "Reinforcement when waves arrive in phase; adjacent paths differ by an integer number of wavelengths.",
+     "notation": "$d\\sin\\theta=n\\lambda$",
+     "spoken": "d sine theta equals n lambda",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf p.3; bundle prerequisite 8.3 Interference"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Convert line density to spacing",
+     "wordings": [
+      "Calculate the spacing between adjacent grating lines.",
+      "Determine grating spacing from lines per millimetre."
+     ],
+     "example": "Example: a grating has 250 lines per millimetre. Step 1: $N=250\\times1000=2.50\\times10^5\\,\\mathrm{m^{-1}}$. Step 2: $d=1/N=4.00\\times10^{-6}\\,\\mathrm{m}$. Check the direction: more lines per millimetre means smaller spacing.",
+     "check": "Calculate the spacing in metres for 320 lines per millimetre.",
+     "answer": "$N=3.20\\times10^5\\,\\mathrm{m^{-1}}$ and $d=3.125\\times10^{-6}\\,\\mathrm{m}$, or $3.13\\times10^{-6}\\,\\mathrm{m}$ to 3 significant figures.",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3–4",
+     "rubric": [
+      {
+       "point": "Convert line density to lines per metre, or use 1 mm = 1 × 10⁻³ m directly when finding spacing.",
+       "keywords": [
+        [
+         "320000",
+         "3.20",
+         "1000"
+        ]
+       ]
+      },
+      {
+       "point": "Take the reciprocal and give spacing in metres; accept d = (1 × 10⁻³ m)/320 or equivalent conversion and inversion, and equivalent rounding.",
+       "keywords": [
+        [
+         "3.125",
+         "3.13",
+         "reciprocal"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Calculate the spacing in metres for 625 lines per millimetre.",
+      "answer": "$d=1/(625000)=1.60\\times10^{-6}\\,\\mathrm{m}$.",
+      "rubric": [
+       {
+        "point": "Convert to 625000 lines per metre and invert, or use d = (1 × 10⁻³ m)/625 or equivalent conversion and inversion.",
+        "keywords": [
+         [
+          "625000",
+          "1000",
+          "reciprocal"
+         ]
+        ]
+       },
+       {
+        "point": "Give the spacing as 1.60 micrometres or an equivalent value in metres.",
+        "keywords": [
+         [
+          "1.60",
+          "1.6"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Calculate the angle of an identified order",
+     "wordings": [
+      "Calculate the angle to the second-order maximum.",
+      "Determine the angle from the incident direction."
+     ],
+     "example": "Example: normally incident light has $\\lambda=520\\,\\mathrm{nm}$ and $d=2.50\\times10^{-6}\\,\\mathrm{m}$. Find order 2. Step 1: $\\sin\\theta=n\\lambda/d=0.416$. Step 2: $\\theta=\\sin^{-1}(0.416)=24.6^\\circ$. This angle is measured from zero order, not from the opposite second order.",
+     "check": "Normally incident light has wavelength 610 nm and spacing $2.00\\times10^{-6}\\,\\mathrm{m}$. Calculate the second-order angle from the central direction.",
+     "answer": "$\\sin\\theta=2(610\\times10^{-9})/(2.00\\times10^{-6})=0.610$, hence $\\theta=37.6^\\circ$.",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3–4; Cambridge ER 9702 June 2023 P11 Q29, P12 Q29 and P13 Q29; https://www.cambridgeinternational.org/Images/567861-june-2023-examiner-report.pdf",
+     "rubric": [
+      {
+       "point": "Use order 2 and compatible wavelength and spacing units in the grating equation.",
+       "keywords": [
+        [
+         "2",
+         "second"
+        ]
+       ]
+      },
+      {
+       "point": "Use inverse sine to obtain 37.6 degrees; accept 38 degrees to 2 significant figures.",
+       "keywords": [
+        [
+         "37.6",
+         "38",
+         "arcsin"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "For normal incidence, spacing $1.60\\times10^{-6}\\,\\mathrm{m}$ and wavelength 480 nm, calculate the first-order angle.",
+      "answer": "$\\sin\\theta=0.300$, so $\\theta=17.5^\\circ$ (17 degrees to 2 significant figures).",
+      "rubric": [
+       {
+        "point": "Use order 1 and calculate sine as 0.300.",
+        "keywords": [
+         [
+          "0.3",
+          "first",
+          "1"
+         ]
+        ]
+       },
+       {
+        "point": "Take inverse sine and give approximately 17.5 degrees.",
+        "keywords": [
+         [
+          "17.5",
+          "17",
+          "arcsin"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Find the angle between orders on the same side",
+     "wordings": [
+      "Calculate the angle between the first- and second-order maxima on the same side."
+     ],
+     "example": "Example: $d=2.50\\times10^{-6}\\,\\mathrm{m}$, $\\lambda=500\\,\\mathrm{nm}$, normal incidence. Step 1: $\\theta_1=\\sin^{-1}(0.200)=11.537^\\circ$. Step 2: $\\theta_2=\\sin^{-1}(0.400)=23.578^\\circ$. Step 3: the same-side separation is $\\theta_2-\\theta_1=12.0^\\circ$. Subtract the angles, not their sines; order angles are not equally spaced.",
+     "check": "At normal incidence, $d=2.00\\times10^{-6}\\,\\mathrm{m}$ and $\\lambda=480\\,\\mathrm{nm}$. Calculate the angle between orders 1 and 2 on the same side.",
+     "answer": "$\\theta_1=13.8865^\\circ$, $\\theta_2=28.6854^\\circ$; separation $=14.8^\\circ$.",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf p.4; Cambridge ER 9702 June 2024 Q26 (angle between orders); https://www.cambridgeinternational.org/Images/567861-june-2024-examiner-report.pdf",
+     "rubric": [
+      {
+       "point": "Calculate both centre-referenced angles using inverse sine.",
+       "keywords": [
+        [
+         "13.9",
+         "13.886",
+         "28.7",
+         "28.685",
+         "inverse sine"
+        ]
+       ]
+      },
+      {
+       "point": "Subtract the smaller angle from the larger to obtain 14.8 degrees.",
+       "keywords": [
+        [
+         "14.8",
+         "difference",
+         "subtract"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "At normal incidence, $d=3.00\\times10^{-6}\\,\\mathrm{m}$ and $\\lambda=650\\,\\mathrm{nm}$. Calculate the same-side separation of orders 1 and 2.",
+      "answer": "$\\theta_1=12.5133^\\circ$ and $\\theta_2=25.6793^\\circ$; separation $=13.2^\\circ$.",
+      "rubric": [
+       {
+        "point": "Obtain the two centre-referenced angles.",
+        "keywords": [
+         [
+          "12.5",
+          "25.7",
+          "inverse sine"
+         ]
+        ]
+       },
+       {
+        "point": "Subtract to obtain approximately 13.2 degrees.",
+        "keywords": [
+         [
+          "13.2",
+          "subtract",
+          "difference"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Interpret symmetric-order angular separation",
+     "wordings": [
+      "Calculate the wavelength from the angle between symmetric second-order maxima."
+     ],
+     "example": "Example and baseline clarification: a 500-lines-per-millimetre grating has symmetric order-2 maxima separated by $80^\\circ$, at normal incidence. Step 1: $d=1/500000=2.00\\times10^{-6}\\,\\mathrm{m}$. Step 2: the one-sided angle is $80^\\circ/2=40^\\circ$. Step 3: $\\lambda=d\\sin\\theta/2=6.43\\times10^{-7}\\,\\mathrm{m}$. The division by order 2 is essential. This verifies the numerical check in existing we1; its displayed final value remains a contradiction pending correction review.",
+     "check": "Light is normally incident on a grating with spacing $2.00\\times10^{-6}\\,\\mathrm{m}$. The two second-order maxima are $60.0^\\circ$ apart. Calculate the wavelength.",
+     "answer": "$\\theta=30.0^\\circ$; $\\lambda=(2.00\\times10^{-6})\\sin30^\\circ/2=5.00\\times10^{-7}\\,\\mathrm{m}$.",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.5–6; Cambridge ER 9702 June 2023 P11 Q29, P12 Q29 and P13 Q29; https://www.cambridgeinternational.org/Images/567861-june-2023-examiner-report.pdf",
+     "rubric": [
+      {
+       "point": "Halve the symmetric separation to get the angle from zero order.",
+       "keywords": [
+        [
+         "30",
+         "halve",
+         "half"
+        ]
+       ]
+      },
+      {
+       "point": "Use order 2 to obtain 500 nm or its equivalent in metres.",
+       "keywords": [
+        [
+         "500",
+         "5.00",
+         "5.0"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Normally incident light gives symmetric first-order maxima $40.0^\\circ$ apart for spacing $1.50\\times10^{-6}\\,\\mathrm{m}$. Calculate wavelength.",
+      "answer": "$\\theta=20.0^\\circ$, $n=1$; $\\lambda=(1.50\\times10^{-6})\\sin20^\\circ=5.13\\times10^{-7}\\,\\mathrm{m}$.",
+      "rubric": [
+       {
+        "point": "Halve the angle and use first order.",
+        "keywords": [
+         [
+          "20",
+          "halve",
+          "half"
+         ]
+        ]
+       },
+       {
+        "point": "Give approximately 513 nm or equivalent.",
+        "keywords": [
+         [
+          "513",
+          "5.13"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Determine highest order and total maxima",
+     "wordings": [
+      "Determine the highest diffraction order and total number of maxima."
+     ],
+     "example": "Example: normal incidence, 450 lines per millimetre and wavelength 520 nm. Assume every allowed order on both sides can be detected. Step 1: $d=1/450000\\,\\mathrm{m}$. Step 2: $n\\le d/\\lambda=4.2735$, so highest integer order is 4, not 5. Step 3: $4+1+4=9$ maxima. A finite flat screen may miss high orders. If $d/\\lambda$ is exactly an integer, that order is at $90^\\circ$ and does not reach a finite forward flat screen; state whether grazing directions are counted.",
+     "check": "For normal incidence, a grating has 500 lines per millimetre and wavelength 600 nm. Assume all allowed maxima on both sides are detectable. Determine highest order and total maxima.",
+     "answer": "$d/\\lambda=3.333$, so highest order is 3 and the total is $2(3)+1=7$.",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf p.5; bundle ER 9702 s22 P11 Q30 and P13 Q31",
+     "rubric": [
+      {
+       "point": "Use the reciprocal line density and bound the integer order by approximately 3.33.",
+       "keywords": [
+        [
+         "3.33",
+         "reciprocal"
+        ]
+       ]
+      },
+      {
+       "point": "State highest order 3 and count both sides and zero for total 7.",
+       "keywords": [
+        [
+         "7",
+         "seven"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "At normal incidence, 550 lines per millimetre and 480 nm light produce a pattern with all allowed orders detectable on both sides. Determine highest order and total maxima.",
+      "answer": "$d/\\lambda=3.7879$, giving highest order 3 and total $2(3)+1=7$.",
+      "rubric": [
+       {
+        "point": "Find the limiting order and take the largest allowed integer, 3.",
+        "keywords": [
+         [
+          "3.7879",
+          "3.79",
+          "3"
+         ]
+        ]
+       },
+       {
+        "point": "Include both sides and central maximum to give 7.",
+        "keywords": [
+         [
+          "7",
+          "seven"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "The angle between symmetric maxima is the diffraction angle.",
+     "temptation": "The two outer spots look like the natural angle endpoints.",
+     "fix": "The diffraction angle is measured from the central direction to one maximum, half the angle between symmetric maxima."
+    },
+    {
+     "id": "m2",
+     "idea": "The highest order is the total number of spots.",
+     "temptation": "The largest order number looks like a count of all the bright spots.",
+     "fix": "Count positive and negative orders and the central zero order: 2n_max+1."
+    },
+    {
+     "id": "m3",
+     "idea": "The grating spacing equals the screen distance.",
+     "temptation": "Both lengths are labelled in the apparatus description.",
+     "fix": "Spacing d is between adjacent lines; screen distance is used only to find the angle."
+    },
+    {
+     "id": "m4",
+     "idea": "A screen displacement divided by screen distance is sin theta.",
+     "temptation": "The grating equation contains sine, so it is tempting to use sine for the screen triangle too.",
+     "fix": "The ratio is tan theta; use the right triangle before the grating equation."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The retained wave sketch is bound to the wavelength term on the measurement card. It does not show grating path differences or angular geometry; no new diagram was requested by this plan.",
+   "source_gaps": [
+    "The reviewed inventory covers the calculation forms in this plan; it is not an exhaustive audit of every official-paper variant.",
+    "The existing we1 display and numerical check disagree; the additive clarification is verified, but baseline correction requires independent source-bound review."
+   ]
   },
   "9702-8.4.2": {
    "motivate": "An unknown light wavelength can be measured with a known grating by observing where its bright maxima appear.",
@@ -1620,7 +2003,294 @@
    "connect": "The equation from the previous card becomes a measurement method once $d$, $n$ and $\\theta$ are known.",
    "note": "- Illuminate the grating normally and identify zero and order-$n$ maxima.\n- Measure $\\theta$ from centre; for a screen use $\\tan\\theta=y/L$.\n- Convert line density to $d$ in metres.\n- Determine $\\lambda=d\\sin\\theta/n$ and repeat measurements.",
    "self_explain": "If the grating has 400 lines per millimetre, what steps give $d$ in metres before calculating wavelength?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "The grating turns wavelength into a measurable angle. Send one colour in normally, identify zero order and the order you measure, and find the angle from the centre. For a screen, half a symmetric pair separation gives the one-sided displacement. The screen triangle gives tangent; the grating equation then uses sine. Finally divide by the order.",
+   "terms": [
+    {
+     "term": "wavelength",
+     "meaning": "Distance from one crest to the next on a wave snapshot; this is the measured quantity, not the screen-spot separation.",
+     "notation": "$\\lambda$",
+     "spoken": "lambda, wavelength",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3,6–7",
+     "diagram": "Library/Courses/9702/Diagrams/9702/9702-8.4-wavelength.svg"
+    },
+    {
+     "term": "normal incidence",
+     "meaning": "Incident beam perpendicular to the grating; zero order continues straight through.",
+     "notation": "$\\theta=0$ for zero order",
+     "spoken": "normal incidence; zero order",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.2–3; bundle KC 9702-8.4.2"
+    },
+    {
+     "term": "screen distance",
+     "meaning": "Perpendicular distance from the grating to a screen parallel to it; called D in the library.",
+     "notation": "$L$",
+     "spoken": "L, grating to screen distance",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.6–7"
+    },
+    {
+     "term": "one-sided displacement",
+     "meaning": "Transverse distance from zero order to the chosen maximum; called h in the library.",
+     "notation": "$y$",
+     "spoken": "y, centre to maximum distance",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.6–7"
+    },
+    {
+     "term": "symmetric separation",
+     "meaning": "Distance between matching order maxima on opposite sides; half gives y for an aligned pattern.",
+     "notation": "$S=2y$",
+     "spoken": "S equals two y",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf p.7"
+    },
+    {
+     "term": "grating spacing",
+     "meaning": "Distance between adjacent grating slits, obtained from reciprocal line density in lines per metre.",
+     "notation": "$d=1/N$",
+     "spoken": "d equals one divided by N",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3–4"
+    },
+    {
+     "term": "order",
+     "meaning": "Known integer number of wavelengths in the adjacent-slit path difference; use a nonzero order to measure wavelength.",
+     "notation": "$n$",
+     "spoken": "n, diffraction order",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3,6"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Determine wavelength from symmetric screen measurements",
+     "wordings": [
+      "Describe and calculate a wavelength measurement using a diffraction grating.",
+      "Determine wavelength from the separation of matching order maxima."
+     ],
+     "example": "Example: at normal incidence a 600-lines-per-millimetre grating gives first-order maxima separated by $S=1.20\\,\\mathrm{m}$ on a parallel screen $L=1.80\\,\\mathrm{m}$ away. Step 1: identify zero order midway between the matching spots and use $n=1$. Step 2: $y=S/2=0.600\\,\\mathrm{m}$. Step 3: $\\theta=\\tan^{-1}(0.600/1.80)=18.4349^\\circ$. Step 4: $d=1/(600000)\\,\\mathrm{m}$. Step 5: $\\lambda=d\\sin\\theta/1=5.27\\times10^{-7}\\,\\mathrm{m}$. Cross-check without an angle: $\\sin\\theta=y/\\sqrt{L^2+y^2}$.",
+     "check": "Describe the necessary alignment and identify the centre and order, then calculate wavelength: normal incidence, 500 lines per millimetre, parallel screen 2.40 m away, symmetric second-order maxima 1.80 m apart. Assume a fluorescent screen or suitable detector records any ultraviolet maxima.",
+     "answer": "Align the monochromatic beam perpendicular to the grating; identify zero order straight through and matching second-order maxima on either side. Use $n=2$, $y=0.900\\,\\mathrm{m}$, $\\theta=\\tan^{-1}(0.900/2.40)=20.556^\\circ$, $d=2.00\\times10^{-6}\\,\\mathrm{m}$; $\\lambda=d\\sin\\theta/2=3.51\\times10^{-7}\\,\\mathrm{m}$.",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf pp.3–4,6–7; Cambridge ER 9702 June 2023 P11 Q29, P12 Q29 and P13 Q29; https://www.cambridgeinternational.org/Images/567861-june-2023-examiner-report.pdf",
+     "rubric": [
+      {
+       "point": "State normal incidence and identify the zero order and known order 2.",
+       "keywords": [
+        [
+         "normal",
+         "perpendicular"
+        ]
+       ]
+      },
+      {
+       "point": "Halve the symmetric separation to obtain y = 0.900 m.",
+       "keywords": [
+        [
+         "0.900",
+         "0.9",
+         "halve"
+        ]
+       ]
+      },
+      {
+       "point": "Use inverse tangent of y/L to obtain about 20.6 degrees, or use the direct triangle relation sin theta = y / sqrt(L squared + y squared); y/L is not itself sin theta.",
+       "keywords": [
+        [
+         "tan",
+         "20.6",
+         "20.556",
+         "sqrt",
+         "hypotenuse"
+        ]
+       ]
+      },
+      {
+       "point": "Convert density and invert to obtain d = 2.00 micrometres.",
+       "keywords": [
+        [
+         "500000",
+         "2.00",
+         "2.0"
+        ]
+       ]
+      },
+      {
+       "point": "Use grating equation with order 2 and report approximately 351 nm, with unit.",
+       "keywords": [
+        [
+         "351",
+         "3.51"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Describe alignment and identify centre and order, then calculate wavelength for a grating of 400 lines per millimetre: a parallel screen is 1.60 m away and the matching first-order spots are 0.800 m apart under normal incidence.",
+      "answer": "Use a perpendicular monochromatic beam and identify the straight-through zero order and first-order pair. Then $n=1$, $y=0.400\\,\\mathrm{m}$, $\\theta=\\tan^{-1}(0.400/1.60)=14.036^\\circ$, $d=2.50\\times10^{-6}\\,\\mathrm{m}$; $\\lambda=6.06\\times10^{-7}\\,\\mathrm{m}$.",
+      "rubric": [
+       {
+        "point": "Describe normal incidence, zero order and the matching first-order spots.",
+        "keywords": [
+         [
+          "perpendicular",
+          "normal"
+         ]
+        ]
+       },
+       {
+        "point": "Use half the separation, 0.400 m.",
+        "keywords": [
+         [
+          "0.400",
+          "0.4",
+          "halve"
+         ]
+        ]
+       },
+       {
+        "point": "Use inverse tangent of y/L to obtain about 14.0 degrees, or use the direct triangle relation sin theta = y / sqrt(L squared + y squared); y/L is not itself sin theta.",
+        "keywords": [
+         [
+          "tan",
+          "14.0",
+          "14.036",
+          "sqrt",
+          "hypotenuse"
+         ]
+        ]
+       },
+       {
+        "point": "Convert and invert line density, giving 2.50 micrometres.",
+        "keywords": [
+         [
+          "400000",
+          "2.50",
+          "2.5"
+         ]
+        ]
+       },
+       {
+        "point": "Use order 1 to give approximately 606 nm, with unit.",
+        "keywords": [
+         [
+          "606",
+          "6.06"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Explain measurement improvements and screen-distance trade-offs",
+     "wordings": [
+      "Explain how repeated measurements reduce uncertainty.",
+      "Suggest an improvement and explain a limitation of increasing screen distance."
+     ],
+     "example": "Example: spots are close together. Step 1: measure across matching left and right order maxima, then halve the separation; this uses a larger measured length. Step 2: repeat several independent measurements, calculate wavelengths for correctly identified orders and average consistent results; this reduces random scatter, not a systematic line-density error. Step 3: increasing screen distance increases the measured displacement at the same angle, lowering percentage displacement uncertainty for the same absolute ruler uncertainty. Check that spots remain within the screen and clear enough to locate; spreading the light can make them fainter.",
+     "check": "A student repeats a wavelength measurement and obtains 510 nm, 512 nm and 514 nm. Calculate the mean wavelength and the percentage spread, defined here as 100 × (largest value − smallest value) / mean value.",
+     "answer": "The mean is (510 + 512 + 514)/3 = 512 nm. The percentage spread is 100 × (514 − 510)/512 = 0.78125%, or approximately 0.78%.",
+     "source": "Library: SaveMyExams/9702 a-level-physics-cie-25/9702 c8.4.pdf p.7; bundle ER 9702 w21 P13 Q30 and w20 P12 Q30",
+     "rubric": [
+      {
+       "point": "Calculate the mean wavelength as 512 nm.",
+       "keywords": [
+        [
+         "512"
+        ]
+       ]
+      },
+      {
+       "point": "Calculate the defined percentage spread as approximately 0.78%.",
+       "keywords": [
+        [
+         "0.78",
+         "0.781",
+         "0.8"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A student measures a 30 mm separation between matching maxima with an uncertainty of 2 mm. Calculate the one-sided displacement and its percentage uncertainty, and suggest one way to make dim spots easier to locate.",
+      "answer": "The one-sided displacement is 15 mm with uncertainty 1 mm, or approximately 6.7%. Darken the room to improve contrast, use a more sensitive detector, or increase the source intensity.",
+      "rubric": [
+       {
+        "point": "Halve separation to obtain 15 mm and uncertainty to obtain 1 mm.",
+        "keywords": [
+         [
+          "15",
+          "half",
+          "halve"
+         ]
+        ]
+       },
+       {
+        "point": "Calculate approximately 6.7% uncertainty.",
+        "keywords": [
+         [
+          "6.7",
+          "6.67"
+         ]
+        ]
+       },
+       {
+        "point": "Suggest a suitable way to make the spots easier to locate, such as darkening the room, using a more sensitive detector, or increasing source intensity.",
+        "keywords": [
+         [
+          "dark",
+          "contrast",
+          "sensitive",
+          "detector",
+          "intensity",
+          "brighter"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "A larger line density means a larger grating spacing.",
+     "temptation": "A larger printed line-density number can look like a larger length.",
+     "fix": "d is the reciprocal of the number of lines per metre."
+    },
+    {
+     "id": "m6",
+     "idea": "The ratio of one-sided screen displacement to screen distance is the sine of the diffraction angle.",
+     "temptation": "Sine occurs in the grating equation, so it is tempting to reuse it for the triangle.",
+     "fix": "These are opposite and adjacent sides: their ratio is tangent. Take inverse tangent first, then use sine in the grating equation."
+    },
+    {
+     "id": "m7",
+     "idea": "The full distance between symmetric order maxima is the displacement from zero order to one maximum.",
+     "temptation": "The full pair separation is the directly measured length.",
+     "fix": "For an aligned symmetric pattern, zero order lies halfway between matching maxima. Halve their full separation before calculating the one-sided angle."
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9702/Diagrams/9702/9702-8.4-wavelength.svg"
+   ],
+   "diagram_descriptions": {
+    "Library/Courses/9702/Diagrams/9702/9702-8.4-wavelength.svg": "A snapshot of electric field against distance along propagation: a sinusoidal wave with a double-headed arrow labelled $\\lambda$ spanning two neighbouring crests. That crest-to-crest distance is the wavelength measured using the grating equation. The sketch has no numerical scale and does not depict the grating apparatus or screen."
+   },
+   "source_gaps": [
+    "The reviewed wave asset explains wavelength but does not show apparatus geometry or slit path differences.",
+    "Library pp.6–7 supply the screen method and uncertainty advice; these teaching rubrics are paraphrased criteria, not an official mark scheme for the newly written examples.",
+    "The 351 nm check intentionally concerns ultraviolet light; assume a suitable fluorescent screen or detector, rather than unaided visible-light viewing."
+   ]
   }
+ },
+ "guided_forms": {
+  "9702-8.4.1": [
+   "Convert line density to spacing",
+   "Calculate the angle of an identified order",
+   "Find the angle between orders on the same side",
+   "Interpret symmetric-order angular separation",
+   "Determine highest order and total maxima"
+  ],
+  "9702-8.4.2": [
+   "Determine wavelength from symmetric screen measurements",
+   "Explain measurement improvements and screen-distance trade-offs"
+  ]
  }
 }

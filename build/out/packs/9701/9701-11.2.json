@@ -36,6 +36,14 @@
    "refutation": "The H–I bond is weakest, so HI decomposes most readily on heating.",
    "contrast": "HF has the strongest H–X bond and greatest thermal stability.",
    "source": "ER 9701 w20 P21 Q4"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-11.2.3",
+   "statement": "Intermolecular forces determine the thermal stability of hydrogen halides.",
+   "refutation": "Thermal decomposition depends on breaking intramolecular covalent H–X bonds; these weaken down the group.",
+   "contrast": "Use intermolecular forces for boiling; use H–X covalent bond strengths for decomposition.",
+   "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.4–5; Cambridge 9701 s25 P13 Q19, bundle official key C."
   }
  ],
  "worked": [
@@ -1108,7 +1116,154 @@
    "connect": "The oxidising trend predicts both displacement and the general decrease in vigour of halogen reactions with hydrogen.",
    "note": "- Oxidising power: $\\ce{F2 > Cl2 > Br2 > I2}$.\n- A stronger halogen displaces a weaker halide.\n- A purple hexane layer shows iodine is present.",
    "self_explain": "Why does bromine displace iodide but fail to displace chloride?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Start with electron transfer: the halogen molecule accepts electrons and the halide ion loses them. Compare the two halogens before predicting a displacement. Separately ask whether iodine was already in the tube; purple hexane tells you iodine is present, not how it got there.",
+   "terms": [
+    {
+     "term": "oxidising agent",
+     "meaning": "A species that oxidises another species by accepting electrons; it is itself reduced.",
+     "notation": "$\\ce{X2 + 2e- -> 2X-}$",
+     "spoken": "X two accepts two electrons to form two halide ions.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–3"
+    },
+    {
+     "term": "halide ion",
+     "meaning": "An ion of a halogen with a single negative charge.",
+     "notation": "$\\ce{Cl-}$, $\\ce{Br-}$, $\\ce{I-}$",
+     "spoken": "Chloride, bromide and iodide ions.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–3"
+    },
+    {
+     "term": "electronegativity",
+     "meaning": "The ability of an atom to attract the bonding pair of electrons in a covalent bond; this is not the definition of electron affinity.",
+     "notation": "Bonding-pair attraction",
+     "spoken": "Electronegativity describes attraction for shared electrons.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf p.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Predict displacement and identify electron transfer",
+     "wordings": [
+      "Predict whether a halogen oxidises a specified halide ion.",
+      "Write a balanced ionic equation and identify oxidation and reduction.",
+      "Explain whether a purple hexane layer proves displacement."
+     ],
+     "example": "Predict what happens when bromine water is added to aqueous sodium iodide. Identify both electron changes.\n1. Compare: bromine is a stronger oxidising agent than iodine, so bromine can oxidise iodide.\n2. Track electrons: $\\ce{2I-(aq) -> I2(aq) + 2e-}$ and $\\ce{Br2(aq) + 2e- -> 2Br-(aq)}$.\n3. Add the half-equations: $\\ce{Br2(aq) + 2I-(aq) -> 2Br-(aq) + I2(aq)}$. Both sides have charge minus two and two atoms of each element. Sodium ions are spectators.\n4. Interpret: iodide loses electrons and is oxidised; bromine gains electrons and is reduced. If shaken with hexane, iodine gives a purple organic layer.",
+     "check": "X, Y and Z are chlorine, bromine and iodine in an unknown order. X2 oxidises Y- ions, and Z2 oxidises X- ions. Deduce the identities of X, Y and Z and their decreasing oxidising-power order. Write the balanced ionic equation for Z2 reacting with Y- and name the species oxidised and reduced. Consider two fresh tubes: tube A initially contains Z2 and excess Y-; tube B initially contains Y2 and Z- only. After mixing and shaking separately with hexane, predict the hexane colour in each tube and state whether its iodine was newly formed or present initially. No electron-transfer explanation is required for the colour answers.",
+     "answer": "X is bromine, Y is iodine and Z is chlorine. Oxidising power: Z2 > X2 > Y2 (Cl2 > Br2 > I2). Cl2 + 2I- -> 2Cl- + I2; iodide ions are oxidised and chlorine is reduced. Both hexane layers are purple/violet. Tube A contains newly formed iodine; tube B contains iodine that was present initially, since iodine cannot oxidise chloride.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–3; Cambridge 9701 w21 P13 Q16, examiner report p.5: https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/9701_w21_er.pdf; Cambridge 9701 s22 P13 Q22, examiner report p.6: https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/9701_s22_er.pdf; adapted teaching example and independent check, not copied questions. Replacement independent check: original inference task supported by SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–5 (reviewed by adjudicator). Adjudicator replacement: original application task; chemistry checked against SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–5 (displacement p.3; hydrogen reactions and thermal stability p.4).",
+     "rubric": [
+      {
+       "point": "Deduce X = bromine, Y = iodine, Z = chlorine from the two displacement results; accept equivalent names, formulae and assignment notation.",
+       "keywords": [
+        [
+         "X is bromine",
+         "X = bromine",
+         "X = Br2"
+        ],
+        [
+         "Y is iodine",
+         "Y = iodine",
+         "Y = I2"
+        ],
+        [
+         "Z is chlorine",
+         "Z = chlorine",
+         "Z = Cl2"
+        ]
+       ]
+      },
+      {
+       "point": "Give decreasing oxidising power Z2 > X2 > Y2, equivalently Cl2 > Br2 > I2; accept a correctly worded comparison.",
+       "keywords": [
+        [
+         "Z2 > X2 > Y2",
+         "Cl2 > Br2 > I2",
+         "chlorine > bromine > iodine",
+         "chlorine is stronger than bromine and bromine is stronger than iodine"
+        ]
+       ]
+      },
+      {
+       "point": "Credit only the complete balanced ionic equation Cl2 + 2I- -> 2Cl- + I2, equivalently Z2 + 2Y- -> 2Z- + Y2; accept optional states, equivalent arrow/minus/subscript notation and reordered terms on the same side. Require reactants, products, direction, coefficients and charge; isolated species or the reverse reaction do not earn credit.",
+       "keywords": [
+        [
+         "Cl2 + 2I- -> 2Cl- + I2",
+         "Cl2 + 2I− → 2Cl− + I2",
+         "Z2 + 2Y- -> 2Z- + Y2"
+        ]
+       ]
+      },
+      {
+       "point": "Identify iodide as oxidised and chlorine as reduced; electron-loss/gain wording is optional.",
+       "keywords": [
+        [
+         "iodide is oxidised",
+         "iodide ions are oxidised",
+         "iodide is oxidized",
+         "Y- is oxidised",
+         "I- is oxidised"
+        ],
+        [
+         "chlorine is reduced",
+         "Cl2 is reduced",
+         "Z2 is reduced"
+        ]
+       ]
+      },
+      {
+       "point": "Both tubes have purple/violet hexane layers; accept separate statements assigning purple or violet to A and to B, including the blind solution, without requiring both/each/A and B.",
+       "keywords": [
+        [
+         "both",
+         "each",
+         "A and B",
+         "Tube A: the hexane layer is purple; Tube B: the hexane layer is purple",
+         "Tube A: the hexane layer is violet; Tube B: the hexane layer is violet"
+        ],
+        [
+         "purple",
+         "violet"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguish newly formed iodine in A from initially present iodine in B. Do not require an additional iodide-oxidation explanation. Read each statement in its tube context: newly formed must refer to A and initially present must refer to B; swapped origins do not earn credit.",
+       "keywords": [
+        [
+         "A contains newly formed iodine",
+         "iodine is formed in A",
+         "iodine formed in A",
+         "A: newly formed iodine",
+         "A has newly formed iodine",
+         "the iodine is newly formed"
+        ],
+        [
+         "B contains iodine that was present initially",
+         "iodine was present initially in B",
+         "B: iodine present initially",
+         "B contains initially present iodine",
+         "the iodine was present initially"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Purple hexane proves that iodide was oxidised during the experiment.",
+     "temptation": "A memorable iodine colour is mistaken for evidence of a new reaction.",
+     "fix": "Inventory iodine before mixing as well as after mixing, then apply the oxidising-power order independently.",
+     "id": "m2"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No visual was requested by the approved plan; balanced half-equations and a tube-by-tube iodine inventory make this form explicit without adding an unverified graphic.",
+   "source_gaps": [
+    "The textbook pages do not explain the case where iodine is present before mixing; Cambridge w21 P13 Q16 and s22 P13 Q22 examiner reports supply the solvent-layer evidence."
+   ]
   },
   "9701-11.2.2": {
    "motivate": "Hydrogen can form a hydrogen halide with every halogen, yet the conditions and reaction vigour differ greatly.",
@@ -1116,7 +1271,149 @@
    "connect": "The hydrogen halides formed here have H–X covalent bonds. Their varying strengths determine their thermal stabilities.",
    "note": "- $\\ce{H2 + X2 -> 2HX}$.\n- Reaction vigour generally falls from fluorine to iodine.\n- Chlorine responds strongly to light; bromine and iodine need heating.",
    "self_explain": "Why is iodine's reaction with hydrogen less vigorous than chlorine's?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "All four halogens form hydrogen halides with hydrogen. Compare conditions as well as vigour: light is important for chlorine, heating is needed for bromine and iodine, and heated iodine gives a reversible reaction rather than complete conversion. Recall the previous card’s decreasing tendency to accept electrons down the group.",
+   "terms": [
+    {
+     "term": "hydrogen halide",
+     "meaning": "A compound of hydrogen and a halogen; distinguish the molecular compound from its aqueous acid solution.",
+     "notation": "$\\ce{HX}$",
+     "spoken": "H X, a hydrogen halide.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.3–4"
+    },
+    {
+     "term": "reversible reaction",
+     "meaning": "A reaction that can proceed in both directions; in a closed system the hydrogen–iodine reaction can reach equilibrium.",
+     "notation": "$\\ce{H2(g) + I2(g) <=> 2HI(g)}$",
+     "spoken": "Hydrogen and iodine react reversibly to form hydrogen iodide.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf p.4"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Compare halogen reactions with hydrogen",
+     "wordings": [
+      "Describe the conditions and relative vigour of two halogen reactions with hydrogen.",
+      "Compare hydrogen halide formation, including reversibility for iodine."
+     ],
+     "example": "Compare hydrogen reacting with chlorine and with iodine.\n1. Identify the common pattern: each forms a hydrogen halide, with two product molecules per hydrogen molecule.\n2. Chlorine: $\\ce{H2(g) + Cl2(g) -> 2HCl(g)}$; sunlight can cause an explosive reaction.\n3. Iodine: heat the mixture; $\\ce{H2(g) + I2(g) <=> 2HI(g)}$. Reaction is slow and reversible, giving an equilibrium mixture in a closed system rather than complete conversion.\n4. Link the comparison: iodine is below chlorine in the group and is the weaker oxidising agent. This is consistent with the lower reaction vigour; do not treat the required conditions as identical.",
+     "check": "Two particle models each start with five H2 molecules and three X2 molecules, with no hydrogen halide initially. In model A, X is bromine and the limiting reactant is assumed to react completely. In model B, X is iodine and a closed heated mixture reaches equilibrium containing four HI molecules. For each model, give the final numbers of hydrogen halide, H2 and X2 molecules, showing your particle accounting. A student claims that model B stopped changing because all of one reactant was used up. Use your counts to assess this claim and explain what the unchanged equilibrium composition means for the forward and reverse reactions.",
+     "answer": "A: six HBr molecules, two H2 molecules and zero Br2 molecules; three H2 and three Br2 make six HBr. B: four HI molecules, three H2 molecules and one I2 molecule; making four HI uses two H2 and two I2. The claim is false because both reactants remain in B. At equilibrium the forward and reverse reactions continue at equal rates, so composition has no net change.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.3–4; official syllabus statements 9701-11.2.1 and 9701-11.2.2 in the chapter bundle. Comparison is syllabus-backed; no matching official comparison mark scheme was reviewed. Replacement independent check: original inference task supported by SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–5 (reviewed by adjudicator). Adjudicator replacement: original application task; chemistry checked against SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–5 (displacement p.3; hydrogen reactions and thermal stability p.4). Adjudicator replacement: original particle-accounting application; SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf p.4 confirms bromine reacts on heating and heated iodine forms an equilibrium mixture; chapter bundle ER 9701 s22 P22 Q3(a)(i) confirms equal forward and reverse rates at equilibrium.",
+     "rubric": [
+      {
+       "point": "A has 6 HBr, 2 H2 and 0 Br2, supported by consuming three molecules of each reactant; require the complete consistent inventory, accepting words or numerals and equivalent formula and subscript notation.",
+       "keywords": [
+        [
+         "6 HBr",
+         "six HBr",
+         "six hydrogen bromide",
+         "6 hydrogen bromide"
+        ],
+        [
+         "2 H2",
+         "two H2",
+         "two hydrogen molecules",
+         "2 hydrogen molecules"
+        ],
+        [
+         "0 Br2",
+         "zero Br2",
+         "no Br2",
+         "zero bromine molecules",
+         "no bromine molecules"
+        ],
+        [
+         "three H2 and three Br2",
+         "3 H2 and 3 Br2",
+         "three molecules of each reactant",
+         "3 molecules of each reactant",
+         "three hydrogen and three bromine"
+        ]
+       ]
+      },
+      {
+       "point": "B has 4 HI, 3 H2 and 1 I2, supported by consuming two molecules of each reactant; require the complete consistent inventory, accepting words or numerals and equivalent formula and subscript notation.",
+       "keywords": [
+        [
+         "4 HI",
+         "four HI",
+         "four hydrogen iodide",
+         "4 hydrogen iodide"
+        ],
+        [
+         "3 H2",
+         "three H2",
+         "three hydrogen molecules",
+         "3 hydrogen molecules"
+        ],
+        [
+         "1 I2",
+         "one I2",
+         "one iodine molecule",
+         "1 iodine molecule"
+        ],
+        [
+         "two H2 and two I2",
+         "2 H2 and 2 I2",
+         "two molecules of each reactant",
+         "2 molecules of each reactant",
+         "two hydrogen and two iodine"
+        ]
+       ]
+      },
+      {
+       "point": "Reject reactant exhaustion in B specifically because both H2 and I2 remain; do not credit merely saying the reaction is reversible.",
+       "keywords": [
+        [
+         "false",
+         "incorrect",
+         "wrong",
+         "not used up",
+         "not exhausted"
+        ],
+        [
+         "both reactants remain",
+         "both H2 and I2 remain",
+         "hydrogen and iodine remain",
+         "H2 and I2 are left",
+         "both reactants are left"
+        ]
+       ]
+      },
+      {
+       "point": "Explain unchanged equilibrium composition by continuing forward and reverse reactions at equal rates, not stopped reactions or equal concentrations.",
+       "keywords": [
+        [
+         "forward and reverse reactions continue",
+         "forward and reverse reactions still occur",
+         "both reactions continue",
+         "both reactions are still occurring"
+        ],
+        [
+         "equal rates",
+         "same rate",
+         "rates are equal",
+         "rates are the same"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Hydrogen reacts equally vigorously with every halogen, using the same initiation conditions and always going to completion.",
+     "temptation": "The common equation suggests identical behaviour.",
+     "fix": "Attach a condition to each halogen and use a reversible arrow for heated hydrogen and iodine; a closed equilibrium mixture retains reactants.",
+     "id": "m3"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The plan requests a staged comparison rather than an apparatus figure; separate conditions and reaction arrows carry the relevant distinctions without an additional graphic.",
+   "source_gaps": [
+    "The reviewed official bundle supplies the syllabus requirement but no dedicated hydrogen-reaction comparison question or mark scheme; this form and its rubric are teaching constructions supported by textbook p.4, not an exhaustive official form audit."
+   ]
   },
   "9701-11.2.3": {
    "motivate": "Why does heating hydrogen iodide produce iodine more readily than heating hydrogen bromide? Compare the bonds that must break.",
@@ -1124,7 +1421,146 @@
    "connect": "The iodine produced on heating HI reflects the low thermal stability of HI; it does not reverse the oxidising-power order of halogens.",
    "note": "- Thermal stability is resistance to decomposition on heating.\n- Stability: $\\ce{HF > HCl > HBr > HI}$.\n- H–X bonds become longer and weaker down the group.",
    "self_explain": "Which bond is stronger, H–Br or H–I, and what does that predict on heating?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Heating can break the covalent bond joining hydrogen to the halogen. A larger halogen atom makes a longer, weaker H–X bond. Less energy is then needed to break it, so the compound decomposes more readily. Start from the bond inside the molecule, rather than forces between molecules.",
+   "terms": [
+    {
+     "term": "thermal stability",
+     "meaning": "Resistance to chemical decomposition on heating.",
+     "notation": "Resistance to decomposition",
+     "spoken": "Greater thermal stability means harder to decompose by heating.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf p.4"
+    },
+    {
+     "term": "bond energy",
+     "meaning": "The energy needed to break one mole of a specified covalent bond in gaseous molecules.",
+     "notation": "$\\mathrm{kJ\\,mol^{-1}}$",
+     "spoken": "Kilojoules per mole; more energy means a stronger bond.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.4–5; prerequisite bond-energy definition"
+    },
+    {
+     "term": "H–X covalent bond",
+     "meaning": "The bond within a hydrogen halide molecule, where X denotes the halogen.",
+     "notation": "$\\ce{H-X}$",
+     "spoken": "The hydrogen to halogen bond.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.4–5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain a thermal-stability comparison using H–X bonds",
+     "wordings": [
+      "Compare the thermal stabilities of two hydrogen halides.",
+      "Explain the trend using atomic size, bond length and covalent bond strength."
+     ],
+     "example": "Explain why HCl is more thermally stable than HI.\n1. Compare atoms: iodine is larger than chlorine.\n2. Compare bonds: H–I is longer and weaker than H–Cl.\n3. Connect energy: less energy is needed to break the H–I covalent bond, so HI decomposes more readily on heating.\n4. Conclude: HCl is more thermally stable. This explains chemical decomposition; a boiling-point comparison would instead involve intermolecular forces.",
+     "check": "U and V are hypothetical halogens that follow the Group 17 hydrogen-halide trends; U has the larger atomic radius. A student records the following covalent bond energies: H–U, 430 kJ mol^-1; H–V, 300 kJ mol^-1. The two energy labels have been interchanged. Correct the assignments, predict which hydrogen halide is more thermally stable, and explain using relative bond length, strength and energy needed for bond breaking. State whether the relevant bonds are within or between molecules.",
+     "answer": "H–U should be 300 kJ mol^-1 and H–V should be 430 kJ mol^-1. Since U is larger, H–U is longer and weaker than H–V. More energy is needed to break H–V, so HV resists decomposition more strongly and is more thermally stable than HU. These are covalent bonds within molecules, not intermolecular forces.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.4–5; Cambridge 9701 s25 P13 Q19, official key C and statement about covalent bond strength in the chapter bundle; comparison pair and wording are original. Replacement independent check: original inference task supported by SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–5 (reviewed by adjudicator). Adjudicator replacement: original application task; chemistry checked against SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.2.pdf pp.2–5 (displacement p.3; hydrogen reactions and thermal stability p.4).",
+     "rubric": [
+      {
+       "point": "Correct the swapped labels: H–U = 300 and H–V = 430 kJ mol^-1; accept equivalent notation.",
+       "keywords": [
+        [
+         "H–U = 300",
+         "H-U = 300",
+         "H–U should be 300",
+         "H-U should be 300",
+         "HU: 300",
+         "H–U: 300",
+         "H-U: 300"
+        ],
+        [
+         "H–V = 430",
+         "H-V = 430",
+         "H–V should be 430",
+         "H-V should be 430",
+         "HV: 430",
+         "H–V: 430",
+         "H-V: 430"
+        ]
+       ]
+      },
+      {
+       "point": "Connect larger U to a longer H–U bond, equivalently a shorter H–V bond.",
+       "keywords": [
+        [
+         "H–U is longer",
+         "H-U is longer",
+         "H–V is shorter",
+         "H-V is shorter"
+        ]
+       ]
+      },
+      {
+       "point": "Compare strengths explicitly: H–U is weaker than H–V, equivalently H–V is stronger than H–U.",
+       "keywords": [
+        [
+         "H–U is weaker than H–V",
+         "H-U is weaker than H-V",
+         "H–V is stronger than H–U",
+         "H-V is stronger than H-U",
+         "H–U is longer and weaker than H–V",
+         "H-U is longer and weaker than H-V"
+        ]
+       ]
+      },
+      {
+       "point": "State more energy is needed to break H–V and link this to greater thermal stability of HV. Accept a contextual comparison: the energy sentence need not repeat the other bond once the correct relative strengths have been stated.",
+       "keywords": [
+        [
+         "more energy is needed to break H–V",
+         "more energy is needed to break H-V",
+         "more energy is required to break H–V",
+         "more energy is required to break H-V",
+         "less energy is needed to break H–U",
+         "less energy is needed to break H-U"
+        ],
+        [
+         "HV is more thermally stable",
+         "HV is more stable",
+         "HV resists decomposition",
+         "HV decomposes less readily"
+        ]
+       ]
+      },
+      {
+       "point": "Identify the relevant covalent bonds as within molecules. Since the stem asks within/between, do not require the extra word covalent for credit.",
+       "keywords": [
+        [
+         "within molecules",
+         "within the molecules",
+         "intramolecular"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Stronger intermolecular forces make a hydrogen halide more thermally stable.",
+     "temptation": "Heating also causes boiling, which does involve intermolecular forces.",
+     "fix": "Decide whether the question concerns decomposition or a change of state. For decomposition compare the covalent H–X bonds within molecules.",
+     "id": "m5"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No figure is requested by the plan; the staged atom-size → bond-length → bond-strength → decomposition comparison states every causal link without relying on an unreviewed schematic.",
+   "source_gaps": [
+    "The reviewed official item supports the covalent-bond comparison, but it is an MCQ rather than a full written mark scheme; the explanatory rubric is an original teaching rubric."
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-11.2.1": [
+   "Predict displacement and identify electron transfer"
+  ],
+  "9701-11.2.2": [
+   "Compare halogen reactions with hydrogen"
+  ],
+  "9701-11.2.3": [
+   "Explain a thermal-stability comparison using H–X bonds"
+  ]
  }
 }

@@ -249,3 +249,181 @@ def test_registration_rejects_normalized_alias_collision_without_catalog_change(
     with pytest.raises(ValueError, match='ambiguous'):
         write_asset(vault, 'Library/Shared/new.svg', b'new', aliases=['assets/EXAMPLE/old-CURVE.svg'])
     assert (vault / 'Library/catalog.json').read_bytes() == before
+
+
+def count_index_builds(monkeypatch):
+    """Observe real validation work without replacing its behavior."""
+    import tutorlib.asset_library as assets
+    calls = []
+    original = assets._index
+    def build(catalog):
+        calls.append(catalog)
+        return original(catalog)
+    monkeypatch.setattr(assets, '_index', build)
+    return calls
+
+
+def test_catalog_index_reuses_identical_bytes_with_independent_metadata(library, monkeypatch):
+    vault, _, catalog = library
+    catalog['case'] = 'index-metadata-isolation'
+    save_catalog(vault, catalog)
+    calls = count_index_builds(monkeypatch)
+    first, second = AssetLibrary(vault), AssetLibrary(vault)
+    assert len(calls) == 1
+    assert first._catalog is not second._catalog
+    first._catalog['assets']['example-curve']['provenance']['source'] = 'instance-local'
+    metadata = second.record('asset:example-curve')
+    metadata['aliases'].append('Assets/fake.svg')
+    metadata['provenance']['source'] = 'client-local'
+    all_records = second.records()
+    all_records['example-curve']['provenance']['source'] = 'other-client'
+    third = AssetLibrary(vault)
+    assert third.record('asset:example-curve')['provenance'] == {'source': 'test'}
+    assert second.record('asset:example-curve')['provenance'] == {'source': 'test'}
+    assert third.read('Assets/example/old-curve.svg') == b'<svg>original</svg>'
+    with pytest.raises(ValueError, match='unknown'):
+        third.read('Assets/fake.svg')
+    assert len(calls) == 1
+
+
+def test_catalog_index_keys_exact_raw_bytes_not_equivalent_json(library, monkeypatch):
+    vault, _, catalog = library
+    catalog['case'] = 'exact-raw-catalog-key'
+    save_catalog(vault, catalog)
+    path = vault / 'Library/catalog.json'
+    raw = path.read_bytes()
+    calls = count_index_builds(monkeypatch)
+    AssetLibrary(vault); AssetLibrary(vault)
+    assert len(calls) == 1
+    path.write_bytes(b'\n' + raw)
+    assert AssetLibrary(vault).read('asset:example-curve') == b'<svg>original</svg>'
+    assert len(calls) == 2
+    path.write_bytes(raw)
+    assert AssetLibrary(vault).read('asset:example-curve') == b'<svg>original</svg>'
+    assert len(calls) == 2
+
+
+def test_catalog_index_refreshes_aliases_despite_same_size_and_mtime(library):
+    import os
+    vault, _, catalog = library
+    catalog['case'] = 'same-stat-alias-drift'
+    save_catalog(vault, catalog)
+    path = vault / 'Library/catalog.json'
+    before = path.stat()
+    previous = AssetLibrary(vault)
+    catalog['assets']['example-curve']['aliases'] = ['Assets/example/new-curve.svg']
+    save_catalog(vault, catalog)
+    assert path.stat().st_size == before.st_size
+    os.utime(path, ns=(before.st_atime_ns, before.st_mtime_ns))
+    current = AssetLibrary(vault)
+    assert current.read('Assets/example/new-curve.svg') == b'<svg>original</svg>'
+    with pytest.raises(ValueError, match='unknown'):
+        current.read('Assets/example/old-curve.svg')
+    assert previous.read('Assets/example/old-curve.svg') == b'<svg>original</svg>'
+
+
+@pytest.mark.parametrize('damage', ['json', 'schema', 'alias-collision', 'alias-type'])
+def test_catalog_index_never_trusts_a_warmed_path_with_changed_invalid_bytes(library, damage):
+    import copy
+    vault, _, catalog = library
+    catalog['case'] = 'changed-invalid-' + damage
+    save_catalog(vault, catalog)
+    AssetLibrary(vault); AssetLibrary(vault)
+    if damage == 'json':
+        (vault / 'Library/catalog.json').write_bytes(b'{malformed')
+    else:
+        changed = copy.deepcopy(catalog)
+        if damage == 'schema':
+            changed['format_version'] = True
+        elif damage == 'alias-collision':
+            changed['assets']['other'] = {'path': 'Library/Shared/other.svg',
+                'sha256': catalog['assets']['example-curve']['sha256'],
+                'aliases': ['ASSETS/EXAMPLE/old-CURVE.svg']}
+        else:
+            changed['assets']['example-curve']['aliases'] = 'Assets/invalid.svg'
+        save_catalog(vault, changed)
+    with pytest.raises(ValueError):
+        AssetLibrary(vault)
+
+
+def test_catalog_index_can_cross_roots_but_never_share_trusted_payloads_or_mutable_maps(library, tmp_path, monkeypatch):
+    vault, target, catalog = library
+    catalog['case'] = 'cross-root-index-only'
+    save_catalog(vault, catalog)
+    other = tmp_path / 'other-vault'
+    relative = target.relative_to(vault)
+    other_target = other / relative
+    other_target.parent.mkdir(parents=True)
+    other_target.write_bytes(target.read_bytes())
+    (other / 'Library/catalog.json').write_bytes((vault / 'Library/catalog.json').read_bytes())
+    calls = count_index_builds(monkeypatch)
+    first, second = AssetLibrary(vault), AssetLibrary(other)
+    assert first.read('asset:example-curve') == second.read('asset:example-curve') == b'<svg>original</svg>'
+    assert len(calls) == 1
+    # A reader's private dictionaries must not poison another reader or the cache.
+    for index in (first._assets, first._references):
+        try:
+            index.clear()
+        except (AttributeError, TypeError):
+            pass  # immutable shared indexes are also safe
+    assert second.read('asset:example-curve') == b'<svg>original</svg>'
+    assert AssetLibrary(vault).read('asset:example-curve') == b'<svg>original</svg>'
+    other_target.write_bytes(b'changed payload; catalog untouched')
+    with pytest.raises(ValueError, match='digest mismatch'):
+        second.read('asset:example-curve')
+    with pytest.raises(ValueError, match='digest mismatch'):
+        AssetLibrary(other).resolve('asset:example-curve')
+    assert AssetLibrary(vault).read('asset:example-curve') == b'<svg>original</svg>'
+    assert len(calls) == 1
+
+
+def test_catalog_index_reuse_is_bounded_and_evicted_bytes_are_revalidated(library, monkeypatch):
+    vault, _, catalog = library
+    calls = count_index_builds(monkeypatch)
+    for version in range(5):
+        catalog['case'] = ['bounded-index-working-set', version]
+        save_catalog(vault, catalog)
+        assert AssetLibrary(vault).read('asset:example-curve') == b'<svg>original</svg>'
+    for version in range(1, 5):
+        catalog['case'] = ['bounded-index-working-set', version]
+        save_catalog(vault, catalog)
+        AssetLibrary(vault)
+    assert len(calls) == 5
+    catalog['case'] = ['bounded-index-working-set', 0]
+    save_catalog(vault, catalog)
+    assert AssetLibrary(vault).read('asset:example-curve') == b'<svg>original</svg>'
+    assert len(calls) == 6
+
+
+def test_identical_catalog_readers_decode_full_metadata_once_until_requested(library, monkeypatch):
+    """Repeated image/proof readers must not decode the full catalog per record."""
+    from tutorlib import asset_library as assets
+    vault, _, catalog = library
+    catalog['case'] = 'lazy-full-metadata-and-immutable-record-cache'
+    save_catalog(vault, catalog)
+    raw = (vault / 'Library/catalog.json').read_bytes()
+    full_decodes = []
+    original = assets.json.loads
+
+    def counted(data, *args, **kwargs):
+        if data == raw:
+            full_decodes.append(True)
+        return original(data, *args, **kwargs)
+
+    monkeypatch.setattr(assets.json, 'loads', counted)
+    first, second = AssetLibrary(vault), AssetLibrary(vault)
+    one = first.record('asset:example-curve')
+    one['provenance']['source'] = 'returned-client-copy'
+    assert second.record('Assets/example/old-curve.svg')['provenance'] == {'source': 'test'}
+    assert first.read('asset:example-curve') == b'<svg>original</svg>'
+    assert len(full_decodes) == 1
+
+    # Explicit private-catalog access keeps its historical instance-local view.
+    second._catalog['assets']['example-curve']['provenance']['source'] = 'instance-local'
+    assert len(full_decodes) == 2
+    assert second.record('asset:example-curve')['provenance'] == {'source': 'instance-local'}
+    assert first.record('asset:example-curve')['provenance'] == {'source': 'test'}
+    all_records = second.records()
+    all_records['example-curve']['provenance']['source'] = 'returned-records-copy'
+    assert second.record('asset:example-curve')['provenance'] == {'source': 'instance-local'}
+    assert len(full_decodes) == 2

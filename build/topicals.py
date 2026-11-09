@@ -102,8 +102,15 @@ def _activate_current(base: Path, version: str, expected: str | None) -> None:
 
 
 def publish(batch: Path, vault: Path, *, expected_current=_UNSET,
-            allow_unbound_legacy: bool = False) -> dict:
-    """Validate, store an immutable Library release, then switch the state pointer."""
+            allow_unbound_legacy: bool = False, expected_bank_sha256: str | None = None,
+            expected_report_sha256=_UNSET) -> dict:
+    """Validate captured input bytes, store a release, then compare-and-swap CURRENT.
+
+    Optional digests bind the exact bytes consumed below. A report digest of None
+    binds its absence; omitting the pin retains the legacy unbound interface.
+    Pinned banks store their checked item values unchanged; alias adaptation is
+    still independently validated for runtime use.
+    """
     scripts = ROOT / 'src'
     if str(scripts) not in sys.path:
         sys.path.insert(0, str(scripts))
@@ -114,7 +121,11 @@ def publish(batch: Path, vault: Path, *, expected_current=_UNSET,
     pointer = vault / '.tutor/topicals/CURRENT'
     previous = pointer.read_text().strip() if pointer.exists() else None
     report_path = batch / 'report.json'
-    report = _read(report_path) if report_path.exists() else {}
+    report_raw = report_path.read_bytes() if report_path.exists() else None
+    report_sha256 = hashlib.sha256(report_raw).hexdigest() if report_raw is not None else None
+    if expected_report_sha256 is not _UNSET and report_sha256 != expected_report_sha256:
+        raise ValueError('topical checked report bytes changed before import')
+    report = json.loads(report_raw.decode('utf-8')) if report_raw is not None else {}
     if expected_current is _UNSET:
         preparation = report.get('preparation') if isinstance(report, dict) else None
         if isinstance(preparation, dict) and 'expected_current' in preparation:
@@ -127,7 +138,10 @@ def publish(batch: Path, vault: Path, *, expected_current=_UNSET,
             raise ValueError('batch has no preparation CURRENT binding; pass the explicit legacy override to publish it')
     if previous != expected_current:
         raise ValueError('topical bank changed during preparation; rebuild against the current bank')
-    data = _read(batch / 'bank.json')
+    bank_raw = (batch / 'bank.json').read_bytes()
+    if expected_bank_sha256 is not None and hashlib.sha256(bank_raw).hexdigest() != expected_bank_sha256:
+        raise ValueError('topical checked bank bytes changed before import')
+    data = json.loads(bank_raw.decode('utf-8'))
     if (not isinstance(data, dict) or data.get('format_version') != 1
             or not isinstance(data.get('items'), list) or any(not isinstance(item, dict) for item in data['items'])):
         raise ValueError('invalid topical bank or item structure')
@@ -137,12 +151,17 @@ def publish(batch: Path, vault: Path, *, expected_current=_UNSET,
     damaged = [(ident, issues) for ident, issues in damaged if issues]
     if damaged:
         raise ValueError(f'damaged source text requires independent repair: {damaged[:3]}')
-    data['items'] = _runtime_items(data['items'], vault)
+    dangling = [problem for item in data['items'] for problem in content_checks.dangling_image_problems(item)]
+    if dangling:
+        raise ValueError(f'question text points at an image the item does not show: {dangling[:3]}')
+    checked_items = data['items']
+    data['items'] = _runtime_items(checked_items, vault)
     try:
         packs = Packs(Vault(vault))
     except (OSError, ValueError, KeyError) as exc:
         raise ValueError(f'publish requires an existing valid tutor vault: {exc}') from exc
-    validate_bank(data, packs=packs, asset_root=vault)
+    published = {**data, 'items': checked_items} if expected_bank_sha256 is not None else data
+    validate_bank(published, packs=packs, asset_root=vault)
     if data.get('format_version') != 1 or not isinstance(data.get('items'), list):
         raise ValueError('invalid topical bank')
     assets = {}
@@ -162,10 +181,10 @@ def publish(batch: Path, vault: Path, *, expected_current=_UNSET,
     require_runtime_library(vault)
     # The bank and optional report are immutable Library resources. CURRENT is
     # state and switches only after every release resource is durable/catalogued.
-    write_asset(vault, release + '/bank.json', json.dumps(data, ensure_ascii=False, indent=1).encode('utf-8'),
+    write_asset(vault, release + '/bank.json', json.dumps(published, ensure_ascii=False, indent=1).encode('utf-8'),
                 metadata={'kind': 'Topicals/Releases', 'version': version})
-    if report_path.exists():
-        write_asset(vault, release + '/report.json', report_path.read_bytes(),
+    if report_raw is not None:
+        write_asset(vault, release + '/report.json', report_raw,
                     metadata={'kind': 'Topicals/Releases', 'version': version})
     _activate_current(base, version, previous)
     return {'version': version, 'items': len(data['items']), 'assets': len(assets), 'release': release}

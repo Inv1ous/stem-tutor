@@ -2366,12 +2366,12 @@
     "ref": "CAIE 9701 · Nov 2021 · P11 · Q23",
     "qid": "9701_w21_11_q23"
    },
-   "stem": "When 2-bromo-2-methylpropane reacts with aqueous sodium hydroxide, an alcohol is formed.\nWhich diagram describes the first step in the reaction mechanism?\nCH₃\nCH₃\nBr\nH₃C\nC",
+   "stem": "When 2-bromo-2-methylpropane reacts with aqueous sodium hydroxide, an alcohol is formed.\nWhich diagram describes the first step in the reaction mechanism?",
    "options": {
-    "A": "\u0001⁺ \u0001⁻ CH₃ CH₃ Br H₃C C",
-    "B": "\u0001⁺ \u0001⁻ C CH₃ CH₃ HO – Br H₃C C",
-    "C": "\u0001⁺ \u0001⁻ CH₃ CH₃ Br H₃C",
-    "D": "\u0001⁺ \u0001⁻ •• HO ⁻••"
+    "A": "Diagram A",
+    "B": "Diagram B",
+    "C": "Diagram C",
+    "D": "Diagram D"
    },
    "answer": "B",
    "image": "Assets/mcq/9701_w21_11_q23.png",
@@ -3370,7 +3370,289 @@
    "connect": "The starting bond pattern predicts whether you substitute H, add across C=C, or replace OH.",
    "note": "- Alkane + $\\ce{Cl2}$ or $\\ce{Br2}$: UV radical substitution.\n- Alkene + $\\ce{X2}$ or $\\ce{HX(g)}$: room-temperature electrophilic addition.\n- Alcohol: substitute OH with HX, KCl/strong acid, $\\ce{PCl3}$ and heat, $\\ce{PCl5}$, or $\\ce{SOCl2}$.",
    "self_explain": "Which preparation route starts with a C=C bond, and what happens to that bond?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "First recognise the starting functional group: a saturated alkane, a C=C alkene or an alcohol OH group. Choose a route that changes that group into C–X and state its conditions.",
+   "terms": [
+    {
+     "term": "free-radical substitution",
+     "meaning": "Replacement of an alkane H by halogen through a radical chain initiated by ultraviolet light.",
+     "notation": "$\\ce{Cl2}$ / UV",
+     "spoken": "chlorine with ultraviolet light",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.3; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "electrophilic addition",
+     "meaning": "Addition across the electron-rich C=C bond, producing a saturated product.",
+     "notation": "$\\ce{C=C}$",
+     "spoken": "carbon carbon double bond",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.3; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "alcohol substitution",
+     "meaning": "Replacement of an alcohol OH group by halogen.",
+     "notation": "$\\ce{R-OH -> R-X}$",
+     "spoken": "R O H becomes R X",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.4; bundle syllabus 9701-15.1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Alkene addition of a halogen needs ultraviolet light.",
+     "temptation": "UV is familiar from alkane chlorination, so it is tempting to apply it to every halogen reaction.",
+     "fix": "Alkenes add halogens electrophilically at room temperature; UV light initiates alkane radical substitution."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing reviewed, registered chapter teaching diagram is available in the candidate pack. Use the staged structural formulae and arrow-origin descriptions; the plan excludes creating or cropping new figures.",
+   "source_gaps": [
+    "The library notes and reviewed bundle excerpts support the listed form families, but this is not an exhaustive audit of official written papers or an independent teaching approval.",
+    "The library p.4 caption mentions hydrogen in an addition-to-alkene sentence; use the bundle wording halogen or hydrogen halide. No existing source text is corrected in this lessons pass."
+   ],
+   "forms": [
+    {
+     "name": "Prepare from an alkane",
+     "wordings": [
+      "State reagents and conditions and identify the reaction type."
+     ],
+     "example": "1. Ethane has only single C–C bonds. 2. Use $\\ce{Br2}$ and UV light to replace H by Br. 3. $\\ce{C2H6 + Br2 -> C2H5Br + HBr}$ is free-radical substitution; further substitution and mixtures are possible.",
+     "check": "State how propane can give 1-chloropropane as one product. Give reagent, condition, reaction type and a balanced equation; is this necessarily the only organic product?",
+     "answer": "$\\ce{Cl2}$, UV light, free-radical substitution; $\\ce{CH3CH2CH3 + Cl2 -> CH3CH2CH2Cl + HCl}$. Other substitution positions and further substitution can give a mixture.",
+     "rubric": [
+      {
+       "point": "Chlorine with UV light.",
+       "keywords": [
+        [
+         "chlorine",
+         "Cl2"
+        ]
+       ]
+      },
+      {
+       "point": "Free-radical substitution.",
+       "keywords": [
+        [
+         "radical"
+        ]
+       ]
+      },
+      {
+       "point": "Balanced equation to 1-chloropropane and HCl.",
+       "keywords": [
+        [
+         "CH3CH2CH2Cl",
+         "1-chloropropane"
+        ]
+       ]
+      },
+      {
+       "point": "Other organic products are possible.",
+       "keywords": [
+        [
+         "mixture",
+         "other"
+        ]
+       ]
+      },
+      {
+       "point": "Ultraviolet light initiates the reaction.",
+       "keywords": [
+        [
+         "UV",
+         "ultraviolet"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "State reagent, condition and reaction type to produce a monobromobutane from butane; explain why a single pure organic product should not be assumed.",
+      "answer": "$\\ce{Br2}$ with UV light; free-radical substitution. Different H positions and further substitution permit a mixture.",
+      "rubric": [
+       {
+        "point": "Bromine and UV light.",
+        "keywords": [
+         [
+          "bromine",
+          "Br2"
+         ]
+        ]
+       },
+       {
+        "point": "Free-radical substitution.",
+        "keywords": [
+         [
+          "radical"
+         ]
+        ]
+       },
+       {
+        "point": "Different substitution positions or further substitution give mixtures.",
+        "keywords": [
+         [
+          "mixture",
+          "different",
+          "further"
+         ]
+        ]
+       },
+       {
+        "point": "Ultraviolet light is required.",
+        "keywords": [
+         [
+          "UV",
+          "ultraviolet"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.3; bundle syllabus 9701-15.1"
+    },
+    {
+     "name": "Prepare from an alkene",
+     "wordings": [
+      "Deduce addition products and state reagents and conditions."
+     ],
+     "example": "1. In ethene locate C=C. 2. Add $\\ce{Br2}$ at room temperature. 3. One Br bonds to each carbon: $\\ce{CH2=CH2 + Br2 -> CH2BrCH2Br}$, electrophilic addition.",
+     "check": "Draw the product from but-2-ene with $\\ce{Cl2}$ at room temperature and name the reaction type. Then give the major product with $\\ce{HBr(g)}$ instead.",
+     "answer": "$\\ce{CH3CHClCHClCH3}$, 2,3-dichlorobutane, by electrophilic addition. HBr gives $\\ce{CH3CHBrCH2CH3}$, 2-bromobutane (equivalent reversed formula accepted).",
+     "rubric": [
+      {
+       "point": "Both central carbons acquire Cl, giving 2,3-dichlorobutane.",
+       "keywords": [
+        [
+         "2,3-dichlorobutane",
+         "CH3CHClCHClCH3"
+        ]
+       ]
+      },
+      {
+       "point": "Electrophilic addition.",
+       "keywords": [
+        [
+         "electrophilic"
+        ]
+       ]
+      },
+      {
+       "point": "HBr gives 2-bromobutane.",
+       "keywords": [
+        [
+         "2-bromobutane",
+         "CH3CHBrCH2CH3"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Give the structural products from pent-2-ene separately with $\\ce{Br2}$ and with $\\ce{HCl(g)}$ at room temperature. For HCl, list both positional products without predicting a major one.",
+      "answer": "$\\ce{Br2}$ gives $\\ce{CH3CHBrCHBrCH2CH3}$, 2,3-dibromopentane. HCl can give 2-chloropentane and 3-chloropentane.",
+      "rubric": [
+       {
+        "point": "2,3-Dibromopentane.",
+        "keywords": [
+         [
+          "2,3-dibromopentane",
+          "CH3CHBrCHBrCH2CH3"
+         ]
+        ]
+       },
+       {
+        "point": "Both 2- and 3-chloropentane, or equivalent structures.",
+        "keywords": [
+         [
+          "chloropentane",
+          "CH3CHClCH2CH2CH3"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.3; bundle syllabus 9701-15.1"
+    },
+    {
+     "name": "Prepare from an alcohol",
+     "wordings": [
+      "State a suitable reagent and conditions and deduce the substitution product."
+     ],
+     "example": "1. In ethanol identify OH. 2. Add $\\ce{PCl5}$ at room temperature. 3. OH is replaced by Cl to give $\\ce{CH3CH2Cl}$; $\\ce{POCl3}$ and HCl are other products.",
+     "check": "For pentan-2-ol and $\\ce{PCl3}$, state a suitable condition, reaction type and structural formula of the organic product.",
+     "answer": "Room temperature or heat; substitution; $\\ce{CH3CHClCH2CH2CH3}$ (2-chloropentane).",
+     "rubric": [
+      {
+       "point": "Room temperature or heating.",
+       "keywords": [
+        [
+         "room",
+         "ambient",
+         "heat",
+         "warm"
+        ]
+       ]
+      },
+      {
+       "point": "Substitution.",
+       "keywords": [
+        [
+         "substitution"
+        ]
+       ]
+      },
+      {
+       "point": "Cl replaces OH on carbon 2, with carbon skeleton retained.",
+       "keywords": [
+        [
+         "CH3CHClCH2CH2CH3",
+         "2-chloropentane"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "For hexan-3-ol and $\\ce{PCl5}$, state a suitable temperature, reaction type and structural formula of the organic product.",
+      "answer": "Room temperature; substitution; $\\ce{CH3CH2CHClCH2CH2CH3}$, 3-chlorohexane.",
+      "rubric": [
+       {
+        "point": "Room temperature.",
+        "keywords": [
+         [
+          "room",
+          "ambient"
+         ]
+        ]
+       },
+       {
+        "point": "Substitution.",
+        "keywords": [
+         [
+          "substitution"
+         ]
+        ]
+       },
+       {
+        "point": "3-Chlorohexane or equivalent structural formula.",
+        "keywords": [
+         [
+          "3-chlorohexane",
+          "CH3CH2CHClCH2CH2CH3"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.4; bundle syllabus 9701-15.1"
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant chemical steps, reagent and conditions when asked."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the stated chemical cause to the predicted outcome."
+    }
+   ]
   },
   "9701-15.1.2": {
    "motivate": "The label primary, secondary or tertiary predicts how accessible the carbon bonded to halogen is.",
@@ -3378,7 +3660,128 @@
    "connect": "This carbon-neighbour count helps predict which nucleophilic substitution mechanism is favoured.",
    "note": "- Primary: C–X carbon bonded to one carbon.\n- Secondary: C–X carbon bonded to two carbons.\n- Tertiary: C–X carbon bonded to three carbons.",
    "self_explain": "Why is $\\ce{CH3CHBrCH3}$ secondary although Br is on carbon 2?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Locate the carbon bonded to halogen, then count only the carbon atoms directly attached to it. Branches elsewhere and the numbering of the main chain do not decide its class.",
+   "terms": [
+    {
+     "term": "primary / secondary / tertiary",
+     "meaning": "The carbon bearing halogen has respectively one, two or three directly bonded carbon neighbours.",
+     "notation": "$\\ce{RCH2X}$ / $\\ce{R2CHX}$ / $\\ce{R3CX}$",
+     "spoken": "primary, secondary, tertiary",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.6; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "methyl halide",
+     "meaning": "A halide whose halogen-bearing carbon has zero carbon neighbours; treat it separately from primary compounds.",
+     "notation": "$\\ce{CH3X}$",
+     "spoken": "C H three X",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.6; methyl distinction from neighbour-count definition; bundle syllabus 9701-15.1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "Primary means the halogen is on carbon 1 of the longest chain.",
+     "temptation": "The locant appears in the name and can be mistaken for the class.",
+     "fix": "Classification counts carbon atoms attached to the carbon bearing halogen, regardless of its locant."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing reviewed, registered chapter teaching diagram is available in the candidate pack. Use the staged structural formulae and arrow-origin descriptions; the plan excludes creating or cropping new figures.",
+   "source_gaps": [
+    "The library notes and reviewed bundle excerpts support the listed form families, but this is not an exhaustive audit of official written papers or an independent teaching approval."
+   ],
+   "forms": [
+    {
+     "name": "Classify by direct carbon neighbours",
+     "wordings": [
+      "Classify each structure and justify by counting direct carbon neighbours."
+     ],
+     "example": "1. For $\\ce{(CH3)2CHCH2Br}$, isolate $\\ce{CH2Br}$. 2. Its carbon touches only one other carbon, the neighbouring CH. 3. It is primary despite branching. $\\ce{CH3Br}$ has zero carbon neighbours and is a methyl halide, considered separately.",
+     "check": "Classify $\\ce{CH3CH2C(Cl)(CH3)CH2CH3}$ and $\\ce{CH3CH2CH(I)CH2CH3}$. State the carbon-neighbour count for each; does the halogen locant determine the class?",
+     "answer": "The first is tertiary: three direct carbon neighbours (two ethyl carbons and one methyl carbon). The second is secondary: two. The locant does not decide classification.",
+     "rubric": [
+      {
+       "point": "First is tertiary, with three direct carbon neighbours.",
+       "keywords": [
+        [
+         "tertiary",
+         "three",
+         "3"
+        ]
+       ]
+      },
+      {
+       "point": "Second is secondary, with two direct carbon neighbours.",
+       "keywords": [
+        [
+         "secondary",
+         "two",
+         "2"
+        ]
+       ]
+      },
+      {
+       "point": "Class depends on direct neighbours, not locant.",
+       "keywords": [
+        [
+         "neighbour",
+         "neighbor",
+         "locant",
+         "position"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Classify $\\ce{(CH3)3CCH2I}$ and $\\ce{CH3CH2CH(Br)CH2CH2CH3}$ by direct carbon-neighbour counts at C–X. Explain why the highly branched first molecule is not tertiary.",
+      "answer": "First primary (one direct carbon neighbour at $\\ce{CH2I}$); second secondary (two). The first molecule has a quaternary carbon next door, but that is not the carbon bonded to iodine.",
+      "rubric": [
+       {
+        "point": "First primary, one neighbour at the iodine-bearing carbon.",
+        "keywords": [
+         [
+          "primary",
+          "one",
+          "1"
+         ]
+        ]
+       },
+       {
+        "point": "Second secondary, two direct neighbours.",
+        "keywords": [
+         [
+          "secondary",
+          "two",
+          "2"
+         ]
+        ]
+       },
+       {
+        "point": "Branching on the next carbon does not classify the iodine-bearing carbon.",
+        "keywords": [
+         [
+          "next",
+          "adjacent",
+          "CH2I"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.6; bundle syllabus 9701-15.1"
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant chemical steps, reagent and conditions when asked."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the stated chemical cause to the predicted outcome."
+    }
+   ]
   },
   "9701-15.1.3": {
    "motivate": "Replacing X gives several useful functional groups, and the solvent selects the chemistry.",
@@ -3386,7 +3789,511 @@
    "connect": "Compare this with hot ethanolic hydroxide, where removal of H and X forms an alkene.",
    "note": "- $\\ce{NaOH(aq)}$ and heat: alcohol.\n- Ethanolic $\\ce{KCN}$ and heat: nitrile.\n- Ethanolic $\\ce{NH3}$, heat and pressure: amine.\n- Aqueous $\\ce{AgNO3}$ in ethanol: white/cream/yellow silver halide.",
    "self_explain": "Why does ethanolic cyanide extend the carbon chain by one atom?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A nucleophile brings an electron pair to the carbon bearing halogen. Replacing the halogen can give an alcohol, nitrile or amine; the reagent and solvent select the useful transformation.",
+   "terms": [
+    {
+     "term": "nucleophile",
+     "meaning": "A species that donates an electron pair to form a covalent bond.",
+     "notation": "$\\ce{OH^-}$, $\\ce{CN^-}$, $\\ce{NH3}$",
+     "spoken": "hydroxide ion, cyanide ion, ammonia",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.8-10; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "nitrile",
+     "meaning": "An organic compound containing a carbon bonded to nitrogen by a triple bond; its functional-group carbon counts in the chain.",
+     "notation": "$\\ce{R-C#N}$",
+     "spoken": "R bonded to carbon triple bonded to nitrogen",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.9; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "excess ammonia",
+     "meaning": "More ammonia than required stoichiometrically; it competes with the amine product for the halogenoalkane, limiting further substitution.",
+     "notation": "$\\ce{NH3}$",
+     "spoken": "excess ammonia",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.9; bundle syllabus 9701-15.1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "Ethanolic cyanide forms an amine.",
+     "temptation": "Both reagents contain nitrogen, which can distract from which atom bonds to the chain.",
+     "fix": "Cyanide substitutes X through its carbon end to form a nitrile; ethanolic ammonia gives an amine."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing reviewed, registered chapter teaching diagram is available in the candidate pack. Use the staged structural formulae and arrow-origin descriptions; the plan excludes creating or cropping new figures.",
+   "source_gaps": [
+    "The library notes and reviewed bundle excerpts support the listed form families, but this is not an exhaustive audit of official written papers or an independent teaching approval."
+   ],
+   "forms": [
+    {
+     "name": "Substitute with aqueous hydroxide",
+     "wordings": [
+      "State conditions, identify the nucleophile and deduce the alcohol structure."
+     ],
+     "example": "1. Start with $\\ce{CH3CH2CH2Br}$. 2. Heat with aqueous NaOH, commonly under reflux. 3. $\\ce{OH^-}$ replaces Br to give $\\ce{CH3CH2CH2OH}$ and $\\ce{Br^-}$; the carbon skeleton is retained.",
+     "check": "Give reagent, solvent and condition to convert 2-bromopentane to an alcohol. Give its structural formula, reaction type and nucleophile with charge.",
+     "answer": "Heat with aqueous NaOH (reflux accepted); $\\ce{CH3CH(OH)CH2CH2CH3}$, pentan-2-ol; nucleophilic substitution by $\\ce{OH^-}$.",
+     "rubric": [
+      {
+       "point": "Aqueous NaOH and heat, including reflux.",
+       "keywords": [
+        [
+         "aqueous",
+         "NaOH(aq)"
+        ]
+       ]
+      },
+      {
+       "point": "OH replaces Br on carbon 2: pentan-2-ol.",
+       "keywords": [
+        [
+         "pentan-2-ol",
+         "CH3CH(OH)CH2CH2CH3"
+        ]
+       ]
+      },
+      {
+       "point": "Nucleophilic substitution with hydroxide ion carrying a negative charge.",
+       "keywords": [
+        [
+         "OH^-",
+         "hydroxide ion"
+        ]
+       ]
+      },
+      {
+       "point": "Heat, including under reflux, is required.",
+       "keywords": [
+        [
+         "heat",
+         "reflux",
+         "warm"
+        ]
+       ]
+      },
+      {
+       "point": "The reaction is nucleophilic substitution.",
+       "keywords": [
+        [
+         "substitution"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Give reagent, solvent and condition to convert 3-chlorohexane to an alcohol. Draw the product and identify the reacting nucleophile with its charge.",
+      "answer": "Heat with aqueous NaOH; $\\ce{CH3CH2CH(OH)CH2CH2CH3}$ (hexan-3-ol); $\\ce{OH^-}$.",
+      "rubric": [
+       {
+        "point": "Aqueous NaOH with heat.",
+        "keywords": [
+         [
+          "aqueous",
+          "NaOH(aq)"
+         ]
+        ]
+       },
+       {
+        "point": "Hexan-3-ol with unchanged carbon skeleton.",
+        "keywords": [
+         [
+          "hexan-3-ol",
+          "CH3CH2CH(OH)CH2CH2CH3"
+         ]
+        ]
+       },
+       {
+        "point": "Hydroxide ion with negative charge.",
+        "keywords": [
+         [
+          "OH^-",
+          "hydroxide ion"
+         ]
+        ]
+       },
+       {
+        "point": "Heat, including under reflux, is required.",
+        "keywords": [
+         [
+          "heat",
+          "reflux",
+          "warm"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.8-10; bundle syllabus 9701-15.1"
+    },
+    {
+     "name": "Extend the chain with cyanide",
+     "wordings": [
+      "Deduce a nitrile and explain which atom forms the new bond."
+     ],
+     "example": "1. Start with $\\ce{CH3CH2CH2I}$. 2. Heat with KCN in ethanol under reflux. 3. Carbon of $\\ce{CN^-}$ replaces I, giving $\\ce{CH3CH2CH2CN}$, butanenitrile. Count three original carbons plus the nitrile carbon.",
+     "check": "Describe the conversion of 1-bromopentane to a nitrile: reagent, solvent, heating condition, charged nucleophile, attacking atom, structural product and total carbon count.",
+     "answer": "KCN in ethanol, heat/reflux; $\\ce{CN^-}$ bonds through carbon. $\\ce{CH3(CH2)4CN}$ is hexanenitrile, with six carbons.",
+     "rubric": [
+      {
+       "point": "KCN in ethanol and heat or reflux.",
+       "keywords": [
+        [
+         "KCN",
+         "potassium cyanide"
+        ]
+       ]
+      },
+      {
+       "point": "Cyanide ion with negative charge bonds through carbon.",
+       "keywords": [
+        [
+         "CN^-",
+         "cyanide ion"
+        ]
+       ]
+      },
+      {
+       "point": "Hexanenitrile, structural formula CH3(CH2)4CN.",
+       "keywords": [
+        [
+         "hexanenitrile",
+         "CH3(CH2)4CN"
+        ]
+       ]
+      },
+      {
+       "point": "Six carbons, including the carbon from cyanide.",
+       "keywords": [
+        [
+         "six",
+         "6"
+        ]
+       ]
+      },
+      {
+       "point": "Ethanol is the solvent.",
+       "keywords": [
+        [
+         "ethanol",
+         "ethanolic"
+        ]
+       ]
+      },
+      {
+       "point": "Heat, including under reflux.",
+       "keywords": [
+        [
+         "heat",
+         "reflux"
+        ]
+       ]
+      },
+      {
+       "point": "The attacking end is carbon, not nitrogen.",
+       "keywords": [
+        [
+         "carbon",
+         "C"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Describe the nitrile formation from 1-chlorohexane: reagent, solvent and heating; nucleophile and attacking atom; structural product and total carbon count.",
+      "answer": "KCN in ethanol with heat/reflux; carbon end of $\\ce{CN^-}$; $\\ce{CH3(CH2)5CN}$, heptanenitrile, seven carbons.",
+      "rubric": [
+       {
+        "point": "KCN in ethanol with heat/reflux.",
+        "keywords": [
+         [
+          "KCN",
+          "potassium cyanide"
+         ]
+        ]
+       },
+       {
+        "point": "Negative cyanide ion attacks through carbon.",
+        "keywords": [
+         [
+          "CN^-",
+          "cyanide ion"
+         ]
+        ]
+       },
+       {
+        "point": "Heptanenitrile with CH3(CH2)5CN structure.",
+        "keywords": [
+         [
+          "heptanenitrile",
+          "CH3(CH2)5CN"
+         ]
+        ]
+       },
+       {
+        "point": "Seven carbons including nitrile carbon.",
+        "keywords": [
+         [
+          "seven",
+          "7"
+         ]
+        ]
+       },
+       {
+        "point": "Ethanol is the solvent.",
+        "keywords": [
+         [
+          "ethanol",
+          "ethanolic"
+         ]
+        ]
+       },
+       {
+        "point": "Heat, including under reflux.",
+        "keywords": [
+         [
+          "heat",
+          "reflux"
+         ]
+        ]
+       },
+       {
+        "point": "The attacking end is carbon, not nitrogen.",
+        "keywords": [
+         [
+          "carbon",
+          "C"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.9; ER 9701 s19 P23 Q5 in bundle; bundle syllabus 9701-15.1"
+    },
+    {
+     "name": "Substitute with excess ammonia",
+     "wordings": [
+      "State conditions and explain the use of excess ammonia."
+     ],
+     "example": "1. Use 1-bromobutane. 2. Heat with excess ethanolic ammonia under pressure. 3. Replace Br by $\\ce{NH2}$ to obtain $\\ce{CH3CH2CH2CH2NH2}$, butan-1-amine. Ammonia donates its nitrogen lone pair; excess ammonia competes with the product amine and limits further alkylation.",
+     "check": "State conditions to make pentan-1-amine from 1-iodopentane. Draw the organic product, identify the neutral nucleophile and explain why it is used in excess.",
+     "answer": "Excess $\\ce{NH3}$ in ethanol, heated under pressure; $\\ce{CH3(CH2)4NH2}$. Neutral ammonia is the nucleophile. Excess ammonia limits further substitution because product amine can also act as a nucleophile.",
+     "rubric": [
+      {
+       "point": "Excess ammonia in ethanol, heated under pressure.",
+       "keywords": [
+        [
+         "ammonia",
+         "NH3"
+        ]
+       ]
+      },
+      {
+       "point": "Pentan-1-amine, CH3(CH2)4NH2.",
+       "keywords": [
+        [
+         "pentan-1-amine",
+         "CH3(CH2)4NH2"
+        ]
+       ]
+      },
+      {
+       "point": "Neutral NH3 is the nucleophile.",
+       "keywords": [
+        [
+         "neutral",
+         "NH3"
+        ]
+       ]
+      },
+      {
+       "point": "Excess ammonia competes with nucleophilic product amine and limits further substitution.",
+       "keywords": [
+        [
+         "further",
+         "competes"
+        ]
+       ]
+      },
+      {
+       "point": "Ethanol is the solvent.",
+       "keywords": [
+        [
+         "ethanol",
+         "ethanolic"
+        ]
+       ]
+      },
+      {
+       "point": "Heat under pressure.",
+       "keywords": [
+        [
+         "pressure",
+         "pressurised",
+         "pressurized"
+        ]
+       ]
+      },
+      {
+       "point": "Use heat as well as pressure.",
+       "keywords": [
+        [
+         "heat",
+         "heated"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "How would you convert 1-bromohexane to hexan-1-amine? State reagent and conditions, structural product, and why excess reagent helps preserve the primary amine.",
+      "answer": "Excess ammonia in ethanol, heat under pressure; $\\ce{CH3(CH2)5NH2}$. Product amine is also nucleophilic, so excess ammonia limits its further alkylation.",
+      "rubric": [
+       {
+        "point": "Excess ethanolic ammonia with heat and pressure.",
+        "keywords": [
+         [
+          "ammonia",
+          "NH3"
+         ]
+        ]
+       },
+       {
+        "point": "Hexan-1-amine: CH3(CH2)5NH2.",
+        "keywords": [
+         [
+          "hexan-1-amine",
+          "CH3(CH2)5NH2"
+         ]
+        ]
+       },
+       {
+        "point": "Excess limits further substitution by the product amine.",
+        "keywords": [
+         [
+          "further",
+          "competes"
+         ]
+        ]
+       },
+       {
+        "point": "Ethanol is the solvent.",
+        "keywords": [
+         [
+          "ethanol",
+          "ethanolic"
+         ]
+        ]
+       },
+       {
+        "point": "Heat under pressure.",
+        "keywords": [
+         [
+          "pressure",
+          "pressurised",
+          "pressurized"
+         ]
+        ]
+       },
+       {
+        "point": "Use heat as well as pressure.",
+        "keywords": [
+         [
+          "heat",
+          "heated"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.9; bundle syllabus 9701-15.1"
+    },
+    {
+     "name": "Identify halogen with silver nitrate",
+     "wordings": [
+      "Describe the test and identify the precipitate from hydrolysis."
+     ],
+     "example": "1. Warm 1-bromobutane with aqueous silver nitrate in ethanol. 2. Water replaces Br, releasing $\\ce{Br^-}$. 3. $\\ce{Ag+ + Br^- -> AgBr(s)}$ gives a cream precipitate; the solid is not the organic alcohol.",
+     "check": "An unknown pure monohalogenoalkane has formula $\\ce{C3H7X}$. Warming it with aqueous silver nitrate in ethanol gives a yellow precipitate. On hydrolysis it forms propan-2-ol. Deduce the structure of the original compound and write the ionic equation for formation of the precipitate.",
+     "answer": "The yellow solid is $\\ce{AgI}$, so X is iodine. The OH position in propan-2-ol places I on carbon 2: $\\ce{CH3CHICH3}$, 2-iodopropane. $\\ce{Ag+ + I^- -> AgI(s)}$.",
+     "rubric": [
+      {
+       "point": "Yellow precipitate identifies iodide as the halide.",
+       "keywords": [
+        [
+         "iodide",
+         "iodine",
+         "AgI"
+        ]
+       ]
+      },
+      {
+       "point": "Original compound is 2-iodopropane, or equivalent structural formula.",
+       "keywords": [
+        [
+         "2-iodopropane",
+         "CH3CHICH3"
+        ]
+       ]
+      },
+      {
+       "point": "Correct balanced ionic equation for silver iodide formation, with charges and solid.",
+       "keywords": [
+        [
+         "AgI",
+         "silver iodide"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A pure monohalogenoalkane $\\ce{C4H9X}$ gives a white precipitate on warming with aqueous silver nitrate in ethanol. Its hydrolysis produces 2-methylpropan-1-ol. Deduce the structure of the starting halogenoalkane and give the ionic equation for the precipitate.",
+      "answer": "White $\\ce{AgCl}$ identifies chlorine; replacing the OH in 2-methylpropan-1-ol by Cl gives $\\ce{(CH3)2CHCH2Cl}$, 1-chloro-2-methylpropane. $\\ce{Ag+ + Cl^- -> AgCl(s)}$.",
+      "rubric": [
+       {
+        "point": "White precipitate identifies chloride as the halide.",
+        "keywords": [
+         [
+          "chloride",
+          "chlorine",
+          "AgCl"
+         ]
+        ]
+       },
+       {
+        "point": "Starting structure is 1-chloro-2-methylpropane or an equivalent formula.",
+        "keywords": [
+         [
+          "1-chloro-2-methylpropane",
+          "(CH3)2CHCH2Cl"
+         ]
+        ]
+       },
+       {
+        "point": "Correct balanced ionic equation for silver chloride formation, with charges and solid.",
+        "keywords": [
+         [
+          "AgCl",
+          "silver chloride"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.9-10,15; bundle syllabus 9701-15.1"
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant chemical steps, reagent and conditions when asked."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the stated chemical cause to the predicted outcome."
+    }
+   ]
   },
   "9701-15.1.4": {
    "motivate": "The same hydroxide ion can produce an alkene when solvent and heat favour removal rather than replacement.",
@@ -3394,7 +4301,116 @@
    "connect": "Aqueous hydroxide instead gives an alcohol by nucleophilic substitution.",
    "note": "- Hot ethanolic $\\ce{NaOH}$ favours elimination.\n- Remove X and an adjacent H; form C=C.\n- Bromoethane gives ethene.",
    "self_explain": "Which atom must be present on a carbon next to C–Br for elimination?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Elimination removes halogen and a hydrogen on a neighbouring carbon, allowing a C=C bond to form. Before drawing a product, locate an adjacent carbon that actually carries hydrogen.",
+   "terms": [
+    {
+     "term": "elimination",
+     "meaning": "Loss of H and X from neighbouring carbons creates a double bond.",
+     "notation": "$\\ce{C-C -> C=C}$",
+     "spoken": "single carbon carbon bond becomes double",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.11; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "adjacent carbon",
+     "meaning": "A carbon directly bonded to the carbon carrying the leaving halogen; it must carry H for this elimination.",
+     "notation": "$\\ce{C(H)-C(X)}$",
+     "spoken": "hydrogen on the carbon next to the halogen-bearing carbon",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.11; bundle syllabus 9701-15.1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "Aqueous and ethanolic hydroxide give the same main product.",
+     "temptation": "Both bottles contain hydroxide, so solvent can seem irrelevant.",
+     "fix": "Aqueous hydroxide favours substitution to an alcohol; hot ethanolic hydroxide favours elimination to an alkene."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing reviewed, registered chapter teaching diagram is available in the candidate pack. Use the staged structural formulae and arrow-origin descriptions; the plan excludes creating or cropping new figures.",
+   "source_gaps": [
+    "The library notes and reviewed bundle excerpts support the listed form families, but this is not an exhaustive audit of official written papers or an independent teaching approval."
+   ],
+   "forms": [
+    {
+     "name": "Eliminate an adjacent hydrogen",
+     "wordings": [
+      "Deduce alkene formation or explain why elimination is impossible."
+     ],
+     "example": "1. For 1-bromopropane locate terminal C–Br and the adjacent $\\ce{CH2}$. 2. Heat with ethanolic NaOH. 3. Remove Br and an adjacent H, forming $\\ce{CH2=CHCH3}$, propene; water and bromide also form. Hydroxide acts as a base, unlike its substitution role in water.",
+     "check": "Give the organic product of 1-bromopentane with hot ethanolic NaOH. State which carbons form C=C and contrast the product from hot aqueous NaOH.",
+     "answer": "$\\ce{CH2=CHCH2CH2CH3}$, pent-1-ene: C1 (formerly bearing Br) and C2 form C=C. Aqueous NaOH gives pentan-1-ol by substitution instead.",
+     "rubric": [
+      {
+       "point": "Pent-1-ene or correct structure.",
+       "keywords": [
+        [
+         "pent-1-ene",
+         "CH2=CHCH2CH2CH3"
+        ]
+       ]
+      },
+      {
+       "point": "C1 and C2 form C=C.",
+       "keywords": [
+        [
+         "C1",
+         "carbon 1"
+        ],
+        [
+         "C2",
+         "carbon 2"
+        ]
+       ]
+      },
+      {
+       "point": "Aqueous hydroxide gives pentan-1-ol.",
+       "keywords": [
+        [
+         "pentan-1-ol",
+         "CH3(CH2)4OH"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Can $\\ce{BrCH2C(CH3)2CH2CH3}$ eliminate HBr under hot ethanolic NaOH conditions to form an alkene directly? Identify the adjacent carbon and justify your answer.",
+      "answer": "No. The carbon adjacent to $\\ce{CH2Br}$ is bonded to four carbons and bears no H, so adjacent-H elimination cannot form C=C there.",
+      "rubric": [
+       {
+        "point": "No direct elimination product.",
+        "keywords": [
+         [
+          "no",
+          "cannot"
+         ]
+        ]
+       },
+       {
+        "point": "The adjacent carbon has no hydrogen.",
+        "keywords": [
+         [
+          "hydrogen",
+          "H"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.11; bundle syllabus 9701-15.1"
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant chemical steps, reagent and conditions when asked."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the stated chemical cause to the predicted outcome."
+    }
+   ]
   },
   "9701-15.1.5": {
    "motivate": "Mechanism questions ask when the new bond forms relative to C–X cleavage.",
@@ -3402,7 +4418,299 @@
    "connect": "The same alkyl groups also crowd the carbon and make backside $S_N2$ attack harder.",
    "note": "- $S_N2$: one concerted attack and bond cleavage.\n- $S_N1$: C–X cleavage, carbocation, then attack.\n- Alkyl positive inductive effect stabilises carbocations.",
    "self_explain": "Why must an $S_N2$ mechanism omit a carbocation intermediate?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Curly arrows track electron pairs. In one pathway, attack and departure happen together; in the other, departure creates a positive carbon before attack. Show the charge and every arrow precisely.",
+   "terms": [
+    {
+     "term": "heterolytic fission",
+     "meaning": "Bond breaking in which both bonding electrons go to one atom.",
+     "notation": "$\\ce{C-X -> C+ + X^-}$",
+     "spoken": "both bond electrons go to halogen",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.12-13; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "carbocation",
+     "meaning": "An organic ion with a positively charged carbon atom.",
+     "notation": "$\\ce{R3C+}$",
+     "spoken": "R three C plus",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.13-14; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "nucleophile",
+     "meaning": "An electron-pair donor that forms a covalent bond; hydroxide donates a lone pair on oxygen.",
+     "notation": "$\\ce{:OH^-}$",
+     "spoken": "oxygen lone pair on hydroxide",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.8,12; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "positive inductive effect",
+     "meaning": "Alkyl groups donate electron density through bonds towards a positively charged carbon, stabilising it.",
+     "notation": "$+I$",
+     "spoken": "positive inductive effect",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.14; bundle syllabus 9701-15.1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "An SN2 reaction first forms a carbocation.",
+     "temptation": "A polar carbon can be confused with a fully charged carbocation.",
+     "fix": "SN2 is one concerted step: nucleophile attack and C–X bond breaking occur together."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing reviewed, registered chapter teaching diagram is available in the candidate pack. Use the staged structural formulae and arrow-origin descriptions; the plan excludes creating or cropping new figures.",
+   "source_gaps": [
+    "The library notes and reviewed bundle excerpts support the listed form families, but this is not an exhaustive audit of official written papers or an independent teaching approval.",
+    "No reviewed mechanism drawing is bound here; the arrow descriptions still require independent written and visual teaching review."
+   ],
+   "forms": [
+    {
+     "name": "Construct a primary SN2 mechanism",
+     "wordings": [
+      "Draw the mechanism with dipoles, electron-pair arrows, charges and product."
+     ],
+     "example": "1. For $\\ce{CH3CH2CH2CH2Br}$ mark the bonded carbon $\\delta+$ and Br $\\delta-$. 2. Draw $\\ce{OH^-}$ with an oxygen lone pair opposite Br. 3. In one step draw a full-headed curly arrow from that pair to the C–Br carbon and another from the C–Br bond to Br. 4. Products are neutral $\\ce{CH3CH2CH2CH2OH}$ and $\\ce{Br^-}$. No free carbocation forms.",
+     "check": "Draw or precisely describe the SN2 substitution of $\\ce{CH3CH2CH2CH2CH2CH2I}$ by $\\ce{OH^-}$. Include dipoles, both arrow origins/destinations, timing, product structures/charges and whether a carbocation forms.",
+     "answer": "C bonded to I is $\\delta+$, I is $\\delta-$. The oxygen lone pair of $\\ce{OH^-}$ points to that carbon; the C–I bond arrow points to I simultaneously. Neutral $\\ce{CH3(CH2)5OH}$ and $\\ce{I^-}$ form in one concerted step without a carbocation.",
+     "rubric": [
+      {
+       "point": "Correct C delta plus / I delta minus dipole.",
+       "keywords": [
+        [
+         "dipole",
+         "delta",
+         "\\delta"
+        ]
+       ]
+      },
+      {
+       "point": "Arrow from the oxygen lone pair of OH minus to the carbon bearing I.",
+       "keywords": [
+        [
+         "lone pair"
+        ]
+       ]
+      },
+      {
+       "point": "Arrow from C–I bond to iodine.",
+       "keywords": [
+        [
+         "C–I",
+         "C-I"
+        ]
+       ]
+      },
+      {
+       "point": "Both arrows in one concerted step; no carbocation.",
+       "keywords": [
+        [
+         "concerted",
+         "simultaneous"
+        ]
+       ]
+      },
+      {
+       "point": "Hexan-1-ol neutral and iodide negative, with unchanged skeleton.",
+       "keywords": [
+        [
+         "CH3(CH2)5OH",
+         "hexan-1-ol"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Draw or precisely describe the SN2 reaction of $\\ce{CH3CH2CH(CH3)CH2Cl}$ with $\\ce{OH^-}$: dipoles, arrow origins and destinations, step count, product structures and charges, and intermediate status.",
+      "answer": "C bonded to Cl is $\\delta+$, Cl $\\delta-$. In one step an oxygen lone pair of $\\ce{OH^-}$ attacks that carbon while the C–Cl bond pair moves to Cl. Neutral $\\ce{CH3CH2CH(CH3)CH2OH}$ and $\\ce{Cl^-}$ form, with no carbocation.",
+      "rubric": [
+       {
+        "point": "Correct C delta plus / Cl delta minus dipole.",
+        "keywords": [
+         [
+          "delta",
+          "\\delta",
+          "dipole"
+         ]
+        ]
+       },
+       {
+        "point": "Oxygen lone-pair arrow to C bearing Cl.",
+        "keywords": [
+         [
+          "lone pair"
+         ]
+        ]
+       },
+       {
+        "point": "C–Cl bond arrow to Cl.",
+        "keywords": [
+         [
+          "C–Cl",
+          "C-Cl"
+         ]
+        ]
+       },
+       {
+        "point": "One simultaneous step without carbocation.",
+        "keywords": [
+         [
+          "one",
+          "concerted",
+          "simultaneous"
+         ]
+        ]
+       },
+       {
+        "point": "Correct neutral branched alcohol and negative chloride.",
+        "keywords": [
+         [
+          "CH3CH2CH(CH3)CH2OH",
+          "2-methylbutan-1-ol"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.12-14; bundle syllabus 9701-15.1; https://www.cambridgeinternational.org/Images/567188-june-2024-examiner-report.pdf, PDF p.13, 9701/22 Q4(b)"
+    },
+    {
+     "name": "Construct a tertiary SN1 mechanism",
+     "wordings": [
+      "Draw the two-step mechanism with the charged intermediate."
+     ],
+     "example": "1. Start with $\\ce{(CH3)2C(Br)CH2CH3}$, marking C $\\delta+$ and Br $\\delta-$. 2. Arrow from C–Br bond to Br gives $\\ce{(CH3)2C+CH2CH3}$ and $\\ce{Br^-}$ by heterolytic fission. 3. Arrow from an oxygen lone pair of $\\ce{OH^-}$ to the positive carbon gives neutral $\\ce{(CH3)2C(OH)CH2CH3}$. Alkyl electron donation stabilises the carbocation.",
+     "check": "Draw or precisely describe the SN1 substitution of $\\ce{(CH3)2C(Cl)CH2CH2CH3}$ by $\\ce{OH^-}$. Include dipoles, both stages of arrows, intermediate and product structures/charges, and explain the intermediate stability.",
+     "answer": "Mark C $\\delta+$ and Cl $\\delta-$. First, C–Cl bond pair moves to Cl: $\\ce{(CH3)2C+CH2CH2CH3}$ and $\\ce{Cl^-}$. Then an oxygen lone pair on $\\ce{OH^-}$ attacks the positively charged carbon, giving neutral $\\ce{(CH3)2C(OH)CH2CH2CH3}$. Three alkyl groups donate electron density by positive inductive effects, stabilising the tertiary carbocation.",
+     "rubric": [
+      {
+       "point": "Correct C delta plus / Cl delta minus dipole.",
+       "keywords": [
+        [
+         "delta",
+         "\\delta",
+         "dipole"
+        ]
+       ]
+      },
+      {
+       "point": "First arrow C–Cl bond to Cl, producing negative chloride.",
+       "keywords": [
+        [
+         "C–Cl",
+         "C-Cl"
+        ]
+       ]
+      },
+      {
+       "point": "Correct tertiary carbocation, positive charge at carbon formerly bonded to Cl.",
+       "keywords": [
+        [
+         "(CH3)2C+CH2CH2CH3",
+         "carbocation"
+        ]
+       ]
+      },
+      {
+       "point": "Second arrow oxygen lone pair of OH minus to positive carbon.",
+       "keywords": [
+        [
+         "lone pair"
+        ]
+       ]
+      },
+      {
+       "point": "Neutral 2-methylpentan-2-ol with retained skeleton.",
+       "keywords": [
+        [
+         "(CH3)2C(OH)CH2CH2CH3",
+         "2-methylpentan-2-ol"
+        ]
+       ]
+      },
+      {
+       "point": "Three alkyl groups donate electron density, stabilising carbocation.",
+       "keywords": [
+        [
+         "inductive",
+         "donate"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Draw or precisely describe the SN1 reaction of $\\ce{(CH3CH2)3CBr}$ with $\\ce{OH^-}$, showing dipoles, electron-pair arrows, intermediate and product charges/structures, and why the intermediate is stabilised.",
+      "answer": "C $\\delta+$, Br $\\delta-$. First C–Br bond arrow to Br produces $\\ce{(CH3CH2)3C+}$ and $\\ce{Br^-}$. Then an oxygen lone pair of $\\ce{OH^-}$ attacks the positive carbon to form neutral $\\ce{(CH3CH2)3COH}$. Three ethyl groups donate electron density by positive inductive effects to stabilise the tertiary carbocation.",
+      "rubric": [
+       {
+        "point": "Correct starting C delta plus / Br delta minus dipole.",
+        "keywords": [
+         [
+          "delta",
+          "\\delta",
+          "dipole"
+         ]
+        ]
+       },
+       {
+        "point": "C–Br bond arrow to Br giving Br minus.",
+        "keywords": [
+         [
+          "C–Br",
+          "C-Br"
+         ]
+        ]
+       },
+       {
+        "point": "Central carbon bears positive charge in (CH3CH2)3C plus intermediate.",
+        "keywords": [
+         [
+          "(CH3CH2)3C+",
+          "carbocation"
+         ]
+        ]
+       },
+       {
+        "point": "OH minus oxygen lone pair attacks positive carbon in separate step.",
+        "keywords": [
+         [
+          "lone pair"
+         ]
+        ]
+       },
+       {
+        "point": "Neutral alcohol (CH3CH2)3COH with retained skeleton.",
+        "keywords": [
+         [
+          "(CH3CH2)3COH",
+          "3-ethylpentan-3-ol"
+         ]
+        ]
+       },
+       {
+        "point": "Three alkyl groups donate electron density and stabilise cation.",
+        "keywords": [
+         [
+          "inductive",
+          "donate"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.13-14; bundle syllabus 9701-15.1; https://www.cambridgeinternational.org/Images/567188-june-2024-examiner-report.pdf, PDF p.13, 9701/22 Q4(b)"
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant chemical steps, reagent and conditions when asked."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the stated chemical cause to the predicted outcome."
+    }
+   ]
   },
   "9701-15.1.6": {
    "motivate": "Classification predicts a useful tendency, though secondary compounds can follow more than one path.",
@@ -3410,7 +4718,143 @@
    "connect": "Check for elimination separately when the reagent is hot ethanolic hydroxide.",
    "note": "- Primary tends to $S_N2$.\n- Tertiary tends to $S_N1$.\n- Secondary can use a mixture, depending on structure.",
    "self_explain": "Why do three alkyl groups make $S_N1$ more favourable than $S_N2$?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "For substitution, consider both access to the reaction carbon and the stability of a possible positive-carbon intermediate. These explain the usual primary and tertiary preferences; secondary structures need more care.",
+   "terms": [
+    {
+     "term": "steric hindrance",
+     "meaning": "Crowding by alkyl groups makes backside access to the C–X carbon harder.",
+     "notation": "$S_N2$",
+     "spoken": "steric hindrance to S N two attack",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.12-14; accessibility explanation in existing pack; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "carbocation stability",
+     "meaning": "Alkyl electron donation stabilises a carbocation; tertiary exceeds secondary, then primary.",
+     "notation": "$3^\\circ > 2^\\circ > 1^\\circ$",
+     "spoken": "tertiary more stable than secondary more stable than primary",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.14; bundle syllabus 9701-15.1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "Tertiary halogenoalkanes favour SN2 because their carbocations are stable.",
+     "temptation": "Carbocation stability is remembered without checking which pathway contains one.",
+     "fix": "Their crowded reaction centre hinders backside attack; alkyl groups stabilise a tertiary carbocation, favouring SN1."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing reviewed, registered chapter teaching diagram is available in the candidate pack. Use the staged structural formulae and arrow-origin descriptions; the plan excludes creating or cropping new figures.",
+   "source_gaps": [
+    "The library notes and reviewed bundle excerpts support the listed form families, but this is not an exhaustive audit of official written papers or an independent teaching approval.",
+    "No reviewed mechanism drawing is bound here; the arrow descriptions still require independent written and visual teaching review."
+   ],
+   "forms": [
+    {
+     "name": "Explain mechanism preference from structure",
+     "wordings": [
+      "Predict substitution preference and explain accessibility and intermediate stability."
+     ],
+     "example": "1. For 1-iodobutane, the C–I carbon has one carbon neighbour. 2. It is relatively accessible to backside attack, so it tends to $S_N2$. 3. For 2-iodo-2-methylbutane, three neighbours hinder backside attack and stabilise a possible carbocation by positive inductive effects, favouring $S_N1$. Secondary substrates can follow either pathway depending on structure.",
+     "check": "For nucleophilic substitution, predict and explain the preferences of 1-bromoheptane and 3-bromo-3-methylhexane. State whether class alone fixes a single mechanism for 3-bromoheptane.",
+     "answer": "1-Bromoheptane is primary: accessible C–Br carbon, unstable primary carbocation, hence tends to $S_N2$. 3-Bromo-3-methylhexane is tertiary: crowded carbon hinders backside attack, and three alkyl groups stabilise the carbocation by electron donation, hence tends to $S_N1$. Secondary 3-bromoheptane can use either pathway depending on structure; class alone does not fix one.",
+     "rubric": [
+      {
+       "point": "Primary substrate tends to SN2 with relatively accessible carbon and unstable primary carbocation.",
+       "keywords": [
+        [
+         "SN2",
+         "S_N2"
+        ]
+       ]
+      },
+      {
+       "point": "Tertiary substrate tends to SN1 because backside access is hindered.",
+       "keywords": [
+        [
+         "SN1",
+         "S_N1"
+        ]
+       ]
+      },
+      {
+       "point": "Three alkyl groups donate electron density and stabilise tertiary carbocation.",
+       "keywords": [
+        [
+         "inductive",
+         "donate"
+        ]
+       ]
+      },
+      {
+       "point": "Secondary substrate can use either pathway depending on structure.",
+       "keywords": [
+        [
+         "either",
+         "both",
+         "mixture"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Compare substitution preferences of $\\ce{CH3CH2CH2CH2CH2CH2CH2CH2Cl}$ and $\\ce{CH3CH2C(Cl)(CH3)CH2CH2CH2CH3}$. Explain access and carbocation stability. Is a secondary substrate always SN2?",
+      "answer": "The unbranched terminal chloride is primary, tending to $S_N2$: accessible carbon, unstable primary carbocation. The branched chloride is tertiary, tending to $S_N1$: steric hindrance limits backside attack while three alkyl groups stabilise the carbocation by positive inductive effects. A secondary substrate can use either mechanism depending on structure.",
+      "rubric": [
+       {
+        "point": "First primary and tends to SN2 with accessible reaction carbon.",
+        "keywords": [
+         [
+          "SN2",
+          "S_N2"
+         ]
+        ]
+       },
+       {
+        "point": "Second tertiary and tends to SN1 with hindered backside attack.",
+        "keywords": [
+         [
+          "SN1",
+          "S_N1"
+         ]
+        ]
+       },
+       {
+        "point": "Alkyl electron donation stabilises tertiary carbocation relative to primary.",
+        "keywords": [
+         [
+          "inductive",
+          "donate"
+         ]
+        ]
+       },
+       {
+        "point": "Secondary is not always SN2; either is possible.",
+        "keywords": [
+         [
+          "either",
+          "both",
+          "mixture",
+          "not always"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.12-14; bundle syllabus 9701-15.1"
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant chemical steps, reagent and conditions when asked."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the stated chemical cause to the predicted outcome."
+    }
+   ]
   },
   "9701-15.1.7": {
    "motivate": "A silver nitrate test can reveal both the halogen identity and how readily its C–X bond hydrolyses.",
@@ -3418,7 +4862,182 @@
    "connect": "Mechanism preference also depends on primary, secondary or tertiary structure, so compare bond strengths using similar carbon skeletons.",
    "note": "- Bond strength: C–Cl > C–Br > C–I.\n- Hydrolysis rate: iodo > bromo > chloro for comparable compounds.\n- $\\ce{AgCl}$ white, $\\ce{AgBr}$ cream, $\\ce{AgI}$ yellow.",
    "self_explain": "Why does bromoethane form its silver halide precipitate sooner than chloroethane?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "In a fair comparison, keep the carbon skeleton and conditions the same. Bond strength helps explain hydrolysis rate; silver halide colour identifies the released halide and answers a different question.",
+   "terms": [
+    {
+     "term": "hydrolysis",
+     "meaning": "Reaction with water that replaces halogen by OH and releases halide ions.",
+     "notation": "$\\ce{R-X + H2O -> R-OH + H+ + X^-}$",
+     "spoken": "water replaces halogen and releases halide",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.9-10; bundle syllabus 9701-15.1"
+    },
+    {
+     "term": "silver halide precipitate",
+     "meaning": "Insoluble solid formed when released halide ions combine with silver ions.",
+     "notation": "$\\ce{Ag+ + X^- -> AgX(s)}$",
+     "spoken": "silver ion plus halide ion gives solid silver halide",
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.9-10,15; bundle syllabus 9701-15.1"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m7",
+     "idea": "A stronger C–X bond hydrolyses faster.",
+     "temptation": "Greater bond polarity can be mistaken for easier bond breaking.",
+     "fix": "A weaker C–X bond breaks more readily: C–I faster than C–Br faster than C–Cl in comparable compounds."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing reviewed, registered chapter teaching diagram is available in the candidate pack. Use the staged structural formulae and arrow-origin descriptions; the plan excludes creating or cropping new figures.",
+   "source_gaps": [
+    "The library notes and reviewed bundle excerpts support the listed form families, but this is not an exhaustive audit of official written papers or an independent teaching approval."
+   ],
+   "forms": [
+    {
+     "name": "Explain comparative hydrolysis and precipitation",
+     "wordings": [
+      "Compare hydrolysis rates using bond strength and distinguish rate from precipitate colour."
+     ],
+     "example": "1. Compare 1-chlorobutane, 1-bromobutane and 1-iodobutane using equal concentrations, volumes and temperature with aqueous silver nitrate in ethanol. 2. C–I is weaker than C–Br, then C–Cl, so halide is released most rapidly by the iodide. 3. The yellow AgI precipitate appears first, then cream AgBr, then white AgCl. Colour identifies the ion; timing reflects hydrolysis under matched conditions.",
+     "check": "Two comparable halogenoalkanes are tested under identical conditions. Sample P forms a cream precipitate after 40 s and sample Q forms a yellow precipitate after 15 s. Identify the halogen in each and determine which hydrolyses faster. Explain the difference using bond strength and explain why the solid appears.",
+     "answer": "P contains bromine and Q iodine. Q hydrolyses faster: its weaker C–I bond breaks more readily than C–Br, releasing iodide sooner; released halide combines with silver ions to make an insoluble silver halide.",
+     "rubric": [
+      {
+       "point": "P contains bromine and Q contains iodine.",
+       "keywords": [
+        [
+         "bromine",
+         "bromide",
+         "Br"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies iodine in Q.",
+       "keywords": [
+        [
+         "iodine",
+         "iodide",
+         "I"
+        ]
+       ]
+      },
+      {
+       "point": "Q hydrolyses faster, as its precipitate appears sooner under matched conditions.",
+       "keywords": [
+        [
+         "Q",
+         "15"
+        ]
+       ]
+      },
+      {
+       "point": "C–I is weaker than C–Br and breaks more readily.",
+       "keywords": [
+        [
+         "weaker",
+         "weak"
+        ]
+       ]
+      },
+      {
+       "point": "Hydrolysis releases halide ions which react with silver ions to form an insoluble solid.",
+       "keywords": [
+        [
+         "silver",
+         "Ag+"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "In a comparison, 1-chloropropane gives a white precipitate after 90 s at 20 °C; 1-iodopropane gives a yellow precipitate after 10 s at 40 °C. A student concludes that the timing alone proves the C–I bond is weaker. Explain why this comparison is inconclusive and describe an improved test and its expected relative timing.",
+      "answer": "Temperature also affects rate, so the difference cannot be attributed to C–X bond strength from these timings alone. Repeat at the same temperature with matched concentrations, volumes and solvent. The iodide is expected to precipitate earlier because its C–I bond is weaker and hydrolysis releases iodide faster; silver ions then form AgI.",
+      "rubric": [
+       {
+        "point": "Different temperatures affect rate and confound the inference.",
+        "keywords": [
+         [
+          "temperature",
+          "40",
+          "20"
+         ]
+        ]
+       },
+       {
+        "point": "Repeat at the same temperature with other conditions matched.",
+        "keywords": [
+         [
+          "same",
+          "equal",
+          "matched"
+         ]
+        ]
+       },
+       {
+        "point": "Predict iodopropane precipitates sooner under matched conditions.",
+        "keywords": [
+         [
+          "iodopropane",
+          "iodide",
+          "iodo"
+         ]
+        ]
+       },
+       {
+        "point": "Weaker C–I permits faster hydrolysis and halide release.",
+        "keywords": [
+         [
+          "weaker",
+          "weak"
+         ]
+        ]
+       }
+      ]
+     },
+     "source": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/STEM Tutor/Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c15.1.pdf, pp.9-10,15; ER 9701 w19 P11 Q24 in bundle; bundle syllabus 9701-15.1"
+    }
+   ],
+   "exam_language": [
+    {
+     "name": "Describe",
+     "meaning": "State the relevant chemical steps, reagent and conditions when asked."
+    },
+    {
+     "name": "Explain",
+     "meaning": "Link the stated chemical cause to the predicted outcome."
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-15.1.1": [
+   "Prepare from an alkane",
+   "Prepare from an alkene",
+   "Prepare from an alcohol"
+  ],
+  "9701-15.1.2": [
+   "Classify by direct carbon neighbours"
+  ],
+  "9701-15.1.3": [
+   "Substitute with aqueous hydroxide",
+   "Extend the chain with cyanide",
+   "Substitute with excess ammonia",
+   "Identify halogen with silver nitrate"
+  ],
+  "9701-15.1.4": [
+   "Eliminate an adjacent hydrogen"
+  ],
+  "9701-15.1.5": [
+   "Construct a primary SN2 mechanism",
+   "Construct a tertiary SN1 mechanism"
+  ],
+  "9701-15.1.6": [
+   "Explain mechanism preference from structure"
+  ],
+  "9701-15.1.7": [
+   "Explain comparative hydrolysis and precipitation"
+  ]
  }
 }

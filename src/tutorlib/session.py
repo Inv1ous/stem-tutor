@@ -14,7 +14,9 @@ import uuid
 from collections.abc import Callable
 from datetime import datetime
 
-from . import almanac, diagnose, faded, grade, model, policy, topicals, views
+from . import almanac, diagnose, faded, grade, mermaid_refresh, model, policy, question_display, solvability, topicals, topical_selection, views
+from . import prompts as engine_prompts
+from .source_questions import SourceQuestions, drop_repeated, servable as source_servable, to_instance as source_instance
 from .clock import StudyClock, fmt
 from .lesson import LessonMixin
 from .packs import DamagedContent, Packs, instantiate
@@ -56,10 +58,29 @@ def _has_deferred_judgment(s: dict) -> bool:
         for bucket in ('presented', 'queue') for p in (s.get(bucket) or {}).values()))
 
 
+def whole_attempt_kind(working: str) -> str:
+    """Classify attempt text without treating paper placeholders as confirmation."""
+    if not isinstance(working, str):
+        return 'none'
+    text = working.strip().casefold().replace('’', "'").strip('?.! ')
+    if text in ('', 'idk', 'dunno', "i don't know", 'i dont know', 'i do not know', 'skip',
+                'no', 'not sure', 'i have no idea', 'i have no clue', 'i am unsure', "i'm unsure",
+                'i cannot answer', "i can't answer", 'i cant answer'):
+        return 'none'
+    if text in ('done on paper', 'on paper', 'written on paper'):
+        return 'paper'
+    if re.fullmatch(r'(?:\d+\s*)?pts\s*=\s*[\d,\s]*', text):
+        return 'none'
+    return 'typed'
+
+
 class Tutor(LessonMixin):
     def __init__(self, vault: Vault, rng: random.Random | None = None, now=None, one_at_a_time: bool = False,
                  ai_visual: Callable[[str], str] | None = None):
         self.vault = vault
+        # Optional MermaidRefresher: the app and the command line attach one so that concept-map colours follow
+        # mastery outside lessons too (see enable_map_refresh).
+        self.mermaid: mermaid_refresh.MermaidRefresher | None = None
         self.view_warnings: dict[str, views.ReadOnlyViewDestination] = {}
         self.ai_visual = ai_visual or (lambda text: text)
         self.one_at_a_time = one_at_a_time  # the terminal app shows a batch one question at a time; the chat shows it whole
@@ -84,6 +105,10 @@ class Tutor(LessonMixin):
         # retain object identity for stale-response checks without changing the
         # persisted learner/session schema.
         self._marking_tickets: dict[str, dict] = {}
+        # Injectable one-shot AI used only to name the topics of an untagged question (see check_solvable):
+        # topic_ai(request: dict) -> str | dict | None; None/raise = AI unavailable.  Synchronous.
+        self.topic_ai: Callable[[dict], object] | None = None
+        self._source_questions: SourceQuestions | None = None
         self._recover()
         if upgraded_cache and self._dirty:
             self._save()  # persist this one-time version refold even if no learner action follows startup
@@ -127,7 +152,7 @@ class Tutor(LessonMixin):
         done = []
         for e in events:
             n = str(e.get("n"))
-            if e["type"] == "answer" and e.get("session") == s["id"] and s.get("presented", {}).get(n, {}).get("item") == e["item"]:
+            if e["type"] in ("answer", "source_answer") and e.get("session") == s["id"] and s.get("presented", {}).get(n, {}).get("item") == e["item"]:
                 p = s["presented"][n]
                 kind = "idk" if e["response"] == "don't know" else _expected_kind(p["inst"]["kind"])[0]
                 done.append(self._mark(n, p, {"kind": kind, "value": e["response"], "conf": e.get("conf")},
@@ -399,6 +424,8 @@ class Tutor(LessonMixin):
             write_json(self.session_path, self.session)  # null when closed: deleting is not allowed in Cowork
 
     def log(self, event: dict) -> dict:
+        refresher = getattr(self, "mermaid", None)
+        before = mermaid_refresh.snapshot(self.state) if refresher is not None else None
         e = self.vault.append_event(event, now=self.now())
         if e["type"] in ("regrade", "tag", "session_end"):
             # Corrections and ends can release after earlier raw records; save the exact derived fold.
@@ -407,6 +434,11 @@ class Tutor(LessonMixin):
             model.apply(self.state, e)
         self._dirty = True
         self._save()
+        if refresher is not None:
+            try:  # any change of mastery recolours the maps of the changed subtopics (in the refresher's worker)
+                refresher.changed(before, self.state)
+            except Exception:  # noqa: BLE001 - a cosmetic redraw must never lose a recorded answer
+                pass
         if event.get("type") in ("paper_result", "session_start"):
             self._sync_almanac(force=True)
         return e
@@ -426,6 +458,14 @@ class Tutor(LessonMixin):
             pass
 
     # ---------- Obsidian views ----------
+    def enable_map_refresh(self, background: bool = True) -> mermaid_refresh.MermaidRefresher:
+        """Recolour concept maps whenever mastery changes; `background` keeps the writes off the keypress path."""
+        self.mermaid = mermaid_refresh.MermaidRefresher(
+            self.vault.root, self.packs, background=background,
+            active_log=lambda: (views.lesson_rel(self.vault.root, (self.session or {})["log"])
+                                if (self.session or {}).get("log") else None))
+        return self.mermaid
+
     def _lesson_log(self) -> views.LessonLog | None:
         rel = (self.session or {}).get("log")
         if not rel:
@@ -511,8 +551,10 @@ class Tutor(LessonMixin):
                 if t["act"].get("activity") == "plan" and t["act"].get("map"):  # the map the terminal points to
                     out.append(t["act"]["map"])
             else:
+                # Only an AI reply is AI visual text: engine cards (a marked answer, a hint, a notice) are logged
+                # word for word, as the terminal drew them.
                 out.append(views.card_block(t["kind"], t.get("title") or {"you": "You", "ai": "Tutor (AI)"}.get(t["kind"], ""),
-                                            t["text"] if t["kind"] == "you" else tidy(t["text"])))
+                                            tidy(t["text"]) if t["kind"] == "ai" else t["text"]))
         return out
 
     def _mirror_now(self, header: str, blocks: list[str], notes: str | None = None) -> None:
@@ -544,9 +586,9 @@ class Tutor(LessonMixin):
                  if int(n) not in shown]
         blocks = self._thread_blocks(lead + thread)  # what the terminal shows, in its order
         sub = s.get("subtopic")
-        notes = (views.notes_rel(self.packs, sub)
-                 if sub and not any(s.get(key) for key in ('skipped_answer_guards', 'presented', 'queue', 'suspended_for_retry'))
-                 and (self.vault.root / views.notes_rel(self.packs, sub)).exists() else None)
+        where = views.note_location(self.vault.root, self.packs, sub) if sub else None
+        notes = (where if where and not any(s.get(key) for key in ('skipped_answer_guards', 'presented', 'queue', 'suspended_for_retry'))
+                 and (self.vault.root / where).exists() else None)
         title = self.packs.subtopics.get(sub, {}).get("title", "") if sub else ""
         self._mirror_now(" · ".join(x for x in (title, s.get("mode", ""), f"{self.now():%H:%M}") if x),
                          blocks or ["Working…"], notes)
@@ -571,8 +613,57 @@ class Tutor(LessonMixin):
             p['deferred_node'] = {'session': self.session['id'], 'index': index,
                                   'kc': blocks[index].get('kc')}
 
+    def topical_choices(self, focus: list[str], question_types: list[str] | None = None) -> dict:
+        """Read-only availability for the same reviewed selection used by a topical set."""
+        selected = topical_selection.validate_types(question_types)
+        blocks = policy.plan_session(self.state, self.packs, self.now(), 1, 'topical', focus)
+        chapters = blocks[0]['chapters'] if blocks else []
+        groups = topical_selection.pools(self.packs, self.state, chapters, used=self._reserved_topical_ids())
+        counts = topical_selection.counts(groups)
+        return {'chapters': chapters, 'counts': counts, 'available': sum(counts[kind] for kind in selected)}
+
+    def _reserved_topical_ids(self) -> set[str]:
+        """Archived attempts retain their own recovery path and must not become new set questions."""
+        return {key for saved in self.postponed_judgments() if (key := topicals.identity(saved.get('inst') or {}))}
+
     def start(self, mode: str = "autopilot", minutes: int = 50, focus: list[str] | None = None,
-              replace: bool = False) -> dict:
+              replace: bool = False, *, topical_count: int | None = None,
+              topical_types: list[str] | None = None, topical_auto_mark: bool = False,
+              course: str | None = None, scope: str | None = None, sources: list[str] | None = None,
+              count: int | None = None, started_only: bool = False) -> dict:
+        """``mode="practice"`` (new): ``focus`` = subtopic/module ids (or empty with ``course``), ``scope`` =
+        "course" | "module" | "chapters", ``sources`` ⊆ ["topical", "source_verified"], ``count`` = questions,
+        ``started_only`` = only topics the learner has started.  The practice-only keywords are refused elsewhere."""
+        configured = topical_count is not None or topical_types is not None
+        practice = None
+        try:
+            if mode == 'practice':
+                if scope not in (None, 'course', 'module', 'chapters'):
+                    raise ValueError('Practice scope must be course, module or chapters.')
+                if sources is not None and (not isinstance(sources, (list, tuple)) or not sources or any(
+                        x not in ('topical', 'source_verified') for x in sources)):
+                    raise ValueError('Practice sources must be topical and/or source_verified.')
+                if count is not None and (type(count) is not int or not 1 <= count <= 200):
+                    raise ValueError('Practice question count must be a whole number from 1 to 200.')
+                if type(started_only) is not bool:
+                    raise ValueError('started_only must be true or false.')
+                if configured:
+                    raise ValueError('Use count and sources for practice sessions.')
+                practice = {'course': course, 'scope': scope, 'sources': list(sources) if sources else None,
+                            'count': count, 'started_only': started_only}
+            elif any(v not in (None, False) for v in (course, scope, sources, count, started_only)):
+                raise ValueError('Course, scope, sources, count and started_only are for practice sessions only.')
+        except ValueError as exc:
+            return {'ok': False, 'error': str(exc)}
+        try:
+            topical_selection.validate_count(topical_count)
+            selected_types = topical_selection.validate_types(topical_types)
+            if type(topical_auto_mark) is not bool:
+                raise ValueError('Automatic topical marking must be true or false.')
+            if (configured or topical_auto_mark) and mode not in ('topical', 'practice'):
+                raise ValueError('Question count and type filters are for topical sessions only.')
+        except ValueError as exc:
+            return {'ok': False, 'error': str(exc)}
         s = self.session
         if s and (s.get('suspended_for_retry') or s.get('deferred_feedback') or _has_deferred_judgment(s)):
             return {'ok': False, 'error': 'Resume saved questions and feedback before replacing this session.'}
@@ -580,9 +671,27 @@ class Tutor(LessonMixin):
             return {"ok": False, "error": f"A {s['mode']} session is in progress ({s['answered']} answered).",
                     "open_session": {"mode": s["mode"], "answered": s["answered"], "started": s["started"]},
                     "fix": "To continue it, run the engine command next. To start over, repeat session start with --replace."}
-        blocks = policy.plan_session(self.state, self.packs, self.now(), minutes, mode, focus, self.ticks())
+        blocks = policy.plan_session(self.state, self.packs, self.now(), minutes, mode, focus, self.ticks(), practice)
+        if mode == 'practice':
+            if not blocks:
+                return {'ok': False, 'error': 'No topics match this practice selection.'
+                        + (' Start a topic first or turn off "started topics only".' if started_only else '')}
+            self._plan_practice_queue(blocks[0], minutes)
+            if not blocks[0]['question_queue']:
+                return {'ok': False, 'error': 'No eligible questions match this practice selection.'}
         if mode == "topical" and not blocks:
             return {"ok": False, "error": "No reviewed topical questions are available for this selection."}
+        if configured:
+            block = blocks[0]
+            groups = topical_selection.pools(self.packs, self.state, block['chapters'], selected_types,
+                                             used=self._reserved_topical_ids())
+            if not any(groups.values()):
+                return {'ok': False, 'error': 'No eligible reviewed questions match the selected topics and types.'}
+            block['question_types'] = selected_types
+            if topical_count is not None:
+                block['question_count'] = topical_count
+                block['question_queue'] = topical_selection.sample(groups, topical_count, self.rng)
+                block['question_index'] = 0
         if focus and mode in ("test", "learn", "diagnose", "long", "lesson") and not any(
                 self.packs.items_for(k) for b in blocks for k in b.get("kcs", []) + [b.get("kc")] if k):
             return {"ok": False, "error": f"No questions are built yet for {', '.join(focus)}.",
@@ -591,6 +700,8 @@ class Tutor(LessonMixin):
         if not sub and focus:
             subs = {self.packs.kc(k)["subtopic"] for k in policy.expand_focus(self.packs, focus) or [] if k in self.packs.kcs}
             sub = subs.pop() if len(subs) == 1 else None
+        if mode == 'practice' and not focus and course:
+            focus = [course]
         label = ({"autopilot": "Today's plan", "weak": "Weak spots"}.get(mode)
                  or (self.packs.subtopics.get(sub, {}).get("title") if sub else None) or ", ".join(focus or []) or mode)
         title = mode.title() if label == mode else f"{mode.title()} - {label}"
@@ -610,8 +721,13 @@ class Tutor(LessonMixin):
         self.session = {"id": uuid.uuid4().hex[:8], "mode": mode, "minutes": minutes, "started": self.now().isoformat(),
                         "blocks": blocks, "cursor": 0, "presented": {}, "count": 0, "answered": 0, "correct": 0,
                         "kcs_learned": [], "retest": {}, "log": transcript}
+        if mode in ('topical', 'practice'):
+            self.session['topical_auto_mark'] = topical_auto_mark
+        if mode == 'practice':
+            self.session['practice'] = {k: blocks[0][k] for k in ('course', 'scope', 'sources', 'started_only', 'chapters')}
+            self.session['course'] = course
         ready = []
-        for saved in self.postponed_judgments():
+        for saved in (self.postponed_judgments() if not configured else []):
             if saved['inst'].get('image') or saved['inst'].get('images'):
                 continue  # old image bytes are not pinned
             candidate = self._revalidate_skipped(saved)
@@ -734,7 +850,8 @@ class Tutor(LessonMixin):
         if not ungraded and any(e["identity"] == ident and e["chapter"] == chapter for e in self.state.get("topical_exclusions", [])):
             return None
         check = topicals.eligibility(p["inst"], chapter, self.state, self.packs, p["unassisted"])
-        if not ungraded and p["inst"].get("topical") and check["status"] not in ("solvable", "supported"):
+        if (not ungraded and p["inst"].get("topical") and check["status"] not in ("solvable", "supported")
+                and not p.get("practice_any")):
             return None
         if not ungraded and check.get('support') and any(
                 key != _guard_identity(p) for key in (self.session.get('skipped_answer_guards') or {})):
@@ -781,14 +898,24 @@ class Tutor(LessonMixin):
         if inst.get("source", {}).get("type") == "past":
             v["source"] = inst["source"].get("ref")
         if inst["kind"] == "structured":
-            v["scheme_points"] = len(inst.get("scheme", []))
-        if v.get("image") and inst.get("source", {}).get("type") == "past":
-            # a scan of the whole past-paper question: labels and table cells the PDF copied out of its figure are
-            # set aside for the picture, which shows them as they should be read (Q-009)
-            v["stem"], aside = views.figure_text(v.get("stem", ""))
-            if aside:
-                v["figure_text"] = aside
-        if v.get("image"):  # a scan of the whole question: broken text read from it gives way to the picture (Q-009)
+            if topicals.whole_rubric(inst) is not None:
+                v['manual_marking'] = True
+            else:
+                v["scheme_points"] = len(inst.get("scheme", []))
+        if question_display.shows_printed_question(inst):
+            # The pictures are the question as printed. Shown alone, once each and in page order, with one line saying
+            # which parts to do: the text the PDF copied out of them (stem, options, table cells) is never shown.
+            v["images"] = question_display.page_order(drop_repeated(v.get("images") or [v["image"]], self.vault.root))
+            v["image"] = v["images"][0]
+            v["image_only"] = True
+            parts = p.get("do_parts") or ([inst["source"]["part"]] if inst["source"].get("part") else [])
+            v["stem"] = question_display.instruction(parts, whole=bool(p.get("do_whole"))) if inst["kind"] == "structured" else ""
+        elif v.get("image"):  # a past-paper figure or table beside the question's own sentences
+            if inst.get("source", {}).get("type") == "past":
+                v["stem"] = question_display.strip_figure_labels(v.get("stem", ""))
+                v["images"] = question_display.page_order(drop_repeated(v.get("images") or [v["image"]], self.vault.root))
+                v["image"] = v["images"][0]
+            # broken text read from the paper gives way to the picture (Q-009)
             bad = [k for k, o in (v.get("options") or {}).items() if views.garbled(o)]
             if bad or views.garbled(v.get("stem", "")):
                 v["garbled"] = {"stem": views.garbled(v.get("stem", "")), "options": bad}
@@ -811,6 +938,12 @@ class Tutor(LessonMixin):
     def _pick(self, kc: str, target: float, kinds=("mcq", "numeric", "expression", "short"),
               staged: set[str] | None = None, unassisted: bool = False) -> dict | None:
         """Prefer items not yet used this session; fall back to reuse rather than skip the KC."""
+        bank = self.packs.topicals
+        with bank.request() as outer:
+            result = self._pick_candidate(kc, target, kinds, staged, unassisted)
+            return result if not outer or bank.request_current() else None
+
+    def _pick_candidate(self, kc: str, target: float, kinds, staged, unassisted) -> dict | None:
         disclosed = self._disclosed_ids()
         open_ = {p["item"] for p in self.session["presented"].values()}
         open_.update(disclosed)
@@ -822,6 +955,12 @@ class Tutor(LessonMixin):
                                           unassisted=unassisted))
 
     def _pick_batch(self, kcs: list[str], target: float, unassisted: bool = False) -> list[tuple[str, dict]]:
+        bank = self.packs.topicals
+        with bank.request() as outer:
+            selected = self._pick_candidates(kcs, target, unassisted)
+            return selected if not outer or bank.request_current() else []
+
+    def _pick_candidates(self, kcs, target, unassisted):
         selected, staged = [], set()
         for kc in kcs:
             if it := self._pick(kc, target, staged=staged, unassisted=unassisted):
@@ -991,6 +1130,18 @@ class Tutor(LessonMixin):
             s.update(before)
             raise
         return {'n': int(key), 'event': event['id'], 'your': response, 'attempt_saved': True}
+
+    def _give_up_ungraded_retry(self, key: str, p: dict) -> dict:
+        """Close an unmarkable retry without marking it: the question stays on the review list."""
+        from . import deferred_notes
+        s = self.session
+        ident = _guard_identity(p)
+        deferred_notes.resolve(self.vault.tutor / 'state' / 'deferred-notes.json', ident)
+        s.get('skipped_answer_guards', {}).pop(ident, None)
+        s['presented'].pop(key, None)
+        self._save()
+        return {'n': int(key), 'gave_up': True, 'ungraded': True,
+                'say': 'Not marked. The question stays on your review list.'}
 
     def postponed_judgments(self) -> list[dict]:
         events = list(self.vault.events())
@@ -1177,7 +1328,10 @@ class Tutor(LessonMixin):
         normal = text.casefold().replace('’', "'").strip('?.! ')
         if normal in ('', 'idk', "i don't know", 'i dont know', 'i do not know', 'skip', 'no',
                       'i have no idea', "i can't answer", 'i cant answer', 'not sure', 'done on paper'):
-            return {'ok': False, 'error': 'Enter your working, or leave this question open.'}
+            event = self._pending_ungraded_event(str(n), p)
+            if event:
+                return {'ok': True, **self._defer_retry_attempt(str(n), p, event['response'], event=event)}
+            return {'ok': True, **self._give_up_ungraded_retry(str(n), p)}
         return {'ok': True, **self._defer_retry_attempt(str(n), p, text)}
 
     def cancel_ungraded_structured(self, n: int, work: str) -> dict:
@@ -1281,14 +1435,20 @@ class Tutor(LessonMixin):
 
     def _step_topical(self, b: dict, idx: int) -> dict | None:
         """Source-only practice: no lesson packs, teaching steps, or repeats in this session."""
+        if 'question_queue' in b:
+            return self._step_topical_set(b, idx)
         remaining = b.setdefault("remaining", max(1, self.session["minutes"] // 3))
         used = set(self.session.setdefault("topical_used", []))
+        if b.get('question_types'):
+            used.update(self._reserved_topical_ids())
         disclosed = self._disclosed_ids()
         excluded = {(r["identity"], r["chapter"]) for r in self.topical_exclusions()}
         candidates = []
         for chapter in b["chapters"]:
             for item in self.packs.topical_items(chapter):
                 key = topicals.identity(item)
+                if b.get('question_types') and topical_selection.category(item) not in b['question_types']:
+                    continue
                 if disclosed and self.packs.aliases_for(item) & disclosed:
                     continue
                 cost = max(1, math.ceil(item.get("marks", 1) / 2)) if item["kind"] == "structured" else 1
@@ -1305,6 +1465,192 @@ class Tutor(LessonMixin):
         self.session["topical_used"].append(key)
         b["remaining"] -= cost
         return self._questions(b, idx, [item], phase="topical")
+
+    def _step_topical_set(self, b: dict, idx: int) -> dict | None:
+        """Serve only planned identities, rechecking current eligibility and disclosure."""
+        groups = topical_selection.pools(self.packs, self.state, b['chapters'], b['question_types'],
+                                         used=self.session.get('topical_used', []), disclosed=self._disclosed_ids())
+        current = {(topicals.identity(item), chapter): item for chapter, rows in groups.items() for item in rows}
+        while b['question_index'] < len(b['question_queue']):
+            chosen = b['question_queue'][b['question_index']]
+            b['question_index'] += 1
+            item = current.get((chosen['identity'], chosen['chapter']))
+            if item is None:
+                continue
+            activity = self._questions(b, idx, [item], phase='topical')
+            if activity:
+                self.session.setdefault('topical_used', []).append(chosen['identity'])
+                return activity
+        return None
+
+    # ---------- practice (topical past papers + source-verified banks) ----------
+    def source_bank(self) -> SourceQuestions:
+        """Registered source-verified banks of this vault (loaded once; empty when none are registered)."""
+        if self._source_questions is None:
+            try:
+                self._source_questions = SourceQuestions.load(self.vault.root)
+            except (OSError, ValueError, KeyError):
+                self._source_questions = SourceQuestions({})
+        return self._source_questions
+
+    def _plan_practice_queue(self, b: dict, minutes: int) -> None:
+        """Pick the questions of one practice set now: unseen first, sources interleaved, held items never."""
+        chapters, started_only, sources = b['chapters'], b['started_only'], b['sources']
+        scope_set = set(chapters)
+        excluded = {(r['identity'], r['chapter']) for r in self.topical_exclusions()}
+        pools: dict[str, list[tuple]] = {}
+        if 'topical' in sources:
+            reserved, rows, taken = self._reserved_topical_ids(), [], set()
+            for chapter in chapters:
+                for item in self.packs.topical_items(chapter):
+                    key = topicals.identity(item)
+                    if not key or key in taken or key in reserved or (key, chapter) in excluded:
+                        continue
+                    if started_only and topicals.eligibility(item, chapter, self.state, self.packs)['status'] not in (
+                            'solvable', 'supported'):
+                        continue
+                    taken.add(key)
+                    seen = any(a in self.state['items_seen'] for a in self.packs._topical_aliases.get(key, {item['id']}))
+                    rows.append((seen, '', {'source': 'topical', 'identity': key, 'chapter': chapter}))
+            pools['topical'] = rows
+        if 'source_verified' in sources:
+            bank, rows = self.source_bank(), []
+            courses = [b['course']] if b.get('course') else sorted({self.packs.subtopics[c]['spec'] for c in chapters})
+            for course in courses:
+                for item in bank.raw_items(course):
+                    if not source_servable(item):
+                        continue
+                    subs = [self.packs.kcs[k]['subtopic'] for k in item['kcs'] if k in self.packs.kcs]
+                    hit = next((c for c in chapters if c in subs), None)
+                    if hit is None or (item['id'], hit) in excluded:
+                        continue
+                    if started_only and solvability.assess(self.state, self.packs, item)['status'] != 'solvable':
+                        continue
+                    rows.append((item['id'] in self.state.get('source_seen', {}), self.state.get('source_seen', {}).get(item['id'], ''),
+                                 {'source': 'source_verified', 'id': item['id'], 'chapter': hit}))
+            pools['source_verified'] = rows
+        ordered = []
+        for rows in pools.values():
+            self.rng.shuffle(rows)
+            rows.sort(key=lambda r: (r[0], r[1]))  # unseen first; seen ones oldest first
+            ordered.append([r[2] for r in rows])
+        queue = []
+        while any(ordered):
+            for rows in ordered:
+                if rows:
+                    queue.append(rows.pop(0))
+        count = b.get('count') or max(1, minutes // 3)
+        b['question_count'] = count
+        b['question_queue'] = queue[:count]
+        b['question_index'] = 0
+        b['available'] = len(queue)
+
+    def _practice_item(self, b: dict, entry: dict) -> dict | None:
+        """The question a queue entry names, rechecked against current exclusions and eligibility."""
+        chapter = entry['chapter']
+        excluded = {(r['identity'], r['chapter']) for r in self.topical_exclusions()}
+        if entry['source'] == 'topical':
+            if (entry['identity'], chapter) in excluded:
+                return None
+            item = next((i for i in self.packs.topical_items(chapter) if topicals.identity(i) == entry['identity']), None)
+            if item and b.get('started_only') and topicals.eligibility(item, chapter, self.state, self.packs)['status'] not in (
+                    'solvable', 'supported'):
+                return None
+            return item
+        if (entry['id'], chapter) in excluded:
+            return None
+        try:
+            raw = self.source_bank().item(entry['id'])
+        except KeyError:
+            return None
+        if not source_servable(raw) or (b.get('started_only') and solvability.assess(self.state, self.packs, raw)['status'] != 'solvable'):
+            return None
+        inst = source_instance(raw, self.vault.root)
+        inst['_serving_chapter'] = chapter
+        return inst
+
+    def _paper_parts(self) -> dict[str, set[str]]:
+        """Every part the bank holds for each printed structured question: {qid: {"a(i)", "c", ...}} (built once)."""
+        if getattr(self, '_parts_of_paper_question', None) is None:
+            found: dict[str, set[str]] = {}
+            for chapter in self.packs.subtopics:
+                for item in self.packs.topical_items(chapter):
+                    source = item.get('source') or {}
+                    if item.get('kind') == 'structured' and source.get('qid') and source.get('part'):
+                        found.setdefault(source['qid'], set()).add(source['part'])
+            self._parts_of_paper_question = found
+        return self._parts_of_paper_question
+
+    def _sibling_parts(self, b: dict, item: dict) -> list[dict]:
+        """Other parts of the same printed question that the chosen topics also cover and that can still be served
+        (not excluded, not disclosed, not already served or merged), in paper order."""
+        source = item.get('source') or {}
+        qid = source.get('qid')
+        if item.get('kind') != 'structured' or not qid or not source.get('part'):
+            return []
+        excluded = {(r['identity'], r['chapter']) for r in self.topical_exclusions()}
+        disclosed, used = self._disclosed_ids(), set(self.session.get('used', [])) | set(b.get('merged', []))
+        found: dict[str, dict] = {}
+        for chapter in b['chapters']:
+            for other in self.packs.topical_items(chapter):
+                other_source = other.get('source') or {}
+                if (other['id'] == item['id'] or other['id'] in used or other.get('kind') != 'structured'
+                        or other_source.get('qid') != qid or not other_source.get('part')
+                        or (topicals.identity(other), chapter) in excluded
+                        or (disclosed and self.packs.aliases_for(other) & disclosed)):
+                    continue
+                if b.get('started_only') and topicals.eligibility(other, chapter, self.state, self.packs)['status'] not in (
+                        'solvable', 'supported'):
+                    continue
+                found.setdefault(other['id'], other)
+        return sorted(found.values(), key=lambda o: question_display.part_key(o['source']['part']))
+
+    @staticmethod
+    def _merged_question(item: dict, siblings: list[dict]) -> dict:
+        """One question made of several parts of the same printed question: the marks, mark points, answers and
+        assessed ideas of every part, each point labelled with its part."""
+        rows = sorted([item, *siblings], key=lambda o: question_display.part_key(o['source']['part']))
+        merged = copy.deepcopy(item)
+        merged['marks'] = sum(o.get('marks', 1) for o in rows)
+        merged['kcs'] = list(dict.fromkeys(k for o in [item, *rows] for k in o['kcs']))
+        merged['scheme'] = [{**pt, 'label': f"{question_display.part_label(o['source']['part'])} {pt.get('label', '')}".strip()}
+                            for o in rows for pt in o.get('scheme', []) if isinstance(pt, dict)]
+        merged['answer'] = "\n".join(f"{question_display.part_label(o['source']['part'])} {o.get('answer', '')}".strip()
+                                    for o in rows)
+        topical = merged.setdefault('topical', {})
+        topical['requires'] = list(dict.fromkeys(k for o in rows for k in (o.get('topical') or {}).get('requires', [])))
+        topical['chapters'] = list(dict.fromkeys(k for o in rows for k in (o.get('topical') or {}).get('chapters', [])))
+        merged['difficulty'] = max(o.get('difficulty', 3) for o in rows)
+        return merged
+
+    def _step_practice_set(self, b: dict, idx: int) -> dict | None:
+        """Serve the planned practice questions one at a time. Parts of one printed question that the chosen topics all
+        cover are served together as one question ("Do (a)(i) and (c)", or "Do the whole question")."""
+        disclosed = self._disclosed_ids()
+        while b['question_index'] < len(b['question_queue']):
+            entry = b['question_queue'][b['question_index']]
+            b['question_index'] += 1
+            item = self._practice_item(b, entry)
+            if item is None or (disclosed and self.packs.aliases_for(item) & disclosed) or item['id'] in b.get('merged', []):
+                continue
+            siblings = self._sibling_parts(b, item)
+            parts = None
+            if siblings:
+                parts = [o['source']['part'] for o in sorted([item, *siblings], key=lambda o: question_display.part_key(o['source']['part']))]
+                whole = set(parts) >= self._paper_parts().get(item['source']['qid'], set())
+                merged_ids = [o['id'] for o in siblings]
+                item = self._merged_question(item, siblings)
+                b.setdefault('merged', []).extend(merged_ids)
+                self.session.setdefault('used', []).extend(merged_ids)
+            self.session.setdefault('used', []).append(item['id'])
+            n, p = self._number(item, b['kind'], 'practice', False, idx, None, item.get('_serving_chapter'))
+            if parts:
+                p.update(do_parts=parts, do_whole=whole, merged_items=merged_ids)
+            p['practice_any'] = not b.get('started_only')
+            if act := self._ask([(n, p)]):
+                return act
+        return None
+
 
     def _step_term_review(self, b: dict, idx: int) -> dict | None:
         from . import lesson
@@ -1617,11 +1963,63 @@ class Tutor(LessonMixin):
             if current.get('skipped_answer_guards') or current.get('suspended_for_retry'):
                 return 'retry_protected'
             return 'guards_changed'
+        if 'whole_snapshot' in state:
+            try:
+                if self._whole_snapshot(state['question']) != state['whole_snapshot']:
+                    return 'stale'
+            except (OSError, ValueError, KeyError, TypeError):
+                return 'stale'
         return 'ok'
 
     def cancel_marking(self, ticket: str) -> None:
         """Release an in-flight ticket after cancellation or failed marking."""
         self._marking_tickets.pop(ticket, None)
+
+    def _whole_snapshot(self, p: dict) -> dict:
+        if type(p.get('marks')) is not int or p['marks'] != p['inst'].get('marks'):
+            raise ValueError('The official maximum changed.')
+        return {'question': copy.deepcopy(p), 'working': p.get('saved_work'),
+                'paper_work': p.get('whole_paper_work'),
+                'media': topicals.whole_rubric_media(p['inst'], self.vault.root)}
+
+    def whole_rubric(self, n: int, working: str, *, paper_attempt: bool = False) -> dict:
+        """Disclose only the reviewed part rubric for an attempted, unprotected question."""
+        p = (self.session or {}).get('presented', {}).get(str(n))
+        if not p:
+            return {'error': 'No open whole-rubric question.'}
+        try:
+            entry = topicals.whole_rubric(p['inst'])
+            if entry is None:
+                raise ValueError('No open whole-rubric question.')
+            if p.get('ungraded_unavailable'):
+                raise ValueError('This retry is unavailable for marking. Use the ungraded save or cancel path.')
+            if type(paper_attempt) is not bool or whole_attempt_kind(working) == 'none':
+                raise ValueError('A real written or explicitly confirmed paper attempt is required.')
+            # Save work even if a guard or missing raster prevents marking.
+            p['saved_work'] = working
+            p['pending_saved_mark'] = True
+            p.pop('whole_paper_work', None)
+            self._save()
+            if whole_attempt_kind(working) == 'paper' and not paper_attempt:
+                return {'error': 'Confirm that you attempted this question on paper.',
+                        'paper_confirmation_required': True}
+            if (self.session.get('suspended_for_retry') or self.session.get('faded_cancel_intent')
+                    or not self._faded_guards_allow_review(p)):
+                raise ValueError('Retry the protected question before opening this rubric. Your work is saved.')
+            if paper_attempt:
+                p['whole_paper_work'] = working
+            snapshot = self._whole_snapshot(p)  # verify every raster before returning any text
+            ticket = self.begin_marking(n, working)
+            self._marking_tickets[ticket]['whole_snapshot'] = snapshot
+            import hashlib
+            import json
+            fingerprint = hashlib.sha256(json.dumps(snapshot, sort_keys=True).encode()).hexdigest()
+            self._marking_tickets[ticket]['rubric_fingerprint'] = fingerprint
+            return {'n': n, 'point': entry['point'], 'max_marks': entry['whole_rubric']['max_marks'],
+                    'media': list(entry['whole_rubric']['media']), 'ticket': ticket,
+                    'say': 'Manual marking required; your work is saved and ungraded.'}
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            return {'error': str(exc) or 'The official rubric is unavailable; your work remains ungraded.'}
 
     def confirm_faded_attempt(self, n: int, working: str) -> dict:
         """Record an explicit attempt for the exact currently saved written work."""
@@ -1641,7 +2039,7 @@ class Tutor(LessonMixin):
 
     # ---------- answers ----------
     def answer(self, text: str, judge: dict | None = None, your: dict | None = None,
-               explanation: dict | None = None) -> dict:
+               explanation: dict | None = None, *, manual_awards: dict | None = None) -> dict:
         """Mark answers. `your`: {n: the answer as the screen showed it}, so Now and the log quote it the same way;
         `explanation`: {n: the AI examiner's verdict}, which then stands in for the item's own explanation."""
         s = self.session
@@ -1649,10 +2047,37 @@ class Tutor(LessonMixin):
             return {"ok": False, "error": "no active session", "fix": "engine command: session start"}
         if s.get('faded_cancel_intent'):
             return {'ok': False, 'error': 'A saved cancellation needs recovery before continuing.'}
+        has_judge_payload = judge is not None
         judge = {int(k): v for k, v in (judge or {}).items()}
+        responses = grade.parse_responses(text)
+        try:
+            if manual_awards is not None and not isinstance(manual_awards, dict):
+                raise ValueError('Invalid manual award mapping.')
+            awards = {int(k): v for k, v in (manual_awards or {}).items()}
+            if len(awards) != len(manual_awards or {}):
+                raise ValueError('Duplicate manual award question.')
+            # The ordinary compact parser folds lines and commas. The single
+            # whole attempt uses its exact saved bytes, including mathematical
+            # lines that resemble another compact response.
+            if len(awards) == 1:
+                number = next(iter(awards))
+                work = s['presented'].get(str(number), {}).get('saved_work')
+                if isinstance(work, str) and text == f'{number} = {work}':
+                    responses = [{'n': number, 'kind': 'value', 'value': work, 'conf': None}]
+            for number, award in awards.items():
+                matches = [r for r in responses if r['n'] == number]
+                p = s['presented'].get(str(number))
+                if (len(matches) != 1 or not p or topicals.whole_rubric(p['inst']) is None
+                        or matches[0]['kind'] != 'value' or number in judge
+                        or whole_attempt_kind(matches[0]['value']) == 'none'
+                        or not isinstance(award, dict) or set(award) != {'earned_marks', 'ticket'}
+                        or not isinstance(award['ticket'], str)):
+                    raise ValueError('Manual awards require the exact whole-rubric attempt and ticket; no IDK, pts or judge.')
+        except (ValueError, TypeError, KeyError) as exc:
+            return {'results': [{'error': str(exc)}], 'remaining': len(s['presented'])}
         your, explanation = {int(k): v for k, v in (your or {}).items()}, {int(k): v for k, v in (explanation or {}).items()}
         results = []
-        for r in grade.parse_responses(text):
+        for r in responses:
             key = str(r["n"])
             if r["kind"] == "bad":
                 results.append({"n": r["n"], "error": f"could not read {r['value']!r}; resend it as "
@@ -1664,6 +2089,22 @@ class Tutor(LessonMixin):
                                 "(the first answer stands) or was never asked"})
                 continue
             inst = p["inst"]
+            try:
+                whole = topicals.whole_rubric(inst) is not None
+            except ValueError as exc:
+                results.append({'n': r['n'], 'error': str(exc)})
+                continue
+            if whole and (r['n'] in judge or r['kind'] == 'points'
+                          or r['kind'] == 'idk' and (manual_awards is not None or has_judge_payload)):
+                results.append({'n': r['n'], 'error': 'Whole rubrics require an explicit human integer award.'})
+                continue
+            if whole and r['n'] in awards and (p.get('ungraded_unavailable')
+                    or s.get('suspended_for_retry') or not self._faded_guards_allow_review(p)):
+                # A rejected award must never enter the ordinary ungraded-retry
+                # deferral branches below, which write events and resolve guards.
+                self.cancel_marking(awards[r['n']]['ticket'])
+                results.append({'n': r['n'], 'error': 'The retry or protected questions changed; this award cannot be recorded.'})
+                continue
             if (inst.get('kind') == 'short' and p.get('phase') == 'faded' and r['kind'] == 'value'
                     and str(r['value']).strip().casefold().replace('’', "'").strip('?.! ') in
                     ('idk', 'dunno', "i don't know", 'i dont know', 'i do not know', 'skip',
@@ -1689,7 +2130,7 @@ class Tutor(LessonMixin):
                 results.append({"n": r["n"], "error": f"could not read the expression {r['value']!r}; use letters, "
                                 "numbers, + - * / ^ and brackets, then resend it (it stays open)"})
                 continue
-            expected = _expected_kind(inst["kind"])
+            expected = ('value',) if whole else _expected_kind(inst["kind"])
             if r["kind"] != "idk" and r["kind"] not in expected:
                 results.append({"n": r["n"], "error": f"question {r['n']} expects {' or '.join(expected)}; "
                                                      "resend in the right form (it stays open)"})
@@ -1751,31 +2192,54 @@ class Tutor(LessonMixin):
                 continue
             if p.get('ungraded_unavailable') and p.get('block') == 'skipped_retry':
                 response = str(r['value']).strip().casefold().replace('’', "'").strip('?.! ')
-                if response in ('', 'idk', "i don't know", 'i dont know', 'i do not know', 'skip', 'no',
-                                'i have no idea', "i can't answer", 'i cant answer', 'not sure') and not (
-                                    inst.get('written_faded') and response == 'no'):
-                    results.append({'n': r['n'], 'error': 'Please enter an attempt or skip the question.'})
+                if _idk_like(r['value']) and not (inst.get('written_faded') and response == 'no'):
+                    event = self._pending_ungraded_event(key, p)
+                    results.append(self._defer_retry_attempt(key, p, event['response'], event=event) if event
+                                   else self._give_up_ungraded_retry(key, p))
                     continue
                 results.append(self._defer_retry_attempt(key, p, str(r['value'])))
                 continue
             sole_retry = (p.get('block') == 'skipped_retry' and len(guards) == 1 and not s.get('suspended_for_retry')
                           and isinstance(guards[0], dict) and (guards[0].get('question') or {}).get('inst') == inst)
-            if (inst['kind'] == 'short' and r['kind'] != 'idk' and not sole_retry
+            if ((inst['kind'] == 'short' or whole) and r['kind'] != 'idk' and not sole_retry
                     and (guards or s.get('suspended_for_retry'))):
                 if p.get('block') == 'skipped_retry' and _guard_identity(p) in s.get('skipped_answer_guards', {}):
                     response = str(r['value']).strip().casefold().replace('’', "'").strip('?.! ')
-                    if response in ('', 'idk', "i don't know", 'i dont know', 'i do not know', 'skip', 'no',
-                                    'i have no idea', "i can't answer", 'i cant answer', 'not sure') and not (
-                                        inst.get('written_faded') and response == 'no'):
-                        results.append({'n': r['n'], 'error': 'Please enter an attempt or skip the question.'})
+                    if _idk_like(r['value']) and not (inst.get('written_faded') and response == 'no'):
+                        r = {**r, 'kind': 'idk', 'value': None, 'conf': None}  # a give-up: marked and revealed below
+                    else:
+                        results.append(self._defer_retry_attempt(key, p, str(r['value'])))
                         continue
-                    results.append(self._defer_retry_attempt(key, p, str(r['value'])))
+                else:
+                    p['saved_work'] = str(r['value'])
+                    results.append({'n': r['n'], 'needs_retry': True,
+                                    'error': 'Your answer is saved. Retry the protected question before marking.'})
                     continue
-                p['saved_work'] = str(r['value'])
-                results.append({'n': r['n'], 'needs_retry': True,
-                                'error': 'Your answer is saved. Retry the protected question before marking.'})
-                continue
-            g = grade.grade_item(inst, r)
+            if whole and r['kind'] != 'idk':
+                award = awards.get(r['n'])
+                if award is None:
+                    p['saved_work'] = str(r['value'])
+                    p['pending_saved_mark'] = True
+                    p.pop('whole_paper_work', None)
+                    results.append({'n': r['n'], 'pending_manual': True,
+                                    'say': 'Manual marking required; your work is saved and ungraded.'})
+                    continue
+                state = self._marking_tickets.get(award['ticket'], {})
+                try:
+                    g = grade.grade_human_whole(inst, award['earned_marks'])
+                    if (state.get('n') != key or 'whole_snapshot' not in state
+                            or p.get('saved_work') != r['value'] or not self._faded_guards_allow_review(p)
+                            or s.get('suspended_for_retry') or self.marking_status(award['ticket']) != 'ok'):
+                        raise ValueError('The attempt, rubric or protected questions changed; reopen the manual rubric.')
+                except (ValueError, TypeError, KeyError) as exc:
+                    self.cancel_marking(award['ticket'])
+                    results.append({'n': r['n'], 'error': str(exc)})
+                    continue
+                g['human_award'] = {'version': 1, 'earned_marks': award['earned_marks'],
+                                    'max_marks': inst['marks'], 'marker': 'human',
+                                    'rubric_fingerprint': state['rubric_fingerprint']}
+            else:
+                g = grade.grade_item(inst, r)
             if r["n"] in judge and r["kind"] != "idk":
                 try:
                     sc = float(judge[r["n"]])
@@ -1893,6 +2357,8 @@ class Tutor(LessonMixin):
         was before the wrong mark and the answer recorded as right: no repair step, relearning or gap comes of it."""
         events = list(self.vault.events())
         answer = next((e for e in events if e.get("id") == event_id and e["type"] == "answer"), None)
+        if answer and (answer.get('human_award') or topicals.whole_rubric(answer.get('question', {})) is not None):
+            return {'ok': False, 'error': 'Whole-rubric marks require a human; automated re-marking is unavailable.'}
         if not answer or model.counts_as_right(answer["grade"]):
             if answer and answer.get("regraded") and self._reconcile_correction_totals(events):
                 self._save()
@@ -1951,9 +2417,12 @@ class Tutor(LessonMixin):
         conf_stats = self.state["traits"]["calibration"].get("by_conf", {}).get(str(r.get("conf")))
         credit = sorted({pre for kc in assessed if kc in self.packs.kcs for pre in self.packs.kc(kc).get("prereqs", [])
                          if self.state["kcs"].get(pre, {}).get("fsrs")})
-        answer_withheld = r["kind"] == "idk" and (s.get("mode") == "lesson" or
-                                                       p.get("phase") in ("form_check", "term_review", "skipped_retry") or
-                                                       (p.get('phase') == 'faded' and inst['kind'] == 'short'))
+        give_up = (r["kind"] == "idk"
+                   and (p.get("block") == "skipped_retry" or p.get("phase") == "skipped_retry"))
+        answer_withheld = r["kind"] == "idk" and not give_up and (
+            topicals.whole_rubric(inst) is not None or s.get("mode") == "lesson" or
+            p.get("phase") in ("form_check", "term_review", "skipped_retry") or
+            (p.get('phase') == 'faded' and inst['kind'] == 'short'))
         deferred_path = self.vault.tutor / 'state' / 'deferred-notes.json'
         if answer_withheld or s.get("skipped_answer_guards") or deferred_path.exists():
             # A generated item can reuse its ID with different values; protect each instance separately.
@@ -1966,17 +2435,22 @@ class Tutor(LessonMixin):
                                      "short_answers": ([inst.get("review_answer", "")] +
                                                        [point.get("point", "") for point in inst.get("rubric", [])]
                                                        if inst["kind"] == "short" else [])}
-            elif r["kind"] != "idk":
+            elif give_up or r["kind"] != "idk":
                 guards.pop(guard_id, None)
+        source_only = inst.get("source_verified") is True  # source-verified practice: tagged, counts towards mastery
         ev = redo or self.log({"type": "answer", "session": s["id"], "n": int(key), "item": p["item"], "kcs": assessed,
                        "subject": p["subject"],
                        "difficulty": p["difficulty"], "conf": r.get("conf"), "hinted": p["hinted"], "seconds": round(seconds),
                        "marks": p["marks"], "grade": {k: g[k] for k in ("correct", "score", "error", "misconception")},
-                       "credit": credit, "pos": s["answered"], "block": p["block"], "phase": p["phase"],
+                       "credit": credit, "pos": s["answered"],
+                       **({"source_verified": True} if source_only else {}), "block": p["block"], "phase": p["phase"],
                        "params": inst.get("params"), "response": r["value"] if r["kind"] != "idk" else "don't know",
                        "question": {field: inst[field] for field in ("stem", "options", "image", "images", "source", "marks",
-                                                                     "explanation", "kind") if field in inst},
+                                                                     "explanation", "kind",
+                                                                     *(("scheme",) if topicals.whole_rubric(inst) is not None else ())) if field in inst},
+                       **({"human_award": g["human_award"]} if g.get("human_award") else {}),
                        **({'postponement_id': p['postponement_id']} if p.get('postponement_id') else {}),
+                       **({'merged_items': p['merged_items']} if p.get('merged_items') else {}),
                        **({'reviewed_explanation': reviewed_explanation} if reviewed_explanation and not answer_withheld else {}),
                        **({"term_id": inst["term_id"]} if inst.get("term_id") else {}),
                        "key": "" if answer_withheld else _display_answer(inst),
@@ -1986,7 +2460,7 @@ class Tutor(LessonMixin):
         if answer_withheld:
             from . import deferred_notes
             deferred_notes.hold(deferred_path, guard_id, guards[guard_id])
-        elif r['kind'] != 'idk' and deferred_path.exists():
+        elif (give_up or r['kind'] != 'idk') and deferred_path.exists():
             from . import deferred_notes
             deferred_notes.resolve(deferred_path, guard_id)
         if not redo:
@@ -2103,7 +2577,7 @@ class Tutor(LessonMixin):
                                            or (knobs["max_items_before_break"] and s["answered"] == knobs["max_items_before_break"])):
             s["break_offered"] = True
             fb["break_suggested"] = True
-        if (s.get('skipped_answer_guards') or s.get('suspended_for_retry')) and not answer_withheld:
+        if (s.get('skipped_answer_guards') or s.get('suspended_for_retry')) and not answer_withheld and not give_up:
             pending = s.setdefault('deferred_feedback', [])
             if not any(row.get('event') == fb['event'] for row in pending):
                 pending.append(copy.deepcopy(fb))
@@ -2123,6 +2597,8 @@ class Tutor(LessonMixin):
         p = (self.session or {}).get("presented", {}).get(str(n))
         if not p or p["inst"]["kind"] != "structured":
             return {"error": "no open structured question with that number"}
+        if topicals.whole_rubric(p["inst"]) is not None:
+            return {"error": "Use guarded whole-rubric disclosure after a real attempt."}
         if self.session.get('skipped_answer_guards'):
             return {'error': 'A skipped answer is protected, so the marking scheme is withheld.'}
         p["scheme_shown"] = True
@@ -2186,44 +2662,152 @@ class Tutor(LessonMixin):
                 "percent": percent,
                 "weakest": weakest[:5], "unknown_questions": unknown, "session": sid}
 
+    def _topic_ai_cache(self) -> tuple:
+        path = self.vault.tutor / 'state' / 'topic-ai.json'
+        try:
+            data = read_json(path, {})
+        except ValueError:
+            data = {}
+        return path, data if isinstance(data, dict) else {}
+
+    def _identify_topics(self, p: dict) -> dict:
+        """Name the ideas of an untagged question: cached per (item, content), asked of the AI at most twice.
+        {'status': 'ok', 'kcs', 'confidence', 'subtopics', 'reason'} | {'status': 'pending'|'unverified', 'message'}."""
+        import hashlib
+        inst = p['inst']
+        source = inst.get('source') if isinstance(inst.get('source'), dict) else {}
+        chapter = p.get('serving_chapter')
+        known = next((k for k in p.get('kcs') or [] if k in self.packs.kcs), None)
+        course = (inst.get('course') or source.get('course') or self.packs.subtopics.get(chapter, {}).get('spec')
+                  or (self.session or {}).get('course') or (self.packs.kcs[known]['spec'] if known else None)
+                  or topicals.official_course(source))
+        rows = [(k, v['title']) for k, v in self.packs.kcs.items() if v.get('spec') == course]
+        if not course or not rows:
+            return {'status': 'unverified', 'message': 'The course of this question is unknown, so its topics cannot be named.'}
+        options = inst.get('options') if isinstance(inst.get('options'), dict) else {}
+        text = '\n'.join([str(inst.get('stem') or ''), *(f'{k}. {v}' for k, v in options.items())]).strip()
+        refs = list(dict.fromkeys(([inst['image']] if inst.get('image') else []) + list(inst.get('images') or [])))
+        paths, digests = [], []
+        if refs:
+            from .asset_library import AssetLibrary
+            try:
+                library = AssetLibrary(self.vault.root)
+                for ref in refs:
+                    path = library.resolve(ref)
+                    paths.append(str(path))
+                    digests.append(hashlib.sha256(path.read_bytes()).hexdigest())
+            except (OSError, ValueError, KeyError):
+                return {'status': 'pending', 'message': 'The question image could not be read, so its topics cannot be named yet.'}
+        key = f"{p['item']}:{course}:{engine_prompts.content_hash(text, digests)}"
+        path, cache = self._topic_ai_cache()
+        record = cache.get(key)
+        if record is None:
+            if self.topic_ai is None:
+                return {'status': 'pending', 'message': 'This question has no topic tags. Turn on AI help so its topics can be identified; it stays open.'}
+            request = {'purpose': 'topic_identification', 'course': course, 'cheapest': True,
+                       'system': engine_prompts.TOPIC_SYSTEM, 'schema': engine_prompts.TOPIC_SCHEMA, 'images': paths,
+                       'prompt': engine_prompts.topic_prompt(course, rows, text, bool(paths))}
+            parsed, unavailable = self._ask_topics(request, {k for k, _ in rows})
+            if unavailable:
+                return {'status': 'pending', 'message': 'AI help is unavailable, so this question\'s topics cannot be identified yet; it stays open.'}
+            record = {**(parsed or {'kcs': [], 'confidence': 0.0, 'subtopics': [], 'reason': '', 'rejected': True}),
+                      'course': course, 'at': self.now().isoformat()}
+            cache[key] = record
+            write_json(path, cache)
+        if record.get('rejected') or not record.get('kcs') or record.get('confidence', 0) < engine_prompts.MIN_CONFIDENCE:
+            return {'status': 'unverified', 'message': 'The topics of this question could not be identified reliably; it stays open.'}
+        return {'status': 'ok', 'kcs': list(record['kcs']), 'confidence': record['confidence'],
+                'subtopics': list(record.get('subtopics') or []), 'reason': record.get('reason') or ''}
+
+    def _ask_topics(self, request: dict, valid_ids: set) -> tuple[dict | None, bool]:
+        """One AI call; an invalid reply is asked once more with the problem appended.
+        Returns (parsed reply or None, AI unavailable)."""
+        try:
+            reply = self.topic_ai(request)
+        except Exception:
+            return None, True
+        if reply is None or reply == '':
+            return None, True
+        problem = engine_prompts.topic_reply_problem(reply, valid_ids)
+        if problem is None:
+            return engine_prompts.parse_topic_reply(reply, valid_ids), False
+        retry = {**request, 'prompt': engine_prompts.topic_retry_prompt(request['prompt'], problem)}
+        try:
+            reply = self.topic_ai(retry)
+        except Exception:
+            return None, True
+        if reply is None or reply == '':
+            return None, True
+        return engine_prompts.parse_topic_reply(reply, valid_ids), False
+
     def check_solvable(self, n: int) -> dict:
+        """"Can I solve this?"  Deterministic against the learner's STARTED topics (see tutorlib.solvability).
+        Returns {n, status: solvable|adapted|skipped|unverified|topic_pending, message, missing, given, adapted_prompt,
+        topic, skipped, ...}; the old keys topics/basis remain.  Never reveals the key of an open question."""
         if (self.session or {}).get('faded_cancel_intent'):
-            return {'n': n, 'status': 'unverified', 'topics': [],
+            return {'n': n, 'status': 'unverified', 'topics': [], 'missing': [], 'given': [], 'adapted_prompt': None,
+                    'topic': None, 'skipped': False,
                     'message': 'Finish recovering the saved draft before checking this question.'}
         p = (self.session or {}).get("presented", {}).get(str(n))
+        blank = {'n': n, 'topics': [], 'missing': [], 'given': [], 'adapted_prompt': None, 'topic': None, 'skipped': False}
         if not p:
-            return {"n": n, "status": "unverified", "topics": [], "message": "This question is no longer open."}
-        reviewed = 'topical' in p['inst']
-        result = (topicals.eligibility(p["inst"], p.get("serving_chapter"), self.state, self.packs, p["unassisted"])
-                  if reviewed else topicals.graph_eligibility(p['inst'], p.get('serving_chapter'), self.state, self.packs))
-        status = result["status"]
-        keys = result["missing"] if status == "unavailable" else result["requires"]
-        topics = [k.split("-", 1)[-1] for k in keys]
-        message = "Required topics: " + ", ".join(topics) + "."
-        if status == "unverified":
-            message = "Prerequisite metadata is unverified; this question remains open."
-        elif status == 'unavailable' and not reviewed:
-            message = "Missing recorded topics: " + ", ".join(topics) + ". This question remains open."
-        elif status == "unavailable":
-            chapter = p["serving_chapter"]
-            ident = topicals.identity(p["inst"]) or p["item"]
-            self.log({"type": "topical_exclude", "identity": ident, "chapter": chapter,
-                      "missing": result["missing"], "reason": "Missing reviewed prerequisites for this serving chapter."})
+            return {**blank, "status": "unverified", "message": "This question is no longer open."}
+        inst = p['inst']
+        reviewed = 'topical' in inst
+        chapter = p.get('serving_chapter') or self.packs.kcs.get((p.get('kcs') or [''])[0], {}).get('subtopic')
+        if reviewed and topicals.eligibility(inst, p.get('serving_chapter'), self.state, self.packs, p['unassisted'])['status'] == 'unverified':
+            message = 'Prerequisite metadata is unverified; this question remains open.'
+            self.show("notice", message, "Can I solve this?")
+            return {**blank, 'status': 'unverified', 'message': message, 'basis': 'reviewed_topical'}
+        res = solvability.assess(self.state, self.packs, inst, serving_chapter=p.get('serving_chapter'), unassisted=p['unassisted'])
+        basis = 'reviewed_topical' if reviewed else 'course_graph'
+        if res['needs_topic']:
+            found = self._identify_topics(p)
+            if found['status'] == 'ok':
+                res = solvability.assess(self.state, self.packs, inst, kcs=found['kcs'], serving_chapter=p.get('serving_chapter'),
+                                         unassisted=p['unassisted'], topic_source='ai')
+                basis = 'ai_topics'
+            else:
+                res = {**res, 'status': 'topic_pending' if found['status'] == 'pending' else 'unverified',
+                       'message': found['message']}
+        status = res['status']
+        skippable = reviewed or inst.get('source_verified') is True or p.get('block') in ('topical', 'practice_set')
+        message = res['message']
+        if status == 'skipped' and not skippable:
+            own = {self.packs.kcs[k]['subtopic'] for k in (inst.get('kcs') or []) if k in self.packs.kcs}
+            if own and not own & set(res['missing_topics']):
+                # The question's own topics are started; only its recorded prerequisites are missing.
+                status = 'unavailable'
+                message = 'Missing recorded topics: ' + ', '.join(k.split('-', 1)[-1] for k in res['missing_topics']) + \
+                          '. This question remains open.'
+            else:
+                status, message = 'unverified', message.replace('Skipped for now: ', 'Not yet possible: ') + ' This question stays open.'
+        elif status == 'skipped':
+            ident = topicals.identity(inst) or p["item"]
+            if chapter:
+                self.log({"type": "topical_exclude", "identity": ident, "chapter": chapter,
+                          "missing": res['missing_topics'],
+                          "reason": "Missing started topics for every part of this question."})
             if p.get('pending_saved_mark'):
                 self._remember_pending_node(p)
                 p.update(block='deferred_judgment', block_idx=None, exp=None)
                 self.session.setdefault('deferred_judgments', []).append(p)
             del self.session["presented"][str(n)]
             self._save()
-            status = "skipped"
-            message = "Skipped for this chapter. Missing topics: " + ", ".join(topics) + "."
             if p.get('pending_saved_mark'):
                 message += " Your submitted working remains saved for later marking."
+        elif status == 'adapted' and res['given']:
+            p['hinted'] = True  # facts were given: assisted practice, never independent performance
+            p['support_given'] = list(res['given'])
+            self._save()
+        if status == 'adapted':
+            p['adapted_prompt'] = res['adapted_prompt']
         if not reviewed:
             message = 'Course graph prerequisite assessment (not reviewed question requirements). ' + message
-        out = {"n": n, "status": status, "topics": topics, "message": message,
-               'basis': 'reviewed_topical' if reviewed else 'course_graph'}
-        self.show("notice", message, "Can I solve this?")
+        out = {**res, 'n': n, 'status': status, 'message': message, 'basis': basis, 'skipped': status == 'skipped',
+               'topics': [k.split("-", 1)[-1] for k in (res['missing_topics'] or res.get('requires', []))]}
+        self.show("notice", message + ('\n' + '\n'.join(res['given']) if status == 'adapted' and res['given'] else ''),
+                  "Can I solve this?")
         return out
 
     def topical_exclusions(self, chapter: str | None = None) -> list[dict]:
@@ -2268,6 +2852,13 @@ class Tutor(LessonMixin):
 
 RIGHT = {"correct": True, "score": 1.0, "error": None, "misconception": None}  # the grade a re-mark gives
 _ABSENT = object()
+
+
+def _idk_like(value) -> bool:
+    """Text that gives up on a question instead of attempting it: the words the retry paths have always read."""
+    return str(value).strip().casefold().replace('’', "'").strip('?.! ') in (
+        '', 'idk', "i don't know", 'i dont know', 'i do not know', 'skip', 'no',
+        'i have no idea', "i can't answer", 'i cant answer', 'not sure')
 
 
 def _expected_kind(kind: str) -> tuple[str, ...]:

@@ -494,3 +494,38 @@ def test_marking_can_think_when_chosen(tmp_path, monkeypatch):
     asyncio.run(c.one_shot("mark this", schema=schema, model="opus", think=True))
     argv = _argvs(tmp_path)[-1]
     assert argv[argv.index("--model") + 1] == "opus" and json.dumps({"alwaysThinkingEnabled": True}) in argv
+
+
+@pytest.mark.parametrize('kind,value,wrong', [
+    ('string', 'A', []), ('boolean', False, 'false'), ('array', [], {}),
+    ('object', {}, []), ('integer', 2, '2'), ('number', 2.5, '2.5'),
+])
+def test_complete_supports_nullable_basic_types(kind, value, wrong):
+    schema = {'required': ['answer'], 'properties': {'answer': {'type': [kind, 'null']}}}
+    assert ai.complete({'answer': None}, schema)
+    assert ai.complete({'answer': value}, schema)
+    assert not ai.complete({'answer': wrong}, schema)
+    assert not ai.complete({}, schema)
+
+
+@pytest.mark.parametrize('declaration', [[], ['unknown', 'null'], ['string', []],
+                                       ['string', {}], ['string', None], ['string', 'string'],
+                                       {'type': 'string'}, 123])
+def test_complete_rejects_malformed_union_declarations_without_throwing(declaration):
+    schema = {'required': ['answer'], 'properties': {'answer': {'type': declaration}}}
+    assert ai.complete({'answer': None}, schema) is False
+    assert ai.complete({'answer': 'A'}, schema) is False
+
+
+def test_complete_keeps_nonnulllist_and_legacy_single_type_behavior():
+    schema = {'required': ['answer'], 'properties': {'answer': {'type': ['string', 'integer']}}}
+    assert ai.complete({'answer': 'A'}, schema)
+    assert ai.complete({'answer': 1}, schema)
+    assert not ai.complete({'answer': None}, schema)
+    for declaration, accepted, rejected in [('string', 'A', None), ('array', [], None),
+                                            ('boolean', False, 1), ('integer', 1, '1')]:
+        single = {'properties': {'answer': {'type': declaration}}}
+        assert ai.complete({'answer': accepted}, single)
+        assert not ai.complete({'answer': rejected}, single)
+    assert ai.complete({'answer': None}, {'properties': {'answer': {}}})
+    assert ai.complete({'answer': 'value'}, {'properties': {'answer': {'type': 'legacy_unknown'}}})

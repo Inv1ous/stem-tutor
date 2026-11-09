@@ -60,6 +60,14 @@
    "refutation": "Giant covalent SiO2 also has a high melting point; combine melting and reaction evidence.",
    "contrast": "Simple molecular chlorides have low melting points.",
    "source": "research"
+  },
+  {
+   "id": "m8",
+   "kc": "9701-9.2.6",
+   "statement": "Every covalent oxide reacts with water to form an acidic solution.",
+   "refutation": "Giant covalent silicon dioxide does not react with water under ordinary conditions; structure and conditions qualify the trend.",
+   "contrast": "Molecular phosphorus and sulfur oxides react with water, whereas giant silica does not.",
+   "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.7,9–10; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions)"
   }
  ],
  "worked": [
@@ -4140,7 +4148,133 @@
    "connect": "Product formulae and valence electrons explain the oxidation-number pattern.",
    "note": "- Balance each oxygen and chlorine equation.\n- Distinguish cold water from steam for magnesium.",
    "self_explain": "How does magnesium differ with cold water and steam?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Build on ionic bonding (oppositely charged ions) and covalent bonding (shared electron pairs): these help establish product formulae. Keep each formula fixed while changing coefficients to conserve atoms. The same metal can give different products with liquid water and steam.",
+   "terms": [
+    {
+     "term": "coefficient",
+     "meaning": "Number multiplying a whole formula; changes the amount, not the compound.",
+     "notation": "$2\\ce{MgO}$",
+     "spoken": "two magnesium oxide formula units",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.2–4; bundle syllabus 9.2.1"
+    },
+    {
+     "term": "state symbol",
+     "meaning": "Physical state of a species; aqueous means dissolved in water.",
+     "notation": "$(s), (l), (g), (aq)$",
+     "spoken": "solid, liquid, gas, aqueous",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.2–4; bundle syllabus 9.2.1"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Construct and balance element reactions",
+     "wordings": [
+      "Write a balanced equation for combustion.",
+      "Write the equation for reaction with excess chlorine."
+     ],
+     "example": "Example: form phosphorus(V) oxide from phosphorus. Step 1: use $\\ce{P4}$ and $\\ce{P4O10}$. Step 2: four P atoms already match. Step 3: ten oxygen atoms require five oxygen molecules: $\\ce{P4(s) + 5O2(g) -> P4O10(s)}$. Recount P: four each side; O: ten each side. Excess oxygen gives the specified highest oxide.",
+     "check": "Silicon burns in oxygen to form silicon dioxide. Write a balanced equation with states; calculate the moles of oxygen needed for 0.30 mol of silicon.",
+     "answer": "$\\ce{Si(s) + O2(g) -> SiO2(s)}$; the ratio is 1:1, so 0.30 mol of oxygen is needed.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.2–4; bundle syllabus 9.2.1",
+     "rubric": [
+      {
+       "point": "Correct balanced equation and states.",
+       "keywords": [
+        [
+         "SiO2"
+        ],
+        [
+         "Si"
+        ],
+        [
+         "O2"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates 0.30 mol oxygen.",
+       "keywords": [
+        [
+         "0.30",
+         "0.3"
+        ],
+        [
+         "mol"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Compare water and steam reactions",
+     "wordings": [
+      "Describe and write equations for reactions with water under stated conditions."
+     ],
+     "example": "Example: sodium and cold water. Step 1: the products are sodium hydroxide and hydrogen. Step 2: write $\\ce{Na + H2O -> NaOH + H2}$. Step 3: balance $\\ce{2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g)}$. Fizzing accompanies a vigorous reaction; dissolved hydroxide makes the aqueous phase alkaline.",
+     "check": "Equal amounts, 0.20 mol, of sodium and magnesium react separately with excess cold water. Calculate the maximum amount of hydrogen from each when the metals fully react, and explain why the amounts do not describe how quickly the gas appears.",
+     "answer": "Sodium gives 0.10 mol $\\ce{H2}$ and magnesium gives 0.20 mol $\\ce{H2}$, from their respective equations. Stoichiometric yield does not determine rate: magnesium reacts slowly with cold water while sodium reacts vigorously.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.2–4; bundle syllabus 9.2.1",
+     "rubric": [
+      {
+       "point": "Calculates 0.10 mol hydrogen for sodium.",
+       "keywords": [
+        [
+         "0.10",
+         "0.1"
+        ],
+        [
+         "sodium",
+         "Na"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates 0.20 mol hydrogen for magnesium.",
+       "keywords": [
+        [
+         "0.20",
+         "0.2"
+        ],
+        [
+         "magnesium",
+         "Mg"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguishes stoichiometric yield from reaction rate.",
+       "keywords": [
+        [
+         "rate",
+         "speed",
+         "slow",
+         "vigorous"
+        ],
+        [
+         "yield",
+         "amount",
+         "moles",
+         "stoichiometry"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Every Period 3 element reacts with water.",
+     "temptation": "Confusing the reactions of an element with those of its oxide or chloride.",
+     "fix": "Only Na and Mg are specified for elemental reactions with water."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "Atom counting and condition-labelled equations support these forms directly; a decorative flame image would not show conservation or distinguish water from steam.",
+   "source_gaps": [
+    "Forms were reviewed against the cited library pages and bundle excerpts; a complete audit of official question papers and full mark schemes remains for independent review."
+   ]
   },
   "9701-9.2.2": {
    "motivate": "Formulae reveal the number of electrons used in bonding.",
@@ -4148,7 +4282,135 @@
    "connect": "Use the assigned numbers to predict the highest oxide or chloride formula.",
    "note": "- Oxygen is −2; chlorine is −1.\n- Sum the oxidation numbers to zero.",
    "self_explain": "Why is phosphorus +5 in $\\ce{P4O10}$?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Recall that the sum of oxidation numbers equals the overall charge. Oxidation numbers are electron-bookkeeping values, not a count of oxygen atoms or necessarily actual ionic charges. From Na to P the maximum increases with the number of outer-shell electrons.",
+   "terms": [
+    {
+     "term": "oxidation number",
+     "meaning": "Formal charge assigned when bonding electrons are allocated to the more electronegative atom.",
+     "notation": "$x$",
+     "spoken": "oxidation number x",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.4–6; bundle ER 9701 s23 P12 Q18 and s23 P22 Q2"
+    },
+    {
+     "term": "atom ratio",
+     "meaning": "Relative numbers of atoms in the formula, obtained from subscripts.",
+     "notation": "$q:p$",
+     "spoken": "q to p",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.4–6; bundle ER 9701 s23 P12 Q18 and s23 P22 Q2"
+    },
+    {
+     "term": "valence shell",
+     "meaning": "Outermost occupied electron shell; its electrons participate in bonding.",
+     "notation": "outer shell",
+     "spoken": "valence shell",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.4–6; bundle ER 9701 s23 P12 Q18 and s23 P22 Q2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Assign oxidation numbers and explain maxima",
+     "wordings": [
+      "Calculate the oxidation number in an oxide or chloride.",
+      "Explain the maximum oxidation-number trend."
+     ],
+     "example": "Example: in $\\ce{Al2O3}$, write $2x+3(-2)=0$, so $x=+3$. In $\\ce{AlCl3}$, $x+3(-1)=0$ also gives +3. Aluminium has three outer-shell electrons; oxygen and chlorine take the negative assigned values because they are more electronegative.",
+     "check": "Calculate the oxidation number of silicon in $\\ce{SiO2}$ and aluminium in $\\ce{Al2Cl6}$. Show the charge sums.",
+     "answer": "$\\ce{SiO2}$: $x+2(-2)=0$, so Si is +4. $\\ce{Al2Cl6}$: $2x+6(-1)=0$, so Al is +3.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.4–6; bundle ER 9701 s23 P12 Q18 and s23 P22 Q2",
+     "rubric": [
+      {
+       "point": "Silicon is +4 with a valid sum.",
+       "keywords": [
+        [
+         "+4",
+         "4"
+        ],
+        [
+         "SiO2",
+         "silicon"
+        ]
+       ]
+      },
+      {
+       "point": "Aluminium is +3 with a valid sum.",
+       "keywords": [
+        [
+         "+3",
+         "3"
+        ],
+        [
+         "Al2Cl6",
+         "aluminium"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Separate atom ratios from oxidation numbers",
+     "wordings": [
+      "Deduce oxygen:element and chlorine:element ratios from formulae."
+     ],
+     "example": "Example: $\\ce{Na2O}$ has oxygen:sodium ratio $1:2=0.5$, but sodium oxidation number +1 since $2x-2=0$. In $\\ce{NaCl}$ chlorine:sodium is $1:1=1$. For a neutral oxide $\\ce{X_pO_q}$, $px-2q=0$ gives $x=2q/p$; for $\\ce{X_yCl_z}$, $yx-z=0$ gives $x=z/y$.",
+     "check": "For $\\ce{Al2O3}$ and $\\ce{Al2Cl6}$ calculate oxygen:aluminium and chlorine:aluminium atom ratios. Use each ratio to calculate the oxidation number of aluminium and explain why the ratios differ.",
+     "answer": "O:Al is $3:2=1.5$ and Cl:Al is $6:2=3$. Aluminium is +3 in both: oxygen is assigned −2 and chlorine −1, so the oxide ratio is half the oxidation number while the chloride ratio equals it.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.4–6; bundle ER 9701 s23 P12 Q18 and s23 P22 Q2",
+     "rubric": [
+      {
+       "point": "Finds oxide ratio 3:2 or 1.5.",
+       "keywords": [
+        [
+         "3:2",
+         "1.5"
+        ]
+       ]
+      },
+      {
+       "point": "Finds chloride ratio 6:2, 3:1 or 3.",
+       "keywords": [
+        [
+         "6:2",
+         "3:1",
+         "3"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates +3 in both and links differing ratios to O as −2 and Cl as −1.",
+       "keywords": [
+        [
+         "+3",
+         "3"
+        ],
+        [
+         "−2",
+         "-2",
+         "minus two"
+        ],
+        [
+         "−1",
+         "-1",
+         "minus one"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "Oxidation number is the number of oxygen atoms in a formula.",
+     "temptation": "Reading a formula subscript as the oxidation number without dividing by the number of element atoms.",
+     "fix": "Assign O as −2 and Cl as −1, then balance the sum to zero."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The explicit ratio equations show the required comparison without a potentially misleading graph equating atom ratio to oxidation number.",
+   "source_gaps": [
+    "Forms were reviewed against the cited library pages and bundle excerpts; a complete audit of official question papers and full mark schemes remains for independent review."
+   ]
   },
   "9701-9.2.3": {
    "motivate": "An oxide can be acidic, alkaline or insoluble.",
@@ -4156,7 +4418,111 @@
    "connect": "Their water reactions help classify oxides as basic, amphoteric or acidic.",
    "note": "- Na and Mg oxides yield alkalis.\n- Aluminium and silicon oxides do not react with water.\n- P and S oxides yield acids.",
    "self_explain": "Which oxides do not react with water?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "First ask whether water reacts with the oxide. A solid left in a beaker is a suspension, not a dissolved solution. The pH describes the aqueous phase and varies with concentration, temperature and the extent of reaction.",
+   "terms": [
+    {
+     "term": "suspension",
+     "meaning": "Undissolved solid dispersed in a liquid; a solid phase remains.",
+     "notation": "$(s)$ in water",
+     "spoken": "suspension",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.6–8; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle 9.2.3"
+    },
+    {
+     "term": "aqueous",
+     "meaning": "Dissolved in water rather than a solid mixed with water.",
+     "notation": "$(aq)$",
+     "spoken": "aqueous",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.6–8; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle 9.2.3"
+    },
+    {
+     "term": "pH",
+     "meaning": "Measure of acidity of the aqueous phase; below neutral is acidic and above neutral alkaline.",
+     "notation": "$\\mathrm{pH}$",
+     "spoken": "p H",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.6–8; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle 9.2.3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Predict oxide-water products and aqueous pH",
+     "wordings": [
+      "Describe the reaction, if any, of an oxide with water.",
+      "Write the equation and predict acidic or alkaline behaviour."
+     ],
+     "example": "Example: add magnesium oxide to water. Step 1: slow/limited reaction forms magnesium hydroxide, $\\ce{MgO(s) + H2O(l) -> Mg(OH)2(s)}$. Step 2: only a small fraction dissolves, so solid remains. Step 3: the aqueous phase is alkaline, commonly around pH 9–10 under classroom conditions. For aluminium oxide there is no water reaction; do not invent dissolved aluminium hydroxide.",
+     "check": "A student adds an oxide to water. The solid remains and the clear water above it stays approximately neutral. Another oxide disappears and gives an acidic solution. Explain what these observations do and do not establish about each oxide and the aqueous phase.",
+     "answer": "The first observation establishes that solid remains and the aqueous phase does not change pH appreciably. Insolubility or little reaction are possible explanations, but a reaction producing an insoluble solid is also possible. The observations do not establish the oxide identity or acid-base class. The second is consistent with acid formation or dissolved acidic species; it does not uniquely identify the oxide. A numerical pH, if supplied, depends on concentration and conditions.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.6–8; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle 9.2.3",
+     "rubric": [
+      {
+       "point": "Recognises that solid remains and the aqueous phase does not change pH appreciably; insolubility or little reaction are possible explanations, not established facts.",
+       "keywords": [
+        [
+         "solid",
+         "suspension"
+        ],
+        [
+         "neutral",
+         "pH",
+         "aqueous"
+        ]
+       ]
+      },
+      {
+       "point": "Recognises acid formation or acidic dissolved species in the second aqueous phase.",
+       "keywords": [
+        [
+         "acid",
+         "acidic"
+        ],
+        [
+         "dissolved",
+         "solution",
+         "aqueous",
+         "react"
+        ]
+       ]
+      },
+      {
+       "point": "Does not infer a unique identity or acid-base class from the first observation alone.",
+       "keywords": [
+        [
+         "not enough",
+         "cannot",
+         "not uniquely",
+         "does not establish",
+         "insufficient"
+        ]
+       ]
+      },
+      {
+       "point": "If a numerical pH is given, qualifies it by concentration or conditions; no numerical pH is required.",
+       "keywords": [
+        [
+         "concentration",
+         "conditions",
+         "approximate",
+         "no numerical pH"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "All Period 3 oxides dissolve in water.",
+     "temptation": "Assuming that stirring a white solid into water guarantees a solution.",
+     "fix": "Aluminium oxide and silicon dioxide do not react with water; MgO reacts only slightly."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No verified registered graphic was supplied for this form. Phase-labelled equations and explicit descriptions of remaining solids convey the required observations without inventing an asset.",
+   "source_gaps": [
+    "Forms were reviewed against the cited library pages and bundle excerpts; a complete audit of official question papers and full mark schemes remains for independent review."
+   ]
   },
   "9701-9.2.4": {
    "motivate": "A white oxide may still react with both kinds of reagent.",
@@ -4164,7 +4530,160 @@
    "connect": "Amphoteric is a reaction property, not a claim about water solubility.",
    "note": "- Basic oxides and hydroxides neutralise acids.\n- Acidic oxides react with NaOH.\n- Aluminium oxide and hydroxide react with both.",
    "self_explain": "What two tests establish amphoteric behaviour?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Build on proton transfer: a base accepts protons, and an acidic oxide reacts with a base. Amphoteric substances react with both acids and sodium hydroxide. Test chemical reactions separately from water solubility, and track each beaker after each addition.",
+   "terms": [
+    {
+     "term": "basic oxide",
+     "meaning": "Oxide that reacts with acid to form salt and water.",
+     "notation": "$\\ce{MgO}$",
+     "spoken": "basic oxide",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.8–11; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle ER 9701 w22 P13 Q25"
+    },
+    {
+     "term": "amphoteric",
+     "meaning": "Reacts with acids and bases; here test with hydrochloric acid and aqueous sodium hydroxide.",
+     "notation": "$\\ce{Al2O3}$",
+     "spoken": "amphoteric",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.8–11; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle ER 9701 w22 P13 Q25"
+    },
+    {
+     "term": "precipitate",
+     "meaning": "Solid formed by a reaction in a liquid, distinct from an unreacted starting powder.",
+     "notation": "$(s)$",
+     "spoken": "precipitate",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.8–11; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle ER 9701 w22 P13 Q25"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Classify acid-base behaviour using equations",
+     "wordings": [
+      "Explain amphoteric behaviour.",
+      "Write acid and base reactions to justify classification."
+     ],
+     "example": "Example: alumina remains solid in water but reacts with acid: $\\ce{Al2O3(s) + 6HCl(aq) -> 2AlCl3(aq) + 3H2O(l)}$. With suitable aqueous alkali (heating/concentration may be needed): $\\ce{Al2O3(s) + 2NaOH(aq) + 3H2O(l) -> 2Na[Al(OH)4](aq)}$. Both reactions establish amphoterism. MgO reacts with acid but not NaOH; SO2 reacts with NaOH. Water solubility alone does not decide the class.",
+     "check": "An unknown oxide X dissolves in dilute acid, but does not react with aqueous alkali under the test conditions. Another oxide Y reacts with aqueous alkali but not with dilute acid. Classify each from this evidence and explain whether either has been shown to be amphoteric.",
+     "answer": "X shows basic behaviour and Y acidic behaviour in these tests. Neither is shown to be amphoteric: that classification requires evidence of reaction with both acid and base under suitable conditions. The observations support classification under the stated conditions; a negative test alone need not rule out reaction under all conditions.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.8–11; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle ER 9701 w22 P13 Q25",
+     "rubric": [
+      {
+       "point": "Classifies X as basic and Y as acidic on the stated evidence.",
+       "keywords": [
+        [
+         "X",
+         "first"
+        ],
+        [
+         "basic",
+         "base"
+        ],
+        [
+         "Y",
+         "second"
+        ],
+        [
+         "acidic",
+         "acid"
+        ]
+       ]
+      },
+      {
+       "point": "Explains amphoterism requires reaction with both acid and base, which is not shown for either.",
+       "keywords": [
+        [
+         "both",
+         "acid and base",
+         "acid and alkali"
+        ],
+        [
+         "amphoteric",
+         "amphoterism"
+        ]
+       ]
+      },
+      {
+       "point": "Recognises limitations of the stated test conditions.",
+       "keywords": [
+        [
+         "conditions",
+         "under the test",
+         "suitable",
+         "other conditions"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Track solids through successive additions",
+     "wordings": [
+      "Predict which solids remain after water then excess sodium hydroxide."
+     ],
+     "example": "Example: separate samples of Al2O3 and MgO are stirred with water, then suitable excess aqueous NaOH. Step 1: both beakers retain white solid after water. Step 2: alumina reacts with alkali and can dissolve under suitable conditions; MgO does not react with this base and a white solid remains. Track chemical identity and phase at each stage, rather than assuming every initial solid persists.",
+     "check": "Separate aqueous solutions of MgCl2 and AlCl3 receive NaOH dropwise and then in excess at room temperature. Describe each stage and give the ionic equations for precipitate formation and any subsequent dissolution.",
+     "answer": "Both initially give white precipitates: $\\ce{Mg^2+(aq) + 2OH-(aq) -> Mg(OH)2(s)}$ and $\\ce{Al^3+(aq) + 3OH-(aq) -> Al(OH)3(s)}$. Excess NaOH leaves magnesium hydroxide solid but dissolves aluminium hydroxide: $\\ce{Al(OH)3(s) + OH-(aq) -> [Al(OH)4]-(aq)}$. A clear solution at the end can follow an earlier precipitate.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.8–11; RSC Periodicity, https://edu.rsc.org/download?ac=531990 (oxide reactions and structure questions); bundle ER 9701 w22 P13 Q25",
+     "rubric": [
+      {
+       "point": "Both initially form white hydroxide precipitates with correct balanced ionic equations.",
+       "keywords": [
+        [
+         "white"
+        ],
+        [
+         "Mg(OH)2"
+        ],
+        [
+         "Al(OH)3"
+        ]
+       ]
+      },
+      {
+       "point": "Magnesium hydroxide remains in excess base.",
+       "keywords": [
+        [
+         "magnesium",
+         "Mg(OH)2"
+        ],
+        [
+         "remains",
+         "insoluble",
+         "does not dissolve"
+        ]
+       ]
+      },
+      {
+       "point": "Aluminium hydroxide dissolves in excess base with atom- and charge-balanced aluminate equation.",
+       "keywords": [
+        [
+         "dissolve",
+         "soluble"
+        ],
+        [
+         "Al(OH)4"
+        ],
+        [
+         "OH"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "Amphoteric means neutral or unreactive.",
+     "temptation": "Mistaking no reaction with water for no reaction with acid or alkali.",
+     "fix": "Amphoteric $\\ce{Al2O3}$ and $\\ce{Al(OH)3}$ react with both acids and aqueous NaOH."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "A beaker drawing without verified phase and condition labels could blur initial and final solids. The staged form explicitly tracks both; no registered visual is available for binding.",
+   "source_gaps": [
+    "Forms were reviewed against the cited library pages and bundle excerpts; a complete audit of official question papers and full mark schemes remains for independent review."
+   ]
   },
   "9701-9.2.5": {
    "motivate": "Why does neutral salt water differ from a fuming chloride?",
@@ -4172,7 +4691,99 @@
    "connect": "The transition from dissolution to hydrolysis tracks bonding character.",
    "note": "- NaCl gives neutral water.\n- MgCl2 is slightly acidic; AlCl3 is acidic.\n- SiCl4 and PCl5 hydrolyse vigorously.\n- $\\ce{NaCl(s) -> Na+(aq) + Cl-(aq)}$: dissolution preserves one Na and one Cl and zero total charge; it does not form NaOH and HCl.\n- $\\ce{SiCl4(l) + 2H2O(l) -> SiO2(s) + 4HCl(aq)}$: one Si, four Cl, four H and two O on each side; white silica remains solid, while dissolved HCl produces acidic $\\ce{H3O+(aq)}$.",
    "self_explain": "Which chloride gives white solid silica on hydrolysis?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Recall ions, hydration and proton transfer. Dissolution separates existing ions and surrounds them with water. Hydrolysis changes species through reaction with water. Hydrated aluminium ions can release protons, whereas sodium chloride dissolves to give an approximately neutral solution.",
+   "terms": [
+    {
+     "term": "dissolution",
+     "meaning": "Dispersal of a solute in a solvent; ionic dissolution separates and hydrates existing ions.",
+     "notation": "$\\ce{NaCl(s) -> Na+(aq) + Cl-(aq)}$",
+     "spoken": "dissolution",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.12–15; bundle ER 9701 s23 P22 Q2, w22 P22 Q2 and w22 P21 Q3"
+    },
+    {
+     "term": "hydrolysis",
+     "meaning": "Reaction with water that changes chemical species.",
+     "notation": "reaction with water",
+     "spoken": "hydrolysis",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.12–15; bundle ER 9701 s23 P22 Q2, w22 P22 Q2 and w22 P21 Q3"
+    },
+    {
+     "term": "hydrated ion",
+     "meaning": "Ion surrounded by attached water molecules.",
+     "notation": "$\\ce{[Al(H2O)6]^3+}$",
+     "spoken": "hexaaquaaluminium three plus",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.12–15; bundle ER 9701 s23 P22 Q2, w22 P22 Q2 and w22 P21 Q3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Distinguish chloride dissolution and hydrolysis",
+     "wordings": [
+      "Explain chloride solution acidity with an equation.",
+      "Write a balanced hydrolysis equation in excess water."
+     ],
+     "example": "Example: NaCl versus AlCl3. Step 1: $\\ce{NaCl(s) -> Na+(aq) + Cl-(aq)}$ conserves Na, Cl and total charge zero, without making NaOH or HCl; the solution is approximately neutral at room temperature. Step 2: dissolved aluminium forms hydrated ions. Step 3: $\\ce{[Al(H2O)6]^3+(aq) + H2O(l) <=> [Al(H2O)5(OH)]^2+(aq) + H3O+(aq)}$ explains acidity: total charge is +3 on each side. The small, highly charged aluminium ion polarises O–H bonds. MgCl2 is only slightly acidic because its hydrated ion polarises water less strongly.",
+     "check": "A sample of $\\ce{SiCl4}$ is added to excess water. If 0.20 mol reacts completely, calculate the amount of HCl formed and the mass of silica formed. Use $M_r(\\ce{SiO2})=60.1$. Explain which product accounts for the acidic aqueous phase.",
+     "answer": "$\\ce{SiCl4 + 2H2O -> SiO2 + 4HCl}$. 0.20 mol gives 0.80 mol HCl and 0.20 mol silica, mass $0.20\\times60.1=12.02$ g (12.0 g). Dissolved HCl produces an acidic aqueous phase.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.12–15; bundle ER 9701 s23 P22 Q2, w22 P22 Q2 and w22 P21 Q3",
+     "rubric": [
+      {
+       "point": "Calculates 0.80 mol HCl.",
+       "keywords": [
+        [
+         "0.80",
+         "0.8"
+        ],
+        [
+         "HCl",
+         "hydrogen chloride"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates 12.0 g silica.",
+       "keywords": [
+        [
+         "12.0",
+         "12.02"
+        ],
+        [
+         "g",
+         "grams"
+        ]
+       ]
+      },
+      {
+       "point": "Links acidic aqueous phase to dissolved HCl.",
+       "keywords": [
+        [
+         "HCl",
+         "hydrogen chloride"
+        ],
+        [
+         "acid",
+         "hydronium",
+         "H3O"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "Every chloride gives a neutral solution on addition to water.",
+     "temptation": "Assuming all salts behave like sodium chloride and ignoring the acidic hydrated cation.",
+     "fix": "NaCl is neutral; MgCl2 is slightly acidic and AlCl3, SiCl4 and PCl5 give acidic solutions."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The worked hydration equation identifies the proton source and charges. No verified registered hydration diagram was supplied; a generic water picture would not establish hydrolysis.",
+   "source_gaps": [
+    "Forms were reviewed against the cited library pages and bundle excerpts; a complete audit of official question papers and full mark schemes remains for independent review."
+   ]
   },
   "9701-9.2.6": {
    "motivate": "A single period links electron structure to reaction trends.",
@@ -4180,7 +4791,126 @@
    "connect": "Use bonding and electronegativity to explain pH and structure together.",
    "note": "- Electronegativity rises across the period.\n- Oxides become less basic and more acidic.\n- Chlorides progress toward covalent hydrolysis.\n- Increasing nuclear charge with similar shielding strengthens attraction for bonding electrons; electronegativity rises and bonding to oxygen or chlorine becomes more covalent.\n- Basic oxide ions accept protons; amphoteric alumina reacts with acids and bases; molecular P and S oxides form acids with water. Giant covalent silica does not react with water, so check structure and conditions too.",
    "self_explain": "Why does SiCl4 hydrolyse while NaCl dissolves?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Build on attraction between nuclei and electrons, plus electronegativity as attraction for a bonding pair. Across Period 3 increasing nuclear charge with similar inner-shell shielding increases this attraction. Smaller electronegativity differences with oxygen or chlorine broadly favour more covalent character; structure still matters for water reactions.",
+   "terms": [
+    {
+     "term": "electronegativity",
+     "meaning": "Ability of an atom to attract a shared pair of electrons in a covalent bond.",
+     "notation": "bonding pair attraction",
+     "spoken": "electronegativity",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.9–10,16–17; bundle 9.2.6"
+    },
+    {
+     "term": "shielding",
+     "meaning": "Reduction in nuclear attraction due to other electrons, especially filled inner shells.",
+     "notation": "inner-shell screening",
+     "spoken": "shielding",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.9–10,16–17; bundle 9.2.6"
+    },
+    {
+     "term": "covalent character",
+     "meaning": "Extent to which bonding electrons are shared rather than treated as completely transferred.",
+     "notation": "electron sharing",
+     "spoken": "covalent character",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.9–10,16–17; bundle 9.2.6"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain trends with bonding and electronegativity",
+     "wordings": [
+      "Explain changing oxide acid-base behaviour across Period 3.",
+      "Explain why bonding predicts broad trends but has exceptions."
+     ],
+     "example": "Example: compare Na2O and SO3. Step 1: sulfur attracts bonding electrons more strongly than sodium, so its electronegativity difference from oxygen is smaller. Step 2: sodium oxide is predominantly ionic with proton-accepting oxide ions; sulfur trioxide is covalent and forms an acid with water. Step 3: link this to the overall change from basic through amphoteric to acidic oxides. This is a bonding argument, not a rule that every covalent oxide reacts with water.",
+     "check": "Two hypothetical Period 3 elements X and Y have electronegativities 1.2 and 2.1 respectively; oxygen has electronegativity 3.5. Compare their electronegativity differences from oxygen and predict which oxide has greater covalent character. Explain the broad trend without treating it as a complete prediction of water reactivity.",
+     "answer": "The differences are 2.3 for X–O and 1.4 for Y–O. Y oxide is predicted to have greater covalent character because the difference is smaller. Across the period increasing nuclear charge with similar inner-shell shielding strengthens attraction for bonding electrons. This broad comparison alone does not establish whether a particular oxide reacts with water; its structure, bonds and conditions matter.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.9–10,16–17; bundle 9.2.6",
+     "rubric": [
+      {
+       "point": "Calculates differences 2.3 and 1.4 respectively.",
+       "keywords": [
+        [
+         "2.3"
+        ],
+        [
+         "1.4"
+        ]
+       ]
+      },
+      {
+       "point": "Predicts Y oxide has greater covalent character because its difference is smaller.",
+       "keywords": [
+        [
+         "Y"
+        ],
+        [
+         "covalent",
+         "sharing"
+        ],
+        [
+         "smaller",
+         "less",
+         "1.4"
+        ]
+       ]
+      },
+      {
+       "point": "Links increasing nuclear charge and similar shielding to stronger attraction for bonding electrons.",
+       "keywords": [
+        [
+         "nuclear",
+         "proton"
+        ],
+        [
+         "shielding",
+         "screening"
+        ],
+        [
+         "attraction",
+         "attract"
+        ]
+       ]
+      },
+      {
+       "point": "Qualifies water-reactivity prediction using structure, bonds or conditions.",
+       "keywords": [
+        [
+         "structure",
+         "bond",
+         "conditions"
+        ],
+        [
+         "not",
+         "cannot",
+         "alone",
+         "depends"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "Silicon tetrachloride is a giant covalent solid.",
+     "temptation": "Assuming the element silicon and every silicon compound must share one structure.",
+     "fix": "SiCl4 is simple molecular and hydrolyses; SiO2 is giant covalent."
+    },
+    {
+     "id": "m8",
+     "idea": "Every covalent oxide reacts with water to form an acidic solution.",
+     "temptation": "Turning a general trend for molecular non-metal oxides into a universal rule.",
+     "fix": "Giant covalent silicon dioxide does not react with water under ordinary conditions; structure and conditions qualify the trend."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No sourced quantitative trend plot is required: the causal chain and silica counterexample are explicit. A monotonic pH graph would hide concentration effects and insoluble oxides.",
+   "source_gaps": [
+    "Forms were reviewed against the cited library pages and bundle excerpts; a complete audit of official question papers and full mark schemes remains for independent review."
+   ]
   },
   "9701-9.2.7": {
    "motivate": "Properties can identify bonding even when a formula is unfamiliar.",
@@ -4188,7 +4918,125 @@
    "connect": "Tie each suggested structure to a particular observation.",
    "note": "- Conductivity when molten supports mobile ions.\n- Low boiling point supports simple molecules.\n- Very high melting point may also be giant covalent.",
    "self_explain": "How would you distinguish ionic NaCl from molecular SiCl4?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Recall that melting separates particles, but electrical conduction requires mobile charged particles. Use several observations to support a structure: high melting point alone fits both ionic and giant covalent solids. Distinguish conductivity of the original material from conductivity after it has reacted with water.",
+   "terms": [
+    {
+     "term": "giant ionic lattice",
+     "meaning": "Extended array of oppositely charged ions; ions become mobile on melting.",
+     "notation": "$\\ce{NaCl}$",
+     "spoken": "giant ionic lattice",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.9,12–15; bundle 9.2.7 and ER 9701 w22 P22 Q2"
+    },
+    {
+     "term": "giant covalent network",
+     "meaning": "Extended structure with strong covalent bonds throughout.",
+     "notation": "$\\ce{SiO2}$",
+     "spoken": "giant covalent network",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.9,12–15; bundle 9.2.7 and ER 9701 w22 P22 Q2"
+    },
+    {
+     "term": "simple molecular",
+     "meaning": "Discrete molecules with attractions between molecules weaker than the bonds within them.",
+     "notation": "$\\ce{SiCl4}$",
+     "spoken": "simple molecular",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.9,12–15; bundle 9.2.7 and ER 9701 w22 P22 Q2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Infer structure from multiple observations",
+     "wordings": [
+      "Suggest a bonding type from melting, conductivity and reaction evidence.",
+      "Justify a structure and reject an alternative."
+     ],
+     "example": "Example: a chloride has a high melting point, does not conduct as a solid, conducts when molten and dissolves in water without acidifying it appreciably. Step 1: melting point suggests a giant structure but is insufficient alone. Step 2: molten conduction supports mobile ions; solid ions are fixed. Step 3: neutral dissolution is consistent with NaCl. Together these support giant ionic bonding rather than discrete molecules.",
+     "check": "Two unidentified solids both have very high melting points. Solid A does not conduct electricity, but its melt conducts. Solid B does not conduct as a solid or as a liquid. Suggest a structure for each, explain the contrasting conductivity, and state why melting point alone is insufficient.",
+     "answer": "A is consistent with a giant ionic lattice: its ions are fixed in the solid but mobile in the melt. B is consistent with a giant covalent network with no mobile charged particles; the observations support, but do not prove, these suggestions. Both can have high melting points, so that observation alone cannot distinguish them.",
+     "source": "Library/Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c9.2.pdf pp.9,12–15; bundle 9.2.7 and ER 9701 w22 P22 Q2",
+     "rubric": [
+      {
+       "point": "Suggests ionic A and links molten conduction to mobile ions.",
+       "keywords": [
+        [
+         "ionic",
+         "ions"
+        ],
+        [
+         "mobile",
+         "move"
+        ]
+       ]
+      },
+      {
+       "point": "Suggests giant covalent B and links nonconduction to lack of mobile charge.",
+       "keywords": [
+        [
+         "giant covalent",
+         "network"
+        ],
+        [
+         "no mobile",
+         "no free",
+         "lack"
+        ]
+       ]
+      },
+      {
+       "point": "Explains both structures can have high melting points and evidence is not conclusive.",
+       "keywords": [
+        [
+         "both",
+         "either"
+        ],
+        [
+         "high melting",
+         "melting point"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m7",
+     "idea": "A high melting point always means ionic bonding.",
+     "temptation": "Using high melting point as the sole test and ignoring a possible covalent network.",
+     "fix": "Giant covalent SiO2 also has a high melting point; combine melting and reaction evidence."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "A verified network-versus-molecule graphic would help spatial interpretation, but none is registered in the candidate. The property-to-inference example supplies the reasoning without inventing a structure image.",
+   "source_gaps": [
+    "Forms were reviewed against the cited library pages and bundle excerpts; a complete audit of official question papers and full mark schemes remains for independent review."
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-9.2.1": [
+   "Construct and balance element reactions",
+   "Compare water and steam reactions"
+  ],
+  "9701-9.2.2": [
+   "Assign oxidation numbers and explain maxima",
+   "Separate atom ratios from oxidation numbers"
+  ],
+  "9701-9.2.3": [
+   "Predict oxide-water products and aqueous pH"
+  ],
+  "9701-9.2.4": [
+   "Classify acid-base behaviour using equations",
+   "Track solids through successive additions"
+  ],
+  "9701-9.2.5": [
+   "Distinguish chloride dissolution and hydrolysis"
+  ],
+  "9701-9.2.6": [
+   "Explain trends with bonding and electronegativity"
+  ],
+  "9701-9.2.7": [
+   "Infer structure from multiple observations"
+  ]
  }
 }

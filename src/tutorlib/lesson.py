@@ -203,6 +203,14 @@ class LessonMixin:
         if (log := self._lesson_log()):
             log.you(text)
 
+    def _note_session(self) -> dict | None:
+        """What a subtopic note records about this session: one dated section, updated in place on every write."""
+        s = self.session or {}
+        if not s.get("id"):
+            return None
+        return {"id": s["id"], "started": s.get("started"), "mode": s.get("mode"),
+                "log": views.lesson_rel(self.vault.root, s["log"]) if s.get("log") else None}
+
     # ---------------- blocks ----------------
     def _step_goal(self, b: dict, idx: int) -> dict | None:
         if b.get("done"):
@@ -274,7 +282,8 @@ class LessonMixin:
                 + (["faded"] if worked and method == "worked_faded" else []) + misconception_steps + form_steps + ["check"]
                 + ([] if quick else ["own_words"]) + ["done"]))
             if (sub := self.packs.kcs[kc]["subtopic"]):
-                views.notes_update(self.vault.root, self.packs, self.state, sub, current=kc)
+                views.notes_update(self.vault.root, self.packs, self.state, sub, current=kc,
+                                   session=self._note_session())
         if s.get('skipped_answer_guards'):
             return self._await({'activity': 'explain', 'block_idx': idx, 'kc': kc, 'part': 'guard_pause',
                                 'title': 'Try the skipped question',
@@ -343,8 +352,9 @@ class LessonMixin:
                                      part=phase, ai_source=ai_source)
             if phase.startswith("form_example:"):
                 form = card["forms"][int(phase.split(":", 1)[1])]
-                wordings = ", ".join(form.get("wordings", []))
-                text = f"**Wording:** {wordings}\n\n{form['example']}"
+                wordings = "\n\n".join(f"- {wording}" for wording in form.get("wordings", []))
+                text = ((f"**Question wordings:**\n\n{wordings}\n\n" if wordings else "")
+                        + f"**Worked example:**\n\n{form['example']}")
                 diagram = form.get("diagram")
                 if diagram and diagram in (card.get("diagrams") or []):
                     index = card["diagrams"].index(diagram)
@@ -500,7 +510,8 @@ class LessonMixin:
             ident = hashlib.sha256(content.encode('utf-8')).hexdigest()
             deferred_notes.defer(self.vault.tutor / 'state' / 'deferred-notes.json', ident, sub, node, guards)
         else:
-            views.notes_update(self.vault.root, self.packs, self.state, sub, node=node)
+            views.notes_update(self.vault.root, self.packs, self.state, sub, node=node,
+                               session=self._note_session())
         self.log({"type": "node_done", "session": self.session["id"], **({"node": idx} if idx is not None else {}),
                   "kc": kc, "method": b.get("method"), "misses": b.get("misses", 0),
                   "stuck": bool(b.get("stuck"))})

@@ -44,6 +44,30 @@
    "refutation": "NO2 oxidises SO2 to SO3 and is regenerated from NO by oxygen.",
    "contrast": "Show both steps of the catalytic cycle.",
    "source": "ER 9701 s23 P21 Q5"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-12.1.1",
+   "statement": "Nitrogen is completely inert under all conditions.",
+   "refutation": "Nitrogen reacts with oxygen under high-energy conditions such as lightning or a hot engine.",
+   "contrast": "Low reactivity at ordinary temperature does not mean no possible reactions.",
+   "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.2,6"
+  },
+  {
+   "id": "m7",
+   "kc": "9701-12.1.2",
+   "statement": "The dative N–H bond in ammonium remains longer or weaker than the other three bonds.",
+   "refutation": "All four final N–H bonds are equivalent; dative describes the original electron-pair contribution.",
+   "contrast": "Distinguish bond formation history from the completed ion structure.",
+   "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.4; SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c12.1.pdf p.3 Q4"
+  },
+  {
+   "id": "m8",
+   "kc": "9701-12.1.5",
+   "statement": "An equation forming nitric acid or sulfuric acid alone demonstrates NOx catalysis of sulfur dioxide oxidation.",
+   "refutation": "Show the SO2/NO2 oxygen-transfer step and regeneration of NO2 by oxygen; acid formation alone is a separate or subsequent reaction.",
+   "contrast": "Answer the requested catalytic cycle before discussing acid formation.",
+   "source": "https://www.cambridgeinternational.org/Images/567188-june-2023-examiner-report.pdf (9701 s23 P21 Q5(b)(ii), official indexed excerpt accessed 2026-10-31)"
   }
  ],
  "worked": [
@@ -1817,12 +1841,12 @@
     "ref": "CAIE 9701 · Nov 2021 · P11 · Q19",
     "qid": "9701_w21_11_q19"
    },
-   "stem": "The table describes two possible environmental consequences of adding too much ammonium\nnitrate fertiliser to the soil.\nWhich row is correct?\nincreased plant\ngrowth in rivers\nphotochemical\nsmog",
+   "stem": "The table describes two possible environmental consequences of adding too much ammonium nitrate fertiliser to the soil.\nWhich row is correct?",
    "options": {
-    "A": "\u001a \u001a",
-    "B": "\u0016 \u001a",
-    "C": "\u001a \u0016",
-    "D": "\u0016 \u0016"
+    "A": "Increased plant growth in rivers: ✗; photochemical smog: ✗",
+    "B": "Increased plant growth in rivers: ✓; photochemical smog: ✗",
+    "C": "Increased plant growth in rivers: ✗; photochemical smog: ✓",
+    "D": "Increased plant growth in rivers: ✓; photochemical smog: ✓"
    },
    "answer": "B",
    "image": "Assets/mcq/9701_w21_11_q19.png",
@@ -2250,12 +2274,12 @@
     "ref": "CAIE 9701 · Nov 2025 · P12 · Q16",
     "qid": "9701_w25_12_q16"
    },
-   "stem": "Oxides of nitrogen, $NO_x$, are involved in formation of photochemical smog and acid rain.\nWhich oxides of nitrogen are involved in each of these processes?\nphotochemical smog\nacid rain\nNO\nNO₂\nNO\nNO₂",
+   "stem": "Oxides of nitrogen, $NO_x$, are involved in formation of photochemical smog and acid rain.\nWhich oxides of nitrogen are involved in each of these processes?",
    "options": {
-    "A": "\u0016 \u0016 \u0016 \u0016",
-    "B": "\u001a \u0016 \u001a \u0016",
-    "C": "\u0016 \u0016 \u001a \u0016",
-    "D": "\u001a \u0016 \u0016 \u0016"
+    "A": "Photochemical smog: NO ✓, NO₂ ✓; acid rain: NO ✓, NO₂ ✓",
+    "B": "Photochemical smog: NO ✗, NO₂ ✓; acid rain: NO ✗, NO₂ ✓",
+    "C": "Photochemical smog: NO ✓, NO₂ ✓; acid rain: NO ✗, NO₂ ✓",
+    "D": "Photochemical smog: NO ✗, NO₂ ✓; acid rain: NO ✓, NO₂ ✓"
    },
    "answer": "A",
    "image": "Assets/mcq/9701_w25_12_q16.png",
@@ -2318,7 +2342,156 @@
    "connect": "Compare the energy needed to break bonds before predicting whether a gas readily reacts.",
    "note": "- $\\ce{N2}$ has a very strong triple bond.\n- $\\ce{N2}$ is non-polar.\n- Both features contribute to low reactivity.",
    "self_explain": "Explain why both bond strength and polarity belong in an answer about nitrogen's low reactivity.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Nitrogen reacts slowly under ordinary conditions because its triple bond is difficult to break. Identical nitrogen atoms share electrons equally, so the molecule has no permanent polarity. Low reactivity does not mean that reaction is impossible.",
+   "terms": [
+    {
+     "term": "Triple covalent bond",
+     "meaning": "Three shared electron pairs between the two nitrogen atoms.",
+     "notation": "$\\ce{N#N}$",
+     "spoken": "nitrogen nitrogen triple bond",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.2"
+    },
+    {
+     "term": "Bond energy",
+     "meaning": "Energy needed to break one mole of a specified gaseous bond; high bond energy means a strong bond.",
+     "notation": "$\\ce{N2(g)}$",
+     "spoken": "gaseous nitrogen",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.2; bundle prerequisite 9701-3.4.3"
+    },
+    {
+     "term": "Non-polar",
+     "meaning": "Identical electronegativities give equal sharing of bonding electrons and no permanent bond dipole.",
+     "notation": "$\\ce{N2}$",
+     "spoken": "non-polar nitrogen molecule",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.2-3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain low nitrogen reactivity",
+     "wordings": [
+      "Explain nitrogen’s low reactivity in terms of bonding and polarity."
+     ],
+     "example": "Example: Explain why nitrogen in stored air reacts slowly at room temperature. Step 1: identify three shared pairs in $\\ce{N#N}$. Step 2: the strong triple bond needs much energy to break. Step 3: identical nitrogen atoms attract the bonding electrons equally, so $\\ce{N2}$ is non-polar. Both points belong in the explanation; neither implies total inertness.",
+     "check": "Explain why nitrogen in an unheated air sample has low reactivity. Include bond strength and the origin of its polarity.",
+     "answer": "The very strong triple bond requires much energy to break. Identical nitrogen atoms have the same electronegativity, share electrons equally and form a non-polar molecule.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.2-3; bundle 9701-12.1.1; official MCQ 9701_w19_13_q36",
+     "rubric": [
+      {
+       "point": "Strong triple bond; breaking it needs much energy.",
+       "keywords": [
+        [
+         "triple"
+        ],
+        [
+         "strong",
+         "high bond energy"
+        ],
+        [
+         "energy"
+        ]
+       ]
+      },
+      {
+       "point": "Identical electronegativity means equal electron sharing and a non-polar molecule.",
+       "keywords": [
+        [
+         "equal",
+         "same",
+         "identical"
+        ],
+        [
+         "electronegativity",
+         "sharing"
+        ],
+        [
+         "non-polar",
+         "nonpolar"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A learner says nitrogen is unreactive because it has no lone pairs and all other diatomic gases are polar. Correct both claims and explain the low reactivity of nitrogen.",
+      "answer": "Each nitrogen atom has one lone pair. Nitrogen has a strong triple bond requiring much energy to break and equal sharing makes it non-polar. Oxygen and chlorine molecules are also non-polar because each contains identical atoms; polarity alone does not explain their difference in reactivity.",
+      "rubric": [
+       {
+        "point": "Strong triple bond; breaking it needs much energy.",
+        "keywords": [
+         [
+          "triple"
+         ],
+         [
+          "strong",
+          "high bond energy"
+         ],
+         [
+          "energy"
+         ]
+        ]
+       },
+       {
+        "point": "Identical electronegativity means equal electron sharing and a non-polar molecule.",
+        "keywords": [
+         [
+          "equal",
+          "same",
+          "identical"
+         ],
+         [
+          "electronegativity",
+          "sharing"
+         ],
+         [
+          "non-polar",
+          "nonpolar"
+         ]
+        ]
+       },
+       {
+        "point": "Each N atom has a lone pair; oxygen and chlorine molecules are also non-polar.",
+        "keywords": [
+         [
+          "lone pair"
+         ],
+         [
+          "oxygen",
+          "O2"
+         ],
+         [
+          "chlorine",
+          "Cl2"
+         ],
+         [
+          "non-polar",
+          "nonpolar"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Nitrogen is unreactive because its atoms have no lone pairs.",
+     "temptation": "Confusing a stable molecule with an absence of unshared electrons.",
+     "fix": "Each nitrogen atom has a lone pair; the N≡N bond is very strong and the molecule is non-polar."
+    },
+    {
+     "id": "m6",
+     "idea": "Nitrogen is completely inert under all conditions.",
+     "temptation": "Treating low reactivity as an absolute prohibition.",
+     "fix": "Nitrogen reacts with oxygen under high-energy conditions such as lightning or a hot engine."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new drawing is requested: the staged electron-pair explanation supplies the required bond and polarity reasoning without a process illustration.",
+   "source_gaps": [
+    "The reviewed notes explain the syllabus reasoning; a complete survey of official written-paper mark schemes was not available. The rubrics below are authored criteria, not official mark schemes."
+   ]
   },
   "9701-12.1.2": {
    "motivate": "What turns ammonia into the ammonium ion, and what releases ammonia again?",
@@ -2326,7 +2499,440 @@
    "connect": "Follow the proton: ammonia accepts it; ammonium can donate it to hydroxide.",
    "note": "- $\\ce{NH3}$ is a Brønsted–Lowry base: proton acceptor.\n- $\\ce{NH4+}$ is tetrahedral and forms through a dative bond.\n- Alkali liberates $\\ce{NH3}$ from ammonium salts.",
    "self_explain": "Why does sodium hydroxide release ammonia from ammonium chloride but hydrochloric acid does not?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Follow the proton. Ammonia accepts it using nitrogen’s lone pair; ammonium can give it back to hydroxide. The completed ammonium ion has four equivalent bonds, even though one bond was formed with both electrons from nitrogen.",
+   "terms": [
+    {
+     "term": "Brønsted–Lowry base",
+     "meaning": "A proton acceptor.",
+     "notation": "$\\ce{NH3}$",
+     "spoken": "ammonia, a proton acceptor",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.3"
+    },
+    {
+     "term": "Brønsted–Lowry acid",
+     "meaning": "A proton donor; ammonium donates a proton to hydroxide.",
+     "notation": "$\\ce{NH4+}$",
+     "spoken": "ammonium ion, a proton donor",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.5"
+    },
+    {
+     "term": "Dative covalent bond",
+     "meaning": "A shared electron pair originally supplied by one atom.",
+     "notation": "$\\ce{NH3 + H+ -> NH4+}$",
+     "spoken": "ammonia plus a proton forms ammonium",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.3-4"
+    },
+    {
+     "term": "Tetrahedral",
+     "meaning": "Four bonding pairs around nitrogen repel into a tetrahedral arrangement with no lone pair on nitrogen.",
+     "notation": "$109.5^\\circ$",
+     "spoken": "one hundred and nine point five degrees",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.4; bundle ER 9701 w19 P22 Q3"
+    },
+    {
+     "term": "Alkali",
+     "meaning": "A base producing hydroxide ions in water.",
+     "notation": "$\\ce{OH-(aq)}$",
+     "spoken": "aqueous hydroxide ion",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain ammonia as a proton acceptor",
+     "wordings": [
+      "Explain ammonia’s basicity using Brønsted–Lowry theory."
+     ],
+     "example": "Example: Explain the rise in pH when ammonia dissolves in water. Step 1: a base accepts a proton. Step 2: nitrogen supplies its lone pair to bond to a proton from water. Step 3: $\\ce{NH3(aq) + H2O(l) <=> NH4+(aq) + OH-(aq)}$. Hydroxide makes the solution alkaline; partial reaction makes ammonia a weak base.",
+     "check": "Explain how water and ammonia establish an alkaline solution. State ammonia’s acid-base role, the electron pair used, and the reversible equation.",
+     "answer": "Ammonia is a proton-accepting base. Its nitrogen lone pair forms a dative bond to a proton donated by water. The equilibrium is ammonia plus water reversibly forming ammonium and hydroxide, so hydroxide makes the solution alkaline.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.3-4; SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c12.1.pdf p.3 Q3",
+     "rubric": [
+      {
+       "point": "Ammonia accepts a proton and is a base.",
+       "keywords": [
+        [
+         "accept"
+        ],
+        [
+         "proton",
+         "H+"
+        ],
+        [
+         "base"
+        ]
+       ]
+      },
+      {
+       "point": "Nitrogen donates its lone pair to form a dative bond to the proton.",
+       "keywords": [
+        [
+         "nitrogen"
+        ],
+        [
+         "lone pair"
+        ],
+        [
+         "dative",
+         "coordinate"
+        ]
+       ]
+      },
+      {
+       "point": "Balanced aqueous equilibrium shows hydroxide formation.",
+       "keywords": [
+        [
+         "NH3"
+        ],
+        [
+         "H2O"
+        ],
+        [
+         "NH4"
+        ],
+        [
+         "OH"
+        ],
+        [
+         "equilibrium",
+         "reversible",
+         "<=>",
+         "⇌"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "In ammonia reacting with dilute hydrochloric acid, identify the proton acceptor and explain the bond formation. Give the ionic equation.",
+      "answer": "Ammonia accepts a proton and acts as a base; the nitrogen lone pair supplies both electrons in the new dative bond. $\\ce{NH3(aq) + H+(aq) -> NH4+(aq)}$.",
+      "rubric": [
+       {
+        "point": "Ammonia accepts a proton and is a base.",
+        "keywords": [
+         [
+          "accept"
+         ],
+         [
+          "proton",
+          "H+"
+         ],
+         [
+          "base"
+         ]
+        ]
+       },
+       {
+        "point": "Nitrogen donates its lone pair to form a dative bond to the proton.",
+        "keywords": [
+         [
+          "nitrogen"
+         ],
+         [
+          "lone pair"
+         ],
+         [
+          "dative",
+          "coordinate"
+         ]
+        ]
+       },
+       {
+        "point": "Correct ionic equation; no redox claim needed.",
+        "keywords": [
+         [
+          "NH3"
+         ],
+         [
+          "H+"
+         ],
+         [
+          "NH4"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Describe ammonium formation and structure",
+     "wordings": [
+      "Describe the shape, bond angle and bonding in ammonium."
+     ],
+     "example": "Example: Compare $\\ce{NH3}$ with $\\ce{NH4+}$. Step 1: ammonia has three bond pairs and one lone pair, so is trigonal pyramidal, about $107^\\circ$. Step 2: that lone pair bonds to $\\ce{H+}$. Step 3: ammonium now has four bond pairs and no lone pair on nitrogen, giving tetrahedral shape and $109.5^\\circ$. The label dative records the origin of the pair; all four final N–H bonds have the same length and strength.",
+     "check": "A student draws ammonium as square planar with one longer dative bond. Explain the correct electron-pair arrangement, shape, angle and bond equivalence.",
+     "answer": "Four bonding pairs and no lone pair on nitrogen repel into a tetrahedral arrangement with angles about 109.5 degrees. All N–H bonds are equivalent; a dative origin does not leave a distinct longer bond.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.4; SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c12.1.pdf p.3 Q4; official MCQ 9701_w24_13_q24",
+     "rubric": [
+      {
+       "point": "Four bonding pairs and no nitrogen lone pair give a tetrahedral arrangement.",
+       "keywords": [
+        [
+         "four",
+         "4"
+        ],
+        [
+         "bond"
+        ],
+        [
+         "no lone pair",
+         "no remaining lone pair"
+        ],
+        [
+         "tetrahedral"
+        ]
+       ]
+      },
+      {
+       "point": "Angle about 109.5 degrees.",
+       "keywords": [
+        [
+         "109.5"
+        ]
+       ]
+      },
+      {
+       "point": "All four final N–H bonds are equivalent despite their different electron-pair origins.",
+       "keywords": [
+        [
+         "equivalent",
+         "same length",
+         "identical"
+        ],
+        [
+         "dative",
+         "coordinate",
+         "origin"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Explain why protonating ammonia increases its H–N–H angle and whether the new bond remains distinguishable in the ion.",
+      "answer": "The nitrogen lone pair in ammonia becomes a fourth bonding pair. Removing the greater lone-pair repulsion changes trigonal pyramidal ammonia (about 107 degrees) to tetrahedral ammonium (109.5 degrees). All four final N–H bonds are equivalent.",
+      "rubric": [
+       {
+        "point": "Lone pair becomes a bonding pair; lone-pair repulsion was greater.",
+        "keywords": [
+         [
+          "lone pair"
+         ],
+         [
+          "bond"
+         ],
+         [
+          "repulsion"
+         ]
+        ]
+       },
+       {
+        "point": "Pyramidal about 107 degrees changes to tetrahedral 109.5 degrees.",
+        "keywords": [
+         [
+          "pyramidal"
+         ],
+         [
+          "107"
+         ],
+         [
+          "tetrahedral"
+         ],
+         [
+          "109.5"
+         ]
+        ]
+       },
+       {
+        "point": "All final bonds equivalent.",
+        "keywords": [
+         [
+          "equivalent",
+          "same",
+          "identical"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Release and identify ammonia from ammonium salts",
+     "wordings": [
+      "Describe an ammonium-ion test and explain its acid-base chemistry."
+     ],
+     "example": "Example: Test aqueous ammonium chloride. Step 1: add aqueous sodium hydroxide and warm. Step 2: $\\ce{NH4+(aq) + OH-(aq) -> NH3(g) + H2O(l)}$; ammonium donates a proton to hydroxide. Step 3: the evolved ammonia turns damp red litmus blue. Chloride is a spectator. Acid would instead favour $\\ce{NH4+}$, not liberate ammonia.",
+     "check": "An ammonium sulfate solution is available. Describe how to release and identify ammonia, give the ionic equation and explain why adding hydrochloric acid is unsuitable.",
+     "answer": "Warm with aqueous alkali. Ammonium is the proton donor and hydroxide the acceptor: $\\ce{NH4+(aq) + OH-(aq) -> NH3(g) + H2O(l)}$. Ammonia turns damp red litmus blue. Added acid favours ammonium rather than ammonia.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.4-5; official MCQ 9701_w22_12_q23",
+     "rubric": [
+      {
+       "point": "Warm with an aqueous alkali, accepting sodium, potassium or calcium hydroxide.",
+       "keywords": [
+        [
+         "warm",
+         "heat"
+        ],
+        [
+         "hydroxide",
+         "alkali"
+        ]
+       ]
+      },
+      {
+       "point": "Ammonium donates a proton to hydroxide; balanced ionic equation.",
+       "keywords": [
+        [
+         "NH4"
+        ],
+        [
+         "OH"
+        ],
+        [
+         "NH3"
+        ],
+        [
+         "H2O"
+        ],
+        [
+         "donat",
+         "proton donor"
+        ]
+       ]
+      },
+      {
+       "point": "Ammonia turns damp red litmus blue.",
+       "keywords": [
+        [
+         "ammonia",
+         "NH3"
+        ],
+        [
+         "damp",
+         "moist"
+        ],
+        [
+         "red"
+        ],
+        [
+         "blue"
+        ]
+       ]
+      },
+      {
+       "point": "Acid favours ammonium formation rather than ammonia release.",
+       "keywords": [
+        [
+         "acid"
+        ],
+        [
+         "ammonium",
+         "NH4"
+        ],
+        [
+         "form",
+         "favour",
+         "accept"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A learner adds dilute acid to ammonium nitrate to test for ammonia. Describe the corrected procedure, explain proton transfer and state the gas test.",
+      "answer": "Replace the acid with aqueous sodium hydroxide or another suitable alkali and warm. Ammonium donates a proton to hydroxide, yielding ammonia and water. Ammonia turns damp red litmus blue. Acid promotes ammonium formation, so does not release ammonia.",
+      "rubric": [
+       {
+        "point": "Warm with an aqueous alkali, accepting sodium, potassium or calcium hydroxide.",
+        "keywords": [
+         [
+          "warm",
+          "heat"
+         ],
+         [
+          "hydroxide",
+          "alkali"
+         ]
+        ]
+       },
+       {
+        "point": "Ammonium donates a proton to hydroxide; balanced ionic equation.",
+        "keywords": [
+         [
+          "NH4"
+         ],
+         [
+          "OH"
+         ],
+         [
+          "NH3"
+         ],
+         [
+          "H2O"
+         ],
+         [
+          "donat",
+          "proton donor"
+         ]
+        ]
+       },
+       {
+        "point": "Ammonia turns damp red litmus blue.",
+        "keywords": [
+         [
+          "ammonia",
+          "NH3"
+         ],
+         [
+          "damp",
+          "moist"
+         ],
+         [
+          "red"
+         ],
+         [
+          "blue"
+         ]
+        ]
+       },
+       {
+        "point": "Acid favours ammonium formation rather than ammonia release.",
+        "keywords": [
+         [
+          "acid"
+         ],
+         [
+          "ammonium",
+          "NH4"
+         ],
+         [
+          "form",
+          "favour",
+          "accept"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "An acid liberates ammonia from an ammonium salt.",
+     "temptation": "Assuming every added reagent releases the gas.",
+     "fix": "An alkali accepts a proton from NH4+, producing NH3; adding acid favours NH4+."
+    },
+    {
+     "id": "m7",
+     "idea": "The dative N–H bond in ammonium remains longer or weaker than the other three bonds.",
+     "temptation": "Following the original pair donation as if it creates a permanently different bond.",
+     "fix": "All four final N–H bonds are equivalent; dative describes the original electron-pair contribution."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No new molecular graphic is authorised in the plan; four bonding pairs, no lone pair, tetrahedral shape and angle are specified explicitly. A spatial drawing would be useful in a later registered-visual pass.",
+   "source_gaps": [
+    "The reviewed question PDF has questions only, not its official answer scheme; rubrics are independently authored from the syllabus and notes, and await independent written review."
+   ]
   },
   "9701-12.1.3": {
    "motivate": "How can a normally unreactive gas become an engine pollutant?",
@@ -2334,7 +2940,328 @@
    "connect": "The high energy needed to activate nitrogen explains why lightning and engines produce oxides.",
    "note": "- Natural source: lightning.\n- Man-made source: internal combustion engines.\n- Converters reduce NOx and oxidise CO and hydrocarbons.",
    "self_explain": "Identify which exhaust pollutant is reduced and which is oxidised in a converter.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "High-energy lightning and hot engines let nitrogen react with oxygen. Exhaust treatment reverses the nitrogen oxidation: nitrogen oxides are reduced to nitrogen while carbon monoxide and hydrocarbons are oxidised.",
+   "terms": [
+    {
+     "term": "Nitrogen oxides",
+     "meaning": "Here, nitrogen monoxide and nitrogen dioxide.",
+     "notation": "$\\ce{NO}$ and $\\ce{NO2}$",
+     "spoken": "nitrogen monoxide and nitrogen dioxide",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.6"
+    },
+    {
+     "term": "Reduction",
+     "meaning": "A decrease in oxidation number; nitrogen goes from plus two in NO to zero in nitrogen.",
+     "notation": "$+2\\to0$",
+     "spoken": "plus two to zero",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.6; bundle 9701-12.1.3"
+    },
+    {
+     "term": "Oxidation",
+     "meaning": "An increase in oxidation number; carbon goes from plus two in CO to plus four in carbon dioxide.",
+     "notation": "$+2\\to+4$",
+     "spoken": "plus two to plus four",
+     "source": "SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c12.1.pdf p.3 Q5; bundle 9701-12.1.3"
+    },
+    {
+     "term": "Catalytic converter",
+     "meaning": "A hot solid catalyst surface treating gaseous exhaust pollutants.",
+     "notation": "$\\ce{2NO + 2CO -> N2 + 2CO2}$",
+     "spoken": "two nitrogen monoxide plus two carbon monoxide form nitrogen and two carbon dioxide",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.6-7"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain natural and engine nitrogen oxide formation",
+     "wordings": [
+      "State natural and man-made sources of nitrogen oxides and explain their formation."
+     ],
+     "example": "Example: Compare storm air with air in a petrol engine. Step 1: both contain $\\ce{N2}$ and $\\ce{O2}$. Step 2: lightning supplies electrical energy; an engine supplies high temperature, allowing the strong nitrogen bond to be broken. Step 3: $\\ce{N2(g) + O2(g) -> 2NO(g)}$; further oxidation gives $\\ce{2NO(g) + O2(g) -> 2NO2(g)}$. Nitrogen comes from air, not necessarily from the fuel.",
+     "check": "Explain why nitrogen oxides can form both during a thunderstorm and in an internal combustion engine although nitrogen in cool air reacts slowly. Include an equation for NO formation.",
+     "answer": "Lightning supplies energy naturally; high engine temperature provides energy to overcome the strong nitrogen triple bond. Atmospheric nitrogen and oxygen react: $\\ce{N2(g) + O2(g) -> 2NO(g)}$.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.6; official MCQ 9701_w21_12_q18",
+     "rubric": [
+      {
+       "point": "Lightning is the natural source and electrical discharge supplies energy.",
+       "keywords": [
+        [
+         "lightning",
+         "electrical discharge"
+        ],
+        [
+         "energy",
+         "temperature"
+        ]
+       ]
+      },
+      {
+       "point": "Internal combustion engines are man-made sources; high temperature supplies energy to overcome strong nitrogen bonding.",
+       "keywords": [
+        [
+         "engine"
+        ],
+        [
+         "high temperature",
+         "hot"
+        ],
+        [
+         "strong",
+         "triple"
+        ],
+        [
+         "energy",
+         "break"
+        ]
+       ]
+      },
+      {
+       "point": "Balanced formation of NO from atmospheric nitrogen and oxygen.",
+       "keywords": [
+        [
+         "N2"
+        ],
+        [
+         "O2"
+        ],
+        [
+         "2NO"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "An engine burns a fuel containing only carbon and hydrogen but emits NO. Explain where its nitrogen came from, compare with a natural source and write its formation equation.",
+      "answer": "The nitrogen comes from intake air. High engine temperature provides energy to break strong nitrogen bonds. Lightning is a natural high-energy source. $\\ce{N2(g) + O2(g) -> 2NO(g)}$.",
+      "rubric": [
+       {
+        "point": "Lightning is the natural source and electrical discharge supplies energy.",
+        "keywords": [
+         [
+          "lightning",
+          "electrical discharge"
+         ],
+         [
+          "energy",
+          "temperature"
+         ]
+        ]
+       },
+       {
+        "point": "Internal combustion engines are man-made sources; high temperature supplies energy to overcome strong nitrogen bonding.",
+        "keywords": [
+         [
+          "engine"
+         ],
+         [
+          "high temperature",
+          "hot"
+         ],
+         [
+          "strong",
+          "triple"
+         ],
+         [
+          "energy",
+          "break"
+         ]
+        ]
+       },
+       {
+        "point": "Balanced formation of NO from atmospheric nitrogen and oxygen.",
+        "keywords": [
+         [
+          "N2"
+         ],
+         [
+          "O2"
+         ],
+         [
+          "2NO"
+         ]
+        ]
+       },
+       {
+        "point": "Nitrogen is supplied by intake air, not the hydrocarbon.",
+        "keywords": [
+         [
+          "air"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Interpret catalytic converter redox",
+     "wordings": [
+      "Write and interpret the converter reaction between NO and CO."
+     ],
+     "example": "Example: Balance NO reacting with CO. Step 1: $\\ce{N2}$ needs two NO molecules. Step 2: their two oxygen atoms convert two CO into two $\\ce{CO2}$: $\\ce{2NO(g) + 2CO(g) -> N2(g) + 2CO2(g)}$. Step 3: nitrogen falls from $+2$ to $0$ (reduction); carbon rises from $+2$ to $+4$ (oxidation). The hot solid catalyst provides a surface and is not a stoichiometric reactant. Unburnt hydrocarbons are also oxidised to $\\ce{CO2}$ and water.",
+     "check": "Write a balanced equation for NO reacting with CO on a converter. Use nitrogen and carbon oxidation numbers to identify reduction and oxidation. State how unburnt hydrocarbons are removed.",
+     "answer": "$\\ce{2NO(g) + 2CO(g) -> N2(g) + 2CO2(g)}$. N: +2 to 0, NO reduced. C: +2 to +4, CO oxidised. Hydrocarbons are oxidised to carbon dioxide and water.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.6; SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c12.1.pdf p.3 Q5; official MCQs 9701_w24_12_q4 and 9701_w25_13_q29",
+     "rubric": [
+      {
+       "point": "Balanced converter equation, accepting any consistent multiple.",
+       "keywords": [
+        [
+         "NO"
+        ],
+        [
+         "CO"
+        ],
+        [
+         "N2"
+        ],
+        [
+         "CO2"
+        ]
+       ]
+      },
+      {
+       "point": "Nitrogen goes from +2 to 0, so NO is reduced.",
+       "keywords": [
+        [
+         "+2",
+         "2"
+        ],
+        [
+         "0",
+         "zero"
+        ],
+        [
+         "reduc"
+        ]
+       ]
+      },
+      {
+       "point": "Carbon goes from +2 to +4, so CO is oxidised.",
+       "keywords": [
+        [
+         "+2",
+         "2"
+        ],
+        [
+         "+4",
+         "4"
+        ],
+        [
+         "oxid"
+        ]
+       ]
+      },
+      {
+       "point": "Hydrocarbons are oxidised to carbon dioxide and water.",
+       "keywords": [
+        [
+         "hydrocarbon"
+        ],
+        [
+         "oxid"
+        ],
+        [
+         "carbon dioxide",
+         "CO2"
+        ],
+        [
+         "water",
+         "H2O"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A learner says a converter oxidises every pollutant. Correct the statement using a balanced NO/CO equation, oxidation numbers, and the fate of unburnt fuel.",
+      "answer": "NO is reduced to nitrogen: N falls from +2 to 0. CO is oxidised to carbon dioxide: C rises from +2 to +4. $\\ce{2NO + 2CO -> N2 + 2CO2}$. Unburnt hydrocarbons undergo oxidation to carbon dioxide and water.",
+      "rubric": [
+       {
+        "point": "Balanced converter equation, accepting any consistent multiple.",
+        "keywords": [
+         [
+          "NO"
+         ],
+         [
+          "CO"
+         ],
+         [
+          "N2"
+         ],
+         [
+          "CO2"
+         ]
+        ]
+       },
+       {
+        "point": "Nitrogen goes from +2 to 0, so NO is reduced.",
+        "keywords": [
+         [
+          "+2",
+          "2"
+         ],
+         [
+          "0",
+          "zero"
+         ],
+         [
+          "reduc"
+         ]
+        ]
+       },
+       {
+        "point": "Carbon goes from +2 to +4, so CO is oxidised.",
+        "keywords": [
+         [
+          "+2",
+          "2"
+         ],
+         [
+          "+4",
+          "4"
+         ],
+         [
+          "oxid"
+         ]
+        ]
+       },
+       {
+        "point": "Hydrocarbons are oxidised to carbon dioxide and water.",
+        "keywords": [
+         [
+          "hydrocarbon"
+         ],
+         [
+          "oxid"
+         ],
+         [
+          "carbon dioxide",
+          "CO2"
+         ],
+         [
+          "water",
+          "H2O"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "The catalytic converter oxidises nitrogen oxides.",
+     "temptation": "Assuming removal always means oxidation.",
+     "fix": "Nitrogen oxides are reduced to nitrogen; CO and unburnt hydrocarbons are oxidised."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The existing converter PNG resolves and its registered hash and provenance match, but inspection shows an inlet labelled only NO and a caption implying reduction of nitrogen oxides yields carbon dioxide. Omitted from cards pending independent source review; the balanced equation explicitly includes CO.",
+   "source_gaps": [
+    "The existing p.7 converter graphic is not suitable to bind without review of its misleading carbon-source annotation; no new visual is requested by this plan.",
+    "Rubrics are authored from reviewed notes and official MCQ forms, not transcribed official written mark schemes."
+   ]
   },
   "9701-12.1.4": {
    "motivate": "Why do unburnt fuel vapours and engine nitrogen oxides matter together?",
@@ -2342,7 +3269,147 @@
    "connect": "A catalytic converter lowers the pollutants that would otherwise contribute to smog.",
    "note": "- Reactants: atmospheric NO and $\\ce{NO2}$ with unburnt hydrocarbons.\n- Product: peroxyacetyl nitrate, PAN.\n- PAN is part of photochemical smog.",
    "self_explain": "Name both pollutant classes needed for PAN formation and identify the resulting pollution.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Sunlight drives reactions between nitrogen oxides and unburnt hydrocarbons in air. PAN forms afterwards as a secondary pollutant and is one component of photochemical smog.",
+   "terms": [
+    {
+     "term": "Primary pollutant",
+     "meaning": "Released directly from a source, such as nitrogen oxides or unburnt hydrocarbons in exhaust.",
+     "notation": "$\\ce{NO}$, $\\ce{NO2}$",
+     "spoken": "nitrogen monoxide and nitrogen dioxide",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.7-8"
+    },
+    {
+     "term": "Secondary pollutant",
+     "meaning": "Forms by reactions in the atmosphere rather than being emitted directly in this route.",
+     "notation": "PAN",
+     "spoken": "P A N",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.7-8"
+    },
+    {
+     "term": "Peroxyacetyl nitrate",
+     "meaning": "PAN, a secondary pollutant and component of photochemical smog.",
+     "notation": "PAN",
+     "spoken": "peroxyacetyl nitrate",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.7-8"
+    },
+    {
+     "term": "Photochemical",
+     "meaning": "Involving reactions initiated by light.",
+     "notation": "sunlight",
+     "spoken": "sunlight",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.7"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Trace primary pollutants to PAN and photochemical smog",
+     "wordings": [
+      "Name the primary pollutants and conditions leading to PAN; identify the pollution type."
+     ],
+     "example": "Example: Explain why exhaust can lead to smog on sunny days. Step 1: identify nitrogen oxides and unburnt hydrocarbons as primary exhaust inputs. Step 2: sunlight initiates atmospheric reactions. Step 3: peroxyacetyl nitrate (PAN) forms as a secondary pollutant and contributes to photochemical smog. CO is an exhaust pollutant but is not a replacement for either specified input.",
+     "check": "A sunny city has exhaust containing nitrogen oxides, CO and unburnt fuel. Identify the two input classes in the syllabus PAN route, the condition, the full product name and why it is secondary. Name the resulting pollution.",
+     "answer": "Nitrogen oxides (NO and/or NO2) and unburnt hydrocarbons react in sunlight to form peroxyacetyl nitrate, PAN. It is secondary because it forms by atmospheric reactions, and it is a component of photochemical smog.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.7-8; official MCQ 9701_w22_12_q24",
+     "rubric": [
+      {
+       "point": "Nitrogen oxides, accepting NO or NO2 or both, and unburnt hydrocarbons are the inputs.",
+       "keywords": [
+        [
+         "nitrogen oxide",
+         "NO",
+         "NO2"
+        ],
+        [
+         "hydrocarbon"
+        ]
+       ]
+      },
+      {
+       "point": "Sunlight drives the atmospheric reactions.",
+       "keywords": [
+        [
+         "sunlight",
+         "light"
+        ]
+       ]
+      },
+      {
+       "point": "PAN is peroxyacetyl nitrate, formed secondarily, and is a component of photochemical smog.",
+       "keywords": [
+        [
+         "peroxyacetyl nitrate"
+        ],
+        [
+         "secondary",
+         "formed in air",
+         "formed in the atmosphere"
+        ],
+        [
+         "photochemical smog"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A report claims that CO and unburnt hydrocarbons directly emitted as PAN cause acid rain. Correct the input, product classification, condition and pollution type.",
+      "answer": "The specified inputs are nitrogen oxides and unburnt hydrocarbons, reacting in sunlight. PAN means peroxyacetyl nitrate; it forms secondarily in air rather than being emitted directly in this route. It contributes to photochemical smog.",
+      "rubric": [
+       {
+        "point": "Nitrogen oxides, accepting NO or NO2 or both, and unburnt hydrocarbons are the inputs.",
+        "keywords": [
+         [
+          "nitrogen oxide",
+          "NO",
+          "NO2"
+         ],
+         [
+          "hydrocarbon"
+         ]
+        ]
+       },
+       {
+        "point": "Sunlight drives the atmospheric reactions.",
+        "keywords": [
+         [
+          "sunlight",
+          "light"
+         ]
+        ]
+       },
+       {
+        "point": "PAN is peroxyacetyl nitrate, formed secondarily, and is a component of photochemical smog.",
+        "keywords": [
+         [
+          "peroxyacetyl nitrate"
+         ],
+         [
+          "secondary",
+          "formed in air",
+          "formed in the atmosphere"
+         ],
+         [
+          "photochemical smog"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "Carbon monoxide and hydrocarbons alone form PAN.",
+     "temptation": "Choosing any two exhaust pollutants without checking the atmospheric route.",
+     "fix": "Atmospheric NO and NO2 react with unburnt hydrocarbons under sunlight to form PAN."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The reviewed route needs a clear distinction between inputs and secondary product; a staged verbal chain suffices. No diagram is requested by the plan.",
+   "source_gaps": [
+    "The reviewed syllabus and notes give the overall PAN route, not an elementary reaction mechanism or a single balanced synthesis equation; neither is asserted here."
+   ]
   },
   "9701-12.1.5": {
    "motivate": "Why can nitrogen oxides cause acid rain through two different routes?",
@@ -2350,7 +3417,339 @@
    "connect": "In a catalytic cycle, show the catalyst being used and regenerated.",
    "note": "- Direct route: NOx forms nitric acid.\n- Catalytic route: $\\ce{NO2}$ oxidises $\\ce{SO2}$ to $\\ce{SO3}$.\n- Oxygen regenerates $\\ce{NO2}$; $\\ce{SO3}$ forms sulfuric acid.",
    "self_explain": "Write the two reactions showing how nitrogen dioxide catalyses sulfur dioxide oxidation.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Separate two roles. Nitrogen oxides form nitric acid directly; they also cycle between NO and NO2 while oxygen oxidises sulfur dioxide. Showing regeneration is essential to explaining catalysis.",
+   "terms": [
+    {
+     "term": "Catalyst regeneration",
+     "meaning": "A species used in one step is re-formed in another and cancels from the overall reaction.",
+     "notation": "$\\ce{NO2 -> NO -> NO2}$",
+     "spoken": "nitrogen dioxide to nitrogen monoxide and back to nitrogen dioxide",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.10"
+    },
+    {
+     "term": "Acid rain",
+     "meaning": "Rain containing increased amounts of acids such as nitric acid and sulfuric acid.",
+     "notation": "$\\ce{HNO3}$ and $\\ce{H2SO4}$",
+     "spoken": "nitric acid and sulfuric acid",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.9-10"
+    },
+    {
+     "term": "Overall reaction",
+     "meaning": "The net chemical change after cancelling intermediates and regenerated species.",
+     "notation": "$\\ce{2SO2 + O2 -> 2SO3}$",
+     "spoken": "two sulfur dioxide plus oxygen form two sulfur trioxide",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.10; bundle 9701-12.1.5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Distinguish direct and catalytic acid-rain routes",
+     "wordings": [
+      "Describe the direct and catalytic roles of nitrogen oxides in acid rain."
+     ],
+     "example": "Example: Trace an atmospheric NO molecule. Step 1: $\\ce{2NO(g) + O2(g) -> 2NO2(g)}$. Step 2, direct route: $\\ce{4NO2(g) + O2(g) + 2H2O(l) -> 4HNO3(aq)}$, giving nitric acid. Step 3, alternative catalytic role: NO and $\\ce{NO2}$ cycle during oxidation of $\\ce{SO2}$ to $\\ce{SO3}$, which then forms sulfuric acid. A nitric-acid equation does not demonstrate that catalytic cycle.",
+     "check": "NO has entered moist air. Give balanced equations showing its conversion to NO2 and then nitric acid. Distinguish this direct route from the acid produced after NOx-catalysed oxidation of SO2.",
+     "answer": "$\\ce{2NO + O2 -> 2NO2}$; $\\ce{4NO2 + O2 + 2H2O -> 4HNO3}$. Direct nitrogen oxide chemistry gives nitric acid. Catalytic oxidation of sulfur dioxide gives sulfur trioxide and subsequently sulfuric acid.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf pp.9-10; https://www.cambridgeinternational.org/Images/567188-june-2023-examiner-report.pdf (9701 s23 P21 Q5(b)(ii), official indexed excerpt accessed 2026-10-31)",
+     "rubric": [
+      {
+       "point": "NO is oxidised to NO2, with a balanced equation.",
+       "keywords": [
+        [
+         "2NO"
+        ],
+        [
+         "O2"
+        ],
+        [
+         "2NO2"
+        ]
+       ]
+      },
+      {
+       "point": "Balanced nitric acid formation with water and oxygen, accepting consistent multiples or an equivalent valid stepwise route.",
+       "keywords": [
+        [
+         "NO2"
+        ],
+        [
+         "H2O"
+        ],
+        [
+         "O2"
+        ],
+        [
+         "HNO3"
+        ]
+       ]
+      },
+      {
+       "point": "Direct nitric acid formation differs from catalytic sulfur dioxide oxidation leading to sulfuric acid.",
+       "keywords": [
+        [
+         "nitric",
+         "HNO3"
+        ],
+        [
+         "sulfuric",
+         "H2SO4"
+        ],
+        [
+         "catal"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A response about acid rain mentions only sulfuric acid. Explain the missing direct nitrogen oxide route from NO, using balanced equations, and distinguish the two final acids.",
+      "answer": "$\\ce{2NO + O2 -> 2NO2}$ and $\\ce{4NO2 + O2 + 2H2O -> 4HNO3}$. This makes nitric acid directly. Nitrogen oxides also catalyse sulfur dioxide oxidation, followed by sulfuric acid formation.",
+      "rubric": [
+       {
+        "point": "NO is oxidised to NO2, with a balanced equation.",
+        "keywords": [
+         [
+          "2NO"
+         ],
+         [
+          "O2"
+         ],
+         [
+          "2NO2"
+         ]
+        ]
+       },
+       {
+        "point": "Balanced nitric acid formation with water and oxygen, accepting consistent multiples or an equivalent valid stepwise route.",
+        "keywords": [
+         [
+          "NO2"
+         ],
+         [
+          "H2O"
+         ],
+         [
+          "O2"
+         ],
+         [
+          "HNO3"
+         ]
+        ]
+       },
+       {
+        "point": "Direct nitric acid formation differs from catalytic sulfur dioxide oxidation leading to sulfuric acid.",
+        "keywords": [
+         [
+          "nitric",
+          "HNO3"
+         ],
+         [
+          "sulfuric",
+          "H2SO4"
+         ],
+         [
+          "catal"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Show and combine the NOx sulfur dioxide catalytic cycle",
+     "wordings": [
+      "Write equations showing the catalytic role of NO2 in sulfur dioxide oxidation."
+     ],
+     "example": "Example: Show how $\\ce{NO2}$ catalyses oxidation of $\\ce{SO2}$. Step 1: $\\ce{NO2(g) + SO2(g) -> NO(g) + SO3(g)}$. Step 2: oxygen regenerates it: $\\ce{2NO(g) + O2(g) -> 2NO2(g)}$. Step 3: double step 1, add step 2 and cancel two NO and two $\\ce{NO2}$ from opposite sides: $\\ce{2SO2(g) + O2(g) -> 2SO3(g)}$. Step 4: $\\ce{SO3(g) + H2O(l) -> H2SO4(aq)}$. Regeneration demonstrates catalysis. Writing only the last equation, or writing nitric acid formation, misses the requested cycle.",
+     "check": "Write the two balanced steps by which NO2 catalyses atmospheric SO2 oxidation. Combine them to obtain the net equation, identify the regenerated species and show the subsequent formation of sulfuric acid. Explain why a nitric-acid equation alone would not answer this question.",
+     "answer": "$\\ce{NO2 + SO2 -> NO + SO3}$; $\\ce{2NO + O2 -> 2NO2}$. Doubling the first step and cancelling NO and NO2 gives $\\ce{2SO2 + O2 -> 2SO3}$. NO2 is regenerated; the NO/NO2 cycle is not consumed overall. $\\ce{SO3 + H2O -> H2SO4}$. Nitric-acid formation is the separate direct route and does not show catalytic sulfur dioxide oxidation.",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c12.1.pdf p.10; official MCQ 9701_w22_13_q24; https://www.cambridgeinternational.org/Images/567188-june-2023-examiner-report.pdf (9701 s23 P21 Q5(b)(ii), official indexed excerpt accessed 2026-10-31)",
+     "rubric": [
+      {
+       "point": "Balanced oxygen-transfer step from NO2 to SO2.",
+       "keywords": [
+        [
+         "NO2"
+        ],
+        [
+         "SO2"
+        ],
+        [
+         "NO"
+        ],
+        [
+         "SO3"
+        ]
+       ]
+      },
+      {
+       "point": "Balanced regeneration of NO2 from NO and oxygen.",
+       "keywords": [
+        [
+         "NO"
+        ],
+        [
+         "O2"
+        ],
+        [
+         "NO2"
+        ]
+       ]
+      },
+      {
+       "point": "Correct cancellation gives 2SO2 + O2 -> 2SO3; catalyst regenerated, not used up overall.",
+       "keywords": [
+        [
+         "2SO2"
+        ],
+        [
+         "O2"
+        ],
+        [
+         "2SO3"
+        ],
+        [
+         "regenerat",
+         "re-form",
+         "reform"
+        ]
+       ]
+      },
+      {
+       "point": "SO3 reacts with water to form sulfuric acid; this alone or nitric acid formation does not show the catalytic cycle.",
+       "keywords": [
+        [
+         "SO3"
+        ],
+        [
+         "H2O"
+        ],
+        [
+         "H2SO4"
+        ],
+        [
+         "cycle",
+         "catal"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A learner writes only SO3 reacting with water when asked to demonstrate NOx catalysis. Supply the missing cycle, cancel species to find the net oxidation and explain how the learner’s equation fits afterwards.",
+      "answer": "$\\ce{2NO + O2 -> 2NO2}$ and $\\ce{2NO2 + 2SO2 -> 2NO + 2SO3}$; sum $\\ce{2SO2 + O2 -> 2SO3}$. NO and NO2 are regenerated in the cycle. $\\ce{SO3 + H2O -> H2SO4}$ follows the catalytic oxidation and alone does not demonstrate catalysis.",
+      "rubric": [
+       {
+        "point": "Balanced oxygen-transfer step from NO2 to SO2.",
+        "keywords": [
+         [
+          "NO2"
+         ],
+         [
+          "SO2"
+         ],
+         [
+          "NO"
+         ],
+         [
+          "SO3"
+         ]
+        ]
+       },
+       {
+        "point": "Balanced regeneration of NO2 from NO and oxygen.",
+        "keywords": [
+         [
+          "NO"
+         ],
+         [
+          "O2"
+         ],
+         [
+          "NO2"
+         ]
+        ]
+       },
+       {
+        "point": "Correct cancellation gives 2SO2 + O2 -> 2SO3; catalyst regenerated, not used up overall.",
+        "keywords": [
+         [
+          "2SO2"
+         ],
+         [
+          "O2"
+         ],
+         [
+          "2SO3"
+         ],
+         [
+          "regenerat",
+          "re-form",
+          "reform"
+         ]
+        ]
+       },
+       {
+        "point": "SO3 reacts with water to form sulfuric acid; this alone or nitric acid formation does not show the catalytic cycle.",
+        "keywords": [
+         [
+          "SO3"
+         ],
+         [
+          "H2O"
+         ],
+         [
+          "H2SO4"
+         ],
+         [
+          "cycle",
+          "catal"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "NO2 is consumed permanently when it oxidises sulfur dioxide.",
+     "temptation": "Looking at the first catalytic step without the regeneration step.",
+     "fix": "NO2 oxidises SO2 to SO3 and is regenerated from NO by oxygen."
+    },
+    {
+     "id": "m8",
+     "idea": "An equation forming nitric acid or sulfuric acid alone demonstrates NOx catalysis of sulfur dioxide oxidation.",
+     "temptation": "Replacing an unfamiliar cycle with a remembered acid-formation equation.",
+     "fix": "Show the SO2/NO2 oxygen-transfer step and regeneration of NO2 by oxygen; acid formation alone is a separate or subsequent reaction."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The requested improvement is equation sequencing and cancellation. Numbered equations show the cycle without requiring a new registered drawing.",
+   "source_gaps": [
+    "The notes show a simplified syllabus catalytic cycle, not all atmospheric reaction pathways. The official examiner-report excerpt establishes the substitution error but is not a complete mark scheme."
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-12.1.1": [
+   "Explain low nitrogen reactivity"
+  ],
+  "9701-12.1.2": [
+   "Explain ammonia as a proton acceptor",
+   "Describe ammonium formation and structure",
+   "Release and identify ammonia from ammonium salts"
+  ],
+  "9701-12.1.3": [
+   "Explain natural and engine nitrogen oxide formation",
+   "Interpret catalytic converter redox"
+  ],
+  "9701-12.1.4": [
+   "Trace primary pollutants to PAN and photochemical smog"
+  ],
+  "9701-12.1.5": [
+   "Distinguish direct and catalytic acid-rain routes",
+   "Show and combine the NOx sulfur dioxide catalytic cycle"
+  ]
  }
 }

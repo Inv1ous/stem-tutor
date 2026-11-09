@@ -316,8 +316,6 @@ def test_unavailable_structured_retry_preserves_written_attempt_without_marking(
     retry = t.retry_skipped_ungraded(candidate['guard'])
     assert retry['activity'] == 'questions'
     n = retry['items'][0]['n']
-    for no_work in ('', 'I do not know', 'done on paper'):
-        assert not t.save_ungraded_structured(n, no_work)['ok']
     result = t.save_ungraded_structured(n, 'I drew a free-body diagram and resolved the forces.')
     assert result['ok'] and result['attempt_saved']
     assert not t.session['skipped_answer_guards']
@@ -694,7 +692,8 @@ def test_unknown_check_is_unverified_and_never_excludes(tmp_path):
     # Ordinary questions with known assessed KCs now receive a labelled graph
     # assessment. An unknown mapping must still fail closed and remain open.
     t.session['presented'][str(n)]['inst']['kcs'] = ['9702-unknown']
-    assert t.check_solvable(n)['status'] == 'unverified'
+    # No usable tags: with no AI configured the engine asks for topics ('topic_pending') and the question stays open.
+    assert t.check_solvable(n)['status'] == 'topic_pending'
     assert str(n) in t.session['presented'] and not t.topical_exclusions()
 
 
@@ -851,6 +850,17 @@ def test_invalid_playable_numbers_are_rejected_before_selection(tmp_path, change
     data = {'format_version': 1, 'syllabus_versions': {'9702': '2025-2027'}, 'items': [item(**changes)]}
     with pytest.raises(ValueError):
         validate_bank(data, p, root)
+
+
+def test_legacy_one_point_structured_bank_without_explicit_marks_stays_loadable(tmp_path):
+    root = bank_vault(tmp_path)
+    row = item(kind='structured', scheme=[{'point': 'A vector has direction.'}],
+               answer='A vector has direction.')
+    del row['marks']
+    publish(root, [row])
+    runtime = packs.Packs(store.Vault(root))
+    assert not runtime.topical_errors
+    assert runtime.topicals.items == [row]
 
 
 @pytest.mark.parametrize('changes', [

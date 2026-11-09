@@ -209,6 +209,8 @@ def _apply_answer(state: dict, e: dict) -> None:
     hour[1] += 1 if right else 0
     hour[2] += exp_p
     state["items_seen"][e["item"]] = e["ts"]
+    for other in e.get("merged_items") or ():  # parts of the same printed question answered together
+        state["items_seen"][other] = e["ts"]
     if (days := state.setdefault("session_days", {}).get(e.get("session"))) is not None and day not in days:
         days.append(day)
     if e.get("id"):
@@ -255,10 +257,16 @@ def apply(state: dict, e: dict) -> dict:
     kind = e["type"]
     if kind == "answer":
         _apply_answer(state, e)
+        if e.get("source_verified"):  # source-verified practice also remembers the question, so it is not repeated
+            state.setdefault("source_seen", {})[e["item"]] = e["ts"]
         if e.get("term_id"):
             success = counts_as_right(e["grade"]) and not e.get("hinted")
             rating = fsrs_rating(success, e.get("conf"), 0, bool(e.get("hinted")) and counts_as_right(e["grade"]))
             _apply_term_review(state, {**e, "rating": rating})
+    elif kind == "source_answer":
+        # older source-verified practice, logged before it counted towards mastery: remembered only so a question is
+        # not repeated; no KC, FSRS, trait or profile effect
+        state.setdefault("source_seen", {})[e["item"]] = e["ts"]
     elif kind == "term_introduced":
         terms = state.setdefault("terms", {})
         if e["term_id"] not in terms:

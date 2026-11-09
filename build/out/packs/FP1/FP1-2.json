@@ -28,6 +28,38 @@
    "refutation": "A transformation acts on each root, so calculate the transformed sum and product first.",
    "contrast": "Use $x^2-Tx+U=0$.",
    "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "FP1-2.2",
+   "statement": "The cube cross terms can be removed by subtracting $3P$.",
+   "refutation": "Factor $3\\alpha^2\\beta+3\\alpha\\beta^2=3P(\\alpha+\\beta)=3PS$.",
+   "contrast": "Factor $3\\alpha^2\\beta+3\\alpha\\beta^2=3P(\\alpha+\\beta)=3PS$.",
+   "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5,7–8 (identities and algebraic method); Pearson FP1 specification section 2.3, printed p.33; authored contrast, not a reported examiner frequency."
+  },
+  {
+   "id": "m5",
+   "kc": "FP1-2.2",
+   "statement": "Add the numerators of $\\alpha/\\beta$ and $\\beta/\\alpha$ immediately.",
+   "refutation": "First rewrite both denominators as $\\alpha\\beta$ and require $P\\ne0$.",
+   "contrast": "First rewrite both denominators as $\\alpha\\beta$ and require $P\\ne0$.",
+   "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5,7–8 (identities and algebraic method); Pearson FP1 specification section 2.3, printed p.33; authored contrast, not a reported examiner frequency."
+  },
+  {
+   "id": "m6",
+   "kc": "FP1-2.3",
+   "statement": "Clear only the middle coefficient’s denominator.",
+   "refutation": "Multiply every term by the common denominator; retain the equals-zero statement.",
+   "contrast": "Multiply every term by the common denominator; retain the equals-zero statement.",
+   "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5,7–8 (identities and algebraic method); Pearson FP1 specification section 2.3, printed p.33; authored contrast, not a reported examiner frequency."
+  },
+  {
+   "id": "m7",
+   "kc": "FP1-2.3",
+   "statement": "Treat same-root and cross-reciprocal transformations as identical.",
+   "refutation": "Expand both products: $(\\alpha+2/\\alpha)(\\beta+2/\\beta)=P+2(\\alpha/\\beta+\\beta/\\alpha)+4/P$, whereas $(\\alpha+2/\\beta)(\\beta+2/\\alpha)=P+4+4/P$.",
+   "contrast": "Expand both products: $(\\alpha+2/\\alpha)(\\beta+2/\\beta)=P+2(\\alpha/\\beta+\\beta/\\alpha)+4/P$, whereas $(\\alpha+2/\\beta)(\\beta+2/\\alpha)=P+4+4/P$.",
+   "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5,7–8 (identities and algebraic method); Pearson FP1 specification section 2.3, printed p.33; authored contrast, not a reported examiner frequency."
   }
  ],
  "worked": [
@@ -867,7 +899,95 @@
    "connect": "This uses factorisation from ordinary quadratics and supplies $S$ and $P$ for every later calculation.",
    "note": "- $S=\\alpha+\\beta=-b/a$ for $ax^2+bx+c=0$.\n- $P=\\alpha\\beta=c/a$ and $a\\ne0$.",
    "self_explain": "Why does the formula for the sum have a minus sign but the product does not?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A root is a value that makes the quadratic zero. Expanding its two root factors lets you read the sum and product from the coefficients without finding either root.",
+   "terms": [
+    {
+     "term": "leading coefficient",
+     "meaning": "The nonzero number multiplying $x^2$ in $ax^2+bx+c=0$.",
+     "notation": "$a$",
+     "spoken": "a",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf p.3"
+    },
+    {
+     "term": "roots",
+     "meaning": "The two solutions, counted with repetition, of the quadratic equation.",
+     "notation": "$\\alpha,\\beta$",
+     "spoken": "alpha and beta",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf p.3"
+    },
+    {
+     "term": "sum of roots",
+     "meaning": "Add the two solutions; comparing the coefficient of $x$ gives $S=-b/a$.",
+     "notation": "$S=\\alpha+\\beta$",
+     "spoken": "S equals alpha plus beta",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf p.3"
+    },
+    {
+     "term": "product of roots",
+     "meaning": "Multiply the two solutions; comparing constants gives $P=c/a$.",
+     "notation": "$P=\\alpha\\beta$",
+     "spoken": "P equals alpha times beta",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf p.3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Read and derive the sum and product",
+     "wordings": [
+      "State the sum and product without solving.",
+      "Show that the coefficient identities follow from factorisation."
+     ],
+     "example": "Find the sum and product for $3x^2+7x-6=0$.\n1. Bridge from factorisation: roots $\\alpha,\\beta$ give factors $a(x-\\alpha)(x-\\beta)$.\n2. Expand: $a[x^2-(\\alpha+\\beta)x+\\alpha\\beta]=ax^2-a(\\alpha+\\beta)x+a\\alpha\\beta$.\n3. Comparing with $ax^2+bx+c$ gives $-aS=b$ and $aP=c$; divide by $a\\ne0$.\n4. Here $a=3,b=7,c=-6$, so $S=-7/3$, $P=-2$. The minus sign in the sum comes from the two factors.\n5. Check by factorising: $(3x-2)(x+3)=0$ gives $2/3,-3$, with the same sum and product.",
+     "check": "For roots $\\alpha,\\beta$ of $4x^2-3x-1=0$, find their sum and product without solving, and explain the minus sign in the sum.",
+     "answer": "$S=3/4$, $P=-1/4$. The coefficient of $x$ in $a(x-\\alpha)(x-\\beta)$ is $-a(\\alpha+\\beta)$, so $S=-b/a$.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf p.3; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (section 2.3, printed p.33)",
+     "rubric": [
+      {
+       "point": "Obtain $S=3/4$, allowing an equivalent exact value.",
+       "keywords": [
+        [
+         "3/4",
+         "0.75"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain $P=-1/4$, allowing an equivalent exact value.",
+       "keywords": [
+        [
+         "-1/4",
+         "-0.25"
+        ]
+       ]
+      },
+      {
+       "point": "Explain by expansion or coefficient comparison that $b=-aS$, giving the minus sign.",
+       "keywords": [
+        [
+         "coefficient",
+         "expand",
+         "-a",
+         "minus"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "The sum is $b/a$, or the coefficients can be used without dividing by $a$.",
+     "temptation": "A monic example can hide the division, and the middle coefficient looks like the sum.",
+     "fix": "Expand both factors and compare: $-aS=b$, $aP=c$. Divide both relations by $a$."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "These forms concern coefficient comparison and algebraic identities, including complex roots. Staged factor and fraction expansions show the required relations directly; a real-axis graph would restrict the root types without illustrating the general calculation. No diagram is requested in this plan.",
+   "source_gaps": [
+    "The reviewed library pages give algebraic methods and examples, not an exhaustive inventory of all examination transformations. The prepared examples and checks are newly authored; their rubrics are instructional, not official mark allocations."
+   ]
   },
   "FP1-2.2": {
    "motivate": "Expressions in both roots can be found from just their sum and product.",
@@ -875,7 +995,179 @@
    "connect": "These symmetric identities provide the sums needed when forming equations with squared, cubed or reciprocal roots.",
    "note": "- $\\alpha^2+\\beta^2=S^2-2P$.\n- $\\alpha^3+\\beta^3=S^3-3PS$.\n- If $P\\ne0$, $1/\\alpha+1/\\beta=S/P$.",
    "self_explain": "Where does the $3PS$ term in the sum of cubes identity come from?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A symmetric expression stays the same when the roots exchange places. Expand a power of their sum, remove the cross terms, and only then insert the sum and product.",
+   "terms": [
+    {
+     "term": "symmetric expression",
+     "meaning": "An expression unchanged by interchanging $\\alpha$ and $\\beta$.",
+     "notation": "$\\alpha^2+\\beta^2$",
+     "spoken": "alpha squared plus beta squared",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.3–5"
+    },
+    {
+     "term": "cross terms",
+     "meaning": "Terms involving both roots; the square has $2\\alpha\\beta$ and the cube has $3\\alpha\\beta(\\alpha+\\beta)$.",
+     "notation": "$2P,3PS$",
+     "spoken": "two P and three P S",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5"
+    },
+    {
+     "term": "common denominator",
+     "meaning": "A shared denominator used before adding fractions; here $\\alpha\\beta=P$ must be nonzero.",
+     "notation": "$P\\ne0$",
+     "spoken": "P is not zero",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Sum of squares",
+     "wordings": [
+      "Find the exact value of the sum of the squares of the roots."
+     ],
+     "example": "For roots of $x^2-6x+5=0$, find $\\alpha^2+\\beta^2$ without solving.\n1. Read $S=6$, $P=5$.\n2. Expand $S^2=(\\alpha+\\beta)^2=\\alpha^2+2\\alpha\\beta+\\beta^2$.\n3. Remove the cross term: $\\alpha^2+\\beta^2=S^2-2P=36-10=26$.\n4. Check using roots $1,5$: $1^2+5^2=26$.",
+     "check": "The roots of $2x^2-7x+3=0$ are $\\alpha,\\beta$. Find $\\alpha^2+\\beta^2$ exactly, showing your identity.",
+     "answer": "$S=7/2$, $P=3/2$; $S^2-2P=49/4-3=37/4$.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.3–4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2013/Exam%20materials/WFM01_01_rms_20190815.pdf (June 2019 Q6, PDF p.20)",
+     "rubric": [
+      {
+       "point": "Use $S=7/2$ and $P=3/2$ from coefficients or identify the roots $3$ and $1/2$ and use them in a valid setup. Judge mathematical equivalence semantically; keywords are hints only.",
+       "keywords": [
+        [
+         "7/2",
+         "3.5"
+        ]
+       ]
+      },
+      {
+       "point": "Show the identity $\\alpha^2+\\beta^2=S^2-2P$, or its equivalent expansion removing the cross term.",
+       "keywords": [
+        [
+         "2P",
+         "cross",
+         "squares"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain $37/4$ exactly.",
+       "keywords": [
+        [
+         "37/4",
+         "9.25"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Sum of cubes",
+     "wordings": [
+      "Find the exact sum of the cubes of the roots.",
+      "Show how the cube identity follows from expansion."
+     ],
+     "example": "For roots of $x^2-x-6=0$, find $\\alpha^3+\\beta^3$.\n1. Read $S=1$, $P=-6$.\n2. Expand $S^3=\\alpha^3+3\\alpha^2\\beta+3\\alpha\\beta^2+\\beta^3$.\n3. Factor the cross terms: $3\\alpha^2\\beta+3\\alpha\\beta^2=3\\alpha\\beta(\\alpha+\\beta)=3PS$.\n4. Thus $\\alpha^3+\\beta^3=S^3-3PS=1-3(-6)(1)=19$.\n5. Check: roots $-2,3$ give $-8+27=19$.",
+     "check": "For roots of $3x^2+5x-2=0$, find $\\alpha^3+\\beta^3$ exactly and show your identity.",
+     "answer": "$S=-5/3$, $P=-2/3$; $S^3-3PS=-125/27-10/3=-215/27$.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2013/Exam%20materials/WFM01_01_rms_20190815.pdf (June 2019 Q6, PDF p.20)",
+     "rubric": [
+      {
+       "point": "Use $S=-5/3$ and $P=-2/3$ from coefficients or identify the roots $1/3$ and $-2$ and use them in a valid setup. Judge mathematical equivalence semantically; keywords are hints only.",
+       "keywords": [
+        [
+         "-5/3",
+         "-2/3"
+        ]
+       ]
+      },
+      {
+       "point": "Show the identity $\\alpha^3+\\beta^3=S^3-3PS$, or its equivalent expansion removing the cross terms.",
+       "keywords": [
+        [
+         "3PS",
+         "cube",
+         "cubes"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain $-215/27$ exactly.",
+       "keywords": [
+        [
+         "-215/27"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Symmetric ratio expression",
+     "wordings": [
+      "Find the exact value of the sum of the two root ratios."
+     ],
+     "example": "For roots of $2x^2-9x+4=0$, find $\\alpha/\\beta+\\beta/\\alpha$.\n1. $S=9/2$, $P=2\\ne0$, so neither denominator is zero.\n2. Use denominator $\\alpha\\beta$: $\\alpha/\\beta=\\alpha^2/(\\alpha\\beta)$ and $\\beta/\\alpha=\\beta^2/(\\alpha\\beta)$.\n3. Hence $\\alpha/\\beta+\\beta/\\alpha=(\\alpha^2+\\beta^2)/(\\alpha\\beta)=(S^2-2P)/P$.\n4. Substitute: $(81/4-4)/2=65/8$.\n5. Check: roots $1/2,4$ give $1/8+8=65/8$.",
+     "check": "For roots of $3x^2+8x+4=0$, find $\\alpha/\\beta+\\beta/\\alpha$ exactly, and explain why the expression is defined.",
+     "answer": "$S=-8/3$, $P=4/3\\ne0$; neither root is zero. $(S^2-2P)/P=(64/9-8/3)/(4/3)=10/3$.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5",
+     "rubric": [
+      {
+       "point": "Establish that both roots are nonzero, either from $P=4/3\\ne0$ or by directly verifying the roots $-2$ and $-2/3$ are nonzero. Judge mathematical equivalence semantically; keywords are hints only.",
+       "keywords": [
+        [
+         "nonzero",
+         "not zero",
+         "4/3"
+        ]
+       ]
+      },
+      {
+       "point": "Use any mathematically correct calculation of the ratio sum, including direct substitution of the roots or combining fractions as $(S^2-2P)/P$.",
+       "keywords": [
+        [
+         "denominator",
+         "2P",
+         "ratio"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain $10/3$ exactly.",
+       "keywords": [
+        [
+         "10/3"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "The square sum equals $S^2$.",
+     "temptation": "Squaring each term feels like squaring the sum.",
+     "fix": "Write the full expansion first; subtract the cross term $2P$."
+    },
+    {
+     "idea": "The cube cross terms can be removed by subtracting $3P$.",
+     "temptation": "The square identity has just a multiple of the product.",
+     "fix": "Factor $3\\alpha^2\\beta+3\\alpha\\beta^2=3P(\\alpha+\\beta)=3PS$.",
+     "id": "m4"
+    },
+    {
+     "idea": "Add the numerators of $\\alpha/\\beta$ and $\\beta/\\alpha$ immediately.",
+     "temptation": "Both fractions contain the same two letters.",
+     "fix": "First rewrite both denominators as $\\alpha\\beta$ and require $P\\ne0$.",
+     "id": "m5"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "These forms concern coefficient comparison and algebraic identities, including complex roots. Staged factor and fraction expansions show the required relations directly; a real-axis graph would restrict the root types without illustrating the general calculation. No diagram is requested in this plan.",
+   "source_gaps": [
+    "The reviewed library pages give algebraic methods and examples, not an exhaustive inventory of all examination transformations. The prepared examples and checks are newly authored; their rubrics are instructional, not official mark allocations.",
+    "The library does not establish official method-credit criteria; Pearson June 2019 F1 Q6 was consulted for the square- and cube-sum method steps."
+   ]
   },
   "FP1-2.3": {
    "motivate": "A new quadratic is determined by the sum and product of its new roots.",
@@ -883,7 +1175,395 @@
    "connect": "The coefficient identities give $S,P$; symmetric manipulation gives $T,U$; together they produce the new equation.",
    "note": "- Find transformed sum $T$ and product $U$.\n- Form $x^2-Tx+U=0$ and clear denominators.\n- Reciprocal transformations require $P\\ne0$.\n- For $1/\\alpha^2,1/\\beta^2$, require $P\\ne0$: $T=(\\alpha^2+\\beta^2)/(\\alpha^2\\beta^2)=(S^2-2P)/P^2$ and $U=1/P^2$.\n- For $\\alpha+2/\\beta,\\beta+2/\\alpha$, require $P\\ne0$: $T=S+2S/P$ and $U=P+2+2+4/P=P+4+4/P$.",
    "self_explain": "Why do you need both the sum and product of transformed roots?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Transform each root, then find the new pair’s sum and product. Put the negative of the new sum on the middle term and the new product on the constant term.",
+   "terms": [
+    {
+     "term": "transformed roots",
+     "meaning": "Apply the stated operation separately to each old root; call the results $u,v$.",
+     "notation": "$u,v$",
+     "spoken": "u and v",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8"
+    },
+    {
+     "term": "new sum",
+     "meaning": "Add the transformed roots before forming the new equation.",
+     "notation": "$T=u+v$",
+     "spoken": "T equals u plus v",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8"
+    },
+    {
+     "term": "new product",
+     "meaning": "Multiply the transformed roots, including every cross term.",
+     "notation": "$U=uv$",
+     "spoken": "U equals u times v",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8"
+    },
+    {
+     "term": "monic quadratic",
+     "meaning": "A quadratic whose leading coefficient is one; root factors expand to $x^2-Tx+U$.",
+     "notation": "$x^2-Tx+U=0$",
+     "spoken": "x squared minus T x plus U equals zero",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8"
+    },
+    {
+     "term": "clearing denominators",
+     "meaning": "Multiply every term on both sides by one nonzero common denominator.",
+     "notation": "$d(x^2-Tx+U)=0$",
+     "spoken": "d times x squared minus T x plus U equals zero",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf p.8"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Squared roots",
+     "wordings": [
+      "Find an equation whose roots are $\\alpha^2,\\beta^2$.",
+      "Find the transformed sum and product, then form a quadratic with integer coefficients."
+     ],
+     "example": "For roots of $2x^2-9x+4=0$, find an equation with roots $\\alpha^2,\\beta^2$.\n1. Read $S=9/2$, $P=2$.\n2. Expand the new sum: $T=\\alpha^2+\\beta^2=S^2-2P=65/4$.\n3. Expand the product: $U=\\alpha^2\\beta^2=(\\alpha\\beta)^2=P^2=4$.\n4. Form $x^2-(65/4)x+4=0$; multiply every term by 4 to get $4x^2-65x+16=0$.\n5. Check: old roots $1/2,4$ give new roots $1/4,16$ with this sum and product.",
+     "check": "For roots $\\alpha,\\beta$ of $3x^2-10x+3=0$, find a quadratic equation with roots $\\alpha^2,\\beta^2$, giving integer coefficients and showing the new sum and product.",
+     "answer": "$T=82/9$, $U=1$; $9x^2-82x+9=0$, or any nonzero multiple.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8",
+     "rubric": [
+      {
+       "point": "Obtain the new sum $T=82/9$ by a valid identity, direct expansion, or another valid method.",
+       "keywords": [
+        [
+         "sum",
+         "82/9",
+         "T"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new product $U=1$ by a valid expansion or equivalent method.",
+       "keywords": [
+        [
+         "product",
+         "1",
+         "U"
+        ]
+       ]
+      },
+      {
+       "point": "Form $9x^2-82x+9=0$ or any nonzero scalar multiple, clearing denominators across all terms. Accept any valid alternative derivation.",
+       "keywords": [
+        [
+         "quadratic",
+         "equation",
+         "9x^2-82x+9",
+         "=0"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Cubed roots",
+     "wordings": [
+      "Find an equation whose roots are $\\alpha^3,\\beta^3$.",
+      "Find the transformed sum and product, then form a quadratic with integer coefficients."
+     ],
+     "example": "For roots of $2x^2+3x-2=0$, find an equation with roots $\\alpha^3,\\beta^3$.\n1. $S=-3/2$, $P=-1$.\n2. Expand $S^3=\\alpha^3+\\beta^3+3PS$, hence $T=S^3-3PS=-27/8-9/2=-63/8$.\n3. $U=\\alpha^3\\beta^3=(\\alpha\\beta)^3=P^3=-1$.\n4. Form $x^2+(63/8)x-1=0$; multiply throughout by 8: $8x^2+63x-8=0$.\n5. Old roots $1/2,-2$ give new roots $1/8,-8$, confirming $T,U$.",
+     "check": "For roots $\\alpha,\\beta$ of $2x^2-5x-3=0$, find a quadratic equation with roots $\\alpha^3,\\beta^3$, giving integer coefficients and showing the new sum and product.",
+     "answer": "$T=215/8$, $U=-27/8$; $8x^2-215x-27=0$, or any nonzero multiple.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (section 2.3, printed p.33)",
+     "rubric": [
+      {
+       "point": "Obtain the new sum $T=215/8$ by a valid identity, direct expansion, or another valid method.",
+       "keywords": [
+        [
+         "sum",
+         "215/8",
+         "T"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new product $U=-27/8$ by a valid expansion or equivalent method.",
+       "keywords": [
+        [
+         "product",
+         "-27/8",
+         "U"
+        ]
+       ]
+      },
+      {
+       "point": "Form $8x^2-215x-27=0$ or any nonzero scalar multiple, clearing denominators across all terms. Accept any valid alternative derivation.",
+       "keywords": [
+        [
+         "quadratic",
+         "equation",
+         "8x^2-215x-27",
+         "=0"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Reciprocal roots",
+     "wordings": [
+      "Find an equation whose roots are $1/\\alpha,1/\\beta$.",
+      "Find the transformed sum and product, then form a quadratic with integer coefficients."
+     ],
+     "example": "For roots of $3x^2-7x+2=0$, find an equation with roots $1/\\alpha,1/\\beta$.\n1. $S=7/3$, $P=2/3\\ne0$, so both reciprocals exist.\n2. Add over the common denominator: $T=1/\\alpha+1/\\beta=(\\alpha+\\beta)/(\\alpha\\beta)=S/P=7/2$.\n3. Multiply: $U=(1/\\alpha)(1/\\beta)=1/(\\alpha\\beta)=1/P=3/2$.\n4. Form $x^2-(7/2)x+3/2=0$; multiply all terms by 2: $2x^2-7x+3=0$.\n5. Old roots $2,1/3$ become $1/2,3$, confirming $T,U$.",
+     "check": "For roots $\\alpha,\\beta$ of $4x^2+x-3=0$, find a quadratic equation with roots $1/\\alpha,1/\\beta$, giving integer coefficients and showing the new sum and product. State why the transformation is defined.",
+     "answer": "$T=1/3$, $U=-4/3$; $3x^2-x-4=0$, or any nonzero multiple. Here $P\\ne0$, so neither root is zero.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (section 2.3, printed p.33)",
+     "rubric": [
+      {
+       "point": "Check $P\\ne0$, equivalently both original roots are nonzero.",
+       "keywords": [
+        [
+         "nonzero",
+         "not zero",
+         "P"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new sum $T=1/3$ by a valid identity, direct expansion, or another valid method.",
+       "keywords": [
+        [
+         "sum",
+         "1/3",
+         "T"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new product $U=-4/3$ by a valid expansion or equivalent method.",
+       "keywords": [
+        [
+         "product",
+         "-4/3",
+         "U"
+        ]
+       ]
+      },
+      {
+       "point": "Form $3x^2-x-4=0$ or any nonzero scalar multiple, clearing denominators across all terms. Accept any valid alternative derivation.",
+       "keywords": [
+        [
+         "quadratic",
+         "equation",
+         "3x^2-x-4",
+         "=0"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Root plus its own reciprocal multiple",
+     "wordings": [
+      "Find an equation whose roots are $\\alpha+2/\\alpha,\\beta+2/\\beta$.",
+      "Find the transformed sum and product, then form a quadratic with integer coefficients."
+     ],
+     "example": "For roots of $x^2-5x+4=0$, find an equation with roots $\\alpha+2/\\alpha,\\beta+2/\\beta$.\n1. $S=5$, $P=4\\ne0$, so both denominators are nonzero.\n2. Expand the sum: $T=\\alpha+\\beta+2(1/\\alpha+1/\\beta)=S+2S/P=15/2$.\n3. Expand all product terms: $U=\\alpha\\beta+2\\alpha/\\beta+2\\beta/\\alpha+4/(\\alpha\\beta)=P+2(S^2-2P)/P+4/P=27/2$.\n4. Form $x^2-(15/2)x+27/2=0$; multiply throughout by 2: $2x^2-15x+27=0$.\n5. Old roots $1,4$ become $3,9/2$, confirming the new sum and product.",
+     "check": "For roots $\\alpha,\\beta$ of $2x^2-7x+3=0$, find a quadratic equation with roots $\\alpha+2/\\alpha,\\beta+2/\\beta$, giving integer coefficients and showing the new sum and product. State why the transformation is defined.",
+     "answer": "$T=49/6$, $U=33/2$; $6x^2-49x+99=0$, or any nonzero multiple. Here $P\\ne0$, so neither root is zero.",
+     "source": "SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.4–5,7–8 (algebraic method); bundle FP1-2.3 (extension example, not the exact example printed in the official specification)",
+     "rubric": [
+      {
+       "point": "Check $P\\ne0$, equivalently both original roots are nonzero.",
+       "keywords": [
+        [
+         "nonzero",
+         "not zero",
+         "P"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new sum $T=49/6$ by a valid identity, direct expansion, or another valid method.",
+       "keywords": [
+        [
+         "sum",
+         "49/6",
+         "T"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new product $U=33/2$ by a valid expansion or equivalent method.",
+       "keywords": [
+        [
+         "product",
+         "33/2",
+         "U"
+        ]
+       ]
+      },
+      {
+       "point": "Form $6x^2-49x+99=0$ or any nonzero scalar multiple, clearing denominators across all terms. Accept any valid alternative derivation.",
+       "keywords": [
+        [
+         "quadratic",
+         "equation",
+         "6x^2-49x+99",
+         "=0"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Inverse-square roots",
+     "wordings": [
+      "Find an equation whose roots are $1/\\alpha^2,1/\\beta^2$.",
+      "Find the transformed sum and product, then form a quadratic with integer coefficients."
+     ],
+     "example": "For roots of $3x^2-7x+2=0$, find an equation with roots $1/\\alpha^2,1/\\beta^2$.\n1. $S=7/3$, $P=2/3\\ne0$.\n2. Use a common denominator: $T=1/\\alpha^2+1/\\beta^2=(\\alpha^2+\\beta^2)/(\\alpha^2\\beta^2)=(S^2-2P)/P^2=37/4$.\n3. $U=1/(\\alpha^2\\beta^2)=1/P^2=9/4$.\n4. Form $x^2-(37/4)x+9/4=0$; multiply throughout by 4: $4x^2-37x+9=0$.\n5. Old roots $2,1/3$ become $1/4,9$, confirming $T,U$.",
+     "check": "For roots $\\alpha,\\beta$ of $2x^2+3x-2=0$, find a quadratic equation with roots $1/\\alpha^2,1/\\beta^2$, giving integer coefficients and showing the new sum and product. State why the transformation is defined.",
+     "answer": "$T=17/4$, $U=1$; $4x^2-17x+4=0$, or any nonzero multiple. Here $P\\ne0$, so neither root is zero.",
+     "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (section 2.3, printed p.33); SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8 (underlying fraction and power identities)",
+     "rubric": [
+      {
+       "point": "Check $P\\ne0$, equivalently both original roots are nonzero.",
+       "keywords": [
+        [
+         "nonzero",
+         "not zero",
+         "P"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new sum $T=17/4$ by a valid identity, direct expansion, or another valid method.",
+       "keywords": [
+        [
+         "sum",
+         "17/4",
+         "T"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new product $U=1$ by a valid expansion or equivalent method.",
+       "keywords": [
+        [
+         "product",
+         "1",
+         "U"
+        ]
+       ]
+      },
+      {
+       "point": "Form $4x^2-17x+4=0$ or any nonzero scalar multiple, clearing denominators across all terms. Accept any valid alternative derivation.",
+       "keywords": [
+        [
+         "quadratic",
+         "equation",
+         "4x^2-17x+4",
+         "=0"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Root plus cross reciprocal multiple",
+     "wordings": [
+      "Find an equation whose roots are $\\alpha+2/\\beta,\\beta+2/\\alpha$.",
+      "Find the transformed sum and product, then form a quadratic with integer coefficients."
+     ],
+     "example": "For roots of $x^2-5x+4=0$, find an equation with roots $\\alpha+2/\\beta,\\beta+2/\\alpha$.\n1. $S=5$, $P=4\\ne0$.\n2. Expand the sum: $T=\\alpha+\\beta+2/\\beta+2/\\alpha=S+2S/P=15/2$.\n3. Expand the product: $U=(\\alpha+2/\\beta)(\\beta+2/\\alpha)=\\alpha\\beta+2+2+4/(\\alpha\\beta)=P+4+4/P=9$.\n4. Form $x^2-(15/2)x+9=0$; multiply all terms by 2: $2x^2-15x+18=0$.\n5. Old roots $1,4$ become $3/2,6$. Unlike the same-root reciprocal transformation, the two middle product terms are each 2.",
+     "check": "For roots $\\alpha,\\beta$ of $2x^2-7x+3=0$, find a quadratic equation with roots $\\alpha+2/\\beta,\\beta+2/\\alpha$, giving integer coefficients and showing the new sum and product. State why the transformation is defined.",
+     "answer": "$T=49/6$, $U=49/6$; $6x^2-49x+49=0$, or any nonzero multiple. Here $P\\ne0$, so neither root is zero.",
+     "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf (section 2.3, printed p.33); SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf pp.7–8 (underlying expansion method)",
+     "rubric": [
+      {
+       "point": "Check $P\\ne0$, equivalently both original roots are nonzero.",
+       "keywords": [
+        [
+         "nonzero",
+         "not zero",
+         "P"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new sum $T=49/6$ by a valid identity, direct expansion, or another valid method.",
+       "keywords": [
+        [
+         "sum",
+         "49/6",
+         "T"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the new product $U=49/6$ by a valid expansion or equivalent method.",
+       "keywords": [
+        [
+         "product",
+         "49/6",
+         "U"
+        ]
+       ]
+      },
+      {
+       "point": "Form $6x^2-49x+49=0$ or any nonzero scalar multiple, clearing denominators across all terms. Accept any valid alternative derivation.",
+       "keywords": [
+        [
+         "quadratic",
+         "equation",
+         "6x^2-49x+49",
+         "=0"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "Transform coefficients one at a time.",
+     "temptation": "The old coefficients already encode the roots.",
+     "fix": "Calculate $T=u+v$ and $U=uv$ before forming $x^2-Tx+U=0$."
+    },
+    {
+     "idea": "Clear only the middle coefficient’s denominator.",
+     "temptation": "The fraction beside the variable is easiest to notice.",
+     "fix": "Multiply every term by the common denominator; retain the equals-zero statement.",
+     "id": "m6"
+    },
+    {
+     "idea": "Treat same-root and cross-reciprocal transformations as identical.",
+     "temptation": "Their sums agree, so the products seem interchangeable.",
+     "fix": "Expand both products: $(\\alpha+2/\\alpha)(\\beta+2/\\beta)=P+2(\\alpha/\\beta+\\beta/\\alpha)+4/P$, whereas $(\\alpha+2/\\beta)(\\beta+2/\\alpha)=P+4+4/P$.",
+     "id": "m7"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "These forms concern coefficient comparison and algebraic identities, including complex roots. Staged factor and fraction expansions show the required relations directly; a real-axis graph would restrict the root types without illustrating the general calculation. No diagram is requested in this plan.",
+   "source_gaps": [
+    "The reviewed library pages give algebraic methods and examples, not an exhaustive inventory of all examination transformations. The prepared examples and checks are newly authored; their rubrics are instructional, not official mark allocations.",
+    "The bundle labels $\\alpha+2/\\alpha,\\beta+2/\\beta$ as a specification example, but Pearson printed p.33 shows $\\alpha+2/\\beta,\\beta+2/\\alpha$ and also inverse squares. Both official forms are included; the planned same-root form is retained as an algebraic extension. Existing bundle and note text require separate source-bound review."
+   ]
   }
+ },
+ "guided_forms": {
+  "FP1-2.1": [
+   "Read and derive the sum and product"
+  ],
+  "FP1-2.2": [
+   "Sum of squares",
+   "Sum of cubes",
+   "Symmetric ratio expression"
+  ],
+  "FP1-2.3": [
+   "Squared roots",
+   "Cubed roots",
+   "Reciprocal roots",
+   "Root plus its own reciprocal multiple",
+   "Inverse-square roots",
+   "Root plus cross reciprocal multiple"
+  ]
  }
 }

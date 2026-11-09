@@ -44,6 +44,30 @@
    "refutation": "Its formation reaction makes the same substance from itself, so its standard enthalpy of formation is zero.",
    "contrast": "$\\Delta H_f^\\ominus(\\ce{O2(g)})=0$; an oxygen bond energy is not needed in a formation-enthalpy cycle.",
    "source": "ER 9701 w22 P13 Q9"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-5.2.1",
+   "statement": "Oxygen can be omitted from a combustion-cycle corner.",
+   "refutation": "Keep unused oxygen at the upper corners so each complete route has the same oxygen amount.",
+   "contrast": "Only the fuel changes, so oxygen looks irrelevant. Keep unused oxygen at the upper corners so each complete route has the same oxygen amount.",
+   "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.2–5; Library: Courses/9701/Sources/Library/SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c5.2.pdf p.11 (cycle-construction wording); bundle official ER 9701 w23 P22 Q3 (labelled cycles and stoichiometry)"
+  },
+  {
+   "id": "m7",
+   "kc": "9701-5.2.1",
+   "statement": "Every upward arrow has positive enthalpy.",
+   "refutation": "A schematic cycle is not necessarily to scale in energy; use the labelled process and its signed enthalpy, reversing the sign only when traversing it backwards.",
+   "contrast": "The shape of a cycle looks like an energy-level diagram. A schematic cycle is not necessarily to scale in energy; use the labelled process and its signed enthalpy, reversing the sign only when traversing it backwards.",
+   "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.2–5; Library: Courses/9701/Sources/Library/SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c5.2.pdf p.11 (cycle-construction wording); bundle official ER 9701 w23 P22 Q3 (labelled cycles and stoichiometry)"
+  },
+  {
+   "id": "m8",
+   "kc": "9701-5.2.2",
+   "statement": "A positive number described as heat released is a positive enthalpy change.",
+   "refutation": "The word released makes the forward process exothermic; assign a negative enthalpy before reversing or scaling.",
+   "contrast": "Copy the unsigned magnitude into the cycle. The word released makes the forward process exothermic; assign a negative enthalpy before reversing or scaling.",
+   "source": "https://www.monash.edu/student-academic-success/chemistry/carbon-based-fuels/exothermic-and-endothermic-reactions"
   }
  ],
  "worked": [
@@ -1353,7 +1377,149 @@
    "connect": "Formation cycles share elements in their standard states; combustion cycles share complete combustion products. Both implement the same endpoint rule.",
    "note": "- Balance every equation and match amounts, states and conditions at shared endpoints.\n- Add signed changes along routes; reverse the sign when reversing an arrow.",
    "self_explain": "Why does replacing liquid water with water vapour at one endpoint prevent you from equating the two route totals without another step?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "An energy cycle compares different routes joining exactly the same chemical states. Start by balancing substances and amounts; then make each energy label describe its arrow. A formation value makes one mole from elements in their standard states. A combustion value burns one mole completely in oxygen. These definitions decide where the arrows begin and end.",
+   "terms": [
+    {
+     "term": "Hess’s law",
+     "meaning": "The enthalpy change is independent of route when initial and final conditions are identical.",
+     "notation": "$\\Delta H$",
+     "spoken": "delta H",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf p.2"
+    },
+    {
+     "term": "Standard enthalpy of formation",
+     "meaning": "Enthalpy change when one mole of a substance forms from its elements in their standard states under standard conditions.",
+     "notation": "$\\Delta H_f^\\ominus$",
+     "spoken": "standard enthalpy change of formation",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.2–4; bundle ER 9701 w23 P22 Q3"
+    },
+    {
+     "term": "Standard enthalpy of combustion",
+     "meaning": "Enthalpy change when one mole of a substance burns completely in oxygen under standard conditions, with substances in their standard states.",
+     "notation": "$\\Delta H_c^\\ominus$",
+     "spoken": "standard enthalpy change of combustion",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.4–5"
+    },
+    {
+     "term": "Shared endpoint",
+     "meaning": "Identical substances, amounts, states, temperature and pressure at the start or finish of both compared routes.",
+     "notation": "$A\\to C$",
+     "spoken": "A to C",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf p.2"
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Oxygen can be omitted from a combustion-cycle corner.",
+     "temptation": "Only the fuel changes, so oxygen looks irrelevant.",
+     "fix": "Keep unused oxygen at the upper corners so each complete route has the same oxygen amount.",
+     "id": "m6"
+    },
+    {
+     "idea": "Every upward arrow has positive enthalpy.",
+     "temptation": "The shape of a cycle looks like an energy-level diagram.",
+     "fix": "A schematic cycle is not necessarily to scale in energy; use the labelled process and its signed enthalpy, reversing the sign only when traversing it backwards.",
+     "id": "m7"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-5-2-fig-hess-cycle.png"
+   ],
+   "diagram_descriptions": [
+    "Reviewed Save My Exams Hess-cycle illustration, notes p.2: A plus B connects directly to C, or indirectly via F plus G, or via X then Y plus Z. All routes share the same initial and final states. Solid arrows show individual transformations; dashed arrows identify the complete routes. The schematic has no numerical energy scale. Provenance: registered Library image and SHA-256-verified source sidecar."
+   ],
+   "source_gaps": [
+    "The reviewed question-only PDF supplies cycle-construction wording but no official mark scheme; the check rubrics are authored teaching criteria, informed by the bundle examiner report."
+   ],
+   "forms": [
+    {
+     "name": "Construct and label a Hess cycle",
+     "wordings": [
+      "Draw a labelled energy cycle.",
+      "Complete the species, enthalpy labels and arrow directions."
+     ],
+     "example": "Example: construct a combustion cycle for forming one mole of propane, without calculating a value.\n1. Target: $\\ce{3C(s,graphite) + 4H2(g) -> C3H8(g)}$, labelled $\\Delta H_f^\\ominus(\\ce{C3H8})$ left to right.\n2. Add $\\ce{5O2(g)}$ to both upper corners; this oxygen is unchanged in the formation step.\n3. Put $\\ce{3CO2(g) + 4H2O(l)}$ at the common bottom corner. Both complete routes now contain three carbon atoms, eight hydrogen atoms and ten oxygen atoms.\n4. Draw upper left to bottom with label $3\\Delta H_c^\\ominus(\\ce{C})+4\\Delta H_c^\\ominus(\\ce{H2})$. Draw upper right to bottom with label $\\Delta H_c^\\ominus(\\ce{C3H8})$. These arrows describe combustion, even if a different layout is used.\n5. Equate routes: $\\Delta H_f^\\ominus(\\ce{C3H8})+\\Delta H_c^\\ominus(\\ce{C3H8})=3\\Delta H_c^\\ominus(\\ce{C})+4\\Delta H_c^\\ominus(\\ce{H2})$. When following the bottom-to-upper-right leg instead, negate the propane combustion term.",
+     "check": "Draw a combustion cycle for $\\ce{2C(s,graphite) + 3H2(g) + 1/2O2(g) -> C2H5OH(l)}$. Include oxygen at both upper corners, the shared final species and states, all arrow directions, enthalpy labels and a signed route equation. Do not calculate a number.",
+     "answer": "Upper left: $\\ce{2C(s,graphite) + 3H2(g) + 7/2O2(g)}$; upper right: $\\ce{C2H5OH(l) + 3O2(g)}$; bottom: $\\ce{2CO2(g) + 3H2O(l)}$. The left-to-right arrow is $\\Delta H_f^\\ominus(\\ce{C2H5OH})$. Both upper corners point towards the bottom: left label $2\\Delta H_c^\\ominus(\\ce{C})+3\\Delta H_c^\\ominus(\\ce{H2})$, right label $\\Delta H_c^\\ominus(\\ce{C2H5OH})$. Hence $\\Delta H_f^\\ominus(\\ce{C2H5OH})+\\Delta H_c^\\ominus(\\ce{C2H5OH})=2\\Delta H_c^\\ominus(\\ce{C})+3\\Delta H_c^\\ominus(\\ce{H2})$. Other layouts and consistently reversed signed arrows are equally valid.",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.2–5; Library: Courses/9701/Sources/Library/SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c5.2.pdf p.11 (cycle-construction wording); bundle official ER 9701 w23 P22 Q3 (labelled cycles and stoichiometry)",
+     "rubric": [
+      {
+       "point": "Correct upper species, amounts and states, including oxygen; accept equivalent layouts.",
+       "keywords": [
+        [
+         "7/2",
+         "3.5"
+        ]
+       ]
+      },
+      {
+       "point": "Common combustion endpoint with two carbon dioxide and three liquid water.",
+       "keywords": [
+        [
+         "2CO2",
+         "2 CO2",
+         "carbon dioxide"
+        ]
+       ]
+      },
+      {
+       "point": "Target arrow forms one mole of ethanol; both combustion arrows terminate at the common products, or equivalent signed reversals.",
+       "keywords": [
+        [
+         "formation",
+         "combustion"
+        ]
+       ]
+      },
+      {
+       "point": "All three enthalpy labels include coefficients and the route equation equates identical endpoints.",
+       "keywords": [
+        [
+         "route",
+         "cycle",
+         "enthalpy"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Construct and label a cycle for $\\ce{C(s,graphite) + 1/2O2(g) -> CO(g)}$ using combustion of carbon and carbon monoxide. Include the oxygen spectators and a signed route equation.",
+      "answer": "Upper left $\\ce{C(s,graphite)+O2(g)}$; upper right $\\ce{CO(g)+1/2O2(g)}$; bottom $\\ce{CO2(g)}$. Target arrow left to right: $\\Delta H_f^\\ominus(\\ce{CO})$. Both combustion arrows point to the bottom, labelled $\\Delta H_c^\\ominus(\\ce{C})$ and $\\Delta H_c^\\ominus(\\ce{CO})$. Thus $\\Delta H_f^\\ominus(\\ce{CO})+\\Delta H_c^\\ominus(\\ce{CO})=\\Delta H_c^\\ominus(\\ce{C})$.",
+      "rubric": [
+       {
+        "point": "Correct three corners with balanced oxygen and states.",
+        "keywords": [
+         [
+          "CO2",
+          "carbon dioxide"
+         ]
+        ]
+       },
+       {
+        "point": "Correct target and combustion arrow directions and matching enthalpy labels; accept equivalent consistent signed reversals.",
+        "keywords": [
+         [
+          "formation",
+          "combustion"
+         ]
+        ]
+       },
+       {
+        "point": "Correct signed equality between routes.",
+        "keywords": [
+         [
+          "enthalpy",
+          "route",
+          "cycle"
+         ]
+        ]
+       }
+      ]
+     },
+     "diagram": "Library/Courses/9701/Diagrams/9701/9701-5-2-fig-hess-cycle.png"
+    }
+   ]
   },
   "9701-5.2.2": {
    "motivate": "Once the cycle is balanced, the calculation is bookkeeping: every reversal changes a sign and every coefficient scales an energy change.",
@@ -1372,7 +1538,339 @@
    "connect": "The cycle supplies an indirect enthalpy change when the target cannot be measured directly. Matching states is just as important for bond-energy routes as for combustion routes.",
    "note": "- Reverse equation: reverse the enthalpy sign; scale equation: scale its enthalpy.\n- Cancel intermediates before adding signed values and giving the unit.\n- Bond energies require gaseous species; breaking absorbs and forming releases energy.",
    "self_explain": "Why must a coefficient multiply the enthalpy as well as the chemical equation, and why does reversing a combustion arrow make its contribution positive?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Convert every data value into the energy change for the amount and direction actually used. Formation data give products minus reactants; combustion data give reactants minus products because both sides burn to the same endpoint. Bond breaking goes to gaseous atoms and costs energy; forming bonds reverses that step and releases energy.",
+   "terms": [
+    {
+     "term": "Stoichiometric scaling",
+     "meaning": "Multiplying an entire equation multiplies its enthalpy change by the same factor.",
+     "notation": "$n\\Delta H$",
+     "spoken": "n times delta H",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.3–6"
+    },
+    {
+     "term": "Signed route equation",
+     "meaning": "An equality between enthalpy sums for two paths connecting identical states; against an arrow means subtract its label.",
+     "notation": "$\\Delta H_r+\\Delta H_2=\\Delta H_1$",
+     "spoken": "delta H r plus delta H two equals delta H one",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.4–5"
+    },
+    {
+     "term": "Bond energy",
+     "meaning": "Energy required per mole of specified gaseous bonds broken; a mean bond energy averages over molecular environments.",
+     "notation": "$E(\\ce{X-Y})$",
+     "spoken": "bond energy of X to Y",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.6–7; bundle ER 9701 w22 P12 Q16"
+    },
+    {
+     "term": "Standard enthalpy of atomisation",
+     "meaning": "Enthalpy change forming one mole of gaseous atoms from the element in its standard state under standard conditions.",
+     "notation": "$\\Delta H_{at}^\\ominus$",
+     "spoken": "standard enthalpy change of atomisation",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf p.6"
+    },
+    {
+     "term": "Energy-release magnitude",
+     "meaning": "A positive amount of heat released; the corresponding forward exothermic enthalpy change is negative.",
+     "notation": "$\\Delta H=-q_{released}$",
+     "spoken": "delta H equals minus the heat released",
+     "source": "https://www.monash.edu/student-academic-success/chemistry/carbon-based-fuels/exothermic-and-endothermic-reactions"
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Subtracting a negative value makes a result more negative.",
+     "temptation": "Read both minus signs as the same operation.",
+     "fix": "Keep signed values in brackets: subtracting a negative adds its magnitude.",
+     "id": "m3"
+    },
+    {
+     "idea": "The total atomisation energy is the energy of one bond.",
+     "temptation": "One mole of molecules is mistaken for one mole of bonds.",
+     "fix": "Count equivalent bonds per molecule and divide the total bond-breaking energy by that count.",
+     "id": "m2"
+    },
+    {
+     "idea": "A positive number described as heat released is a positive enthalpy change.",
+     "temptation": "Copy the unsigned magnitude into the cycle.",
+     "fix": "The word released makes the forward process exothermic; assign a negative enthalpy before reversing or scaling.",
+     "id": "m8"
+    }
+   ],
+   "diagrams": [
+    "Library/Courses/9701/Diagrams/9701/9701-5-2-fig-hess-cycle.png"
+   ],
+   "diagram_descriptions": [
+    "Reviewed generic cycle from Save My Exams notes p.2, registered Library asset with verified image hash and provenance: the direct A plus B to C route equals either indirect route. Use it to trace signed sums; its letter-labelled corners do not represent a specific formation, combustion or atomisation calculation."
+   ],
+   "source_gaps": [
+    "The planned Cambridge June 2024 examiner-report URL could not be retrieved; no claims are attributed to its unreviewed contents.",
+    "The generic Library cycle illustrates route equality but does not depict gaseous atomisation or molecule-specific bond counts; those steps are stated explicitly in the bond-energy form.",
+    "Examples and independent checks use authored or rounded illustrative data and teaching rubrics, not reproduced official examination questions or mark schemes."
+   ],
+   "forms": [
+    {
+     "name": "Calculate reaction enthalpy from formation data",
+     "wordings": [
+      "Calculate the enthalpy change using standard enthalpies of formation."
+     ],
+     "example": "Example, rounded data: $\\ce{N2(g)+3H2(g)->2NH3(g)}$; $\\Delta H_f^\\ominus(\\ce{NH3})=-46\\ \\mathrm{kJ\\,mol^{-1}}$.\n1. Both routes start at $\\ce{N2(g)+3H2(g)}$; the target forms two moles of ammonia.\n2. The elements in standard states have zero formation enthalpy. The route equality is $0+\\Delta H_r=2\\Delta H_f^\\ominus(\\ce{NH3})$.\n3. Substitute $\\Delta H_r=2(-46)-[0+3(0)]=-92\\ \\mathrm{kJ\\,mol^{-1}}$ per reaction as written.\n4. Reversing the equation gives $+92\\ \\mathrm{kJ\\,mol^{-1}}$; the forward negative sign means heat is released.",
+     "check": "Calculate $\\Delta H_r$ for $\\ce{2H2O2(l)->2H2O(l)+O2(g)}$ using rounded formation enthalpies $-192$ for $\\ce{H2O2(l)}$ and $-286$ for $\\ce{H2O(l)}$, in $\\mathrm{kJ\\,mol^{-1}}$. Show a signed route equation, substitution, unit and sign interpretation.",
+     "answer": "The common elements are $\\ce{2H2(g)+2O2(g)}$. Route equality: $2(-192)+\\Delta H_r=2(-286)+0$. Thus $\\Delta H_r=2(-286)-[2(-192)+0]=-188\\ \\mathrm{kJ\\,mol^{-1}}$ per reaction as written, so decomposition here is exothermic.",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.2–4; bundle ER 9701 w23 P22 Q3",
+     "rubric": [
+      {
+       "point": "Balanced equation and correct coefficients; elemental oxygen has zero formation enthalpy.",
+       "keywords": [
+        [
+         "2",
+         "two"
+        ]
+       ]
+      },
+      {
+       "point": "Uses product formation total minus reactant formation total, retaining signs.",
+       "keywords": [
+        [
+         "products",
+         "formation"
+        ]
+       ]
+      },
+      {
+       "point": "Substitution gives the correct signed value.",
+       "keywords": [
+        [
+         "-188",
+         "−188"
+        ]
+       ]
+      },
+      {
+       "point": "States kilojoules per mole of reaction as written, with exothermic interpretation.",
+       "keywords": [
+        [
+         "kJ",
+         "kilojoules"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Calculate $\\Delta H_r$ for $\\ce{CaCO3(s)->CaO(s)+CO2(g)}$, given rounded formation enthalpies $-1207$, $-635$, $-394\\ \\mathrm{kJ\\,mol^{-1}}$ respectively. Show the route equation and interpret the sign.",
+      "answer": "$-1207+\\Delta H_r=-635-394$; hence $\\Delta H_r=(-635-394)-(-1207)=+178\\ \\mathrm{kJ\\,mol^{-1}}$ per reaction as written; endothermic.",
+      "rubric": [
+       {
+        "point": "Uses products minus reactants with all stoichiometric factors one.",
+        "keywords": [
+         [
+          "products",
+          "formation"
+         ]
+        ]
+       },
+       {
+        "point": "Shows signed equation or equivalent correct substitution.",
+        "keywords": [
+         [
+          "1207"
+         ]
+        ]
+       },
+       {
+        "point": "Gives positive 178 kilojoules per mole and identifies endothermic change.",
+        "keywords": [
+         [
+          "178"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Calculate indirect enthalpy from combustion data",
+     "wordings": [
+      "Calculate an indirect enthalpy change using combustion enthalpies."
+     ],
+     "example": "Example, rounded data: find formation enthalpy of $\\ce{C2H5OH(l)}$ from carbon, hydrogen and oxygen. Combustion enthalpies of carbon, hydrogen and ethanol are $-394$, $-286$, $-1368\\ \\mathrm{kJ\\,mol^{-1}}$.\n1. Target: $\\ce{2C(s,graphite)+3H2(g)+1/2O2(g)->C2H5OH(l)}$.\n2. Add $\\ce{3O2(g)}$ to each side. Both routes end at $\\ce{2CO2(g)+3H2O(l)}$.\n3. Route equality: $\\Delta H_f+(-1368)=2(-394)+3(-286)$.\n4. Reverse the ethanol combustion leg when isolating formation: $\\Delta H_f=2(-394)+3(-286)-(-1368)=-278\\ \\mathrm{kJ\\,mol^{-1}}$. Subtracting its negative value adds 1368. The unit is per mole of formation reaction as written.",
+     "check": "Calculate $\\Delta H_r$ for $\\ce{C2H4(g)+H2(g)->C2H6(g)}$. Complete combustion of one mole of ethene releases 1410 kJ; combustion of hydrogen releases 286 kJ per mole and of ethane releases 1558 kJ per mole. All combustion routes produce $\\ce{CO2(g)}$ and $\\ce{H2O(l)}$. Assign signs, balance oxygen, show the route equation, substitution and unit.",
+     "answer": "Assign combustion enthalpies $-1410$, $-286$, $-1558\\ \\mathrm{kJ\\,mol^{-1}}$. Add $\\ce{7/2O2(g)}$ to both target sides; common endpoint $\\ce{2CO2(g)+3H2O(l)}$. Route equality $\\Delta H_r+(-1558)=(-1410)+(-286)$. Thus $\\Delta H_r=-1696-(-1558)=-138\\ \\mathrm{kJ\\,mol^{-1}}$ per reaction as written. The reversed ethane combustion leg contributes $+1558$; the target is exothermic.",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.4–6; sign convention: https://www.monash.edu/student-academic-success/chemistry/carbon-based-fuels/exothermic-and-endothermic-reactions; bundle ER 9701 w23 P22 Q3",
+     "rubric": [
+      {
+       "point": "Assigns negative combustion enthalpies from energy-release magnitudes.",
+       "keywords": [
+        [
+         "negative",
+         "-1410",
+         "−1410"
+        ]
+       ]
+      },
+      {
+       "point": "Both routes consume three and a half oxygen and form two carbon dioxide plus three liquid water.",
+       "keywords": [
+        [
+         "7/2",
+         "3.5"
+        ]
+       ]
+      },
+      {
+       "point": "Equates target plus product combustion to reactant combustion; subtracts negative product value.",
+       "keywords": [
+        [
+         "1558"
+        ]
+       ]
+      },
+      {
+       "point": "Correct signed answer and unit per reaction as written.",
+       "keywords": [
+        [
+         "-138",
+         "−138"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "For $\\ce{C2H2(g)+H2(g)->C2H4(g)}$, use illustrative combustion enthalpies $-1300$, $-286$, $-1410\\ \\mathrm{kJ\\,mol^{-1}}$ respectively, all to gaseous carbon dioxide and liquid water. Calculate the reaction enthalpy, showing common endpoints and signed working.",
+      "answer": "Add $\\ce{3O2(g)}$ to both sides; endpoint $\\ce{2CO2(g)+2H2O(l)}$. $\\Delta H_r+(-1410)=-1300-286$, so $\\Delta H_r=-1586-(-1410)=-176\\ \\mathrm{kJ\\,mol^{-1}}$ per reaction as written.",
+      "rubric": [
+       {
+        "point": "Balanced common endpoint and oxygen spectator.",
+        "keywords": [
+         [
+          "3",
+          "three"
+         ]
+        ]
+       },
+       {
+        "point": "Correct signed Hess equality and subtraction of product combustion.",
+        "keywords": [
+         [
+          "1410"
+         ]
+        ]
+       },
+       {
+        "point": "Negative 176 kilojoules per mole of stated reaction.",
+        "keywords": [
+         [
+          "-176",
+          "−176"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Deduce a bond energy using a gaseous atomisation cycle",
+     "wordings": [
+      "Deduce a mean bond energy from formation and atomisation data."
+     ],
+     "example": "Example, illustrative data: $\\Delta H_f(\\ce{NH3(g)})=-46$, atomisation to one mole of nitrogen atoms $+470$, to one mole of hydrogen atoms $+218$, all in $\\mathrm{kJ\\,mol^{-1}}$. Deduce the mean N–H bond energy in ammonia.\n1. Start with $\\ce{1/2N2(g)+3/2H2(g)}$. One route forms $\\ce{NH3(g)}$ then breaks its three N–H bonds to $\\ce{N(g)+3H(g)}$.\n2. The direct elements-to-atoms route costs $470+3(218)$. The hydrogen atomisation datum is for $\\ce{1/2H2(g)->H(g)}$, so use three, not one and a half, times that datum.\n3. Signed equality: $-46+3E(\\ce{N-H})=470+3(218)$. Reverse ammonia formation to isolate breaking: $3E=470+654-(-46)=1170\\ \\mathrm{kJ\\,mol^{-1}}$ of ammonia.\n4. Divide by three: $E(\\ce{N-H})=390\\ \\mathrm{kJ\\,mol^{-1}}$ of bonds. Forming three moles of these bonds would instead contribute $-1170\\ \\mathrm{kJ}$.\n5. Mean bond energies transferred between molecules give estimated reaction enthalpies. If a starting molecule were liquid, add its vaporisation step before breaking gaseous bonds; for a liquid formation datum the equality would include $\\Delta H_f(l)+\\Delta H_{vap}+nE$ on that route. Never silently substitute a liquid for gas.",
+     "check": "Using illustrative data $\\Delta H_f(\\ce{H2O(g)})=-242$, $\\ce{1/2O2(g)->O(g)}$: $+249$, and $\\ce{1/2H2(g)->H(g)}$: $+218\\ \\mathrm{kJ\\,mol^{-1}}$, deduce the mean O–H bond energy in gaseous water. Show the atom endpoint, signed equality, total breaking energy and energy per mole of bonds. State the sign for forming those bonds and why tabulated average energies may only estimate a reaction enthalpy.",
+     "answer": "Common atom endpoint $\\ce{O(g)+2H(g)}$. $-242+2E(\\ce{O-H})=249+2(218)$, so total breaking energy $2E=249+436-(-242)=927\\ \\mathrm{kJ\\,mol^{-1}}$ of water. $E=463.5\\ \\mathrm{kJ\\,mol^{-1}}$ of O–H bonds (464 to three significant figures). Forming the two bonds from gaseous atoms gives $-927\\ \\mathrm{kJ\\,mol^{-1}}$ of water. Average tabulated energies refer to different molecular environments, so their use estimates a reaction enthalpy.",
+     "source": "Library: Courses/9701/Sources/Library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.2.pdf pp.6–7; official form evidence: bundle ER 9701 w22 P12 Q16",
+     "rubric": [
+      {
+       "point": "Uses gaseous oxygen plus two hydrogen atoms and the correctly scaled atomisation total.",
+       "keywords": [
+        [
+         "249",
+         "436"
+        ]
+       ]
+      },
+      {
+       "point": "Correct signed equality or subtracts negative formation enthalpy.",
+       "keywords": [
+        [
+         "242"
+        ]
+       ]
+      },
+      {
+       "point": "Finds 927 for all bonds, then divides by two to obtain 463.5 or 464 kilojoules per mole of bonds.",
+       "keywords": [
+        [
+         "463.5",
+         "464"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguishes positive breaking from negative formation contribution of 927 kilojoules per mole of water.",
+       "keywords": [
+        [
+         "negative",
+         "-927",
+         "−927"
+        ]
+       ]
+      },
+      {
+       "point": "Explains estimate through averaging different molecular environments.",
+       "keywords": [
+        [
+         "average",
+         "environments",
+         "molecules"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Illustrative data: formation of $\\ce{PH3(g)}$ from standard elements has $\\Delta H_f=+31\\ \\mathrm{kJ\\,mol^{-1}}$. Atomisation of the corresponding phosphorus amount to $\\ce{P(g)}$ costs $+315$, and $\\ce{1/2H2(g)->H(g)}$ costs $+218\\ \\mathrm{kJ\\,mol^{-1}}$. Deduce the mean P–H energy and the enthalpy for forming one mole of gaseous phosphine from gaseous atoms.",
+      "answer": "$31+3E(\\ce{P-H})=315+3(218)$; total breaking energy $938\\ \\mathrm{kJ\\,mol^{-1}}$ of phosphine, so $E=938/3=313\\ \\mathrm{kJ\\,mol^{-1}}$ of bonds to three significant figures. $\\ce{P(g)+3H(g)->PH3(g)}$ has $\\Delta H=-938\\ \\mathrm{kJ\\,mol^{-1}}$.",
+      "rubric": [
+       {
+        "point": "Scales hydrogen atomisation by three and uses correct signed cycle.",
+        "keywords": [
+         [
+          "31",
+          "654"
+         ]
+        ]
+       },
+       {
+        "point": "Total breaking energy is positive 938 and bond energy divides this by three, giving 313 kilojoules per mole of bonds.",
+        "keywords": [
+         [
+          "313",
+          "312.7",
+          "312.67"
+         ]
+        ]
+       },
+       {
+        "point": "Bond formation reverses total atomisation: negative 938 kilojoules per mole of phosphine.",
+        "keywords": [
+         [
+          "-938",
+          "−938"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-5.2.1": [
+   "Construct and label a Hess cycle"
+  ],
+  "9701-5.2.2": [
+   "Calculate reaction enthalpy from formation data",
+   "Calculate indirect enthalpy from combustion data",
+   "Deduce a bond energy using a gaseous atomisation cycle"
+  ]
  }
 }

@@ -44,6 +44,30 @@
    "refutation": "The inverse of $AB$ is $B^{-1}A^{-1}$ when both exist.",
    "contrast": "Undo the last transformation first.",
    "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "FP1-6.1",
+   "statement": "Basis images should be placed in rows rather than columns.",
+   "refutation": "Multiplication by each standard basis column selects the corresponding matrix column.",
+   "contrast": "Build a matrix and check it on both standard basis vectors.",
+   "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.9–10; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+  },
+  {
+   "id": "m7",
+   "kc": "FP1-6.2",
+   "statement": "Reflection in a diagonal line is the same as a half-turn about the origin.",
+   "refutation": "A half-turn negates both coordinates; a diagonal reflection swaps them, possibly negating both.",
+   "contrast": "Compare the images of both basis vectors.",
+   "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf p.10; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+  },
+  {
+   "id": "m8",
+   "kc": "FP1-6.4",
+   "statement": "A negative determinant produces a negative image area.",
+   "refutation": "Area scales by the absolute determinant; the sign indicates orientation.",
+   "contrast": "Compare determinants 4 and minus 4: both multiply area by 4.",
+   "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.3–4"
   }
  ],
  "worked": [
@@ -1324,7 +1348,114 @@
    "connect": "This uses matrix multiplication from the previous chapter. The basis-image method will build the reflection, rotation, stretch and enlargement matrices next.",
    "note": "- A linear transformation of column vectors has the form $T(v)=Av$.\n- Columns of $A$ are the images of $(1,0)^T$ and $(0,1)^T$.\n- In $ABv$, $B$ acts first, then $A$.",
    "self_explain": "Why do the images of $(1,0)^T$ and $(0,1)^T$ determine the matrix and every image?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "No visual addition is requested in this plan and the pack has no existing linked diagram. The worked basis images and sequential coordinate checks provide the geometric comparison; no unverified Library graphic is declared.",
+   "source_gaps": [
+    "The bundle contains no tagged past-paper questions or examiner-report excerpts for this chapter; these are specification-aligned teaching forms, not an exhaustive past-paper audit.",
+    "Library p.2 supports applying matrices but does not itself state the full basis-image construction; pp.9–10 demonstrate it for rotations, and the general construction follows by linearity."
+   ],
+   "exam_language": [
+    {
+     "name": "Find",
+     "meaning": "Show the matrix setup and calculation leading to the requested result."
+    },
+    {
+     "name": "Describe fully",
+     "meaning": "Name the transformation and give its defining geometric details."
+    }
+   ],
+   "plain_words": "A matrix is a rule for moving points written as column vectors. Its two columns tell you where the two unit steps go. First recall row-by-column multiplication from matrix algebra: the first row makes the new horizontal coordinate, and the second row makes the new vertical coordinate.",
+   "terms": [
+    {
+     "term": "standard basis",
+     "meaning": "The unit horizontal and vertical column vectors.",
+     "notation": "$e_1=(1,0)^T,\\ e_2=(0,1)^T$",
+     "spoken": "e one and e two",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf p.9; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+    },
+    {
+     "term": "image",
+     "meaning": "The output vector after the transformation.",
+     "notation": "$v\\mapsto Av$",
+     "spoken": "v maps to A times v",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf p.2"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "Basis images belong in rows.",
+     "temptation": "The coordinates are often written across a line, so copying them as rows feels natural.",
+     "fix": "Multiplying by the first basis vector selects the first column; place each whole image in its corresponding column."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Build a matrix from basis images and map a vector",
+     "wordings": [
+      "Find the matrix given the images of the standard basis vectors.",
+      "Hence find the image of another column vector."
+     ],
+     "example": "Given $T(e_1)=(2,1)^T$ and $T(e_2)=(-1,3)^T$, find $A$ and $T(3,-2)^T$. Step 1: put the images in columns, $A=\\begin{pmatrix}2&-1\\\\1&3\\end{pmatrix}$. Step 2: use row-by-column multiplication: $(2\\cdot3+(-1)(-2),1\\cdot3+3(-2))^T=(8,-3)^T$. Step 3: check by the linear combination $3(2,1)^T-2(-1,3)^T=(8,-3)^T$.",
+     "check": "A linear transformation sends $e_1$ to $(1,-2)^T$ and $e_2$ to $(2,1)^T$. Find its matrix and the image of $(-1,4)^T$.",
+     "answer": "$A=\\begin{pmatrix}1&2\\\\-2&1\\end{pmatrix}$; the image is $(7,6)^T$.",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.2,9–10; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+     "rubric": [
+      {
+       "point": "Place the given images in columns in basis order.",
+       "keywords": [
+        [
+         "columns",
+         "column"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the matrix with rows one, two and minus two, one.",
+       "keywords": [
+        [
+         "1",
+         "matrix"
+        ]
+       ]
+      },
+      {
+       "point": "Apply it to the given column to obtain horizontal 7 and vertical 6.",
+       "keywords": [
+        [
+         "7",
+         "6"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Instead $e_1\\mapsto(-1,2)^T$ and $e_2\\mapsto(3,0)^T$. Find the matrix and the image of $(2,-1)^T$.",
+      "answer": "$A=\\begin{pmatrix}-1&3\\\\2&0\\end{pmatrix}$; image $(-5,4)^T$.",
+      "rubric": [
+       {
+        "point": "Put the two images in the first and second columns.",
+        "keywords": [
+         [
+          "column",
+          "columns"
+         ]
+        ]
+       },
+       {
+        "point": "Obtain horizontal minus five and vertical four by matrix multiplication.",
+        "keywords": [
+         [
+          "-5",
+          "4"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ]
   },
   "FP1-6.2": {
    "motivate": "The same small matrix can encode a familiar geometric move of every point, so one multiplication replaces repeated coordinate rules.",
@@ -1332,7 +1463,216 @@
    "connect": "Each matrix is built from the images of the basis vectors. These matrices can be multiplied to describe combinations of geometric transformations.",
    "note": "- Reflections change signs or swap coordinates according to the mirror line.\n- Rotation about $(0,0)$ uses sine and cosine of the angle.\n- A stretch changes one coordinate; enlargement by $k$ changes both.\n- For enlargement, $k$ is real and nonzero.",
    "self_explain": "How can you tell from its columns whether a matrix reflects in $y=x$ or rotates through $90^\\circ$?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "No visual addition is requested in this plan and the pack has no existing linked diagram. The worked basis images and sequential coordinate checks provide the geometric comparison; no unverified Library graphic is declared.",
+   "source_gaps": [
+    "The bundle contains no tagged past-paper questions or examiner-report excerpts for this chapter; these are specification-aligned teaching forms, not an exhaustive past-paper audit."
+   ],
+   "exam_language": [
+    {
+     "name": "Find",
+     "meaning": "Show the matrix setup and calculation leading to the requested result."
+    },
+    {
+     "name": "Describe fully",
+     "meaning": "Name the transformation and give its defining geometric details."
+    }
+   ],
+   "plain_words": "Recognise a transformation by what it does to both basis vectors. A reflection flips across a line; a rotation turns about the origin; a stretch changes one coordinate; an enlargement multiplies both coordinates by the same nonzero real number. For rotations, use sine and cosine from trigonometry and check the signs on a basis vector.",
+   "terms": [
+    {
+     "term": "rotation",
+     "meaning": "A turn with a specified centre, angle and direction.",
+     "notation": "$R_\\theta$",
+     "spoken": "rotation through theta",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.9–10; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+    },
+    {
+     "term": "stretch",
+     "meaning": "A scaling parallel to one coordinate axis, leaving the other coordinate fixed.",
+     "notation": "$\\operatorname{diag}(a,1)$",
+     "spoken": "diagonal matrix a, one",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.8–9"
+    },
+    {
+     "term": "enlargement",
+     "meaning": "Scaling both coordinates by the same nonzero real factor about the origin.",
+     "notation": "$kI,\\ k\\ne0$",
+     "spoken": "k times the identity, k not zero",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.8–9; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+    },
+    {
+     "term": "reflection",
+     "meaning": "A mirror image in a specified line.",
+     "notation": "$y=\\pm x$",
+     "spoken": "y equals plus or minus x",
+     "source": "Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m7",
+     "idea": "A reflection in a diagonal line is a half-turn.",
+     "temptation": "Both transformations can swap or negate coordinates.",
+     "fix": "Test both basis images: a half-turn sends each basis vector to its negative, whereas reflection in a diagonal line swaps their roles."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Identify a single transformation fully",
+     "wordings": [
+      "Describe fully the transformation represented by the matrix."
+     ],
+     "example": "For $M=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$, first read the columns: $e_1\\mapsto(0,1)^T$, $e_2\\mapsto(-1,0)^T$. These are a $90^\\circ$ anticlockwise rotation about $(0,0)$. In contrast, $\\begin{pmatrix}0&-1\\\\-1&0\\end{pmatrix}$ reflects in $y=-x$. For $\\operatorname{diag}(1,4)$, only the vertical coordinate changes: stretch parallel to the $y$-axis, factor $4$. For $-2I$, both coordinates scale by $-2$: enlargement, centre $(0,0)$, factor $-2$.",
+     "check": "Describe fully each transformation: (a) $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$; (b) $\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$; (c) $\\operatorname{diag}(3,1)$; (d) $-3I$.",
+     "answer": "(a) Reflection in $y=x$. (b) Rotation $90^\\circ$ clockwise about $(0,0)$, equivalently $270^\\circ$ anticlockwise. (c) Stretch parallel to the $x$-axis, scale factor $3$. (d) Enlargement with centre $(0,0)$, scale factor $-3$.",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.8–10; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+     "rubric": [
+      {
+       "point": "Identify reflection and line y equals x.",
+       "keywords": [
+        [
+         "reflection",
+         "reflect"
+        ]
+       ]
+      },
+      {
+       "point": "Identify rotation, centre origin and a correct angle with direction; accept coterminal angles.",
+       "keywords": [
+        [
+         "rotation",
+         "rotate"
+        ]
+       ]
+      },
+      {
+       "point": "Identify a stretch parallel to the x-axis with factor 3.",
+       "keywords": [
+        [
+         "stretch"
+        ]
+       ]
+      },
+      {
+       "point": "Identify enlargement with centre origin and factor minus 3.",
+       "keywords": [
+        [
+         "enlargement",
+         "enlarge"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Describe fully (a) $\\operatorname{diag}(1,-1)$; (b) $-I$; (c) $\\operatorname{diag}(1,2)$; (d) $2I$.",
+      "answer": "(a) Reflection in the $x$-axis. (b) Rotation $180^\\circ$ about $(0,0)$, either direction (also enlargement of factor $-1$ about the origin). (c) Stretch parallel to the $y$-axis, factor $2$. (d) Enlargement, centre $(0,0)$, factor $2$.",
+      "rubric": [
+       {
+        "point": "Give the correct reflection axis.",
+        "keywords": [
+         [
+          "reflection",
+          "reflect"
+         ]
+        ]
+       },
+       {
+        "point": "Give the half-turn with centre, or the equivalent negative enlargement.",
+        "keywords": [
+         [
+          "rotation",
+          "enlargement"
+         ]
+        ]
+       },
+       {
+        "point": "Give stretch axis and factor.",
+        "keywords": [
+         [
+          "stretch"
+         ]
+        ]
+       },
+       {
+        "point": "Give enlargement centre and factor.",
+        "keywords": [
+         [
+          "enlargement",
+          "enlarge"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Construct and apply a single transformation",
+     "wordings": [
+      "Find the matrix for the stated transformation and the image of a point."
+     ],
+     "example": "Find the matrix of a $60^\\circ$ anticlockwise rotation about the origin and map $(2,0)^T$. Step 1: substitute $\\cos60^\\circ=1/2$ and $\\sin60^\\circ=\\sqrt3/2$ in $R_\\theta$. Step 2: $R=\\begin{pmatrix}1/2&-\\sqrt3/2\\\\\\sqrt3/2&1/2\\end{pmatrix}$. Step 3: the image is twice the first column, $(1,\\sqrt3)^T$, whose length remains $2$.",
+     "check": "Find the matrix for a $30^\\circ$ clockwise rotation about $(0,0)$ and the image of $(0,2)^T$.",
+     "answer": "$R=\\begin{pmatrix}\\sqrt3/2&1/2\\\\-1/2&\\sqrt3/2\\end{pmatrix}$; image $(1,\\sqrt3)^T$.",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.9–10; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+     "rubric": [
+      {
+       "point": "Use a negative angle or the equivalent clockwise sign pattern.",
+       "keywords": [
+        [
+         "clockwise",
+         "-30",
+         "negative"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the exact rotation matrix.",
+       "keywords": [
+        [
+         "sqrt",
+         "\\sqrt",
+         "matrix"
+        ]
+       ]
+      },
+      {
+       "point": "Multiply by the column to obtain horizontal 1 and vertical square root of 3.",
+       "keywords": [
+        [
+         "1",
+         "3"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Find the matrix for reflection in $y=-x$ and map $(2,-3)^T$.",
+      "answer": "$M=\\begin{pmatrix}0&-1\\\\-1&0\\end{pmatrix}$; image $(3,-2)^T$.",
+      "rubric": [
+       {
+        "point": "Use the negative coordinate swap matrix.",
+        "keywords": [
+         [
+          "matrix",
+          "swap"
+         ]
+        ]
+       },
+       {
+        "point": "Obtain horizontal 3 and vertical minus 2.",
+        "keywords": [
+         [
+          "3",
+          "-2"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ]
   },
   "FP1-6.3": {
    "motivate": "A sequence of moves has one matrix. The multiplication order records the order in which the moves actually happen.",
@@ -1340,7 +1680,125 @@
    "connect": "The product rule extends single geometric matrices. Reversing a sequence leads to inverse matrices in the next outcome.",
    "note": "- $ABv=A(Bv)$: $B$ happens first.\n- Write a sequence's matrices from last action to first.\n- Multiply in order; in general $AB\\ne BA$.\n- Test the product on basis vectors to identify the result.",
    "self_explain": "A stretch $S$ is followed by a rotation $R$. Why is the combined matrix $RS$?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "No visual addition is requested in this plan and the pack has no existing linked diagram. The worked basis images and sequential coordinate checks provide the geometric comparison; no unverified Library graphic is declared.",
+   "source_gaps": [
+    "The bundle contains no tagged past-paper questions or examiner-report excerpts for this chapter; these are specification-aligned teaching forms, not an exhaustive past-paper audit.",
+    "The reviewed library pages do not present a composition question; the order rule and this form are grounded in Pearson sections 6.1 and 6.3, with original numerical examples."
+   ],
+   "exam_language": [
+    {
+     "name": "Find",
+     "meaning": "Show the matrix setup and calculation leading to the requested result."
+    },
+    {
+     "name": "Describe fully",
+     "meaning": "Name the transformation and give its defining geometric details."
+    }
+   ],
+   "plain_words": "A combined matrix records several moves in one rule. Write the first action nearest the vector, on the right. Before multiplying, say the actions aloud in time order; afterwards test a point by doing those actions separately. This uses the single transformation matrices and row-by-column products already learned.",
+   "terms": [
+    {
+     "term": "composite transformation",
+     "meaning": "The result of applying transformations in a specified order.",
+     "notation": "$RSv=R(Sv)$",
+     "spoken": "R S v equals R applied to S v",
+     "source": "Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+    },
+    {
+     "term": "noncommuting",
+     "meaning": "Changing the multiplication order changes the result for some input.",
+     "notation": "$RS\\ne SR$",
+     "spoken": "R S is not equal to S R",
+     "source": "Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "The first action must be the left factor.",
+     "temptation": "Reading a sentence from left to right suggests the same order in a matrix product.",
+     "fix": "Start at the vector and apply the rightmost matrix first; verify by separate actions."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Construct and identify a composite transformation",
+     "wordings": [
+      "Find the matrix of the combined transformation.",
+      "Describe the sequence represented by the product and verify its action."
+     ],
+     "example": "A stretch parallel to $x$ by factor $2$ is followed by a $90^\\circ$ anticlockwise rotation about the origin. Step 1: $S=\\operatorname{diag}(2,1)$ and $R=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. Step 2: $C=RS=\\begin{pmatrix}0&-1\\\\2&0\\end{pmatrix}$, so the coordinate rule is $(x,y)\\mapsto(-y,2x)$. Step 3: $(2,3)^T\\mapsto(4,3)^T\\mapsto(-3,4)^T$, agreeing with $C(2,3)^T$. Reversing the actions gives $SR(2,3)^T=(-6,2)^T$, so order matters. Identify $C$ as the stated stretch followed by the stated rotation; it is not a pure rotation because lengths need not stay fixed.",
+     "check": "A stretch parallel to $y$ by factor $3$ is followed by a $90^\\circ$ anticlockwise rotation about the origin. Find $C$, state its coordinate rule and verify its image of $(2,-1)^T$ by sequential action. Is $C$ a pure rotation?",
+     "answer": "$C=R\\operatorname{diag}(1,3)=\\begin{pmatrix}0&-3\\\\1&0\\end{pmatrix}$; $(x,y)\\mapsto(-3y,x)$. Sequentially $(2,-1)^T\\mapsto(2,-3)^T\\mapsto(3,2)^T$, agreeing with multiplication. It is the given stretch followed by rotation, not a pure rotation: for example $e_2$ has image length $3$.",
+     "source": "Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+     "rubric": [
+      {
+       "point": "Write rotation times stretch in that order.",
+       "keywords": [
+        [
+         "RS",
+         "R",
+         "rotation"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain the product and coordinate rule.",
+       "keywords": [
+        [
+         "-3",
+         "matrix"
+        ]
+       ]
+      },
+      {
+       "point": "Verify the image using both successive actions and the combined matrix.",
+       "keywords": [
+        [
+         "3",
+         "2"
+        ]
+       ]
+      },
+      {
+       "point": "Reject pure rotation using a changed length.",
+       "keywords": [
+        [
+         "length",
+         "distance",
+         "norm"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A stretch parallel to $x$ by factor $4$ is followed by the same rotation. Find the combined matrix and verify the image of $(-1,2)^T$.",
+      "answer": "$C=\\begin{pmatrix}0&-1\\\\4&0\\end{pmatrix}$; sequentially $(-1,2)^T\\mapsto(-4,2)^T\\mapsto(-2,-4)^T$, agreeing with $C(-1,2)^T$.",
+      "rubric": [
+       {
+        "point": "Write rotation times the x-stretch and evaluate the product.",
+        "keywords": [
+         [
+          "4",
+          "matrix"
+         ]
+        ]
+       },
+       {
+        "point": "Show the intermediate vector and final image.",
+        "keywords": [
+         [
+          "-4",
+          "-2"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ]
   },
   "FP1-6.4": {
    "motivate": "Some transformations can be undone; others squash the plane so that distinct starting points become indistinguishable.",
@@ -1348,7 +1806,239 @@
    "connect": "The determinant and inverse formula come from matrix algebra. Here they explain the geometry of area and whether an entire sequence can be reversed.",
    "note": "- Area scale factor is $|\\det A|$.\n- $\\det A=0$ means singular: no inverse.\n- For $\\det A\\ne0$, use the two-by-two inverse formula.\n- Undo a product in reverse order: $(AB)^{-1}=B^{-1}A^{-1}$.",
    "self_explain": "Why does a matrix with zero determinant have no inverse, and why does undoing $AB$ reverse the factors?",
-   "source": "pack"
+   "source": "pack",
+   "diagrams": [],
+   "diagram_reason": "No visual addition is requested in this plan and the pack has no existing linked diagram. The worked basis images and sequential coordinate checks provide the geometric comparison; no unverified Library graphic is declared.",
+   "source_gaps": [
+    "The bundle contains no tagged past-paper questions or examiner-report excerpts for this chapter; these are specification-aligned teaching forms, not an exhaustive past-paper audit."
+   ],
+   "exam_language": [
+    {
+     "name": "Find",
+     "meaning": "Show the matrix setup and calculation leading to the requested result."
+    },
+    {
+     "name": "Describe fully",
+     "meaning": "Name the transformation and give its defining geometric details."
+    }
+   ],
+   "plain_words": "Area is multiplied by the absolute determinant, so a negative determinant does not mean negative area. To recover an original point, first check that the determinant is nonzero. Then undo the last action first. This bridges the determinant and two-by-two inverse formula from matrix algebra to geometric transformations.",
+   "terms": [
+    {
+     "term": "area scale factor",
+     "meaning": "Image area divided by original area for a region of positive area.",
+     "notation": "$|\\det A|$",
+     "spoken": "absolute value of determinant A",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.3–4"
+    },
+    {
+     "term": "singular matrix",
+     "meaning": "A matrix with zero determinant, which has no inverse.",
+     "notation": "$\\det A=0$",
+     "spoken": "determinant A equals zero",
+     "source": "Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+    },
+    {
+     "term": "inverse transformation",
+     "meaning": "A rule that recovers each input from its image.",
+     "notation": "$(RS)^{-1}=S^{-1}R^{-1}$",
+     "spoken": "inverse of R S equals inverse S times inverse R",
+     "source": "Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m4",
+     "idea": "A singular transformation can be undone uniquely.",
+     "temptation": "The inverse formula looks usable if one ignores its zero denominator.",
+     "fix": "Check the determinant first: a singular matrix maps different inputs to the same output."
+    },
+    {
+     "id": "m5",
+     "idea": "Undoing a sequence keeps the original factor order.",
+     "temptation": "It seems sufficient to put inverse signs on each matrix.",
+     "fix": "Undo the final action first: the inverse of R S is inverse S times inverse R."
+    },
+    {
+     "id": "m8",
+     "idea": "A negative determinant gives a negative area.",
+     "temptation": "The determinant is called an area scale factor, so its sign can be mistaken for an area sign.",
+     "fix": "Use the absolute determinant for area; its sign instead records orientation reversal."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Solve an area scale condition",
+     "wordings": [
+      "Find all possible parameter values from the areas before and after transformation."
+     ],
+     "example": "$A=\\begin{pmatrix}2&1\\\\3&k\\end{pmatrix}$ maps area $6$ to area $30$. Step 1: area ratio $30/6=5$. Step 2: $\\det A=2k-3$, so $|2k-3|=5$. Step 3: solve $2k-3=5$ or $2k-3=-5$, giving $k=4$ or $k=-1$. Step 4: substitution gives determinants $5$ and $-5$, both with magnitude $5$. The second case reverses orientation; both image areas are positive.",
+     "check": "$A=\\begin{pmatrix}3&2\\\\1&k\\end{pmatrix}$ maps a shape of area $5$ to area $20$. Find all real values of $k$ and say whether either transformation is singular.",
+     "answer": "$|3k-2|=4$, so $k=2$ or $k=-2/3$. The determinants are $4$ and $-4$ respectively; neither is singular.",
+     "source": "Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf pp.3–4; Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+     "rubric": [
+      {
+       "point": "Use image area divided by original area, giving 4.",
+       "keywords": [
+        [
+         "4"
+        ]
+       ]
+      },
+      {
+       "point": "Set absolute determinant equal to 4 and consider both signs.",
+       "keywords": [
+        [
+         "absolute",
+         "modulus",
+         "|",
+         "-4"
+        ]
+       ]
+      },
+      {
+       "point": "Obtain both parameter values 2 and minus two thirds.",
+       "keywords": [
+        [
+         "2",
+         "3"
+        ]
+       ]
+      },
+      {
+       "point": "Use the nonzero determinants to conclude neither is singular.",
+       "keywords": [
+        [
+         "nonzero",
+         "non-zero",
+         "singular"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "$A=\\begin{pmatrix}1&2\\\\k&1\\end{pmatrix}$ maps area $7$ to area $21$. Find all real values of $k$.",
+      "answer": "$|1-2k|=3$, so $k=-1$ or $k=2$.",
+      "rubric": [
+       {
+        "point": "Set absolute determinant equal to area ratio 3.",
+        "keywords": [
+         [
+          "3"
+         ]
+        ]
+       },
+       {
+        "point": "Solve both sign branches and obtain minus 1 and 2.",
+        "keywords": [
+         [
+          "-1",
+          "2"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Test invertibility and reverse a composite transformation",
+     "wordings": [
+      "Determine whether an inverse exists, then find and apply it.",
+      "Explain why a singular transformation cannot be reversed uniquely."
+     ],
+     "example": "A stretch parallel to $x$ by $3$ is followed by a $90^\\circ$ anticlockwise rotation: $C=RS=\\begin{pmatrix}0&-1\\\\3&0\\end{pmatrix}$. Step 1: $\\det C=3\\ne0$, so an inverse exists. Step 2: undo rotation, then stretch, hence $C^{-1}=S^{-1}R^{-1}=\\begin{pmatrix}0&1/3\\\\-1&0\\end{pmatrix}$. Step 3: for image $(6,-3)^T$, undoing rotation gives $(-3,-6)^T$, then dividing its horizontal coordinate by $3$ gives original $(-1,-6)^T$. Step 4: $C(-1,-6)^T=(6,-3)^T$ and $C^{-1}C=I$. In contrast, $D=\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}$ has determinant zero; $(0,0)^T$ and $(-2,1)^T$ both map to zero, so no unique reversal is possible.",
+     "check": "A stretch parallel to $y$ by $2$ is followed by a $90^\\circ$ anticlockwise rotation about the origin. Test invertibility, find the inverse matrix and recover the original vector whose image is $(6,-3)^T$. Explain why $D=\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}$ has no inverse.",
+     "answer": "$C=\\begin{pmatrix}0&-2\\\\1&0\\end{pmatrix}$ has determinant $2\\ne0$. Undo rotation first and then the stretch: $C^{-1}=\\begin{pmatrix}0&1\\\\-1/2&0\\end{pmatrix}$, giving original $(-3,-3)^T$. Multiplying forward recovers $(6,-3)^T$. For $D$, determinant $4-4=0$; distinct inputs such as zero and $(-2,1)^T$ share an image, so it cannot be reversed uniquely.",
+     "source": "Pearson Edexcel IAL Mathematics specification, Issue 3, printed p.34, sections 5.5 and 6.1–6.4; https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf; Learner Library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf p.2 (inverse point mapping)",
+     "rubric": [
+      {
+       "point": "Construct C and show its determinant is nonzero.",
+       "keywords": [
+        [
+         "2",
+         "determinant",
+         "det"
+        ]
+       ]
+      },
+      {
+       "point": "Reverse the actions and obtain the correct inverse.",
+       "keywords": [
+        [
+         "inverse",
+         "undo"
+        ]
+       ]
+      },
+      {
+       "point": "Recover the original vector and verify by forward multiplication.",
+       "keywords": [
+        [
+         "-3"
+        ]
+       ]
+      },
+      {
+       "point": "For D use zero determinant and loss of unique recovery to explain no inverse.",
+       "keywords": [
+        [
+         "zero",
+         "0",
+         "singular"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A stretch parallel to $x$ by $2$ is followed by the same rotation. Find its determinant, inverse and the original vector with image $(6,-3)^T$.",
+      "answer": "$C=\\begin{pmatrix}0&-1\\\\2&0\\end{pmatrix}$, $\\det C=2$ and $C^{-1}=\\begin{pmatrix}0&1/2\\\\-1&0\\end{pmatrix}$. Original vector $(-3/2,-6)^T$; undo the rotation before undoing the stretch.",
+      "rubric": [
+       {
+        "point": "Use determinant 2 to justify invertibility.",
+        "keywords": [
+         [
+          "2"
+         ]
+        ]
+       },
+       {
+        "point": "Find the inverse by reversing the actions.",
+        "keywords": [
+         [
+          "inverse",
+          "undo"
+         ]
+        ]
+       },
+       {
+        "point": "Recover horizontal minus three halves and vertical minus six.",
+        "keywords": [
+         [
+          "-6",
+          "3"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ]
   }
+ },
+ "guided_forms": {
+  "FP1-6.1": [
+   "Build a matrix from basis images and map a vector"
+  ],
+  "FP1-6.2": [
+   "Identify a single transformation fully",
+   "Construct and apply a single transformation"
+  ],
+  "FP1-6.3": [
+   "Construct and identify a composite transformation"
+  ],
+  "FP1-6.4": [
+   "Solve an area scale condition",
+   "Test invertibility and reverse a composite transformation"
+  ]
  }
 }

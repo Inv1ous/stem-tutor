@@ -1,0 +1,9 @@
+# Shared output readability
+
+The learner requests properly formatted, spaced output across cloud/local models and prepared material, citing a Chemistry form-example callout with run-together numbered steps. Existing criteria are in docs/STEM_OUTPUT_FORMATTING.md and the 2026-10-25/26 formatting designs. Preserve that backbone and its semantic document validator.
+
+The registered v274 9701-4.2.3 form stores an introductory description plus Step 1 through Step 4 as a single string. The current 50-word paragraph grouping separates by length rather than explicit step boundaries. CommonMark/Obsidian can also fold a lone prose newline even though the terminal preserves it. Form assembly joins distinct question wordings with commas after full stops.
+
+Use deterministic display normalization rather than relying on a model prompt alone. Strong, consecutive labelled-step evidence becomes separate paragraphs without changing its words or ordinals. Preserve explicit prose newlines as Markdown hard breaks in both displays. Protect literal/code/math/URLs and quoted or ordinary references to steps; keep normalization idempotent and bounded. The engine assembles separate bullet wordings from its existing array and labels the worked example. Clarify the existing provider-neutral instructions to request separate semantic steps.
+
+No new provider calls, model/settings changes, grading/answer/speech rewrites, bulk learner-history changes, Library resource edits or content publication. Ambiguous/invalid source retains the existing explicit fallback; no claim that every arbitrary model response will be valid. Tests use registered assets via tests/library_assets.py, fake providers and disposable vaults. Acceptance includes the screenshot's exact registered example, Markdown/terminal line breaks, protected negative controls, incremental decoding, all three provider routes, deterministic repeated normalization, and unchanged grading identities/speech.

@@ -14,7 +14,7 @@ def test_earlier_does_not_restore_hidden_teaching_after_a_skipped_answer(tmp_pat
         async with app.run_test(size=(100, 30), notifications=True) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [option.id for option in menu.options].index("learn")
+            menu.reveal("learn")
             await pilot.press("enter")
             await pilot.pause()
             await pilot.press("enter")

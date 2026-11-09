@@ -1,0 +1,200 @@
+[
+ {
+  "prompt_tail": "18: Show a stated definite integral; 19: Show a quadratic from a contextual arithmetic series; 20: Show a radius-line equation from a tangent; 21: Show surface area from a volume constraint; 22: Show an exponential intersection using index laws; 23: Prove no turning points using a quadratic gradient",
+  "reply": {
+   "sections": [],
+   "actions": [
+    {
+     "action": "write",
+     "topic": "Worked proof using three consecutive integers, e.g. the sum of three consecutive integers is divisible by 3, with n as any integer",
+     "why": "The card only has even and odd examples, so a new worked example is needed.",
+     "text": "Short version: call the three consecutive integers $n$, $n+1$ and $n+2$, add them, and factorise to show the total is $3$ times an integer, so it is divisible by $3$.\n\n**Worked proof**\n\n1. Let $n$ be any integer. Then three consecutive integers are $n$, $n+1$ and $n+2$, because each integer is one more than the one before. This works for every starting integer, so it covers all cases.\n\n2. Write their sum.\n\n$$\nS = n + (n+1) + (n+2)\n$$\n\n3. Collect like terms: there are three $n$ terms and the constants $1+2=3$.\n\n$$\nS = 3n + 3\n$$\n\n4. Factorise out $3$.\n\n$$\nS = 3(n+1)\n$$\n\n5. Since $n$ is an integer, $n+1$ is also an integer. So $S$ is $3$ multiplied by an integer, which is the definition of being divisible by $3$.\n\nConclusion: the sum of any three consecutive integers is divisible by $3$. Notice the link with your even and odd work: there you wrote $2k$ or $2k+1$, whereas here the 'shape' $n$, $n+1$, $n+2$ does the job instead.\n\n**Your turn**\n\nTry this yourself using the same set-up: prove that the sum of three consecutive integers is always three times the middle integer. Have a go, then send me your working and I will check it with you.\n\nIf you would like more detail, I can show a second version that starts from the middle integer, written as $n-1$, $n$, $n+1$.",
+     "checked": [],
+     "unchecked": 3
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "e a solution to an open question. Ask the student to try before giving away an answer. Do not claim calculations or proof have been verified unless verification is supplied.\nSTUDENT ASKS: Show me a worked example of a proof using three consecutive integers; the notes only have even and odd examples.",
+  "reply": {
+   "blocks": [
+    {
+     "kind": "paragraph",
+     "text": "Short version: call the three consecutive integers $n$, $n+1$ and $n+2$, add them, and factorise to show the total is $3$ times an integer, so it is divisible by $3$."
+    },
+    {
+     "kind": "heading",
+     "text": "Worked proof"
+    },
+    {
+     "kind": "step",
+     "text": "Let $n$ be any integer. Then three consecutive integers are $n$, $n+1$ and $n+2$, because each integer is one more than the one before. This works for every starting integer, so it covers all cases."
+    },
+    {
+     "kind": "step",
+     "text": "Write their sum."
+    },
+    {
+     "kind": "equation",
+     "text": "S = n + (n+1) + (n+2)"
+    },
+    {
+     "kind": "step",
+     "text": "Collect like terms: there are three $n$ terms and the constants $1+2=3$."
+    },
+    {
+     "kind": "equation",
+     "text": "S = 3n + 3"
+    },
+    {
+     "kind": "step",
+     "text": "Factorise out $3$."
+    },
+    {
+     "kind": "equation",
+     "text": "S = 3(n+1)"
+    },
+    {
+     "kind": "step",
+     "text": "Since $n$ is an integer, $n+1$ is also an integer. So $S$ is $3$ multiplied by an integer, which is the definition of being divisible by $3$."
+    },
+    {
+     "kind": "paragraph",
+     "text": "Conclusion: the sum of any three consecutive integers is divisible by $3$. Notice the link with your even and odd work: there you wrote $2k$ or $2k+1$, whereas here the 'shape' $n$, $n+1$, $n+2$ does the job instead."
+    },
+    {
+     "kind": "heading",
+     "text": "Your turn"
+    },
+    {
+     "kind": "paragraph",
+     "text": "Try this yourself using the same set-up: prove that the sum of three consecutive integers is always three times the middle integer. Have a go, then send me your working and I will check it with you."
+    },
+    {
+     "kind": "paragraph",
+     "text": "If you would like more detail, I can show a second version that starts from the middle integer, written as $n-1$, $n$, $n+1$."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "18: Show a stated definite integral; 19: Show a quadratic from a contextual arithmetic series; 20: Show a radius-line equation from a tangent; 21: Show surface area from a volume constraint; 22: Show an exponential intersection using index laws; 23: Prove no turning points using a quadratic gradient",
+  "reply": {
+   "sections": [
+    "P2-1.2|plain_words"
+   ],
+   "actions": [
+    {
+     "action": "diagram",
+     "source": "generated",
+     "type": "case_split",
+     "params": {
+      "start": "Any integer n (negative, zero or positive)",
+      "cases": [
+       "Even: n = 2k",
+       "Odd: n = 2k + 1"
+      ],
+      "end": "Every integer is covered, with no gaps"
+     },
+     "why": "A branching figure shows the two cases splitting the whole domain, which is what the learner is trying to picture."
+    },
+    {
+     "action": "write",
+     "topic": "Number line picture: even and odd integers alternating and covering all integers",
+     "why": "The card has no number-line picture, so a short word picture of the alternating pattern, including negatives and zero, would help.",
+     "text": "Picture the integers as evenly spaced points on a line. Colour them alternately: even, odd, even, odd, and so on. Every point gets exactly one colour, so the two cases together cover every integer with no gaps and no overlaps.\n\n**The number line picture**\n\n- Even integers (multiples of 2) sit at: ..., -4, -2, 0, 2, 4, ...  Call these the 'red' points.\n\n- Odd integers sit at: ..., -3, -1, 1, 3, 5, ...  Call these the 'blue' points.\n\n- Reading left to right, the colours go: red, blue, red, blue, ... For example: -2 (red), -1 (blue), 0 (red), 1 (blue), 2 (red).\n\n**Why the alternation never breaks**\n\n1. Every even integer can be written in the form below, where $k$ is an integer. These are the red points.\n\n$$\nn=2k\n$$\n\n2. The integer immediately after an even integer is one step to the right. Adding 1 gives the blue points.\n\n$$\nn=2k+1\n$$\n\n3. The next integer after that is the next red point, because $2k+2$ equals $2(k+1)$, which is even.\n\n$$\n2k+2=2(k+1)\n$$\n\n4. So the pattern restarts every 2 steps. Each pair of neighbouring integers, $2k$ and $2k+1$, contains one red and one blue point. As $k$ runs through all integers, these pairs tile the whole line, so no integer is missed.\n\nYour turn: choose any integer you like, such as $-7$, and decide which of the two forms $2k$ or $2k+1$ it fits, then find $k$. Tell me what you get and I will check it with you.",
+     "checked": [
+      "2k+2 = 2(k+1)"
+     ],
+     "unchecked": 2
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "etail. Never disclose a solution to an open question. Ask the student to try before giving away an answer. Do not claim calculations or proof have been verified unless verification is supplied.\nSTUDENT ASKS: I cannot picture how the even and odd cases together cover every integer. Is there a figure?",
+  "reply": {
+   "blocks": [
+    {
+     "kind": "paragraph",
+     "text": "Picture the integers as evenly spaced points on a line. Colour them alternately: even, odd, even, odd, and so on. Every point gets exactly one colour, so the two cases together cover every integer with no gaps and no overlaps."
+    },
+    {
+     "kind": "heading",
+     "text": "The number line picture"
+    },
+    {
+     "kind": "bullet",
+     "text": "Even integers (multiples of 2) sit at: ..., -4, -2, 0, 2, 4, ...  Call these the 'red' points."
+    },
+    {
+     "kind": "bullet",
+     "text": "Odd integers sit at: ..., -3, -1, 1, 3, 5, ...  Call these the 'blue' points."
+    },
+    {
+     "kind": "bullet",
+     "text": "Reading left to right, the colours go: red, blue, red, blue, ... For example: -2 (red), -1 (blue), 0 (red), 1 (blue), 2 (red)."
+    },
+    {
+     "kind": "heading",
+     "text": "Why the alternation never breaks"
+    },
+    {
+     "kind": "step",
+     "text": "Every even integer can be written in the form below, where $k$ is an integer. These are the red points."
+    },
+    {
+     "kind": "equation",
+     "text": "n=2k"
+    },
+    {
+     "kind": "step",
+     "text": "The integer immediately after an even integer is one step to the right. Adding 1 gives the blue points."
+    },
+    {
+     "kind": "equation",
+     "text": "n=2k+1"
+    },
+    {
+     "kind": "step",
+     "text": "The next integer after that is the next red point, because $2k+2$ equals $2(k+1)$, which is even."
+    },
+    {
+     "kind": "equation",
+     "text": "2k+2=2(k+1)"
+    },
+    {
+     "kind": "step",
+     "text": "So the pattern restarts every 2 steps. Each pair of neighbouring integers, $2k$ and $2k+1$, contains one red and one blue point. As $k$ runs through all integers, these pairs tile the whole line, so no integer is missed."
+    },
+    {
+     "kind": "paragraph",
+     "text": "Your turn: choose any integer you like, such as $-7$, and decide which of the two forms $2k$ or $2k+1$ it fits, then find $k$. Tell me what you get and I will check it with you."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "18: Show a stated definite integral; 19: Show a quadratic from a contextual arithmetic series; 20: Show a radius-line equation from a tangent; 21: Show surface area from a volume constraint; 22: Show an exponential intersection using index laws; 23: Prove no turning points using a quadratic gradient",
+  "reply": {
+   "sections": [],
+   "actions": [
+    {
+     "action": "question",
+     "why": "The learner asked for a question to try, so give one past-paper proof question on this idea for them to attempt."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ }
+]

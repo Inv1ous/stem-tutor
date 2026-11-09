@@ -36,6 +36,14 @@
    "refutation": "In series the current is common; use P=I²R. In parallel the voltage is common; use P=V²/R.",
    "contrast": "Two series resistors R and 2R dissipate powers in the ratio 1:2.",
    "source": "ER 9702 w22 P22 Q6"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-9.2.3",
+   "statement": "Equal current throughout a series circuit means its current cannot change when the circuit changes.",
+   "refutation": "At a given instant, series components carry equal current; after the total resistance changes, recalculate current using the supply p.d. and new total resistance.",
+   "contrast": "A fixed 12 V supply gives 1 A at total resistance 12 ohms and 0.5 A at 24 ohms, with equal current at all series positions in each state.",
+   "source": "https://www.cambridgeinternational.org/Images/567861-june-2024-examiner-report.pdf (9702/22, Q5(b)); bundle ER 9702 w22 P22 Q6 and s22 P21 Q6"
   }
  ],
  "worked": [
@@ -1220,7 +1228,7 @@
     "ref": "CAIE 9702 · Jun 2022 · P12 · Q32",
     "qid": "9702_s22_12_q32"
    },
-   "stem": "The circuit diagrams show two lamps X and Y each connected to a cell. The current in lamp X is\n0.50 A and its resistance is 9.6 Ω. The current in lamp Y is 3.0 A and its resistance is 1.2 Ω.\n0.50 A\nlamp X\n9.6 \u0002\n3.0 A\nlamp Y\n1.2 \u0002\nWhat is the ratio\nY\nlamp\nin\npower\nX\nlamp\nin\npower\n?",
+   "stem": "The circuit diagrams show two lamps X and Y each connected to a cell. The current in lamp X is\n0.50 A and its resistance is 9.6 Ω. The current in lamp Y is 3.0 A and its resistance is 1.2 Ω.\n0.50 A\nlamp X\n9.6 Ω\n3.0 A\nlamp Y\n1.2 Ω\nWhat is the ratio of the power in lamp X to the power in lamp Y?",
    "options": {
     "A": "0.22",
     "B": "0.75",
@@ -1324,7 +1332,7 @@
     "ref": "CAIE 9702 · Nov 2022 · P12 · Q35",
     "qid": "9702_w22_12_q35"
    },
-   "stem": "The diagram shows a cell of electromotive force (e.m.f.) 3.0 V and internal resistance 4.7 Ω\nconnected across a lamp. The lamp has a resistance of 9.3 Ω.\n4.7 \u0002\n9.3 \u0002\n3.0 V\nWhat is the power dissipated by the internal resistance of the cell?",
+   "stem": "The diagram shows a cell of electromotive force (e.m.f.) 3.0 V and internal resistance 4.7 Ω\nconnected across a lamp. The lamp has a resistance of 9.3 Ω.\n4.7 Ω\n9.3 Ω\n3.0 V\nWhat is the power dissipated by the internal resistance of the cell?",
    "options": {
     "A": "0.22 W",
     "B": "0.43 W",
@@ -1350,12 +1358,12 @@
     "ref": "CAIE 9702 · Nov 2022 · P13 · Q31",
     "qid": "9702_w22_13_q31"
    },
-   "stem": "A battery with a constant internal resistance is connected to a resistor of resistance 250 Ω, as\nshown.\n250 \u0002\nThe current in the resistor is 40 mA for a time of 60 s. During this time 6.0 J of energy is dissipated\nby the internal resistance.\nWhat is the energy supplied to the external resistor during the 60 s and the electromotive force\n(e.m.f.) of the battery?\nenergy / J\ne.m.f. / V",
+   "stem": "A battery with a constant internal resistance is connected to a resistor of resistance 250 Ω, as\nshown.\n250 Ω\nThe current in the resistor is 40 mA for a time of 60 s. During this time 6.0 J of energy is dissipated\nby the internal resistance.\nWhat is the energy supplied to the external resistor during the 60 s and the electromotive force\n(e.m.f.) of the battery?\nenergy / J\ne.m.f. / V",
    "options": {
-    "A": "30 2.5",
-    "B": "30 7.5",
-    "C": "24 10.0",
-    "D": "24 12.5"
+    "A": "30 J; 2.5 V",
+    "B": "30 J; 7.5 V",
+    "C": "24 J; 10.0 V",
+    "D": "24 J; 12.5 V"
    },
    "answer": "D",
    "image": "Assets/mcq/9702_w22_13_q31.png",
@@ -1602,7 +1610,7 @@
     "ref": "CAIE 9702 · Jun 2025 · P13 · Q37",
     "qid": "9702_s25_13_q37"
    },
-   "stem": "An electrical device of fixed resistance 20 Ω is connected in series with a variable resistor and a\nbattery of e.m.f. 16 V and negligible internal resistance.\n20 \u0001\ndevice\n16 V\nThe power dissipated in the electrical device is 4.0 W.\nWhat is the resistance of the variable resistor?",
+   "stem": "An electrical device of fixed resistance 20 Ω is connected in series with a variable resistor and a\nbattery of e.m.f. 16 V and negligible internal resistance.\n20 Ω\ndevice\n16 V\nThe power dissipated in the electrical device is 4.0 W.\nWhat is the resistance of the variable resistor?",
    "options": {
     "A": "16 Ω",
     "B": "36 Ω",
@@ -1755,7 +1763,114 @@
    "connect": "Charge is the quantity moved through the component; the energy transfer depends on both that charge and the p.d. across it.",
    "note": "- Potential difference across a component is energy transferred per unit charge.\n- $V=W/Q$ and $1\\ \\mathrm{V}=1\\ \\mathrm{J\\,C^{-1}}$.",
    "self_explain": "Why is ‘energy transferred per unit charge’ more precise than ‘energy transferred by a unit charge’?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Potential difference compares energy transfer with the amount of charge passing through a named component. More joules for each coulomb means a larger voltage; it does not by itself tell you how much charge passes each second.",
+   "terms": [
+    {
+     "term": "potential difference",
+     "meaning": "Energy transferred per unit charge across the named component.",
+     "notation": "$V$",
+     "spoken": "vee; potential difference",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.2.pdf, pp.2–3"
+    },
+    {
+     "term": "energy transferred",
+     "meaning": "Work done as electrical energy is transferred to other forms in the component.",
+     "notation": "$W$, in $\\mathrm{J}$",
+     "spoken": "work done, in joules",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.2.pdf, pp.2–3"
+    },
+    {
+     "term": "charge",
+     "meaning": "The quantity of electric charge passing through the component.",
+     "notation": "$Q$, in $\\mathrm{C}$",
+     "spoken": "cue, in coulombs",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.2.pdf, pp.2–3"
+    },
+    {
+     "term": "volt",
+     "meaning": "One joule transferred per coulomb of charge.",
+     "notation": "$1\\ \\mathrm{V}=1\\ \\mathrm{J\\,C^{-1}}$",
+     "spoken": "one volt equals one joule per coulomb",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.2.pdf, pp.2–3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Define and interpret potential difference",
+     "wordings": [
+      "Define potential difference across a component.",
+      "Explain what a voltmeter reading means in terms of energy and charge."
+     ],
+     "example": "Stage 1: A lamp transfers $18\\ \\mathrm{J}$ when $3.0\\ \\mathrm{C}$ passes. Identify energy and charge for this same lamp. Stage 2: $V=W/Q=18/3.0=6.0\\ \\mathrm{V}$. Stage 3: This means $6.0\\ \\mathrm{J}$ transferred per coulomb, not an energy of six joules independent of charge. To measure it, connect one voltmeter terminal to each side of the lamp, in parallel. The meter compares the potentials of those two points.",
+     "check": "Define potential difference across a component. A buzzer transfers $28\\ \\mathrm{J}$ as $4.0\\ \\mathrm{C}$ passes. Determine its p.d., explain the reading in joules per coulomb, and describe where the voltmeter terminals should connect.",
+     "answer": "Potential difference is energy transferred per unit charge across the component. $V=28/4.0=7.0\\ \\mathrm{V}$, meaning $7.0\\ \\mathrm{J}$ per coulomb. Connect the voltmeter in parallel with the buzzer, one terminal at each side.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.2.pdf, pp.2–3; bundle ER 9702 w22 P22 Q6; 9702 s24 P12 Q29",
+     "rubric": [
+      {
+       "point": "Defines p.d. as energy transferred or work done per unit charge across the component.",
+       "keywords": [
+        [
+         "energy",
+         "work"
+        ],
+        [
+         "per unit charge",
+         "per coulomb",
+         "divided by charge",
+         "W/Q"
+        ]
+       ]
+      },
+      {
+       "point": "Uses energy divided by charge to obtain 7.0 V (accept 7 V).",
+       "keywords": [
+        [
+         "28/4",
+         "7"
+        ]
+       ]
+      },
+      {
+       "point": "Interprets the reading as seven joules transferred per coulomb.",
+       "keywords": [
+        [
+         "7",
+         "seven"
+        ],
+        [
+         "per coulomb",
+         "per unit charge",
+         "J/C"
+        ]
+       ]
+      },
+      {
+       "point": "Connects the voltmeter across the buzzer with a terminal on each side; equivalent parallel description accepted.",
+       "keywords": [
+        [
+         "parallel",
+         "each side",
+         "across the buzzer"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Potential difference is an energy rather than an energy-to-charge ratio.",
+     "temptation": "The phrase energy transferred by a unit charge can hide the ratio.",
+     "fix": "Say energy transferred per unit charge; divide joules by coulombs to obtain volts."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The definition and voltmeter placement can be stated explicitly in words for this form; no reviewed registered circuit asset has been established for this pass.",
+   "source_gaps": [
+    "The textbook pages support the definition and voltmeter placement; the ratio wording is grounded in the bundled official examiner comment, not an independently retrieved full mark scheme."
+   ]
   },
   "9702-9.2.2": {
    "motivate": "Knowing the energy transferred and charge passing through a component lets you calculate its p.d. directly.",
@@ -1763,7 +1878,78 @@
    "connect": "The equation is the mathematical form of the definition of potential difference; current can supply charge via $Q=It$.",
    "note": "- $V=W/Q$; use joules and coulombs.\n- Rearrange to $W=VQ$ or $Q=W/V$.",
    "self_explain": "A component transfers $18\\ \\mathrm{J}$ at $3.0\\ \\mathrm{V}$. How much charge passes through it?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "First distinguish the charge that passes from its rate of flow. For constant current, multiply current by elapsed time to obtain charge. Then multiply that charge by the p.d. across the same component to obtain the energy it transfers.",
+   "terms": [
+    {
+     "term": "current",
+     "meaning": "Charge passing per unit time; use amperes before calculating charge.",
+     "notation": "$I=Q/t$; $1\\ \\mathrm{A}=1\\ \\mathrm{C\\,s^{-1}}$",
+     "spoken": "eye equals cue divided by tee",
+     "source": "Bundle prerequisite 9702-9.1.3: Q = It"
+    },
+    {
+     "term": "elapsed time",
+     "meaning": "Duration for which charge passes; convert minutes to seconds.",
+     "notation": "$t$, in $\\mathrm{s}$",
+     "spoken": "tee, in seconds",
+     "source": "Bundle prerequisite 9702-9.1.3: Q = It"
+    },
+    {
+     "term": "energy from charge and p.d.",
+     "meaning": "Multiply charge through a component by its potential difference.",
+     "notation": "$W=VQ$, in $\\mathrm{J}$",
+     "spoken": "work done equals vee times cue",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.2.pdf, pp.2–3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Calculate energy using charge and current",
+     "wordings": [
+      "Calculate energy transferred from p.d. and charge.",
+      "Determine energy from constant current, p.d. and time."
+     ],
+     "example": "Stage 1: A component has constant p.d. $6.0\\ \\mathrm{V}$ and current $40\\ \\mathrm{mA}$ for $2.0\\ \\mathrm{min}$. Convert: $I=0.040\\ \\mathrm{A}$ and $t=120\\ \\mathrm{s}$. Stage 2: $Q=It=0.040\\times120=4.8\\ \\mathrm{C}$. Stage 3: $W=VQ=6.0\\times4.8=28.8\\ \\mathrm{J}$, or $29\\ \\mathrm{J}$ to two significant figures. The current is a rate, so it cannot replace charge in $W=VQ$.",
+     "check": "A component carries a constant current of $25\\ \\mathrm{mA}$ at $8.0\\ \\mathrm{V}$ for $3.0\\ \\mathrm{min}$. Calculate the charge passing and the energy transferred.",
+     "answer": "$I=0.025\\ \\mathrm{A}$, $t=180\\ \\mathrm{s}$. $Q=It=4.5\\ \\mathrm{C}$. $W=VQ=8.0\\times4.5=36\\ \\mathrm{J}$.",
+     "source": "SaveMyExams/9702 a-level-physics-cie-25/9702 c9.2.pdf, pp.2–3; bundle prerequisite 9702-9.1.3 and 9702 s24 P13 Q30",
+     "rubric": [
+      {
+       "point": "Credits charge 4.5 C and energy 36 J using any valid calculation; explicit conversions and named equations are optional.",
+       "keywords": [
+        [
+         "4.5"
+        ],
+        [
+         "36"
+        ],
+        [
+         "C",
+         "coulomb"
+        ],
+        [
+         "J",
+         "joule"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "Use energy per current as potential difference.",
+     "temptation": "The current is often supplied in the question, so it seems natural to put it in the denominator.",
+     "fix": "Current is charge per second: obtain Q = It first, then use V = W/Q; energy divided by current alone is not voltage."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "This form concerns a sequence of scalar calculations; explicit unit conversions and equations show the reasoning without a circuit drawing.",
+   "source_gaps": [
+    "The reviewed textbook pages establish W = VQ but do not supply this combined current-time form; Q = It comes from the bundled prerequisite and the example and check are original applications."
+   ]
   },
   "9702-9.2.3": {
    "motivate": "Two devices at the same voltage can transfer energy at different rates. Power measures that rate.",
@@ -1771,7 +1957,202 @@
    "connect": "This combines energy per charge with charge per second: energy per second is power. Ohm's law gives the two resistor forms.",
    "note": "- Electrical power: $P=VI$, measured in watts.\n- For a resistor: $P=I^2R=V^2/R$.\n- At fixed $R$, power varies with the square of current or p.d.",
    "self_explain": "Why does increasing the current in a fixed resistor by $50\\%$ increase power by more than $50\\%$?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Power is energy transferred each second. Multiply energy per coulomb by coulombs per second to get power. When comparing resistors, establish whether they share current or share potential difference before choosing a power formula.",
+   "terms": [
+    {
+     "term": "electrical power",
+     "meaning": "Rate of energy transfer for the named component.",
+     "notation": "$P=W/t=VI$, in $\\mathrm{W}$",
+     "spoken": "pee equals work done divided by time; watt is joule per second",
+     "source": "Bundle 9702-9.2.3 and its prerequisites"
+    },
+    {
+     "term": "resistance",
+     "meaning": "Ratio of the p.d. across a resistor to its corresponding current.",
+     "notation": "$R=V/I$, in $\\Omega$",
+     "spoken": "ar equals vee divided by eye; resistance in ohms",
+     "source": "Bundle 9702-9.2.3; ER 9702 s22 P11 Q33"
+    },
+    {
+     "term": "shared quantity",
+     "meaning": "Series resistors share current at an instant; parallel resistors connected to the same two nodes share p.d.",
+     "notation": "$P=I^2R$ (shared $I$); $P=V^2/R$ (shared $V$)",
+     "spoken": "pee equals eye squared ar, or vee squared over ar",
+     "source": "https://www.cambridgeinternational.org/Images/567861-june-2024-examiner-report.pdf (9702/22, Q5(b)); bundle ER 9702 w22 P22 Q6 and s22 P21 Q6"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Derive and use electrical power",
+     "wordings": [
+      "Show that P = VI from the definitions of p.d., current and power.",
+      "Calculate the power of a named component."
+     ],
+     "example": "Stage 1: Write $V=W/Q$, $I=Q/t$ and $P=W/t$. Stage 2: For constant p.d. and current, substitute $W=VQ$: $P=VQ/t=V(Q/t)=VI$. Stage 3: A component transfers $12\\ \\mathrm{J}$ while $6.0\\ \\mathrm{C}$ passes in $3.0\\ \\mathrm{s}$. Its own $V=12/6.0=2.0\\ \\mathrm{V}$ and $I=6.0/3.0=2.0\\ \\mathrm{A}$ give $P=4.0\\ \\mathrm{W}$, checked by $12/3.0=4.0\\ \\mathrm{W}$. Use the voltage across and the current through this component, not a supply value belonging elsewhere.",
+     "check": "A heater operates at a constant $12\\ \\mathrm{V}$ and $0.50\\ \\mathrm{A}$. How long does it take to transfer $180\\ \\mathrm{J}$?",
+     "answer": "$P=VI=12\\times0.50=6.0\\ \\mathrm{W}$, so $t=180/6.0=30\\ \\mathrm{s}$.",
+     "source": "Bundle 9702-9.2.1–3; SaveMyExams/9702 a-level-physics-cie-25/9702 c9.2.pdf, pp.2–3",
+     "rubric": [
+      {
+       "point": "Finds the time as 30 s by any valid method, including using 6.0 W or W = VIt.",
+       "keywords": [
+        [
+         "30"
+        ],
+        [
+         "s",
+         "second"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Compare resistor power using the shared quantity",
+     "wordings": [
+      "Compare powers of resistors in series and in parallel.",
+      "Explain what must remain fixed for a stated power proportionality."
+     ],
+     "example": "Stage 1: For $4.0\\ \\Omega$ and $8.0\\ \\Omega$ in series carrying $0.50\\ \\mathrm{A}$, identify shared current. $P=I^2R$ gives $1.0\\ \\mathrm{W}$ and $2.0\\ \\mathrm{W}$. Stage 2: Put them in parallel with $6.0\\ \\mathrm{V}$ across each: $P=V^2/R$ gives $9.0\\ \\mathrm{W}$ and $4.5\\ \\mathrm{W}$. Thus larger resistance means larger power only when current is held fixed, and smaller power when p.d. is held fixed. Stage 3: For a single fixed resistor, multiplying its p.d. by $1.5$ multiplies its power by $1.5^2=2.25$. Stage 4: Equal series current refers to all positions at one instant. With an ideal constant $12\\ \\mathrm{V}$ supply, increasing total series resistance from $12\\ \\Omega$ to $24\\ \\Omega$ reduces current from $1.0\\ \\mathrm{A}$ to $0.50\\ \\mathrm{A}$.",
+     "check": "Two fixed resistors, A of $10\\ \\Omega$ and B of $30\\ \\Omega$, first carry $0.20\\ \\mathrm{A}$ in series. Calculate each power and justify the comparison. They are then connected in parallel with $12\\ \\mathrm{V}$ across each: calculate their powers and explain the reversal. Separately, state the power factor when the p.d. across one fixed resistor is multiplied by $1.8$. Finally, a series circuit on an ideal constant $12\\ \\mathrm{V}$ supply has its total resistance increased from $40\\ \\Omega$ to $60\\ \\Omega$; calculate the current before and after, and explain why equal series current does not imply unchanged current.",
+     "answer": "Series: shared $I$ gives $P_A=0.20^2\\times10=0.40\\ \\mathrm{W}$ and $P_B=1.2\\ \\mathrm{W}$; at the same current $P\\propto R$. Parallel: shared $V$ gives $P_A=144/10=14.4\\ \\mathrm{W}$ and $P_B=144/30=4.8\\ \\mathrm{W}$; at the same p.d. $P\\propto1/R$. Multiplying p.d. by $1.8$ multiplies power by $1.8^2=3.24$ for the fixed resistor. For the separate circuit, $I=12/40=0.30\\ \\mathrm{A}$ initially and $12/60=0.20\\ \\mathrm{A}$ finally. Current is equal at all series positions in each state, but the changed total resistance changes its value.",
+     "source": "https://www.cambridgeinternational.org/Images/567861-june-2024-examiner-report.pdf (9702/22, Q5(b)); bundle ER 9702 w22 P22 Q6 and s22 P21 Q6",
+     "rubric": [
+      {
+       "point": "Identifies the shared series current and obtains 0.40 W and 1.2 W for A and B respectively by any valid method, including P = VI with Ohm’s law.",
+       "keywords": [
+        [
+         "same current",
+         "shared current",
+         "common current",
+         "series current"
+        ],
+        [
+         "0.40",
+         "0.4"
+        ],
+        [
+         "1.2"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies the shared parallel potential difference and obtains 14.4 W and 4.8 W for A and B respectively by any valid method, including P = VI with Ohm’s law.",
+       "keywords": [
+        [
+         "same voltage",
+         "same p.d.",
+         "shared",
+         "common",
+         "parallel"
+        ],
+        [
+         "14.4"
+        ],
+        [
+         "4.8"
+        ]
+       ]
+      },
+      {
+       "point": "Explains power increases with resistance at fixed current but decreases with resistance at fixed p.d.",
+       "keywords": [
+        [
+         "current"
+        ],
+        [
+         "voltage",
+         "p.d.",
+         "potential difference"
+        ],
+        [
+         "resistance",
+         "R"
+        ]
+       ]
+      },
+      {
+       "point": "Gives a power factor of 3.24, accepting equivalent calculations; the supplied fixed resistance need not be repeated.",
+       "keywords": [
+        [
+         "3.24"
+        ]
+       ]
+      },
+      {
+       "point": "Finds currents 0.30 A and 0.20 A using the total resistance and the fixed supply p.d.",
+       "keywords": [
+        [
+         "0.30",
+         "0.3"
+        ],
+        [
+         "0.20",
+         "0.2"
+        ],
+        [
+         "A",
+         "ampere"
+        ]
+       ]
+      },
+      {
+       "point": "Distinguishes equal current along a series circuit at an instant from a current that changes between circuit states.",
+       "keywords": [
+        [
+         "equal",
+         "same"
+        ],
+        [
+         "instant",
+         "state",
+         "time",
+         "changes",
+         "changed"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "At fixed resistance, power changes in direct proportion to current or p.d.",
+     "temptation": "P = VI looks linear if the other factor is silently treated as constant.",
+     "fix": "At fixed resistance V changes with I; use the squared ratio in P = I squared R or P = V squared divided by R."
+    },
+    {
+     "id": "m4",
+     "idea": "Power is always inversely proportional to resistance, even when resistors are in series.",
+     "temptation": "P = V squared divided by R seems to settle every comparison.",
+     "fix": "First identify the shared quantity: series shares current; parallel across the same two nodes shares p.d."
+    },
+    {
+     "id": "m5",
+     "idea": "Equal current throughout a series circuit means its current cannot change when the circuit changes.",
+     "temptation": "The phrase same current is taken to mean unchanged over time.",
+     "fix": "At a given instant, series components carry equal current; after the total resistance changes, recalculate current using the supply p.d. and new total resistance."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The planned derivation and explicitly specified series/parallel comparisons are complete in words and equations; no reviewed registered topology asset has been established for this pass.",
+   "source_gaps": [
+    "The official June 2024 report supplies the circuit-change misconception absent from the reviewed textbook pages; the bundled 2022 reports support shared-current and shared-p.d. comparisons, but their full mark schemes were not separately retrieved."
+   ]
   }
+ },
+ "guided_forms": {
+  "9702-9.2.1": [
+   "Define and interpret potential difference"
+  ],
+  "9702-9.2.2": [
+   "Calculate energy using charge and current"
+  ],
+  "9702-9.2.3": [
+   "Derive and use electrical power",
+   "Compare resistor power using the shared quantity"
+  ]
  }
 }

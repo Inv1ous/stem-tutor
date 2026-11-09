@@ -7,15 +7,43 @@ from __future__ import annotations
 
 import ast
 import copy
+import threading
 import json
 import math
 import operator
 import re
 from datetime import datetime, timedelta
+from functools import wraps
 
 from . import model, topicals, question_duplicates
 from .store import Vault, read_json
 from .library_refs import LibraryRefs
+from .asset_library import verification_scope
+
+def _bank_request(empty, *, preserve_aliases=False):
+    """Share authentication in nested lookups, never across independent calls."""
+    def decorate(method):
+        @wraps(method)
+        def call(self, *args, **kwargs):
+            if preserve_aliases:
+                item = args[0] if args else kwargs['item']
+                identity = topicals.identity(item)
+                prior = self._topical_aliases.get(identity, set()) | {item['id']}
+            with self.topicals.request() as outer:
+                result = method(self, *args, **kwargs)
+                current = not outer or self.topicals.request_current()
+                if preserve_aliases:
+                    # Empty aliases mean "not disclosed" to callers. Keep every
+                    # applicable old/current alias even when a release rolls over.
+                    bank_ids = {row['id'] for row in self.topicals.items
+                                if identity and topicals.identity(row) == identity}
+                    return result | prior | self._topical_aliases.get(identity, set()) | bank_ids
+                if not current:
+                    return empty()
+                return result
+        return call
+    return decorate
+
 
 FRESH_DAYS = 7
 _PLACEHOLDER = re.compile(r"\[\[(\w+)(?::([^\]]+))?\]\]")
@@ -203,6 +231,7 @@ class Packs:
                 self.kcs[k["id"]] = {**k, "spec": spec, "subject": g["subject"]}
         self._packs: dict[str, dict | None] = {}
         self._asset_failures: set[str] = set()
+        self._pack_lock = threading.RLock()  # chapters may be read by the screen and by a background check at once
         self.topicals = topicals.Bank(vault.root, self)
         self.topicals.refresh()
         self._topical_index_version = None
@@ -232,6 +261,10 @@ class Packs:
         return self.kcs[kc_id]
 
     def pack(self, subtopic: str) -> dict | None:
+        with self._pack_lock:
+            return self._pack_locked(subtopic)
+
+    def _pack_locked(self, subtopic: str) -> dict | None:
         if subtopic not in self._packs:
             spec = self.subtopics[subtopic]["spec"]
             if not self.root.exists():
@@ -245,7 +278,8 @@ class Packs:
                 self.damaged.append(e.path)
             else:
                 try:
-                    loaded = self.library_refs.content(source)
+                    with verification_scope():
+                        loaded = self.library_refs.content(source)
                     # Older immutable packs can repeat one assessed ID. Adapt
                     # only this runtime copy so a new answer counts once per KC.
                     if isinstance(loaded, dict) and isinstance(loaded.get('items'), list):
@@ -278,6 +312,7 @@ class Packs:
         meta = self.kcs.get(kc_id)  # an idea a republish dropped can still have a review card in your history
         return self.pack(meta["subtopic"]) if meta else None
 
+    @_bank_request(list)
     def items_for(self, kc_id: str, *, _retry_assets: bool = True) -> list[dict]:
         # All canonical aliases participate, including duplicates in other chapter packs.
         self.topicals.refresh()
@@ -288,15 +323,16 @@ class Packs:
             for subtopic in tuple(self._asset_failures):
                 self.pack(subtopic)  # one probe per pending chapter; rebuild the overlay only after recovery
         if self._topical_index_version != self.topicals.pointer:
-            self.library_refs = LibraryRefs(self.vault_root)
-            originals = [i for sub in sorted(self.published()) if sub in self.subtopics
-                         for i in (self.pack(sub) or {}).get("items", [])]
-            self._topical_aliases = {}
-            for original in [*originals, *self.topicals.items]:
-                if (ident := topicals.identity(original)):
-                    self._topical_aliases.setdefault(ident, set()).add(original["id"])
-            self._topical_index = {}
-            items = self.library_refs.content(self._distinct_candidates(self.topicals.overlay(originals)))
+            with verification_scope():  # one load: each distinct asset is verified once, not once per question
+                self.library_refs = LibraryRefs(self.vault_root)
+                originals = [i for sub in sorted(self.published()) if sub in self.subtopics
+                             for i in (self.pack(sub) or {}).get("items", [])]
+                self._topical_aliases = {}
+                for original in [*originals, *self.topicals.items]:
+                    if (ident := topicals.identity(original)):
+                        self._topical_aliases.setdefault(ident, set()).add(original["id"])
+                self._topical_index = {}
+                items = self.library_refs.content(self._distinct_candidates(self.topicals.overlay(originals)))
             for item in items:
                 for kc in item["kcs"]:
                     self._topical_index.setdefault(kc, []).append(item)
@@ -333,6 +369,7 @@ class Packs:
                                                          len(json.dumps(row, sort_keys=True)))))
         return result
 
+    @_bank_request(set)
     def topical_chapters(self) -> set[str]:
         self.topicals.refresh()
         return {chapter for item in self.topicals.items for chapter in item["topical"]["chapters"]}
@@ -349,6 +386,7 @@ class Packs:
         self._legacy_aliases = aliases
         return aliases
 
+    @_bank_request(set, preserve_aliases=True)
     def aliases_for(self, item: dict, legacy_aliases: dict[str, set[str]] | None = None) -> set[str]:
         """Return known IDs for the same paper question, including legacy packs."""
         ident = topicals.identity(item)
@@ -361,6 +399,7 @@ class Packs:
             return self._topical_aliases.get(ident, set()) | {item['id']}
         return (legacy_aliases if legacy_aliases is not None else self._legacy_alias_index()).get(ident, set()) | {item['id']}
 
+    @_bank_request(list)
     def topical_items(self, chapter: str) -> list[dict]:
         """Reviewed bank questions, with existing canonical IDs preserved, independent of lessons."""
         self.topicals.refresh()
@@ -385,6 +424,7 @@ class Packs:
         p = self.pack(subtopic) or {}
         return next((m for m in p.get("misconceptions", []) if m["id"] == mis_id), None)
 
+    @_bank_request(lambda: None)
     def select_item(self, kc_id: str, state: dict, target_p: float, rng, now: datetime | None = None,
                     kinds: tuple[str, ...] | None = None, exclude: frozenset[str] | set[str] = frozenset(),
                     unassisted: bool = False) -> dict | None:
@@ -419,4 +459,8 @@ class Packs:
             scored.append((stale, extra, round(gap, 2), bool(seen), rng.random(), item))
         if not scored:
             return None
-        return {**min(scored, key=lambda s: s[:5])[5], "_serving_chapter": chapter, "_serving_kc": kc_id, "_selection_kinds": kinds}
+        selected = min(scored, key=lambda s: s[:5])[5]
+        # Prepared attempts must compare identically with their durable JSON guards.
+        selection_kinds = (list(kinds) if kinds is not None
+                           and 'prepared_admission' in selected.get('source', {}) else kinds)
+        return {**selected, "_serving_chapter": chapter, "_serving_kc": kc_id, "_selection_kinds": selection_kinds}

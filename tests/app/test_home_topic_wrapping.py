@@ -26,7 +26,7 @@ def test_home_topics_fit_the_sidebar_without_orphaning_names_or_counts(tmp_path,
             await pilot.pause()
             home = app.screen
             menu = home.query_one("#menu")
-            menu.highlighted = [option.id for option in menu.options].index("learn")
+            menu.reveal("learn")
             menu.focus()
             state, events = deepcopy(app.tutor.state), list(app.tutor.vault.events())
             if resize:

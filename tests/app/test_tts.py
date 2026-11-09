@@ -548,7 +548,7 @@ def test_an_ai_reply_is_shown_without_its_spoken_version_and_read_from_it(tmp_pa
         assert app.ai.speech  # asked for, since reading is on and set up
         monkeypatch.setattr(app.speaker, "say", lambda text, limit=None: heard.append((text, limit)) or True)
         menu = app.screen.query_one("#menu")
-        menu.highlighted = [o.id for o in menu.options].index("chat")
+        menu.reveal("chat")
         await pilot.press("enter")
         await pilot.pause()
         await pilot.press(*"why", "enter")

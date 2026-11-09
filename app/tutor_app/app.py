@@ -1,15 +1,21 @@
 """STEM Tutor — the terminal app."""
 from __future__ import annotations
 
+import asyncio
 import contextlib
+import faulthandler
+import os
 import random
+import signal
 import threading
 import time
 from pathlib import Path
 
-from textual import events
-from textual.app import App
+from textual import __version__ as textual_version, events
+from textual.app import App, ComposeResult
 from textual.binding import Binding
+from textual.errors import NoWidget
+from textual.widgets import Static
 
 from tutorlib import packs, store
 from tutorlib.session import Tutor
@@ -17,10 +23,12 @@ from tutorlib.session import Tutor
 from . import config, look, mac, resources, tts
 from .ai import Result
 from .output_format import normalise_visual
+from .topic_ai import TopicAI
 from .tutor_ai import TutorAI
 
 CSS = """
 Screen { background: $background; }
+#startup-status { height: auto; padding: 2; }
 #banner { height: 6; content-align: center middle; padding: 1 0 0 0; }
 Horizontal#home { height: 1fr; padding: 1 2; }
 #menu { width: 52; height: auto; max-height: 100%; border: round $menu-border; padding: 0 1;
@@ -36,6 +44,7 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 ChatScreen #log, BlurtScreen #log { padding-top: 1; }
 .entry { margin: 0 1 1 0; }
 #panel { height: auto; max-height: 55%; }
+#lesson-progress { display: none; height: auto; max-height: 2; padding: 0 1; background: $panel; }
 .panel { height: auto; padding: 0 2 1 1; border-top: solid $panel-rule; }
 .panel.tall { max-height: 30; }
 .panel.short.tight { padding: 0 2 0 1; }
@@ -55,7 +64,24 @@ Composer { height: auto; min-height: 3; max-height: 10; }
 .check { color: $check-color; padding: 0 0 0 1; }
 #picker, Vertical#ask, #summary, #help, #settings { width: 90; max-width: 95%; height: auto; max-height: 90%;
   border: round $modal-border; background: $modal-background; padding: 1 2; }
-PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
+PickerScreen, TopicalSetupScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
+#topical-setup { width: 90; max-width: 95%; height: 90%; max-height: 90%;
+  border: round $modal-border; background: $modal-background; padding: 1 2; }
+#topical-fields { height: 1fr; }
+#topical-setup .title { color: $accent; text-style: bold; }
+#topical-setup #topical-summary { height: auto; max-height: 3; }
+#topical-topics { margin: 0 0 1 0; }
+#topical-count-row { height: auto; }
+#topical-count-row > Static { width: 1fr; }
+#topical-count { width: 8; }
+#topical-marking-row { height: auto; }
+#topical-marking-row > Static { width: 1fr; }
+#topical-marking { width: 20; }
+#topical-types { height: 5; max-height: 5; }
+#topical-availability { height: auto; }
+#topical-footer { height: auto; background: $modal-background; }
+#topical-actions { height: auto; }
+#topical-actions Button { margin-right: 2; }
 #help { padding: 0 2; }
 #summary { scrollbar-size-vertical: 1; }
 #summary-hint { dock: bottom; }
@@ -70,6 +96,7 @@ SettingsScreen #settings { width: 112; }
 #settings #settings-hint { content-align: left middle; height: 100%; padding: 0 0 0 2; }
 #settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
+#settings .section { text-style: bold; color: $text-muted; margin: 0 0 1 0; border-bottom: hkey $panel-lighten-2; }
 #settings .ai-row > Select { width: 34; }
 SettingsScreen.wide #settings .ai-row > Select { width: 42; }
 #settings .ai-row > Select.strength { width: 12; margin-right: 1; }
@@ -155,6 +182,11 @@ class TutorApp(App):
         self.profile_missing = False
         self.profile_denied = False  # macOS refused the tutor control of Terminal: said once, then left alone
         self._locks = contextlib.ExitStack()
+        self._resize_size = None  # the size the last resize settled on: a clear is written once per narrower one
+        self._clear_timer = None  # the pending clear, cancelled and restarted while the window is still moving
+        self._moving: events.Resize | None = None  # the newest size of a window still being resized
+        self._moving_timer = None  # lays the screen out once the size has settled
+        self._moving_since: float | None = None  # when the newest drag began: one layout at least every RESIZE_MAX_WAIT
         self.speaker = tts.Speaker(self.vault, lambda: self.settings, notify=self._notify_from_thread)
 
     def settle_font_size(self) -> None:
@@ -289,8 +321,43 @@ class TutorApp(App):
     def get_theme_variable_defaults(self) -> dict[str, str]:
         return look.CSS_DEFAULTS
 
+    def compose(self) -> ComposeResult:
+        yield Static("Opening your tutor… Checking learning resources. (ctrl+q quits)", id="startup-status", markup=False)
+
+    FREEZE_SECONDS = 20.0  # the screen loop silent this long: every thread's stack is written to the freeze log
+
     def on_mount(self) -> None:
         self.theme = look.THEME[self.settings.theme]
+        self._record_freezes()
+        self.call_after_refresh(self._open_tutor)
+
+    def _record_freezes(self) -> None:
+        """A freeze writes down its own cause. The screen loop re-arms Python's faulthandler watchdog every few seconds;
+        if the loop stops for FREEZE_SECONDS (stuck, or waiting on a lock), faulthandler's own thread writes every
+        thread's stack to .tutor/logs/freeze.log. `kill -USR1 <pid>` writes them at once, for a window that still
+        draws but no longer takes keys. Writing nothing else, it costs nothing while the tutor runs."""
+        try:
+            folder = self.vault / ".tutor" / "logs"
+            folder.mkdir(parents=True, exist_ok=True)
+            path = folder / "freeze.log"
+            if path.exists() and path.stat().st_size > 1_000_000:
+                path.unlink()  # keep the log small: the latest freezes are the ones that matter
+            self._freeze_log = open(path, "a", encoding="utf-8")
+            self._freeze_log.write(f"\n== STEM Tutor started {time.strftime('%Y-%m-%d %H:%M:%S')} "
+                                   f"(pid {os.getpid()}, textual {textual_version}) ==\n")
+            self._freeze_log.flush()
+            faulthandler.register(signal.SIGUSR1, file=self._freeze_log, all_threads=True)
+        except (OSError, ValueError, AttributeError):
+            self._freeze_log = None  # no log folder: the tutor runs exactly as before
+            return
+        self._arm_freeze_watch()
+        self.set_interval(min(5.0, self.FREEZE_SECONDS / 4), self._arm_freeze_watch)
+
+    def _arm_freeze_watch(self) -> None:
+        if getattr(self, "_freeze_log", None) is not None:
+            faulthandler.dump_traceback_later(self.FREEZE_SECONDS, repeat=False, file=self._freeze_log)
+
+    def _open_tutor(self) -> None:
         if not (self.vault / ".tutor" / "config.json").exists():
             self.exit(message=f"No tutor folder at {self.vault}. Run: tutor doctor")
             return
@@ -300,17 +367,40 @@ class TutorApp(App):
         except store.Locked:
             self.exit(message="Another STEM Tutor window is already open. Use that one (or close it first).")
             return
-        try:
-            self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None,
-                               one_at_a_time=True, ai_visual=normalise_visual)
-        except packs.DamagedContent as e:
-            self.exit(return_code=1, message=str(e))
+        rng = random.Random(self.seed) if self.seed is not None else None
+
+        def load() -> None:
+            """Build the engine. It checks every Library resource it uses (read and hashed), which on a cold disk takes
+            a while; off the screen's thread the loading screen keeps redrawing, resizing and quitting meanwhile."""
+            try:
+                result = Tutor(v, rng=rng, one_at_a_time=True, ai_visual=normalise_visual)
+            except BaseException as error:  # noqa: BLE001 - handed to the screen's thread, which reports it
+                result = error
+            if not self.LOAD_IN_BACKGROUND:
+                self._tutor_loaded(result)
+                return
+            try:
+                self.call_from_thread(self._tutor_loaded, result)
+            except RuntimeError:
+                pass  # the window was closed while it loaded
+        if self.LOAD_IN_BACKGROUND:
+            self._loading = threading.Thread(target=load, name="tutor-load", daemon=True)
+            self._loading.start()
+        else:
+            load()
+
+    LOAD_IN_BACKGROUND = True  # tests load on the screen's thread, so a pilot's first pause finds the menu ready
+
+    def _tutor_loaded(self, result) -> None:
+        """The engine is built (or could not be): finish opening on the screen's thread."""
+        if isinstance(result, packs.DamagedContent):
+            self.exit(return_code=1, message=str(result))
             return
-        for sub in self.tutor.packs.subtopics:  # read every chapter now: a damaged one is left out, and said once
-            self.tutor.packs.pack(sub)
-        for path in self.tutor.packs.damaged:
-            self.notify(f"The content file {path} is damaged, so that chapter is left out: {packs.REINSTALL}.",
-                        severity="warning", timeout=15)
+        if isinstance(result, BaseException):
+            raise result
+        if not self.is_running and self.LOAD_IN_BACKGROUND:
+            return  # closed while loading
+        self.tutor = result
         self.ai = TutorAI(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json", speech=self.speech_wanted())
         self.ai.model, self.ai.think = self.settings.ai_for("ask")  # the conversation started ahead is the one asked most
@@ -319,6 +409,10 @@ class TutorApp(App):
         self.ai.wanted = lambda: self.settings.ai  # AI switched off: nothing is started ahead
         self.ai.on_result = self.show_local_performance
         self.ai.on_request = self.prioritise_ai_request
+        # "Can I solve this?" names the topics of an untagged question through the same one-shot AI, images included.
+        self.topic_ai = TopicAI(self.ai, asyncio.get_running_loop(), model=self.settings.ai_for("ask")[0])
+        self.tutor.topic_ai = self.topic_ai
+        self.tutor.enable_map_refresh(background=True)  # map colours follow mastery after any answer, off the UI thread
         def warm() -> None:  # load the maths library in the background so the first algebra answer isn't slow
             try:
                 from tutorlib import deps
@@ -329,6 +423,7 @@ class TutorApp(App):
         threading.Thread(target=warm, daemon=True).start()
         from .screens import HomeScreen
         self.push_screen(HomeScreen())
+        self.run_worker(self._check_chapters, thread=True, group="chapters")  # read every chapter behind Home, not before it
         self.run_worker(self._import_inbox, thread=True, group="inbox")  # Home first: a big iPad file copies behind it (Q-005)
         self._tick_at, self._last_input = time.monotonic(), time.monotonic()
         self.set_interval(1, self._study_tick)  # session time: see tutorlib/clock.py
@@ -342,14 +437,71 @@ class TutorApp(App):
         if self.size.width < 90 or self.size.height < 28:
             self.notify("Tip: make this window bigger (or full-screen) for the best view.", timeout=8)
 
-    def on_resize(self) -> None:
+    def _check_chapters(self) -> None:
+        """Read every chapter once, off the main thread: a damaged one is left out, and said once."""
+        t = self.tutor
+        for sub in list(t.packs.subtopics):
+            t.packs.pack(sub)
+        for path in dict.fromkeys(t.packs.damaged):
+            self.call_from_thread(self.notify, f"The content file {path} is damaged, so that chapter is left out: "
+                                  f"{packs.REINSTALL}.", severity="warning", timeout=15)
+
+    RESIZE_SETTLE = 0.12  # seconds without a new size before the window counts as settled
+    RESIZE_MAX_WAIT = 0.5  # a long drag is still laid out this often, so the screen keeps up with it
+
+    async def _on_resize(self, event: events.Resize) -> None:
+        """A drag sends a resize for every few pixels: hundreds, each a new size. Textual lays out and draws the whole
+        screen for each (twice, the same size again when the app goes idle), and while the startup workers read the
+        Library that queued minutes of drawing: the freeze. The screen is laid out once the size settles, at least every
+        RESIZE_MAX_WAIT during a long drag, and never again for the size it already has."""
+        event.prevent_default()  # Textual's own handler runs once, for the settled size
+        if self._size is None or not self.RESIZE_SETTLE:  # the first size at the start (and tests): at once
+            await self._resize_now(event)
+            return
+        now = time.monotonic()
+        self._moving = event
+        self._moving_since = self._moving_since or now
+        if self._moving_timer is not None:
+            self._moving_timer.stop()
+        wait = self.RESIZE_SETTLE if now - self._moving_since < self.RESIZE_MAX_WAIT else 0.001  # (a timer needs > 0)
+        self._moving_timer = self.set_timer(wait, self._resize_settled)
+
+    async def _resize_settled(self) -> None:
+        event, self._moving, self._moving_timer = self._moving, None, None
+        self._moving_since = None
+        if event is not None:
+            await self._resize_now(event)
+
+    async def _resize_now(self, event: events.Resize) -> None:
+        if self._size is not None and event.size == self._size:
+            return  # already laid out at this size
+        # A fresh event: Textual hands this one on to the screens, and the original was kept from its default handling.
+        await App._on_resize(self, events.Resize(event.size, event.virtual_size, event.container_size, event.pixel_size))
+        self._clear_beyond_edge(event)
+
+    def _clear_beyond_edge(self, event: events.Resize) -> None:
         """Terminal keeps what was drawn beyond a narrowed window's new right edge and shows it in the strip beside its
         own scrollbar: old borders, pieces of scrollbar, letters. The app can only draw inside the window, so it
-        clears the display (in the screen's colour, so nothing flashes) and draws everything again."""
-        if self._driver is not None:
-            r, g, b = self.screen.styles.background.rgb
-            self._driver.write(f"\x1b[48;2;{r};{g};{b}m\x1b[2J\x1b[0m")
-            self.screen.refresh()
+        clears the display (in the screen's colour, so nothing flashes) and draws everything again. Only a narrower
+        window can leave anything beyond that edge, and only once its size has settled: a clear written into the
+        middle of a resize burst lands between the compositor's frames, which then repaint only what changed and
+        leave the cleared cells blank."""
+        size = event.size
+        was, self._resize_size = self._resize_size, size
+        if was is None or size == was or size.width >= was.width:
+            return  # nothing was drawn beyond the new edge (or the same size again): nothing to clear
+        if self._clear_timer is not None:
+            self._clear_timer.stop()
+        self._clear_timer = self.set_timer(0.05, self._clear_display)
+
+    def _clear_display(self) -> None:
+        """Clear once the width has settled, then have the whole screen drawn again."""
+        self._clear_timer = None
+        if self._driver is None:
+            return
+        r, g, b = self.screen.styles.background.rgb
+        self._driver.write(f"\x1b[48;2;{r};{g};{b}m\x1b[2J\x1b[0m")
+        self.screen.refresh()
 
     def claude_note(self) -> dict:
         """What Claude Code last noted about the plan's limits, read again at most every half minute."""
@@ -421,7 +573,8 @@ class TutorApp(App):
         p = result.performance
         if not p:
             return
-        label = LOCAL_MODELS.get(p.get("model"), "Local AI")
+        cloud = bool(p.get("cloud"))
+        label = self.cloud_label(p) if cloud else LOCAL_MODELS.get(p.get("model"), "Local AI")
         vision = ""
         if p.get("vision_model"):
             vision = (" · image observations reused" if p.get("vision_cached") else
@@ -443,7 +596,22 @@ class TutorApp(App):
             logs.first().mount(Static(Text(text, style=look.C["dim"]), classes="entry local-performance"))
             logs.first().scroll_end(animate=False)
         else:
-            self.notify(text, title="Local AI performance", timeout=10)
+            self.notify(text, title="AI model" if cloud else "Local AI performance", timeout=10)
+
+    @staticmethod
+    def cloud_label(p: dict) -> str:
+        """The cloud model under an answer; for RouteLLM, the model it routed this request to."""
+        from .abacus_models import ABACUS_MODELS
+        from .presets import model_label
+
+        label = model_label(p.get("model"))
+        if p.get("model") in ("haiku", "sonnet", "opus"):
+            label = "Claude " + label
+        if p.get("model") == "abacus:route-llm":
+            routed = p.get("routed") or ""
+            label = "RouteLLM → " + (ABACUS_MODELS.get(f"abacus:{routed}", routed).removesuffix(" (Abacus)")
+                                     .split(" (Abacus;")[0] or "model not reported")
+        return label
 
     def action_smart_quit(self) -> None:
         """ctrl+q / ctrl+c: on the menu it quits; anywhere else it saves and goes back a screen, asking first if
@@ -470,6 +638,17 @@ class TutorApp(App):
     async def on_event(self, event) -> None:
         if isinstance(event, (events.Key, events.MouseDown, events.MouseScrollDown, events.MouseScrollUp)):
             self._last_input = time.monotonic()
+        if isinstance(event, events.MouseDown) and not event.is_forwarded and not self.mouse_captured:
+            # Layout can still reference an answer panel removed since the last
+            # frame. Textual 8's selection setup assumes that target is attached.
+            try:
+                target, _ = self.screen.get_widget_at(event.x, event.y)
+            except NoWidget:
+                pass  # Let Textual handle an ordinary click outside the layout.
+            else:
+                if not target.is_attached:
+                    self.screen.refresh(layout=True)
+                    return
         await super().on_event(event)
 
     def studying(self) -> bool:
@@ -512,8 +691,14 @@ class TutorApp(App):
         return getattr(self.screen, "study_session", False) or any(getattr(x, "study_session", False) for x in self.screen_stack)
 
     async def on_unmount(self) -> None:
+        if getattr(self, "_freeze_log", None) is not None:
+            faulthandler.cancel_dump_traceback_later()  # closing down may wait on the maps and the AI: not a freeze
+        if (loading := getattr(self, "_loading", None)) is not None and loading.is_alive():
+            await asyncio.to_thread(loading.join)  # closed while loading: the vault stays locked until the engine stops
         if hasattr(self, "tutor"):
             self.tutor.study_clock.flush()
+            if self.tutor.mermaid is not None:
+                self.tutor.mermaid.flush(timeout=2.0)  # finish recolouring the maps before the vault lock is released
         self.speaker.close()
         if hasattr(self, "ai"):
             await self.ai.close()

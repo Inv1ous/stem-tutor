@@ -196,7 +196,12 @@ def open_in_obsidian(vault: Path, note: str = "Now", background: bool = True) ->
     if obsidian_vault_registered(vault) == "exact":
         url = f"obsidian://open?vault={quote(vault.name)}&file={quote(note)}"
     else:
-        url = f"obsidian://open?path={quote(str(vault / (note + '.md')))}"
+        target = vault / note
+        # Preserve actual attachments/Markdown; dotted lesson identifiers still
+        # use Obsidian's ordinary Markdown-note lookup.
+        if not (target.is_file() and target.suffix.lower() in {'.png', '.jpg', '.jpeg', '.svg', '.pdf', '.md'}):
+            target = vault / (note + '.md')
+        url = f"obsidian://open?path={quote(str(target))}"
     args = ["open"] + (["-g"] if background else []) + [url]
     try:
         return subprocess.run(args, capture_output=True).returncode == 0

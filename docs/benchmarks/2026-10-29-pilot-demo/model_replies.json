@@ -1,0 +1,55 @@
+[
+ {
+  "actions": [
+   {
+    "action": "write",
+    "topic": "Three consecutive integers example",
+    "text": "Short version: let the first integer be n, so the three are n, n + 1, n + 2. Because n is any integer, this covers every case.\n\nClaim: the sum of any three consecutive integers is a multiple of 3.\n\nStep 1 (assumptions and domain): n is an integer, and the three integers are n, n + 1 and n + 2.\nStep 2 (add them): n + (n + 1) + (n + 2) = 3n + 3.\nStep 3 (factorise): 3n + 3 = 3(n + 1).\nStep 4 (conclude): n + 1 is an integer, so 3(n + 1) is 3 times an integer. The sum is therefore a multiple of 3, for every integer n.\n\nWhy this works: we did not write n = 2k or pick a particular n, so we added no hidden assumption. Trying 4, 5, 6 (sum 15) or 7, 8, 9 (sum 24) would only be examples, not a proof.\n\nI can show a version with the product of three consecutive integers if you'd like more detail.",
+    "equalities": [
+     {
+      "left": "n + (n+1) + (n+2)",
+      "right": "3n + 3"
+     },
+     {
+      "left": "3(n+1)",
+      "right": "3n + 3"
+     }
+    ]
+   },
+   {
+    "action": "explain",
+    "section": "self_explain"
+   }
+  ],
+  "sections": []
+ },
+ {
+  "actions": [
+   {
+    "action": "write",
+    "topic": "Why even and odd cover every integer",
+    "text": "Short version: the integers alternate even, odd, even, odd along the number line, so there is no gap and no third type.\n\nPicture it: ... −2, −1, 0, 1, 2, 3, 4 ... Each even number 2k is followed by the next number 2k + 1, and then 2k + 2 is the next even number. Every integer sits at one of these two positions.\n\nWhy that is certain: divide any integer n by 2. The remainder can only be 0 or 1. Remainder 0 means n = 2k (even). Remainder 1 means n = 2k + 1 (odd). No other remainder is possible, so two cases are enough.\n\nThis also shows why 'n = 2k' on its own is not general: it only covers the even half.\n\nTry this: where would −3 fit, as 2k or 2k + 1? What is k?",
+    "equalities": [
+     {
+      "left": "(2k+1)+1",
+      "right": "2k+2"
+     }
+    ]
+   },
+   {
+    "action": "diagram",
+    "source": "generated",
+    "type": "case_split",
+    "params": {
+     "start": "Any integer n",
+     "cases": [
+      "Even: n = 2k",
+      "Odd: n = 2k + 1"
+     ],
+     "end": "Every integer is covered"
+    }
+   }
+  ],
+  "sections": []
+ }
+]

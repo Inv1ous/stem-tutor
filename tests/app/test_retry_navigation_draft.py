@@ -23,7 +23,7 @@ def test_retry_shortcut_during_suspended_question_retry_keeps_the_answer(tmp_pat
             await pilot.pause()
             tutor = app.tutor
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [option.id for option in menu.options].index("learn")
+            menu.reveal("learn")
             await pilot.press("enter")
             await pilot.pause()
             await pilot.press("enter")

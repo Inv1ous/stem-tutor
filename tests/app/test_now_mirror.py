@@ -12,7 +12,7 @@ def test_a_chat_question_and_its_reply_are_on_the_now_page(tmp_path, monkeypatch
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [o.id for o in menu.options].index("chat")
+            menu.reveal("chat")
             await pilot.press("enter")
             await pilot.pause()
             await pilot.press(*"why is velocity a vector", "enter")
@@ -35,7 +35,7 @@ def test_an_ai_reply_in_a_lesson_is_on_the_now_page_even_with_answer_only_on(tmp
         async with app.run_test(size=(100, 40)) as pilot:
             await pilot.pause()
             app.settings.answer_only = True
-            await pilot.press("down", "enter", "enter")  # learn -> the only subtopic
+            await pilot.press("enter", "down", "enter", "enter")  # Learn & revise, learn -> the only subtopic
             await pilot.pause()
             for _ in range(60):  # to the first question in the typed-answer box
                 panel = next(iter(app.screen.query("#panel > *")), None) if app.screen.__class__.__name__ == "SessionScreen" else None

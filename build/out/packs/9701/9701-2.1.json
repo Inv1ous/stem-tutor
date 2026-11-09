@@ -44,6 +44,14 @@
    "refutation": "Relative isotopic mass is an atomic mass divided by one unified atomic mass unit; the units cancel.",
    "contrast": "An atomic mass of $19.99u$ corresponds to a relative isotopic mass of 19.99 without a unit.",
    "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-2.1.1",
+   "statement": "One unified atomic mass unit is defined as the mass of one proton or one hydrogen atom.",
+   "refutation": "The unified atomic mass unit is defined as one twelfth of the mass of one carbon-12 atom.",
+   "contrast": "A hydrogen atom has a mass close to one unified atomic mass unit, but hydrogen is not the defining reference.",
+   "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c2.1.pdf p.2; Cambridge 9701 June 2022 P21 Q1(e)(i), https://www.cambridgeinternational.org/Images/567189-june-2022-mark-scheme-paper-21.pdf"
   }
  ],
  "worked": [
@@ -866,6 +874,107 @@
     "answer": "A",
     "explanation": "Divide the mass of one carbon-12 atom into twelve equal parts; each part is $1u$."
    },
+   "plain_words": "The unified atomic mass unit, $u$, is one twelfth of the mass of one carbon-12 atom. Use $u$ as the reference for atomic masses, so one carbon-12 atom has a mass of exactly $12u$. A mass compared with $u$ is a unitless ratio.",
+   "terms": [
+    {
+     "term": "Unified atomic mass unit",
+     "meaning": "One twelfth of the mass of one carbon-12 atom; the reference unit for atomic masses.",
+     "notation": "$u$",
+     "spoken": "u, the unified atomic mass unit",
+     "source": "SaveMyExams notes 9701 c2.1, p.2"
+    },
+    {
+     "term": "Carbon-12",
+     "meaning": "The isotope of carbon with mass number 12, chosen as the standard for the unit.",
+     "notation": "$^{12}$C",
+     "spoken": "carbon twelve",
+     "source": "SaveMyExams notes 9701 c2.1, p.2"
+    },
+    {
+     "term": "Relative mass",
+     "meaning": "A mass divided by the unified atomic mass unit; it is a ratio, so it has no units.",
+     "notation": "none",
+     "spoken": "relative mass",
+     "source": "SaveMyExams notes 9701 c2.1, p.2"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Define the unified atomic mass unit",
+     "wordings": [
+      "Define the unified atomic mass unit",
+      "State what is meant by one unified atomic mass unit"
+     ],
+     "example": "**Define:** the unified atomic mass unit.\n\n- Name the quantity: a mass unit for atoms, symbol $u$.\n- Give the reference: the mass of one carbon-12 atom.\n- Give the fraction: one twelfth.\n- Model answer: one twelfth of the mass of one carbon-12 atom.",
+     "check": "State the mass of one carbon-12 atom in unified atomic mass units.",
+     "answer": "12 u. Since 1 u is one twelfth of the mass of one carbon-12 atom, one carbon-12 atom has mass exactly 12 u.",
+     "source": "SaveMyExams notes 9701 c2.1, p.2; bundle 9701-2.1.1. Example and check authored independently.",
+     "rubric": [
+      {
+       "point": "Gives the mass of one carbon-12 atom as 12 u.",
+       "keywords": [
+        [
+         "12"
+        ],
+        [
+         "u",
+         "unified atomic mass unit"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "One carbon-12 atom has a mass of $1.992\\times10^{-26}$ kg. Using $1u=1.66\\times10^{-27}$ kg, calculate the mass of this atom in $u$.",
+      "answer": "Divide: $1.992\\times10^{-26}/1.66\\times10^{-27}=12.0$, so the atom has a mass of $12.0u$.",
+      "rubric": [
+       {
+        "point": "Divides the given mass by $1.66\\times10^{-27}$ kg.",
+        "keywords": [
+         [
+          "1.66"
+         ],
+         [
+          "divid",
+          "/",
+          "÷"
+         ]
+        ]
+       },
+       {
+        "point": "Obtains 12 (or 12.0) u.",
+        "keywords": [
+         [
+          "12"
+         ],
+         [
+          "u"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "The unified atomic mass unit is the mass of one carbon-12 atom.",
+     "temptation": "Both mention carbon-12, so the unit and the atom look interchangeable.",
+     "fix": "It is one twelfth of that mass. One carbon-12 atom has mass 12 u.",
+     "id": "m1"
+    },
+    {
+     "idea": "One unified atomic mass unit is the mass of one proton or one hydrogen atom.",
+     "temptation": "Hydrogen is the lightest atom, and 1 u looks about that size.",
+     "fix": "The unit is defined from carbon-12. A hydrogen atom has a mass close to 1 u, but the definition does not refer to hydrogen.",
+     "id": "m6"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The definition is a single ratio with no spatial structure, so a figure would add nothing. The SaveMyExams notes page has text and formulas only.",
+   "source_gaps": [
+    "The bundle does not give the value of 1 u in kilograms; the notes give 1.66 × 10⁻²⁷ kg, and only the retry check uses it.",
+    "The forms rely on the SaveMyExams notes and the bundle; past-paper pages for this idea were not read in full."
+   ],
    "source": "pack"
   },
   "9701-2.1.2": {
@@ -885,7 +994,205 @@
     "answer": "A",
     "explanation": "A named isotope uses relative isotopic mass; an element with mixed isotopes uses weighted relative atomic mass. Water consists of molecules, whereas ionic sodium chloride is represented by formula units."
    },
+   "plain_words": "Name the entity before naming the mass. A single isotope has relative isotopic mass. An element with several isotopes has relative atomic mass, $A_r$, which is a weighted mean. A molecule has relative molecular mass, $M_r$, and an ionic formula unit has relative formula mass. Each is a ratio with no units.",
+   "terms": [
+    {
+     "term": "Relative isotopic mass",
+     "meaning": "The mass of one atom of a particular isotope, compared with one twelfth of a carbon-12 atom.",
+     "notation": "none",
+     "spoken": "relative isotopic mass",
+     "source": "SaveMyExams notes 9701 c2.1, p.2"
+    },
+    {
+     "term": "Relative atomic mass",
+     "meaning": "The weighted mean mass of the atoms of an element, compared with $u$; the isotope abundances set the weighting.",
+     "notation": "$A_r$",
+     "spoken": "A r, relative atomic mass",
+     "source": "SaveMyExams notes 9701 c2.1, p.2"
+    },
+    {
+     "term": "Relative molecular mass",
+     "meaning": "The mass of one molecule of a molecular compound, compared with $u$; the sum of the relative atomic masses in the molecular formula.",
+     "notation": "$M_r$",
+     "spoken": "M r, relative molecular mass",
+     "source": "SaveMyExams notes 9701 c2.1, p.3"
+    },
+    {
+     "term": "Relative formula mass",
+     "meaning": "The same calculation as $M_r$, applied to one formula unit of an ionic compound.",
+     "notation": "$M_r$",
+     "spoken": "relative formula mass",
+     "source": "SaveMyExams notes 9701 c2.1, p.3"
+    },
+    {
+     "term": "Formula unit",
+     "meaning": "The simplest formula of a compound, such as $\\mathrm{SiO_2}$ for silicon dioxide.",
+     "notation": "none",
+     "spoken": "formula unit",
+     "source": "SaveMyExams notes 9701 c2.1, p.3"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Name the correct relative mass",
+     "wordings": [
+      "Identify the correct relative mass for the entity",
+      "Define relative isotopic mass or relative atomic mass"
+     ],
+     "example": "**Which term?** Name the relative mass for each entity.\n\n- Chlorine-35 atoms, a single isotope: relative isotopic mass.\n- Sodium chloride, which has no discrete molecules: relative formula mass.\n- Name the entity first, then choose the matching term.",
+     "check": "A sample of bromine contains $^{79}$Br and $^{81}$Br atoms. Name the correct relative mass for the element bromine in this sample.",
+     "answer": "Relative atomic mass, $A_r$. The sample has more than one isotope, so the weighted mean over the isotopes is needed.",
+     "source": "SaveMyExams notes 9701 c2.1, pp.2–3 (definitions); example and check authored independently.",
+     "rubric": [
+      {
+       "point": "Names relative atomic mass, $A_r$.",
+       "keywords": [
+        [
+         "relative atomic mass",
+         "A_r",
+         "Ar",
+         "A r"
+        ]
+       ]
+      },
+      {
+       "point": "Explains that the isotopes are weighted by abundance, so a weighted mean is needed.",
+       "keywords": [
+        [
+         "weighted",
+         "average",
+         "mean"
+        ],
+        [
+         "isotope",
+         "abundance"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Name the correct relative mass for one atom of $^{85}$Rb.",
+      "answer": "Relative isotopic mass, because one atom of one named isotope is involved.",
+      "rubric": [
+       {
+        "point": "Names relative isotopic mass.",
+        "keywords": [
+         [
+          "relative isotopic mass"
+         ]
+        ]
+       },
+       {
+        "point": "Says the question concerns one atom of one isotope.",
+        "keywords": [
+         [
+          "one",
+          "single"
+         ],
+         [
+          "isotope"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Calculate a relative mass from given data",
+     "wordings": [
+      "Calculate the relative atomic mass from the isotopic abundances",
+      "Calculate the relative formula mass of the compound"
+     ],
+     "example": "**Calculate** $A_r$ of boron, given $^{10}$B at 20% and $^{11}$B at 80%.\n\n- Multiply each mass number by its percentage abundance: $10\\times20$ and $11\\times80$.\n- Add the products: $200+880=1080$.\n- Divide by 100: $A_r=10.8$.\n\nFor a compound, add the relative atomic masses of every atom in the formula. For $\\mathrm{Ca(OH)_2}$: $40.1+2(16.0)+2(1.0)=74.1$.",
+     "check": "A sample of magnesium contains $^{24}$Mg (79%), $^{25}$Mg (10%) and $^{26}$Mg (11%). Calculate the relative atomic mass of magnesium in this sample to three significant figures.",
+     "answer": "$(79\\times24+10\\times25+11\\times26)/100=24.32$, so $A_r=24.3$.",
+     "source": "SaveMyExams notes 9701 c2.1, pp.2–3 (weighted average and $M_r$ method); example and check authored independently. Abundances are illustrative.",
+     "rubric": [
+      {
+       "point": "Multiplies each mass number by its percentage abundance.",
+       "keywords": [
+        [
+         "24"
+        ],
+        [
+         "25"
+        ],
+        [
+         "26"
+        ]
+       ]
+      },
+      {
+       "point": "Divides the total by 100 to give 24.3.",
+       "keywords": [
+        [
+         "24.3",
+         "24.32"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Calculate the relative formula mass of aluminium sulfate, $\\mathrm{Al_2(SO_4)_3}$, using $A_r$ values Al 27.0, S 32.1 and O 16.0.",
+      "answer": "Aluminium: $2\\times27.0=54.0$; sulfur: $3\\times32.1=96.3$; oxygen: $12\\times16.0=192.0$. Total: $342.3$.",
+      "rubric": [
+       {
+        "point": "Counts 2 aluminium, 3 sulfur and 12 oxygen atoms.",
+        "keywords": [
+         [
+          "2"
+         ],
+         [
+          "3"
+         ],
+         [
+          "12"
+         ]
+        ]
+       },
+       {
+        "point": "Adds the contributions to 342.3.",
+        "keywords": [
+         [
+          "342.3",
+          "342"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "Relative atomic mass is the mass of one isotope.",
+     "temptation": "An element's symbol names one kind of atom, so one isotope's mass seems enough.",
+     "fix": "Relative atomic mass is the weighted mean over the isotopes present; relative isotopic mass refers to one isotope.",
+     "id": "m2"
+    },
+    {
+     "idea": "The subscript in a molecular formula can be ignored when finding relative mass.",
+     "temptation": "The subscript looks like a small counting detail, so one atom per symbol seems enough.",
+     "fix": "Each atom in the formula adds its relative atomic mass; $\\mathrm{Ca(OH)_2}$ contains two O atoms and two H atoms.",
+     "id": "m4"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The notes give the definitions and worked calculations as text and tables; no drawn figure in the notes illustrates these ideas.",
+   "source_gaps": [
+    "The percentage abundances in the calculation check and retry are illustrative values close to natural abundances; they are not taken from a named source.",
+    "Only the examiner-report excerpts in the bundle were read for this idea; some exam wordings may be missing from the forms."
+   ],
    "source": "pack"
   }
+ },
+ "guided_forms": {
+  "9701-2.1.1": [
+   "Define the unified atomic mass unit"
+  ],
+  "9701-2.1.2": [
+   "Name the correct relative mass",
+   "Calculate a relative mass from given data"
+  ]
  }
 }

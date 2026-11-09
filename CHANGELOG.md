@@ -1,6 +1,87 @@
 # Changelog
 
-## Unreleased
+## 2.7.0 — 2026-11-09
+
+- **Printed questions show as their pictures, nothing else.** A past-paper or source-verified question with a scan no
+  longer prints the text the PDF copied out of it: no raw stem, no "(see the picture)", no "Text read from the
+  picture" block. Pictures appear once each and in page order (they used to be listed last page first). A structured
+  question says what to do in one line: "Do (a)(iii).", "Do (a)(i) and (c).", or "Do the whole question.".
+- **Several parts of one question, one question.** When the chosen topics cover more than one part of the same printed
+  question, Practice serves them together with all their marks and mark points (each labelled by part) and counts
+  every part as seen. If the topics cover every part, it says to do the whole question.
+- **Practice remembers your choices.** Written-answer marking (self or automatic AI), number of questions, difficulty,
+  sources, question types and "include chapters not started" are saved and used for the next set, in Practice and in
+  the older Topical setup.
+- **Page furniture removed from question images** (`build/question_image_triage.py`): measures every question image,
+  groups near-identical headers/footers/blank strips, asks a low-tier vision model once per group (not once per
+  image), remembers each verdict and flags junk in the catalog (`junk: true`; files and hashes stay, reversible with
+  `apply --undo`). Flagged images are never shown, and extraction flags a new crop that looks like known junk on
+  arrival. Answer keys are never judged.
+- **Source-verified papers count towards mastery.** Their answers update skills and reviews like the past-paper bank
+  and stay tagged "source-verified"; earlier source-only attempts are unchanged and still give no credit.
+- **Question images sorted by course.** Every question image now lives in its course's `Questions/Media/{MCQ,Long,
+  Keys}` folder under one name pattern (`<course>_<series>_<paper>_q<NN>_<role>_<hash>`; booklet questions use the
+  booklet title); shared answer-key cells go to `Library/Shared`. Old paths still resolve, and extraction stores new
+  crops there directly. `duplicate-questions.json` lists questions stored twice.
+- **Resize while loading no longer freezes the tutor.** Window resizes are laid out once the size settles, the engine
+  loads on a background thread (the loading screen stays responsive and quits with ctrl+q), and a freeze now writes
+  every thread's stack to `.tutor/logs/freeze.log`.
+
+- **Topical automatic marking:** choose Self-mark or Automatic AI in Topical's own setup, with the choice saved
+  in that session. Automatic marking uses the selected examiner and strictness, validates every rubric point,
+  and supplies all declared source pages to Codex. Unsupported inputs or failed checks retain working for manual
+  marking; cancelled or stale replies cannot assign marks. Reviewed bank questions remain shared across relevant
+  modes; Test prep and Long questions now expose suitable bank-only chapters.
+
+- **Custom topical past-paper sets:** select several topics across chapters, choose question types and request
+  1–200 random questions. Setup shows unique eligible counts and any shortage before starting. Topic-balanced
+  sampling preserves canonical question identities, prevents repeats and persists the set for resume. Long questions
+  count as one item; mixed structured questions retain an honest label. Existing reviewed-content safeguards,
+  archived attempts and legacy time-budget sessions remain preserved.
+
+- **Adjustable AI marking:** add Auto, Lenient, Balanced and Strict to Settings, independent of model choice and
+  mark confirmation. Auto uses Balanced for learning/review and Strict for tests, long questions, topical papers
+  and Challenges. All examiner prompts accept equivalent correct wording, examine the complete answer and require
+  evidence before calling an idea missing. Existing scores, deterministic grading and manual fallback are preserved.
+
+- **Readable shared output:** separate clearly labelled worked steps into paragraphs and preserve explicit prose
+  line breaks in both terminal and Obsidian Markdown across cloud/local routes. Alternative question wordings are
+  distinct bullets before the worked example. Existing hard-break notation, quoted step references, literal code,
+  maths, grading identities and speech are preserved; the bounded document validator remains in place.
+
+- **Responsive lesson feedback:** Learn a topic shows a compact activity indicator and elapsed time for startup,
+  prepared actions, tutor requests, feedback and marking. Acknowledgements paint before synchronous work; cloud
+  activity stays visible in answer-only view. Pending controls and repeated AI shortcuts cannot restart requests.
+  Drafts, selections and prior disabled states survive resize; cancellation and failures clear activity.
+
+- **Mouse transition crash:** ignore a mouse-down whose cached target has already been removed, then redraw.
+  Clicking during answer-panel replacement no longer reaches Textual selection with a detached panel; current
+  editor clicks, text selection and answer state are preserved.
+
+- **Optional AI mark confirmation:** add “Confirm AI marks in lesson reviews” to Settings. Turning it off applies
+  valid AI mark-point results automatically; the default retains manual confirmation. Unavailable or incomplete
+  AI results still offer manual marking, and protected attempt confirmation remains separate.
+
+- **ChatGPT model selection:** restore GPT-6.1 Terra in every AI mode selector and preserve its saved settings.
+  Requests use the selected Terra model through the existing Codex subscription route. Guided lesson review still
+  requires confirmation of AI-suggested mark points before recording a score.
+
+## 2.6.2 — 2026-11-06
+
+- **One Practice mode:** Test prep, Topical past papers and Source-verified practice are merged into a single
+  Practice mode with an entire-course/module picker, drawing from the past-paper bank and the source-verified
+  papers. Source-verified questions never earn mastery credit, and the session says so on each of them. The
+  older menu ids still start the same flow.
+- **The home menu is grouped into folders:** Learn & revise, Questions, Profile & progress and Tools, each shown
+  only while it has something in it.
+- **"Can I solve this?" on every question:** the check uses the profile's started topics, adapts the prompt to the
+  parts answerable now, gives the needed formulas as hints, auto-skips what is out of reach for now, and asks the
+  AI to identify the topic when a question carries none.
+- **Source-verified questions tagged and registered:** 4,461 questions were tagged with topics where confident and
+  registered per course under `Library/Courses/<course>/Questions/SourceVerified`, with the unmapped ones held
+  back. Edexcel maths question images are cleaned of blank answer-line pages and exam cover pages by a program.
+- **Faster boot and interactions:** the topical bank is no longer re-validated on every question, the chapter check
+  runs behind the Home screen, and start-up work is deferred until it is needed.
 
 ## 2.6.1 — 2026-11-02
 

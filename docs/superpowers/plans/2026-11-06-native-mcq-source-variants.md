@@ -1,0 +1,17 @@
+# Native MCQ source variants with exact reference-page authority
+
+Use subagent-driven-development. User delegates programmatic source-specific extraction; all14course scope and10% reserve remainbinding.
+
+## Design / constraints
+
+Actual downloaded Cambridge March2017–2021 MS covers and every key page print March YEAR, while matchingQP printsFebruary/MarchYEAR. Nativeidentitycurrentlyrejects legitimateMS. Allow the literalMarch form ONLY for roleMS+seasonm; QPdategrammar unchanged, allMSbodypages stillmustrepeat correctcourse/component/year/season and markschemecoverrole. No filenameonlyidentity, no othermonths/roles relaxed.
+
+Three alreadyregistered March2022–2024QP originals have sourcecomplete pages19constants and20PeriodicTable, visuallyinspected root and preservedauthoringcontactsheet. Nativepageledger currentlyholdsall40because trailingreferenceslackquestionanchors. Add fixed WHOLE-PDF SHA authority for ONLY these exact3QP origins/pages; publiccontext mustinclude both completefullpages for EVERY question. Never silentlydrop reference material or inferreference role from words alone. Unknown/tampered bytes stillunassigned/held; no question-boundary/answer/key/oldholdchanges. One exact9701_s18MS origin has page4only printedMSheader/footer/PMT,no graphics/answers. Fixed WHOLE-PDF SHA authority may classify this onephysicalpage blankfurniture, retain complete MS pageledger; this is not a generic blank detector.
+
+All original acceptedsource outputs outside newlyauthorizedSHA/MarchMS cases byteexact. Previouslyfrozen preparations immutable: root createsfresh revisions for alteredsourceproofs; no questionpublication before Spec/Standards+finalrisk. All sourceonlyassets/tests use AssetLibrary; availabilitynotteaching. Current guards, MCQsourceflags, max3, actualwire, masteryFalse unchanged. No providers/subagents/commits/prod/history/prep mutation.
+
+## Task1
+
+Own ONLY stem-tutor/extraction/fastpath.py and new tests/test_native_mcq_source_variants.py; add standalone staticauthoritydata module ifcleaner but no otherexistingfile. Root provides sourceasset registrationmanifest in Work/Preparation/source-acquisition/chem-mcq-originals/registration-manifest-all.json beforetests. No changes source_practice.py/sharedworker/helper/checker/sourcepolicies outside statedbranches. Date headerMS m uses optionalFebruary/ only; identitystillallpages repeated. Add exactSHApageauthoritydata with positiveactualnativewords/rasteroriginsurvey atR/native-mcq-source-variants; allow onlydeclaredempty/referencecurrentstatuspages, notmaskaquestionanchor/keyrow/unrecognizeddata. QPfullcontextregion[0,0,1,1]pages19/20 beforeexistingsectioncontexts (or deterministicappropriateorder), allquestions sourcebound; no referencepixels becomeprivateanswer. MSpage4only exactsourceSHA gets accountedrole.
+
+RED actualfiveMarchMSpairs and3referenceQP+1MSblankcurrentlyheld; GREEN sourceverification throughoriginalsource_practice (twoofficialkeyengines), correctfullreferences/publicmedia, noquestion/answer/identityrewrites. Resealedsource metadata/pageword/addedimage/newquestion/unknownsource/year/component/month/rolewrong cases remainheld; wrongMarchdateonANYMSbodypagerejected; QPgrammarunchanged. Syntheticinvalidinputsdisposable. Oldnon-targetnativebundles/codepacketsbyteexact. Freezepreimages/exactdiff/pins/commands+output/report underR/native-mcq-source-variants; no completeprojecttestsrepeats.

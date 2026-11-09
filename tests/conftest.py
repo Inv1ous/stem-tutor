@@ -51,3 +51,25 @@ def _options_take_enter_at_once(monkeypatch):
     except ImportError:
         return
     monkeypatch.setattr(panels.Settling, "SETTLE", 0)
+
+
+@pytest.fixture(autouse=True)
+def _resize_lays_out_at_once(monkeypatch):
+    """A pilot resizes and checks the layout straight away; the app waits for a dragged window to settle first. Its own
+    test (test_resize_stability) puts the wait back."""
+    try:
+        from tutor_app.app import TutorApp
+    except ImportError:
+        return
+    monkeypatch.setattr(TutorApp, "RESIZE_SETTLE", 0)
+
+
+@pytest.fixture(autouse=True)
+def _engine_loads_before_the_first_pause(monkeypatch):
+    """The app builds its engine on a thread so the loading screen stays responsive; a pilot expects the menu after its
+    first pause. Its own test (test_resize_stability) loads in the background again."""
+    try:
+        from tutor_app.app import TutorApp
+    except ImportError:
+        return
+    monkeypatch.setattr(TutorApp, "LOAD_IN_BACKGROUND", False)

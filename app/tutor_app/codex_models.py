@@ -1,4 +1,4 @@
-"""GPT models advertised by this account's Codex catalogue on 2026-10-25.
+"""GPT choices retained from this account's Codex catalogue.
 
 These IDs use the saved ChatGPT sign-in, not an API key or the ChatGPT website's model picker.
 Keep saved choices valid even when the CLI is temporarily missing or signed out.
@@ -8,6 +8,7 @@ from __future__ import annotations
 
 CODEX_MODELS = {
     "codex:gpt-6.1-sol": "GPT-6.1-Sol (ChatGPT)",
+    "codex:gpt-6.1-terra": "GPT-6.1-Terra (ChatGPT)",
     "codex:gpt-6-astra": "GPT-6-Astra (ChatGPT)",
     "codex:gpt-6-sol": "GPT-6-Sol (ChatGPT)",
     "codex:gpt-6-luna": "GPT-6-Luna (ChatGPT)",

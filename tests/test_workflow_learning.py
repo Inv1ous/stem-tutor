@@ -71,7 +71,8 @@ def test_incomplete_or_conflicting_graph_is_unverified(tmp_path, corruption):
     else:
         node['inst']['topical'] = {'reviewed': False}
     result = tutor.check_solvable(1)
-    assert result['status'] == 'unverified' and '1' in tutor.session['presented']
+    expected = 'topic_pending' if corruption == 'unknown_assessed' else 'unverified'  # untagged: AI names the topics
+    assert result['status'] == expected and '1' in tutor.session['presented']
 
 
 def set_items(root, items):

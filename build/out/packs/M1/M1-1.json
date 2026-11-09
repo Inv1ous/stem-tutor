@@ -861,7 +861,484 @@
    "connect": "In a later connected-particle problem, first use inextensibility to link motion, then use the light string and smooth pulley to link tensions. For a rod in a moments problem, uniformity determines where its weight acts; rigidity only tells you its shape stays fixed.",
    "note": "- Particle: mass retained, size negligible; lamina: negligible thickness; rigid body: no deformation.\n- Light: negligible mass; uniform: evenly distributed mass; non-uniform: uneven mass distribution.\n- Inextensible: constant taut length; smooth: no friction; rough: friction may act.\n- Light smooth pulley with light string: equal tensions on both sides.\n- Bead: small object constrained to a wire; peg: fixed support for a string.",
    "self_explain": "A uniform rod rests on a smooth table. Which assumption places its weight at the midpoint, and which removes friction? Explain why the table can still exert a normal reaction.",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A model is a useful simplification of a real object. First say what you want to predict; then keep the properties that affect that prediction. For each assumption, give its meaning, what it lets you do, and a circumstance in which it would stop being useful. No algebra is needed here: begin with mass, size, shape, contact and length. Mass is the amount of matter; weight is the gravitational force on it. A force is a push or pull, and rotation means turning.",
+   "terms": [
+    {
+     "term": "particle",
+     "meaning": "An object with mass whose size and shape can be ignored for the question.",
+     "notation": "No special symbol.",
+     "spoken": "particle; mass kept, dimensions neglected",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "lamina",
+     "meaning": "A flat sheet with negligible thickness; its dimensions in the plane are retained.",
+     "notation": "No special symbol.",
+     "spoken": "lamina; a thin flat sheet",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "rigid body",
+     "meaning": "A body whose shape and size remain unchanged under the forces considered; it may translate or rotate.",
+     "notation": "No special symbol.",
+     "spoken": "rigid body; no deformation",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "rod",
+     "meaning": "A thin straight body whose length is retained; rigidity, mass and mass distribution are separate assumptions.",
+     "notation": "Length may be denoted by $L$.",
+     "spoken": "rod; length L",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "light rod",
+     "meaning": "A rod with negligible mass and hence negligible own weight; it can still transmit force.",
+     "notation": "No special symbol.",
+     "spoken": "light rod; negligible mass",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "uniform rod",
+     "meaning": "Mass is evenly distributed along its length; its centre of mass is at the midpoint, where its weight acts in uniform gravity.",
+     "notation": "Centre of mass is $L/2$ from either end for length $L$.",
+     "spoken": "uniform rod; centre of mass at L over two",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "non-uniform rod",
+     "meaning": "Mass is not evenly distributed along its length; do not assume its centre of mass is at the midpoint without further information.",
+     "notation": "No universal centre-of-mass position.",
+     "spoken": "non-uniform rod; uneven mass distribution",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "light string",
+     "meaning": "A string of negligible mass which can transmit tension when taut; it pulls, rather than pushes.",
+     "notation": "Tension may be denoted by $T$.",
+     "spoken": "light string; tension T",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "inextensible string",
+     "meaning": "A string that does not stretch. For two hanging ends over one fixed pulley, with the string taut and the connecting path fixed, the end displacements have equal magnitudes.",
+     "notation": "For that arrangement, $|s_1|=|s_2|$.",
+     "spoken": "inextensible string; equal displacement magnitudes in the stated arrangement",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "smooth contact",
+     "meaning": "Friction is neglected at the contact; a normal reaction can still act.",
+     "notation": "Friction $F=0$; normal reaction may be $R$.",
+     "spoken": "smooth contact; zero friction, possible normal reaction",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "rough contact",
+     "meaning": "Friction is possible along the contact, opposing relative slipping or its tendency; it need not be non-zero.",
+     "notation": "Friction may be denoted by $F$.",
+     "spoken": "rough contact; friction may act",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "light smooth pulley",
+     "meaning": "An ideal pulley with negligible mass and friction. With a taut light string passing over it, tension has equal magnitude on the two sides. Fixed position is a separate assumption needed for the usual two-end motion relation.",
+     "notation": "For that ideal string and pulley, $T_1=T_2$.",
+     "spoken": "light smooth pulley; equal tensions for a light taut string",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "bead",
+     "meaning": "A small object threaded on a wire, constrained to follow it; bead alone does not imply frictionless contact.",
+     "notation": "No special symbol.",
+     "spoken": "bead; constrained small object",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "wire",
+     "meaning": "A guide that constrains a bead to its specified path; smoothness must be stated or justified before friction is neglected.",
+     "notation": "No special symbol.",
+     "spoken": "wire; guide for a bead",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    },
+    {
+     "term": "peg",
+     "meaning": "A small fixed support about which a string can pass; do not neglect friction unless the peg is smooth.",
+     "notation": "No special symbol.",
+     "spoken": "peg; fixed small support",
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Definitions paraphrase the existing chapter; the specification names the models rather than defining every consequence."
+    }
+   ],
+   "forms": [
+    {
+     "name": "Interpret an assumption in context",
+     "wordings": [
+      "State what this modelling assumption means.",
+      "Explain how the stated assumption simplifies this situation."
+     ],
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes.",
+     "example": "A bead slides along a smooth fixed wire while pulled by a light taut string passing over a smooth fixed peg. Explain the models.\n1. Name the objects: bead, wire, string and peg. The bead is small and its path is constrained by the wire.\n2. Translate each adjective: smooth wire removes friction there, but a normal reaction can still act; light string removes its own mass, not its tension.\n3. Identify the support: the fixed peg provides a place for the string to change direction.\n4. Compare another light object: a light rod can transmit force even though its own weight is neglected.",
+     "check": "A uniform rigid beam rests on a rough horizontal support. State what uniform, rigid and rough each mean for this beam. Must the friction force be non-zero? Explain.",
+     "answer": "Uniform means mass is evenly distributed along the beam; for a straight beam its centre of mass is at its midpoint. Rigid means its shape and size do not change under the forces considered. Rough means friction may act at the support. Non-zero friction is not guaranteed: if there is no tendency to slip, no friction is needed.",
+     "rubric": [
+      {
+       "point": "Uniform means mass is evenly distributed along the beam, equivalently constant mass per unit length; midpoint centre of mass alone is insufficient.",
+       "keywords": [
+        [
+         "evenly distributed",
+         "uniformly distributed",
+         "distributed uniformly",
+         "uniform distribution",
+         "constant mass per unit length"
+        ]
+       ]
+      },
+      {
+       "point": "The beam does not deform under the forces considered.",
+       "keywords": [
+        [
+         "does not deform",
+         "no deformation",
+         "shape and size",
+         "unchanged shape",
+         "does not bend"
+        ]
+       ]
+      },
+      {
+       "point": "Rough contact permits friction but does not guarantee non-zero friction; explains this through absence of slipping tendency or absence of a required tangential force.",
+       "keywords": [
+        [
+         "friction"
+        ],
+        [
+         "not necessarily",
+         "not guaranteed",
+         "can be zero",
+         "no friction needed",
+         "need not"
+        ],
+        [
+         "slip",
+         "tangential",
+         "tendency"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Two hanging loads are joined by a taut light inextensible string passing over a single fixed light smooth pulley, with straight vertical ends. Explain separately what permits equal tension magnitudes and what links the magnitudes of their displacements. Does either conclusion require equal load masses?",
+      "answer": "A taut light string over the ideal light smooth pulley permits equal tension magnitudes. Inextensibility fixes the string length; with this fixed pulley and straight taut ends, one segment lengthens by the amount the other shortens, giving equal displacement magnitudes. Neither result requires equal load masses.",
+      "rubric": [
+       {
+        "point": "Links equal tensions to the light string and smooth ideal pulley, rather than to inextensibility.",
+        "keywords": [
+         [
+          "light string",
+          "negligible string mass",
+          "string is light"
+         ],
+         [
+          "smooth",
+          "frictionless"
+         ],
+         [
+          "tension"
+         ]
+        ]
+       },
+       {
+        "point": "Links equal displacement magnitudes to the constant length of the taut inextensible string in the stated fixed-pulley arrangement; credit an explanation that one load/end rises by the same distance that the other falls, without requiring the word segment or a repetition of fixed.",
+        "keywords": [
+         [
+          "inextensible",
+          "constant length",
+          "does not stretch"
+         ],
+         [
+          "fixed",
+          "one segment",
+          "other segment",
+          "one load",
+          "other load",
+          "one end",
+          "other end"
+         ],
+         [
+          "displacement",
+          "distance"
+         ]
+        ]
+       },
+       {
+        "point": "Neither conclusion requires equal masses.",
+        "keywords": [
+         [
+          "mass",
+          "masses"
+         ],
+         [
+          "need not",
+          "not required",
+          "no",
+          "different",
+          "unequal"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Choose and evaluate a model",
+     "wordings": [
+      "Explain why a model is appropriate for this calculation.",
+      "State an assumption, its consequence and a context-specific limitation or refinement."
+     ],
+     "source": "SaveMyExams/XMA01 mechanics-1/XMA01 c1.1.pdf, pp.13-14 (simplifying, interpreting and refining assumptions); Pearson IAL Mathematics specification Issue 3, M1.3 section 1.1, printed p.45 / PDF p.51 (term inventory): https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf. Original teaching examples and checks, not past-paper questions or official mark schemes. Pearson qualification aims, printed p.2 / PDF p.8, also support relating real situations to models and refining them; no claim of a past-paper form frequency is made.",
+     "example": "A delivery van travels between two towns. Later an engineer asks whether it might tip while turning. Compare treating the van as a particle.\n1. Set the target: for journey time from a specified speed and route distance, changes in the van position matter and its dimensions can be ignored relative to the journey. Its mass is retained.\n2. Give the useful consequence: one point represents the van in the translation model; no description of its orientation is needed for that calculation.\n3. Change the target: tipping depends on the dimensions, centre-of-mass position and support contacts, so a particle model loses information needed about rotation.\n4. Refine only as needed: a rigid-body model with finite size is a possible improvement for tipping if deformation is negligible. If bending or deformation mattered, rigidity would itself need review. These are contextual modelling choices, not a requirement to calculate vehicle tipping in this chapter.",
+     "check": "A modeller treats a loaded diving board as a rigid body to estimate its position before anyone jumps. State the assumption, explain its simplifying consequence, and give one context-specific limitation and a possible refinement if observed behaviour contradicts it.",
+     "answer": "The board is assumed not to change shape or size under the load. It can be represented by a fixed geometry instead of calculating bending. A real diving board may bend appreciably when loaded, changing its shape or tip position; a deformable or elastic-board model could include that deflection. Credit any other physically valid limitation linked to the stated assumption and an appropriate refinement; a rigid body need not be stationary.",
+     "rubric": [
+      {
+       "point": "States the rigid-body assumption as no deformation under the load: shape and size remain unchanged, equivalently distances between material points remain constant. Accept the contextual wording that the board does not change shape or size; rigidity does not imply that the board is stationary.",
+       "keywords": [
+        [
+         "no deformation",
+         "does not deform",
+         "unchanged shape",
+         "fixed shape",
+         "does not bend",
+         "distance between points remains constant",
+         "distances between points remain constant",
+         "distance between any two points stays constant",
+         "distances between points do not change",
+         "fixed distances between points",
+         "does not change shape",
+         "does not change shape or size",
+         "shape and size remain constant",
+         "shape and size do not change",
+         "constant shape and size"
+        ]
+       ]
+      },
+      {
+       "point": "Links rigidity to fixed board geometry or neglecting bending in the position calculation. Credit constant distances between board points, or the shape not deforming, when explained as simplifying the calculation; rigidity does not imply that the board is stationary.",
+       "keywords": [
+        [
+         "geometry",
+         "shape",
+         "bending",
+         "deflection",
+         "distance",
+         "distances"
+        ],
+        [
+         "fixed",
+         "ignore",
+         "neglect",
+         "unchanged",
+         "without calculating",
+         "remains constant",
+         "remain constant",
+         "do not change",
+         "does not deform"
+        ]
+       ]
+      },
+      {
+       "point": "Identifies a specific observed or plausible failure, such as board bending under load.",
+       "keywords": [
+        [
+         "board",
+         "load",
+         "loaded"
+        ],
+        [
+         "bend",
+         "flex",
+         "deflect",
+         "deform",
+         "sag"
+        ]
+       ]
+      },
+      {
+       "point": "Proposes a model or modelling action that addresses the stated board deformation, such as an elastic beam, a deformable board model, or including bending/deflection. Require a physically valid link to the stated limitation; merely mentioning bending, deflection, flexibility or elasticity as a limitation earns no refinement credit. Accept equivalent descriptions of a proposed deformable model without requiring an exact contiguous phrase.",
+       "keywords": [
+        [
+         "elastic beam",
+         "elastic board",
+         "elastic-board",
+         "deformable model",
+         "deformable board",
+         "deformable beam",
+         "flexible beam",
+         "flexible board",
+         "include bending",
+         "account for bending",
+         "allow deformation",
+         "allows deformation",
+         "include deflection",
+         "calculate its deflection"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A thin flat metal sign rotates about a hinge. Choose between a particle model and a rigid lamina model when the sign dimensions affect its turning. State one assumption, its useful consequence, and a context-specific limitation with a possible refinement.",
+      "answer": "A rigid lamina is suitable if the sign remains flat, does not deform and its thickness is negligible compared with its width and height. Its in-plane dimensions are retained for turning while thickness or deformation can be ignored. A particle would discard the dimensions needed here. If the sign bends noticeably, a deformable sheet would be a possible refinement; if its thickness matters, retain a three-dimensional rigid body. Credit either limitation with its matching refinement or another valid context-specific pair.",
+      "rubric": [
+       {
+        "point": "Chooses a rigid lamina and gives a relevant assumption: negligible thickness or no deformation.",
+        "keywords": [
+         [
+          "lamina",
+          "thin flat sheet"
+         ],
+         [
+          "negligible thickness",
+          "thin",
+          "no deformation",
+          "does not deform",
+          "rigid"
+         ]
+        ]
+       },
+       {
+        "point": "Links the model to retaining dimensions or distances from the hinge needed for turning while simplifying thickness or deformation; accept an explanation that the distances from the hinge are retained.",
+        "keywords": [
+         [
+          "dimension",
+          "width",
+          "height",
+          "size",
+          "extent",
+          "distance",
+          "distances"
+         ],
+         [
+          "turn",
+          "rotat",
+          "hinge"
+         ]
+        ]
+       },
+       {
+        "point": "Identifies failure of an assumption for this sign: appreciable bending/deformation, or thickness significant enough to affect the turning calculation. Negligible thickness or no deformation states an assumption, not a limitation.",
+        "keywords": [
+         [
+          "may bend",
+          "might bend",
+          "can bend",
+          "bends noticeably",
+          "bends significantly",
+          "sign bends",
+          "sign may deform",
+          "sign deforms",
+          "significant thickness",
+          "appreciable thickness",
+          "thickness matters",
+          "thickness is significant",
+          "thickness affects",
+          "thickness cannot be neglected",
+          "may flex",
+          "might flex",
+          "can flex",
+          "flexes noticeably",
+          "flexes significantly",
+          "appreciable flexing",
+          "sign flexes",
+          "sign may flex",
+          "significant flexing"
+         ]
+        ]
+       },
+       {
+        "point": "Explicitly refines the model to address the stated failure: bending requires a deformable/elastic/flexible sheet or plate that allows deformation; significant thickness requires a three-dimensional body retaining thickness. Credit a physically valid matching pair only; thickness alone, negligible thickness, or an unrelated refinement earns no credit. Accept equivalent hyphenated wording and descriptions with intervening adjectives, such as a deformable elastic-sheet model or a deformable thin metal sheet, when the proposed sheet or plate model allows the stated bending; do not require an exact contiguous phrase. Continue to require a physically valid limitation/refinement pair. An elastic model or a model that allows bending earns refinement credit only when explicitly proposed to represent the stated bending or deformation of this sign; merely mentioning elasticity, or proposing an elastic model for a significant-thickness limitation without retaining thickness, earns no refinement credit.",
+        "keywords": [
+         [
+          "deformable sheet",
+          "deformable plate",
+          "elastic sheet",
+          "elastic plate",
+          "flexible sheet",
+          "flexible plate",
+          "allows deformation",
+          "allow deformation",
+          "include bending",
+          "three-dimensional body",
+          "three dimensional body",
+          "three-dimensional rigid body",
+          "three dimensional rigid body",
+          "retain its thickness",
+          "retain the thickness",
+          "include its thickness",
+          "include the thickness",
+          "deformable elastic-sheet",
+          "elastic-sheet",
+          "flexible-sheet",
+          "deformable-sheet",
+          "deformable-plate",
+          "elastic-plate",
+          "flexible-plate",
+          "elastic model",
+          "allows bending"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "idea": "A particle has no mass.",
+     "temptation": "A dot looks like nothing is there.",
+     "fix": "Neglect dimensions only; keep the mass.",
+     "id": "m1"
+    },
+    {
+     "idea": "Light means no force can be transmitted.",
+     "temptation": "Negligible mass sounds like negligible force.",
+     "fix": "Ignore the component own weight; a string can still pull and a rod can still transmit force.",
+     "id": "m2"
+    },
+    {
+     "idea": "Smooth removes all contact forces.",
+     "temptation": "Friction is the most familiar contact force.",
+     "fix": "Remove friction only; keep the normal reaction or the relevant string tension. Conversely, roughness permits friction but does not guarantee a non-zero value; ask whether slipping occurs or tends to occur.",
+     "id": "m3"
+    },
+    {
+     "idea": "Uniform, rigid and light are interchangeable.",
+     "temptation": "All three sound like simplifying adjectives.",
+     "fix": "Separate mass distribution, deformation and negligible mass.",
+     "id": "m4"
+    },
+    {
+     "idea": "Inextensible means the string cannot move, or by itself determines all motion and tension properties.",
+     "temptation": "Several assumptions often appear in the same sentence.",
+     "fix": "Use the light string and smooth ideal pulley for tension; for the usual equal end motions also require a taut inextensible string, one fixed pulley and the stated fixed path.",
+     "id": "m5"
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "No existing card-bound reviewed Library diagram is available in this pack. The planned distinction concerns which properties a model retains and is developed in staged verbal examples; a generic force diagram would not show whether a particle approximation is suitable. The notes PDF page-render command failed because its default output directory was unavailable, so no source graphic is claimed as visually inspected or reviewed.",
+   "source_gaps": [
+    "The bundle supplies no tagged past-paper questions or examiner reports; these two forms are teaching categories grounded in the specification and library, not an exhaustive official question-form audit.",
+    "The official specification supplies the required model inventory but does not define every term or prescribe these original examples, checks or illustrative rubrics.",
+    "The library XMA01 c1.1.pdf p.13 overstates roughness as necessarily producing friction, and p.14 describes a rod as a long rigid particle; use the qualified definitions here and seek separate source review rather than adopting those statements.",
+    "No library graphic was visually inspected: page rendering failed at the worker output path; no diagram asset has been added or represented as approved.",
+    "Possible refinements in the contextual example are illustrations of model evaluation; their detailed mechanics is not asserted to be required content for this chapter."
+   ]
   }
+ },
+ "guided_forms": {
+  "M1-1.1": [
+   "Interpret an assumption in context",
+   "Choose and evaluate a model"
+  ]
  }
 }

@@ -1,0 +1,156 @@
+[
+ {
+  "prompt_tail": " ethanol.\nNotes figures (figure = id): 9701-5-1-notes-bond-environment (Shows that a bond energy depends on its molecular environment, so tabulated averages are estimates)\nTerms: Exact bond energy; Average bond energy; Molecular environment\nQuestion forms: 0: Explain exact versus average bond energy",
+  "reply": {
+   "sections": [
+    "9701-5.1.6|plain_words",
+    "9701-5.1.6|establish"
+   ],
+   "actions": [
+    {
+     "action": "explain",
+     "section": "plain_words",
+     "why": "Gives a short first idea: exact is one bond in one molecule, average is a mean over many molecules."
+    },
+    {
+     "action": "diagram",
+     "source": "notes",
+     "figure": "9701-5-1-notes-bond-environment",
+     "why": "The learner asked for a figure; this shows bond energy depends on molecular environment, e.g. O-H in water versus ethanol."
+    },
+    {
+     "action": "explain",
+     "section": "establish",
+     "why": "Adds the reason the values differ: the surroundings of the bond change its energy, so averages are estimates."
+    },
+    {
+     "action": "question",
+     "why": "Invites the learner to try an explanation in their own words after the figure, without giving the answer away."
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": " ethanol.\nNotes figures (figure = id): 9701-5-1-notes-bond-environment (Shows that a bond energy depends on its molecular environment, so tabulated averages are estimates)\nTerms: Exact bond energy; Average bond energy; Molecular environment\nQuestion forms: 0: Explain exact versus average bond energy",
+  "reply": {
+   "sections": [
+    "9701-5.1.5|plain_words",
+    "9701-5.1.5|establish",
+    "9701-5.1.5|misconception:1",
+    "9701-5.1.6|connect"
+   ],
+   "actions": [
+    {
+     "action": "write",
+     "topic": "Worked example: estimating the enthalpy change of combustion of methane from average bond energies, with bonds counted from the balanced equation and a note that the result is an estimate",
+     "why": "The card has no methane combustion example. The bond-energy method in 5.1.5 and the 'average values give estimates' point in 5.1.6 cover it, so a short new worked example is needed.",
+     "text": "Add up the energy needed to break all the bonds in the reactants, subtract the energy released when the bonds in the products form, and you get an estimate of about −818 kJ mol⁻¹ for burning methane (using the average bond energies below).\n\n1. Write the balanced equation with every substance as a gas, because bond energies refer to gaseous molecules. Then draw out the bonds: CH₄ has 4 C–H, $O₂$ has O=O, CO₂ has 2 C=O, and H₂O has 2 O–H.\n\n$$\n\\mathrm{CH_4(g) + 2O_2(g) \\rightarrow CO_2(g) + 2H_2O(g)}\n$$\n\n2. Count the bonds broken in the reactants: 4 C–H in one CH₄, and 2 O=O in two $O₂$. Use these average bond energies: C–H = 410, O=O = 496, C=O = 805 and O–H = 460, all in kJ mol⁻¹.\n   \n   Check them against your own data table, as values vary slightly between sources.\n\n$$\n\\text{Energy in} = (4\\times 410) + (2\\times 496) = 1640 + 992 = 2632\\ \\mathrm{kJ\\ mol^{-1}}\n$$\n\n3. Count the bonds formed in the products: 2 C=O in one CO₂, and 2 O–H in each of two H₂O, giving 4 O–H altogether.\n\n$$\n\\text{Energy out} = (2\\times 805) + (4\\times 460) = 1610 + 1840 = 3450\\ \\mathrm{kJ\\ mol^{-1}}\n$$\n\n4. Combine them using $\\Delta H = \\text{bonds broken} - \\text{bonds formed}$. Breaking bonds is endothermic and forming bonds is exothermic, so more energy released than absorbed gives a negative answer.\n\n$$\n\\Delta H = 2632 - 3450 = -818\\ \\mathrm{kJ\\ mol^{-1}}\n$$\n\nThis is only an estimate. Tabulated values are average bond energies, taken over many different molecules, but the energy of a bond depends on its molecular environment.\n\nFor example, the C–H bond in methane is not quite the same as in other compounds, and the C=O in CO₂ differs from C=O in other molecules. Also, the equation here gives gaseous water, whereas the standard enthalpy change of combustion refers to liquid water.\n\nThe experimental value is therefore noticeably different (roughly −890 kJ mol⁻¹).\n\nWould you like to try the same method on ethane or ethanol yourself next, or should I go through why gaseous water matters in more detail?",
+     "checked": [],
+     "unchecked": 3
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "tail. Never disclose a solution to an open question. Ask the student to try before giving away an answer. Do not claim calculations or proof have been verified unless verification is supplied.\nSTUDENT ASKS: Can you work an example of finding the enthalpy change of burning methane from bond energies?",
+  "reply": {
+   "blocks": [
+    {
+     "kind": "paragraph",
+     "text": "Add up the energy needed to break all the bonds in the reactants, subtract the energy released when the bonds in the products form, and you get an estimate of about −818 kJ mol⁻¹ for burning methane (using the average bond energies below)."
+    },
+    {
+     "kind": "step",
+     "text": "Write the balanced equation with every substance as a gas, because bond energies refer to gaseous molecules. Then draw out the bonds: CH₄ has 4 C–H, O₂ has O=O, CO₂ has 2 C=O, and H₂O has 2 O–H."
+    },
+    {
+     "kind": "equation",
+     "text": "\\mathrm{CH_4(g) + 2O_2(g) \\rightarrow CO_2(g) + 2H_2O(g)}"
+    },
+    {
+     "kind": "step",
+     "text": "Count the bonds broken in the reactants: 4 C–H in one CH₄, and 2 O=O in two O₂. Use these average bond energies: C–H = 410, O=O = 496, C=O = 805 and O–H = 460, all in kJ mol⁻¹. Check them against your own data table, as values vary slightly between sources."
+    },
+    {
+     "kind": "equation",
+     "text": "\\text{Energy in} = (4\\times 410) + (2\\times 496) = 1640 + 992 = 2632\\ \\mathrm{kJ\\ mol^{-1}}"
+    },
+    {
+     "kind": "step",
+     "text": "Count the bonds formed in the products: 2 C=O in one CO₂, and 2 O–H in each of two H₂O, giving 4 O–H altogether."
+    },
+    {
+     "kind": "equation",
+     "text": "\\text{Energy out} = (2\\times 805) + (4\\times 460) = 1610 + 1840 = 3450\\ \\mathrm{kJ\\ mol^{-1}}"
+    },
+    {
+     "kind": "step",
+     "text": "Combine them using $\\Delta H = \\text{bonds broken} - \\text{bonds formed}$. Breaking bonds is endothermic and forming bonds is exothermic, so more energy released than absorbed gives a negative answer."
+    },
+    {
+     "kind": "equation",
+     "text": "\\Delta H = 2632 - 3450 = -818\\ \\mathrm{kJ\\ mol^{-1}}"
+    },
+    {
+     "kind": "paragraph",
+     "text": "This is only an estimate. Tabulated values are average bond energies, taken over many different molecules, but the energy of a bond depends on its molecular environment. For example, the C–H bond in methane is not quite the same as in other compounds, and the C=O in CO₂ differs from C=O in other molecules. Also, the equation here gives gaseous water, whereas the standard enthalpy change of combustion refers to liquid water. The experimental value is therefore noticeably different (roughly −890 kJ mol⁻¹)."
+    },
+    {
+     "kind": "paragraph",
+     "text": "Would you like to try the same method on ethane or ethanol yourself next, or should I go through why gaseous water matters in more detail?"
+    }
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": " ethanol.\nNotes figures (figure = id): 9701-5-1-notes-bond-environment (Shows that a bond energy depends on its molecular environment, so tabulated averages are estimates)\nTerms: Exact bond energy; Average bond energy; Molecular environment\nQuestion forms: 0: Explain exact versus average bond energy",
+  "reply": {
+   "actions": [
+    {
+     "action": "explain",
+     "section": "self_explain"
+    },
+    {
+     "action": "check",
+     "form": 0
+    }
+   ],
+   "sections": [
+    "9701-5.1.6"
+   ]
+  },
+  "ok": true,
+  "msg": ""
+ },
+ {
+  "prompt_tail": "w is not evidence of the required claim. Do not infer an unstated mechanism or award a missing point because another point was discussed. In why, identify the shortest relevant student quotation or say it was not stated; never use the correct answer you supplied as evidence that the student said it.",
+  "reply": {
+   "points": [
+    {
+     "point": "Tabulated bond energies are average values (means).",
+     "met": true,
+     "why": "Stated: \"Bond energies in the table are average values\"."
+    },
+    {
+     "point": "Averaged over the same bond in different molecules or environments.",
+     "met": true,
+     "why": "Stated: \"average values taken over many different molecules\"."
+    },
+    {
+     "point": "So the actual bond energy in this molecule may differ and the result is only an estimate.",
+     "met": true,
+     "why": "Stated: \"the real bond energy in ethanol is a bit different from the average\" and \"the calculation is only an estimate\"."
+    }
+   ],
+   "feedback": "All three mark points are clearly met: averages, taken over different molecules, so ethanol's actual bond energies differ and the result is an estimate. Full marks."
+  },
+  "ok": true,
+  "msg": ""
+ }
+]

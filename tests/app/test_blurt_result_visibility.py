@@ -19,7 +19,7 @@ def test_checked_blurt_recall_result_is_visible(tmp_path, monkeypatch, size, lon
         async with app.run_test(size=size) as pilot:
             await pilot.pause()
             menu = app.screen.query_one("#menu")
-            menu.highlighted = [o.id for o in menu.options].index("blurt")
+            menu.reveal("blurt")
             await pilot.press("enter")
             await pilot.pause()
             await pilot.press("enter")

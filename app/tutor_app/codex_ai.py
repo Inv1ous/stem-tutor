@@ -153,8 +153,9 @@ class CodexAI:
                 args += ["--output-schema", str(schema_file)]
             images = dict.fromkeys(path for message in messages for path in message.get("images", []))
             for path in images:
-                if Path(path).is_file():
-                    args += ["--image", path]
+                if not Path(path).is_file():
+                    raise CodexError('A question image is missing; the complete source could not be supplied.')
+                args += ["--image", path]
             args.append("-")
             env = {key: value for key, value in os.environ.items() if key not in (
                 "OPENAI_API_KEY", "CODEX_API_KEY", "CODEX_ACCESS_TOKEN", "OPENAI_BASE_URL", "OPENAI_API_BASE",
@@ -281,7 +282,8 @@ class CodexAI:
                 self._lock.release()
 
     async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None,
-                       timeout: float = 120, system: str | None = None, speech: bool = False, think: bool = False):
+                       timeout: float = 120, system: str | None = None, speech: bool = False, think: bool = False,
+                       images: list[Path] | None = None):
         acquired = False
         generation = self._generation
         deadline = time.monotonic() + timeout
@@ -291,13 +293,22 @@ class CodexAI:
             if generation != self._generation:
                 raise asyncio.CancelledError
             name = self._check(model)
+            paths = []
+            for image in images or []:
+                image = Path(image)
+                if image.suffix.lower() not in MEDIA or not image.is_file():
+                    raise CodexError('A question image is missing or unsupported; mark this answer manually.')
+                paths.append(str(image.resolve()))
             if speech and self.speech and schema:
                 props = schema.get("properties", {})
                 schema = {**schema, "properties": {**props, "speech": {"type": "string"}},
                           "required": list(dict.fromkeys([*schema.get("required", list(props)), "speech"]))}
                 prompt += f"\n\n{SPEECH_FIELD}"
             parts, usage, completed = [], {}, False
-            async with aclosing(self._events([{"role": "user", "content": prompt}], name, think,
+            message = {"role": "user", "content": prompt}
+            if paths:
+                message['images'] = paths
+            async with aclosing(self._events([message], name, think,
                                              system or self.system, schema, deadline)) as events:
                 async for event in events:
                     if text := self._event_text(event):

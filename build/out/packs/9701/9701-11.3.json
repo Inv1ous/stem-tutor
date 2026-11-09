@@ -36,6 +36,14 @@
    "refutation": "AgBr is cream; white is AgCl.",
    "contrast": "AgI is yellow.",
    "source": "CAIE 9701 · Nov 2023 · P13 · Q23"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-11.3.2",
+   "statement": "Iodide must produce sulfur dioxide, sulfur and hydrogen sulfide together in every reaction with concentrated sulfuric acid.",
+   "refutation": "Write the pathway specified by the evidence. Different extents of sulfur reduction are possible; no single experiment must show them all.",
+   "contrast": "Possible sulfur oxidation states are plus four, zero and minus two; the observed pathway depends on conditions.",
+   "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf p.8; build/work/bundles/9701-11.3.md 9701_w19_12_q17"
   }
  ],
  "worked": [
@@ -1853,7 +1861,160 @@
    "connect": "Use the trend to predict whether a halide will reduce a halogen or concentrated sulfuric acid. Name the halide as the reducing agent when it loses electrons.",
    "note": "- Halide-ion reducing strength: $\\ce{F- < Cl- < Br- < I-}$.\n- A reducing agent loses electrons and is oxidised.\n- Iodide can reduce sulfuric acid more extensively than bromide; chloride does not reduce it.",
    "self_explain": "Why does bromide form bromine with concentrated sulfuric acid but chloride does not form chlorine?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Start from electron transfer: oxidation means losing electrons, and a reducing agent supplies those electrons to another species. Halide ions lower in Group 17 have more occupied shells, greater ionic radius and more shielding. Their outer electrons experience weaker attraction to the nucleus and are lost more readily, despite the greater nuclear charge. Reducing strength therefore increases down the group. Keep the particles distinct: halide ions donate electrons, whereas halogen molecules accept electrons; halogen oxidising strength decreases down the group.",
+   "terms": [
+    {
+     "term": "halide ion",
+     "meaning": "A negatively charged ion of a halogen with one extra electron.",
+     "notation": "$\\ce{X-}$",
+     "spoken": "X minus",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.2–3"
+    },
+    {
+     "term": "reducing agent",
+     "meaning": "An electron donor that is itself oxidised.",
+     "notation": "$\\ce{2X- -> X2 + 2e-}$",
+     "spoken": "two X minus ions form X two and two electrons",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf p.2"
+    },
+    {
+     "term": "ionic radius",
+     "meaning": "A measure of ion size; the outer electrons are further from the nucleus in larger halide ions.",
+     "notation": "$r$",
+     "spoken": "ionic radius",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.2–3"
+    },
+    {
+     "term": "shielding",
+     "meaning": "Inner electrons reduce the attraction felt by outer electrons from the nucleus.",
+     "notation": "Inner electron shells",
+     "spoken": "shielding",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf p.2"
+    },
+    {
+     "term": "oxidising agent",
+     "meaning": "An electron acceptor that is itself reduced.",
+     "notation": "$\\ce{X2 + 2e- -> 2X-}$",
+     "spoken": "X two accepts two electrons to form two X minus ions",
+     "source": "build/work/bundles/9701-11.3.md prerequisite 9701-11.2.1"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Predict a halide–halogen redox direction",
+     "wordings": [
+      "Predict whether a halide reduces a halogen and explain your choice.",
+      "Write a balanced ionic equation and identify the reducing agent."
+     ],
+     "example": "Worked example: compare bromine water added to aqueous sodium iodide with iodine added to aqueous sodium bromide.\n1. Identify the donor as a halide ion and the acceptor as a halogen molecule. Iodide is a stronger reducing agent than bromide.\n2. Write the electron loss: $\\ce{2I-(aq) -> I2(aq) + 2e-}$. Write the electron gain: $\\ce{Br2(aq) + 2e- -> 2Br-(aq)}$.\n3. Cancel electrons: $\\ce{Br2(aq) + 2I-(aq) -> 2Br-(aq) + I2(aq)}$. Iodide is oxidised and is the reducing agent; bromine is reduced and is the oxidising agent.\n4. Reversing the reagents does not give displacement: bromide cannot reduce iodine under these aqueous conditions.",
+     "check": "Chlorine water is added to aqueous potassium iodide. Predict whether displacement occurs, write the balanced ionic equation with states and name both agents. Explain why iodide loses electrons more readily than chloride using radius and shielding.",
+     "answer": "Displacement occurs: $\\ce{Cl2(aq) + 2I-(aq) -> 2Cl-(aq) + I2(aq)}$. Iodide is the reducing agent and chlorine is the oxidising agent. Iodide has a larger ionic radius and more inner-shell shielding than chloride, so its outer electrons experience weaker nuclear attraction and are lost more readily.",
+     "rubric": [
+      {
+       "point": "Predict displacement of iodide by chlorine.",
+       "keywords": [
+        [
+         "displacement",
+         "reacts",
+         "reaction occurs"
+        ]
+       ]
+      },
+      {
+       "point": "Give the balanced ionic equation with states: one aqueous chlorine molecule and two aqueous iodide ions form two aqueous chloride ions and one aqueous iodine molecule.",
+       "keywords": [
+        [
+         "Cl2",
+         "chlorine"
+        ],
+        [
+         "2I-",
+         "two iodide"
+        ],
+        [
+         "2Cl-",
+         "two chloride"
+        ],
+        [
+         "I2",
+         "iodine"
+        ],
+        [
+         "aq",
+         "aqueous"
+        ]
+       ]
+      },
+      {
+       "point": "Identify iodide as the reducing agent: it loses electrons.",
+       "keywords": [
+        [
+         "iodide",
+         "I-"
+        ],
+        [
+         "reducing agent",
+         "electron donor"
+        ]
+       ]
+      },
+      {
+       "point": "Identify chlorine as the oxidising agent: it gains electrons.",
+       "keywords": [
+        [
+         "chlorine",
+         "Cl2"
+        ],
+        [
+         "oxidising agent",
+         "electron acceptor"
+        ]
+       ]
+      },
+      {
+       "point": "Iodide has greater radius and shielding than chloride, giving weaker attraction and easier electron loss.",
+       "keywords": [
+        [
+         "larger",
+         "greater"
+        ],
+        [
+         "radius",
+         "size"
+        ],
+        [
+         "shielding"
+        ],
+        [
+         "weaker attraction",
+         "less attraction",
+         "less strongly attracted"
+        ],
+        [
+         "lose",
+         "loss",
+         "donate"
+        ]
+       ]
+      }
+     ],
+     "source": "build/work/bundles/9701-11.3.md 9701_w21_12_q15, 9701_w23_11_q23; SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.2–3 (trend mechanism). Original example and check, not copied paper questions."
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "Chloride is the strongest reducing halide.",
+     "temptation": "Transfer the halogens' oxidising trend directly to their negative ions.",
+     "fix": "Ask whether electrons are being gained or lost. Halide reducing strength increases down the group; halogen oxidising strength decreases."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "This form needs particle identities and paired electron-transfer equations; the staged equations make the direction explicit. The plan permits a visual exception. No reviewed, registered ionic-radius graphic has been verified for this candidate.",
+   "source_gaps": [
+    "The bundle supplies official MCQ keys and a prerequisite statement, but no complete written-response mark scheme for this original form; its rubric is author-written and awaits independent review."
+   ]
   },
   "9701-11.3.2": {
    "motivate": "Three colourless halide solutions can be distinguished by the colour of their silver precipitates and their responses to ammonia. A dry salt's reaction with concentrated sulfuric acid gives a second line of evidence.",
@@ -1861,7 +2022,298 @@
    "connect": "The stronger reducing power down Group 17 explains the increasingly extensive reduction of sulfuric acid. The silver test distinguishes the ions through precipitation and ammonia solubility.",
    "note": "- $\\ce{AgCl}$ white, dissolves in dilute ammonia.\n- $\\ce{AgBr}$ cream, dissolves in concentrated ammonia.\n- $\\ce{AgI}$ yellow, insoluble in ammonia.\n- Chloride gives HCl only with concentrated sulfuric acid; bromide and iodide also cause redox.",
    "self_explain": "A cream precipitate dissolves only in concentrated ammonia. Which halide ion was present, and how would it react with concentrated sulfuric acid?",
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Use two separate methods. For identification, use an aqueous sample, add dilute nitric acid before aqueous silver nitrate, and record the precipitate colour. Then test the precipitate with dilute ammonia and, if it remains, sufficiently concentrated ammonia in excess. White silver chloride dissolves in dilute ammonia, cream silver bromide requires concentrated ammonia, and yellow silver iodide remains. For a solid halide with concentrated sulfuric acid, first recognise proton transfer to form a hydrogen halide; only then decide whether electron transfer follows. Sulfur may be reduced to different products by iodide: these are possible pathways, not a requirement that every product appears in every experiment.",
+   "terms": [
+    {
+     "term": "precipitate",
+     "meaning": "An insoluble solid formed when solutions react.",
+     "notation": "$\\ce{AgX(s)}$",
+     "spoken": "solid silver halide",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.3–5"
+    },
+    {
+     "term": "aqueous",
+     "meaning": "Dissolved in water; dissolve a soluble salt in water before the silver-ion test.",
+     "notation": "$\\ce{(aq)}$",
+     "spoken": "aqueous",
+     "source": "https://edu.rsc.org/download?ac=17362; https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article (indexed RSC practical guidance: aqueous sample, dilute nitric acid, then silver nitrate; direct retrieval unavailable)"
+    },
+    {
+     "term": "acidified silver nitrate test",
+     "meaning": "Add dilute nitric acid to the aqueous sample before adding aqueous silver nitrate.",
+     "notation": "$\\ce{Ag+(aq) + X-(aq) -> AgX(s)}$",
+     "spoken": "aqueous silver ions plus aqueous halide ions form solid silver halide",
+     "source": "https://edu.rsc.org/download?ac=17362; https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article (indexed RSC practical guidance: aqueous sample, dilute nitric acid, then silver nitrate; direct retrieval unavailable); SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.3–5"
+    },
+    {
+     "term": "aqueous ammonia",
+     "meaning": "The reagent used after precipitation; specify dilute or concentrated because the silver halides differ in solubility.",
+     "notation": "$\\ce{NH3(aq)}$",
+     "spoken": "aqueous ammonia",
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.5–6"
+    },
+    {
+     "term": "acid–base reaction",
+     "meaning": "Proton transfer; a halide accepts a proton to form a hydrogen halide without changing oxidation number.",
+     "notation": "$\\ce{X- + H+ -> HX}$",
+     "spoken": "X minus accepts H plus to form H X",
+     "source": "build/work/bundles/9701-11.3.md; SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.6–8"
+    },
+    {
+     "term": "oxidation number",
+     "meaning": "A bookkeeping value used to recognise redox; an increase indicates oxidation and a decrease indicates reduction.",
+     "notation": "$+6 \\to +4$",
+     "spoken": "plus six to plus four",
+     "source": "build/work/bundles/9701-11.3.md 9701_s25_12_q20"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Identify halides from silver nitrate and successive ammonia observations",
+     "wordings": [
+      "Describe the reagent sequence and deduce the halide ions present.",
+      "Explain the precipitate and its behaviour in dilute and concentrated ammonia."
+     ],
+     "example": "Worked example: a solution contains one of chloride, bromide or iodide. A cream precipitate forms with silver nitrate after acidification.\n1. Start with the aqueous sample. Add dilute nitric acid, then aqueous silver nitrate; acidification comes before precipitation.\n2. Record cream solid, not a cream solution: $\\ce{Ag+(aq) + Br-(aq) -> AgBr(s)}$.\n3. The solid remains in dilute aqueous ammonia but dissolves in excess concentrated aqueous ammonia, giving a colourless solution.\n4. The two observations together identify bromide. Colour alone is less reliable than colour combined with ammonia behaviour.",
+     "check": "An aqueous sample contains exactly two of chloride, bromide and iodide, with no other precipitating ions. Describe the acidification and precipitation reagents in order. Some precipitate dissolves in excess dilute ammonia; after treating the remaining solid with excess concentrated ammonia a yellow residue remains. Identify the two halides and the residue, explain both ammonia observations, and write the two precipitation equations with states.",
+     "answer": "Add dilute nitric acid, then aqueous silver nitrate. Chloride and iodide are present. Silver chloride dissolves in dilute ammonia; silver iodide remains as the yellow residue even in concentrated ammonia. Bromide is excluded because exactly two halides are present and both have been identified. $\\ce{Ag+(aq) + Cl-(aq) -> AgCl(s)}$ and $\\ce{Ag+(aq) + I-(aq) -> AgI(s)}$. Do not infer composition from the blended initial colour.",
+     "rubric": [
+      {
+       "point": "Use an aqueous sample; add dilute nitric acid before aqueous silver nitrate.",
+       "keywords": [
+        [
+         "aqueous",
+         "solution"
+        ],
+        [
+         "dilute nitric acid",
+         "dilute HNO3"
+        ],
+        [
+         "before",
+         "then",
+         "followed"
+        ],
+        [
+         "silver nitrate",
+         "AgNO3"
+        ]
+       ]
+      },
+      {
+       "point": "Identify chloride because silver chloride dissolves in dilute ammonia.",
+       "keywords": [
+        [
+         "chloride",
+         "AgCl"
+        ],
+        [
+         "dissolves",
+         "soluble"
+        ],
+        [
+         "dilute"
+        ]
+       ]
+      },
+      {
+       "point": "Identify iodide and the yellow residue as silver iodide, insoluble even in concentrated ammonia.",
+       "keywords": [
+        [
+         "iodide",
+         "AgI"
+        ],
+        [
+         "yellow"
+        ],
+        [
+         "insoluble",
+         "remains",
+         "does not dissolve"
+        ],
+        [
+         "concentrated"
+        ]
+       ]
+      },
+      {
+       "point": "Give the balanced precipitation equation for chloride with aqueous silver and chloride ions and solid silver chloride.",
+       "keywords": [
+        [
+         "Ag+",
+         "silver ions"
+        ],
+        [
+         "Cl-",
+         "chloride ions"
+        ],
+        [
+         "AgCl",
+         "silver chloride"
+        ],
+        [
+         "aq",
+         "aqueous"
+        ],
+        [
+         "(s)",
+         "solid"
+        ]
+       ]
+      },
+      {
+       "point": "Give the balanced precipitation equation for iodide with aqueous silver and iodide ions and solid silver iodide.",
+       "keywords": [
+        [
+         "Ag+",
+         "silver ions"
+        ],
+        [
+         "I-",
+         "iodide ions"
+        ],
+        [
+         "AgI",
+         "silver iodide"
+        ],
+        [
+         "aq",
+         "aqueous"
+        ],
+        [
+         "(s)",
+         "solid"
+        ]
+       ]
+      }
+     ],
+     "source": "SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.3–6; https://edu.rsc.org/download?ac=17362; https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article (indexed RSC practical guidance: aqueous sample, dilute nitric acid, then silver nitrate; direct retrieval unavailable); build/work/bundles/9701-11.3.md 9701_w24_12_q22 and 9701_s25_13_q17. Mixture check is an original deduction from these solubilities."
+    },
+    {
+     "name": "Distinguish acid–base and redox with concentrated sulfuric acid",
+     "wordings": [
+      "Write separate acid–base and redox equations and identify the agents.",
+      "Use oxidation numbers to distinguish possible sulfur products from compulsory observations."
+     ],
+     "example": "Worked example: explain the reaction of solid sodium bromide with concentrated sulfuric acid.\n1. First form hydrogen bromide by proton transfer: $\\ce{NaBr(s) + H2SO4(l) -> NaHSO4(s) + HBr(g)}$. Bromine stays at $-1$ and sulfur stays at $+6$: this step is acid–base, not redox.\n2. Hydrogen bromide then reduces sulfuric acid: $\\ce{2HBr(g) + H2SO4(l) -> Br2(g) + SO2(g) + 2H2O(l)}$. Reddish-brown bromine is formed.\n3. Bromine changes from $-1$ to $0$; two bromide ions lose two electrons overall. Sulfur changes from $+6$ to $+4$, gaining two electrons. This checks the balanced redox step.\n4. Bromide (or hydrogen bromide) is the reducing agent; sulfuric acid is the oxidising agent in this second step. The acid therefore has different roles in the two steps.",
+     "check": "In one possible reaction of iodide with concentrated sulfuric acid, sulfate is reduced to hydrogen sulfide and iodide is oxidised to iodine. In acidic conditions, write balanced ionic half-equations for these two changes, then state how many iodide ions supply the electrons needed to reduce one sulfate ion. Identify the oxidising and reducing agents. State symbols are not required.",
+     "answer": "Reduction: $\\ce{SO4^2- + 10H+ + 8e- -> H2S + 4H2O}$. Oxidation: $\\ce{2I- -> I2 + 2e-}$. Eight iodide ions supply eight electrons per sulfate ion. Sulfuric acid (or sulfate) is the oxidising agent and iodide (or hydrogen iodide) is the reducing agent. Equivalent balanced multiples are acceptable.",
+     "rubric": [
+      {
+       "point": "Give a balanced sulfate-to-hydrogen sulfide reduction half-equation in acid, with eight electrons on the left; accept equivalent balanced multiples.",
+       "keywords": [
+        [
+         "SO4",
+         "sulfate"
+        ],
+        [
+         "H2S",
+         "hydrogen sulfide"
+        ],
+        [
+         "8e",
+         "eight electrons"
+        ],
+        [
+         "H2O",
+         "water"
+        ]
+       ]
+      },
+      {
+       "point": "Give a balanced iodide-to-iodine oxidation half-equation with electrons on the right; accept equivalent balanced multiples.",
+       "keywords": [
+        [
+         "I-",
+         "iodide"
+        ],
+        [
+         "I2",
+         "iodine"
+        ],
+        [
+         "e-",
+         "electron"
+        ]
+       ]
+      },
+      {
+       "point": "State eight iodide ions supply the electrons to reduce one sulfate ion.",
+       "keywords": [
+        [
+         "8",
+         "eight"
+        ],
+        [
+         "iodide",
+         "I-"
+        ]
+       ]
+      },
+      {
+       "point": "Identify sulfuric acid or sulfate as oxidising agent and iodide or hydrogen iodide as reducing agent.",
+       "keywords": [
+        [
+         "sulfuric acid",
+         "sulfate",
+         "H2SO4",
+         "SO4"
+        ],
+        [
+         "oxidising agent",
+         "oxidizing agent"
+        ],
+        [
+         "iodide",
+         "hydrogen iodide",
+         "HI"
+        ],
+        [
+         "reducing agent"
+        ]
+       ]
+      }
+     ],
+     "source": "build/work/bundles/9701-11.3.md 9701_w22_13_q21, 9701_s25_12_q20, 9701_w19_12_q17; SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.3.pdf pp.6–8; SaveMyExams/TQ 9701 a-level-chemistry-cie-25-questions-only/TQ 9701 c11.3.pdf p.7 (acid/redox distinction)."
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "All silver halides dissolve in dilute ammonia.",
+     "temptation": "Remember that ammonia dissolves one silver precipitate and apply it to every halide.",
+     "fix": "Specify concentration: dilute dissolves silver chloride, concentrated is needed for silver bromide, and silver iodide remains."
+    },
+    {
+     "id": "m2",
+     "idea": "Concentrated sulfuric acid oxidises chloride to chlorine.",
+     "temptation": "Assume any reaction with an oxidising acid must be redox.",
+     "fix": "Check oxidation numbers: forming hydrogen chloride transfers a proton and leaves chlorine at minus one."
+    },
+    {
+     "id": "m5",
+     "idea": "Iodide must produce sulfur dioxide, sulfur and hydrogen sulfide together in every reaction with concentrated sulfuric acid.",
+     "temptation": "Treat the list of possible reduction products as a compulsory observation list.",
+     "fix": "Write the pathway specified by the evidence. Different extents of sulfur reduction are possible; no single experiment must show them all."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "The plan permits a visual exception. The identification form uses a reagent sequence and solubility observations, and the sulfuric-acid form uses paired equations and oxidation numbers. No already-reviewed registered Library graphic was verified for these forms; text states colours and concentrations explicitly.",
+   "source_gaps": [
+    "RSC indexed guidance confirms practical order and aqueous testing, but its linked download and article could not be retrieved directly; ammonia concentration distinctions were checked against the Library notes pp.5–6.",
+    "The questions-only topical p.7 has no mark scheme; full chemical pathways were cross-checked against Library notes pp.6–8 and official keyed MCQs in the bundle. Original written-response rubrics require independent review.",
+    "The Library notes use inconsistent state symbols for concentrated acid and sodium hydrogensulfate; equations here follow the chapter bundle and note conventions, and checks do not penalise reasonable condition-dependent states."
+   ]
   }
+ },
+ "guided_forms": {
+  "9701-11.3.1": [
+   "Predict a halide–halogen redox direction"
+  ],
+  "9701-11.3.2": [
+   "Identify halides from silver nitrate and successive ammonia observations",
+   "Distinguish acid–base and redox with concentrated sulfuric acid"
+  ]
  }
 }

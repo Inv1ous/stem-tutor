@@ -49,3 +49,13 @@ Before launching paid work, run the repository's `bin/foundry doctor`. Honor the
 Classify the blocker first: protected PDF/source damage requires source-bound independent correction review; incomplete forms require every reviewed inventory entry; missing visuals require verified files bound to the relevant card; written checks require independent solving and review. Never fill content with placeholders or invent symbols.
 
 After two failures for a role in the same pass/job, preserve candidate work and report the blocker. Never automatically call unstick, add a new pass to bypass the guard, renew a course budget, or overwrite a baseline/review record. Clear failures only after explicit operator direction, with a recorded reason. Verify the actual learner path before claiming the material is active or ready.
+
+## Leak check
+
+`/extract leaks JOB` (or `bin/extract leaks --vault VAULT [--courses 9701,P1]`) runs the question-media
+leak gate in plan mode: it prints delete/review/keep counts and writes `ai-review.json`. Data-sheet,
+periodic-table, constants pages and thin `g = 9.81` strips are never question media; MCQ periodic-table
+dependence uses Data Booklet wording. Have an AI worker visually review the flagged tiny/blank images
+and record verdicts in the `ai-review-verdicts.json` format. `--apply` (vault only) prunes unreferenced
+leaks through `build/prune_question_leaks.py` with a journal and catalog backup; use it only when the user
+asked for pruning. Candidate files are repaired by the worker, never pruned.

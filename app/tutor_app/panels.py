@@ -34,6 +34,8 @@ class Panel(Vertical):
             super().__init__()
 
     def finish(self, data: dict) -> None:
+        if getattr(self, "processing", None):
+            return
         self.post_message(self.Done(data, self))
 
     def on_mount(self) -> None:
@@ -243,7 +245,8 @@ class LongPanel(Panel):
 
     def compose(self) -> ComposeResult:
         if self.ungraded:
-            yield _hint(f"Q{self.n}: type your working, then ctrl+s. It will be saved without marking or prerequisite support.")
+            yield _hint(f"Q{self.n}: type your working, then ctrl+s. It will be saved without marking or prerequisite support. "
+                        "Type 'I don't know' to close the retry and keep it on your review list.")
         else:
             yield _hint(f"Q{self.n}: write your full working and answer (units!), then ctrl+s. "
                         "Working on paper or the iPad instead? Type 'done on paper', ctrl+s, and self-mark from the scheme.")
@@ -294,6 +297,48 @@ class TickList(SelectionList):
         # mark on the cursor's background can't be read
         mark = side + (Style(bold=on) if index == self.highlighted else Style(color=C["tutor"] if on else C["muted"], bold=on))
         return Strip([Segment(" ", side), Segment("✓" if on else "☐", mark), Segment(" ", side), *segments[3:]])
+
+
+class WholeRubricPanel(Panel):
+    """An explicit human integer award, without invented feature allocations."""
+    BINDINGS = [Binding('ctrl+s', 'confirm', show=False)]
+
+    def __init__(self, point: str, max_marks: int, media_count: int) -> None:
+        super().__init__(classes='panel')
+        self.point, self.max_marks, self.media_count = point, max_marks, media_count
+        self.submitted = False
+
+    def compose(self) -> ComposeResult:
+        yield _hint(f'Human marking only · official maximum {self.max_marks}. '
+                    + (f'Open all {self.media_count} official rubric image(s) in Now before awarding marks.'
+                       if self.media_count else 'Review the official rubric above before awarding marks.'))
+        yield Input(placeholder=f'Earned marks: integer 0–{self.max_marks}', id='whole-award')
+        yield Static('', id='whole-error', classes='hint')
+        with Horizontal(classes='buttons'):
+            yield Button('Record human award (ctrl+s)', id='whole-record', variant='primary', compact=True)
+            yield Button('Cancel / keep draft', id='whole-cancel', compact=True)
+
+    def on_mount(self) -> None:
+        super().on_mount()
+        self.shown = time.monotonic()
+
+    def action_confirm(self) -> None:
+        if self.submitted or time.monotonic() - self.shown < .5:
+            return
+        value = self.query_one('#whole-award', Input).value.strip()
+        if not value.isascii() or not value.isdecimal() or not 0 <= int(value) <= self.max_marks:
+            self.query_one('#whole-error', Static).update(f'Enter an integer from 0 to {self.max_marks}.')
+            return
+        self.submitted = True
+        self.finish({'whole_award': int(value)})
+
+    @on(Button.Pressed, '#whole-record')
+    def record_award(self) -> None:
+        self.action_confirm()
+
+    @on(Button.Pressed, '#whole-cancel')
+    def cancel_award(self) -> None:
+        self.finish({'whole_cancel': True})
 
 
 class TickPanel(Panel):
@@ -412,6 +457,9 @@ class ContinuePanel(Panel):
             draft, typing = (composer.text, composer.has_focus) if composer else ('', False)
             selection = composer.selection if composer else None
             await self.recompose()
+            if getattr(self, "processing", None):
+                for button in self.query(Button):
+                    button.disabled = True
             if composer:
                 box = self.query_one('#learning-question', Composer)
                 box.text = draft
@@ -452,7 +500,7 @@ class LessonPanel(ContinuePanel):
     @on(Composer.Submitted, '#learning-question')
     def learning_question(self, event: Composer.Submitted) -> None:
         event.stop()
-        if event.value.strip():
+        if event.value.strip() and not getattr(self, 'processing', None):
             event.composer.text = ''
             self.finish({'learn_question': event.value.strip()})
 

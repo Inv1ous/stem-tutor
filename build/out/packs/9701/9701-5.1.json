@@ -2927,7 +2927,140 @@
     "answer": "C",
     "explanation": "The solution gains energy because the reacting system loses it. Confusing those two systems reverses the sign."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A reaction can move energy between the chemicals and their surroundings. If the surroundings get warmer, the reaction is exothermic and $\\Delta H$ is negative. If they get colder, it is endothermic and $\\Delta H$ is positive.",
+   "terms": [
+    {
+     "term": "Enthalpy change",
+     "meaning": "The heat transferred at constant pressure in a reaction; products minus reactants.",
+     "notation": "$\\Delta H$",
+     "spoken": "delta H",
+     "source": "CAIE 9701 syllabus 5.1.1; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.2"
+    },
+    {
+     "term": "Exothermic",
+     "meaning": "Energy is transferred from the reacting system to the surroundings; the surroundings warm up.",
+     "notation": "$\\Delta H<0$",
+     "spoken": "delta H is less than zero",
+     "source": "CAIE 9701 syllabus 5.1.1; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.2"
+    },
+    {
+     "term": "Endothermic",
+     "meaning": "Energy is absorbed from the surroundings; the surroundings cool down.",
+     "notation": "$\\Delta H>0$",
+     "spoken": "delta H is greater than zero",
+     "source": "CAIE 9701 syllabus 5.1.1; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.3"
+    },
+    {
+     "term": "System and surroundings",
+     "meaning": "The system is the reacting chemicals; the surroundings are everything else, such as the solution, the flask and the air.",
+     "notation": "none",
+     "spoken": "system; surroundings",
+     "source": "CAIE 9701 syllabus 5.1.1; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.3 Examiner Tips"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Deduce exothermic or endothermic from an observation",
+     "wordings": [
+      "State whether the reaction is exothermic or endothermic and give the sign of $\\Delta H$.",
+      "Deduce the sign of the enthalpy change for this reaction.",
+      "Explain why the reaction is described as exothermic."
+     ],
+     "example": "**Observation:** Two solutions are mixed in a polystyrene cup. The thermometer rises from $20.0\\,^{\\circ}\\mathrm C$ to $26.0\\,^{\\circ}\\mathrm C$.\n\n- The surroundings (the solution) gain energy, so energy has left the reacting chemicals.\n- The reaction is **exothermic**.\n- The products have lower enthalpy than the reactants, so $\\Delta H$ is negative.",
+     "check": "When solutions of citric acid and sodium hydrogencarbonate are mixed, the temperature of the mixture falls from $22.0\\,^{\\circ}\\mathrm C$ to $17.5\\,^{\\circ}\\mathrm C$. State whether the reaction is exothermic or endothermic, give the sign of $\\Delta H$ and say how the enthalpy of the products compares with that of the reactants.",
+     "answer": "The surroundings lose energy, so energy is absorbed by the reacting chemicals. The reaction is endothermic, $\\Delta H$ is positive, and the products have higher enthalpy than the reactants.",
+     "source": "CAIE 9701 syllabus 5.1.1; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.2-3",
+     "rubric": [
+      {
+       "point": "Identifies the reaction as endothermic because the temperature fell.",
+       "keywords": [
+        [
+         "endothermic"
+        ]
+       ]
+      },
+      {
+       "point": "Gives a positive enthalpy change.",
+       "keywords": [
+        [
+         "positive",
+         "+",
+         ">0",
+         "greater than zero"
+        ]
+       ]
+      },
+      {
+       "point": "States that the products have higher enthalpy than the reactants (energy absorbed from the surroundings).",
+       "keywords": [
+        [
+         "higher",
+         "more energy",
+         "greater"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A forward reaction releases 24 kJ for the stated reacting amount. For the same amount undergoing the reverse reaction, state the energy-transfer direction, the enthalpy change in kJ, and whether the reverse products have higher or lower enthalpy than its reactants.",
+      "answer": "The reverse reaction absorbs 24 kJ from the surroundings; its enthalpy change is +24 kJ and its products have higher enthalpy.",
+      "rubric": [
+       {
+        "point": "Reverse absorbs energy from the surroundings.",
+        "keywords": [
+         [
+          "absorb",
+          "taken in",
+          "takes in"
+         ],
+         [
+          "surroundings"
+         ]
+        ]
+       },
+       {
+        "point": "Reverse enthalpy is +24 kJ; the positive qualification must belong to 24.",
+        "keywords": [
+         [
+          "+24",
+          "+ 24",
+          "positive 24",
+          "24 kJ absorbed"
+         ]
+        ]
+       },
+       {
+        "point": "Reverse products have higher enthalpy than reverse reactants.",
+        "keywords": [
+         [
+          "products"
+         ],
+         [
+          "higher",
+          "greater"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m1",
+     "idea": "A reaction that makes its surroundings warm has positive $\\Delta H$.",
+     "temptation": "The temperature went up, so the number feels positive.",
+     "fix": "$\\Delta H$ is about the reacting system. The surroundings gain what the system loses, so warming means $\\Delta H<0$."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "Equations, verbal comparisons and a calculation table serve this outcome; the two existing energy profiles are bound to the pathway card. No additional drawing is requested by the plan.",
+   "source_gaps": [
+    "The reviewed inventory uses syllabus 5.1, the chapter bundle and Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.2–18; it is not an exhaustive audit of every examination paper.",
+    "The prepared forms focus on this KC; additional examination variants require separate source review before being declared covered."
+   ],
+   "prerequisite_bridge": "Start with conservation of energy: a gain by the surroundings comes from the reacting system. No earlier chapter KC is required."
   },
   "9701-5.1.2": {
    "motivate": "A reaction can release energy overall and still need ignition. A pathway diagram separates the barrier from the overall change.",
@@ -2946,7 +3079,361 @@
     "answer": "A",
     "explanation": "The forward reaction starts at the reactant level, so its barrier is measured from there, not from products or an arbitrary zero."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "A reaction pathway diagram plots enthalpy against progress of reaction. The peak shows the energy barrier, the activation energy, measured from the reactants. The overall enthalpy change is the gap from reactants to products.",
+   "terms": [
+    {
+     "term": "Reaction pathway diagram",
+     "meaning": "A graph of enthalpy against progress of reaction; also called an energy profile.",
+     "notation": "none",
+     "spoken": "reaction pathway diagram",
+     "source": "CAIE 9701 syllabus 5.1.2; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.4"
+    },
+    {
+     "term": "Activation energy",
+     "meaning": "The minimum energy needed for a successful collision, shown from the reactants up to the peak.",
+     "notation": "$E_a$",
+     "spoken": "E A",
+     "source": "CAIE 9701 syllabus 5.1.2; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.4"
+    },
+    {
+     "term": "Transition state",
+     "meaning": "The unstable highest-energy arrangement at the peak, with bonds partly broken and partly formed.",
+     "notation": "none",
+     "spoken": "transition state",
+     "source": "CAIE 9701 syllabus 5.1.2; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.4"
+    },
+    {
+     "term": "Enthalpy change on the diagram",
+     "meaning": "The vertical gap from the reactant level to the product level, drawn with its sign.",
+     "notation": "$\\Delta H$",
+     "spoken": "delta H",
+     "source": "CAIE 9701 syllabus 5.1.2; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.9 Examiner Tips"
+    },
+    {
+     "term": "Reverse activation energy",
+     "meaning": "The gap from the product level up to the same peak.",
+     "notation": "$E_{a,\\mathrm{reverse}}$",
+     "spoken": "E A reverse",
+     "source": "CAIE 9701 syllabus 5.1.2; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.9"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Determine activation energy and enthalpy change from a pathway diagram",
+     "wordings": [
+      "Determine the activation energy of the forward and the reverse reaction.",
+      "Calculate the enthalpy change of the reaction from the diagram.",
+      "State the value of $E_a$ and $\\Delta H$."
+     ],
+     "example": "**Diagram levels:** reactants $40$, peak $90$, products $10$, all in $\\mathrm{kJ\\,mol^{-1}}$.\n\n- Forward $E_a=90-40=+50\\ \\mathrm{kJ\\,mol^{-1}}$ (reactants to peak).\n- $\\Delta H=10-40=-30\\ \\mathrm{kJ\\,mol^{-1}}$ (products minus reactants), so the reaction is exothermic.\n- Reverse $E_a=90-10=+80\\ \\mathrm{kJ\\,mol^{-1}}$ (products to peak).",
+     "check": "A reaction pathway diagram has reactants at $+15$, the peak at $+120$ and products at $+65$, all in $\\mathrm{kJ\\,mol^{-1}}$. Determine the forward activation energy, the enthalpy change of the reaction and the activation energy of the reverse reaction.",
+     "answer": "Forward $E_a=120-15=+105\\ \\mathrm{kJ\\,mol^{-1}}$. $\\Delta H=65-15=+50\\ \\mathrm{kJ\\,mol^{-1}}$ (endothermic). Reverse $E_a=120-65=+55\\ \\mathrm{kJ\\,mol^{-1}}$.",
+     "source": "CAIE 9701 syllabus 5.1.2; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.8-9",
+     "rubric": [
+      {
+       "point": "Forward activation energy is 105 kJ per mole (peak minus reactants).",
+       "keywords": [
+        [
+         "105"
+        ]
+       ]
+      },
+      {
+       "point": "Reaction enthalpy is positive 50 kJ mol−1; the positive sign or endothermic qualification must refer specifically to this 50 value, not an activation energy. Credit equivalent formatting only with this explicit association.",
+       "keywords": [
+        [
+         "+50",
+         "+ 50",
+         "positive 50",
+         "50 (positive)",
+         "50 kJ mol−1 (endothermic)",
+         "50 kJ mol^-1 (endothermic)",
+         "50 kJ/mol (endothermic)",
+         "endothermic, 50",
+         "endothermic: 50"
+        ]
+       ]
+      },
+      {
+       "point": "Reverse activation energy is 55 kJ per mole (peak minus products).",
+       "keywords": [
+        [
+         "55"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "On a pathway diagram the reactants are at $200$, the peak is at $260$ and the products are at $120$, all in $\\mathrm{kJ\\,mol^{-1}}$. Calculate the forward activation energy, $\\Delta H$ and the reverse activation energy.",
+      "answer": "Forward $E_a=260-200=+60\\ \\mathrm{kJ\\,mol^{-1}}$. $\\Delta H=120-200=-80\\ \\mathrm{kJ\\,mol^{-1}}$. Reverse $E_a=260-120=+140\\ \\mathrm{kJ\\,mol^{-1}}$.",
+      "rubric": [
+       {
+        "point": "Forward activation energy is 60 kJ per mole.",
+        "keywords": [
+         [
+          "60"
+         ]
+        ]
+       },
+       {
+        "point": "Enthalpy change is -80 kJ per mole, negative because the products are lower.",
+        "keywords": [
+         [
+          "-80",
+          "−80",
+          "minus 80",
+          "negative"
+         ],
+         [
+          "80"
+         ]
+        ]
+       },
+       {
+        "point": "Reverse activation energy is 140 kJ per mole.",
+        "keywords": [
+         [
+          "140"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Construct a reaction pathway diagram",
+     "wordings": [
+      "Sketch a reaction pathway diagram for this reaction. Label $\\Delta H$ and $E_a$.",
+      "Draw and label an enthalpy profile for the exothermic reaction."
+     ],
+     "example": "**Task:** Sketch a pathway diagram for an exothermic reaction.\n\n- Vertical axis: enthalpy. Horizontal axis: progress of reaction.\n- Draw the reactants as a horizontal level on the left, **higher** than the product level on the right.\n- Join them with a curve that rises to a peak above the reactants, then falls.\n- Draw an arrow from the reactants up to the peak and label it $E_a$.\n- Draw an arrow from the reactant level down to the product level and label it $\\Delta H$, a negative value.",
+     "check": "Describe how you would sketch and label a reaction pathway diagram for an endothermic reaction.",
+     "answer": "Label the vertical axis enthalpy and the horizontal axis progress of reaction. Draw the reactants on the left at a lower level than the products on the right. Draw a curve from reactants up to a peak that is higher than both levels, then down to the products. Label the arrow from reactants to the peak $E_a$, and the arrow from the reactant level up to the product level $\\Delta H$ (positive).",
+     "source": "CAIE 9701 syllabus 5.1.2; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.5-9",
+     "rubric": [
+      {
+       "point": "Vertical enthalpy/energy and horizontal progress of reaction axes.",
+       "keywords": [
+        [
+         "enthalpy",
+         "energy"
+        ],
+        [
+         "progress",
+         "extent"
+        ]
+       ]
+      },
+      {
+       "point": "Products higher than reactants.",
+       "keywords": [
+        [
+         "products"
+        ],
+        [
+         "higher",
+         "above"
+        ]
+       ]
+      },
+      {
+       "point": "Curve rises from reactants to a peak and falls to products, so the peak is above both levels. Credit this description without requiring the words above both; a peak below either level is incorrect.",
+       "keywords": [
+        [
+         "peak",
+         "maximum",
+         "hump"
+        ],
+        [
+         "above both",
+         "higher than both",
+         "above the reactants and products",
+         "higher than the reactants and products",
+         "fall",
+         "descend",
+         "down to"
+        ]
+       ]
+      },
+      {
+       "point": "Upward arrow FROM reactant level TO peak labelled Ea/activation energy; endpoints and label must belong to the same arrow. Accept an unambiguous equivalent labelled sketch.",
+       "keywords": [
+        [
+         "arrow"
+        ],
+        [
+         "reactant"
+        ],
+        [
+         "peak",
+         "maximum",
+         "hump"
+        ],
+        [
+         "E_a",
+         "Ea",
+         "activation energy"
+        ]
+       ]
+      },
+      {
+       "point": "Upward arrow FROM reactant level TO product level labelled ΔH/enthalpy change; endpoints and label must belong to the same arrow. Accept an unambiguous equivalent labelled sketch.",
+       "keywords": [
+        [
+         "arrow"
+        ],
+        [
+         "reactant"
+        ],
+        [
+         "product"
+        ],
+        [
+         "ΔH",
+         "delta H",
+         "enthalpy change"
+        ],
+        [
+         "up",
+         "positive"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "For a reaction with ΔH=+60 kJ mol−1 and forward Ea=+140 kJ mol−1, describe a labelled pathway sketch, including both arrow endpoints and the reverse activation energy.",
+      "answer": "Use vertical enthalpy and horizontal progress of reaction axes. Products are 60 kJ mol−1 above reactants; the peak is 140 above reactants and 80 above products. Label an upward reactants-to-peak arrow Ea and an upward reactants-to-products arrow ΔH. Reverse Ea=140−60=80 kJ mol−1.",
+      "rubric": [
+       {
+        "point": "Both axes and products 60 above reactants.",
+        "keywords": [
+         [
+          "enthalpy",
+          "energy"
+         ],
+         [
+          "progress",
+          "extent"
+         ],
+         [
+          "60"
+         ],
+         [
+          "above",
+          "higher"
+         ]
+        ]
+       },
+       {
+        "point": "Peak 140 above reactants.",
+        "keywords": [
+         [
+          "peak"
+         ],
+         [
+          "140"
+         ],
+         [
+          "reactant"
+         ]
+        ]
+       },
+       {
+        "point": "Both labelled arrows have correct distinct endpoints and upward ΔH; judge label and endpoints together for each arrow.",
+        "keywords": [
+         [
+          "arrow"
+         ],
+         [
+          "reactant"
+         ],
+         [
+          "peak"
+         ],
+         [
+          "product"
+         ],
+         [
+          "Ea",
+          "E_a",
+          "activation energy"
+         ],
+         [
+          "ΔH",
+          "delta H",
+          "enthalpy change"
+         ],
+         [
+          "up"
+         ]
+        ]
+       },
+       {
+        "point": "Reverse Ea=80 kJ mol−1.",
+        "keywords": [
+         [
+          "80"
+         ],
+         [
+          "reverse"
+         ]
+        ]
+       }
+      ]
+     },
+     "diagram": "Assets/9701/9701-5.1-endothermic.svg"
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m2",
+     "idea": "Activation energy and enthalpy change are the same vertical gap on a pathway diagram.",
+     "temptation": "Both are vertical arrows on the same diagram.",
+     "fix": "Activation energy goes from reactants to the peak; $\\Delta H$ goes from reactants to products."
+    }
+   ],
+   "diagrams": [
+    "Assets/9701/9701-5.1-exothermic.svg",
+    "Assets/9701/9701-5.1-endothermic.svg"
+   ],
+   "source_gaps": [
+    "The reviewed inventory uses syllabus 5.1, the chapter bundle and Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.2–18; it is not an exhaustive audit of every examination paper.",
+    "The prepared forms focus on this KC; additional examination variants require separate source review before being declared covered."
+   ],
+   "prerequisite_bridge": "Recall 9701-5.1.1: a negative enthalpy change puts products lower. Practise subtracting two vertical levels before reading the barrier.",
+   "diagram_provenance": [
+    {
+     "file": "Library/Courses/9701/Diagrams/9701/9701-5.1-exothermic.svg",
+     "sha256": "2063d62bb42abfcc0d308edc6798ec2ce4104796c44c8b60680df85950101be4",
+     "origins": [
+      "STEM Tutor/Assets/9701/9701-5.1-exothermic.svg",
+      "stem-tutor/build/out/assets/9701/9701-5.1-exothermic.svg",
+      "stem-tutor/build/out/Assets/9701/9701-5.1-exothermic.svg"
+     ],
+     "caption": "Exothermic reaction pathway",
+     "review": "Catalog hash and provenance verified; rendered locally and visually inspected during this pass.",
+     "requested_alias": "Assets/9701/9701-5.1-exothermic.svg",
+     "display_reference": "Assets/9701/9701-5.1-exothermic.svg"
+    },
+    {
+     "file": "Library/Courses/9701/Diagrams/9701/9701-5.1-endothermic.svg",
+     "sha256": "38f20be78afeb9dfb0406f30cf6957ffa9e1f153e50947b0b4f6e3642be9f3b1",
+     "origins": [
+      "STEM Tutor/Assets/9701/9701-5.1-endothermic.svg",
+      "stem-tutor/build/out/assets/9701/9701-5.1-endothermic.svg",
+      "stem-tutor/build/out/Assets/9701/9701-5.1-endothermic.svg"
+     ],
+     "caption": "Endothermic reaction pathway",
+     "review": "Catalog hash and provenance verified; rendered locally and visually inspected during this pass.",
+     "requested_alias": "Assets/9701/9701-5.1-endothermic.svg",
+     "display_reference": "Assets/9701/9701-5.1-endothermic.svg"
+    }
+   ],
+   "diagram_descriptions": [
+    "Exothermic pathway. Vertical axis: energy; horizontal axis: progress of reaction, not time. Reactants form a higher plateau on the left, the curve rises to a peak, then falls to a lower product plateau on the right. The double-headed activation-energy arrow spans reactants to peak. The double-headed enthalpy-change arrow spans reactants to products; its length is a magnitude, while products minus reactants is negative. Reverse activation energy spans products to the same peak.",
+    "Endothermic pathway. Vertical axis: energy; horizontal axis: progress of reaction, not time. Reactants are at a low left plateau, the curve rises to a peak, then falls to products at a higher right plateau. The forward activation-energy arrow spans reactants to peak. The enthalpy-change arrow spans the two plateaux and is labelled as positive. Reverse activation energy is the smaller gap from products to peak. Both arrows are double-headed; the level difference fixes the sign."
+   ]
   },
   "9701-5.1.3": {
    "motivate": "An enthalpy value is only useful if you know the conditions and the amount of reaction it describes.",
@@ -2965,7 +3452,380 @@
     "answer": "B",
     "explanation": "Neutralisation enthalpy is per mole of water formed. An acid can supply more than one acidic proton, so acid moles need not equal water moles."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Standard conditions here are $298\\ \\mathrm K$ and $101\\ \\mathrm{kPa}$. Standard state separately specifies the stable physical form of each substance. A named enthalpy fixes a mole basis: compound formed, substance burned, or water formed.",
+   "terms": [
+    {
+     "term": "Standard conditions",
+     "meaning": "A temperature of $298\\ \\mathrm K$ and a pressure of $101\\ \\mathrm{kPa}$ in this syllabus; physical standard states must also be specified.",
+     "notation": "$\\ominus$",
+     "spoken": "standard",
+     "source": "CAIE 9701 syllabus 5.1.3; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.10"
+    },
+    {
+     "term": "Standard enthalpy change of formation",
+     "meaning": "The enthalpy change when one mole of a compound is formed from its elements in their standard states. Under standard conditions, with substances in their standard states.",
+     "notation": "$\\Delta H_f^\\ominus$",
+     "spoken": "delta H f standard",
+     "source": "CAIE 9701 syllabus 5.1.3; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.10"
+    },
+    {
+     "term": "Standard enthalpy change of combustion",
+     "meaning": "The enthalpy change when one mole of a substance is completely burned in oxygen under standard conditions. Under standard conditions, with substances in their standard states.",
+     "notation": "$\\Delta H_c^\\ominus$",
+     "spoken": "delta H c standard",
+     "source": "CAIE 9701 syllabus 5.1.3; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.10"
+    },
+    {
+     "term": "Standard enthalpy change of neutralisation",
+     "meaning": "The enthalpy change when an acid and an alkali react to form one mole of water. Under standard conditions, with substances in their standard states.",
+     "notation": "$\\Delta H_{neut}^\\ominus$",
+     "spoken": "delta H neut standard",
+     "source": "CAIE 9701 syllabus 5.1.3; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.10"
+    },
+    {
+     "term": "Standard enthalpy change of reaction",
+     "meaning": "The enthalpy change for the amounts in the stoichiometric equation, all species in their standard states. Under standard conditions, with substances in their standard states.",
+     "notation": "$\\Delta H_r^\\ominus$",
+     "spoken": "delta H r standard",
+     "source": "CAIE 9701 syllabus 5.1.3; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.10"
+    },
+    {
+     "term": "Standard state",
+     "meaning": "The most stable physical form of a substance at the stated standard conditions; for carbon use graphite, not gaseous carbon atoms.",
+     "notation": "$\\ce{C(s, graphite)}$",
+     "spoken": "carbon solid graphite",
+     "source": "Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.10–12; bundle ER 9701 s22 P22 Q1"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Define an enthalpy change term",
+     "wordings": [
+      "Define standard enthalpy change of combustion.",
+      "State what is meant by the standard enthalpy change of formation.",
+      "Define the term enthalpy change of neutralisation."
+     ],
+     "example": "**Define** standard enthalpy change of combustion, $\\Delta H_c^\\ominus$:\n\n- the enthalpy change when **one mole** of a substance\n- is **completely burned in oxygen**\n- under **standard conditions** ($298\\ \\mathrm K$, $101\\ \\mathrm{kPa}$), with the substances in their standard states.",
+     "check": "Define the standard enthalpy change of neutralisation.",
+     "answer": "The enthalpy change when an aqueous acid and an aqueous alkali react to form one mole of water, under standard conditions ($298\\ \\mathrm K$ and $101\\ \\mathrm{kPa}$) with substances in their standard states.",
+     "source": "CAIE 9701 syllabus 5.1.3; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.10",
+     "rubric": [
+      {
+       "point": "Enthalpy change when an acid and an alkali react.",
+       "keywords": [
+        [
+         "acid"
+        ],
+        [
+         "alkali",
+         "base"
+        ]
+       ]
+      },
+      {
+       "point": "Forming one mole of water.",
+       "keywords": [
+        [
+         "one mole",
+         "1 mole",
+         "1 mol"
+        ],
+        [
+         "water",
+         "h2o"
+        ]
+       ]
+      },
+      {
+       "point": "Under standard conditions (accept those words without numerical expansion), or explicitly 298 K and 101 kPa.",
+       "keywords": [
+        [
+         "standard conditions",
+         "298"
+        ],
+        [
+         "standard conditions",
+         "101"
+        ]
+       ]
+      },
+      {
+       "point": "Substances in their standard states; conventional acid–base neutralisation definition is accepted without separately saying aqueous. Standard conditions do not substitute for standard states.",
+       "keywords": [
+        [
+         "standard state"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Define the standard enthalpy change of formation of a compound.",
+      "answer": "The enthalpy change when one mole of the compound is formed from its elements in their standard states, under standard conditions ($298\\ \\mathrm K$ and $101\\ \\mathrm{kPa}$).",
+      "rubric": [
+       {
+        "point": "One mole of the compound formed.",
+        "keywords": [
+         [
+          "one mole",
+          "1 mole",
+          "1 mol"
+         ]
+        ]
+       },
+       {
+        "point": "From its elements in their standard states.",
+        "keywords": [
+         [
+          "elements"
+         ],
+         [
+          "standard state",
+          "standard states"
+         ]
+        ]
+       },
+       {
+        "point": "Under standard conditions; accept this phrase or 298 K and 101 kPa. Standard conditions do not replace elements in their standard states.",
+        "keywords": [
+         [
+          "standard conditions",
+          "298"
+         ],
+         [
+          "standard conditions",
+          "101"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Link an equation to its enthalpy term and mole basis",
+     "wordings": [
+      "Deduce the standard enthalpy change of formation from the equation and its $\\Delta H$.",
+      "Identify the enthalpy change shown by the equation.",
+      "Calculate the enthalpy change of neutralisation."
+     ],
+     "example": "**Given:** $\\ce{2H2(g) + O2(g) -> 2H2O(l)}$, $\\Delta H_r^\\ominus=-572\\ \\mathrm{kJ\\,mol^{-1}}$ for the equation as written.\n\n- The equation forms two moles of water, so it is a reaction enthalpy and not a formation enthalpy.\n- Formation needs **one mole** of compound, so divide by $2$.\n- $\\Delta H_f^\\ominus[\\ce{H2O(l)}]=-572\\div2=-286\\ \\mathrm{kJ\\,mol^{-1}}$.",
+     "check": "$\\ce{H2SO4(aq) + 2NaOH(aq) -> Na2SO4(aq) + 2H2O(l)}$ has $\\Delta H=-114\\ \\mathrm{kJ\\,mol^{-1}}$ for the equation as written. Deduce the enthalpy change of neutralisation and explain your working.",
+     "answer": "Neutralisation is per mole of water formed. The equation forms two moles of water, so $\\Delta H_{neut}=-114\\div2=-57\\ \\mathrm{kJ\\,mol^{-1}}$.",
+     "source": "CAIE 9701 syllabus 5.1.3; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.10-12; CAIE 9701 s22 P11 Q10 examiner report",
+     "rubric": [
+      {
+       "point": "Neutralisation enthalpy is per mole of water formed.",
+       "keywords": [
+        [
+         "one mole of water",
+         "per mole of water",
+         "1 mol of water",
+         "mole of water"
+        ]
+       ]
+      },
+      {
+       "point": "Divides by two because two moles of water form.",
+       "keywords": [
+        [
+         "divide",
+         "half",
+         "2 mol",
+         "two moles",
+         "two mol",
+         "÷2",
+         "/2"
+        ]
+       ]
+      },
+      {
+       "point": "Requires −57 or 57 explicitly described as negative, released or exothermic; unsigned 57 alone does not earn this point. Accept equivalent formatting with sign or qualification attached to this result.",
+       "keywords": [
+        [
+         "-57",
+         "−57",
+         "- 57",
+         "− 57",
+         "minus 57",
+         "negative 57",
+         "57 (negative)",
+         "57 kJ mol−1 released",
+         "57 kJ/mol released",
+         "57 kJ mol−1 (exothermic)",
+         "exothermic, 57",
+         "exothermic: 57"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Under standard conditions (298 K and 101 kPa), with all substances in their standard states, $\\ce{4Al(s) + 3O2(g) -> 2Al2O3(s)}$ has $\\Delta H=-3340\\ \\mathrm{kJ\\,mol^{-1}}$ for the equation as written. Deduce the standard enthalpy change of formation of $\\ce{Al2O3(s)}$.",
+      "answer": "Formation is for one mole of compound. The equation forms two moles of $\\ce{Al2O3}$, so $\\Delta H_f^\\ominus=-3340\\div2=-1670\\ \\mathrm{kJ\\,mol^{-1}}$.",
+      "rubric": [
+       {
+        "point": "Uses the one-mole formation basis by halving the reaction enthalpy, since the equation forms two moles of Al2O3; correct division alone is sufficient.",
+        "keywords": [
+         [
+          "one mole",
+          "1 mole",
+          "1 mol",
+          "per mole",
+          "/2",
+          "/ 2",
+          "÷2",
+          "÷ 2",
+          "divided by 2",
+          "divide by two",
+          "half"
+         ]
+        ]
+       },
+       {
+        "point": "Requires negative sign or qualification on 1670; unsigned 1670 alone fails this point.",
+        "keywords": [
+         [
+          "-1670",
+          "−1670",
+          "- 1670",
+          "− 1670",
+          "minus 1670",
+          "negative 1670",
+          "1670 (negative)",
+          "1670 kJ mol−1 released",
+          "1670 kJ/mol released",
+          "1670 kJ mol−1 (exothermic)",
+          "exothermic, 1670"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Classify state-labelled equations and their mole basis",
+     "wordings": [
+      "Identify all applicable named enthalpy changes for each equation.",
+      "Explain why the equation must be rescaled before quoting a formation or neutralisation enthalpy."
+     ],
+     "example": "Assume standard conditions. For $\\ce{C(s, graphite) + O2(g) -> CO2(g)}$: first check elements in standard states and one mole of compound, so this is formation of carbon dioxide. Next check one mole of carbon completely burned in oxygen, so it is also combustion of carbon. It is also a reaction enthalpy: the classifications overlap. For $\\ce{HCl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l)}$, one mole of water forms from aqueous acid and alkali, so the reaction enthalpy is also the neutralisation enthalpy.",
+     "check": "Assume $298\\ \\mathrm K$ and $101\\ \\mathrm{kPa}$ and the states shown. Identify all applicable formation, combustion or neutralisation enthalpies: (i) $\\ce{H2(g) + 1/2O2(g) -> H2O(l)}$; (ii) $\\ce{2Mg(s) + O2(g) -> 2MgO(s)}$; (iii) $\\ce{H2SO4(aq) + 2KOH(aq) -> K2SO4(aq) + 2H2O(l)}$. Explain each mole basis and how to rescale where needed.",
+     "answer": "All three have reaction enthalpies. (i) Formation of liquid water and combustion of hydrogen both apply: one mole of water forms from standard-state elements and one mole of hydrogen burns completely. (ii) The equation as written consumes two moles of magnesium and forms two moles of magnesium oxide: divide its enthalpy by two to obtain either formation of magnesium oxide or combustion of magnesium per mole. (iii) It is an acid–alkali neutralisation reaction; divide its reaction enthalpy by two for neutralisation enthalpy per mole of water. It is neither formation from elements nor combustion.",
+     "source": "Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.10–12; bundle 9701 w24 P12 Q9, s22 P11 Q10 and s22 P22 Q1 examiner comments",
+     "rubric": [
+      {
+       "point": "(i) Both formation of liquid water and combustion of hydrogen; one mole of each relevant substance, with elements in standard states.",
+       "keywords": [
+        [
+         "formation"
+        ],
+        [
+         "combustion"
+        ],
+        [
+         "one",
+         "1"
+        ],
+        [
+         "standard"
+        ]
+       ]
+      },
+      {
+       "point": "(ii) Both named molar values require halving; the unscaled equation has two moles of magnesium and oxide.",
+       "keywords": [
+        [
+         "two",
+         "2"
+        ],
+        [
+         "half",
+         "divide"
+        ],
+        [
+         "formation"
+        ],
+        [
+         "combustion"
+        ]
+       ]
+      },
+      {
+       "point": "(iii) Neutralisation is per mole of water, requiring half the reaction enthalpy; not formation or combustion.",
+       "keywords": [
+        [
+         "neutralisation",
+         "neutralization"
+        ],
+        [
+         "water"
+        ],
+        [
+         "half",
+         "divide"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Under standard conditions classify $\\ce{1/2N2(g) + 3/2H2(g) -> NH3(g)}$ and $\\ce{2CO(g) + O2(g) -> 2CO2(g)}$. Identify named molar values and any rescaling.",
+      "answer": "The first is formation of one mole of ammonia from elements in their standard states, and a reaction enthalpy. It is not combustion or neutralisation. The second is a reaction enthalpy; divide by two for combustion enthalpy of carbon monoxide. It is not formation from elements because carbon monoxide is a compound.",
+      "rubric": [
+       {
+        "point": "Ammonia equation: formation from standard-state elements, one mole formed.",
+        "keywords": [
+         [
+          "formation"
+         ],
+         [
+          "one",
+          "1"
+         ],
+         [
+          "standard"
+         ]
+        ]
+       },
+       {
+        "point": "The CO equation has a reaction enthalpy and must be divided by two to give combustion enthalpy per mole of CO; credit this classification and scaling without requiring the word compound. Formation from elements is incorrect.",
+        "keywords": [
+         [
+          "combustion"
+         ],
+         [
+          "half",
+          "halve",
+          "divide",
+          "/2",
+          "/ 2",
+          "÷2",
+          "÷ 2"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m3",
+     "idea": "Standard conditions alone define standard enthalpy of formation.",
+     "temptation": "The conditions 298 K and 101 kPa seem to be the whole definition.",
+     "fix": "The elements must also be in their standard states and exactly one mole of compound must form."
+    },
+    {
+     "id": "m4",
+     "idea": "Neutralisation enthalpy is quoted per mole of acid or per reaction as written.",
+     "temptation": "The acid is the first reagent, so its moles feel like the basis.",
+     "fix": "The basis is one mole of water formed. If the equation forms two moles of water, divide by two."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "Equations, verbal comparisons and a calculation table serve this outcome; the two existing energy profiles are bound to the pathway card. No additional drawing is requested by the plan.",
+   "source_gaps": [
+    "The reviewed inventory uses syllabus 5.1, the chapter bundle and Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.2–18; it is not an exhaustive audit of every examination paper."
+   ],
+   "prerequisite_bridge": "Recall 9701-5.1.1 and balance equations first. Read state symbols, then identify which substance has the required one-mole coefficient."
   },
   "9701-5.1.4": {
    "motivate": "If breaking bonds requires energy, how can a chemical reaction heat its surroundings?",
@@ -2984,7 +3844,168 @@
     "answer": "D",
     "explanation": "Bond breaking always requires energy. Net release occurs because bond formation releases the larger total, not because bond breaking releases heat."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Breaking bonds takes in energy and making bonds gives out energy. Every reaction does both. If more energy is released making new bonds than is absorbed breaking old ones, the reaction is exothermic.",
+   "terms": [
+    {
+     "term": "Bond breaking",
+     "meaning": "Energy is absorbed to pull atoms apart against their attraction; an endothermic step.",
+     "notation": "none",
+     "spoken": "bond breaking",
+     "source": "CAIE 9701 syllabus 5.1.4; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.13"
+    },
+    {
+     "term": "Bond making",
+     "meaning": "Energy is released when atoms join to form a bond; an exothermic step.",
+     "notation": "none",
+     "spoken": "bond making",
+     "source": "CAIE 9701 syllabus 5.1.4; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.13"
+    },
+    {
+     "term": "Net energy change",
+     "meaning": "The energy absorbed breaking bonds compared with the energy released making bonds; it sets the sign of $\\Delta H$.",
+     "notation": "$\\Delta H$",
+     "spoken": "delta H",
+     "source": "CAIE 9701 syllabus 5.1.4; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.13"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain the sign of enthalpy change using bond breaking and making",
+     "wordings": [
+      "Explain, in terms of bond breaking and bond making, why the reaction is exothermic.",
+      "Explain why this reaction is endothermic.",
+      "Suggest why energy is released overall."
+     ],
+     "example": "**Explain** why the combustion of methane is exothermic:\n\n- Energy is **absorbed** to break the bonds in methane and oxygen.\n- Energy is **released** when the new bonds in carbon dioxide and water form.\n- More energy is released making the new bonds than is absorbed breaking the old ones, so the overall change is exothermic.",
+     "check": "The reaction $\\ce{N2(g) + O2(g) -> 2NO(g)}$ has $\\Delta H=+180\\ \\mathrm{kJ\\,mol^{-1}}$. Explain, in terms of bonds, why it is endothermic.",
+     "answer": "Energy is absorbed to break the bonds in nitrogen and oxygen, and energy is released when the bonds in nitrogen monoxide form. More energy is absorbed breaking the bonds than is released making them, so the reaction is endothermic.",
+     "source": "CAIE 9701 syllabus 5.1.4; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.13; CAIE 9701 w25 P11 Q7",
+     "rubric": [
+      {
+       "point": "Bond breaking absorbs (needs) energy; bond making releases energy.",
+       "keywords": [
+        [
+         "breaking",
+         "break"
+        ],
+        [
+         "absorb",
+         "needs",
+         "takes in",
+         "required"
+        ]
+       ]
+      },
+      {
+       "point": "Forming bonds in nitrogen monoxide releases energy.",
+       "keywords": [
+        [
+         "form",
+         "making"
+        ],
+        [
+         "release",
+         "given out"
+        ]
+       ]
+      },
+      {
+       "point": "More energy is absorbed in breaking bonds than released in forming bonds; equivalently less energy is released forming bonds than absorbed breaking bonds. Judge the direction: less refers to energy released forming bonds, and more to energy absorbed breaking bonds.",
+       "keywords": [
+        [
+         "more",
+         "greater",
+         "less",
+         "smaller"
+        ],
+        [
+         "than"
+        ],
+        [
+         "break",
+         "absorb",
+         "taken in"
+        ],
+        [
+         "form",
+         "making"
+        ],
+        [
+         "release",
+         "given out"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A student says: \"Hydrogen burns and gives out heat because breaking the bonds in hydrogen and oxygen releases energy.\" Explain what is wrong and give the correct explanation of why $\\ce{2H2 + O2 -> 2H2O}$ is exothermic.",
+      "answer": "Breaking bonds always absorbs energy; it never releases it. The reaction is exothermic because more energy is released when the O-H bonds in water form than is absorbed when the H-H and O=O bonds break.",
+      "rubric": [
+       {
+        "point": "States that bond breaking absorbs energy (does not release it).",
+        "keywords": [
+         [
+          "breaking"
+         ],
+         [
+          "absorb",
+          "needs",
+          "takes in",
+          "requires",
+          "endothermic"
+         ]
+        ]
+       },
+       {
+        "point": "States that bond making releases energy.",
+        "keywords": [
+         [
+          "making",
+          "forming",
+          "formed",
+          "form"
+         ],
+         [
+          "release",
+          "gives out",
+          "given out",
+          "exothermic"
+         ]
+        ]
+       },
+       {
+        "point": "More energy released in bond making than absorbed in bond breaking.",
+        "keywords": [
+         [
+          "more",
+          "greater",
+          "larger"
+         ],
+         [
+          "than"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m5",
+     "idea": "Breaking bonds releases energy while making bonds takes in energy.",
+     "temptation": "\"Releasing\" the energy stored in a fuel sounds like breaking it open.",
+     "fix": "Bond breaking absorbs energy; bond making releases it. Heat out is the net result of the larger release on bond formation."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "Equations, verbal comparisons and a calculation table serve this outcome; the two existing energy profiles are bound to the pathway card. No additional drawing is requested by the plan.",
+   "source_gaps": [
+    "The reviewed inventory uses syllabus 5.1, the chapter bundle and Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.2–18; it is not an exhaustive audit of every examination paper.",
+    "The prepared forms focus on this KC; additional examination variants require separate source review before being declared covered."
+   ],
+   "prerequisite_bridge": "Recall 9701-3.4.3: separating attracted atoms needs energy. Combine that with the system/sign convention in 9701-5.1.1."
   },
   "9701-5.1.5": {
    "motivate": "A balanced equation tells you how many bonds contribute, not just which bond types occur.",
@@ -3003,7 +4024,192 @@
     "answer": "A",
     "explanation": "Subtract twice the H–Cl energy from the sum for H–H and Cl–Cl. Reversing the subtraction, adding both totals, or counting only one H–Cl bond gives the alternatives."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "Count every bond broken and every bond formed from the balanced equation. Add the energies of the bonds broken, subtract the energies of the bonds formed, and give the answer in $\\mathrm{kJ\\,mol^{-1}}$ for the equation as written.",
+   "terms": [
+    {
+     "term": "Bond energy",
+     "meaning": "The energy needed to break one mole of a given bond in the gas phase; always a positive value for breaking.",
+     "notation": "$E$",
+     "spoken": "E of the bond",
+     "source": "CAIE 9701 syllabus 5.1.5; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.14"
+    },
+    {
+     "term": "Bonds broken",
+     "meaning": "The bonds in the reactants that are lost in the equation; their energies are added.",
+     "notation": "$\\sum E(\\mathrm{broken})$",
+     "spoken": "sum of bond energies broken",
+     "source": "CAIE 9701 syllabus 5.1.5; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.15"
+    },
+    {
+     "term": "Bonds formed",
+     "meaning": "The bonds in the products that are made in the equation; their energies are added and then subtracted.",
+     "notation": "$\\sum E(\\mathrm{formed})$",
+     "spoken": "sum of bond energies formed",
+     "source": "CAIE 9701 syllabus 5.1.5; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.15"
+    },
+    {
+     "term": "Bond energy calculation",
+     "meaning": "$\\Delta H\\approx\\sum E(\\mathrm{broken})-\\sum E(\\mathrm{formed})$, using the balanced equation to count the bonds.",
+     "notation": "$\\Delta H_r$",
+     "spoken": "delta H r",
+     "source": "CAIE 9701 syllabus 5.1.5; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.15"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Calculate enthalpy change of reaction from bond energies",
+     "wordings": [
+      "Use the bond energies in the table to calculate the enthalpy change of the reaction.",
+      "Calculate $\\Delta H_r$ for the reaction.",
+      "Calculate the enthalpy change of the reaction using the data."
+     ],
+     "example": "Calculate $\\Delta H_r$ for $\\ce{2C2H4(g) + 2H2(g) -> 2C2H6(g)}$ using C=C $612$, H–H $436$, C–C $347$ and C–H $413\\ \\mathrm{kJ\\,mol^{-1}}$. Step 1: draw ethene and ethane; eight C–H bonds occur on both sides and cancel when using the same average value. Step 2: count changed bonds with coefficients: break two C=C and two H–H, costing $2(612)+2(436)=2096$. Form two C–C and four extra C–H, releasing $2(347)+4(413)=2346$. Step 3: broken minus formed gives $2096-2346=-250\\ \\mathrm{kJ\\,mol^{-1}}$ for the equation as written, or $-125\\ \\mathrm{kJ\\,mol^{-1}}$ per mole of ethene. Counting every bond on both sides gives the same result. C=C uses its supplied double-bond value once per double bond, not twice the C–C single-bond value.",
+     "check": "Calculate $\\Delta H_r$ for $\\ce{2H2(g) + O2(g) -> 2H2O(g)}$ using $E$(H-H) $=436$, $E$(O=O) $=496$ and $E$(O-H) $=463\\ \\mathrm{kJ\\,mol^{-1}}$.",
+     "answer": "Broken: two H-H and one O=O: $2(436)+496=1368$. Formed: four O-H bonds: $4(463)=1852$. $\\Delta H_r=1368-1852=-484\\ \\mathrm{kJ\\,mol^{-1}}$. This is for the equation as written, producing two moles of gaseous water; per mole of water the estimate is half this value.",
+     "source": "CAIE 9701 syllabus 5.1.5; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.15-16",
+     "rubric": [
+      {
+       "point": "Broken contribution: two H–H and one O=O, shown either as bond counts, 2(436)+496 (equivalent notation accepted), or total 1368. Award for the correct weighted expression without intermediate sums; accept equivalent full atomisation/cancellation.",
+       "keywords": [
+        [
+         "1368",
+         "2(436)",
+         "2 × 436",
+         "2×436",
+         "2*436",
+         "2 x 436",
+         "2 H-H",
+         "two H-H"
+        ],
+        [
+         "1368",
+         "496",
+         "O=O"
+        ]
+       ]
+      },
+      {
+       "point": "Formed contribution: four O–H, shown as counts, 4(463), or total 1852. Award for the correct weighted expression without intermediate sums; accept equivalent full atomisation/cancellation.",
+       "keywords": [
+        [
+         "1852",
+         "4(463)",
+         "4 × 463",
+         "4×463",
+         "4*463",
+         "4 x 463",
+         "4 O-H",
+         "four O-H"
+        ]
+       ]
+      },
+      {
+       "point": "Broken minus formed gives -484 kJ mol−1 for the equation as written. Require the negative sign, negative wording, energy-release or exothermic qualification to refer explicitly to 484; a hyphen in a bond name or an unrelated subtraction does not qualify. Accept equivalent correct formatting and full-bond counting.",
+       "keywords": [
+        [
+         "-484",
+         "−484",
+         "- 484",
+         "− 484",
+         "minus 484",
+         "negative 484",
+         "484 (negative)",
+         "484 kJ mol−1 released",
+         "484 kJ/mol released",
+         "484 kJ mol−1 (exothermic)",
+         "484 kJ/mol (exothermic)",
+         "exothermic, 484",
+         "exothermic: 484"
+        ],
+        [
+         "kJ",
+         "kilojoule"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Calculate $\\Delta H_r$ for $\\ce{CH4(g) + Cl2(g) -> CH3Cl(g) + HCl(g)}$ using $E$(C-H) $=413$, $E$(Cl-Cl) $=242$, $E$(C-Cl) $=346$ and $E$(H-Cl) $=431\\ \\mathrm{kJ\\,mol^{-1}}$.",
+      "answer": "Broken: one C-H and one Cl-Cl: $413+242=655$. Formed: one C-Cl and one H-Cl: $346+431=777$. $\\Delta H_r=655-777=-122\\ \\mathrm{kJ\\,mol^{-1}}$.",
+      "rubric": [
+       {
+        "point": "Break one C–H and one Cl–Cl: accept identified counts, contribution 413+242, or 655. Contributions must be assigned to the broken side; credit the correct expression without intermediate totals and equivalent complete atomisation with cancellation.",
+        "keywords": [
+         [
+          "655",
+          "413",
+          "C-H",
+          "C–H"
+         ],
+         [
+          "655",
+          "242",
+          "Cl-Cl",
+          "Cl–Cl"
+         ]
+        ]
+       },
+       {
+        "point": "Form one C–Cl and one H–Cl: accept identified counts, contribution 346+431, or 777. Contributions must be assigned to the formed side; credit the correct expression without intermediate totals and equivalent complete atomisation with cancellation.",
+        "keywords": [
+         [
+          "777",
+          "346",
+          "C-Cl",
+          "C–Cl"
+         ],
+         [
+          "777",
+          "431",
+          "H-Cl",
+          "H–Cl"
+         ]
+        ]
+       },
+       {
+        "point": "Broken minus formed gives -122 kJ mol−1. Require the negative sign, negative wording, energy-release or exothermic qualification to refer explicitly to 122; a hyphen in a bond name or an unrelated subtraction does not qualify. Accept equivalent correct formatting and full atomisation with cancellation.",
+        "keywords": [
+         [
+          "-122",
+          "−122",
+          "- 122",
+          "− 122",
+          "minus 122",
+          "negative 122",
+          "122 (negative)",
+          "122 kJ mol−1 released",
+          "122 kJ/mol released",
+          "122 kJ mol−1 (exothermic)",
+          "122 kJ/mol (exothermic)",
+          "exothermic, 122",
+          "exothermic: 122"
+         ],
+         [
+          "kJ",
+          "kilojoule"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m6",
+     "idea": "Bond energy calculations add the energies of bonds formed to those broken.",
+     "temptation": "Both are bond energies, so adding all of them seems natural.",
+     "fix": "Use $\\Delta H=\\sum E(\\mathrm{broken})-\\sum E(\\mathrm{formed})$ and count the bonds using the balanced equation."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "Equations, verbal comparisons and a calculation table serve this outcome; the two existing energy profiles are bound to the pathway card. No additional drawing is requested by the plan.",
+   "source_gaps": [
+    "The reviewed inventory uses syllabus 5.1, the chapter bundle and Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.2–18; it is not an exhaustive audit of every examination paper.",
+    "The supplied bond data are illustrative inputs rather than verified data-booklet constants; gas-phase products are used to avoid silently ignoring phase-change enthalpies."
+   ],
+   "prerequisite_bridge": "Recall 9701-5.1.4 and 9701-3.4.3: breaking costs energy and making returns it. Draw molecular structures and multiply bond counts by equation coefficients."
   },
   "9701-5.1.6": {
    "motivate": "Why can a correct bond-energy calculation disagree with a measured reaction enthalpy?",
@@ -3022,7 +4228,235 @@
     "answer": "C",
     "explanation": "An average need not match any particular bond-breaking process; the surrounding molecular structure affects the energy required."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "An exact bond energy is for one specific bond in one specific gaseous molecule. An average bond energy is the mean for the same type of bond across different molecules. Because the surroundings of a bond change its energy, calculations using averages are estimates.",
+   "terms": [
+    {
+     "term": "Exact bond energy",
+     "meaning": "The energy to break one mole of a specific bond in a specified gaseous molecule; also called bond dissociation enthalpy.",
+     "notation": "$E$",
+     "spoken": "E",
+     "source": "CAIE 9701 syllabus 5.1.6; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.14"
+    },
+    {
+     "term": "Average bond energy",
+     "meaning": "The mean bond energy of the same type of bond taken over different molecules.",
+     "notation": "none",
+     "spoken": "average bond energy",
+     "source": "CAIE 9701 syllabus 5.1.6; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.14"
+    },
+    {
+     "term": "Molecular environment",
+     "meaning": "The other atoms attached near a bond, which change how much energy is needed to break it.",
+     "notation": "none",
+     "spoken": "environment",
+     "source": "CAIE 9701 syllabus 5.1.6; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.14"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Explain exact versus average bond energy",
+     "wordings": [
+      "Explain why a value calculated using average bond energies may differ from the experimental enthalpy change.",
+      "Distinguish between exact and average bond energy.",
+      "State why the O-H bond energy is different in water and in ethanol."
+     ],
+     "example": "**Explain** why the O-H bond energy in water differs from that in ethanol:\n\n- A bond energy is affected by the atoms around the bond.\n- In water the oxygen is attached to another hydrogen atom; in ethanol it is attached to a carbon atom.\n- So the exact O-H bond energies differ, and a tabulated average O-H value is a mean of such values.",
+     "check": "Explain why a bond-energy calculation for the combustion of ethanol gives only an estimate of the enthalpy change measured by experiment. Consider the molecular-environment limitation of average bond energies; assume all reactants and products are gaseous.",
+     "answer": "The bond energies in a table are average values: each is the mean of a bond type measured in different molecules. The actual energy of a bond depends on its molecular environment, so it may differ from the average. The calculation is therefore an estimate and may not equal the experimental value.",
+     "source": "CAIE 9701 syllabus 5.1.6; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.14 and figure; CAIE 9701 s22 P13 Q9 examiner report",
+     "rubric": [
+      {
+       "point": "Tabulated bond energies are average values (means).",
+       "keywords": [
+        [
+         "average",
+         "mean"
+        ]
+       ]
+      },
+      {
+       "point": "Averaged over the same bond in different molecules or environments.",
+       "keywords": [
+        [
+         "different"
+        ],
+        [
+         "molecule",
+         "environment",
+         "compound",
+         "surrounding"
+        ]
+       ]
+      },
+      {
+       "point": "So the actual bond energy in this molecule may differ and the result is only an estimate.",
+       "keywords": [
+        [
+         "estimate",
+         "differ",
+         "not exact",
+         "approximate",
+         "not equal"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "Distinguish between the exact bond energy of H-H in $\\ce{H2(g)}$ and the average bond energy of C-H.",
+      "answer": "The exact H-H bond energy is the energy to break one mole of that specific bond in gaseous hydrogen molecules. The average C-H bond energy is the mean of the energy of C-H bonds in different molecules, because the energy of a C-H bond depends on its environment.",
+      "rubric": [
+       {
+        "point": "Exact: one specific bond in a specific (gaseous) molecule.",
+        "keywords": [
+         [
+          "specific",
+          "exact",
+          "one"
+         ]
+        ]
+       },
+       {
+        "point": "Average: mean value for a bond type taken over different molecules or environments.",
+        "keywords": [
+         [
+          "average",
+          "mean"
+         ],
+         [
+          "different",
+          "various",
+          "environments",
+          "molecules",
+          "compounds"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Relate methane atomisation to mean and first C–H dissociation",
+     "wordings": [
+      "Calculate the mean C–H bond energy in methane from its gaseous atomisation enthalpy.",
+      "Distinguish the first C–H dissociation from the mean over all four bonds."
+     ],
+     "example": "Given $\\ce{CH4(g) -> C(g) + 4H(g)}$ requires $1660\\ \\mathrm{kJ\\,mol^{-1}}$, step 1 counts four C–H bonds removed per methane molecule. Step 2 divides by four: the mean for methane is $1660/4=415\\ \\mathrm{kJ\\,mol^{-1}}$ of C–H bonds. Step 3 distinguishes $\\ce{CH4(g) -> CH3(g) + H(g)}$: this breaks only the first bond.",
+     "check": "A supplied gaseous atomisation enthalpy of methane is $1640\\ \\mathrm{kJ\\,mol^{-1}}$. The first dissociation $\\ce{CH4(g) -> CH3(g) + H(g)}$ requires $435\\ \\mathrm{kJ\\,mol^{-1}}$. Calculate the mean C–H energy in methane and the sum of the remaining three dissociation enthalpies. Explain why the first value differs from the mean.",
+     "answer": "Mean C–H energy in methane $=1640/4=410\\ \\mathrm{kJ\\,mol^{-1}}$. Remaining three sum to $1640-435=1205\\ \\mathrm{kJ\\,mol^{-1}}$. Successive bonds are removed from different gaseous fragments, so individual dissociation enthalpies can differ. The first dissociation is a specified process; the mean averages all four.",
+     "source": "Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.14; bundle ER 9701 s22 P13 Q9",
+     "rubric": [
+      {
+       "point": "Mean C–H bond energy in methane is 410 kJ mol−1 of bonds; accept the correct value and units without working.",
+       "keywords": [
+        [
+         "410"
+        ],
+        [
+         "kJ",
+         "kilojoule"
+        ]
+       ]
+      },
+      {
+       "point": "Remaining three dissociations sum to 1205 kJ per mole of methane.",
+       "keywords": [
+        [
+         "1205"
+        ],
+        [
+         "kJ",
+         "kilojoule"
+        ]
+       ]
+      },
+      {
+       "point": "Successive bonds are broken in different gaseous species/fragments with different molecular environments and therefore different individual bond energies; this explains why the first dissociation need not equal the four-bond mean. The explanation must link the different species/environments to differing bond energies. Accept the bonding environment changes as H atoms are removed as explaining why successive dissociation energies need not equal the mean; require this changing environment to be linked to the bond-energy comparison, rather than an unrelated use of change.",
+       "keywords": [
+        [
+         "different",
+         "differ",
+         "changes",
+         "change"
+        ],
+        [
+         "environment",
+         "fragment",
+         "species",
+         "molecule",
+         "radical"
+        ],
+        [
+         "bond",
+         "dissociation"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "For a different supplied dataset, gaseous methane atomisation is $1680\\ \\mathrm{kJ\\,mol^{-1}}$ and the first C–H dissociation is $440\\ \\mathrm{kJ\\,mol^{-1}}$. Calculate the mean C–H energy and remaining three-dissociation total. Must a tabulated C–H mean over other compounds equal this methane mean? Explain your answer.",
+      "answer": "Methane mean $=1680/4=420\\ \\mathrm{kJ\\,mol^{-1}}$; remaining total $=1680-440=1240\\ \\mathrm{kJ\\,mol^{-1}}$. No: a table can average different molecular environments, whereas this mean refers to the four successive methane dissociations.",
+      "rubric": [
+       {
+        "point": "Methane mean is 420 kJ per mole of bonds.",
+        "keywords": [
+         [
+          "420"
+         ],
+         [
+          "kJ",
+          "kilojoule"
+         ]
+        ]
+       },
+       {
+        "point": "Remaining three total 1240 kJ per mole.",
+        "keywords": [
+         [
+          "1240"
+         ],
+         [
+          "kJ",
+          "kilojoule"
+         ]
+        ]
+       },
+       {
+        "point": "No required equality to a table mean because bond energies vary with molecular environment; a table samples environments across compounds, whereas this methane mean averages its four successive dissociations. Require an explicit link between bond-energy variation and molecular environment, not an unrelated use of vary.",
+        "keywords": [
+         [
+          "different",
+          "differ",
+          "vary",
+          "varies",
+          "variation"
+         ],
+         [
+          "environment",
+          "compound",
+          "molecule"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m7",
+     "idea": "Every C–H bond in every molecule has the same exact bond energy.",
+     "temptation": "The bond has the same name and the same two atoms.",
+     "fix": "The molecular environment changes a bond energy, so tables use an average. A specified gaseous process has an exact value."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "Equations, verbal comparisons and a calculation table serve this outcome; the two existing energy profiles are bound to the pathway card. No additional drawing is requested by the plan.",
+   "source_gaps": [
+    "The reviewed inventory uses syllabus 5.1, the chapter bundle and Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.2–18; it is not an exhaustive audit of every examination paper.",
+    "The prepared forms focus on this KC; additional examination variants require separate source review before being declared covered."
+   ],
+   "prerequisite_bridge": "Recall 9701-5.1.5: a bond calculation is only as specific as its input data. Separate a specified dissociation process from a mean over several processes."
   },
   "9701-5.1.7": {
    "motivate": "A thermometer measures the solution, while the question asks about the reacting chemicals. Keep their energy transfers separate.",
@@ -3041,7 +4475,433 @@
     "answer": "B",
     "explanation": "Both solutions undergo the measured temperature change. Limiting-reactant moles determine the reacted amount, but do not replace the total heated mass."
    },
-   "source": "pack"
+   "source": "pack",
+   "plain_words": "In a calorimetry experiment the temperature change is measured in water or a solution. Use $q=mc\\Delta T$ with the mass of the water or solution, then divide by the moles that reacted. A temperature rise gives a negative $\\Delta H$.",
+   "terms": [
+    {
+     "term": "Heat energy transferred",
+     "meaning": "The energy gained by the water or solution, found from its mass, specific heat capacity and temperature change.",
+     "notation": "$q=mc\\Delta T$",
+     "spoken": "q equals m c delta T",
+     "source": "CAIE 9701 syllabus 5.1.7; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.17"
+    },
+    {
+     "term": "Specific heat capacity",
+     "meaning": "The energy needed to raise the temperature of $1\\ \\mathrm g$ of a substance by $1\\ \\mathrm K$; for water $4.18\\ \\mathrm{J\\,g^{-1}\\,K^{-1}}$.",
+     "notation": "$c$",
+     "spoken": "c",
+     "source": "CAIE 9701 syllabus 5.1.7; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.17"
+    },
+    {
+     "term": "Temperature change",
+     "meaning": "Final minus initial temperature; the same number in degrees Celsius and in kelvin.",
+     "notation": "$\\Delta T$",
+     "spoken": "delta T",
+     "source": "CAIE 9701 syllabus 5.1.7; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.18 Examiner Tips"
+    },
+    {
+     "term": "Enthalpy change from experiment",
+     "meaning": "$\\Delta H=-q/n$ with $q$ in joules converted to kilojoules, for $n$ moles reacted.",
+     "notation": "$\\Delta H=\\dfrac{-mc\\Delta T}{n}$",
+     "spoken": "delta H equals minus m c delta T over n",
+     "source": "CAIE 9701 syllabus 5.1.7; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.18"
+    },
+    {
+     "term": "Moles reacted",
+     "meaning": "The amount of the specified reactant that reacts, found from mass over $M_r$ or concentration times volume.",
+     "notation": "$n$",
+     "spoken": "n",
+     "source": "CAIE 9701 syllabus 5.1.7; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.18"
+    }
+   ],
+   "forms": [
+    {
+     "name": "Calculate energy released per gram of fuel",
+     "wordings": [
+      "Calculate the total energy released per gram of fuel burnt.",
+      "Calculate the energy absorbed by the water.",
+      "Calculate the energy released when the fuel is burnt."
+     ],
+     "example": "A fuel of molar mass $40.0\\ \\mathrm{g\\,mol^{-1}}$ is burned: $1.50\\ \\mathrm g$ heats $200\\ \\mathrm g$ water by $20.0\\ \\mathrm K$; only $50.0\\%$ of released heat is captured. Take $c=4.18\\ \\mathrm{J\\,g^{-1}\\,K^{-1}}$. Step 1: water gains $q=200(4.18)(20.0)=16720\\ \\mathrm J$. Step 2: $0.500Q=16720$, so total released magnitude $Q=33440\\ \\mathrm J$. Step 3: per gram, $33440/1.50=22293.3\\ \\mathrm{J\\,g^{-1}}\\approx22.3\\ \\mathrm{kJ\\,g^{-1}}$. Step 4: $n=1.50/40.0=0.0375\\ \\mathrm{mol}$, so the combustion estimate is $-33440/(1000\\times0.0375)\\approx-892\\ \\mathrm{kJ\\,mol^{-1}}$. Heat released is a positive magnitude; reaction enthalpy is negative. Assume complete combustion, and that the stated capture fraction includes all unmeasured heat transfers.",
+     "check": "$2.00\\ \\mathrm g$ of a fuel is burnt. Only $40.0\\%$ of the energy released is absorbed by $250\\ \\mathrm g$ of water, whose temperature rises from $19.0\\,^{\\circ}\\mathrm C$ to $49.0\\,^{\\circ}\\mathrm C$. Calculate the total energy released per gram of fuel. Use $c=4.18\\ \\mathrm{J\\,g^{-1}\\,K^{-1}}$. The fuel has molar mass $44.0\\ \\mathrm{g\\,mol^{-1}}$ and burns completely. Also calculate the reaction enthalpy per mole of fuel, assuming the capture fraction accounts for all unmeasured heat.",
+     "answer": "$q=250\\times4.18\\times30.0=31\\,350\\ \\mathrm J$. This is $40.0\\%$ of the total, so total $=31\\,350\\div0.400=78\\,375\\ \\mathrm J$. Per gram: $78\\,375\\div2.00=39\\,187.5\\ \\mathrm{J\\,g^{-1}}\\approx39\\,200\\ \\mathrm{J\\,g^{-1}}$. Fuel amount $n=2.00/44.0\\ \\mathrm{mol}$; reaction enthalpy $=-78375/[1000(2.00/44.0)]\\approx-1.72\\times10^3\\ \\mathrm{kJ\\,mol^{-1}}$. The water gains energy and the reaction loses energy.",
+     "source": "CAIE 9701 syllabus 5.1.7; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.17-18; CAIE 9701 w25 P11 Q8",
+     "rubric": [
+      {
+       "point": "Uses the mass of water, not fuel: $q=250\\times4.18\\times30=31\\,350$ J.",
+       "keywords": [
+        [
+         "31350",
+         "31 350",
+         "31,350",
+         "31.35"
+        ]
+       ]
+      },
+      {
+       "point": "Converts from the 40% absorbed to the 100% total, giving 78 375 J.",
+       "keywords": [
+        [
+         "78375",
+         "78 375",
+         "78,375",
+         "78.4",
+         "78.375"
+        ]
+       ]
+      },
+      {
+       "point": "Divides by 2.00 g to get about 39 200 J per gram (39.2 kJ per gram).",
+       "keywords": [
+        [
+         "39187",
+         "39200",
+         "39 200",
+         "39.2",
+         "39 187",
+         "39,200"
+        ]
+       ]
+      },
+      {
+       "point": "Uses 2.00/44.0 mol fuel, converts joules to kilojoules and gives negative 1.72 times ten cubed kJ per mole (accept -1724.25 before rounding).",
+       "keywords": [
+        [
+         "1724",
+         "1720",
+         "1.72"
+        ],
+        [
+         "negative",
+         "minus",
+         "-",
+         "−"
+        ],
+        [
+         "kJ",
+         "kilojoule"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "$2.50\\ \\mathrm g$ of a fuel is burnt. $25.0\\%$ of the energy released is absorbed by $400\\ \\mathrm g$ of water, whose temperature rises from $22.5\\,^{\\circ}\\mathrm C$ to $41.5\\,^{\\circ}\\mathrm C$. Calculate the total energy released per gram of fuel. Use $c=4.18\\ \\mathrm{J\\,g^{-1}\\,K^{-1}}$. Assume complete combustion and that the stated capture fraction includes every unmeasured heat transfer.",
+      "answer": "$\\Delta T=19.0\\ \\mathrm K$ and $q=400\\times4.18\\times19.0=31\\,768\\ \\mathrm J$. Total energy $=31\\,768\\div0.250=127\\,072\\ \\mathrm J$. Per gram: $127\\,072\\div2.50=50\\,828.8\\ \\mathrm{J\\,g^{-1}}\\approx50\\,800\\ \\mathrm{J\\,g^{-1}}$.",
+      "rubric": [
+       {
+        "point": "$q=400\\times4.18\\times19.0=31\\,768$ J.",
+        "keywords": [
+         [
+          "31768",
+          "31 768",
+          "31,768",
+          "31.77",
+          "31.8"
+         ]
+        ]
+       },
+       {
+        "point": "Divides by 0.250 to get 127 072 J.",
+        "keywords": [
+         [
+          "127072",
+          "127 072",
+          "127,072",
+          "127"
+         ]
+        ]
+       },
+       {
+        "point": "Divides by 2.50 g to get about 50 800 J per gram.",
+        "keywords": [
+         [
+          "50828",
+          "50800",
+          "50 800",
+          "50.8",
+          "50 828",
+          "50,800"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Calculate enthalpy change per mole from solution data",
+     "wordings": [
+      "Calculate the enthalpy change of reaction, in $\\mathrm{kJ\\,mol^{-1}}$.",
+      "Use the results to calculate the enthalpy change of neutralisation.",
+      "Calculate $\\Delta H$ for the reaction per mole of the stated reactant."
+     ],
+     "example": "**Calculate** $\\Delta H_{neut}$. $25.0\\ \\mathrm{cm^3}$ of $2.00\\ \\mathrm{mol\\,dm^{-3}}$ HCl is mixed with $25.0\\ \\mathrm{cm^3}$ of $2.00\\ \\mathrm{mol\\,dm^{-3}}$ NaOH. The temperature rises from $20.0\\,^{\\circ}\\mathrm C$ to $33.5\\,^{\\circ}\\mathrm C$. Assume density $1.00\\ \\mathrm{g\\,cm^{-3}}$ and $c=4.18\\ \\mathrm{J\\,g^{-1}\\,K^{-1}}$.\n\n- $m=50.0\\ \\mathrm g$ and $\\Delta T=13.5\\ \\mathrm K$, so $q=50.0\\times4.18\\times13.5=2821.5\\ \\mathrm J$.\n- Moles of water formed $=2.00\\times0.0250=0.0500\\ \\mathrm{mol}$.\n- $\\Delta H=-2821.5\\div(1000\\times0.0500)=-56.4\\ \\mathrm{kJ\\,mol^{-1}}$ (3 s.f.). Assume additive volumes, a common initial temperature, complete reaction, negligible heat loss and negligible calorimeter heat capacity.",
+     "check": "Mix $40.0\\ \\mathrm{cm^3}$ of $0.500\\ \\mathrm{mol\\,dm^{-3}}$ HCl with $60.0\\ \\mathrm{cm^3}$ of $0.400\\ \\mathrm{mol\\,dm^{-3}}$ NaOH. Both begin at $20.0\\,^{\\circ}\\mathrm C$ and the mixture reaches $22.5\\,^{\\circ}\\mathrm C$. Calculate neutralisation enthalpy per mole of water. Assume additive volumes, density $1.00\\ \\mathrm{g\\,cm^{-3}}$, $c=4.18\\ \\mathrm{J\\,g^{-1}\\,K^{-1}}$, complete reaction, negligible heat loss and negligible cup heat capacity.",
+     "answer": "$\\ce{HCl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l)}$. Acid: $0.500(0.0400)=0.0200\\ \\mathrm{mol}$; alkali: $0.400(0.0600)=0.0240\\ \\mathrm{mol}$. HCl limits, forming $0.0200\\ \\mathrm{mol}$ water. The entire solution has mass $100.0\\ \\mathrm g$ and $\\Delta T=2.5\\ \\mathrm K$. Thus $q_{solution}=100.0(4.18)(2.5)=1045\\ \\mathrm J$ and $\\Delta H_{neut}=-1045/(1000\\times0.0200)=-52.25\\approx-52\\ \\mathrm{kJ\\,mol^{-1}}$ (2 s.f.).",
+     "source": "CAIE 9701 syllabus 5.1.7; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf p.17-18; CAIE 9701 syllabus 5.1.7 formula",
+     "rubric": [
+      {
+       "point": "Uses total solution mass 100 g and rise 2.5 K to find 1045 J.",
+       "keywords": [
+        [
+         "100"
+        ],
+        [
+         "2.5"
+        ],
+        [
+         "1045",
+         "1.045"
+        ]
+       ]
+      },
+      {
+       "point": "Calculates acid 0.0200 mol and alkali 0.0240 mol; identifies acid limiting and 0.0200 mol water.",
+       "keywords": [
+        [
+         "0.020",
+         "0.02"
+        ],
+        [
+         "0.024"
+        ],
+        [
+         "limiting",
+         "limits"
+        ]
+       ]
+      },
+      {
+       "point": "Divides by moles of water, converts J to kJ and gives negative 52 kJ per mole (accept -52.25 before rounding).",
+       "keywords": [
+        [
+         "52"
+        ],
+        [
+         "negative",
+         "minus",
+         "-",
+         "−"
+        ],
+        [
+         "kJ",
+         "kilojoule"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "$4.00\\ \\mathrm g$ of ammonium nitrate ($M_r=80.0$) is dissolved in $50.0\\ \\mathrm g$ of water. The temperature falls from $20.0\\,^{\\circ}\\mathrm C$ to $13.8\\,^{\\circ}\\mathrm C$. Calculate the enthalpy change per mole of ammonium nitrate dissolved, using $c=4.18\\ \\mathrm{J\\,g^{-1}\\,K^{-1}}$ and the mass of water as the heated mass. For this simplified model ignore solute and cup heat capacities and heat exchange with the air.",
+      "answer": "$\\Delta T=13.8-20.0=-6.2\\ \\mathrm K$, so $q_{water}=50.0(4.18)(-6.2)=-1295.8\\ \\mathrm J$. Water loses heat; dissolution gains it. Moles $=4.00/80.0=0.0500\\ \\mathrm{mol}$. Thus $\\Delta H=-q_{water}/(1000n)=+25.9\\ \\mathrm{kJ\\,mol^{-1}}$, endothermic.",
+      "rubric": [
+       {
+        "point": "Uses signed temperature change -6.2 K giving water heat -1295.8 J, or explicitly uses 1295.8 J as a loss magnitude.",
+        "keywords": [
+         [
+          "1295.8",
+          "1296",
+          "1.296"
+         ],
+         [
+          "negative",
+          "minus",
+          "-",
+          "−",
+          "loss",
+          "lost"
+         ]
+        ]
+       },
+       {
+        "point": "Moles of ammonium nitrate = 0.0500 mol.",
+        "keywords": [
+         [
+          "0.0500",
+          "0.05"
+         ]
+        ]
+       },
+       {
+        "point": "Gives a positive enthalpy change of +25.9 kJ per mole because the temperature fell.",
+        "keywords": [
+         [
+          "25.9",
+          "25.92",
+          "26"
+         ],
+         [
+          "+",
+          "positive",
+          "endothermic"
+         ]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "name": "Explain calorimetry heat loss and improve insulation",
+     "wordings": [
+      "Explain the effect of heat loss on calculated exothermic enthalpy.",
+      "Suggest an improvement to reduce heat loss and justify it."
+     ],
+     "example": "An endothermic dissolution cools an insulated cup below room temperature. Some heat then enters from the warmer room before the minimum temperature is recorded. With the reacted amount fixed, this heat gain makes the observed temperature fall smaller in magnitude. Using q=mcΔT and ΔH=−q/n, the inferred positive reaction enthalpy is therefore too small. For illustration, if the ideal fall is 6.0 K but heat gain reduces it to 4.0 K, the inferred enthalpy is 4.0/6.0 of the insulated value. Assume complete dissolution and no other significant error.",
+     "check": "A gas-producing exothermic reaction gives $\\Delta H=-35\\ \\mathrm{kJ\\,mol^{-1}}$ in an open cup, using only solution heat. Assume complete reaction and correct moles; heat loss to cooler surroundings is the only significant error. Relative to an insulated measurement, explain the direction of the error. Suggest a suitable improvement and explain why sealing the cup with a bung is unsuitable.",
+     "answer": "The measured temperature rise and solution heat are too small. The released magnitude is underestimated, so -35 kJ per mole is less negative (closer to zero) than the insulated value. Use a polystyrene cup, extra insulation or an insulating lid that permits gas to escape. An airtight bung traps the gas and can cause pressure to build up.",
+     "source": "Cambridge International 9701 June 2024 examiner report, Paper 52 Q1(i), https://www.cambridgeinternational.org/Images/567188-june-2024-examiner-report.pdf; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.16–18 for calorimeter context; direction of bias follows q=mc delta T under the stated assumptions; Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.17–18; endothermic heat-gain example derived from q=mcΔT and ΔH=−q/n under stated assumptions.",
+     "rubric": [
+      {
+       "point": "Heat loss to cooler surroundings makes the measured temperature rise or heat gained by the solution too small; the reduction must refer to the measured temperature rise or solution heat, not to reduced heat loss after insulation.",
+       "keywords": [
+        [
+         "heat"
+        ],
+        [
+         "loss",
+         "lost",
+         "escapes"
+        ],
+        [
+         "smaller",
+         "lower",
+         "reduces",
+         "underestimate",
+         "small",
+         "too small",
+         "less"
+        ],
+        [
+         "temperature",
+         "rise",
+         "solution heat",
+         "heat gained by the solution",
+         "heat absorbed by the solution"
+        ]
+       ]
+      },
+      {
+       "point": "Calculated exothermic enthalpy is less negative / too close to zero; the heat-release magnitude is too small.",
+       "keywords": [
+        [
+         "less negative",
+         "closer to zero",
+         "underestimated magnitude",
+         "magnitude is underestimated"
+        ]
+       ]
+      },
+      {
+       "point": "Suitable insulation or an insulating lid reduces heat loss while permitting gas escape.",
+       "keywords": [
+        [
+         "polystyrene",
+         "styrofoam",
+         "insulation",
+         "insulating",
+         "lid"
+        ]
+       ]
+      },
+      {
+       "point": "A bung can trap the gas and cause pressure buildup.",
+       "keywords": [
+        [
+         "gas"
+        ],
+        [
+         "pressure",
+         "trap",
+         "escape"
+        ]
+       ]
+      }
+     ],
+     "retry": {
+      "check": "A repeated gas-producing exothermic experiment uses the same reacting amount, but adds insulation and a vented lid. Assume both reactions go to completion and insulation is the only change. Predict the changes in temperature rise and calculated reaction enthalpy. Would a gas-tight stopper be an equivalent improvement?",
+      "answer": "Less heat escapes, so the temperature rise increases and the calculated enthalpy becomes more negative, nearer the insulated value. A gas-tight stopper is unsuitable because gas must escape rather than accumulate pressure.",
+      "rubric": [
+       {
+        "point": "Temperature rise increases as heat loss decreases.",
+        "keywords": [
+         [
+          "rise",
+          "temperature"
+         ],
+         [
+          "increase",
+          "larger",
+          "higher"
+         ]
+        ]
+       },
+       {
+        "point": "Calculated enthalpy becomes more negative for the same reacted amount.",
+        "keywords": [
+         [
+          "more negative"
+         ]
+        ]
+       },
+       {
+        "point": "Rejects gas-tight stopper because trapped gas raises pressure.",
+        "keywords": [
+         [
+          "gas"
+         ],
+         [
+          "pressure",
+          "trap",
+          "escape"
+         ]
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "misconceptions": [
+    {
+     "id": "m8",
+     "idea": "Use fuel mass in $q=mc\\Delta T$, or use Celsius temperature as an absolute temperature.",
+     "temptation": "The fuel is the thing burning, and Kelvin looks like the right unit for heat.",
+     "fix": "$m$ is the mass of water or solution being heated. A temperature change of $10\\,^{\\circ}\\mathrm C$ is $10\\ \\mathrm K$; do not add 273."
+    }
+   ],
+   "diagrams": [],
+   "diagram_reason": "Equations, verbal comparisons and a calculation table serve this outcome; the two existing energy profiles are bound to the pathway card. No additional drawing is requested by the plan.",
+   "source_gaps": [
+    "The reviewed inventory uses syllabus 5.1, the chapter bundle and Library: SaveMyExams/9701 a-level-chemistry-cie-25/9701 c5.1.pdf pp.2–18; it is not an exhaustive audit of every examination paper.",
+    "No cooling-curve extrapolation, calorimeter calibration or numerical heat-loss correction is established by these reviewed forms; a supplied capture fraction is used only when the problem states it."
+   ],
+   "prerequisite_bridge": "Recall 9701-5.1.3: neutralisation uses moles of water. Convert cubic centimetres to cubic decimetres, use concentration times volume or mass divided by molar mass, and compare stoichiometric amounts before dividing heat by moles."
   }
+ },
+ "guided_forms": {
+  "9701-5.1.1": [
+   "Deduce exothermic or endothermic from an observation"
+  ],
+  "9701-5.1.2": [
+   "Determine activation energy and enthalpy change from a pathway diagram",
+   "Construct a reaction pathway diagram"
+  ],
+  "9701-5.1.3": [
+   "Define an enthalpy change term",
+   "Link an equation to its enthalpy term and mole basis",
+   "Classify state-labelled equations and their mole basis"
+  ],
+  "9701-5.1.4": [
+   "Explain the sign of enthalpy change using bond breaking and making"
+  ],
+  "9701-5.1.5": [
+   "Calculate enthalpy change of reaction from bond energies"
+  ],
+  "9701-5.1.6": [
+   "Explain exact versus average bond energy",
+   "Relate methane atomisation to mean and first C–H dissociation"
+  ],
+  "9701-5.1.7": [
+   "Calculate energy released per gram of fuel",
+   "Calculate enthalpy change per mole from solution data",
+   "Explain calorimetry heat loss and improve insulation"
+  ]
  }
 }
